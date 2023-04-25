@@ -23,6 +23,8 @@ class UI {
     void initializeImgui();
     void initializeWidgets();
 
+    void styleImgui();
+
     void beginFrame();
     void renderFrame();
     void endFrame();
