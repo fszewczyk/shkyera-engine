@@ -96,7 +96,7 @@ void UI::styleImgui() {
     style.ScrollbarRounding = 16.0f;
 
     /********        COLORS      *********/
-    ImVec4 BACKGROUND_COLOR(0.2f, 0.2f, 0.2f, 1.0f);
+    ImVec4 BACKGROUND_COLOR(0.17f, 0.17f, 0.17f, 1.0f);
     ImVec4 TEXT_COLOR(0.86f, 0.86f, 0.86f, 1.0f);
     ImVec4 DISABLED_TEXT_COLOR(0.86f, 0.93f, 0.89f, 0.28f);
     ImVec4 ACCENT_COLOR(0.4f, 0.05f, 0.7f, 1.0f);
@@ -132,6 +132,11 @@ void UI::styleImgui() {
     style.Colors[ImGuiCol_TitleBg] = ACCENT_COLOR;
     style.Colors[ImGuiCol_TitleBgActive] = ACCENT_COLOR;
     style.Colors[ImGuiCol_TitleBgCollapsed] = ACCENT_COLOR;
+
+    /********      HEADERS     ********/
+    style.Colors[ImGuiCol_Header] = ACCENT_COLOR;
+    style.Colors[ImGuiCol_HeaderActive] = STRONG_ACCENT_COLOR;
+    style.Colors[ImGuiCol_HeaderHovered] = STRONG_ACCENT_COLOR;
 
     /********       SLIDER      *********/
     style.Colors[ImGuiCol_SliderGrab] = ACCENT_COLOR;
@@ -176,7 +181,7 @@ void UI::beginFrame() {
     ImGuiWindowFlags windowFlags = ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoCollapse |
                                    ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove |
                                    ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoNavFocus |
-                                   ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_MenuBar;
+                                   ImGuiWindowFlags_NoBackground;
 
     ImGui::Begin("Shkyera Engine", &_open, windowFlags);
     ImGui::PopStyleVar();
@@ -217,6 +222,25 @@ void UI::beginFrame() {
 void UI::renderFrame() {
     for (const auto &w : _widgets) {
         w->draw();
+    }
+
+    if (ImGui::BeginMainMenuBar()) {
+        if (ImGui::BeginMenu("File")) {
+            if (ImGui::MenuItem("Open Project", "Ctrl+O")) {
+            }
+            if (ImGui::MenuItem("Save", "Ctrl+S")) {
+            }
+            if (ImGui::MenuItem("Save As...", "Ctrl+Shift+S")) {
+            }
+
+            ImGui::EndMenu();
+        }
+
+        if (ImGui::BeginMenu("Window")) {
+            ImGui::EndMenu();
+        }
+
+        ImGui::EndMainMenuBar();
     }
 }
 
