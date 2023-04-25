@@ -21,6 +21,7 @@ void glfw_error_callback(int error, const char *description) {
 void UI::initialize() {
     initializeImgui();
     initializeWidgets();
+    styleImgui();
 }
 
 void UI::initializeImgui() {
@@ -65,25 +66,106 @@ void UI::initializeImgui() {
     // Setup Dear ImGui context
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
-    ImGuiIO &io = ImGui::GetIO();
-    (void)io;
-    io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard; // Enable Keyboard Controls
-    io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;     // Enable Docking
-
-    // Setup Dear ImGui style
-    ImGui::StyleColorsDark();
 
     // Setup Platform/Renderer backends
     ImGui_ImplGlfw_InitForOpenGL(_window, true);
     ImGui_ImplOpenGL3_Init(glsl_version);
 }
 
-void UI::initializeWidgets() { _widgets.emplace_back(std::make_unique<PreviewWidget>("Preview")); }
+void UI::initializeWidgets() {
+    _widgets.emplace_back(std::make_unique<PreviewWidget>("Objects"));
+    _widgets.emplace_back(std::make_unique<PreviewWidget>("Scene"));
+    _widgets.emplace_back(std::make_unique<PreviewWidget>("Properties"));
+    _widgets.emplace_back(std::make_unique<PreviewWidget>("Files"));
+    _widgets.emplace_back(std::make_unique<PreviewWidget>("Console"));
+}
+
+void UI::styleImgui() {
+    ImGuiIO &io = ImGui::GetIO();
+    io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard; // Enable Keyboard Controls
+    io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;     // Enable Docking
+
+    // Setup Dear ImGui style
+    ImGui::StyleColorsDark();
+
+    io.Fonts->AddFontFromFileTTF("resources/fonts/OpenSansRegular.ttf", 16);
+
+    ImGuiStyle &style = ImGui::GetStyle();
+    style.WindowMinSize = ImVec2(150, 150);
+    style.ScrollbarSize = 12.0f;
+    style.ScrollbarRounding = 16.0f;
+
+    /********        COLORS      *********/
+    ImVec4 BACKGROUND_COLOR(0.17f, 0.17f, 0.17f, 1.0f);
+    ImVec4 TEXT_COLOR(0.86f, 0.86f, 0.86f, 1.0f);
+    ImVec4 DISABLED_TEXT_COLOR(0.86f, 0.93f, 0.89f, 0.28f);
+    ImVec4 ACCENT_COLOR(0.4f, 0.05f, 0.7f, 1.0f);
+    ImVec4 STRONG_ACCENT_COLOR(0.5f, 0.06f, 0.82f, 1.0f);
+    ImVec4 GREY(0.3f, 0.3f, 0.3f, 1.0f);
+    ImVec4 LIGHT_GREY(0.8f, 0.8f, 0.8f, 1.0f);
+    ImVec4 BLACK(0.0f, 0.0f, 0.0f, 0.0f);
+
+    /********        TEXT       *********/
+    style.Colors[ImGuiCol_Text] = TEXT_COLOR;
+    style.Colors[ImGuiCol_TextDisabled] = DISABLED_TEXT_COLOR;
+
+    /********        WINDOW     *********/
+    style.Colors[ImGuiCol_WindowBg] = BACKGROUND_COLOR;
+    style.Colors[ImGuiCol_BorderShadow] = BLACK;
+
+    /********      SCROLLBAR    *********/
+    style.Colors[ImGuiCol_ScrollbarBg] = ACCENT_COLOR;
+
+    /********        FRAME      *********/
+    style.Colors[ImGuiCol_FrameBg] = ACCENT_COLOR;
+    style.Colors[ImGuiCol_FrameBgHovered] = ACCENT_COLOR;
+    style.Colors[ImGuiCol_FrameBgActive] = ACCENT_COLOR;
+
+    /********        TABS     *********/
+    style.Colors[ImGuiCol_Tab] = ACCENT_COLOR;
+    style.Colors[ImGuiCol_TabHovered] = BACKGROUND_COLOR;
+    style.Colors[ImGuiCol_TabUnfocused] = ACCENT_COLOR;
+    style.Colors[ImGuiCol_TabUnfocusedActive] = BACKGROUND_COLOR;
+    style.Colors[ImGuiCol_TabActive] = BACKGROUND_COLOR;
+
+    /********        TITLE      *********/
+    style.Colors[ImGuiCol_TitleBg] = ACCENT_COLOR;
+    style.Colors[ImGuiCol_TitleBgActive] = ACCENT_COLOR;
+    style.Colors[ImGuiCol_TitleBgCollapsed] = ACCENT_COLOR;
+
+    /********      HEADERS     ********/
+    style.Colors[ImGuiCol_Header] = ACCENT_COLOR;
+    style.Colors[ImGuiCol_HeaderActive] = STRONG_ACCENT_COLOR;
+    style.Colors[ImGuiCol_HeaderHovered] = STRONG_ACCENT_COLOR;
+
+    /********       SLIDER      *********/
+    style.Colors[ImGuiCol_SliderGrab] = ACCENT_COLOR;
+    style.Colors[ImGuiCol_SliderGrabActive] = STRONG_ACCENT_COLOR;
+
+    /********      SEPARATOR     ********/
+    style.Colors[ImGuiCol_Separator] = GREY;
+    style.Colors[ImGuiCol_SeparatorHovered] = LIGHT_GREY;
+    style.Colors[ImGuiCol_SeparatorActive] = LIGHT_GREY;
+
+    /********       BUTTON      *********/
+    style.Colors[ImGuiCol_Button] = ACCENT_COLOR;
+    style.Colors[ImGuiCol_ButtonHovered] = STRONG_ACCENT_COLOR;
+    style.Colors[ImGuiCol_ButtonActive] = STRONG_ACCENT_COLOR;
+
+    /********     RESIZE GRIP   *********/
+    style.Colors[ImGuiCol_ResizeGrip] = ACCENT_COLOR;
+    style.Colors[ImGuiCol_ResizeGripHovered] = STRONG_ACCENT_COLOR;
+    style.Colors[ImGuiCol_ResizeGripActive] = STRONG_ACCENT_COLOR;
+
+    /********       DOCKING     *********/
+    style.Colors[ImGuiCol_DockingPreview] = ACCENT_COLOR;
+    style.Colors[ImGuiCol_DockingEmptyBg] = ACCENT_COLOR;
+}
 
 void UI::beginFrame() {
     glfwPollEvents();
 
-    glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+    glClearColor(0.1f, 0.1f, 0.1f, 0.1f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     ImGui_ImplOpenGL3_NewFrame();
@@ -93,6 +175,8 @@ void UI::beginFrame() {
     const ImGuiViewport *viewport = ImGui::GetMainViewport();
     ImGui::SetNextWindowPos(viewport->WorkPos);
     ImGui::SetNextWindowSize(viewport->WorkSize);
+    ImGui::SetNextWindowViewport(viewport->ID);
+    ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
 
     ImGuiWindowFlags windowFlags = ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoCollapse |
                                    ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove |
@@ -100,6 +184,37 @@ void UI::beginFrame() {
                                    ImGuiWindowFlags_NoBackground;
 
     ImGui::Begin("Shkyera Engine", &_open, windowFlags);
+    ImGui::PopStyleVar();
+
+    ImGuiIO &io = ImGui::GetIO();
+
+    ImGuiID dockspace_id = ImGui::GetID("Shkyera Engine");
+    ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f),
+                     ImGuiDockNodeFlags_PassthruCentralNode | ImGuiDockNodeFlags_NoWindowMenuButton);
+
+    static auto firstTime = true;
+    if (firstTime) {
+        firstTime = false;
+
+        ImGui::DockBuilderRemoveNode(dockspace_id);
+        ImGui::DockBuilderAddNode(dockspace_id, ImGuiDockNodeFlags_PassthruCentralNode | ImGuiDockNodeFlags_DockSpace);
+        ImGui::DockBuilderSetNodeSize(dockspace_id, viewport->Size);
+
+        ImGuiID dock_id_right, dock_id_left, dock_id_left_bottom, dock_id_left_up, dock_id_left_up_left,
+            dock_id_left_up_right;
+        ImGui::DockBuilderSplitNode(dockspace_id, ImGuiDir_Left, 0.75f, &dock_id_left, &dock_id_right);
+        ImGui::DockBuilderSplitNode(dock_id_left, ImGuiDir_Down, 0.3f, &dock_id_left_bottom, &dock_id_left_up);
+        ImGui::DockBuilderSplitNode(dock_id_left_up, ImGuiDir_Left, 0.3f, &dock_id_left_up_left,
+                                    &dock_id_left_up_right);
+
+        ImGui::DockBuilderDockWindow("Objects", dock_id_left_up_left);
+        ImGui::DockBuilderDockWindow("Scene", dock_id_left_up_right);
+        ImGui::DockBuilderDockWindow("Properties", dock_id_right);
+        ImGui::DockBuilderDockWindow("Files", dock_id_left_bottom);
+        ImGui::DockBuilderDockWindow("Console", dock_id_left_bottom);
+
+        ImGui::DockBuilderFinish(dockspace_id);
+    }
 
     ImGui::End();
 }
@@ -107,6 +222,25 @@ void UI::beginFrame() {
 void UI::renderFrame() {
     for (const auto &w : _widgets) {
         w->draw();
+    }
+
+    if (ImGui::BeginMainMenuBar()) {
+        if (ImGui::BeginMenu("File")) {
+            if (ImGui::MenuItem("Open Project", "Ctrl+O")) {
+            }
+            if (ImGui::MenuItem("Save", "Ctrl+S")) {
+            }
+            if (ImGui::MenuItem("Save As...", "Ctrl+Shift+S")) {
+            }
+
+            ImGui::EndMenu();
+        }
+
+        if (ImGui::BeginMenu("Window")) {
+            ImGui::EndMenu();
+        }
+
+        ImGui::EndMainMenuBar();
     }
 }
 
@@ -117,7 +251,7 @@ void UI::endFrame() {
 
     glfwGetFramebufferSize(_window, &display_w, &display_h);
     glViewport(0, 0, display_w, display_h);
-    glClearColor(0, 0.2, 0, 0.1);
+    glClearColor(0.1, 0.1, 0.1, 0.1);
     glClear(GL_COLOR_BUFFER_BIT);
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 

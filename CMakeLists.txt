@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.14)
 
 project(ShkyeraEngine)
 
@@ -23,22 +23,19 @@ add_library(
     ui
     src/ui/UI.cpp
     src/ui/Widget.cpp
-
     src/ui/widgets/PreviewWidget.cpp
 )
 
-set(SOURCES src/main.cpp)
+
 add_executable(ShkyeraEngine src/main.cpp)
 
-target_include_directories(ShkyeraEngine PRIVATE 
-    src
-)
-
+target_include_directories(ShkyeraEngine PRIVATE src)
 target_include_directories(ui PRIVATE 
     src
     ${CMAKE_CURRENT_SOURCE_DIR}/extern/imgui
     ${CMAKE_CURRENT_SOURCE_DIR}/extern/glfw/include
 )
+
 
 target_link_libraries(ShkyeraEngine PRIVATE ui)
 target_link_libraries(ui PRIVATE 
