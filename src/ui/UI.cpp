@@ -92,12 +92,6 @@ void UI::styleImgui() {
 
     ImGuiStyle &style = ImGui::GetStyle();
     style.WindowMinSize = ImVec2(150, 150);
-    style.Alpha = 0.95f;
-    style.WindowRounding = 8.0f;
-    style.FrameRounding = 8.0f;
-    style.IndentSpacing = 6.0f;
-    style.GrabMinSize = 14.0f;
-    style.GrabRounding = 16.0f;
     style.ScrollbarSize = 12.0f;
     style.ScrollbarRounding = 16.0f;
 
@@ -125,12 +119,12 @@ void UI::styleImgui() {
     /********        FRAME      *********/
     style.Colors[ImGuiCol_FrameBg] = ACCENT_COLOR;
     style.Colors[ImGuiCol_FrameBgHovered] = ACCENT_COLOR;
-    style.Colors[ImGuiCol_FrameBgActive] = STRONG_ACCENT_COLOR;
+    style.Colors[ImGuiCol_FrameBgActive] = ACCENT_COLOR;
 
     /********        TABS     *********/
-    style.Colors[ImGuiCol_Tab] = STRONG_ACCENT_COLOR;
+    style.Colors[ImGuiCol_Tab] = ACCENT_COLOR;
     style.Colors[ImGuiCol_TabHovered] = BACKGROUND_COLOR;
-    style.Colors[ImGuiCol_TabUnfocused] = STRONG_ACCENT_COLOR;
+    style.Colors[ImGuiCol_TabUnfocused] = ACCENT_COLOR;
     style.Colors[ImGuiCol_TabUnfocusedActive] = BACKGROUND_COLOR;
     style.Colors[ImGuiCol_TabActive] = BACKGROUND_COLOR;
 
@@ -176,13 +170,16 @@ void UI::beginFrame() {
     const ImGuiViewport *viewport = ImGui::GetMainViewport();
     ImGui::SetNextWindowPos(viewport->WorkPos);
     ImGui::SetNextWindowSize(viewport->WorkSize);
+    ImGui::SetNextWindowViewport(viewport->ID);
+    ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
 
     ImGuiWindowFlags windowFlags = ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoCollapse |
                                    ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove |
                                    ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoNavFocus |
-                                   ImGuiWindowFlags_NoBackground;
+                                   ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_MenuBar;
 
     ImGui::Begin("Shkyera Engine", &_open, windowFlags);
+    ImGui::PopStyleVar();
 
     ImGuiIO &io = ImGui::GetIO();
 
