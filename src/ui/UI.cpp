@@ -136,7 +136,7 @@ void UI::styleImgui() {
 
     /********        TITLE      *********/
     style.Colors[ImGuiCol_TitleBg] = ACCENT_COLOR;
-    style.Colors[ImGuiCol_TitleBgActive] = STRONG_ACCENT_COLOR;
+    style.Colors[ImGuiCol_TitleBgActive] = ACCENT_COLOR;
     style.Colors[ImGuiCol_TitleBgCollapsed] = ACCENT_COLOR;
 
     /********       SLIDER      *********/
