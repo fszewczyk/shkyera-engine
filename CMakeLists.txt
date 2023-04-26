@@ -26,8 +26,27 @@ add_library(
     src/ui/widgets/PreviewWidget.cpp
 )
 
+add_library(
+    core
+    src/core/Entity.cpp
+    src/core/Entity.hpp
+    src/core/Grid.cpp
+)
+
+add_library(
+    components
+    src/components/Component.cpp
+    src/components/FluidGrid.cpp
+)
+
+add_library(
+    game
+    src/game/Game.cpp
+    src/game/GameObject.cpp
+)
 
 add_executable(ShkyeraEngine src/main.cpp)
+
 
 target_include_directories(ShkyeraEngine PRIVATE src)
 target_include_directories(ui PRIVATE 
@@ -35,11 +54,28 @@ target_include_directories(ui PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/extern/imgui
     ${CMAKE_CURRENT_SOURCE_DIR}/extern/glfw/include
 )
+target_include_directories(core PRIVATE 
+    src
+    ${CMAKE_CURRENT_SOURCE_DIR}/extern/glm
+)
+target_include_directories(components PRIVATE 
+    src
+    ${CMAKE_CURRENT_SOURCE_DIR}/extern/glm
+)
+target_include_directories(game PRIVATE src)
 
+message(${CMAKE_CURRENT_SOURCE_DIR}/extern/glm)
 
-target_link_libraries(ShkyeraEngine PRIVATE ui)
-target_link_libraries(ui PRIVATE 
+target_link_libraries(ShkyeraEngine  ui)
+target_link_libraries(ui  
     imgui
     glfw 
     glad
+)
+target_link_libraries(components  
+    core
+    glm::glm
+)
+target_link_libraries(game  
+    components
 )

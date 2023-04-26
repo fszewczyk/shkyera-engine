@@ -1,0 +1,1 @@
+namespace shkyera {} // namespace shkyera
