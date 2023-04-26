@@ -8,11 +8,12 @@
 #include <imgui_internal.h>
 
 #include "ui/UI.hpp"
+#include "ui/widgets/ObjectsWidget.hpp"
 #include "ui/widgets/PreviewWidget.hpp"
 
 namespace shkyera {
 
-UI::UI() : _open(true) { initialize(); }
+UI::UI(std::shared_ptr<Game> game) : _open(true), _game(game) { initialize(); }
 
 void glfw_error_callback(int error, const char *description) {
     fprintf(stderr, "Glfw Error %d: %s\n", error, description);
@@ -55,7 +56,7 @@ void UI::initializeImgui() {
 #endif
 
     // Create window with graphics context
-    _window = glfwCreateWindow(1300, 800, "Shkyera Engine", NULL, NULL);
+    _window = glfwCreateWindow(1400, 750, "Shkyera Engine", NULL, NULL);
     if (_window == NULL)
         return;
 
@@ -73,7 +74,10 @@ void UI::initializeImgui() {
 }
 
 void UI::initializeWidgets() {
-    _widgets.emplace_back(std::make_unique<PreviewWidget>("Objects"));
+    auto objectsWidget = std::make_unique<ObjectsWidget>("Objects");
+    objectsWidget->setGame(_game);
+    _widgets.emplace_back(std::move(objectsWidget));
+
     _widgets.emplace_back(std::make_unique<PreviewWidget>("Scene"));
     _widgets.emplace_back(std::make_unique<PreviewWidget>("Properties"));
     _widgets.emplace_back(std::make_unique<PreviewWidget>("Files"));
@@ -94,16 +98,6 @@ void UI::styleImgui() {
     style.WindowMinSize = ImVec2(150, 150);
     style.ScrollbarSize = 12.0f;
     style.ScrollbarRounding = 16.0f;
-
-    /********        COLORS      *********/
-    ImVec4 BACKGROUND_COLOR(0.17f, 0.17f, 0.17f, 1.0f);
-    ImVec4 TEXT_COLOR(0.86f, 0.86f, 0.86f, 1.0f);
-    ImVec4 DISABLED_TEXT_COLOR(0.86f, 0.93f, 0.89f, 0.28f);
-    ImVec4 ACCENT_COLOR(0.4f, 0.05f, 0.7f, 1.0f);
-    ImVec4 STRONG_ACCENT_COLOR(0.5f, 0.06f, 0.82f, 1.0f);
-    ImVec4 GREY(0.3f, 0.3f, 0.3f, 1.0f);
-    ImVec4 LIGHT_GREY(0.8f, 0.8f, 0.8f, 1.0f);
-    ImVec4 BLACK(0.0f, 0.0f, 0.0f, 0.0f);
 
     /********        TEXT       *********/
     style.Colors[ImGuiCol_Text] = TEXT_COLOR;

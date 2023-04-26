@@ -11,9 +11,9 @@ class Widget {
   public:
     Widget(std::string name);
 
-    virtual void draw() const = 0;
+    virtual void draw() = 0;
 
-    std::string name;
+    std::string _name;
 };
 
 } // namespace shkyera

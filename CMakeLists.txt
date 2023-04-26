@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.14)
 
 project(ShkyeraEngine)
 
+set(CMAKE_BUILD_TYPE Debug)
+
 set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
 
 set(CMAKE_CXX_STANDARD 17)
@@ -24,6 +26,7 @@ add_library(
     src/ui/UI.cpp
     src/ui/Widget.cpp
     src/ui/widgets/PreviewWidget.cpp
+    src/ui/widgets/ObjectsWidget.cpp
 )
 
 add_library(
@@ -47,7 +50,6 @@ add_library(
 
 add_executable(ShkyeraEngine src/main.cpp)
 
-
 target_include_directories(ShkyeraEngine PRIVATE src)
 target_include_directories(ui PRIVATE 
     src
@@ -66,11 +68,12 @@ target_include_directories(game PRIVATE src)
 
 message(${CMAKE_CURRENT_SOURCE_DIR}/extern/glm)
 
-target_link_libraries(ShkyeraEngine  ui)
+target_link_libraries(ShkyeraEngine ui)
 target_link_libraries(ui  
     imgui
     glfw 
     glad
+    game
 )
 target_link_libraries(components  
     core
