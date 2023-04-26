@@ -1,8 +1,8 @@
-[submodule "extern/glfw"]
+[submodule "glfw"]
 	path = extern/glfw
 	url = https://github.com/glfw/glfw.git
 
-[submodule "extern/imgui"]
+[submodule "imgui"]
 	path = extern/imgui
 	url = https://github.com/ocornut/imgui.git
 	branch = docking
