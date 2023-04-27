@@ -8,6 +8,7 @@
 #include <imgui_internal.h>
 
 #include "ui/UI.hpp"
+#include "ui/widgets/ConsoleWidget.hpp"
 #include "ui/widgets/PreviewWidget.hpp"
 
 namespace shkyera {
@@ -77,7 +78,7 @@ void UI::initializeWidgets() {
     _widgets.emplace_back(std::make_unique<PreviewWidget>("Scene"));
     _widgets.emplace_back(std::make_unique<PreviewWidget>("Properties"));
     _widgets.emplace_back(std::make_unique<PreviewWidget>("Files"));
-    _widgets.emplace_back(std::make_unique<PreviewWidget>("Console"));
+    _widgets.emplace_back(std::make_unique<ConsoleWidget>("Console"));
 }
 
 void UI::styleImgui() {
