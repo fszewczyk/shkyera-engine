@@ -38,8 +38,8 @@ target_include_directories(ui PRIVATE
 )
 
 
-target_link_libraries(ShkyeraEngine PRIVATE ui)
-target_link_libraries(ui PRIVATE 
+target_link_libraries(ShkyeraEngine ui)
+target_link_libraries(ui 
     imgui
     glfw 
     glad
