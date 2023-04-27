@@ -27,6 +27,7 @@ add_library(
     src/ui/Widget.cpp
     src/ui/widgets/PreviewWidget.cpp
     src/ui/widgets/ObjectsWidget.cpp
+    src/ui/widgets/ConsoleWidget.cpp
 )
 
 add_library(
@@ -69,7 +70,7 @@ target_include_directories(game PRIVATE src)
 message(${CMAKE_CURRENT_SOURCE_DIR}/extern/glm)
 
 target_link_libraries(ShkyeraEngine ui)
-target_link_libraries(ui  
+target_link_libraries(ui 
     imgui
     glfw 
     glad
