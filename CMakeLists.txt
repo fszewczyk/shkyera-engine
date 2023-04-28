@@ -33,14 +33,12 @@ add_library(
 add_library(
     core
     src/core/Entity.cpp
-    src/core/Grid.cpp
     src/core/Image.cpp
 )
 
 add_library(
     components
     src/components/Component.cpp
-    src/components/FluidGrid.cpp
 )
 
 add_library(

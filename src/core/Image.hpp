@@ -1,11 +1,6 @@
 #pragma once
 
 #include <filesystem>
-#include <vector>
-
-#include "glm/vec4.hpp"
-
-#include "core/Grid.hpp"
 
 namespace shkyera {
 

@@ -16,7 +16,8 @@
 
 namespace shkyera {
 
-Image::Image(size_t width, size_t height) : _width(width), _height(height), _wasAssignedTextureId(false) {
+Image::Image(size_t width, size_t height)
+    : _width(width), _height(height), _components(4), _wasAssignedTextureId(false) {
     _data = new uint8_t[width * height * 4];
 }
 
