@@ -13,7 +13,8 @@ template <typename T> class Grid {
     Grid(glm::vec<3, size_t> size);
     Grid(glm::vec<3, size_t> size, float cellSize);
 
-    T operator()(size_t x, size_t y, size_t z) const;
+    T &operator()(size_t x, size_t y, size_t z);
+    T at(size_t x, size_t y, size_t z);
 
   private:
     float _cellSize;

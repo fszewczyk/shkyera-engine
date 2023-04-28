@@ -1,6 +1,7 @@
 #include "imgui.h"
 #include <imgui_internal.h>
 
+#include "ui/widgets/ConsoleWidget.hpp"
 #include "ui/widgets/ObjectsWidget.hpp"
 
 namespace shkyera {
@@ -22,10 +23,12 @@ void ObjectsWidget::drawCreate() {
         if (ImGui::Selectable("Empty Object")) {
             _game->addGameObject(std::make_shared<GameObject>("Empty"));
             _gameObjects = _game->getGameObjects();
+            ConsoleWidget::logInfo("Empty");
         }
         if (ImGui::Selectable("Fluid")) {
             _game->addGameObject(std::make_shared<GameObject>("Fluid"));
             _gameObjects = _game->getGameObjects();
+            ConsoleWidget::logInfo("Fluid");
         }
 
         ImGui::EndPopup();

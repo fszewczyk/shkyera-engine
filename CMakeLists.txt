@@ -33,8 +33,8 @@ add_library(
 add_library(
     core
     src/core/Entity.cpp
-    src/core/Entity.hpp
     src/core/Grid.cpp
+    src/core/Image.cpp
 )
 
 add_library(
@@ -60,6 +60,7 @@ target_include_directories(ui PRIVATE
 target_include_directories(core PRIVATE 
     src
     ${CMAKE_CURRENT_SOURCE_DIR}/extern/glm
+    ${CMAKE_CURRENT_SOURCE_DIR}/extern/stbi
 )
 target_include_directories(components PRIVATE 
     src
@@ -83,3 +84,9 @@ target_link_libraries(components
 target_link_libraries(game  
     components
 )
+target_link_libraries(core 
+    stb_image
+    glfw 
+    glad
+)
+

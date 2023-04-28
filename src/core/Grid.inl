@@ -26,6 +26,8 @@ template <typename T> Grid<T>::Grid(glm::vec<3, size_t> size, float cellSize) : 
     }
 }
 
-template <typename T> T Grid<T>::operator()(size_t x, size_t y, size_t z) const { return _grid[x][y][z]; }
+template <typename T> T &Grid<T>::operator()(size_t x, size_t y, size_t z) { return _grid[x][y][z]; }
+
+template <typename T> T Grid<T>::at(size_t x, size_t y, size_t z) { return _grid[x][y][z]; }
 
 } // namespace shkyera
