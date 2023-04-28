@@ -1,8 +1,9 @@
 #pragma once
 
 #include <filesystem>
+#include <vector>
 
-#include "glm/vec3.hpp"
+#include "glm/vec4.hpp"
 
 #include "core/Grid.hpp"
 
@@ -10,33 +11,29 @@ namespace shkyera {
 
 class Image {
   public:
-    Image(Grid<glm::vec3> grid);
     Image(size_t width, size_t height);
     Image(std::filesystem::path path);
 
     void load(std::filesystem::path path);
-
-    void saveToPng(std::filesystem::path path) const;
-    void saveToJpg(std::filesystem::path path) const;
+    void save(std::filesystem::path path) const;
 
     void updateTextureId();
     uint64_t getTextureId() const;
 
-    inline glm::vec3 at(size_t x, size_t y) const;
-
-    static Image ICON_LOGO;
-    static Image ICON_INFO;
-    static Image ICON_ERROR;
-    static Image ICON_SUCCESS;
-    static Image ICON_VERBOSE;
+    static Image ICON_CONSOLE_TOTAL;
+    static Image ICON_CONSOLE_ERROR;
+    static Image ICON_CONSOLE_INFO;
+    static Image ICON_CONSOLE_VERBOSE;
+    static Image ICON_CONSOLE_SUCCESS;
 
   private:
-    size_t _width;
-    size_t _height;
+    uint8_t *_data;
 
-    std::vector<std::vector<glm::vec3>> _data;
+    int _width;
+    int _height;
+    int _components;
 
-    bool _assignedTextureId;
+    bool _wasAssignedTextureId;
     uint64_t _textureId;
 };
 

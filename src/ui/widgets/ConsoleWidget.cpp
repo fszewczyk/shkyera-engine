@@ -11,15 +11,16 @@ namespace shkyera {
 Log::Log(std::string content) : _content(content) {}
 
 void Log::draw() const {
-    // ImGui::Image((ImTextureID)getIconId(), ImVec2(0, 0));
+    ImGui::Image((ImTextureID)getIconId(), ImVec2(24, 24));
+    ImGui::SameLine();
     ImGui::Text(_content.c_str());
     ImGui::Separator();
 }
 
-uint64_t LogVerbose::getIconId() const { return Image::ICON_VERBOSE.getTextureId(); }
-uint64_t LogInfo::getIconId() const { return Image::ICON_INFO.getTextureId(); }
-uint64_t LogSuccess::getIconId() const { return Image::ICON_SUCCESS.getTextureId(); }
-uint64_t LogError::getIconId() const { return Image::ICON_ERROR.getTextureId(); }
+uint64_t LogVerbose::getIconId() const { return Image::ICON_CONSOLE_VERBOSE.getTextureId(); }
+uint64_t LogInfo::getIconId() const { return Image::ICON_CONSOLE_INFO.getTextureId(); }
+uint64_t LogSuccess::getIconId() const { return Image::ICON_CONSOLE_SUCCESS.getTextureId(); }
+uint64_t LogError::getIconId() const { return Image::ICON_CONSOLE_ERROR.getTextureId(); }
 
 void ConsoleWidget::draw() {
     ImGui::Begin(_name.c_str());
@@ -40,16 +41,25 @@ void ConsoleWidget::drawInfoBar() const {
         clear();
 
     ImGui::SameLine();
-
-    ImGui::Text(("Total " + std::to_string(_logs.size())).c_str());
+    ImGui::Image((ImTextureID)Image::ICON_CONSOLE_TOTAL.getTextureId(), ImVec2(22, 22));
     ImGui::SameLine();
-    ImGui::Text(("Verbose " + std::to_string(_totalVerbose)).c_str());
+    ImGui::Text((std::to_string(_logs.size()) + " Total").c_str());
     ImGui::SameLine();
-    ImGui::Text(("Info " + std::to_string(_totalInfo)).c_str());
+    ImGui::Image((ImTextureID)Image::ICON_CONSOLE_ERROR.getTextureId(), ImVec2(22, 22));
     ImGui::SameLine();
-    ImGui::Text(("Success " + std::to_string(_totalSuccess)).c_str());
+    ImGui::Text((std::to_string(_totalError) + " Error").c_str());
     ImGui::SameLine();
-    ImGui::Text(("Error " + std::to_string(_totalError)).c_str());
+    ImGui::Image((ImTextureID)Image::ICON_CONSOLE_SUCCESS.getTextureId(), ImVec2(22, 22));
+    ImGui::SameLine();
+    ImGui::Text((std::to_string(_totalSuccess) + " Success").c_str());
+    ImGui::SameLine();
+    ImGui::Image((ImTextureID)Image::ICON_CONSOLE_INFO.getTextureId(), ImVec2(22, 22));
+    ImGui::SameLine();
+    ImGui::Text((std::to_string(_totalInfo) + " Info").c_str());
+    ImGui::SameLine();
+    ImGui::Image((ImTextureID)Image::ICON_CONSOLE_VERBOSE.getTextureId(), ImVec2(22, 22));
+    ImGui::SameLine();
+    ImGui::Text((std::to_string(_totalVerbose) + " Verbose").c_str());
 }
 
 void ConsoleWidget::clear() {

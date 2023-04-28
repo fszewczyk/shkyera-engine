@@ -68,8 +68,6 @@ target_include_directories(components PRIVATE
 )
 target_include_directories(game PRIVATE src)
 
-message(${CMAKE_CURRENT_SOURCE_DIR}/extern/glm)
-
 target_link_libraries(ShkyeraEngine ui)
 target_link_libraries(ui 
     imgui

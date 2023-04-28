@@ -24,6 +24,7 @@ class UI {
   private:
     void initializeImgui();
     void initializeWidgets();
+    void initializeAssets();
     void styleImgui();
 
     void beginFrame();
