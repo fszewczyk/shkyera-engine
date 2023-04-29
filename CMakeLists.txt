@@ -25,9 +25,14 @@ add_library(
     ui
     src/ui/UI.cpp
     src/ui/Widget.cpp
+    src/ui/Component.cpp
+
     src/ui/widgets/PreviewWidget.cpp
     src/ui/widgets/ObjectsWidget.cpp
     src/ui/widgets/ConsoleWidget.cpp
+    src/ui/widgets/PropertiesWidget.cpp
+
+    src/ui/components/TransformComponent.cpp
 )
 
 add_library(
@@ -36,10 +41,6 @@ add_library(
     src/core/Image.cpp
 )
 
-add_library(
-    components
-    src/components/Component.cpp
-)
 
 add_library(
     game
@@ -60,11 +61,11 @@ target_include_directories(core PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/extern/glm
     ${CMAKE_CURRENT_SOURCE_DIR}/extern/stbi
 )
-target_include_directories(components PRIVATE 
+
+target_include_directories(game PRIVATE 
     src
     ${CMAKE_CURRENT_SOURCE_DIR}/extern/glm
 )
-target_include_directories(game PRIVATE src)
 
 target_link_libraries(ShkyeraEngine ui)
 target_link_libraries(ui 
@@ -73,16 +74,14 @@ target_link_libraries(ui
     glad
     game
 )
-target_link_libraries(components  
-    core
-    glm::glm
-)
+
 target_link_libraries(game  
-    components
+    core
 )
 target_link_libraries(core 
     stb_image
     glfw 
     glad
+    glm::glm
 )
 

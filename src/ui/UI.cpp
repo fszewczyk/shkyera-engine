@@ -12,6 +12,7 @@
 #include "ui/widgets/ConsoleWidget.hpp"
 #include "ui/widgets/ObjectsWidget.hpp"
 #include "ui/widgets/PreviewWidget.hpp"
+#include "ui/widgets/PropertiesWidget.hpp"
 
 namespace shkyera {
 
@@ -77,12 +78,13 @@ void UI::initializeImgui() {
 }
 
 void UI::initializeWidgets() {
+    _widgets.emplace_back(std::make_unique<PropertiesWidget>("Properties"));
+
     auto objectsWidget = std::make_unique<ObjectsWidget>("Objects");
     objectsWidget->setGame(_game);
     _widgets.emplace_back(std::move(objectsWidget));
 
     _widgets.emplace_back(std::make_unique<PreviewWidget>("Scene"));
-    _widgets.emplace_back(std::make_unique<PreviewWidget>("Properties"));
     _widgets.emplace_back(std::make_unique<PreviewWidget>("Files"));
     _widgets.emplace_back(std::make_unique<ConsoleWidget>("Console"));
 
@@ -98,6 +100,8 @@ void UI::initializeAssets() {
     Image::ICON_CONSOLE_INFO.updateTextureId();
     Image::ICON_CONSOLE_VERBOSE.updateTextureId();
     Image::ICON_CONSOLE_SUCCESS.updateTextureId();
+
+    Image::ICON_COMPONENT_TRANSFORM.updateTextureId();
 }
 
 void UI::styleImgui() {
@@ -108,7 +112,8 @@ void UI::styleImgui() {
     // Setup Dear ImGui style
     ImGui::StyleColorsDark();
 
-    io.Fonts->AddFontFromFileTTF("resources/fonts/OpenSansRegular.ttf", 16);
+    NORMAL_FONT = io.Fonts->AddFontFromFileTTF("resources/fonts/OpenSansRegular.ttf", 16);
+    BIG_FONT = io.Fonts->AddFontFromFileTTF("resources/fonts/OpenSansRegular.ttf", 24);
 
     ImGuiStyle &style = ImGui::GetStyle();
     style.WindowMinSize = ImVec2(150, 150);
@@ -289,5 +294,8 @@ void UI::close() {
 }
 
 bool UI::shouldClose() const { return !_open; }
+
+ImFont *UI::NORMAL_FONT = nullptr;
+ImFont *UI::BIG_FONT = nullptr;
 
 } // namespace shkyera

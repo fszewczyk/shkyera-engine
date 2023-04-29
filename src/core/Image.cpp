@@ -63,4 +63,6 @@ Image Image::ICON_CONSOLE_INFO = Image("resources/icons/console/info.png");
 Image Image::ICON_CONSOLE_VERBOSE = Image("resources/icons/console/verbose.png");
 Image Image::ICON_CONSOLE_SUCCESS = Image("resources/icons/console/success.png");
 
+Image Image::ICON_COMPONENT_TRANSFORM = Image("resources/icons/components/transform.png");
+
 } // namespace shkyera

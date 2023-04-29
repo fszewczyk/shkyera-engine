@@ -14,6 +14,8 @@ class ObjectsWidget : public Widget {
 
     void setGame(std::shared_ptr<Game> game);
 
+    std::shared_ptr<GameObject> getSelectedObject() const;
+
     virtual void draw() override;
 
   private:

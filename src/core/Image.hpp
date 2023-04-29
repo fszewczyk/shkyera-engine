@@ -21,6 +21,9 @@ class Image {
     static Image ICON_CONSOLE_VERBOSE;
     static Image ICON_CONSOLE_SUCCESS;
 
+    static Image ICON_COMPONENT_TRANSFORM;
+
+
   private:
     uint8_t *_data;
 
