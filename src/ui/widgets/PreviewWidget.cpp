@@ -1,5 +1,3 @@
-#include <iostream>
-
 #include "imgui.h"
 #include <imgui_internal.h>
 
@@ -7,8 +5,8 @@
 
 namespace shkyera {
 
-void PreviewWidget::draw() const {
-    ImGui::Begin(name.c_str());
+void PreviewWidget::draw() {
+    ImGui::Begin(_name.c_str());
     ImGui::End();
 }
 

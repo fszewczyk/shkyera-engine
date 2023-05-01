@@ -8,7 +8,7 @@ class PreviewWidget : public Widget {
   public:
     using Widget::Widget;
 
-    virtual void draw() const override;
+    virtual void draw() override;
 };
 
 } // namespace shkyera

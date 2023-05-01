@@ -7,13 +7,16 @@
 #include <glad/glad.h>
 #include <imgui_internal.h>
 
+#include "core/Image.hpp"
 #include "ui/UI.hpp"
 #include "ui/widgets/ConsoleWidget.hpp"
+#include "ui/widgets/ObjectsWidget.hpp"
 #include "ui/widgets/PreviewWidget.hpp"
+#include "ui/widgets/PropertiesWidget.hpp"
 
 namespace shkyera {
 
-UI::UI() : _open(true) { initialize(); }
+UI::UI(std::shared_ptr<Game> game) : _open(true), _game(game) { initialize(); }
 
 void glfw_error_callback(int error, const char *description) {
     fprintf(stderr, "Glfw Error %d: %s\n", error, description);
@@ -22,6 +25,7 @@ void glfw_error_callback(int error, const char *description) {
 void UI::initialize() {
     initializeImgui();
     initializeWidgets();
+    initializeAssets();
     styleImgui();
 }
 
@@ -56,7 +60,7 @@ void UI::initializeImgui() {
 #endif
 
     // Create window with graphics context
-    _window = glfwCreateWindow(1300, 800, "Shkyera Engine", NULL, NULL);
+    _window = glfwCreateWindow(1400, 750, "Shkyera Engine", NULL, NULL);
     if (_window == NULL)
         return;
 
@@ -74,11 +78,30 @@ void UI::initializeImgui() {
 }
 
 void UI::initializeWidgets() {
-    _widgets.emplace_back(std::make_unique<PreviewWidget>("Objects"));
+    _widgets.emplace_back(std::make_unique<PropertiesWidget>("Properties"));
+
+    auto objectsWidget = std::make_unique<ObjectsWidget>("Objects");
+    objectsWidget->setGame(_game);
+    _widgets.emplace_back(std::move(objectsWidget));
+
     _widgets.emplace_back(std::make_unique<PreviewWidget>("Scene"));
-    _widgets.emplace_back(std::make_unique<PreviewWidget>("Properties"));
     _widgets.emplace_back(std::make_unique<PreviewWidget>("Files"));
     _widgets.emplace_back(std::make_unique<ConsoleWidget>("Console"));
+
+    ConsoleWidget::logError("Sample Error!");
+    ConsoleWidget::logInfo("Sample Info!");
+    ConsoleWidget::logSuccess("Sample Success!");
+    ConsoleWidget::logVerbose("Sample Verbose!");
+}
+
+void UI::initializeAssets() {
+    Image::ICON_CONSOLE_TOTAL.updateTextureId();
+    Image::ICON_CONSOLE_ERROR.updateTextureId();
+    Image::ICON_CONSOLE_INFO.updateTextureId();
+    Image::ICON_CONSOLE_VERBOSE.updateTextureId();
+    Image::ICON_CONSOLE_SUCCESS.updateTextureId();
+
+    Image::ICON_COMPONENT_TRANSFORM.updateTextureId();
 }
 
 void UI::styleImgui() {
@@ -89,22 +112,13 @@ void UI::styleImgui() {
     // Setup Dear ImGui style
     ImGui::StyleColorsDark();
 
-    io.Fonts->AddFontFromFileTTF("resources/fonts/OpenSansRegular.ttf", 16);
+    NORMAL_FONT = io.Fonts->AddFontFromFileTTF("resources/fonts/OpenSansRegular.ttf", 16);
+    BIG_FONT = io.Fonts->AddFontFromFileTTF("resources/fonts/OpenSansRegular.ttf", 24);
 
     ImGuiStyle &style = ImGui::GetStyle();
     style.WindowMinSize = ImVec2(150, 150);
     style.ScrollbarSize = 12.0f;
     style.ScrollbarRounding = 16.0f;
-
-    /********        COLORS      *********/
-    ImVec4 BACKGROUND_COLOR(0.17f, 0.17f, 0.17f, 1.0f);
-    ImVec4 TEXT_COLOR(0.86f, 0.86f, 0.86f, 1.0f);
-    ImVec4 DISABLED_TEXT_COLOR(0.86f, 0.93f, 0.89f, 0.28f);
-    ImVec4 ACCENT_COLOR(0.4f, 0.05f, 0.7f, 1.0f);
-    ImVec4 STRONG_ACCENT_COLOR(0.5f, 0.06f, 0.82f, 1.0f);
-    ImVec4 GREY(0.3f, 0.3f, 0.3f, 1.0f);
-    ImVec4 LIGHT_GREY(0.8f, 0.8f, 0.8f, 1.0f);
-    ImVec4 BLACK(0.0f, 0.0f, 0.0f, 0.0f);
 
     /********        TEXT       *********/
     style.Colors[ImGuiCol_Text] = TEXT_COLOR;
@@ -280,5 +294,8 @@ void UI::close() {
 }
 
 bool UI::shouldClose() const { return !_open; }
+
+ImFont *UI::NORMAL_FONT = nullptr;
+ImFont *UI::BIG_FONT = nullptr;
 
 } // namespace shkyera
