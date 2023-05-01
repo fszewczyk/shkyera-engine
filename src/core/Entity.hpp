@@ -7,15 +7,20 @@ namespace shkyera {
 
 class Entity {
   public:
-    Entity() = default;
+    Entity();
     Entity(glm::vec3 position);
-    Entity(glm::vec3 position, glm::quat orientation);
+    Entity(glm::vec3 position, glm::vec3 orientation);
 
     ~Entity() = default;
 
+    glm::vec3 &getPosition();
+    glm::vec3 &getOrientation();
+    glm::vec3 &getScale();
+
   private:
     glm::vec3 _position;
-    glm::quat _orientation;
+    glm::vec3 _orientation;
+    glm::vec3 _scale;
 };
 
 } // namespace shkyera

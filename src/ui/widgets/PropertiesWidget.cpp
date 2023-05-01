@@ -9,6 +9,8 @@ void PropertiesWidget::draw() {
     ImGui::Begin(_name.c_str());
 
     if (_object) {
+        ImGui::PushID(_object.get());
+
         ImGui::PushFont(UI::BIG_FONT);
         ImGui::Text(_object->getName().c_str());
         ImGui::PopFont();
@@ -18,6 +20,8 @@ void PropertiesWidget::draw() {
         for (std::shared_ptr<UIComponent> comp : _components) {
             comp->draw();
         }
+
+        ImGui::PopID();
     } else {
         ImGui::Text("No object has been selected.");
     }
