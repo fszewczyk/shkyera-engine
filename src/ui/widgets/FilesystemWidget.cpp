@@ -108,7 +108,12 @@ void FilesystemWidget::drawDirectory(const std::shared_ptr<Directory> directory)
 
     ImGui::PopStyleColor();
 
-    ImGui::Text((directory->getName()).c_str(), ImVec2(CONTENTS_ICON_SIZE, 0));
+    const char *nameToDisplay = (directory->getName()).c_str();
+
+    auto textWidth = ImGui::CalcTextSize(nameToDisplay).x;
+
+    ImGui::SetCursorPosX(ImGui::GetCursorPosX() + (CONTENTS_ICON_SIZE - textWidth) * 0.6f);
+    ImGui::Text(nameToDisplay);
 
     ImGui::PopID();
     ImGui::EndGroup();
