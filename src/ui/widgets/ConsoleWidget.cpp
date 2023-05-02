@@ -84,25 +84,25 @@ void ConsoleWidget::disableVerbose() { _verbose = false; }
 
 void ConsoleWidget::logVerbose(std::string text) {
     if (_verbose) {
-        _logs.push_back(std::make_unique<LogVerbose>(text));
+        _logs.push_back(std::make_shared<LogVerbose>(text));
         _totalVerbose++;
     }
 }
 void ConsoleWidget::logInfo(std::string text) {
-    _logs.push_back(std::make_unique<LogInfo>(text));
+    _logs.push_back(std::make_shared<LogInfo>(text));
     _totalInfo++;
 }
 void ConsoleWidget::logSuccess(std::string text) {
-    _logs.push_back(std::make_unique<LogSuccess>(text));
+    _logs.push_back(std::make_shared<LogSuccess>(text));
     _totalSuccess++;
 }
 void ConsoleWidget::logError(std::string text) {
-    _logs.push_back(std::make_unique<LogError>(text));
+    _logs.push_back(std::make_shared<LogError>(text));
     _totalError++;
 }
 
 bool ConsoleWidget::_verbose = true;
-std::vector<std::unique_ptr<Log>> ConsoleWidget::_logs = {};
+std::vector<std::shared_ptr<Log>> ConsoleWidget::_logs = {};
 
 size_t ConsoleWidget::_totalVerbose = 0;
 size_t ConsoleWidget::_totalInfo = 0;
