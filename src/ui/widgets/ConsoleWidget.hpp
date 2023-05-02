@@ -64,7 +64,7 @@ class ConsoleWidget : public Widget {
   private:
     void drawInfoBar() const;
 
-    static std::vector<std::unique_ptr<Log>> _logs;
+    static std::vector<std::shared_ptr<Log>> _logs;
     static bool _verbose;
 
     static size_t _totalVerbose;
