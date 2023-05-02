@@ -1,0 +1,41 @@
+#include "core/Filesystem.hpp"
+
+#include <iostream>
+
+namespace shkyera {
+
+File::File(std::filesystem::path path) : _path(path) {
+    std::string extension = path.extension().string();
+
+    if (extension == ".py")
+        _type = PYTHON;
+    else if (extension == ".jpg" || extension == ".jpeg" || extension == ".png" || extension == ".bmp")
+        _type = IMAGE;
+    else
+        _type = OTHER;
+}
+
+std::string File::getName() const { return _path.stem().string() + _path.extension().string(); }
+
+FILE_TYPE File::getType() const { return _type; }
+
+Directory::Directory(std::filesystem::path path) : _path(path) { update(); }
+
+void Directory::update() {
+    for (const auto &subPath : std::filesystem::directory_iterator(_path)) {
+        if (std::filesystem::is_directory(subPath)) {
+            _directories.push_back(std::make_shared<Directory>(subPath));
+        } else {
+            if (subPath.path().filename().string().at(0) != '.')
+                _files.push_back(std::make_shared<File>(subPath));
+        }
+    }
+}
+
+std::string Directory::getName() const { return _path.stem().string(); }
+
+std::vector<std::shared_ptr<Directory>> Directory::getSubDirectories() const { return _directories; }
+
+std::vector<std::shared_ptr<File>> Directory::getFiles() const { return _files; }
+
+} // namespace shkyera
