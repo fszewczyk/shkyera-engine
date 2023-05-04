@@ -146,6 +146,7 @@ void FilesystemWidget::drawIconName(const std::string name) const {
 
     auto textWidth = ImGui::CalcTextSize(name.c_str()).x;
     ImGui::SetCursorPosX(ImGui::GetCursorPosX() + (CONTENTS_ICON_SIZE + 10 - textWidth) * 0.5f);
+
     ImGui::Text(name.c_str());
 
     ImGui::PopFont();
@@ -157,14 +158,45 @@ void FilesystemWidget::handleRightMouseClick() {
     }
 
     if (ImGui::BeginPopup("New")) {
-        if (ImGui::Selectable("New File")) {
-        }
-        if (ImGui::Selectable("New Folder")) {
-            try {
-                _currentDirectory->createDirectory("New Folder");
-            } catch (std::invalid_argument error) {
-                ConsoleWidget::logError(std::string(error.what()));
+        if (ImGui::BeginMenu("New File")) {
+            static char fileName[64] = "object.py";
+            ImGui::InputText("##", fileName, 64);
+
+            ImGui::SameLine();
+
+            if (ImGui::Button("Create")) {
+                try {
+                    _currentDirectory->createFile(std::string(fileName));
+
+                    memset(fileName, 0, sizeof(fileName));
+                    std::copy(DEFAULT_FILE_NAME.begin(), DEFAULT_FILE_NAME.end(), fileName);
+                    ImGui::CloseCurrentPopup();
+                } catch (std::invalid_argument error) {
+                    ConsoleWidget::logError(std::string(error.what()));
+                }
             }
+
+            ImGui::EndMenu();
+        }
+        if (ImGui::BeginMenu("New Folder")) {
+            static char folderName[64] = "New Folder";
+            ImGui::InputText("##", folderName, 64);
+
+            ImGui::SameLine();
+
+            if (ImGui::Button("Create")) {
+                try {
+                    _currentDirectory->createDirectory(std::string(folderName));
+
+                    memset(folderName, 0, sizeof(folderName));
+                    std::copy(DEFAULT_FOLDER_NAME.begin(), DEFAULT_FOLDER_NAME.end(), folderName);
+                    ImGui::CloseCurrentPopup();
+                } catch (std::invalid_argument error) {
+                    ConsoleWidget::logError(std::string(error.what()));
+                }
+            }
+
+            ImGui::EndMenu();
         }
 
         ImGui::EndPopup();
@@ -194,5 +226,8 @@ std::string FilesystemWidget::getDisplayableName(std::string name, size_t maxCha
 
     return name;
 }
+
+std::string FilesystemWidget::DEFAULT_FOLDER_NAME = "New Folder";
+std::string FilesystemWidget::DEFAULT_FILE_NAME = "object.py";
 
 } // namespace shkyera

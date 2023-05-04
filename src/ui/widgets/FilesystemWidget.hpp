@@ -1,5 +1,7 @@
 #pragma once
 
+#include <functional>
+
 #include "core/Filesystem.hpp"
 #include "ui/Widget.hpp"
 
@@ -24,6 +26,8 @@ class FilesystemWidget : public Widget {
     void handleRightMouseClick();
     void drawCreateMenu() const;
 
+    bool askString(const std::string title, std::string &userInput);
+
     ImTextureID getTextureOfFile(const std::shared_ptr<File> file) const;
     static std::string getDisplayableName(std::string name, size_t maxCharactersInLine = 12);
 
@@ -36,6 +40,9 @@ class FilesystemWidget : public Widget {
     std::vector<std::shared_ptr<File>> _filesToDisplay;
 
     bool _hoveredIcon;
+
+    static std::string DEFAULT_FOLDER_NAME;
+    static std::string DEFAULT_FILE_NAME;
 };
 
 } // namespace shkyera

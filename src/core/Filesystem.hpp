@@ -33,6 +33,7 @@ class Directory {
     std::vector<std::shared_ptr<File>> getFiles() const;
 
     void createDirectory(std::string name);
+    void createFile(std::string name);
 
   private:
     std::filesystem::path _path;

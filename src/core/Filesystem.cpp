@@ -1,6 +1,6 @@
-#include "core/Filesystem.hpp"
+#include <fstream>
 
-#include <iostream>
+#include "core/Filesystem.hpp"
 
 namespace shkyera {
 
@@ -47,6 +47,16 @@ void Directory::createDirectory(std::string name) {
         throw std::invalid_argument("There is already a folder with this name.");
 
     std::filesystem::create_directory(newPath);
+    update();
+}
+
+void Directory::createFile(std::string name) {
+    std::filesystem::path newPath = _path / name;
+
+    if (std::filesystem::exists(newPath))
+        throw std::invalid_argument("There is already a file with this name.");
+
+    std::ofstream{newPath.c_str()};
     update();
 }
 
