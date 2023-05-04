@@ -23,6 +23,10 @@ class Image {
 
     static Image ICON_COMPONENT_TRANSFORM;
 
+    static Image ICON_FILES_FOLDER;
+    static Image ICON_FILES_PYTHON;
+    static Image ICON_FILES_IMAGE;
+    static Image ICON_FILES_TEXT;
 
   private:
     uint8_t *_data;

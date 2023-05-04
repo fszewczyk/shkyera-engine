@@ -10,6 +10,7 @@
 #include "core/Image.hpp"
 #include "ui/UI.hpp"
 #include "ui/widgets/ConsoleWidget.hpp"
+#include "ui/widgets/FilesystemWidget.hpp"
 #include "ui/widgets/ObjectsWidget.hpp"
 #include "ui/widgets/PreviewWidget.hpp"
 #include "ui/widgets/PropertiesWidget.hpp"
@@ -79,14 +80,16 @@ void UI::initializeImgui() {
 
 void UI::initializeWidgets() {
     _widgets.emplace_back(std::make_unique<PropertiesWidget>("Properties"));
+    _widgets.emplace_back(std::make_unique<PreviewWidget>("Scene"));
+    _widgets.emplace_back(std::make_unique<ConsoleWidget>("Console"));
 
     auto objectsWidget = std::make_unique<ObjectsWidget>("Objects");
     objectsWidget->setGame(_game);
     _widgets.emplace_back(std::move(objectsWidget));
 
-    _widgets.emplace_back(std::make_unique<PreviewWidget>("Scene"));
-    _widgets.emplace_back(std::make_unique<PreviewWidget>("Files"));
-    _widgets.emplace_back(std::make_unique<ConsoleWidget>("Console"));
+    auto assetsWidget = std::make_unique<FilesystemWidget>("Assets");
+    assetsWidget->setDirectory("resources");
+    _widgets.emplace_back(std::move(assetsWidget));
 
     ConsoleWidget::logError("Sample Error!");
     ConsoleWidget::logInfo("Sample Info!");
@@ -102,6 +105,11 @@ void UI::initializeAssets() {
     Image::ICON_CONSOLE_SUCCESS.updateTextureId();
 
     Image::ICON_COMPONENT_TRANSFORM.updateTextureId();
+
+    Image::ICON_FILES_FOLDER.updateTextureId();
+    Image::ICON_FILES_IMAGE.updateTextureId();
+    Image::ICON_FILES_PYTHON.updateTextureId();
+    Image::ICON_FILES_TEXT.updateTextureId();
 }
 
 void UI::styleImgui() {
@@ -112,8 +120,11 @@ void UI::styleImgui() {
     // Setup Dear ImGui style
     ImGui::StyleColorsDark();
 
-    NORMAL_FONT = io.Fonts->AddFontFromFileTTF("resources/fonts/OpenSansRegular.ttf", 16);
-    BIG_FONT = io.Fonts->AddFontFromFileTTF("resources/fonts/OpenSansRegular.ttf", 24);
+    const char *fontPath = "resources/fonts/OpenSansRegular.ttf";
+    NORMAL_FONT = io.Fonts->AddFontFromFileTTF(fontPath, 16);
+    HUGE_FONT = io.Fonts->AddFontFromFileTTF(fontPath, 24);
+    BIG_FONT = io.Fonts->AddFontFromFileTTF(fontPath, 20);
+    SMALL_FONT = io.Fonts->AddFontFromFileTTF(fontPath, 14);
 
     ImGuiStyle &style = ImGui::GetStyle();
     style.WindowMinSize = ImVec2(150, 150);
@@ -225,7 +236,7 @@ void UI::beginFrame() {
         ImGui::DockBuilderDockWindow("Objects", dock_id_left_up_left);
         ImGui::DockBuilderDockWindow("Scene", dock_id_left_up_right);
         ImGui::DockBuilderDockWindow("Properties", dock_id_right);
-        ImGui::DockBuilderDockWindow("Files", dock_id_left_bottom);
+        ImGui::DockBuilderDockWindow("Assets", dock_id_left_bottom);
         ImGui::DockBuilderDockWindow("Console", dock_id_left_bottom);
 
         ImGui::DockBuilderFinish(dockspace_id);
@@ -278,6 +289,7 @@ void UI::draw() {
     if (_open) {
         beginFrame();
         renderFrame();
+        // ImGui::ShowDemoWindow();
         endFrame();
     } else {
         close();
@@ -295,7 +307,9 @@ void UI::close() {
 
 bool UI::shouldClose() const { return !_open; }
 
+ImFont *UI::SMALL_FONT = nullptr;
 ImFont *UI::NORMAL_FONT = nullptr;
 ImFont *UI::BIG_FONT = nullptr;
+ImFont *UI::HUGE_FONT = nullptr;
 
 } // namespace shkyera

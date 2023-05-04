@@ -31,6 +31,7 @@ add_library(
     src/ui/widgets/ObjectsWidget.cpp
     src/ui/widgets/ConsoleWidget.cpp
     src/ui/widgets/PropertiesWidget.cpp
+    src/ui/widgets/FilesystemWidget.cpp
 
     src/ui/components/TransformComponent.cpp
 )
@@ -39,6 +40,7 @@ add_library(
     core
     src/core/Entity.cpp
     src/core/Image.cpp
+    src/core/Filesystem.cpp
 )
 
 

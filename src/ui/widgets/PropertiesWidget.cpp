@@ -11,7 +11,7 @@ void PropertiesWidget::draw() {
     if (_object) {
         ImGui::PushID(_object.get());
 
-        ImGui::PushFont(UI::BIG_FONT);
+        ImGui::PushFont(UI::HUGE_FONT);
         ImGui::Text(_object->getName().c_str());
         ImGui::PopFont();
 

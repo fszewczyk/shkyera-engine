@@ -24,6 +24,8 @@ class UI {
     /********        FONTS        ********/
     static ImFont *NORMAL_FONT;
     static ImFont *BIG_FONT;
+    static ImFont *HUGE_FONT;
+    static ImFont *SMALL_FONT;
 
     /********        COLORS      *********/
     inline static ImVec4 BACKGROUND_COLOR = ImVec4(0.17f, 0.17f, 0.17f, 1.0f);
@@ -49,6 +51,7 @@ class UI {
 
     bool _open;
     GLFWwindow *_window;
+
     std::vector<std::unique_ptr<Widget>> _widgets;
 };
 
