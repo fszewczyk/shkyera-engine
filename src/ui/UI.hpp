@@ -24,6 +24,7 @@ class UI {
     /********        FONTS        ********/
     static ImFont *NORMAL_FONT;
     static ImFont *BIG_FONT;
+    static ImFont *HUGE_FONT;
     static ImFont *SMALL_FONT;
 
     /********        COLORS      *********/

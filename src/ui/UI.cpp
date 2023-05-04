@@ -122,7 +122,8 @@ void UI::styleImgui() {
 
     const char *fontPath = "resources/fonts/OpenSansRegular.ttf";
     NORMAL_FONT = io.Fonts->AddFontFromFileTTF(fontPath, 16);
-    BIG_FONT = io.Fonts->AddFontFromFileTTF(fontPath, 24);
+    HUGE_FONT = io.Fonts->AddFontFromFileTTF(fontPath, 24);
+    BIG_FONT = io.Fonts->AddFontFromFileTTF(fontPath, 20);
     SMALL_FONT = io.Fonts->AddFontFromFileTTF(fontPath, 14);
 
     ImGuiStyle &style = ImGui::GetStyle();
@@ -309,5 +310,6 @@ bool UI::shouldClose() const { return !_open; }
 ImFont *UI::SMALL_FONT = nullptr;
 ImFont *UI::NORMAL_FONT = nullptr;
 ImFont *UI::BIG_FONT = nullptr;
+ImFont *UI::HUGE_FONT = nullptr;
 
 } // namespace shkyera

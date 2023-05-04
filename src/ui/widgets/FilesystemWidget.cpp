@@ -74,6 +74,12 @@ void FilesystemWidget::drawDirectoryTree(const std::shared_ptr<Directory> direct
 }
 
 void FilesystemWidget::drawDirectoryContents(const std::shared_ptr<Directory> directory) {
+    ImGui::PushFont(UI::BIG_FONT);
+    ImGui::Text(directory->getPath().string().c_str());
+    ImGui::PopFont();
+    ImGui::Separator();
+    ImGui::Dummy(ImVec2(0, 3));
+
     _hoveredIcon = false;
 
     float totalWidth = ImGui::GetWindowContentRegionMax()[0];
