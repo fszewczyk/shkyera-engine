@@ -27,9 +27,12 @@ class Directory {
 
     void update();
     std::string getName() const;
+    std::filesystem::path getPath() const;
 
     std::vector<std::shared_ptr<Directory>> getSubDirectories() const;
     std::vector<std::shared_ptr<File>> getFiles() const;
+
+    void createDirectory(std::string name);
 
   private:
     std::filesystem::path _path;

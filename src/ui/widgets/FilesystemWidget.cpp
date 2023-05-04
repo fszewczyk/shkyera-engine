@@ -5,6 +5,7 @@
 
 #include "core/Image.hpp"
 #include "ui/UI.hpp"
+#include "ui/widgets/ConsoleWidget.hpp"
 #include "ui/widgets/FilesystemWidget.hpp"
 
 namespace shkyera {
@@ -29,8 +30,9 @@ void FilesystemWidget::draw() {
 
         ImGui::BeginChild("Contents", ImVec2(0, 0), false, ImGuiWindowFlags_NoScrollWithMouse);
 
-        ImGui::SetScrollX(0);
         drawDirectoryContents(_currentDirectory);
+        handleRightMouseClick();
+
         ImGui::EndChild();
     }
 
@@ -72,6 +74,8 @@ void FilesystemWidget::drawDirectoryTree(const std::shared_ptr<Directory> direct
 }
 
 void FilesystemWidget::drawDirectoryContents(const std::shared_ptr<Directory> directory) {
+    _hoveredIcon = false;
+
     float totalWidth = ImGui::GetWindowContentRegionMax()[0];
 
     int iconsToFit = std::max(1, (int)(totalWidth / (CONTENTS_ICON_SIZE + 15)));
@@ -107,6 +111,8 @@ void FilesystemWidget::drawDirectory(const std::shared_ptr<Directory> directory)
         _currentDirectory = directory;
     }
 
+    _hoveredIcon |= ImGui::IsItemHovered();
+
     ImGui::PopStyleColor();
 
     const char *nameToDisplay = (getDisplayableName(directory->getName())).c_str();
@@ -123,12 +129,14 @@ void FilesystemWidget::drawDirectory(const std::shared_ptr<Directory> directory)
     ImGui::EndGroup();
 }
 
-void FilesystemWidget::drawFile(const std::shared_ptr<File> file) const {
+void FilesystemWidget::drawFile(const std::shared_ptr<File> file) {
     ImGui::BeginGroup();
 
     ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
     if (ImGui::ImageButton(getTextureOfFile(file), ImVec2(CONTENTS_ICON_SIZE, CONTENTS_ICON_SIZE))) {
     }
+
+    _hoveredIcon |= ImGui::IsItemHovered();
 
     ImGui::PopStyleColor();
 
@@ -144,6 +152,28 @@ void FilesystemWidget::drawFile(const std::shared_ptr<File> file) const {
 
     ImGui::EndGroup();
 }
+
+void FilesystemWidget::handleRightMouseClick() {
+    if (!_hoveredIcon && ImGui::IsWindowHovered() && ImGui::IsMouseClicked(1)) {
+        drawCreateMenu();
+    }
+
+    if (ImGui::BeginPopup("New")) {
+        if (ImGui::Selectable("New File")) {
+        }
+        if (ImGui::Selectable("New Folder")) {
+            try {
+                _currentDirectory->createDirectory("New Folder");
+            } catch (std::invalid_argument error) {
+                ConsoleWidget::logError(std::string(error.what()));
+            }
+        }
+
+        ImGui::EndPopup();
+    }
+}
+
+void FilesystemWidget::drawCreateMenu() const { ImGui::OpenPopup("New"); }
 
 ImTextureID FilesystemWidget::getTextureOfFile(const std::shared_ptr<File> file) const {
     switch (file->getType()) {

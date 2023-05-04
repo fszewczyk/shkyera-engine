@@ -7,6 +7,7 @@
 #include <GLFW/glfw3.h>
 
 #include "game/Game.hpp"
+#include "ui/Modal.hpp"
 #include "ui/Widget.hpp"
 
 namespace shkyera {
@@ -50,7 +51,9 @@ class UI {
 
     bool _open;
     GLFWwindow *_window;
+
     std::vector<std::unique_ptr<Widget>> _widgets;
+    template <typename T> Modal<T> _modal;
 };
 
 } // namespace shkyera

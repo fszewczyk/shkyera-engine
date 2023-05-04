@@ -18,11 +18,15 @@ class FilesystemWidget : public Widget {
     void drawDirectoryContents(const std::shared_ptr<Directory> directory);
 
     void drawDirectory(const std::shared_ptr<Directory> directory);
-    void drawFile(const std::shared_ptr<File> file) const;
+    void drawFile(const std::shared_ptr<File> file);
+
+    void handleRightMouseClick();
+    void drawCreateMenu() const;
 
     ImTextureID getTextureOfFile(const std::shared_ptr<File> file) const;
-
     static std::string getDisplayableName(std::string name, size_t maxCharactersInLine = 12);
+
+    static constexpr float CONTENTS_ICON_SIZE = 64;
 
     std::shared_ptr<Directory> _currentDirectory;
     std::shared_ptr<Directory> _projectDirectory;
@@ -30,7 +34,7 @@ class FilesystemWidget : public Widget {
     std::vector<std::shared_ptr<Directory>> _directoriesToDisplay;
     std::vector<std::shared_ptr<File>> _filesToDisplay;
 
-    static constexpr float CONTENTS_ICON_SIZE = 64;
+    bool _hoveredIcon;
 };
 
 } // namespace shkyera
