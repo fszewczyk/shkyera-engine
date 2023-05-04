@@ -120,9 +120,10 @@ void UI::styleImgui() {
     // Setup Dear ImGui style
     ImGui::StyleColorsDark();
 
-    NORMAL_FONT = io.Fonts->AddFontFromFileTTF("resources/fonts/OpenSansRegular.ttf", 16);
-    BIG_FONT = io.Fonts->AddFontFromFileTTF("resources/fonts/OpenSansRegular.ttf", 24);
-    SMALL_FONT = io.Fonts->AddFontFromFileTTF("resources/fonts/OpenSansRegular.ttf", 14);
+    const char *fontPath = "resources/fonts/OpenSansRegular.ttf";
+    NORMAL_FONT = io.Fonts->AddFontFromFileTTF(fontPath, 16);
+    BIG_FONT = io.Fonts->AddFontFromFileTTF(fontPath, 24);
+    SMALL_FONT = io.Fonts->AddFontFromFileTTF(fontPath, 14);
 
     ImGuiStyle &style = ImGui::GetStyle();
     style.WindowMinSize = ImVec2(150, 150);

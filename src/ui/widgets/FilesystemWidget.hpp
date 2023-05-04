@@ -19,6 +19,7 @@ class FilesystemWidget : public Widget {
 
     void drawDirectory(const std::shared_ptr<Directory> directory);
     void drawFile(const std::shared_ptr<File> file);
+    void drawIconName(const std::string name) const;
 
     void handleRightMouseClick();
     void drawCreateMenu() const;

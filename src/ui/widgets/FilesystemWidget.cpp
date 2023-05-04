@@ -115,15 +115,8 @@ void FilesystemWidget::drawDirectory(const std::shared_ptr<Directory> directory)
 
     ImGui::PopStyleColor();
 
-    const char *nameToDisplay = (getDisplayableName(directory->getName())).c_str();
-
-    auto textWidth = ImGui::CalcTextSize(nameToDisplay).x;
-
-    ImGui::SetCursorPosX(ImGui::GetCursorPosX() + (CONTENTS_ICON_SIZE + 15 - textWidth) * 0.5f);
-
-    ImGui::PushFont(UI::SMALL_FONT);
-    ImGui::Text(nameToDisplay);
-    ImGui::PopFont();
+    std::string nameToDisplay = getDisplayableName(directory->getName());
+    drawIconName(nameToDisplay);
 
     ImGui::PopID();
     ImGui::EndGroup();
@@ -131,6 +124,7 @@ void FilesystemWidget::drawDirectory(const std::shared_ptr<Directory> directory)
 
 void FilesystemWidget::drawFile(const std::shared_ptr<File> file) {
     ImGui::BeginGroup();
+    ImGui::PushID(file->getName().c_str());
 
     ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
     if (ImGui::ImageButton(getTextureOfFile(file), ImVec2(CONTENTS_ICON_SIZE, CONTENTS_ICON_SIZE))) {
@@ -140,17 +134,21 @@ void FilesystemWidget::drawFile(const std::shared_ptr<File> file) {
 
     ImGui::PopStyleColor();
 
-    const char *nameToDisplay = (getDisplayableName(file->getName())).c_str();
+    std::string nameToDisplay = getDisplayableName(file->getName());
+    drawIconName(nameToDisplay);
 
-    auto textWidth = ImGui::CalcTextSize(nameToDisplay).x;
-
-    ImGui::SetCursorPosX(ImGui::GetCursorPosX() + (CONTENTS_ICON_SIZE + 15 - textWidth) * 0.5f);
-
-    ImGui::PushFont(UI::SMALL_FONT);
-    ImGui::Text(nameToDisplay);
-    ImGui::PopFont();
-
+    ImGui::PopID();
     ImGui::EndGroup();
+}
+
+void FilesystemWidget::drawIconName(const std::string name) const {
+    ImGui::PushFont(UI::SMALL_FONT);
+
+    auto textWidth = ImGui::CalcTextSize(name.c_str()).x;
+    ImGui::SetCursorPosX(ImGui::GetCursorPosX() + (CONTENTS_ICON_SIZE + 10 - textWidth) * 0.5f);
+    ImGui::Text(name.c_str());
+
+    ImGui::PopFont();
 }
 
 void FilesystemWidget::handleRightMouseClick() {

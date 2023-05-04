@@ -26,7 +26,6 @@ add_library(
     src/ui/UI.cpp
     src/ui/Widget.cpp
     src/ui/Component.cpp
-    src/ui/Modal.hpp
 
     src/ui/widgets/PreviewWidget.cpp
     src/ui/widgets/ObjectsWidget.cpp
