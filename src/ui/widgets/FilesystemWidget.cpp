@@ -4,6 +4,7 @@
 #include <iostream>
 
 #include "core/Image.hpp"
+#include "ui/UI.hpp"
 #include "ui/widgets/FilesystemWidget.hpp"
 
 namespace shkyera {
@@ -26,7 +27,9 @@ void FilesystemWidget::draw() {
 
         ImGui::SameLine();
 
-        ImGui::BeginChild("Contents");
+        ImGui::BeginChild("Contents", ImVec2(0, 0), false, ImGuiWindowFlags_NoScrollWithMouse);
+
+        ImGui::SetScrollX(0);
         drawDirectoryContents(_currentDirectory);
         ImGui::EndChild();
     }
@@ -71,7 +74,7 @@ void FilesystemWidget::drawDirectoryTree(const std::shared_ptr<Directory> direct
 void FilesystemWidget::drawDirectoryContents(const std::shared_ptr<Directory> directory) {
     float totalWidth = ImGui::GetWindowContentRegionMax()[0];
 
-    int iconsToFit = std::max(1, (int)(totalWidth / CONTENTS_ICON_SIZE));
+    int iconsToFit = std::max(1, (int)(totalWidth / (CONTENTS_ICON_SIZE + 15)));
     int iconsDrawn = 0;
 
     const std::vector<std::shared_ptr<Directory>> subDirectories = directory->getSubDirectories();
@@ -82,7 +85,6 @@ void FilesystemWidget::drawDirectoryContents(const std::shared_ptr<Directory> di
             ImGui::SameLine();
 
         drawDirectory(subDir);
-
         iconsDrawn += 1;
     }
 
@@ -91,7 +93,6 @@ void FilesystemWidget::drawDirectoryContents(const std::shared_ptr<Directory> di
             ImGui::SameLine();
 
         drawFile(file);
-
         iconsDrawn += 1;
     }
 }
@@ -108,12 +109,15 @@ void FilesystemWidget::drawDirectory(const std::shared_ptr<Directory> directory)
 
     ImGui::PopStyleColor();
 
-    const char *nameToDisplay = (directory->getName()).c_str();
+    const char *nameToDisplay = (getDisplayableName(directory->getName())).c_str();
 
     auto textWidth = ImGui::CalcTextSize(nameToDisplay).x;
 
-    ImGui::SetCursorPosX(ImGui::GetCursorPosX() + (CONTENTS_ICON_SIZE - textWidth) * 0.6f);
+    ImGui::SetCursorPosX(ImGui::GetCursorPosX() + (CONTENTS_ICON_SIZE + 15 - textWidth) * 0.5f);
+
+    ImGui::PushFont(UI::SMALL_FONT);
     ImGui::Text(nameToDisplay);
+    ImGui::PopFont();
 
     ImGui::PopID();
     ImGui::EndGroup();
@@ -128,7 +132,16 @@ void FilesystemWidget::drawFile(const std::shared_ptr<File> file) const {
 
     ImGui::PopStyleColor();
 
-    ImGui::Text((file->getName()).c_str(), ImVec2(CONTENTS_ICON_SIZE, 0));
+    const char *nameToDisplay = (getDisplayableName(file->getName())).c_str();
+
+    auto textWidth = ImGui::CalcTextSize(nameToDisplay).x;
+
+    ImGui::SetCursorPosX(ImGui::GetCursorPosX() + (CONTENTS_ICON_SIZE + 15 - textWidth) * 0.5f);
+
+    ImGui::PushFont(UI::SMALL_FONT);
+    ImGui::Text(nameToDisplay);
+    ImGui::PopFont();
+
     ImGui::EndGroup();
 }
 
@@ -144,6 +157,14 @@ ImTextureID FilesystemWidget::getTextureOfFile(const std::shared_ptr<File> file)
         return (ImTextureID)Image::ICON_FILES_TEXT.getTextureId();
         break;
     }
+}
+
+std::string FilesystemWidget::getDisplayableName(std::string name, size_t maxCharactersInLine) {
+    for (size_t pos = maxCharactersInLine; pos < name.length(); pos += maxCharactersInLine + 1) {
+        name.insert(pos, "\n");
+    }
+
+    return name;
 }
 
 } // namespace shkyera

@@ -22,6 +22,8 @@ class FilesystemWidget : public Widget {
 
     ImTextureID getTextureOfFile(const std::shared_ptr<File> file) const;
 
+    static std::string getDisplayableName(std::string name, size_t maxCharactersInLine = 12);
+
     std::shared_ptr<Directory> _currentDirectory;
     std::shared_ptr<Directory> _projectDirectory;
 
