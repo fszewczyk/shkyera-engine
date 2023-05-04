@@ -29,8 +29,10 @@ void ConsoleWidget::draw() {
 
     ImGui::Separator();
 
-    for (const auto &log : _logs) {
-        log->draw();
+    std::vector<std::shared_ptr<Log>>::iterator log = _logs.end();
+    while (log != _logs.begin()) {
+        --log;
+        (*log)->draw();
     }
 
     ImGui::End();

@@ -179,6 +179,9 @@ void FilesystemWidget::handleRightMouseClick() {
                     ImGui::CloseCurrentPopup();
                 } catch (std::invalid_argument error) {
                     ConsoleWidget::logError(std::string(error.what()));
+
+                    ImGui::CloseCurrentPopup();
+                    ImGui::SetWindowFocus("Console");
                 }
             }
 
@@ -199,6 +202,9 @@ void FilesystemWidget::handleRightMouseClick() {
                     ImGui::CloseCurrentPopup();
                 } catch (std::invalid_argument error) {
                     ConsoleWidget::logError(std::string(error.what()));
+
+                    ImGui::CloseCurrentPopup();
+                    ImGui::SetWindowFocus("Console");
                 }
             }
 
