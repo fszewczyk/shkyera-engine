@@ -34,6 +34,7 @@ add_library(
     src/ui/widgets/FilesystemWidget.cpp
 
     src/ui/components/TransformComponent.cpp
+    src/ui/components/ScriptComponent.cpp
 )
 
 add_library(

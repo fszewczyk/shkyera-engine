@@ -90,11 +90,6 @@ void UI::initializeWidgets() {
     auto assetsWidget = std::make_unique<FilesystemWidget>("Assets");
     assetsWidget->setDirectory("resources");
     _widgets.emplace_back(std::move(assetsWidget));
-
-    ConsoleWidget::logError("Sample Error!");
-    ConsoleWidget::logInfo("Sample Info!");
-    ConsoleWidget::logSuccess("Sample Success!");
-    ConsoleWidget::logVerbose("Sample Verbose!");
 }
 
 void UI::initializeAssets() {
@@ -105,6 +100,7 @@ void UI::initializeAssets() {
     Image::ICON_CONSOLE_SUCCESS.updateTextureId();
 
     Image::ICON_COMPONENT_TRANSFORM.updateTextureId();
+    Image::ICON_COMPONENT_SCRIPT.updateTextureId();
 
     Image::ICON_FILES_FOLDER.updateTextureId();
     Image::ICON_FILES_IMAGE.updateTextureId();

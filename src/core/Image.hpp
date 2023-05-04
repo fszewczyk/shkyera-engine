@@ -22,6 +22,7 @@ class Image {
     static Image ICON_CONSOLE_SUCCESS;
 
     static Image ICON_COMPONENT_TRANSFORM;
+    static Image ICON_COMPONENT_SCRIPT;
 
     static Image ICON_FILES_FOLDER;
     static Image ICON_FILES_PYTHON;

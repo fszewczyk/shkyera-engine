@@ -3,6 +3,8 @@
 #include "ui/UI.hpp"
 #include "ui/widgets/PropertiesWidget.hpp"
 
+#include "ui/components/ScriptComponent.hpp"
+
 namespace shkyera {
 
 void PropertiesWidget::draw() {
@@ -21,6 +23,10 @@ void PropertiesWidget::draw() {
             comp->draw();
         }
 
+        ImGui::Separator();
+
+        drawNewComponentMenu();
+
         ImGui::PopID();
     } else {
         ImGui::Text("No object has been selected.");
@@ -30,11 +36,23 @@ void PropertiesWidget::draw() {
 }
 
 void PropertiesWidget::setObject(std::shared_ptr<GameObject> object) {
-    if (_object == object)
-        return;
-
     _object = object;
     _components = UIComponent::getComponentsOfObject(_object);
+}
+
+void PropertiesWidget::drawNewComponentMenu() {
+    if (ImGui::Button("New Component", ImVec2(-1, 0)))
+        ImGui::OpenPopup("Add Component");
+    if (ImGui::BeginPopup("Add Component")) {
+        if (ImGui::Selectable("Script")) {
+            UIComponent::addComponentToObject(_object, std::make_shared<ScriptComponent>("Script", _object));
+            setObject(_object);
+
+            ImGui::CloseCurrentPopup();
+        }
+
+        ImGui::EndPopup();
+    }
 }
 
 std::shared_ptr<GameObject> PropertiesWidget::_object = nullptr;
