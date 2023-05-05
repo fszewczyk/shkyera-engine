@@ -52,7 +52,6 @@ add_library(
     src/game/Component.cpp
 
     src/game/components/ScriptComponent.cpp
-
 )
 
 add_executable(ShkyeraEngine src/main.cpp)
