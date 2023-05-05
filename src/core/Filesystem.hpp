@@ -13,6 +13,7 @@ class File {
   public:
     File(std::filesystem::path path);
 
+    std::filesystem::path getPath() const;
     std::string getName() const;
     FILE_TYPE getType() const;
 

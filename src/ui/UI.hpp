@@ -35,6 +35,7 @@ class UI {
     inline static ImVec4 STRONG_ACCENT_COLOR = ImVec4(0.5f, 0.06f, 0.82f, 1.0f);
     inline static ImVec4 GREY = ImVec4(0.3f, 0.3f, 0.3f, 1.0f);
     inline static ImVec4 LIGHT_GREY = ImVec4(0.8f, 0.8f, 0.8f, 1.0f);
+    inline static ImVec4 DARK_ACCENT = ImVec4(0.1f, 0.1f, 0.1f, 1.0f);
     inline static ImVec4 BLACK = ImVec4(0.0f, 0.0f, 0.0f, 0.0f);
 
   private:

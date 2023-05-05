@@ -136,6 +136,16 @@ void FilesystemWidget::drawFile(const std::shared_ptr<File> file) {
     if (ImGui::ImageButton(getTextureOfFile(file), ImVec2(CONTENTS_ICON_SIZE, CONTENTS_ICON_SIZE))) {
     }
 
+    if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_None)) {
+        std::string fileName = file->getName();
+        std::string filePath = file->getPath();
+
+        ImGui::Text(fileName.c_str());
+        ImGui::SetDragDropPayload("DRAG_AND_DROP_SCRIPT", filePath.c_str(), filePath.length() * sizeof(char));
+
+        ImGui::EndDragDropSource();
+    }
+
     _hoveredIcon |= ImGui::IsItemHovered();
 
     ImGui::PopStyleColor();

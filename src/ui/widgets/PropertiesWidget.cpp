@@ -3,7 +3,7 @@
 #include "ui/UI.hpp"
 #include "ui/widgets/PropertiesWidget.hpp"
 
-#include "ui/components/ScriptComponent.hpp"
+#include "ui/components/ScriptUIComponent.hpp"
 
 namespace shkyera {
 
@@ -45,7 +45,7 @@ void PropertiesWidget::drawNewComponentMenu() {
         ImGui::OpenPopup("Add Component");
     if (ImGui::BeginPopup("Add Component")) {
         if (ImGui::Selectable("Script")) {
-            UIComponent::addComponentToObject(_object, std::make_shared<ScriptComponent>("Script", _object));
+            UIComponent::addComponentToObject(_object, std::make_shared<ScriptUIComponent>("Script", _object));
             setObject(_object);
 
             ImGui::CloseCurrentPopup();

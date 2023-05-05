@@ -15,8 +15,8 @@ File::File(std::filesystem::path path) : _path(path) {
         _type = OTHER;
 }
 
+std::filesystem::path File::getPath() const { return _path; }
 std::string File::getName() const { return _path.stem().string() + _path.extension().string(); }
-
 FILE_TYPE File::getType() const { return _type; }
 
 Directory::Directory(std::filesystem::path path) : _path(path) { update(); }

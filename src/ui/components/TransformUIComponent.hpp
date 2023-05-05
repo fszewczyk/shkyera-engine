@@ -4,7 +4,7 @@
 
 namespace shkyera {
 
-class ScriptComponent : public UIComponent {
+class TransformUIComponent : public UIComponent {
     using UIComponent::UIComponent;
 
     virtual void draw() override;
