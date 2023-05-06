@@ -1,6 +1,6 @@
 #pragma once
 
-#include "ui/Component.hpp"
+#include "ui/UIComponent.hpp"
 
 namespace shkyera {
 

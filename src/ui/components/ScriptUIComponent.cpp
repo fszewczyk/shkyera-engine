@@ -12,6 +12,7 @@
 namespace shkyera {
 
 void ScriptUIComponent::draw() {
+    ImGui::PushID(_uuid);
     ImGui::Image((ImTextureID)Image::ICON_COMPONENT_SCRIPT.getTextureId(), ImVec2(16, 16));
     ImGui::SameLine();
 
@@ -27,6 +28,7 @@ void ScriptUIComponent::draw() {
             ImGui::TreePop();
         }
     }
+    ImGui::PopID();
 }
 
 void ScriptUIComponent::replaceScript(std::filesystem::path path) {
