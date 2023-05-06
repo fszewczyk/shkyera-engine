@@ -1,7 +1,7 @@
 #pragma once
 
 #include "game/GameObject.hpp"
-#include "ui/Component.hpp"
+#include "ui/UIComponent.hpp"
 #include "ui/Widget.hpp"
 
 namespace shkyera {

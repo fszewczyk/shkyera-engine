@@ -1,8 +1,11 @@
-#include "ui/Component.hpp"
+#include "ui/UIComponent.hpp"
+#include "core/UUID.hpp"
 
 namespace shkyera {
 
-UIComponent::UIComponent(std::string name, std::shared_ptr<GameObject> object) : _name(name), _object(object) {}
+UIComponent::UIComponent(std::string name, std::shared_ptr<GameObject> object) : _name(name), _object(object) {
+    _uuid = UUID::getUUID();
+}
 
 void UIComponent::addComponentToObject(std::shared_ptr<GameObject> object, std::shared_ptr<UIComponent> component) {
     if (_objectComponents.find(object) == _objectComponents.end())

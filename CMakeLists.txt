@@ -25,7 +25,7 @@ add_library(
     ui
     src/ui/UI.cpp
     src/ui/Widget.cpp
-    src/ui/Component.cpp
+    src/ui/UIComponent.cpp
 
     src/ui/widgets/PreviewWidget.cpp
     src/ui/widgets/ObjectsWidget.cpp
@@ -42,6 +42,7 @@ add_library(
     src/core/Entity.cpp
     src/core/Image.cpp
     src/core/Filesystem.cpp
+    src/core/UUID.cpp
 )
 
 

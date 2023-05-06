@@ -3,7 +3,7 @@
 #include <filesystem>
 
 #include "game/components/ScriptComponent.hpp"
-#include "ui/Component.hpp"
+#include "ui/UIComponent.hpp"
 
 namespace shkyera {
 
