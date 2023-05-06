@@ -1,6 +1,9 @@
 #include "imgui.h"
 #include <imgui_internal.h>
 
+#include <iostream>
+
+#include "core/Filesystem.hpp"
 #include "core/Image.hpp"
 #include "ui/UI.hpp"
 #include "ui/components/ScriptUIComponent.hpp"
@@ -11,10 +14,30 @@ namespace shkyera {
 void ScriptUIComponent::draw() {
     ImGui::Image((ImTextureID)Image::ICON_COMPONENT_SCRIPT.getTextureId(), ImVec2(16, 16));
     ImGui::SameLine();
+
     if (ImGui::TreeNode(_name.c_str())) {
         drawScriptFile();
         drawVariables();
         ImGui::TreePop();
+    }
+}
+
+void ScriptUIComponent::replaceScript(std::filesystem::path path) {
+    if (!std::filesystem::exists(path)) {
+        ConsoleWidget::logError("Path does not exist. Make sure that the file at " + path.string() +
+                                " is still there.");
+        return;
+    }
+
+    try {
+        std::shared_ptr<File> scriptFile = Directory::getFile(path);
+
+        if (_script)
+            ScriptComponent::removeScript(_script);
+
+        _script = ScriptComponent::addScript(_object, scriptFile);
+    } catch (std::invalid_argument error) {
+        ConsoleWidget::logError(error.what());
     }
 }
 
@@ -29,28 +52,23 @@ void ScriptUIComponent::drawScriptFile() {
     ImGui::BeginChild("Script Child", ImVec2(-1, 26), true,
                       ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
 
-    if (_path.empty()) {
+    if (_script == nullptr) {
         ImGui::BeginDisabled();
         ImGui::Text("Drag Script");
         ImGui::EndDisabled();
     } else {
         ImGui::Image((ImTextureID)Image::ICON_FILES_PYTHON.getTextureId(), ImVec2(16, 16));
         ImGui::SameLine();
-        ImGui::Text(_path.filename().string().c_str());
+        ImGui::Text(_script->getFile()->getName().c_str());
     }
 
     if (ImGui::BeginDragDropTarget()) {
         if (const ImGuiPayload *payload = ImGui::AcceptDragDropPayload("DRAG_AND_DROP_SCRIPT")) {
             std::string pathToScript((char *)payload->Data);
 
-            _floatVariables.push_back({"Floating", 4.0f});
-            _intVariables.push_back({"Integer", 4});
-            _stringVariables.push_back({"Text", ""});
-            _vec3Variables.push_back({"Vector 3", {0, 0, 0}});
+            std::filesystem::path path(pathToScript);
 
-            _path = std::filesystem::path(pathToScript);
-
-            ConsoleWidget::logVerbose("Dropped " + pathToScript);
+            replaceScript(path);
         }
         ImGui::EndDragDropTarget();
     }
@@ -61,13 +79,21 @@ void ScriptUIComponent::drawScriptFile() {
 }
 
 void ScriptUIComponent::drawVariables() {
-    for (PublicFloat &variable : _floatVariables)
+    if (_script == nullptr)
+        return;
+
+    auto floatVariables = _script->getFloatVariables();
+    auto intVariables = _script->getIntVariables();
+    auto stringVariables = _script->getStringVariables();
+    auto vec3Variables = _script->getVec3Variables();
+
+    for (PublicFloat &variable : floatVariables)
         drawFloatVariable(variable);
-    for (PublicInt &variable : _intVariables)
+    for (PublicInt &variable : intVariables)
         drawIntVariable(variable);
-    for (PublicString &variable : _stringVariables)
+    for (PublicString &variable : stringVariables)
         drawStringVariable(variable);
-    for (PublicVec3 &variable : _vec3Variables)
+    for (PublicVec3 &variable : vec3Variables)
         drawVec3Variable(variable);
 }
 

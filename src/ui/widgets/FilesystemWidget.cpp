@@ -17,7 +17,7 @@ void FilesystemWidget::draw() {
         ImGui::Text("No directory specified.");
     } else {
         ImGui::BeginChild("Directories", ImVec2(180, 0));
-        drawDirectoryTree(_projectDirectory);
+        drawDirectoryTree(Directory::getRoot());
         ImGui::EndChild();
 
         ImGui::SameLine();
@@ -40,8 +40,8 @@ void FilesystemWidget::draw() {
 }
 
 void FilesystemWidget::setDirectory(std::filesystem::path path) {
-    _projectDirectory = std::make_shared<Directory>(path);
-    _currentDirectory = _projectDirectory;
+    _currentDirectory = std::make_shared<Directory>(path);
+    Directory::setRoot(_currentDirectory);
 }
 
 void FilesystemWidget::drawDirectoryTree(const std::shared_ptr<Directory> directory) {
@@ -140,7 +140,7 @@ void FilesystemWidget::drawFile(const std::shared_ptr<File> file) {
         std::string fileName = file->getName();
         std::string filePath = file->getPath();
 
-        ImGui::Text(fileName.c_str());
+        ImGui::Text(filePath.c_str());
         ImGui::SetDragDropPayload("DRAG_AND_DROP_SCRIPT", filePath.c_str(), filePath.length() * sizeof(char));
 
         ImGui::EndDragDropSource();

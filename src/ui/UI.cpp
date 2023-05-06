@@ -88,7 +88,9 @@ void UI::initializeWidgets() {
     _widgets.emplace_back(std::move(objectsWidget));
 
     auto assetsWidget = std::make_unique<FilesystemWidget>("Assets");
+
     assetsWidget->setDirectory("resources");
+
     _widgets.emplace_back(std::move(assetsWidget));
 }
 

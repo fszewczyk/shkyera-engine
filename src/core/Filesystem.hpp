@@ -1,6 +1,7 @@
 #pragma once
 
 #include <filesystem>
+#include <map>
 #include <memory>
 #include <string>
 #include <vector>
@@ -36,11 +37,19 @@ class Directory {
     void createDirectory(std::string name);
     void createFile(std::string name);
 
+    static void setRoot(std::shared_ptr<Directory> root);
+    static std::shared_ptr<Directory> getRoot();
+
+    static std::shared_ptr<File> getFile(std::filesystem::path path);
+
   private:
     std::filesystem::path _path;
 
     std::vector<std::shared_ptr<File>> _files;
     std::vector<std::shared_ptr<Directory>> _directories;
+
+    static std::shared_ptr<Directory> _rootDirectory;
+    static std::map<std::filesystem::path, std::shared_ptr<File>> _mapFiles;
 };
 
 } // namespace shkyera
