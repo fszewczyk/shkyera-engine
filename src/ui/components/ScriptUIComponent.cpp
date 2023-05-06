@@ -15,10 +15,17 @@ void ScriptUIComponent::draw() {
     ImGui::Image((ImTextureID)Image::ICON_COMPONENT_SCRIPT.getTextureId(), ImVec2(16, 16));
     ImGui::SameLine();
 
-    if (ImGui::TreeNode(_name.c_str())) {
-        drawScriptFile();
-        drawVariables();
-        ImGui::TreePop();
+    if (_script) {
+        if (ImGui::TreeNode((_script->getFile()->getName() + " (Script)").c_str())) {
+            drawScriptFile();
+            drawVariables();
+            ImGui::TreePop();
+        }
+    } else {
+        if (ImGui::TreeNode("Empty Script")) {
+            drawScriptFile();
+            ImGui::TreePop();
+        }
     }
 }
 
