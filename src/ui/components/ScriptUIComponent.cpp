@@ -32,8 +32,9 @@ void ScriptUIComponent::replaceScript(std::filesystem::path path) {
     try {
         std::shared_ptr<File> scriptFile = Directory::getFile(path);
 
-        if (_script)
+        if (_script) {
             ScriptComponent::removeScript(_script);
+        }
 
         _script = ScriptComponent::addScript(_object, scriptFile);
     } catch (std::invalid_argument error) {
@@ -82,10 +83,10 @@ void ScriptUIComponent::drawVariables() {
     if (_script == nullptr)
         return;
 
-    auto floatVariables = _script->getFloatVariables();
-    auto intVariables = _script->getIntVariables();
-    auto stringVariables = _script->getStringVariables();
-    auto vec3Variables = _script->getVec3Variables();
+    auto &floatVariables = _script->getFloatVariables();
+    auto &intVariables = _script->getIntVariables();
+    auto &stringVariables = _script->getStringVariables();
+    auto &vec3Variables = _script->getVec3Variables();
 
     for (PublicFloat &variable : floatVariables)
         drawFloatVariable(variable);
@@ -102,7 +103,7 @@ void ScriptUIComponent::drawFloatVariable(PublicFloat &variable) {
 
     ImGui::SameLine();
     ImGui::SetCursorPosX(LABEL_MARGIN);
-    ImGui::DragFloat(("##" + variable.name).c_str(), &variable.value, 0.01f);
+    ImGui::DragFloat(("##" + variable.name).c_str(), &variable.value, 0.01f, 0.0f, 0.0f, "%.3f");
 }
 
 void ScriptUIComponent::drawIntVariable(PublicInt &variable) {
