@@ -1,4 +1,5 @@
 #include <fstream>
+#include <iostream>
 
 #include "core/Filesystem.hpp"
 
@@ -15,8 +16,8 @@ File::File(std::filesystem::path path) : _path(path) {
         _type = OTHER;
 }
 
+std::filesystem::path File::getPath() const { return _path; }
 std::string File::getName() const { return _path.stem().string() + _path.extension().string(); }
-
 FILE_TYPE File::getType() const { return _type; }
 
 Directory::Directory(std::filesystem::path path) : _path(path) { update(); }
@@ -24,13 +25,17 @@ Directory::Directory(std::filesystem::path path) : _path(path) { update(); }
 void Directory::update() {
     _directories.clear();
     _files.clear();
+    if (_rootDirectory && _path == _rootDirectory->getPath())
+        _mapFiles.clear();
 
     for (const auto &subPath : std::filesystem::directory_iterator(_path)) {
         if (std::filesystem::is_directory(subPath)) {
             _directories.push_back(std::make_shared<Directory>(subPath));
         } else {
-            if (subPath.path().filename().string().at(0) != '.')
+            if (subPath.path().filename().string().at(0) != '.') {
                 _files.push_back(std::make_shared<File>(subPath));
+                _mapFiles[subPath.path()] = _files.back();
+            }
         }
     }
 }
@@ -59,5 +64,13 @@ void Directory::createFile(std::string name) {
     std::ofstream{newPath.c_str()};
     update();
 }
+
+void Directory::setRoot(std::shared_ptr<Directory> root) { _rootDirectory = root; }
+std::shared_ptr<Directory> Directory::getRoot() { return _rootDirectory; }
+
+std::shared_ptr<File> Directory::getFile(std::filesystem::path path) { return _mapFiles.at(path); }
+
+std::shared_ptr<Directory> Directory::_rootDirectory = nullptr;
+std::map<std::filesystem::path, std::shared_ptr<File>> Directory::_mapFiles = {};
 
 } // namespace shkyera

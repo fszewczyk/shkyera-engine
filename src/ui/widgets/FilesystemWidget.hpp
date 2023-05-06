@@ -34,7 +34,6 @@ class FilesystemWidget : public Widget {
     static constexpr float CONTENTS_ICON_SIZE = 64;
 
     std::shared_ptr<Directory> _currentDirectory;
-    std::shared_ptr<Directory> _projectDirectory;
 
     std::vector<std::shared_ptr<Directory>> _directoriesToDisplay;
     std::vector<std::shared_ptr<File>> _filesToDisplay;

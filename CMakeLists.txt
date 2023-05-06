@@ -6,7 +6,7 @@ set(CMAKE_BUILD_TYPE Debug)
 
 set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
@@ -33,7 +33,8 @@ add_library(
     src/ui/widgets/PropertiesWidget.cpp
     src/ui/widgets/FilesystemWidget.cpp
 
-    src/ui/components/TransformComponent.cpp
+    src/ui/components/TransformUIComponent.cpp
+    src/ui/components/ScriptUIComponent.cpp
 )
 
 add_library(
@@ -48,6 +49,9 @@ add_library(
     game
     src/game/Game.cpp
     src/game/GameObject.cpp
+    src/game/Component.cpp
+
+    src/game/components/ScriptComponent.cpp
 )
 
 add_executable(ShkyeraEngine src/main.cpp)

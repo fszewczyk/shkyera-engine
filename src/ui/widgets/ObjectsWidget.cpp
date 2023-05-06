@@ -1,7 +1,7 @@
 #include "imgui.h"
 #include <imgui_internal.h>
 
-#include "ui/components/TransformComponent.hpp"
+#include "ui/components/TransformUIComponent.hpp"
 #include "ui/widgets/ConsoleWidget.hpp"
 #include "ui/widgets/ObjectsWidget.hpp"
 #include "ui/widgets/PropertiesWidget.hpp"
@@ -28,14 +28,14 @@ void ObjectsWidget::drawCreate() {
             _game->addGameObject(std::make_shared<GameObject>("Empty"));
             _gameObjects = _game->getGameObjects();
             UIComponent::addComponentToObject(_gameObjects.back(),
-                                              std::make_shared<TransformComponent>("Transform", _gameObjects.back()));
+                                              std::make_shared<TransformUIComponent>("Transform", _gameObjects.back()));
             ConsoleWidget::logSuccess("Created Empty Object");
         }
         if (ImGui::Selectable("Fluid")) {
             _game->addGameObject(std::make_shared<GameObject>("Fluid"));
             _gameObjects = _game->getGameObjects();
             UIComponent::addComponentToObject(_gameObjects.back(),
-                                              std::make_shared<TransformComponent>("Transform", _gameObjects.back()));
+                                              std::make_shared<TransformUIComponent>("Transform", _gameObjects.back()));
             ConsoleWidget::logSuccess("Created Fluid");
         }
 
