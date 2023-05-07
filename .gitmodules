@@ -12,3 +12,7 @@
 [submodule "extern/stbi"]
 	path = extern/stbi
 	url = https://github.com/nothings/stb.git
+[submodule "extern/pybind11"]
+	path = extern/pybind11
+	url = ../../pybind/pybind11
+	branch = stable
