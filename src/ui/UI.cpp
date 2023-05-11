@@ -14,6 +14,7 @@
 #include "ui/widgets/ObjectsWidget.hpp"
 #include "ui/widgets/PreviewWidget.hpp"
 #include "ui/widgets/PropertiesWidget.hpp"
+#include "ui/widgets/SceneWidget.hpp"
 
 namespace shkyera {
 
@@ -80,7 +81,7 @@ void UI::initializeImgui() {
 
 void UI::initializeWidgets() {
     _widgets.emplace_back(std::make_unique<PropertiesWidget>("Properties"));
-    _widgets.emplace_back(std::make_unique<PreviewWidget>("Scene"));
+    _widgets.emplace_back(std::make_unique<SceneWidget>("Scene"));
     _widgets.emplace_back(std::make_unique<ConsoleWidget>("Console"));
 
     auto objectsWidget = std::make_unique<ObjectsWidget>("Objects");
