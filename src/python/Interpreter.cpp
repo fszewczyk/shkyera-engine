@@ -3,7 +3,7 @@
 
 #include <iostream>
 
-namespace shkyera::python {
+namespace shkyera::Python {
 
 py::module_ logger;
 py::module_ main;
@@ -47,14 +47,11 @@ void run() {
 
     try {
         initialize();
-
-        for (int i = 0; i < 1; ++i) {
-            main.attr("update")();
-            runLogger();
-        }
+        main.attr("update")();
+        runLogger();
     } catch (std::exception &error) {
-        ConsoleWidget::logError("Error occured: " + std::string(error.what()));
+        throw std::string(error.what());
     }
 }
 
-} // namespace shkyera::python
+} // namespace shkyera::Python

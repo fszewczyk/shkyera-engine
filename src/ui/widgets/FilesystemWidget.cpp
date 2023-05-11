@@ -138,7 +138,7 @@ void FilesystemWidget::drawFile(const std::shared_ptr<File> file) {
 
     if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_None)) {
         std::string fileName = file->getName();
-        std::string filePath = file->getPath();
+        std::string filePath = file->getPath().string();
 
         ImGui::Text(filePath.c_str());
         ImGui::SetDragDropPayload("DRAG_AND_DROP_SCRIPT", filePath.c_str(), filePath.length() * sizeof(char));

@@ -74,8 +74,9 @@ void ScriptUIComponent::drawScriptFile() {
 
     if (ImGui::BeginDragDropTarget()) {
         if (const ImGuiPayload *payload = ImGui::AcceptDragDropPayload("DRAG_AND_DROP_SCRIPT")) {
-            char payloadData[payload->DataSize];
-            memcpy(payloadData, payload->Data, payload->DataSize);
+            char payloadData[payload->DataSize + 1];
+            memset(payloadData, 0, payload->DataSize + 1);
+            memcpy(payloadData, (char *)payload->Data, payload->DataSize);
 
             std::string pathToScript(payloadData);
             std::filesystem::path path(pathToScript);

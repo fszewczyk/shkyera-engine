@@ -2,7 +2,4 @@ from . import logger
 
 
 def update():
-    logger.log_info("Info")
-    logger.log_error("Error")
-    logger.log_success("Success")
-    logger.log_verbose("Verbose")
+    logger.log_success("Success", 6, 9, 12, [1, 2, 3])
