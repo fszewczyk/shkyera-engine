@@ -50,6 +50,8 @@ class ScriptComponent : public Component {
 
     static void moveScripts();
 
+    inline static std::string SCRIPT_DESTINATION = "resources/scripts";
+
   private:
     static void verifyScripts();
 

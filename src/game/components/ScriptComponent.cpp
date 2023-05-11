@@ -38,7 +38,15 @@ std::shared_ptr<ScriptComponent> ScriptComponent::addScript(std::shared_ptr<Game
 void ScriptComponent::addScript(std::shared_ptr<ScriptComponent> script) { _scripts.push_back(script); }
 void ScriptComponent::removeScript(std::shared_ptr<ScriptComponent> script) { std::erase(_scripts, script); }
 
-void ScriptComponent::moveScripts() { verifyScripts(); }
+void ScriptComponent::moveScripts() {
+    verifyScripts();
+    for (auto script : _scripts) {
+        auto name = script->getFile()->getName();
+        auto sourcePath = script->getFile()->getPath();
+        auto destinationPath = std::filesystem::path(SCRIPT_DESTINATION) / name;
+        std::filesystem::copy(sourcePath, destinationPath);
+    }
+}
 
 void ScriptComponent::verifyScripts() {
     std::vector<std::shared_ptr<File>> scannedFiles;
