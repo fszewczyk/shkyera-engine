@@ -9,7 +9,7 @@ namespace shkyera {
 void TransformUIComponent::draw() {
     ImGui::Image((ImTextureID)Image::ICON_COMPONENT_TRANSFORM.getTextureId(), ImVec2(16, 16));
     ImGui::SameLine();
-    if (ImGui::TreeNode(_name.c_str())) {
+    if (ImGui::TreeNodeEx(_name.c_str(), ImGuiTreeNodeFlags_DefaultOpen)) {
         glm::vec3 &position = _object->getPosition();
         glm::vec3 &orientation = _object->getOrientation();
         glm::vec3 &scale = _object->getScale();

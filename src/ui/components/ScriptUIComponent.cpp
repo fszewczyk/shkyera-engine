@@ -17,13 +17,13 @@ void ScriptUIComponent::draw() {
     ImGui::SameLine();
 
     if (_script) {
-        if (ImGui::TreeNode((_script->getFile()->getName() + " (Script)").c_str())) {
+        if (ImGui::TreeNodeEx((_script->getFile()->getName() + " (Script)").c_str(), ImGuiTreeNodeFlags_DefaultOpen)) {
             drawScriptFile();
             drawVariables();
             ImGui::TreePop();
         }
     } else {
-        if (ImGui::TreeNode("Empty Script")) {
+        if (ImGui::TreeNodeEx("Empty Script", ImGuiTreeNodeFlags_DefaultOpen)) {
             drawScriptFile();
             ImGui::TreePop();
         }
