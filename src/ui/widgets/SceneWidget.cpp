@@ -1,6 +1,8 @@
 #include "imgui.h"
 #include <imgui_internal.h>
 
+#include <iostream>
+
 #include "game/components/ScriptComponent.hpp"
 #include "python/Interpreter.hpp"
 #include "ui/widgets/ConsoleWidget.hpp"
@@ -11,12 +13,8 @@ namespace shkyera {
 void SceneWidget::draw() {
     ImGui::Begin(_name.c_str());
     if (ImGui::Button("Python")) {
-        try {
-            ScriptComponent::moveScripts();
-            Python::run();
-        } catch (std::string &error) {
-            ConsoleWidget::logError(error);
-        }
+        ScriptComponent::moveScripts();
+        Python::run();
     }
     ImGui::End();
 }

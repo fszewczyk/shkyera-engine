@@ -9,6 +9,8 @@ py::module_ logger;
 py::module_ main;
 
 void runLogger() {
+    main.attr("update")();
+
     py::list info = logger.attr("get_info_logs")();
     py::list error = logger.attr("get_error_logs")();
     py::list success = logger.attr("get_success_logs")();
@@ -45,13 +47,8 @@ void initialize() {
 void run() {
     py::scoped_interpreter guard{};
 
-    try {
-        initialize();
-        main.attr("update")();
-        runLogger();
-    } catch (std::exception &error) {
-        throw std::string(error.what());
-    }
+    initialize();
+    runLogger();
 }
 
 } // namespace shkyera::Python
