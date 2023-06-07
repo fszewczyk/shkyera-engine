@@ -14,7 +14,7 @@ void SceneWidget::draw() {
     ImGui::Begin(_name.c_str());
     if (ImGui::Button("Python")) {
         ScriptComponent::moveScripts();
-        Python::run();
+        Python::start();
     }
     ImGui::End();
 }

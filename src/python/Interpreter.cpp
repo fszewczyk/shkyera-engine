@@ -2,19 +2,18 @@
 #include "ui/widgets/ConsoleWidget.hpp"
 
 #include <iostream>
+#include <thread>
 
 namespace shkyera::Python {
 
-py::module_ logger;
-py::module_ main;
+py::object _game;
+py::object _logger;
 
 void runLogger() {
-    main.attr("update")();
-
-    py::list info = logger.attr("get_info_logs")();
-    py::list error = logger.attr("get_error_logs")();
-    py::list success = logger.attr("get_success_logs")();
-    py::list verbose = logger.attr("get_verbose_logs")();
+    py::list info = _logger.attr("get_info_logs")();
+    py::list error = _logger.attr("get_error_logs")();
+    py::list success = _logger.attr("get_success_logs")();
+    py::list verbose = _logger.attr("get_verbose_logs")();
 
     for (py::handle message : info) {
         std::string toLog = message.attr("__str__")().cast<std::string>();
@@ -36,19 +35,30 @@ void runLogger() {
         ConsoleWidget::logVerbose(toLog);
     }
 
-    logger.attr("clear")();
+    _logger.attr("clear")();
 }
 
 void initialize() {
-    logger = py::module_::import("src.python.shkyera.logger");
-    main = py::module_::import("src.python.shkyera.shkyera");
+    _game = py::module_::import("src.python.shkyera.game").attr("Game")();
+    _logger = py::module_::import("src.python.shkyera.game");
 }
 
-void run() {
+void runGame() { _game.attr("update")(); }
+
+void startImplicit() {
     py::scoped_interpreter guard{};
 
     initialize();
-    runLogger();
+    while (true) {
+        runGame();
+        runLogger();
+    }
+}
+
+void start() {
+    std::thread game{startImplicit};
+    game.detach();
+    // game.join();
 }
 
 } // namespace shkyera::Python

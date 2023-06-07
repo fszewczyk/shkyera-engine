@@ -10,6 +10,7 @@ namespace shkyera::Python {
 
 const std::string MODULE = "src.python.shkyera";
 
-void run();
+void start();
+void stop();
 
 } // namespace shkyera::Python

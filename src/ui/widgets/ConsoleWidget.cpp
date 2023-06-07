@@ -85,26 +85,40 @@ void ConsoleWidget::enableVerbose() { _verbose = true; }
 void ConsoleWidget::disableVerbose() { _verbose = false; }
 
 void ConsoleWidget::logVerbose(std::string text) {
-    if (_verbose) {
+    size_t logSize = _totalVerbose + _totalSuccess + _totalInfo + _totalError;
+
+    if (_verbose && logSize < MAX_LOGS) {
         _logs.push_back(std::make_shared<LogVerbose>(text));
         _totalVerbose++;
     }
 }
 void ConsoleWidget::logInfo(std::string text) {
-    _logs.push_back(std::make_shared<LogInfo>(text));
-    _totalInfo++;
+    size_t logSize = _totalVerbose + _totalSuccess + _totalInfo + _totalError;
+
+    if (logSize < MAX_LOGS) {
+        _logs.push_back(std::make_shared<LogInfo>(text));
+        _totalInfo++;
+    }
 }
 void ConsoleWidget::logSuccess(std::string text) {
-    _logs.push_back(std::make_shared<LogSuccess>(text));
-    _totalSuccess++;
+    size_t logSize = _totalVerbose + _totalSuccess + _totalInfo + _totalError;
+
+    if (logSize < MAX_LOGS) {
+        _logs.push_back(std::make_shared<LogSuccess>(text));
+        _totalSuccess++;
+    }
 }
 void ConsoleWidget::logError(std::string text) {
-    _logs.push_back(std::make_shared<LogError>(text));
-    _totalError++;
+    size_t logSize = _totalVerbose + _totalSuccess + _totalInfo + _totalError;
+
+    if (logSize < MAX_LOGS) {
+        _logs.push_back(std::make_shared<LogError>(text));
+        _totalError++;
+    }
 }
 
-bool ConsoleWidget::_verbose = true;
 std::vector<std::shared_ptr<Log>> ConsoleWidget::_logs = {};
+bool ConsoleWidget::_verbose = true;
 
 size_t ConsoleWidget::_totalVerbose = 0;
 size_t ConsoleWidget::_totalInfo = 0;
