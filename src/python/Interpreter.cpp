@@ -1,46 +1,42 @@
 #include "python/Interpreter.hpp"
-#include "ui/widgets/ConsoleWidget.hpp"
+#include "python/Events.hpp"
 
 #include <iostream>
 #include <thread>
 
 namespace shkyera::Python {
 
+bool _currentlyRunning = false;
+
 py::object _game;
-py::object _logger;
+py::object _eventSystem;
 
-void runLogger() {
-    py::list info = _logger.attr("get_info_logs")();
-    py::list error = _logger.attr("get_error_logs")();
-    py::list success = _logger.attr("get_success_logs")();
-    py::list verbose = _logger.attr("get_verbose_logs")();
+typedef void (*eventHandler)(py::list);
+std::array<eventHandler, TOTAL_EVENTS> _eventHandlers;
 
-    for (py::handle message : info) {
-        std::string toLog = message.attr("__str__")().cast<std::string>();
-        ConsoleWidget::logInfo(toLog);
+void runEvents() {
+    py::list events = _eventSystem.attr("get")();
+
+    for (py::handle eventRef : events) {
+        std::tuple<py::object, py::object> event = eventRef.cast<std::tuple<py::object, py::object>>();
+
+        Event type = static_cast<Event>(std::get<0>(event).cast<int>());
+        py::list payload = std::get<1>(event).cast<py::list>();
+
+        (*_eventHandlers[type])(payload);
     }
 
-    for (py::handle message : error) {
-        std::string toLog = message.attr("__str__")().cast<std::string>();
-        ConsoleWidget::logError(toLog);
-    }
-
-    for (py::handle message : success) {
-        std::string toLog = message.attr("__str__")().cast<std::string>();
-        ConsoleWidget::logSuccess(toLog);
-    }
-
-    for (py::handle message : verbose) {
-        std::string toLog = message.attr("__str__")().cast<std::string>();
-        ConsoleWidget::logVerbose(toLog);
-    }
-
-    _logger.attr("clear")();
+    _eventSystem.attr("clear")();
 }
 
 void initialize() {
     _game = py::module_::import("src.python.shkyera.game").attr("Game")();
-    _logger = py::module_::import("src.python.shkyera.game");
+    _eventSystem = py::module_::import("src.python.shkyera.events");
+
+    _eventHandlers[LOG_INFO] = &processEvent<LOG_INFO>;
+    _eventHandlers[LOG_ERROR] = &processEvent<LOG_ERROR>;
+    _eventHandlers[LOG_SUCCESS] = &processEvent<LOG_SUCCESS>;
+    _eventHandlers[LOG_VERBOSE] = &processEvent<LOG_VERBOSE>;
 }
 
 void runGame() { _game.attr("update")(); }
@@ -49,16 +45,20 @@ void startImplicit() {
     py::scoped_interpreter guard{};
 
     initialize();
-    while (true) {
+    while (_currentlyRunning) {
         runGame();
-        runLogger();
+        runEvents();
     }
 }
 
 void start() {
-    std::thread game{startImplicit};
-    game.detach();
-    // game.join();
+    if (!_currentlyRunning) {
+        _currentlyRunning = true;
+        std::thread game{startImplicit};
+        game.detach();
+    }
 }
+
+void stop() { _currentlyRunning = false; }
 
 } // namespace shkyera::Python

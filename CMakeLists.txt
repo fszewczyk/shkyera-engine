@@ -62,6 +62,7 @@ add_library(
 add_library(
     python
     src/python/Interpreter.cpp
+    src/python/Events.cpp
 )
 
 add_executable(ShkyeraEngine src/main.cpp)

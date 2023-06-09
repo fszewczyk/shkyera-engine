@@ -12,9 +12,13 @@ namespace shkyera {
 
 void SceneWidget::draw() {
     ImGui::Begin(_name.c_str());
-    if (ImGui::Button("Python")) {
+    if (ImGui::Button("Start")) {
         ScriptComponent::moveScripts();
         Python::start();
+    }
+    if (ImGui::Button("Stop")) {
+        ScriptComponent::moveScripts();
+        Python::stop();
     }
     ImGui::End();
 }
