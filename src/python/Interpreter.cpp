@@ -37,6 +37,9 @@ void initialize() {
     _eventHandlers[LOG_ERROR] = &processEvent<LOG_ERROR>;
     _eventHandlers[LOG_SUCCESS] = &processEvent<LOG_SUCCESS>;
     _eventHandlers[LOG_VERBOSE] = &processEvent<LOG_VERBOSE>;
+
+    _eventHandlers[DRAW_CIRCLE] = &processEvent<DRAW_CIRCLE>;
+    _eventHandlers[DRAW_LINE] = &processEvent<DRAW_LINE>;
 }
 
 void runGame() { _game.attr("update")(); }

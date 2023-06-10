@@ -7,9 +7,8 @@ class Event(IntEnum):
     LOG_SUCCESS = 2
     LOG_VERBOSE = 3
 
-    COMPONENT_TRANSFORM = 4
-    COMPONENT_SCRIPT = 5
-    COMPONENT_RIGIDBODY = 6
+    DRAW_LINE = 4
+    DRAW_CIRCLE = 5
 
 
 events = []

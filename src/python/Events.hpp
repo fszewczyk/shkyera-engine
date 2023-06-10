@@ -14,12 +14,14 @@ enum Event : int {
     LOG_SUCCESS,
     LOG_VERBOSE,
 
+    DRAW_LINE,
+    DRAW_CIRCLE,
+
     TOTAL_EVENTS
 };
 
+template <typename T> std::vector<T> parsePayload(py::list payload);
 template <Event event> void processEvent(py::list payload);
-
-std::string payloadToString(py::list payload);
 
 } // namespace shkyera::Python
 
