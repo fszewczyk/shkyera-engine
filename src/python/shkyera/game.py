@@ -7,7 +7,5 @@ class Game():
         pass
 
     def update(self):
-        log_info(1)
-        log_error(2, 3, 1, "error", [1, 2])
-        draw_circle(1.1, 2.3, 3.1, -1.2)
-        draw_line(1, 2.3, -1.1, -1.2)
+        log_info("Sample info")
+        log_error("Sample error")
