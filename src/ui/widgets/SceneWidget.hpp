@@ -9,6 +9,10 @@ class SceneWidget : public Widget {
     using Widget::Widget;
 
     virtual void draw() override;
+
+  private:
+    void drawRuntime() const;
+    void drawScene() const;
 };
 
 } // namespace shkyera

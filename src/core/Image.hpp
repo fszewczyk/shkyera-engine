@@ -29,6 +29,9 @@ class Image {
     static Image ICON_FILES_IMAGE;
     static Image ICON_FILES_TEXT;
 
+    static Image ICON_BUTTON_PLAY;
+    static Image ICON_BUTTON_STOP;
+
   private:
     uint8_t *_data;
 

@@ -30,8 +30,8 @@ void runEvents() {
 }
 
 void initialize() {
-    _game = py::module_::import("src.python.shkyera.game").attr("Game")();
-    _eventSystem = py::module_::import("src.python.shkyera.events");
+    _game = py::module_::import((MODULE + "game").c_str()).attr("Game")();
+    _eventSystem = py::module_::import((MODULE + "events").c_str());
 
     _eventHandlers[LOG_INFO] = &processEvent<LOG_INFO>;
     _eventHandlers[LOG_ERROR] = &processEvent<LOG_ERROR>;
@@ -63,5 +63,7 @@ void start() {
 }
 
 void stop() { _currentlyRunning = false; }
+
+bool isRunning() { return _currentlyRunning; }
 
 } // namespace shkyera::Python

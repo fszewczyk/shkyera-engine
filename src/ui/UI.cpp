@@ -109,6 +109,9 @@ void UI::initializeAssets() {
     Image::ICON_FILES_IMAGE.updateTextureId();
     Image::ICON_FILES_PYTHON.updateTextureId();
     Image::ICON_FILES_TEXT.updateTextureId();
+
+    Image::ICON_BUTTON_PLAY.updateTextureId();
+    Image::ICON_BUTTON_STOP.updateTextureId();
 }
 
 void UI::styleImgui() {

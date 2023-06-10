@@ -8,9 +8,11 @@ namespace py = pybind11;
 
 namespace shkyera::Python {
 
-const std::string MODULE = "src.python.shkyera";
+const std::string MODULE = "src.python.shkyera.";
 
 void start();
 void stop();
+
+bool isRunning();
 
 } // namespace shkyera::Python
