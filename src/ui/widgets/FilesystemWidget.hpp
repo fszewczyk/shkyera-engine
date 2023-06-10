@@ -26,12 +26,8 @@ class FilesystemWidget : public Widget {
     void handleRightMouseClick();
     void drawCreateMenu() const;
 
-    bool askString(const std::string title, std::string &userInput);
-
     ImTextureID getTextureOfFile(const std::shared_ptr<File> file) const;
     static std::string getDisplayableName(std::string name, size_t maxCharactersInLine = 12);
-
-    static constexpr float CONTENTS_ICON_SIZE = 64;
 
     std::shared_ptr<Directory> _currentDirectory;
 
@@ -40,6 +36,7 @@ class FilesystemWidget : public Widget {
 
     bool _hoveredIcon;
 
+    static constexpr float CONTENTS_ICON_SIZE = 64;
     static std::string DEFAULT_FOLDER_NAME;
     static std::string DEFAULT_FILE_NAME;
 };

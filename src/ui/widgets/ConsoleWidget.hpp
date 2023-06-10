@@ -1,6 +1,7 @@
 #pragma once
 
 #include <memory>
+#include <mutex>
 #include <vector>
 
 #include "ui/Widget.hpp"
@@ -50,7 +51,6 @@ class ConsoleWidget : public Widget {
     using Widget::Widget;
 
     virtual void draw() override;
-
     static void clear();
 
     static void enableVerbose();
@@ -61,16 +61,18 @@ class ConsoleWidget : public Widget {
     static void logSuccess(std::string text);
     static void logError(std::string text);
 
+    static constexpr size_t MAX_LOGS = 50;
+
   private:
     void drawInfoBar() const;
-
-    static std::vector<std::shared_ptr<Log>> _logs;
-    static bool _verbose;
 
     static size_t _totalVerbose;
     static size_t _totalInfo;
     static size_t _totalSuccess;
     static size_t _totalError;
+
+    static std::vector<std::shared_ptr<Log>> _logs;
+    static bool _verbose;
 };
 
 } // namespace shkyera

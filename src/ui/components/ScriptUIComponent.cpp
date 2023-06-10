@@ -17,13 +17,13 @@ void ScriptUIComponent::draw() {
     ImGui::SameLine();
 
     if (_script) {
-        if (ImGui::TreeNode((_script->getFile()->getName() + " (Script)").c_str())) {
+        if (ImGui::TreeNodeEx((_script->getFile()->getName() + " (Script)").c_str(), ImGuiTreeNodeFlags_DefaultOpen)) {
             drawScriptFile();
             drawVariables();
             ImGui::TreePop();
         }
     } else {
-        if (ImGui::TreeNode("Empty Script")) {
+        if (ImGui::TreeNodeEx("Empty Script", ImGuiTreeNodeFlags_DefaultOpen)) {
             drawScriptFile();
             ImGui::TreePop();
         }
@@ -74,8 +74,11 @@ void ScriptUIComponent::drawScriptFile() {
 
     if (ImGui::BeginDragDropTarget()) {
         if (const ImGuiPayload *payload = ImGui::AcceptDragDropPayload("DRAG_AND_DROP_SCRIPT")) {
-            std::string pathToScript((char *)payload->Data);
+            char payloadData[payload->DataSize + 1];
+            memset(payloadData, 0, payload->DataSize + 1);
+            memcpy(payloadData, (char *)payload->Data, payload->DataSize);
 
+            std::string pathToScript(payloadData);
             std::filesystem::path path(pathToScript);
 
             replaceScript(path);

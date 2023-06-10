@@ -34,6 +34,11 @@ class ScriptComponent : public Component {
 
     const std::shared_ptr<File> getFile() const;
 
+    void addFloatVariable(std::string name);
+    void addIntVariable(std::string name);
+    void addStringVariable(std::string name);
+    void addVec3Variable(std::string name);
+
     std::vector<PublicFloat> &getFloatVariables();
     std::vector<PublicInt> &getIntVariables();
     std::vector<PublicString> &getStringVariables();
@@ -43,7 +48,13 @@ class ScriptComponent : public Component {
     static void addScript(std::shared_ptr<ScriptComponent> script);
     static void removeScript(std::shared_ptr<ScriptComponent> script);
 
+    static void moveScripts();
+
+    inline static std::string SCRIPT_DESTINATION = "resources/scripts";
+
   private:
+    static void verifyScripts();
+
     static std::vector<std::shared_ptr<ScriptComponent>> _scripts;
 
     std::shared_ptr<File> _file;
