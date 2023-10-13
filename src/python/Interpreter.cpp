@@ -2,11 +2,15 @@
 #include "python/Events.hpp"
 
 #include <iostream>
+#include <mutex>
 #include <thread>
 
 namespace shkyera::Python {
 
+std::mutex runningMutex;
+
 bool _currentlyRunning = false;
+bool _canRun = false;
 
 py::object _game;
 py::object _eventSystem;
@@ -38,7 +42,6 @@ void initialize() {
     _eventHandlers[LOG_SUCCESS] = &processEvent<LOG_SUCCESS>;
     _eventHandlers[LOG_VERBOSE] = &processEvent<LOG_VERBOSE>;
 
-    _eventHandlers[DRAW_CIRCLE] = &processEvent<DRAW_CIRCLE>;
     _eventHandlers[DRAW_LINE] = &processEvent<DRAW_LINE>;
 }
 
@@ -49,8 +52,14 @@ void startImplicit() {
 
     initialize();
     while (_currentlyRunning) {
-        runGame();
-        runEvents();
+        if (_canRun) {
+            runGame();
+            runEvents();
+
+            runningMutex.lock();
+            _canRun = false;
+            runningMutex.unlock();
+        }
     }
 }
 
@@ -60,6 +69,12 @@ void start() {
         std::thread game{startImplicit};
         game.detach();
     }
+}
+
+void allowRunning() {
+    runningMutex.lock();
+    _canRun = true;
+    runningMutex.unlock();
 }
 
 void stop() { _currentlyRunning = false; }

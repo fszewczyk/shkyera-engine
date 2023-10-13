@@ -4,6 +4,8 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
 
+#include "renderer/Renderer.hpp"
+
 namespace py = pybind11;
 
 namespace shkyera::Python {
@@ -15,7 +17,6 @@ enum Event : int {
     LOG_VERBOSE,
 
     DRAW_LINE,
-    DRAW_CIRCLE,
 
     TOTAL_EVENTS
 };
@@ -23,6 +24,6 @@ enum Event : int {
 template <typename T> std::vector<T> parsePayload(py::list payload);
 template <Event event> void processEvent(py::list payload);
 
-} // namespace shkyera::Python
+void setRenderer(std::shared_ptr<Renderer> renderer);
 
-#include "python/Events.inl"
+} // namespace shkyera::Python

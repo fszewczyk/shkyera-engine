@@ -7,6 +7,7 @@
 #include <GLFW/glfw3.h>
 
 #include "game/Game.hpp"
+#include "renderer/Renderer.hpp"
 #include "ui/Widget.hpp"
 
 namespace shkyera {
@@ -42,6 +43,7 @@ class UI {
     void initializeImgui();
     void initializeWidgets();
     void initializeAssets();
+    void initializeInterpreter();
     void styleImgui();
 
     void beginFrame();
@@ -49,6 +51,7 @@ class UI {
     void endFrame();
 
     std::shared_ptr<Game> _game;
+    std::shared_ptr<Renderer> _renderer;
 
     bool _open;
     GLFWwindow *_window;

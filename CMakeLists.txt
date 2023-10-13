@@ -60,6 +60,11 @@ add_library(
 )
 
 add_library(
+    renderer
+    src/renderer/Renderer.cpp
+)
+
+add_library(
     python
     src/python/Interpreter.cpp
     src/python/Events.cpp
@@ -82,6 +87,9 @@ target_include_directories(game PRIVATE
     src
     ${CMAKE_CURRENT_SOURCE_DIR}/extern/glm
 )
+target_include_directories(renderer PRIVATE 
+    src
+)
 target_include_directories(python PRIVATE 
     src
     ${CMAKE_CURRENT_SOURCE_DIR}/extern/pybind11/include
@@ -94,9 +102,15 @@ target_link_libraries(ui
     glad
     game
     python
+    renderer
 )
 target_link_libraries(game  
     core
+)
+target_link_libraries(renderer  
+    glfw 
+    glad
+    glm::glm
 )
 target_link_libraries(core 
     stb_image
@@ -107,6 +121,7 @@ target_link_libraries(core
 target_link_libraries(python 
     ${PYTHON_LIBRARIES}
     pybind11::embed
+    renderer
     ui
 )
 

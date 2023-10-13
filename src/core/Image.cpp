@@ -49,8 +49,6 @@ void Image::updateTextureId() {
     else
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, _width, _height, 0, GL_RGBA, GL_UNSIGNED_BYTE, _data);
 
-    glBindTexture(GL_TEXTURE_2D, textureId);
-
     _wasAssignedTextureId = true;
     _textureId = textureId;
 }

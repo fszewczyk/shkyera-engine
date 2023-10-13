@@ -12,6 +12,7 @@ const std::string MODULE = "src.python.shkyera.";
 
 void start();
 void stop();
+void allowRunning();
 
 bool isRunning();
 

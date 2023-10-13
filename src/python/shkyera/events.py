@@ -8,7 +8,6 @@ class Event(IntEnum):
     LOG_VERBOSE = 3
 
     DRAW_LINE = 4
-    DRAW_CIRCLE = 5
 
 
 events = []

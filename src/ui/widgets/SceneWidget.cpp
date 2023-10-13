@@ -11,6 +11,8 @@
 
 namespace shkyera {
 
+void SceneWidget::setRenderer(std::shared_ptr<Renderer> renderer) { _renderer = renderer; }
+
 void SceneWidget::draw() {
     ImGui::Begin(_name.c_str(), nullptr, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
 
@@ -25,7 +27,17 @@ void SceneWidget::draw() {
     ImGui::End();
 }
 
+void SceneWidget::adjustSize() {
+    _renderSize = ImGui::GetWindowSize();
+    _renderSize[0] -= 16;
+    _renderSize[1] -= 64;
+
+    _renderer->setDimension(_renderSize[0], _renderSize[1]);
+}
+
 void SceneWidget::drawRuntime() const {
+    _renderer->draw();
+
     ImGui::BeginDisabled();
     ImGui::ImageButton((ImTextureID)Image::ICON_BUTTON_PLAY.getTextureId(), ImVec2(16, 16));
     ImGui::EndDisabled();
@@ -36,14 +48,12 @@ void SceneWidget::drawRuntime() const {
         Python::stop();
     }
 
-    ImVec2 renderSize = ImGui::GetWindowSize();
-    renderSize[0] -= 16;
-    renderSize[1] -= 64;
-    ImGui::Image((ImTextureID)Image::ICON_FILES_FOLDER.getTextureId(), renderSize);
+    ImGui::Image((ImTextureID)_renderer->getTextureId(), _renderSize);
 }
 
-void SceneWidget::drawScene() const {
+void SceneWidget::drawScene() {
     if (ImGui::ImageButton((ImTextureID)Image::ICON_BUTTON_PLAY.getTextureId(), ImVec2(16, 16))) {
+        adjustSize();
         ScriptComponent::moveScripts();
         Python::start();
     }

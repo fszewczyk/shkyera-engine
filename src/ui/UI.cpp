@@ -8,6 +8,8 @@
 #include <imgui_internal.h>
 
 #include "core/Image.hpp"
+#include "python/Events.hpp"
+#include "python/Interpreter.hpp"
 #include "ui/UI.hpp"
 #include "ui/widgets/ConsoleWidget.hpp"
 #include "ui/widgets/FilesystemWidget.hpp"
@@ -26,8 +28,12 @@ void glfw_error_callback(int error, const char *description) {
 
 void UI::initialize() {
     initializeImgui();
+
+    _renderer = std::make_shared<Renderer>(_game);
+
     initializeWidgets();
     initializeAssets();
+    initializeInterpreter();
     styleImgui();
 }
 
@@ -81,7 +87,6 @@ void UI::initializeImgui() {
 
 void UI::initializeWidgets() {
     _widgets.emplace_back(std::make_unique<PropertiesWidget>("Properties"));
-    _widgets.emplace_back(std::make_unique<SceneWidget>("Scene"));
     _widgets.emplace_back(std::make_unique<ConsoleWidget>("Console"));
 
     auto objectsWidget = std::make_unique<ObjectsWidget>("Objects");
@@ -89,10 +94,12 @@ void UI::initializeWidgets() {
     _widgets.emplace_back(std::move(objectsWidget));
 
     auto assetsWidget = std::make_unique<FilesystemWidget>("Assets");
-
     assetsWidget->setDirectory("resources");
-
     _widgets.emplace_back(std::move(assetsWidget));
+
+    auto sceneWidget = std::make_unique<SceneWidget>("Scene");
+    sceneWidget->setRenderer(_renderer);
+    _widgets.emplace_back(std::move(sceneWidget));
 }
 
 void UI::initializeAssets() {
@@ -113,6 +120,8 @@ void UI::initializeAssets() {
     Image::ICON_BUTTON_PLAY.updateTextureId();
     Image::ICON_BUTTON_STOP.updateTextureId();
 }
+
+void UI::initializeInterpreter() { Python::setRenderer(_renderer); }
 
 void UI::styleImgui() {
     ImGuiIO &io = ImGui::GetIO();
@@ -251,6 +260,7 @@ void UI::renderFrame() {
     for (const auto &w : _widgets) {
         w->draw();
     }
+    Python::allowRunning();
 
     if (ImGui::BeginMainMenuBar()) {
         if (ImGui::BeginMenu("File")) {
@@ -291,7 +301,6 @@ void UI::draw() {
     if (_open) {
         beginFrame();
         renderFrame();
-        // ImGui::ShowDemoWindow();
         endFrame();
     } else {
         close();
