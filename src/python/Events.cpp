@@ -50,10 +50,12 @@ template <> void processEvent<LOG_VERBOSE>(py::list payload) {
 }
 
 template <> void processEvent<DRAW_LINE>(py::list payload) {
-    auto coords = parsePayload<int>(payload);
+    auto coords = parsePayload<float>(payload);
     int x1 = coords[0], y1 = coords[1], x2 = coords[2], y2 = coords[3];
 
     _eventRenderer->drawLine(x1, y1, x2, y2);
 }
+
+template <> void processEvent<DRAW_CLEAR>(py::list payload) { _eventRenderer->clear(); }
 
 } // namespace shkyera::Python

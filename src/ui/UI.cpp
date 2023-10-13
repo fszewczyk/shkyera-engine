@@ -1,5 +1,8 @@
+#include <chrono>
+#include <iostream>
 #include <stdio.h>
 #include <string>
+#include <thread>
 
 #include "imgui.h"
 #include <backends/imgui_impl_glfw.h>
@@ -260,6 +263,7 @@ void UI::renderFrame() {
     for (const auto &w : _widgets) {
         w->draw();
     }
+
     Python::allowRunning();
 
     if (ImGui::BeginMainMenuBar()) {

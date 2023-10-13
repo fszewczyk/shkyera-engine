@@ -16,14 +16,19 @@ class Renderer {
 
     void clear();
 
-    void drawLine(int x1, int y1, int x2, int y2);
+    void drawLine(int x0, int y0, int x1, int y1);
 
   private:
     void initializeTexture();
 
+    // Line Drawing Helper Functions
+    void drawLineLow(int x0, int y0, int x1, int y1);
+    void drawLineHigh(int x0, int y0, int x1, int y1);
+
     void setPixel(int x, int y, int r, int g, int b);
 
     uint8_t *_data = nullptr;
+    uint8_t *_deployData = nullptr;
     uint32_t _width;
     uint32_t _height;
 

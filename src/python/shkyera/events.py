@@ -8,6 +8,7 @@ class Event(IntEnum):
     LOG_VERBOSE = 3
 
     DRAW_LINE = 4
+    DRAW_CLEAR = 5
 
 
 events = []
@@ -22,4 +23,5 @@ def get():
 
 
 def clear():
+    global events
     events = []

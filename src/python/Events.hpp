@@ -17,6 +17,7 @@ enum Event : int {
     LOG_VERBOSE,
 
     DRAW_LINE,
+    DRAW_CLEAR,
 
     TOTAL_EVENTS
 };

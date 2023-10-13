@@ -11,7 +11,10 @@
 
 namespace shkyera {
 
-void SceneWidget::setRenderer(std::shared_ptr<Renderer> renderer) { _renderer = renderer; }
+void SceneWidget::setRenderer(std::shared_ptr<Renderer> renderer) {
+    _renderer = renderer;
+    Python::setInterpreterRenderer(_renderer);
+}
 
 void SceneWidget::draw() {
     ImGui::Begin(_name.c_str(), nullptr, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);

@@ -4,6 +4,8 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
 
+#include "renderer/Renderer.hpp"
+
 namespace py = pybind11;
 
 namespace shkyera::Python {
@@ -15,5 +17,7 @@ void stop();
 void allowRunning();
 
 bool isRunning();
+
+void setInterpreterRenderer(std::shared_ptr<Renderer> renderer);
 
 } // namespace shkyera::Python
