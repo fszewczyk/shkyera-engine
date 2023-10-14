@@ -41,6 +41,8 @@ class File {
      */
     std::string getName() const;
 
+    std::string getNameWithoutExtension() const;
+
     /**
      * @brief Get the type of the file.
      *

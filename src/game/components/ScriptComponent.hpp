@@ -47,6 +47,7 @@ class ScriptComponent : public Component {
     static std::shared_ptr<ScriptComponent> addScript(std::shared_ptr<GameObject> object, std::shared_ptr<File> file);
     static void addScript(std::shared_ptr<ScriptComponent> script);
     static void removeScript(std::shared_ptr<ScriptComponent> script);
+    static std::vector<std::shared_ptr<ScriptComponent>> getScripts();
 
     static void moveScripts();
 

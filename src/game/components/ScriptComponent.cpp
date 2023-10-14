@@ -1,6 +1,7 @@
 #include <set>
 
 #include "game/components/ScriptComponent.hpp"
+#include "python/StaticAnalysis.hpp"
 
 namespace shkyera {
 
@@ -10,10 +11,15 @@ void ScriptComponent::setFile(std::shared_ptr<File> file) {
 }
 
 void ScriptComponent::update() {
-    _floatVariables.push_back({"Floating", 4.0f});
-    _intVariables.push_back({"Integer", 4});
-    _stringVariables.push_back({"Text", ""});
-    _vec3Variables.push_back({"Vector 3", {0, 0, 0}});
+    _intVariables.clear();
+
+    std::vector<std::pair<std::string, Python::PYTHON_TYPE>> publicVars =
+        Python::getPublicVariables(_file->getNameWithoutExtension());
+
+    for (auto [name, type] : publicVars) {
+        _intVariables.push_back({name, 0});
+        /// TODO: Implement more types
+    }
 }
 
 const std::shared_ptr<File> ScriptComponent::getFile() const { return _file; }
@@ -38,13 +44,17 @@ std::shared_ptr<ScriptComponent> ScriptComponent::addScript(std::shared_ptr<Game
 void ScriptComponent::addScript(std::shared_ptr<ScriptComponent> script) { _scripts.push_back(script); }
 void ScriptComponent::removeScript(std::shared_ptr<ScriptComponent> script) { std::erase(_scripts, script); }
 
+std::vector<std::shared_ptr<ScriptComponent>> ScriptComponent::getScripts() { return _scripts; }
+
 void ScriptComponent::moveScripts() {
     verifyScripts();
     for (auto script : _scripts) {
         auto name = script->getFile()->getName();
         auto sourcePath = script->getFile()->getPath();
         auto destinationPath = std::filesystem::path(SCRIPT_DESTINATION) / name;
-        std::filesystem::copy(sourcePath, destinationPath);
+
+        if (destinationPath != sourcePath)
+            std::filesystem::copy(sourcePath, destinationPath, std::filesystem::copy_options::overwrite_existing);
     }
 }
 

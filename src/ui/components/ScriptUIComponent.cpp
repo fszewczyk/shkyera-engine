@@ -95,6 +95,9 @@ void ScriptUIComponent::drawVariables() {
     if (_script == nullptr)
         return;
 
+    if (ImGui::Button("Reload", ImVec2(-1, 0)))
+        _script->update();
+
     auto &floatVariables = _script->getFloatVariables();
     auto &intVariables = _script->getIntVariables();
     auto &stringVariables = _script->getStringVariables();

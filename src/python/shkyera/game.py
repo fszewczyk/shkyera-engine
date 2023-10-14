@@ -6,12 +6,14 @@ from .physics import *
 
 class Game():
     def __init__(self):
-        pass
+        self.objects = []
         self.strings = [String(i+0.5, 1.0, i, 0.3 + 0.1 * i, 7)
                         for i in range(4)]
 
     def update(self):
-        pass
+        for obj in self.objects:
+            obj.update()
+
         draw_clear()
 
         for j, s in enumerate(self.strings):
@@ -21,3 +23,6 @@ class Game():
                           200 * particles[i][0], 200 * particles[i][1])
 
             self.strings[j].step()
+
+    def add_object(self, obj):
+        self.objects.append(obj)

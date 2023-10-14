@@ -1,4 +1,5 @@
 #include "python/Interpreter.hpp"
+#include "game/components/ScriptComponent.hpp"
 #include "python/Events.hpp"
 
 #include <iostream>
@@ -39,7 +40,15 @@ void runEvents() {
 }
 
 void initialize() {
-    _game = py::module_::import((MODULE + "game").c_str());
+    _game = py::module_::import((MODULE + "game").c_str()).attr("Game")();
+    std::vector<std::shared_ptr<ScriptComponent>> customScripts = ScriptComponent::getScripts();
+    for (std::shared_ptr<ScriptComponent> script : customScripts) {
+        std::string modulePath = "resources.scripts." + script->getFile()->getNameWithoutExtension();
+        std::cerr << modulePath << '\n';
+        py::object customObject = py::module_::import(modulePath.c_str()).attr("Object")();
+        _game.attr("add_object")(customObject);
+    }
+
     _eventSystem = py::module_::import((MODULE + "events").c_str());
 
     _eventHandlers[LOG_INFO] = &processEvent<LOG_INFO>;
@@ -49,8 +58,6 @@ void initialize() {
 
     _eventHandlers[DRAW_LINE] = &processEvent<DRAW_LINE>;
     _eventHandlers[DRAW_CLEAR] = &processEvent<DRAW_CLEAR>;
-
-    _game = _game.attr("Game")();
 }
 
 void runGame() { _game.attr("update")(); }
@@ -62,7 +69,6 @@ void startImplicit() {
 
     while (_currentlyRunning) {
         if (_canRun) {
-
             runGame();
             runEvents();
 
