@@ -6,13 +6,13 @@ Shkyera Engine is an open-source game engine written in C++, designed to allow P
 
 See the [documentation](https://fszewczyk.github.io/shkyera-engine) for a comprehensive guide and tutorials.
 
-## Requirements
+Requirements
 
 1. [Python](https://www.python.org/)
 2. [CMake](https://cmake.org/)
 3. Compiler supporting C++17, e.g. [Clang 5](https://releases.llvm.org/download.html)
 
-## Get Started
+Get Started
 
 Download the repository with its submodules.
 

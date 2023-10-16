@@ -86,7 +86,7 @@ class Object(ShkyeraObject):
 
 @warning The above code cannot be changed! We have to import `ShkyeraObject` as shown. Our class needs to inherit `ShkyeraObject`, it needs to be named `Object` and it has to contain methods called `setup` and `update`.
 
-The `setup` method is executed exactly once, at the intialization of the program. In our game, we want to pring a message to console. This is easily done with the `logger` module. All you need to do is to import it at the top of the file.
+The `setup` method is executed exactly once, at the intialization of the program. In our game, we want to print a message to console. This is easily done with the `logger` module. All you need to do is to import it at the top of the file.
 
 ```
 from .lib.logger import *
@@ -100,7 +100,7 @@ def setup(self):
     log_success("Hello world!")
 ```
 
-We do not our object to do anything at each frame, so we define our `update` function to do nothing.
+We want our object to remain idle, so we define our `update` function to do nothing.
 
 ```
 def update(self):
@@ -122,7 +122,7 @@ Let's test our program! Press `▷` in the `Scene` widget. You should see the `H
 ![Console](../img/console.png)
 </div>
 
-There are multiple types of logs. For our message, we used the once representing success. If you want to show different messages, use `log_error`, `log_info` and `log_verbose` in your scripts.
+There are multiple types of logs. For our message, we used the one representing success. If you want to show different messages, use `log_error`, `log_info` and `log_verbose` in your scripts.
 
 Congrats! You have just made your first program in Shkyera Engine. But wait, we can do more! What if we want to have a custom message? And what if we want to print this message exactly 17 times? To answer this important question, we present to you: _public variables_!
 

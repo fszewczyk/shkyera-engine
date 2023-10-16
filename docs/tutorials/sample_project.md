@@ -56,7 +56,7 @@ def update(self):
     self.rope.draw()
 
     # Progresses the simulation by one timestep
-    # If we did not call, this the rope would stay in place. Try for yourself :)
+    # If we did not call this, the rope would stay in place. Try for yourself :)
     self.rope.step()
 ```
 
