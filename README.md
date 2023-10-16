@@ -1,5 +1,18 @@
 ![Shkyera Engine](docs/img/title_img.png)
 
+<div align="center">
+ 
+<div>
+  
+![Documentation](https://github.com/fszewczyk/shkyera-engine/actions/workflows/doxygen.yml/badge.svg) 
+![LinuxBuild](https://github.com/fszewczyk/shkyera-engine/actions/workflows/linux.yml/badge.svg) 
+![MacOSBuild](https://github.com/fszewczyk/shkyera-engine/actions/workflows/macos.yml/badge.svg) 
+[![LICENSE](https://img.shields.io/badge/license-Beerware-yellow)](LICENSE) 
+  
+</div>
+
+</div>
+
 _Under development. See the progress [here](https://trello.com/b/mVROG8st/shkyera-engine)_
 
 Shkyera Engine is an open-source game engine written in C++, designed to allow Python programmers to create visual applications. The engine's goal is to create a very easy interface that allows for reading user input, creating physical simulations and basic rendering.
