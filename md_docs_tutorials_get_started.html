@@ -131,20 +131,20 @@ Installation</h1>
 </div><!-- fragment --><p>This will make <code>build.sh</code> an executable. Now, we can easily build and run the project in the following way:</p>
 <div class="fragment"><div class="line">./build.sh -r</div>
 </div><!-- fragment --><p>This can take a while, but the project should compile and you should see a window that looks somewhat like this.</p>
-<p><img src="../img/empty_window.png" alt="Default Window" class="inline"/></p>
+<p><img src="empty_window.png" alt="" class="inline" title="Default Window"/></p>
 <p>Nice! Now we can start building things!</p>
 <h1><a class="anchor" id="autotoc_md2"></a>
 Hello world!</h1>
 <p>We will begin by creating a simple program that writed <code>Hello world!</code> to the console.</p>
 <p>On the top-left, in the <code>Objects</code> widget, click <code>Create</code> and then <code>Empty Object</code>.</p>
-<div align="center"> <img src="../img/create_object.png" alt="Create object" class="inline"/> </div><p>This will create a new empty object called <code>Empty</code>, which is visible in the same widget. You can create as many objects as you want. Internally, they all have unique identifiers, so do not worry about them having the same name.</p>
+<div align="center"> <img src="create_object.png" alt="" class="inline" title="Create object"/> </div><p>This will create a new empty object called <code>Empty</code>, which is visible in the same widget. You can create as many objects as you want. Internally, they all have unique identifiers, so do not worry about them having the same name.</p>
 <p>To launch the game, press the <code>▷</code> button in the top-middle, <code>Scene</code> widget.</p>
-<div align="center"> <img src="../img/scene_empty.png" alt="Empty Scene" class="inline"/> </div><p>Wait, we see nothing. Kinda lame. That's okay, let's stop the runtime using <code>□</code> button. We can continue to add some functionality to our boring object.</p>
+<div align="center"> <img src="scene_empty.png" alt="" class="inline" title="Empty Scene"/> </div><p>Wait, we see nothing. Kinda lame. That's okay, let's stop the runtime using <code>□</code> button. We can continue to add some functionality to our boring object.</p>
 <p>Click the <code>Empty</code> object. Now, the <code>Properties</code> widget displays all the information about that Object. We can see its name, as well as components. You can think of a component as a small piece of functionality that we can attach to objects. So far, our object only has a <code>Transform</code> component, which holds information about its position, orientation and scale.</p>
 <dl class="section note"><dt>Note</dt><dd>Even though the <code>Transform</code> component has three dimensions, we do not support 3D concepts yet. We also do not support rotating or scaling. So only the <code>X</code> and <code>Y</code> positions are used. Yeeee, we do not really support a lot of features yet.</dd></dl>
-<div align="center"> <img src="../img/properties.png" alt="Properties Widget" class="inline"/> </div><p>To add custom functionality, we need to add a <code>Script</code> component. To do so, click <code>New Component</code> and select <code>Script</code>. In the bottom, <code>Assets</code> widget, you can go through the file system, by clicking through the visible folders. If you want to create new folders and files, feel free to do so! Just click the right mouse button and select an appropriate option.</p>
+<div align="center"> <img src="properties.png" alt="" class="inline" title="Properties Widget"/> </div><p>To add custom functionality, we need to add a <code>Script</code> component. To do so, click <code>New Component</code> and select <code>Script</code>. In the bottom, <code>Assets</code> widget, you can go through the file system, by clicking through the visible folders. If you want to create new folders and files, feel free to do so! Just click the right mouse button and select an appropriate option.</p>
 <p>Let's create a script. Click right mouse button, select <code>New File</code>, leave the default file name and click <code>Create</code>.</p>
-<div align="center"> <img src="../img/assets.png" alt="Assets" class="inline"/> </div><p>Open the newly created file in your favorite editor. Unfortunately, Shkyera Engine does not support doing it directly from the app yet. Paste the code below into the editor.</p>
+<div align="center"> <img src="assets.png" alt="" class="inline" title="Assets"/> </div><p>Open the newly created file in your favorite editor. Unfortunately, Shkyera Engine does not support doing it directly from the app yet. Paste the code below into the editor.</p>
 <div class="fragment"><div class="line"># Imports the boiler-plate object</div>
 <div class="line">from .lib.object import ShkyeraObject</div>
 <div class="line"> </div>
@@ -166,9 +166,9 @@ Hello world!</h1>
 <div class="line">    # This part will be executed at each frame (approximately 60 times a second)</div>
 <div class="line">    pass</div>
 </div><!-- fragment --><p>Save the file and come back to Shkyera Engine app. Make sure the properties of <code>Empty</code> are visible and that you can see the <code>Script</code> component. Now, drag and drop the file we just created.</p>
-<div align="center"> <img src="../img/drag_script.gif" alt="Drag Script" class="inline"/> </div><p>Do not worry about the <code>Reload</code> button for now. We will come back to it later. Enter the <code>Console</code> widget at the bottom of the screen. This widget holds all the information that either you or the engine decided to show on the screen. Both your logs and the errors are shown here. So far, we can only see a message that our <code>Empty</code> object was successfully created.</p>
+<div align="center"> <img src="drag_script.gif" alt="" class="inline" title="Drag Script"/> </div><p>Do not worry about the <code>Reload</code> button for now. We will come back to it later. Enter the <code>Console</code> widget at the bottom of the screen. This widget holds all the information that either you or the engine decided to show on the screen. Both your logs and the errors are shown here. So far, we can only see a message that our <code>Empty</code> object was successfully created.</p>
 <p>Let's test our program! Press <code>▷</code> in the <code>Scene</code> widget. You should see the <code>Hello world!</code> message pop up in the console. You can use <code>Clear</code> button to remove all the message from the <code>Console</code>.</p>
-<div align="center"> <img src="../img/console.png" alt="Console" class="inline"/> </div><p>There are multiple types of logs. For our message, we used the one representing success. If you want to show different messages, use <code>log_error</code>, <code>log_info</code> and <code>log_verbose</code> in your scripts.</p>
+<div align="center"> <img src="console.png" alt="" class="inline" title="Console"/> </div><p>There are multiple types of logs. For our message, we used the one representing success. If you want to show different messages, use <code>log_error</code>, <code>log_info</code> and <code>log_verbose</code> in your scripts.</p>
 <p>Congrats! You have just made your first program in Shkyera Engine. But wait, we can do more! What if we want to have a custom message? And what if we want to print this message exactly 17 times? To answer this important question, we present to you: <em>public variables</em>!</p>
 <h1><a class="anchor" id="autotoc_md3"></a>
 Public Variables</h1>
@@ -183,8 +183,8 @@ Public Variables</h1>
 <div class="line">        log_info(self.Message)</div>
 </div><!-- fragment --><dl class="section note"><dt>Note</dt><dd>Remember to use the <code>self.</code> prefix before you try to access member variables.</dd></dl>
 <p>Now, if we go back to Shkyera Engine and press <code>Reload</code> on the <code>Script</code> component, we should see the fields that allow us to alter the values of the public variables. Let's set these values. To set the <code>Number</code>, you can hold and drag the purple field or double-click it and type the number manually. The <code>Message</code> can be set by typing inside the corresponding purple field. Let's set <code>Number</code> to some positive value and define some <code>Message</code>.</p>
-<div align="center"> <img src="../img/public_vars.png" alt="Public Variables" class="inline"/> </div><p>If we <code>Clear</code> the <code>Console</code> widget and run the program using the <code>▷</code> button, we should see our <code>Message</code> be logged exactly <code>Number</code> amount of times.</p>
-<div align="center"> <img src="../img/console_multiple.png" alt="Console Widget" class="inline"/> </div><p>Congrats! You got the basics. Feel free to go to the <b>Sample Projects</b> tab and follow along to learn more advanced concepts. </p>
+<div align="center"> <img src="public_vars.png" alt="" class="inline" title="Public Variables"/> </div><p>If we <code>Clear</code> the <code>Console</code> widget and run the program using the <code>▷</code> button, we should see our <code>Message</code> be logged exactly <code>Number</code> amount of times.</p>
+<div align="center"> <img src="console_multiple.png" alt="" class="inline" title="Console Widget"/> </div><p>Congrats! You got the basics. Feel free to go to the <b>Sample Projects</b> tab and follow along to learn more advanced concepts. </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
