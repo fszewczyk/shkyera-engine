@@ -1,5 +1,6 @@
 #include "renderer/Renderer.hpp"
 
+#include <cstring>
 #include <fstream>
 #include <iostream>
 #include <mutex>
