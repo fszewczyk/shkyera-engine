@@ -23,7 +23,7 @@ Requirements
 
 1. [Python](https://www.python.org/)
 2. [CMake](https://cmake.org/)
-3. Compiler supporting C++20, e.g. [Clang 5](https://releases.llvm.org/download.html)
+3. Compiler supporting C++17, e.g. [Clang 5](https://releases.llvm.org/download.html)
 
 Download the repository with its submodules.
 
