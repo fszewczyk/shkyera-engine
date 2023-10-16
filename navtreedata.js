@@ -25,16 +25,15 @@
 var NAVTREE =
 [
   [ "Shkyera Engine", "index.html", [
-    [ "Shkyera Engine", "index.html#autotoc_md0", null ],
     [ "Get Started!", "md_docs_tutorials_get_started.html", [
-      [ "Installation", "md_docs_tutorials_get_started.html#autotoc_md2", null ],
-      [ "Hello world!", "md_docs_tutorials_get_started.html#autotoc_md3", null ],
-      [ "Public Variables", "md_docs_tutorials_get_started.html#autotoc_md4", null ]
+      [ "Installation", "md_docs_tutorials_get_started.html#autotoc_md1", null ],
+      [ "Hello world!", "md_docs_tutorials_get_started.html#autotoc_md2", null ],
+      [ "Public Variables", "md_docs_tutorials_get_started.html#autotoc_md3", null ]
     ] ],
     [ "Sample Project", "md_docs_tutorials_sample_project.html", [
-      [ "Set up", "md_docs_tutorials_sample_project.html#autotoc_md6", null ],
-      [ "Physics", "md_docs_tutorials_sample_project.html#autotoc_md7", null ],
-      [ "Keyboard Input", "md_docs_tutorials_sample_project.html#autotoc_md8", null ]
+      [ "Set up", "md_docs_tutorials_sample_project.html#autotoc_md5", null ],
+      [ "Physics", "md_docs_tutorials_sample_project.html#autotoc_md6", null ],
+      [ "Keyboard Input", "md_docs_tutorials_sample_project.html#autotoc_md7", null ]
     ] ],
     [ "Namespaces", "namespaces.html", [
       [ "Namespace List", "namespaces.html", "namespaces_dup" ],
@@ -62,7 +61,7 @@ var NAVTREEINDEX =
 [
 "____init_____8py.html",
 "classshkyera_1_1_objects_widget.html#ac0fd0f160c2f12e728982c8b8b85476d",
-"namespaceshkyera_1_1_python.html#a705fb4666c51ce85a7231cd9e2164196"
+"namespaceshkyera_1_1_python.html#a707d52b85c0c2a6a694eba78dd62f94e"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
