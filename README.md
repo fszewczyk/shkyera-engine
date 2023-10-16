@@ -14,8 +14,6 @@ Requirements
 2. [CMake](https://cmake.org/)
 3. Compiler supporting C++17, e.g. [Clang 5](https://releases.llvm.org/download.html)
 
-Get Started
-
 Download the repository with its submodules.
 
 ```
