@@ -8,16 +8,27 @@ on:
 
 jobs:
   build:
-    name: Build
-    runs-on: ubuntu-latest
+    name: ${{ matrix.conf.name }} - Build
+    runs-on: ${{ matrix.conf.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        conf:
+          - { name: "Ubuntu g++", os: ubuntu-latest, compiler: "g++" }
+          - { name: "Ubuntu clang++", os: ubuntu-latest, compiler: "clang++" }
+
     steps:
       - name: Checkout
         uses: actions/checkout@v2
 
+      - name: Update submodules
+        run: git submodule update --init --recursive
+
+      - name: Dependencies on Ubuntu
+        if: startsWith(matrix.conf.os, 'ubuntu')
+        run: sudo apt-get update && sudo apt-get install xorg-dev
+
       - name: Build
         env:
-          CXX: g++
-        run: |
-          git submodule update --init --recursive
-          chmod +x build.sh
-          ./build.sh
+          CXX: ${{matrix.conf.compiler}}
+        run: ./build.sh
