@@ -1,3 +1,5 @@
+![Shkyera Engine](docs/img/title_img.png)
+
 # Shkyera Engine
 
 _Under development. See the progress [here](https://trello.com/b/mVROG8st/shkyera-engine)_
