@@ -47,4 +47,4 @@ This can take a while, but the project should compile and you should see a windo
 
 ![Default Window](docs/img/empty_window.png)
 
-Follow the tutorials in the [documentation](https://fszewczyk.github.io/shkyera-engine) to learn more about Shkyera Engine capabilities.
+Follow the tutorials in the [documentation]([https://fszewczyk.github.io/shkyera-engine/md_docs_tutorials_get_started.html) to learn more about Shkyera Engine capabilities.
