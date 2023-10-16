@@ -107,6 +107,7 @@ target_link_libraries(ui
 )
 target_link_libraries(game  
     core
+    python
 )
 target_link_libraries(renderer  
     glfw 
