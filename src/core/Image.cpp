@@ -49,8 +49,6 @@ void Image::updateTextureId() {
     else
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, _width, _height, 0, GL_RGBA, GL_UNSIGNED_BYTE, _data);
 
-    glBindTexture(GL_TEXTURE_2D, textureId);
-
     _wasAssignedTextureId = true;
     _textureId = textureId;
 }
@@ -70,5 +68,8 @@ Image Image::ICON_FILES_FOLDER = Image("resources/icons/files/folder.png");
 Image Image::ICON_FILES_PYTHON = Image("resources/icons/files/python.png");
 Image Image::ICON_FILES_IMAGE = Image("resources/icons/files/image.png");
 Image Image::ICON_FILES_TEXT = Image("resources/icons/files/text.png");
+
+Image Image::ICON_BUTTON_PLAY = Image("resources/icons/buttons/play.png");
+Image Image::ICON_BUTTON_STOP = Image("resources/icons/buttons/stop.png");
 
 } // namespace shkyera

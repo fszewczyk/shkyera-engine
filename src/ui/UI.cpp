@@ -1,5 +1,8 @@
+#include <chrono>
+#include <iostream>
 #include <stdio.h>
 #include <string>
+#include <thread>
 
 #include "imgui.h"
 #include <backends/imgui_impl_glfw.h>
@@ -8,6 +11,8 @@
 #include <imgui_internal.h>
 
 #include "core/Image.hpp"
+#include "python/Events.hpp"
+#include "python/Interpreter.hpp"
 #include "ui/UI.hpp"
 #include "ui/widgets/ConsoleWidget.hpp"
 #include "ui/widgets/FilesystemWidget.hpp"
@@ -26,8 +31,12 @@ void glfw_error_callback(int error, const char *description) {
 
 void UI::initialize() {
     initializeImgui();
+
+    _renderer = std::make_shared<Renderer>(_game);
+
     initializeWidgets();
     initializeAssets();
+    initializeInterpreter();
     styleImgui();
 }
 
@@ -81,7 +90,6 @@ void UI::initializeImgui() {
 
 void UI::initializeWidgets() {
     _widgets.emplace_back(std::make_unique<PropertiesWidget>("Properties"));
-    _widgets.emplace_back(std::make_unique<SceneWidget>("Scene"));
     _widgets.emplace_back(std::make_unique<ConsoleWidget>("Console"));
 
     auto objectsWidget = std::make_unique<ObjectsWidget>("Objects");
@@ -89,10 +97,12 @@ void UI::initializeWidgets() {
     _widgets.emplace_back(std::move(objectsWidget));
 
     auto assetsWidget = std::make_unique<FilesystemWidget>("Assets");
-
     assetsWidget->setDirectory("resources");
-
     _widgets.emplace_back(std::move(assetsWidget));
+
+    auto sceneWidget = std::make_unique<SceneWidget>("Scene");
+    sceneWidget->setRenderer(_renderer);
+    _widgets.emplace_back(std::move(sceneWidget));
 }
 
 void UI::initializeAssets() {
@@ -109,7 +119,12 @@ void UI::initializeAssets() {
     Image::ICON_FILES_IMAGE.updateTextureId();
     Image::ICON_FILES_PYTHON.updateTextureId();
     Image::ICON_FILES_TEXT.updateTextureId();
+
+    Image::ICON_BUTTON_PLAY.updateTextureId();
+    Image::ICON_BUTTON_STOP.updateTextureId();
 }
+
+void UI::initializeInterpreter() { Python::setRenderer(_renderer); }
 
 void UI::styleImgui() {
     ImGuiIO &io = ImGui::GetIO();
@@ -249,6 +264,8 @@ void UI::renderFrame() {
         w->draw();
     }
 
+    Python::allowRunning();
+
     if (ImGui::BeginMainMenuBar()) {
         if (ImGui::BeginMenu("File")) {
             if (ImGui::MenuItem("Open Project", "Ctrl+O")) {
@@ -288,7 +305,6 @@ void UI::draw() {
     if (_open) {
         beginFrame();
         renderFrame();
-        // ImGui::ShowDemoWindow();
         endFrame();
     } else {
         close();

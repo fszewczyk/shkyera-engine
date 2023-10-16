@@ -5,6 +5,7 @@
 
 #include "core/Filesystem.hpp"
 #include "core/Image.hpp"
+#include "python/Interpreter.hpp"
 #include "ui/UI.hpp"
 #include "ui/components/ScriptUIComponent.hpp"
 #include "ui/widgets/ConsoleWidget.hpp"
@@ -94,6 +95,13 @@ void ScriptUIComponent::drawScriptFile() {
 void ScriptUIComponent::drawVariables() {
     if (_script == nullptr)
         return;
+
+    if (ImGui::Button("Reload", ImVec2(-1, 0))) {
+        if (Python::isRunning())
+            ConsoleWidget::logError("Cannot reload script while running.");
+        else
+            _script->update();
+    }
 
     auto &floatVariables = _script->getFloatVariables();
     auto &intVariables = _script->getIntVariables();

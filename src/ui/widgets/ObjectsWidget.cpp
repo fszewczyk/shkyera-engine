@@ -31,13 +31,6 @@ void ObjectsWidget::drawCreate() {
                                               std::make_shared<TransformUIComponent>("Transform", _gameObjects.back()));
             ConsoleWidget::logSuccess("Created Empty Object");
         }
-        if (ImGui::Selectable("Fluid")) {
-            _game->addGameObject(std::make_shared<GameObject>("Fluid"));
-            _gameObjects = _game->getGameObjects();
-            UIComponent::addComponentToObject(_gameObjects.back(),
-                                              std::make_shared<TransformUIComponent>("Transform", _gameObjects.back()));
-            ConsoleWidget::logSuccess("Created Fluid");
-        }
 
         ImGui::EndPopup();
     }

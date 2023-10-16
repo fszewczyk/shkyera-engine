@@ -1,6 +1,8 @@
+#include <iostream>
 #include <set>
 
 #include "game/components/ScriptComponent.hpp"
+#include "python/StaticAnalysis.hpp"
 
 namespace shkyera {
 
@@ -10,10 +12,30 @@ void ScriptComponent::setFile(std::shared_ptr<File> file) {
 }
 
 void ScriptComponent::update() {
-    _floatVariables.push_back({"Floating", 4.0f});
-    _intVariables.push_back({"Integer", 4});
-    _stringVariables.push_back({"Text", ""});
-    _vec3Variables.push_back({"Vector 3", {0, 0, 0}});
+    moveScript();
+
+    _intVariables.clear();
+    _floatVariables.clear();
+    _stringVariables.clear();
+    _vec3Variables.clear();
+
+    std::vector<std::pair<std::string, Python::PYTHON_TYPE>> publicVars =
+        Python::getPublicVariables(_file->getNameWithoutExtension());
+
+    for (auto [name, type] : publicVars) {
+        switch (type) {
+        case Python::INT:
+            _intVariables.push_back({name, 0});
+            break;
+        case Python::FLOAT:
+            _floatVariables.push_back({name, 0.0f});
+            break;
+        case Python::STRING:
+            _stringVariables.push_back({name, ""});
+            break;
+        }
+        /// TODO: Implement more types
+    }
 }
 
 const std::shared_ptr<File> ScriptComponent::getFile() const { return _file; }
@@ -38,14 +60,22 @@ std::shared_ptr<ScriptComponent> ScriptComponent::addScript(std::shared_ptr<Game
 void ScriptComponent::addScript(std::shared_ptr<ScriptComponent> script) { _scripts.push_back(script); }
 void ScriptComponent::removeScript(std::shared_ptr<ScriptComponent> script) { std::erase(_scripts, script); }
 
+std::vector<std::shared_ptr<ScriptComponent>> ScriptComponent::getScripts() { return _scripts; }
+
 void ScriptComponent::moveScripts() {
     verifyScripts();
     for (auto script : _scripts) {
-        auto name = script->getFile()->getName();
-        auto sourcePath = script->getFile()->getPath();
-        auto destinationPath = std::filesystem::path(SCRIPT_DESTINATION) / name;
-        std::filesystem::copy(sourcePath, destinationPath);
+        script->moveScript();
     }
+}
+
+void ScriptComponent::moveScript() {
+    auto name = getFile()->getName();
+    auto sourcePath = getFile()->getPath();
+    auto destinationPath = std::filesystem::path(SCRIPT_DESTINATION) / name;
+
+    if (destinationPath != sourcePath)
+        std::filesystem::copy(sourcePath, destinationPath, std::filesystem::copy_options::overwrite_existing);
 }
 
 void ScriptComponent::verifyScripts() {
