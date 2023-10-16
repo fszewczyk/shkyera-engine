@@ -7,7 +7,7 @@
 ![Documentation](https://github.com/fszewczyk/shkyera-engine/actions/workflows/doxygen.yml/badge.svg) 
 ![LinuxBuild](https://github.com/fszewczyk/shkyera-engine/actions/workflows/linux.yml/badge.svg) 
 ![MacOSBuild](https://github.com/fszewczyk/shkyera-engine/actions/workflows/macos.yml/badge.svg) 
-![LICENSE](https://img.shields.io/badge/license-Beerware-yellow)(LICENSE) 
+![LICENSE](https://img.shields.io/badge/license-Beerware-yellow)
   
 </div>
 
