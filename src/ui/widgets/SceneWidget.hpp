@@ -49,6 +49,11 @@ class SceneWidget : public Widget {
      */
     void drawScene();
 
+    /**
+     * @brief Read the user input from the keyboard and notify the Python intepreter of it.
+     */
+    void readInput() const;
+
     std::shared_ptr<Renderer> _renderer; ///< A shared pointer to the renderer used for scene rendering.
     ImVec2 _renderSize;                  ///< The size of the rendered scene area.
 };

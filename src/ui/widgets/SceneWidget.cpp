@@ -39,6 +39,8 @@ void SceneWidget::adjustSize() {
 }
 
 void SceneWidget::drawRuntime() const {
+    readInput();
+
     _renderer->draw();
 
     ImGui::BeginDisabled();
@@ -65,6 +67,18 @@ void SceneWidget::drawScene() {
     ImGui::BeginDisabled();
     ImGui::ImageButton((ImTextureID)Image::ICON_BUTTON_STOP.getTextureId(), ImVec2(16, 16));
     ImGui::EndDisabled();
+}
+
+void SceneWidget::readInput() const {
+    Python::resetPressedButtons();
+    if (ImGui::IsKeyPressed(ImGuiKey_W))
+        Python::addPressedButton("W");
+    if (ImGui::IsKeyPressed(ImGuiKey_A))
+        Python::addPressedButton("A");
+    if (ImGui::IsKeyPressed(ImGuiKey_S))
+        Python::addPressedButton("S");
+    if (ImGui::IsKeyPressed(ImGuiKey_D))
+        Python::addPressedButton("D");
 }
 
 } // namespace shkyera

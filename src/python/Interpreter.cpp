@@ -11,12 +11,16 @@
 namespace shkyera::Python {
 
 std::mutex runningMutex;
+std::mutex inputMutex;
+
+std::vector<std::string> _pressedButtons;
 
 bool _currentlyRunning = false;
 bool _canRun = false;
 
 py::object _game;
 py::object _eventSystem;
+py::object _inputSystem;
 
 std::shared_ptr<Renderer> _renderer;
 
@@ -39,6 +43,7 @@ void runEvents() {
     }
 
     _eventSystem.attr("clear")();
+    _inputSystem.attr("clear")();
 }
 
 void setPublicVariables(py::object object, std::shared_ptr<ScriptComponent> script) {
@@ -90,10 +95,16 @@ void initialize() {
     _eventHandlers[DRAW_LINE] = &processEvent<DRAW_LINE>;
     _eventHandlers[DRAW_CLEAR] = &processEvent<DRAW_CLEAR>;
 
+    _inputSystem = py::module_::import((MODULE + "lib.input").c_str());
+
     _game.attr("setup")();
 }
 
-void runGame() { _game.attr("update")(); }
+void runGame() {
+    for (std::string key : _pressedButtons)
+        _inputSystem.attr("add_key")(key);
+    _game.attr("update")();
+}
 
 void startImplicit() {
     py::scoped_interpreter guard{};
@@ -129,5 +140,17 @@ void allowRunning() {
 void stop() { _currentlyRunning = false; }
 
 bool isRunning() { return _currentlyRunning; }
+
+void resetPressedButtons() {
+    inputMutex.lock();
+    _pressedButtons.clear();
+    inputMutex.unlock();
+}
+
+void addPressedButton(std::string key) {
+    inputMutex.lock();
+    _pressedButtons.push_back(key);
+    inputMutex.unlock();
+}
 
 } // namespace shkyera::Python

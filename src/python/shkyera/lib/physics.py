@@ -5,7 +5,7 @@ from .logger import *
 from .object import Vec3
 
 
-class String:
+class Rope:
     class Particle:
         def __init__(self, previous_position, position, fixed):
             self.previousPosition = [

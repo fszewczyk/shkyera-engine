@@ -26,6 +26,18 @@ void start();
 void stop();
 
 /**
+ * @brief Resets the set of pressed buttons by the user.
+ */
+void resetPressedButtons();
+
+/**
+ * @brief Add the pressed key to the set, so that the user can interact with it from Python script.
+ *
+ * @param key Pressed key
+ */
+void addPressedButton(std::string key);
+
+/**
  * @brief Allow the Python environment to run.
  */
 void allowRunning();
