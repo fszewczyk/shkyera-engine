@@ -1,0 +1,22 @@
+name: MacOS
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Build
+        env:
+          CXX: g++
+        run: |
+          chmod +x build.sh
+          ./build.sh
