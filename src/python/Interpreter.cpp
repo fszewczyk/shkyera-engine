@@ -1,4 +1,6 @@
 #include "python/Interpreter.hpp"
+#include "game/Component.hpp"
+#include "game/GameObject.hpp"
 #include "game/components/ScriptComponent.hpp"
 #include "python/Events.hpp"
 
@@ -39,25 +41,56 @@ void runEvents() {
     _eventSystem.attr("clear")();
 }
 
+void setPublicVariables(py::object object, std::shared_ptr<ScriptComponent> script) {
+    for (const PublicFloat &v : script->getFloatVariables())
+        object.attr(v.name.c_str()) = v.value;
+    for (const PublicInt &v : script->getIntVariables())
+        object.attr(v.name.c_str()) = v.value;
+    for (const PublicString &v : script->getStringVariables())
+        object.attr(v.name.c_str()) = v.value;
+}
+
 void initialize() {
-    _game = py::module_::import((MODULE + "game").c_str()).attr("Game")();
+    _game = py::module_::import((MODULE + "lib.game").c_str()).attr("Game")();
     std::vector<std::shared_ptr<ScriptComponent>> customScripts = ScriptComponent::getScripts();
     for (std::shared_ptr<ScriptComponent> script : customScripts) {
-        std::string modulePath = "resources.scripts." + script->getFile()->getNameWithoutExtension();
-        std::cerr << modulePath << '\n';
-        py::object customObject = py::module_::import(modulePath.c_str()).attr("Object")();
+        std::string modulePath = MODULE + script->getFile()->getNameWithoutExtension();
+
+        std::shared_ptr<GameObject> object = script->getObject();
+        glm::vec3 position = object->getPosition();
+        glm::vec3 orientation = object->getOrientation();
+        glm::vec3 scale = object->getScale();
+        std::string name = object->getName();
+
+        // clang-format off
+        py::object customObject = py::module_::import(modulePath.c_str()).attr("Object")(
+            name,
+            position[0],
+            position[1],
+            position[2],
+            orientation[0],
+            orientation[1],
+            orientation[2],
+            scale[0],
+            scale[1],
+            scale[2]
+        );
+        // clang-format on
+
+        setPublicVariables(customObject, script);
+
         _game.attr("add_object")(customObject);
     }
 
-    _eventSystem = py::module_::import((MODULE + "events").c_str());
-
+    _eventSystem = py::module_::import((MODULE + "lib.events").c_str());
     _eventHandlers[LOG_INFO] = &processEvent<LOG_INFO>;
     _eventHandlers[LOG_ERROR] = &processEvent<LOG_ERROR>;
     _eventHandlers[LOG_SUCCESS] = &processEvent<LOG_SUCCESS>;
     _eventHandlers[LOG_VERBOSE] = &processEvent<LOG_VERBOSE>;
-
     _eventHandlers[DRAW_LINE] = &processEvent<DRAW_LINE>;
     _eventHandlers[DRAW_CLEAR] = &processEvent<DRAW_CLEAR>;
+
+    _game.attr("setup")();
 }
 
 void runGame() { _game.attr("update")(); }
@@ -69,7 +102,7 @@ void startImplicit() {
 
     while (_currentlyRunning) {
         if (_canRun) {
-            runGame();
+            runGame(); // TODO: game can run always, events should wait for UI
             runEvents();
 
             runningMutex.lock();

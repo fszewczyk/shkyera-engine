@@ -31,6 +31,7 @@ class ScriptComponent : public Component {
 
     void setFile(std::shared_ptr<File> file);
     void update();
+    void moveScript();
 
     const std::shared_ptr<File> getFile() const;
 
@@ -51,7 +52,7 @@ class ScriptComponent : public Component {
 
     static void moveScripts();
 
-    inline static std::string SCRIPT_DESTINATION = "resources/scripts";
+    inline static std::string SCRIPT_DESTINATION = "src/python/shkyera";
 
   private:
     static void verifyScripts();

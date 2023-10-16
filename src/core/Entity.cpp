@@ -2,8 +2,8 @@
 
 namespace shkyera {
 
-Entity::Entity() : _scale(1) {}
-Entity::Entity(glm::vec3 position) : _position(position), _scale(1) {}
+Entity::Entity() : _scale(1), _position(0), _orientation(0) {}
+Entity::Entity(glm::vec3 position) : _position(position), _scale(1), _orientation(0) {}
 Entity::Entity(glm::vec3 position, glm::vec3 orientation) : _position(position), _orientation(orientation), _scale(1) {}
 
 glm::vec3 &Entity::getPosition() { return _position; }

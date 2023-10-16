@@ -1,3 +1,4 @@
+#include <iostream>
 #include <set>
 
 #include "game/components/ScriptComponent.hpp"
@@ -11,13 +12,28 @@ void ScriptComponent::setFile(std::shared_ptr<File> file) {
 }
 
 void ScriptComponent::update() {
+    moveScript();
+
     _intVariables.clear();
+    _floatVariables.clear();
+    _stringVariables.clear();
+    _vec3Variables.clear();
 
     std::vector<std::pair<std::string, Python::PYTHON_TYPE>> publicVars =
         Python::getPublicVariables(_file->getNameWithoutExtension());
 
     for (auto [name, type] : publicVars) {
-        _intVariables.push_back({name, 0});
+        switch (type) {
+        case Python::INT:
+            _intVariables.push_back({name, 0});
+            break;
+        case Python::FLOAT:
+            _floatVariables.push_back({name, 0.0f});
+            break;
+        case Python::STRING:
+            _stringVariables.push_back({name, ""});
+            break;
+        }
         /// TODO: Implement more types
     }
 }
@@ -49,13 +65,17 @@ std::vector<std::shared_ptr<ScriptComponent>> ScriptComponent::getScripts() { re
 void ScriptComponent::moveScripts() {
     verifyScripts();
     for (auto script : _scripts) {
-        auto name = script->getFile()->getName();
-        auto sourcePath = script->getFile()->getPath();
-        auto destinationPath = std::filesystem::path(SCRIPT_DESTINATION) / name;
-
-        if (destinationPath != sourcePath)
-            std::filesystem::copy(sourcePath, destinationPath, std::filesystem::copy_options::overwrite_existing);
+        script->moveScript();
     }
+}
+
+void ScriptComponent::moveScript() {
+    auto name = getFile()->getName();
+    auto sourcePath = getFile()->getPath();
+    auto destinationPath = std::filesystem::path(SCRIPT_DESTINATION) / name;
+
+    if (destinationPath != sourcePath)
+        std::filesystem::copy(sourcePath, destinationPath, std::filesystem::copy_options::overwrite_existing);
 }
 
 void ScriptComponent::verifyScripts() {
