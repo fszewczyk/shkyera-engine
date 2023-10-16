@@ -30,7 +30,7 @@ This will make `build.sh` an executable. Now, we can easily build and run the pr
 
 This can take a while, but the project should compile and you should see a window that looks somewhat like this.
 
-![Default Window](../img/empty_window.png)
+![Default Window](docs/img/empty_window.png)
 
 Nice! Now we can start building things!
 
@@ -41,7 +41,7 @@ We will begin by creating a simple program that writed `Hello world!` to the con
 On the top-left, in the `Objects` widget, click `Create` and then `Empty Object`.
 
 <div align="center">
-![Create object](../img/create_object.png)
+![Create object](docs/img/create_object.png)
 </div>
 
 This will create a new empty object called `Empty`, which is visible in the same widget. You can create as many objects as you want. Internally, they all have unique identifiers, so do not worry about them having the same name.
@@ -49,7 +49,7 @@ This will create a new empty object called `Empty`, which is visible in the same
 To launch the game, press the `▷` button in the top-middle, `Scene` widget.
 
 <div align="center">
-![Empty Scene](../img/scene_empty.png)
+![Empty Scene](docs/img/scene_empty.png)
 </div>
 
 Wait, we see nothing. Kinda lame. That's okay, let's stop the runtime using `□` button. We can continue to add some functionality to our boring object.
@@ -59,7 +59,7 @@ Click the `Empty` object. Now, the `Properties` widget displays all the informat
 @note Even though the `Transform` component has three dimensions, we do not support 3D concepts yet. We also do not support rotating or scaling. So only the `X` and `Y` positions are used. Yeeee, we do not really support a lot of features yet.
 
 <div align="center">
-![Properties Widget](../img/properties.png)
+![Properties Widget](docs/img/properties.png)
 </div>
 
 To add custom functionality, we need to add a `Script` component. To do so, click `New Component` and select `Script`. In the bottom, `Assets` widget, you can go through the file system, by clicking through the visible folders. If you want to create new folders and files, feel free to do so! Just click the right mouse button and select an appropriate option.
@@ -67,7 +67,7 @@ To add custom functionality, we need to add a `Script` component. To do so, clic
 Let's create a script. Click right mouse button, select `New File`, leave the default file name and click `Create`.
 
 <div align="center">
-![Assets](../img/assets.png)
+![Assets](docs/img/assets.png)
 </div>
 
 Open the newly created file in your favorite editor. Unfortunately, Shkyera Engine does not support doing it directly from the app yet. Paste the code below into the editor.
@@ -111,7 +111,7 @@ def update(self):
 Save the file and come back to Shkyera Engine app. Make sure the properties of `Empty` are visible and that you can see the `Script` component. Now, drag and drop the file we just created.
 
 <div align="center">
-![Drag Script](../img/drag_script.gif)
+![Drag Script](docs/img/drag_script.gif)
 </div>
 
 Do not worry about the `Reload` button for now. We will come back to it later. Enter the `Console` widget at the bottom of the screen. This widget holds all the information that either you or the engine decided to show on the screen. Both your logs and the errors are shown here. So far, we can only see a message that our `Empty` object was successfully created.
@@ -119,7 +119,7 @@ Do not worry about the `Reload` button for now. We will come back to it later. E
 Let's test our program! Press `▷` in the `Scene` widget. You should see the `Hello world!` message pop up in the console. You can use `Clear` button to remove all the message from the `Console`.
 
 <div align="center">
-![Console](../img/console.png)
+![Console](docs/img/console.png)
 </div>
 
 There are multiple types of logs. For our message, we used the one representing success. If you want to show different messages, use `log_error`, `log_info` and `log_verbose` in your scripts.
@@ -150,13 +150,13 @@ def setup(self):
 Now, if we go back to Shkyera Engine and press `Reload` on the `Script` component, we should see the fields that allow us to alter the values of the public variables. Let's set these values. To set the `Number`, you can hold and drag the purple field or double-click it and type the number manually. The `Message` can be set by typing inside the corresponding purple field. Let's set `Number` to some positive value and define some `Message`.
 
 <div align="center">
-![Public Variables](../img/public_vars.png)
+![Public Variables](docs/img/public_vars.png)
 </div>
 
 If we `Clear` the `Console` widget and run the program using the `▷` button, we should see our `Message` be logged exactly `Number` amount of times.
 
 <div align="center">
-![Console Widget](../img/console_multiple.png)
+![Console Widget](docs/img/console_multiple.png)
 </div>
 
 Congrats! You got the basics. Feel free to go to the **Sample Projects** tab and follow along to learn more advanced concepts.

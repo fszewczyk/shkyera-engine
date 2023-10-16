@@ -63,7 +63,7 @@ def update(self):
 Save the file, go back to Shkyera Engine and set `Length` to a value between 0.5 and 2.0 and the `Particles` to a value between 10 and 50. We are ready to launch the first version of our super fun game! Press `▷` to start the game.
 
 <div align="center">
-![Simple Rope](../img/basic_rope.gif)
+![Simple Rope](docs/img/basic_rope.gif)
 </div>
 
 Feel free to move the `X` and `Y` position in the `Transform` component. If you restart the program, your rope should originate at a different place. Remember the `origin=self.get_position()` part in the `setup` function? That's where it came from.
@@ -100,7 +100,7 @@ def update(self):
 Let's start it! After pressing `▷`, you should be able to move the rope around using W, A, S, D keys on your keyboard!
 
 <div align="center">
-![Moving Rope](../img/moving_rope.gif)
+![Moving Rope](docs/img/moving_rope.gif)
 </div>
 
 If you have encountered some problems, here is the whole contents of the script we wrote.
