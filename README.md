@@ -13,7 +13,7 @@
 
 </div>
 
-_Under development. See the progress [here](https://trello.com/b/mVROG8st/shkyera-engine)_
+_Under development. See the roadmap [here](https://trello.com/b/mVROG8st/shkyera-engine)_
 
 Shkyera Engine is an open-source game engine written in C++, designed to allow Python programmers to create visual applications. The engine's goal is to create a very easy interface that allows for reading user input, creating physical simulations and basic rendering.
 
