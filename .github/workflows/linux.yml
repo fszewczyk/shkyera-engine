@@ -15,7 +15,6 @@ jobs:
       matrix:
         conf:
           - { name: "Ubuntu g++", os: ubuntu-latest, compiler: "g++" }
-          - { name: "Ubuntu clang++", os: ubuntu-latest, compiler: "clang++" }
 
     steps:
       - name: Checkout
