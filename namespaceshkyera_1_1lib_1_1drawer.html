@@ -122,10 +122,55 @@ $(document).ready(function(){initNavTree('namespaceshkyera_1_1lib_1_1drawer.html
 Functions</h2></td></tr>
 <tr class="memitem:a5a07b975c3fdf8d7ee9d1348b6746bbc"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceshkyera_1_1lib_1_1drawer.html#a5a07b975c3fdf8d7ee9d1348b6746bbc">draw_line</a> (x1, y1, x2, y2)</td></tr>
 <tr class="separator:a5a07b975c3fdf8d7ee9d1348b6746bbc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acbdf82e44135e4c687e9a75d2d15b03f"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceshkyera_1_1lib_1_1drawer.html#acbdf82e44135e4c687e9a75d2d15b03f">draw_circle</a> (x, y, r)</td></tr>
+<tr class="separator:acbdf82e44135e4c687e9a75d2d15b03f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a63bb95f5c3d8c4ebf37f243ca35a32eb"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceshkyera_1_1lib_1_1drawer.html#a63bb95f5c3d8c4ebf37f243ca35a32eb">draw_rectangle</a> (x, y, w, h)</td></tr>
+<tr class="separator:a63bb95f5c3d8c4ebf37f243ca35a32eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad0ea8c807837fde48ce2f10b0f3ebd5b"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceshkyera_1_1lib_1_1drawer.html#ad0ea8c807837fde48ce2f10b0f3ebd5b">draw_clear</a> ()</td></tr>
 <tr class="separator:ad0ea8c807837fde48ce2f10b0f3ebd5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="acbdf82e44135e4c687e9a75d2d15b03f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acbdf82e44135e4c687e9a75d2d15b03f">&#9670;&nbsp;</a></span>draw_circle()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def shkyera.lib.drawer.draw_circle </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>r</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Add a draw circle event to the event queue.
+This function creates an event to draw a circle at (x, y) point with radius r.
+
+Args:
+    x (float): The x-coordinate of the circle center
+    y (flaot): The y-coordinate of the circle center
+    r (float): The radius of the circle
+</pre> 
+</div>
+</div>
 <a id="ad0ea8c807837fde48ce2f10b0f3ebd5b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad0ea8c807837fde48ce2f10b0f3ebd5b">&#9670;&nbsp;</a></span>draw_clear()</h2>
 
@@ -203,6 +248,54 @@ Parameters:
 
 Returns:
     None
+</pre> 
+</div>
+</div>
+<a id="a63bb95f5c3d8c4ebf37f243ca35a32eb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a63bb95f5c3d8c4ebf37f243ca35a32eb">&#9670;&nbsp;</a></span>draw_rectangle()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def shkyera.lib.drawer.draw_rectangle </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>w</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>h</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Add a draw rectangle event to the event queue.
+This function creates an event to draw a rectangle at (x, y) with size (w, h).
+
+Args:
+    x (float): The x-coordinate of the top-left corner of the rectangle
+    y (flaot): The y-coordinate of the top-left corner of the rectangle
+    w (float): The width of the rectangle
+    h (float): The height of the rectangle
 </pre> 
 </div>
 </div>

@@ -8,7 +8,7 @@ var dir_b38be42348c44ed05cf136e6c5be1b14 =
     ] ],
     [ "input.py", "input_8py.html", "input_8py" ],
     [ "logger.py", "logger_8py.html", "logger_8py" ],
-    [ "object.py", "object_8py.html", [
+    [ "object.py", "lib_2object_8py.html", [
       [ "Vec3", "classshkyera_1_1lib_1_1object_1_1_vec3.html", null ],
       [ "ShkyeraObject", "classshkyera_1_1lib_1_1object_1_1_shkyera_object.html", "classshkyera_1_1lib_1_1object_1_1_shkyera_object" ]
     ] ],

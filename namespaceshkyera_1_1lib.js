@@ -1,8 +1,10 @@
 var namespaceshkyera_1_1lib =
 [
     [ "drawer", "namespaceshkyera_1_1lib_1_1drawer.html", [
+      [ "draw_circle", "namespaceshkyera_1_1lib_1_1drawer.html#acbdf82e44135e4c687e9a75d2d15b03f", null ],
       [ "draw_clear", "namespaceshkyera_1_1lib_1_1drawer.html#ad0ea8c807837fde48ce2f10b0f3ebd5b", null ],
-      [ "draw_line", "namespaceshkyera_1_1lib_1_1drawer.html#a5a07b975c3fdf8d7ee9d1348b6746bbc", null ]
+      [ "draw_line", "namespaceshkyera_1_1lib_1_1drawer.html#a5a07b975c3fdf8d7ee9d1348b6746bbc", null ],
+      [ "draw_rectangle", "namespaceshkyera_1_1lib_1_1drawer.html#a63bb95f5c3d8c4ebf37f243ca35a32eb", null ]
     ] ],
     [ "events", "namespaceshkyera_1_1lib_1_1events.html", "namespaceshkyera_1_1lib_1_1events" ],
     [ "game", "namespaceshkyera_1_1lib_1_1game.html", "namespaceshkyera_1_1lib_1_1game" ],

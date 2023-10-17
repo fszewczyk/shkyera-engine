@@ -135,8 +135,11 @@ Enumerations</h2></td></tr>
 , <a class="el" href="namespaceshkyera_1_1_python.html#a1f9d3b8ccb604b80fdebb1d84adb7a9bace1d9d638c6f6b5c03ea87e6c5fdddb2">LOG_VERBOSE</a>
 , <br />
 &#160;&#160;<a class="el" href="namespaceshkyera_1_1_python.html#a1f9d3b8ccb604b80fdebb1d84adb7a9ba84b22035aaa4cb40ac40488f32e0996b">DRAW_LINE</a>
+, <a class="el" href="namespaceshkyera_1_1_python.html#a1f9d3b8ccb604b80fdebb1d84adb7a9bacbcb2253b78d9137f64b22f011a8cb26">DRAW_CIRCLE</a>
+, <a class="el" href="namespaceshkyera_1_1_python.html#a1f9d3b8ccb604b80fdebb1d84adb7a9ba7b5c09d5e726172a83c6493837104a55">DRAW_RECTANGLE</a>
 , <a class="el" href="namespaceshkyera_1_1_python.html#a1f9d3b8ccb604b80fdebb1d84adb7a9ba79f8d2237030135219bee36da263fc4e">DRAW_CLEAR</a>
-, <a class="el" href="namespaceshkyera_1_1_python.html#a1f9d3b8ccb604b80fdebb1d84adb7a9bad2834c2cd1fc1a88c1355e277e3238fb">TOTAL_EVENTS</a>
+, <br />
+&#160;&#160;<a class="el" href="namespaceshkyera_1_1_python.html#a1f9d3b8ccb604b80fdebb1d84adb7a9bad2834c2cd1fc1a88c1355e277e3238fb">TOTAL_EVENTS</a>
 <br />
  }</td></tr>
 <tr class="memdesc:a1f9d3b8ccb604b80fdebb1d84adb7a9b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enum representing different types of events that can be processed in Python.  <a href="namespaceshkyera_1_1_python.html#a1f9d3b8ccb604b80fdebb1d84adb7a9b">More...</a><br /></td></tr>
@@ -177,6 +180,12 @@ Functions</h2></td></tr>
 <tr class="memitem:acf2c36c12bf3e92e4e8b63122fd7e842"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
 <tr class="memitem:acf2c36c12bf3e92e4e8b63122fd7e842"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceshkyera_1_1_python.html#acf2c36c12bf3e92e4e8b63122fd7e842">processEvent&lt; DRAW_LINE &gt;</a> (py::list payload)</td></tr>
 <tr class="separator:acf2c36c12bf3e92e4e8b63122fd7e842"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab7aa7e6b9b7fbfb09ee56d0184d48915"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
+<tr class="memitem:ab7aa7e6b9b7fbfb09ee56d0184d48915"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceshkyera_1_1_python.html#ab7aa7e6b9b7fbfb09ee56d0184d48915">processEvent&lt; DRAW_CIRCLE &gt;</a> (py::list payload)</td></tr>
+<tr class="separator:ab7aa7e6b9b7fbfb09ee56d0184d48915"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3d0985a1b2a94e8c45baadf0e4be67b5"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
+<tr class="memitem:a3d0985a1b2a94e8c45baadf0e4be67b5"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceshkyera_1_1_python.html#a3d0985a1b2a94e8c45baadf0e4be67b5">processEvent&lt; DRAW_RECTANGLE &gt;</a> (py::list payload)</td></tr>
+<tr class="separator:a3d0985a1b2a94e8c45baadf0e4be67b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae96ca892472599cef100548a9369b664"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
 <tr class="memitem:ae96ca892472599cef100548a9369b664"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceshkyera_1_1_python.html#ae96ca892472599cef100548a9369b664">processEvent&lt; DRAW_CLEAR &gt;</a> (py::list payload)</td></tr>
 <tr class="separator:ae96ca892472599cef100548a9369b664"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -284,6 +293,10 @@ Variables</h2></td></tr>
 <tr><td class="fieldname"><a id="a1f9d3b8ccb604b80fdebb1d84adb7a9bace1d9d638c6f6b5c03ea87e6c5fdddb2"></a>LOG_VERBOSE&#160;</td><td class="fielddoc"><p><a class="el" href="classshkyera_1_1_log.html" title="A base class for logs that contain textual content.">Log</a> a verbose message. </p>
 </td></tr>
 <tr><td class="fieldname"><a id="a1f9d3b8ccb604b80fdebb1d84adb7a9ba84b22035aaa4cb40ac40488f32e0996b"></a>DRAW_LINE&#160;</td><td class="fielddoc"><p>Draw a line using the renderer. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a1f9d3b8ccb604b80fdebb1d84adb7a9bacbcb2253b78d9137f64b22f011a8cb26"></a>DRAW_CIRCLE&#160;</td><td class="fielddoc"><p>Draw a circle using the renderer. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a1f9d3b8ccb604b80fdebb1d84adb7a9ba7b5c09d5e726172a83c6493837104a55"></a>DRAW_RECTANGLE&#160;</td><td class="fielddoc"><p>Draw a rectangle using the renderer. </p>
 </td></tr>
 <tr><td class="fieldname"><a id="a1f9d3b8ccb604b80fdebb1d84adb7a9ba79f8d2237030135219bee36da263fc4e"></a>DRAW_CLEAR&#160;</td><td class="fielddoc"><p>Clear the renderer. </p>
 </td></tr>
@@ -487,6 +500,26 @@ template&lt;Event event&gt; </div>
 
 </div>
 </div>
+<a id="ab7aa7e6b9b7fbfb09ee56d0184d48915"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab7aa7e6b9b7fbfb09ee56d0184d48915">&#9670;&nbsp;</a></span>processEvent&lt; DRAW_CIRCLE &gt;()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="namespaceshkyera_1_1_python.html#a4a6af4d7929ec269eaf0024ffc7f0e90">shkyera::Python::processEvent</a>&lt; <a class="el" href="namespaceshkyera_1_1_python.html#a1f9d3b8ccb604b80fdebb1d84adb7a9bacbcb2253b78d9137f64b22f011a8cb26">DRAW_CIRCLE</a> &gt; </td>
+          <td>(</td>
+          <td class="paramtype">py::list&#160;</td>
+          <td class="paramname"><em>payload</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="ae96ca892472599cef100548a9369b664"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae96ca892472599cef100548a9369b664">&#9670;&nbsp;</a></span>processEvent&lt; DRAW_CLEAR &gt;()</h2>
 
@@ -517,6 +550,26 @@ template&lt;&gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">void <a class="el" href="namespaceshkyera_1_1_python.html#a4a6af4d7929ec269eaf0024ffc7f0e90">shkyera::Python::processEvent</a>&lt; <a class="el" href="namespaceshkyera_1_1_python.html#a1f9d3b8ccb604b80fdebb1d84adb7a9ba84b22035aaa4cb40ac40488f32e0996b">DRAW_LINE</a> &gt; </td>
+          <td>(</td>
+          <td class="paramtype">py::list&#160;</td>
+          <td class="paramname"><em>payload</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3d0985a1b2a94e8c45baadf0e4be67b5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3d0985a1b2a94e8c45baadf0e4be67b5">&#9670;&nbsp;</a></span>processEvent&lt; DRAW_RECTANGLE &gt;()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="namespaceshkyera_1_1_python.html#a4a6af4d7929ec269eaf0024ffc7f0e90">shkyera::Python::processEvent</a>&lt; <a class="el" href="namespaceshkyera_1_1_python.html#a1f9d3b8ccb604b80fdebb1d84adb7a9ba7b5c09d5e726172a83c6493837104a55">DRAW_RECTANGLE</a> &gt; </td>
           <td>(</td>
           <td class="paramtype">py::list&#160;</td>
           <td class="paramname"><em>payload</em></td><td>)</td>

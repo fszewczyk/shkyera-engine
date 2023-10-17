@@ -1,6 +1,7 @@
 var namespaceshkyera =
 [
     [ "lib", "namespaceshkyera_1_1lib.html", "namespaceshkyera_1_1lib" ],
+    [ "object", "namespaceshkyera_1_1object.html", "namespaceshkyera_1_1object" ],
     [ "Python", "namespaceshkyera_1_1_python.html", [
       [ "eventHandler", "namespaceshkyera_1_1_python.html#ae2915c857777d07c5160bd712767dcbf", null ],
       [ "Event", "namespaceshkyera_1_1_python.html#a1f9d3b8ccb604b80fdebb1d84adb7a9b", [
@@ -9,6 +10,8 @@ var namespaceshkyera =
         [ "LOG_SUCCESS", "namespaceshkyera_1_1_python.html#a1f9d3b8ccb604b80fdebb1d84adb7a9ba6979fc89c25825042b62ea55ee5fec8c", null ],
         [ "LOG_VERBOSE", "namespaceshkyera_1_1_python.html#a1f9d3b8ccb604b80fdebb1d84adb7a9bace1d9d638c6f6b5c03ea87e6c5fdddb2", null ],
         [ "DRAW_LINE", "namespaceshkyera_1_1_python.html#a1f9d3b8ccb604b80fdebb1d84adb7a9ba84b22035aaa4cb40ac40488f32e0996b", null ],
+        [ "DRAW_CIRCLE", "namespaceshkyera_1_1_python.html#a1f9d3b8ccb604b80fdebb1d84adb7a9bacbcb2253b78d9137f64b22f011a8cb26", null ],
+        [ "DRAW_RECTANGLE", "namespaceshkyera_1_1_python.html#a1f9d3b8ccb604b80fdebb1d84adb7a9ba7b5c09d5e726172a83c6493837104a55", null ],
         [ "DRAW_CLEAR", "namespaceshkyera_1_1_python.html#a1f9d3b8ccb604b80fdebb1d84adb7a9ba79f8d2237030135219bee36da263fc4e", null ],
         [ "TOTAL_EVENTS", "namespaceshkyera_1_1_python.html#a1f9d3b8ccb604b80fdebb1d84adb7a9bad2834c2cd1fc1a88c1355e277e3238fb", null ]
       ] ],
@@ -25,8 +28,10 @@ var namespaceshkyera =
       [ "isRunning", "namespaceshkyera_1_1_python.html#a7b3e565db13c1346122f3d24db6ab3c9", null ],
       [ "parsePayload", "namespaceshkyera_1_1_python.html#a168e3b1183d6d4035f551cbba5a57c94", null ],
       [ "processEvent", "namespaceshkyera_1_1_python.html#a4a6af4d7929ec269eaf0024ffc7f0e90", null ],
+      [ "processEvent< DRAW_CIRCLE >", "namespaceshkyera_1_1_python.html#ab7aa7e6b9b7fbfb09ee56d0184d48915", null ],
       [ "processEvent< DRAW_CLEAR >", "namespaceshkyera_1_1_python.html#ae96ca892472599cef100548a9369b664", null ],
       [ "processEvent< DRAW_LINE >", "namespaceshkyera_1_1_python.html#acf2c36c12bf3e92e4e8b63122fd7e842", null ],
+      [ "processEvent< DRAW_RECTANGLE >", "namespaceshkyera_1_1_python.html#a3d0985a1b2a94e8c45baadf0e4be67b5", null ],
       [ "processEvent< LOG_ERROR >", "namespaceshkyera_1_1_python.html#a84cef5f23c06bc85e87ade92fd9ecc59", null ],
       [ "processEvent< LOG_INFO >", "namespaceshkyera_1_1_python.html#a8aa12bfe046ce21ebc8cdea691205181", null ],
       [ "processEvent< LOG_SUCCESS >", "namespaceshkyera_1_1_python.html#a788ab231cfad02ad20f3012c30c74a4a", null ],

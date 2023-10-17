@@ -24,7 +24,9 @@ var hierarchy =
     [ "shkyera::PublicVec3", "structshkyera_1_1_public_vec3.html", null ],
     [ "shkyera::Renderer", "classshkyera_1_1_renderer.html", null ],
     [ "shkyera.lib.physics.Rope", "classshkyera_1_1lib_1_1physics_1_1_rope.html", null ],
-    [ "shkyera.lib.object.ShkyeraObject", "classshkyera_1_1lib_1_1object_1_1_shkyera_object.html", null ],
+    [ "shkyera.lib.object.ShkyeraObject", "classshkyera_1_1lib_1_1object_1_1_shkyera_object.html", [
+      [ "shkyera.object.Object", "classshkyera_1_1object_1_1_object.html", null ]
+    ] ],
     [ "shkyera::UI", "classshkyera_1_1_u_i.html", null ],
     [ "shkyera::UIComponent", "classshkyera_1_1_u_i_component.html", [
       [ "shkyera::ScriptUIComponent", "classshkyera_1_1_script_u_i_component.html", null ],

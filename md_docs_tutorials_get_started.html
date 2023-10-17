@@ -116,7 +116,7 @@ $(document).ready(function(){initNavTree('md_docs_tutorials_get_started.html',''
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p>The following guide will introduce you to all the essential concepts of the Shkyera Engine. By the end of this guide, you will be able to use the user interface, create new objects, components, write basic scripts and customize their behavior through the use of public variables.</p>
-<h1><a class="anchor" id="autotoc_md8"></a>
+<h1><a class="anchor" id="autotoc_md7"></a>
 Installation</h1>
 <p>Before we can create any game, you need to download the engine. You can easily do it by putting the following command in the terminal:</p>
 <div class="fragment"><div class="line">git clone --recursive git@github.com:fszewczyk/shkyera-engine.git</div>
@@ -133,7 +133,7 @@ Installation</h1>
 </div><!-- fragment --><p>This can take a while, but the project should compile and you should see a window that looks somewhat like this.</p>
 <p><img src="empty_window.png" alt="" class="inline" title="Default Window"/></p>
 <p>Nice! Now we can start building things!</p>
-<h1><a class="anchor" id="autotoc_md9"></a>
+<h1><a class="anchor" id="autotoc_md8"></a>
 Hello world!</h1>
 <p>We will begin by creating a simple program that writes <code>Hello world!</code> to the console.</p>
 <p>On the top-left, in the <code>Objects</code> widget, click <code>Create</code> and then <code>Empty Object</code>.</p>
@@ -145,42 +145,44 @@ Hello world!</h1>
 <div align="center"> <img src="properties.png" alt="" class="inline" title="Properties Widget"/> </div><p>To add custom functionality, we need to add a <code>Script</code> component. To do so, click <code>New Component</code> and select <code>Script</code>. In the bottom, <code>Assets</code> widget, you can go through the file system, by clicking through the visible folders. If you want to create new folders and files, feel free to do so! Just click the right mouse button and select an appropriate option.</p>
 <p>Let's create a script. Click right mouse button, select <code>New File</code>, leave the default file name and click <code>Create</code>.</p>
 <div align="center"> <img src="assets.png" alt="" class="inline" title="Assets"/> </div><p>Open the newly created file in your favorite editor. Unfortunately, Shkyera Engine does not support doing it directly from the app yet. Paste the code below into the editor.</p>
-<div class="fragment"><div class="line"># Imports the boiler-plate object</div>
-<div class="line">from .lib.object import ShkyeraObject</div>
+<div class="fragment"><div class="line"><span class="comment"># Imports the boiler-plate object</span></div>
+<div class="line"><span class="keyword">from</span> .lib.object <span class="keyword">import</span> ShkyeraObject</div>
 <div class="line"> </div>
-<div class="line">class Object(ShkyeraObject):</div>
-<div class="line">    def setup(self):</div>
-<div class="line">        # This part will be executed at the beginning of the program</div>
+<div class="line"><span class="keyword">class </span>Object(ShkyeraObject):</div>
+<div class="line">    <span class="keyword">def </span>setup(self):</div>
+<div class="line">        <span class="comment"># This part will be executed at the beginning of the program</span></div>
 <div class="line"> </div>
-<div class="line">    def update(self):</div>
-<div class="line">        # This part will be executed at each frame (approximately 60 times a second)</div>
+<div class="line">    <span class="keyword">def </span>update(self):</div>
+<div class="line">        <span class="comment"># This part will be executed at each frame (approximately 60 times a second)</span></div>
 </div><!-- fragment --><dl class="section warning"><dt>Warning</dt><dd>The above code cannot be changed! We have to import <code>ShkyeraObject</code> as shown. Our class needs to inherit <code>ShkyeraObject</code>, it needs to be named <code>Object</code> and it has to contain methods called <code>setup</code> and <code>update</code>.</dd></dl>
 <p>The <code>setup</code> method is executed exactly once, at the intialization of the program. In our game, we want to print a message to console. This is easily done with the <code>logger</code> module. All you need to do is to import it at the top of the file.</p>
-<div class="fragment"><div class="line">from .lib.logger import *</div>
+<div class="fragment"><div class="line"><span class="keyword">from</span> .lib.logger <span class="keyword">import</span> *</div>
 </div><!-- fragment --><p>Now, we can modify the <code>setup</code> method.</p>
-<div class="fragment"><div class="line">def setup(self):</div>
-<div class="line">    # This part will be executed at the beginning of the program</div>
-<div class="line">    log_success(&quot;Hello world!&quot;)</div>
+<div class="fragment"><div class="line"><span class="keyword">def </span>setup(self):</div>
+<div class="line">    <span class="comment"># This part will be executed at the beginning of the program</span></div>
+<div class="line">    <a class="code" href="namespaceshkyera_1_1lib_1_1logger.html#a23957010d04bf8c29ca2a084a084d780">log_success</a>(<span class="stringliteral">&quot;Hello world!&quot;</span>)</div>
+<div class="ttc" id="anamespaceshkyera_1_1lib_1_1logger_html_a23957010d04bf8c29ca2a084a084d780"><div class="ttname"><a href="namespaceshkyera_1_1lib_1_1logger.html#a23957010d04bf8c29ca2a084a084d780">shkyera.lib.logger.log_success</a></div><div class="ttdeci">def log_success(*kwargs)</div><div class="ttdef"><b>Definition:</b> logger.py:14</div></div>
 </div><!-- fragment --><p>We want our object to remain idle, so we define our <code>update</code> function to do nothing.</p>
-<div class="fragment"><div class="line">def update(self):</div>
-<div class="line">    # This part will be executed at each frame (approximately 60 times a second)</div>
-<div class="line">    pass</div>
+<div class="fragment"><div class="line"><span class="keyword">def </span>update(self):</div>
+<div class="line">    <span class="comment"># This part will be executed at each frame (approximately 60 times a second)</span></div>
+<div class="line">    <span class="keywordflow">pass</span></div>
 </div><!-- fragment --><p>Save the file and come back to Shkyera Engine app. Make sure the properties of <code>Empty</code> are visible and that you can see the <code>Script</code> component. Now, drag and drop the file we just created.</p>
 <div align="center"> <img src="drag_script.gif" alt="" class="inline" title="Drag Script"/> </div><p>Do not worry about the <code>Reload</code> button for now. We will come back to it later. Enter the <code>Console</code> widget at the bottom of the screen. This widget holds all the information that either you or the engine decided to show on the screen. Both your logs and the errors are shown here. So far, we can only see a message that our <code>Empty</code> object was successfully created.</p>
 <p>Let's test our program! Press <code>▷</code> in the <code>Scene</code> widget. You should see the <code>Hello world!</code> message pop up in the console. You can use <code>Clear</code> button to remove all the message from the <code>Console</code>.</p>
 <div align="center"> <img src="console.png" alt="" class="inline" title="Console"/> </div><p>There are multiple types of logs. For our message, we used the one representing success. If you want to show different messages, use <code>log_error</code>, <code>log_info</code> and <code>log_verbose</code> in your scripts.</p>
 <p>Congrats! You have just made your first program in Shkyera Engine. But wait, we can do more! What if we want to have a custom message? And what if we want to print this message exactly 17 times? To answer this important question, we present to you: <em>public variables</em>!</p>
-<h1><a class="anchor" id="autotoc_md10"></a>
+<h1><a class="anchor" id="autotoc_md9"></a>
 Public Variables</h1>
 <p>Let's go back to our script. We add two member variables to our object. One of them is going to hold the message we want to log, the other one will hold the number of times we want to log that message.</p>
-<div class="fragment"><div class="line">class Object(ShkyeraObject):</div>
+<div class="fragment"><div class="line"><span class="keyword">class </span>Object(ShkyeraObject):</div>
 <div class="line">    Message: str</div>
 <div class="line">    Number: int</div>
 </div><!-- fragment --><p>You can use either <code>str</code> (text), <code>int</code> (whole numbers) or <code>float</code> (decimal numbers). Let's update our <code>setup</code> method to print the <code>Message</code> exactly <code>Number</code> number of times. Since we are great game developers by now, logging a message is not a success anymore, so we will log it as an information.</p>
-<div class="fragment"><div class="line">def setup(self):</div>
-<div class="line">    # This part will be executed at the beginning of the program</div>
-<div class="line">    for i in range(self.Number):</div>
-<div class="line">        log_info(self.Message)</div>
+<div class="fragment"><div class="line"><span class="keyword">def </span>setup(self):</div>
+<div class="line">    <span class="comment"># This part will be executed at the beginning of the program</span></div>
+<div class="line">    <span class="keywordflow">for</span> i <span class="keywordflow">in</span> range(self.Number):</div>
+<div class="line">        <a class="code" href="namespaceshkyera_1_1lib_1_1logger.html#a1c6759a7597841396e1d02f8478541ad">log_info</a>(self.Message)</div>
+<div class="ttc" id="anamespaceshkyera_1_1lib_1_1logger_html_a1c6759a7597841396e1d02f8478541ad"><div class="ttname"><a href="namespaceshkyera_1_1lib_1_1logger.html#a1c6759a7597841396e1d02f8478541ad">shkyera.lib.logger.log_info</a></div><div class="ttdeci">def log_info(*kwargs)</div><div class="ttdef"><b>Definition:</b> logger.py:4</div></div>
 </div><!-- fragment --><dl class="section note"><dt>Note</dt><dd>Remember to use the <code>self.</code> prefix before you try to access member variables.</dd></dl>
 <p>Now, if we go back to Shkyera Engine and press <code>Reload</code> on the <code>Script</code> component, we should see the fields that allow us to alter the values of the public variables. Let's set these values. To set the <code>Number</code>, you can hold and drag the purple field or double-click it and type the number manually. The <code>Message</code> can be set by typing inside the corresponding purple field. Let's set <code>Number</code> to some positive value and define some <code>Message</code>.</p>
 <div align="center"> <img src="public_vars.png" alt="" class="inline" title="Public Variables"/> </div><p>If we <code>Clear</code> the <code>Console</code> widget and run the program using the <code>▷</code> button, we should see our <code>Message</code> be logged exactly <code>Number</code> amount of times.</p>

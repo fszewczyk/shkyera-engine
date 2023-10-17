@@ -149,6 +149,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a916df8aa6468486b9e33ee287b960fb0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_renderer.html#a916df8aa6468486b9e33ee287b960fb0">drawLine</a> (int x0, int y0, int x1, int y1)</td></tr>
 <tr class="memdesc:a916df8aa6468486b9e33ee287b960fb0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw a line from (x0, y0) to (x1, y1).  <a href="classshkyera_1_1_renderer.html#a916df8aa6468486b9e33ee287b960fb0">More...</a><br /></td></tr>
 <tr class="separator:a916df8aa6468486b9e33ee287b960fb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aab925b9ed41d27d689ba303f3d7fde7a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_renderer.html#aab925b9ed41d27d689ba303f3d7fde7a">drawCircle</a> (int x, int y, int r)</td></tr>
+<tr class="memdesc:aab925b9ed41d27d689ba303f3d7fde7a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw a circle at (x, y) with radius r.  <a href="classshkyera_1_1_renderer.html#aab925b9ed41d27d689ba303f3d7fde7a">More...</a><br /></td></tr>
+<tr class="separator:aab925b9ed41d27d689ba303f3d7fde7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a63b39295faf3a43a2f51580ad6968a5a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_renderer.html#a63b39295faf3a43a2f51580ad6968a5a">drawRectangle</a> (int x, int y, int w, int h)</td></tr>
+<tr class="memdesc:a63b39295faf3a43a2f51580ad6968a5a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw a rectangle at (x, y) with (w, h) size.  <a href="classshkyera_1_1_renderer.html#a63b39295faf3a43a2f51580ad6968a5a">More...</a><br /></td></tr>
+<tr class="separator:a63b39295faf3a43a2f51580ad6968a5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
@@ -270,6 +276,50 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Render the graphics. </p>
+
+</div>
+</div>
+<a id="aab925b9ed41d27d689ba303f3d7fde7a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aab925b9ed41d27d689ba303f3d7fde7a">&#9670;&nbsp;</a></span>drawCircle()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void shkyera::Renderer::drawCircle </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>r</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Draw a circle at (x, y) with radius r. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>The x-coordinate of the circle. </td></tr>
+    <tr><td class="paramname">y</td><td>The y-coordinate of the circle. </td></tr>
+    <tr><td class="paramname">r</td><td>The radius of the circle. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -421,6 +471,57 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Draw a line with a low slope. </p>
+
+</div>
+</div>
+<a id="a63b39295faf3a43a2f51580ad6968a5a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a63b39295faf3a43a2f51580ad6968a5a">&#9670;&nbsp;</a></span>drawRectangle()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void shkyera::Renderer::drawRectangle </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>w</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>h</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Draw a rectangle at (x, y) with (w, h) size. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>The x-coordinate of top-left corner of the rectangle. </td></tr>
+    <tr><td class="paramname">y</td><td>The y-coordinate of top-left corner of the rectangle. </td></tr>
+    <tr><td class="paramname">w</td><td>The width of the rectangle. </td></tr>
+    <tr><td class="paramname">h</td><td>The height of the rectangle. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
