@@ -71,14 +71,13 @@ void SceneWidget::drawScene() {
 
 void SceneWidget::readInput() const {
     Python::resetPressedButtons();
-    if (ImGui::IsKeyPressed(ImGuiKey_W))
-        Python::addPressedButton("W");
-    if (ImGui::IsKeyPressed(ImGuiKey_A))
-        Python::addPressedButton("A");
-    if (ImGui::IsKeyPressed(ImGuiKey_S))
-        Python::addPressedButton("S");
-    if (ImGui::IsKeyPressed(ImGuiKey_D))
-        Python::addPressedButton("D");
+
+    for (int key = ImGuiKey_LeftArrow; key < ImGuiKey_KeypadEqual; ++key) {
+        if (ImGui::IsKeyPressed(static_cast<ImGuiKey>(key))) {
+            const char *keyName = ImGui::GetKeyName(static_cast<ImGuiKey>(key));
+            Python::addPressedButton(keyName);
+        }
+    }
 }
 
 } // namespace shkyera
