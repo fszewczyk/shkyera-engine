@@ -66,6 +66,16 @@ class Renderer {
      */
     void drawCircle(int x, int y, int r);
 
+    /**
+     * @brief Draw a rectangle at (x, y) with (w, h) size.
+     *
+     * @param x The x-coordinate of top-left corner of the rectangle.
+     * @param y The y-coordinate of top-left corner of the rectangle.
+     * @param w The width of the rectangle.
+     * @param h The height of the rectangle.
+     */
+    void drawRectangle(int x, int y, int w, int h);
+
   private:
     /**
      * @brief Initialize the texture used for rendering.

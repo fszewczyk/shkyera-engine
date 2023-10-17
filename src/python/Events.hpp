@@ -25,9 +25,10 @@ enum Event : int {
     LOG_SUCCESS, ///< Log a success message.
     LOG_VERBOSE, ///< Log a verbose message.
 
-    DRAW_LINE,   ///< Draw a line using the renderer.
-    DRAW_CIRCLE, ///< Draw a circle using the renderer.
-    DRAW_CLEAR,  ///< Clear the renderer.
+    DRAW_LINE,      ///< Draw a line using the renderer.
+    DRAW_CIRCLE,    ///< Draw a circle using the renderer.
+    DRAW_RECTANGLE, ///< Draw a rectangle using the renderer
+    DRAW_CLEAR,     ///< Clear the renderer.
 
     TOTAL_EVENTS ///< The total number of events.
 };

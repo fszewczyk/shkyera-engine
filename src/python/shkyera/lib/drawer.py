@@ -34,6 +34,20 @@ def draw_circle(x, y, r):
     add_event(Event.DRAW_CIRCLE, [x, y, r])
 
 
+def draw_rectangle(x, y, w, h):
+    """
+    Add a draw rectangle event to the event queue.
+    This function creates an event to draw a rectangle at (x, y) with size (w, h).
+
+    Args:
+        x (float): The x-coordinate of the top-left corner of the rectangle
+        y (flaot): The y-coordinate of the top-left corner of the rectangle
+        w (float): The width of the rectangle
+        h (float): The height of the rectangle
+    """
+    add_event(Event.DRAW_RECTANGLE, [x, y, w, h])
+
+
 def draw_clear():
     """
     Add a draw clear event to the event queue.

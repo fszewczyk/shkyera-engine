@@ -94,6 +94,7 @@ void initialize() {
     _eventHandlers[LOG_VERBOSE] = &processEvent<LOG_VERBOSE>;
     _eventHandlers[DRAW_LINE] = &processEvent<DRAW_LINE>;
     _eventHandlers[DRAW_CIRCLE] = &processEvent<DRAW_CIRCLE>;
+    _eventHandlers[DRAW_RECTANGLE] = &processEvent<DRAW_RECTANGLE>;
     _eventHandlers[DRAW_CLEAR] = &processEvent<DRAW_CLEAR>;
 
     _inputSystem = py::module_::import((MODULE + "lib.input").c_str());

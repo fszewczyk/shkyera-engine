@@ -14,7 +14,8 @@ class Event(IntEnum):
 
     DRAW_LINE = 4
     DRAW_CIRCLE = 5
-    DRAW_CLEAR = 6
+    DRAW_RECTANGLE = 6
+    DRAW_CLEAR = 7
 
 
 events = []

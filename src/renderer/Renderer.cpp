@@ -67,6 +67,15 @@ void Renderer::drawCircle(int x, int y, int r) {
     }
 }
 
+void Renderer::drawRectangle(int x, int y, int w, int h) {
+    for (int yCoord = y; yCoord < y + h; ++yCoord) {
+        for (int xCoord = x; xCoord < x + w; ++xCoord) {
+            if (xCoord >= 0 && xCoord < _width && yCoord >= 0 && yCoord < _height)
+                setPixel(xCoord, yCoord, 0, 0, 0);
+        }
+    }
+}
+
 void Renderer::drawLine(int x0, int y0, int x1, int y1) {
     if (abs(y1 - y0) < abs(x1 - x0)) {
         if (x0 > x1)
