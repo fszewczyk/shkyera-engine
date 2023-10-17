@@ -72,7 +72,7 @@ Let's create a script. Click right mouse button, select `New File`, leave the de
 
 Open the newly created file in your favorite editor. Unfortunately, Shkyera Engine does not support doing it directly from the app yet. Paste the code below into the editor.
 
-```
+```{.py}
 # Imports the boiler-plate object
 from .lib.object import ShkyeraObject
 
@@ -88,13 +88,13 @@ class Object(ShkyeraObject):
 
 The `setup` method is executed exactly once, at the intialization of the program. In our game, we want to print a message to console. This is easily done with the `logger` module. All you need to do is to import it at the top of the file.
 
-```
+```{.py}
 from .lib.logger import *
 ```
 
 Now, we can modify the `setup` method.
 
-```
+```{.py}
 def setup(self):
     # This part will be executed at the beginning of the program
     log_success("Hello world!")
@@ -102,7 +102,7 @@ def setup(self):
 
 We want our object to remain idle, so we define our `update` function to do nothing.
 
-```
+```{.py}
 def update(self):
     # This part will be executed at each frame (approximately 60 times a second)
     pass
@@ -130,7 +130,7 @@ Congrats! You have just made your first program in Shkyera Engine. But wait, we 
 
 Let's go back to our script. We add two member variables to our object. One of them is going to hold the message we want to log, the other one will hold the number of times we want to log that message.
 
-```
+```{.py}
 class Object(ShkyeraObject):
     Message: str
     Number: int
@@ -138,7 +138,7 @@ class Object(ShkyeraObject):
 
 You can use either `str` (text), `int` (whole numbers) or `float` (decimal numbers). Let's update our `setup` method to print the `Message` exactly `Number` number of times. Since we are great game developers by now, logging a message is not a success anymore, so we will log it as an information.
 
-```
+```{.py}
 def setup(self):
     # This part will be executed at the beginning of the program
     for i in range(self.Number):
