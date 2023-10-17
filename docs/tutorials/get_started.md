@@ -36,7 +36,7 @@ Nice! Now we can start building things!
 
 ## Hello world!
 
-We will begin by creating a simple program that writed `Hello world!` to the console.
+We will begin by creating a simple program that writes `Hello world!` to the console.
 
 On the top-left, in the `Objects` widget, click `Create` and then `Empty Object`.
 
