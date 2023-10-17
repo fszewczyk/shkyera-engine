@@ -25,15 +25,25 @@
 var NAVTREE =
 [
   [ "Shkyera Engine", "index.html", [
+    [ "Cheatsheet", "md_docs_tutorials_cheatsheet.html", [
+      [ "Boilerplate", "md_docs_tutorials_cheatsheet.html#autotoc_md1", null ],
+      [ "Drawing", "md_docs_tutorials_cheatsheet.html#autotoc_md2", [
+        [ "Lines", "md_docs_tutorials_cheatsheet.html#autotoc_md3", null ]
+      ] ],
+      [ "Input", "md_docs_tutorials_cheatsheet.html#autotoc_md4", [
+        [ "Examples", "md_docs_tutorials_cheatsheet.html#autotoc_md5", null ],
+        [ "Key Codes", "md_docs_tutorials_cheatsheet.html#autotoc_md6", null ]
+      ] ]
+    ] ],
     [ "Get Started!", "md_docs_tutorials_get_started.html", [
-      [ "Installation", "md_docs_tutorials_get_started.html#autotoc_md1", null ],
-      [ "Hello world!", "md_docs_tutorials_get_started.html#autotoc_md2", null ],
-      [ "Public Variables", "md_docs_tutorials_get_started.html#autotoc_md3", null ]
+      [ "Installation", "md_docs_tutorials_get_started.html#autotoc_md8", null ],
+      [ "Hello world!", "md_docs_tutorials_get_started.html#autotoc_md9", null ],
+      [ "Public Variables", "md_docs_tutorials_get_started.html#autotoc_md10", null ]
     ] ],
     [ "Sample Project", "md_docs_tutorials_sample_project.html", [
-      [ "Set up", "md_docs_tutorials_sample_project.html#autotoc_md5", null ],
-      [ "Physics", "md_docs_tutorials_sample_project.html#autotoc_md6", null ],
-      [ "Keyboard Input", "md_docs_tutorials_sample_project.html#autotoc_md7", null ]
+      [ "Set up", "md_docs_tutorials_sample_project.html#autotoc_md12", null ],
+      [ "Physics", "md_docs_tutorials_sample_project.html#autotoc_md13", null ],
+      [ "Keyboard Input", "md_docs_tutorials_sample_project.html#autotoc_md14", null ]
     ] ],
     [ "Namespaces", "namespaces.html", [
       [ "Namespace List", "namespaces.html", "namespaces_dup" ],
@@ -61,7 +71,7 @@ var NAVTREEINDEX =
 [
 "____init_____8py.html",
 "classshkyera_1_1_objects_widget.html#ac0fd0f160c2f12e728982c8b8b85476d",
-"namespaceshkyera_1_1_python.html#a707d52b85c0c2a6a694eba78dd62f94e"
+"namespaceshkyera_1_1_python.html#a7b3e565db13c1346122f3d24db6ab3c9"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

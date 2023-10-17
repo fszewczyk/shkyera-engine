@@ -117,9 +117,9 @@ $(document).ready(function(){initNavTree('md_docs_tutorials_sample_project.html'
 <div class="contents">
 <div class="textblock"><p>Before continuing, make sure that you correctly undersood the concepts from the <b>Get Started!</b> guide.</p>
 <p>Here, you can follow along the instructions to create different kinds of projects inside of Shkyera Engine. The projects are designed in a way to familiarize you with a multitude of concepts inside of the Shkyera Engine.</p>
-<h1><a class="anchor" id="autotoc_md5"></a>
+<h1><a class="anchor" id="autotoc_md12"></a>
 Set up</h1>
-<p>Goal of this small project is to run a physics simulation of a rope and control it using our keyboard. Let's create an Empty Object, attach a <code>Script</code> component to it and create a file called <code><a class="el" href="rope_8py.html">rope.py</a></code>. Drag the file into the component and open the file in your favorite text editor. Paste the boiler-plate code inside.</p>
+<p>Goal of this small project is to run a physics simulation of a rope and control it using our keyboard. Let's create an Empty Object, attach a <code>Script</code> component to it and create a file called <code>rope.py</code>. Drag the file into the component and open the file in your favorite text editor. Paste the boiler-plate code inside.</p>
 <div class="fragment"><div class="line"># Imports the boiler-plate object</div>
 <div class="line">from .lib.object import ShkyeraObject</div>
 <div class="line"> </div>
@@ -129,7 +129,7 @@ Set up</h1>
 <div class="line"> </div>
 <div class="line">    def update(self):</div>
 <div class="line">        # This part will be executed at each frame (approximately 60 times a second)</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md6"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md13"></a>
 Physics</h1>
 <p>To use the physics engine, we need to import the appropriate module at the top of the file:</p>
 <div class="fragment"><div class="line">from .lib.physics import *</div>
@@ -156,7 +156,7 @@ Physics</h1>
 </div><!-- fragment --><p>Save the file, go back to Shkyera Engine and set <code>Length</code> to a value between 0.5 and 2.0 and the <code>Particles</code> to a value between 10 and 50. We are ready to launch the first version of our super fun game! Press <code>▷</code> to start the game.</p>
 <div align="center"> <img src="basic_rope.gif" alt="" class="inline" title="Simple Rope"/> </div><p>Feel free to move the <code>X</code> and <code>Y</code> position in the <code>Transform</code> component. If you restart the program, your rope should originate at a different place. Remember the <code>origin=self.get_position()</code> part in the <code>setup</code> function? That's where it came from.</p>
 <dl class="section note"><dt>Note</dt><dd>Be careful to not set the position to be too small (way below 0.0) or too large (way above 3.0), because the rope will be moved out of the rendering window.</dd></dl>
-<h1><a class="anchor" id="autotoc_md7"></a>
+<h1><a class="anchor" id="autotoc_md14"></a>
 Keyboard Input</h1>
 <p>In order to move the rope around, we need to be able to read user input. We can do that using the module provided by Shkyera Engine. Add the following import at the top of your script.</p>
 <div class="fragment"><div class="line">from .lib.input import *</div>

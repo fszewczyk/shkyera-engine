@@ -1,7 +1,6 @@
 var namespaceshkyera =
 [
     [ "lib", "namespaceshkyera_1_1lib.html", "namespaceshkyera_1_1lib" ],
-    [ "object", "namespaceshkyera_1_1object.html", "namespaceshkyera_1_1object" ],
     [ "Python", "namespaceshkyera_1_1_python.html", [
       [ "eventHandler", "namespaceshkyera_1_1_python.html#ae2915c857777d07c5160bd712767dcbf", null ],
       [ "Event", "namespaceshkyera_1_1_python.html#a1f9d3b8ccb604b80fdebb1d84adb7a9b", [
@@ -55,7 +54,6 @@ var namespaceshkyera =
       [ "MODULE", "namespaceshkyera_1_1_python.html#a8449e853fd1485e805f99cb0c9a7d515", null ],
       [ "runningMutex", "namespaceshkyera_1_1_python.html#a5616cb7e419d134987e85f6a6bfecef1", null ]
     ] ],
-    [ "rope", "namespaceshkyera_1_1rope.html", "namespaceshkyera_1_1rope" ],
     [ "UUID", "namespaceshkyera_1_1_u_u_i_d.html", [
       [ "getUUID", "namespaceshkyera_1_1_u_u_i_d.html#a8d59f2b684a6701608fdb92ee119db32", null ],
       [ "_counter", "namespaceshkyera_1_1_u_u_i_d.html#af908b704d500b47409f33b815fe8e114", null ]

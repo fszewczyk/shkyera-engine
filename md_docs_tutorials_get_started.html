@@ -116,7 +116,7 @@ $(document).ready(function(){initNavTree('md_docs_tutorials_get_started.html',''
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p>The following guide will introduce you to all the essential concepts of the Shkyera Engine. By the end of this guide, you will be able to use the user interface, create new objects, components, write basic scripts and customize their behavior through the use of public variables.</p>
-<h1><a class="anchor" id="autotoc_md1"></a>
+<h1><a class="anchor" id="autotoc_md8"></a>
 Installation</h1>
 <p>Before we can create any game, you need to download the engine. You can easily do it by putting the following command in the terminal:</p>
 <div class="fragment"><div class="line">git clone --recursive git@github.com:fszewczyk/shkyera-engine.git</div>
@@ -133,9 +133,9 @@ Installation</h1>
 </div><!-- fragment --><p>This can take a while, but the project should compile and you should see a window that looks somewhat like this.</p>
 <p><img src="empty_window.png" alt="" class="inline" title="Default Window"/></p>
 <p>Nice! Now we can start building things!</p>
-<h1><a class="anchor" id="autotoc_md2"></a>
+<h1><a class="anchor" id="autotoc_md9"></a>
 Hello world!</h1>
-<p>We will begin by creating a simple program that writed <code>Hello world!</code> to the console.</p>
+<p>We will begin by creating a simple program that writes <code>Hello world!</code> to the console.</p>
 <p>On the top-left, in the <code>Objects</code> widget, click <code>Create</code> and then <code>Empty Object</code>.</p>
 <div align="center"> <img src="create_object.png" alt="" class="inline" title="Create object"/> </div><p>This will create a new empty object called <code>Empty</code>, which is visible in the same widget. You can create as many objects as you want. Internally, they all have unique identifiers, so do not worry about them having the same name.</p>
 <p>To launch the game, press the <code>▷</code> button in the top-middle, <code>Scene</code> widget.</p>
@@ -170,7 +170,7 @@ Hello world!</h1>
 <p>Let's test our program! Press <code>▷</code> in the <code>Scene</code> widget. You should see the <code>Hello world!</code> message pop up in the console. You can use <code>Clear</code> button to remove all the message from the <code>Console</code>.</p>
 <div align="center"> <img src="console.png" alt="" class="inline" title="Console"/> </div><p>There are multiple types of logs. For our message, we used the one representing success. If you want to show different messages, use <code>log_error</code>, <code>log_info</code> and <code>log_verbose</code> in your scripts.</p>
 <p>Congrats! You have just made your first program in Shkyera Engine. But wait, we can do more! What if we want to have a custom message? And what if we want to print this message exactly 17 times? To answer this important question, we present to you: <em>public variables</em>!</p>
-<h1><a class="anchor" id="autotoc_md3"></a>
+<h1><a class="anchor" id="autotoc_md10"></a>
 Public Variables</h1>
 <p>Let's go back to our script. We add two member variables to our object. One of them is going to hold the message we want to log, the other one will hold the number of times we want to log that message.</p>
 <div class="fragment"><div class="line">class Object(ShkyeraObject):</div>

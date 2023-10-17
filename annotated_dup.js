@@ -16,12 +16,6 @@ var annotated_dup =
           [ "Rope", "classshkyera_1_1lib_1_1physics_1_1_rope.html", "classshkyera_1_1lib_1_1physics_1_1_rope" ]
         ] ]
       ] ],
-      [ "object", "namespaceshkyera_1_1object.html", [
-        [ "Object", "classshkyera_1_1object_1_1_object.html", "classshkyera_1_1object_1_1_object" ]
-      ] ],
-      [ "rope", "namespaceshkyera_1_1rope.html", [
-        [ "Object", "classshkyera_1_1rope_1_1_object.html", "classshkyera_1_1rope_1_1_object" ]
-      ] ],
       [ "Entity", "classshkyera_1_1_entity.html", "classshkyera_1_1_entity" ],
       [ "File", "classshkyera_1_1_file.html", "classshkyera_1_1_file" ],
       [ "Directory", "classshkyera_1_1_directory.html", "classshkyera_1_1_directory" ],
