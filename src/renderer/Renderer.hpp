@@ -57,6 +57,15 @@ class Renderer {
      */
     void drawLine(int x0, int y0, int x1, int y1);
 
+    /**
+     * @brief Draw a circle at (x, y) with radius r.
+     *
+     * @param x The x-coordinate of the circle.
+     * @param y The y-coordinate of the circle.
+     * @param r The radius of the circle.
+     */
+    void drawCircle(int x, int y, int r);
+
   private:
     /**
      * @brief Initialize the texture used for rendering.

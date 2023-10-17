@@ -56,6 +56,13 @@ template <> void processEvent<DRAW_LINE>(py::list payload) {
     _eventRenderer->drawLine(x1, y1, x2, y2);
 }
 
+template <> void processEvent<DRAW_CIRCLE>(py::list payload) {
+    auto coords = parsePayload<int>(payload);
+    int x = coords[0], y = coords[1], r = coords[2];
+
+    _eventRenderer->drawCircle(x, y, r);
+}
+
 template <> void processEvent<DRAW_CLEAR>(py::list payload) { _eventRenderer->clear(); }
 
 } // namespace shkyera::Python
