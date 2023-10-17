@@ -8,7 +8,7 @@ Here, you can follow along the instructions to create different kinds of project
 
 Goal of this small project is to run a physics simulation of a rope and control it using our keyboard. Let's create an Empty Object, attach a `Script` component to it and create a file called `rope.py`. Drag the file into the component and open the file in your favorite text editor. Paste the boiler-plate code inside.
 
-```
+```{.py}
 # Imports the boiler-plate object
 from .lib.object import ShkyeraObject
 
@@ -24,13 +24,13 @@ class Object(ShkyeraObject):
 
 To use the physics engine, we need to import the appropriate module at the top of the file:
 
-```
+```{.py}
 from .lib.physics import *
 ```
 
 We want to be able to modify the length of the rope. Further, we want to specify the number of particles the rope should consist of. To do so, we make use of _public variables_.
 
-```
+```{.py}
 class Object(ShkyeraObject):
     Length: float
     Particles: int
@@ -38,7 +38,7 @@ class Object(ShkyeraObject):
 
 We also have to initialize the rope with the chosen settings. To do so, we modify the `setup` method.
 
-```
+```{.py}
 def setup(self):
     self.rope = Rope(
         origin=self.get_position(), # Origin point of the rope should be equal to object's position
@@ -50,7 +50,7 @@ def setup(self):
 
 Obviously, we want to be able to see the rope in our program. To do that, we need to draw it each time a frame is rendered. We modify the `update` method in the following way.
 
-```
+```{.py}
 def update(self):
     # Draws the rope in the scene
     self.rope.draw()
@@ -74,13 +74,13 @@ Feel free to move the `X` and `Y` position in the `Transform` component. If you 
 
 In order to move the rope around, we need to be able to read user input. We can do that using the module provided by Shkyera Engine. Add the following import at the top of your script.
 
-```
+```{.py}
 from .lib.input import *
 ```
 
 We modify the `update` method, such that we move our position based on the user input. We will move the rope by 0.02 units at each frame. The direction of movement depends on the pressed keys.
 
-```
+```{.py}
 def update(self):
     if is_pressed('W'):
         self.position.y -= 0.02
@@ -105,7 +105,7 @@ Let's start it! After pressing `▷`, you should be able to move the rope around
 
 If you have encountered some problems, here is the whole contents of the script we wrote.
 
-```
+```{.py}
 from .lib.object import ShkyeraObject
 
 from .lib.physics import *

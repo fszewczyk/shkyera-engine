@@ -4,7 +4,7 @@
 
 This piece of code is the basis of every script. Always copy it into your file before implementing your own functionality.
 
-```
+```{.py}
 # Imports the boiler-plate object
 from .lib.object import ShkyeraObject
 
@@ -22,25 +22,61 @@ class Object(ShkyeraObject):
 
 Make sure you imported the drawing module at the top of your file.
 
-```
+```{.py}
 from .lib.drawer import *
 ```
 
-Before each `update` of the game, the view is completely cleared. That means that you need to redraw objects in each of your `update` functions if you want them to stay on the screen.
+Before each `update` of the game, the view is completely cleared. That means that you need to redraw objects in each of your `update` functions if you want them to stay on the screen. Note that the provided values are pixel coordinates. Take a look at the following example. It's rather straightfoward.
 
-### Lines
+```{.py}
+# Imports the boiler-plate object
+from .lib.object import ShkyeraObject
 
-It is possible to draw a straight line from one point to another using the function [`draw_line(x0,y0,x1,y1)`](https://fszewczyk.github.io/shkyera-engine/namespaceshkyera_1_1lib_1_1drawer.html). Here is an example:
+from .lib.drawer import *
 
+class Object(ShkyeraObject):
+    def setup(self):
+        # This part will be executed at the beginning of the program
+        pass
+
+    def update(self):
+        # This part will be executed at each frame (approximately 60 times a second)
+
+        # We can draw a rectangle!
+        draw_rectangle(
+            x=50,
+            y=10,
+            w=400,
+            h=50
+        )
+
+        # A circle
+        draw_circle(
+            x=120,
+            y=180,
+            r=60
+        )
+
+        # And a line!
+        draw_line(
+            x1=300,
+            y1=200,
+            x2=380,
+            y2=260
+        )
 ```
-draw_line(0, 0, 1, 1)
-```
+
+Using the above script allows for creating scenes such as this one.
+
+![](docs/img/drawing_demo.png)
+
+For a more detailed reference regarding drawing, check out the [original reference](https://fszewczyk.github.io/shkyera-engine/namespaceshkyera_1_1lib_1_1drawer.html).
 
 ## Input
 
 Import the `input` module at the top of your script.
 
-```
+```{.py}
 from .lib.input import *
 ```
 
@@ -48,7 +84,7 @@ Use the [`is_pressed(KEY_CODE)`](https://fszewczyk.github.io/shkyera-engine/name
 
 ### Examples
 
-```
+```{.py}
 is_pressed("W")
 is_pressed("UpArrow")
 is_pressed("3")

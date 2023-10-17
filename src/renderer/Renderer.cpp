@@ -1,5 +1,6 @@
 #include "renderer/Renderer.hpp"
 
+#include <cmath>
 #include <cstring>
 #include <fstream>
 #include <iostream>
@@ -48,6 +49,31 @@ void Renderer::setDimension(uint32_t width, uint32_t height) {
 
     clear();
     std::memcpy(_deployData, _data, 4 * _width * _height);
+}
+
+void Renderer::drawCircle(int x, int y, int r) {
+    float step = 2 * M_PI / r;
+
+    for (float alpha = 0; alpha <= 2 * M_PI; alpha += step) {
+        float alpha2 = alpha + step;
+
+        float x1 = x + r * cosf(alpha);
+        float y1 = y + r * sinf(alpha);
+
+        float x2 = x + r * cosf(alpha2);
+        float y2 = y + r * sinf(alpha2);
+
+        drawLine((int)x1, (int)y1, (int)x2, (int)y2);
+    }
+}
+
+void Renderer::drawRectangle(int x, int y, int w, int h) {
+    for (int yCoord = y; yCoord < y + h; ++yCoord) {
+        for (int xCoord = x; xCoord < x + w; ++xCoord) {
+            if (xCoord >= 0 && xCoord < _width && yCoord >= 0 && yCoord < _height)
+                setPixel(xCoord, yCoord, 0, 0, 0);
+        }
+    }
 }
 
 void Renderer::drawLine(int x0, int y0, int x1, int y1) {
