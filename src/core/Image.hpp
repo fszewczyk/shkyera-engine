@@ -60,6 +60,7 @@ class Image {
 
     static Image ICON_COMPONENT_TRANSFORM;
     static Image ICON_COMPONENT_SCRIPT;
+    static Image ICON_COMPONENT_SHAPE;
 
     static Image ICON_FILES_FOLDER;
     static Image ICON_FILES_PYTHON;

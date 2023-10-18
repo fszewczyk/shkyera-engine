@@ -39,6 +39,10 @@ add_library(
 
     src/ui/components/TransformUIComponent.cpp
     src/ui/components/ScriptUIComponent.cpp
+    src/ui/components/shapes/ShapeUIComponent.cpp
+    src/ui/components/shapes/ShapeCircleUIComponent.cpp
+    src/ui/components/shapes/ShapeRectangleUIComponent.cpp
+    src/ui/components/shapes/ShapeLineUIComponent.cpp
 )
 
 add_library(

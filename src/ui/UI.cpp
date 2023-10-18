@@ -114,6 +114,7 @@ void UI::initializeAssets() {
 
     Image::ICON_COMPONENT_TRANSFORM.updateTextureId();
     Image::ICON_COMPONENT_SCRIPT.updateTextureId();
+    Image::ICON_COMPONENT_SHAPE.updateTextureId();
 
     Image::ICON_FILES_FOLDER.updateTextureId();
     Image::ICON_FILES_IMAGE.updateTextureId();

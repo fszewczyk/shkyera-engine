@@ -4,6 +4,9 @@
 #include "ui/widgets/PropertiesWidget.hpp"
 
 #include "ui/components/ScriptUIComponent.hpp"
+#include "ui/components/shapes/ShapeCircleUIComponent.hpp"
+#include "ui/components/shapes/ShapeLineUIComponent.hpp"
+#include "ui/components/shapes/ShapeRectangleUIComponent.hpp"
 
 namespace shkyera {
 
@@ -49,6 +52,31 @@ void PropertiesWidget::drawNewComponentMenu() {
             setObject(_object);
 
             ImGui::CloseCurrentPopup();
+        }
+        if (ImGui::BeginMenu("Shape")) {
+            if (ImGui::Selectable("Circle")) {
+                UIComponent::addComponentToObject(_object,
+                                                  std::make_shared<ShapeCircleUIComponent>("Shape (Circle)", _object));
+                setObject(_object);
+
+                ImGui::CloseCurrentPopup();
+            }
+            if (ImGui::Selectable("Rectangle")) {
+                UIComponent::addComponentToObject(
+                    _object, std::make_shared<ShapeRectangleUIComponent>("Shape (Rectangle)", _object));
+                setObject(_object);
+
+                ImGui::CloseCurrentPopup();
+            }
+            if (ImGui::Selectable("Line")) {
+                UIComponent::addComponentToObject(_object,
+                                                  std::make_shared<ShapeLineUIComponent>("Shape (Line)", _object));
+                setObject(_object);
+
+                ImGui::CloseCurrentPopup();
+            }
+
+            ImGui::EndMenu();
         }
 
         ImGui::EndPopup();
