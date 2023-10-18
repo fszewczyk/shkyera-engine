@@ -16,9 +16,6 @@ var annotated_dup =
           [ "Rope", "classshkyera_1_1lib_1_1physics_1_1_rope.html", "classshkyera_1_1lib_1_1physics_1_1_rope" ]
         ] ]
       ] ],
-      [ "object", "namespaceshkyera_1_1object.html", [
-        [ "Object", "classshkyera_1_1object_1_1_object.html", "classshkyera_1_1object_1_1_object" ]
-      ] ],
       [ "Entity", "classshkyera_1_1_entity.html", "classshkyera_1_1_entity" ],
       [ "File", "classshkyera_1_1_file.html", "classshkyera_1_1_file" ],
       [ "Directory", "classshkyera_1_1_directory.html", "classshkyera_1_1_directory" ],
@@ -29,10 +26,18 @@ var annotated_dup =
       [ "PublicString", "structshkyera_1_1_public_string.html", "structshkyera_1_1_public_string" ],
       [ "PublicVec3", "structshkyera_1_1_public_vec3.html", "structshkyera_1_1_public_vec3" ],
       [ "ScriptComponent", "classshkyera_1_1_script_component.html", "classshkyera_1_1_script_component" ],
+      [ "ShapeCircleComponent", "classshkyera_1_1_shape_circle_component.html", "classshkyera_1_1_shape_circle_component" ],
+      [ "ShapeComponent", "classshkyera_1_1_shape_component.html", "classshkyera_1_1_shape_component" ],
+      [ "ShapeLineComponent", "classshkyera_1_1_shape_line_component.html", "classshkyera_1_1_shape_line_component" ],
+      [ "ShapeRectangleComponent", "classshkyera_1_1_shape_rectangle_component.html", "classshkyera_1_1_shape_rectangle_component" ],
       [ "Game", "classshkyera_1_1_game.html", "classshkyera_1_1_game" ],
       [ "GameObject", "classshkyera_1_1_game_object.html", "classshkyera_1_1_game_object" ],
       [ "Renderer", "classshkyera_1_1_renderer.html", "classshkyera_1_1_renderer" ],
       [ "ScriptUIComponent", "classshkyera_1_1_script_u_i_component.html", "classshkyera_1_1_script_u_i_component" ],
+      [ "ShapeCircleUIComponent", "classshkyera_1_1_shape_circle_u_i_component.html", "classshkyera_1_1_shape_circle_u_i_component" ],
+      [ "ShapeLineUIComponent", "classshkyera_1_1_shape_line_u_i_component.html", "classshkyera_1_1_shape_line_u_i_component" ],
+      [ "ShapeRectangleUIComponent", "classshkyera_1_1_shape_rectangle_u_i_component.html", "classshkyera_1_1_shape_rectangle_u_i_component" ],
+      [ "ShapeUIComponent", "classshkyera_1_1_shape_u_i_component.html", "classshkyera_1_1_shape_u_i_component" ],
       [ "TransformUIComponent", "classshkyera_1_1_transform_u_i_component.html", "classshkyera_1_1_transform_u_i_component" ],
       [ "UI", "classshkyera_1_1_u_i.html", "classshkyera_1_1_u_i" ],
       [ "UIComponent", "classshkyera_1_1_u_i_component.html", "classshkyera_1_1_u_i_component" ],

@@ -1,7 +1,12 @@
 var hierarchy =
 [
     [ "shkyera::Component", "classshkyera_1_1_component.html", [
-      [ "shkyera::ScriptComponent", "classshkyera_1_1_script_component.html", null ]
+      [ "shkyera::ScriptComponent", "classshkyera_1_1_script_component.html", null ],
+      [ "shkyera::ShapeComponent", "classshkyera_1_1_shape_component.html", [
+        [ "shkyera::ShapeCircleComponent", "classshkyera_1_1_shape_circle_component.html", null ],
+        [ "shkyera::ShapeLineComponent", "classshkyera_1_1_shape_line_component.html", null ],
+        [ "shkyera::ShapeRectangleComponent", "classshkyera_1_1_shape_rectangle_component.html", null ]
+      ] ]
     ] ],
     [ "shkyera::Directory", "classshkyera_1_1_directory.html", null ],
     [ "shkyera::Entity", "classshkyera_1_1_entity.html", [
@@ -24,12 +29,15 @@ var hierarchy =
     [ "shkyera::PublicVec3", "structshkyera_1_1_public_vec3.html", null ],
     [ "shkyera::Renderer", "classshkyera_1_1_renderer.html", null ],
     [ "shkyera.lib.physics.Rope", "classshkyera_1_1lib_1_1physics_1_1_rope.html", null ],
-    [ "shkyera.lib.object.ShkyeraObject", "classshkyera_1_1lib_1_1object_1_1_shkyera_object.html", [
-      [ "shkyera.object.Object", "classshkyera_1_1object_1_1_object.html", null ]
-    ] ],
+    [ "shkyera.lib.object.ShkyeraObject", "classshkyera_1_1lib_1_1object_1_1_shkyera_object.html", null ],
     [ "shkyera::UI", "classshkyera_1_1_u_i.html", null ],
     [ "shkyera::UIComponent", "classshkyera_1_1_u_i_component.html", [
       [ "shkyera::ScriptUIComponent", "classshkyera_1_1_script_u_i_component.html", null ],
+      [ "shkyera::ShapeUIComponent", "classshkyera_1_1_shape_u_i_component.html", [
+        [ "shkyera::ShapeCircleUIComponent", "classshkyera_1_1_shape_circle_u_i_component.html", null ],
+        [ "shkyera::ShapeLineUIComponent", "classshkyera_1_1_shape_line_u_i_component.html", null ],
+        [ "shkyera::ShapeRectangleUIComponent", "classshkyera_1_1_shape_rectangle_u_i_component.html", null ]
+      ] ],
       [ "shkyera::TransformUIComponent", "classshkyera_1_1_transform_u_i_component.html", null ]
     ] ],
     [ "shkyera.lib.object.Vec3", "classshkyera_1_1lib_1_1object_1_1_vec3.html", null ],

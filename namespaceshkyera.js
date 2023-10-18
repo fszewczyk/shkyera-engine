@@ -1,7 +1,6 @@
 var namespaceshkyera =
 [
     [ "lib", "namespaceshkyera_1_1lib.html", "namespaceshkyera_1_1lib" ],
-    [ "object", "namespaceshkyera_1_1object.html", "namespaceshkyera_1_1object" ],
     [ "Python", "namespaceshkyera_1_1_python.html", [
       [ "eventHandler", "namespaceshkyera_1_1_python.html#ae2915c857777d07c5160bd712767dcbf", null ],
       [ "Event", "namespaceshkyera_1_1_python.html#a1f9d3b8ccb604b80fdebb1d84adb7a9b", [
@@ -73,10 +72,18 @@ var namespaceshkyera =
     [ "PublicString", "structshkyera_1_1_public_string.html", "structshkyera_1_1_public_string" ],
     [ "PublicVec3", "structshkyera_1_1_public_vec3.html", "structshkyera_1_1_public_vec3" ],
     [ "ScriptComponent", "classshkyera_1_1_script_component.html", "classshkyera_1_1_script_component" ],
+    [ "ShapeCircleComponent", "classshkyera_1_1_shape_circle_component.html", "classshkyera_1_1_shape_circle_component" ],
+    [ "ShapeComponent", "classshkyera_1_1_shape_component.html", "classshkyera_1_1_shape_component" ],
+    [ "ShapeLineComponent", "classshkyera_1_1_shape_line_component.html", "classshkyera_1_1_shape_line_component" ],
+    [ "ShapeRectangleComponent", "classshkyera_1_1_shape_rectangle_component.html", "classshkyera_1_1_shape_rectangle_component" ],
     [ "Game", "classshkyera_1_1_game.html", "classshkyera_1_1_game" ],
     [ "GameObject", "classshkyera_1_1_game_object.html", "classshkyera_1_1_game_object" ],
     [ "Renderer", "classshkyera_1_1_renderer.html", "classshkyera_1_1_renderer" ],
     [ "ScriptUIComponent", "classshkyera_1_1_script_u_i_component.html", "classshkyera_1_1_script_u_i_component" ],
+    [ "ShapeCircleUIComponent", "classshkyera_1_1_shape_circle_u_i_component.html", "classshkyera_1_1_shape_circle_u_i_component" ],
+    [ "ShapeLineUIComponent", "classshkyera_1_1_shape_line_u_i_component.html", "classshkyera_1_1_shape_line_u_i_component" ],
+    [ "ShapeRectangleUIComponent", "classshkyera_1_1_shape_rectangle_u_i_component.html", "classshkyera_1_1_shape_rectangle_u_i_component" ],
+    [ "ShapeUIComponent", "classshkyera_1_1_shape_u_i_component.html", "classshkyera_1_1_shape_u_i_component" ],
     [ "TransformUIComponent", "classshkyera_1_1_transform_u_i_component.html", "classshkyera_1_1_transform_u_i_component" ],
     [ "UI", "classshkyera_1_1_u_i.html", "classshkyera_1_1_u_i" ],
     [ "UIComponent", "classshkyera_1_1_u_i_component.html", "classshkyera_1_1_u_i_component" ],

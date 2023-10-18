@@ -8,7 +8,7 @@ var classshkyera_1_1_renderer =
     [ "drawLine", "classshkyera_1_1_renderer.html#a916df8aa6468486b9e33ee287b960fb0", null ],
     [ "drawLineHigh", "classshkyera_1_1_renderer.html#ac80350a322b732b210c2e9a24c67d4e3", null ],
     [ "drawLineLow", "classshkyera_1_1_renderer.html#a4149216f829f879f605a73b286999a85", null ],
-    [ "drawRectangle", "classshkyera_1_1_renderer.html#a63b39295faf3a43a2f51580ad6968a5a", null ],
+    [ "drawRectangle", "classshkyera_1_1_renderer.html#a5a4023f6d5f1026171b8fa7721f96034", null ],
     [ "getTextureId", "classshkyera_1_1_renderer.html#a89ea677f3b3caee022d09f16cfc7643d", null ],
     [ "initializeTexture", "classshkyera_1_1_renderer.html#ab57729f2ff151862f59f8d62fb023dcc", null ],
     [ "setDimension", "classshkyera_1_1_renderer.html#ae5ad50a038701cc4e9becc2cfbf30a1b", null ],
