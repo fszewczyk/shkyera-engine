@@ -95,7 +95,7 @@ def update(self):
     self.rope.step()
 ```
 
-@note So far, it is only possible to read input from W, A, S and D.
+@note Check out the [cheatseet](https://fszewczyk.github.io/shkyera-engine/md_docs_tutorials_cheatsheet.html) for the full list of available keys.
 
 Let's start it! After pressing `▷`, you should be able to move the rope around using W, A, S, D keys on your keyboard!
 
