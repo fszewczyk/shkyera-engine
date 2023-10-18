@@ -67,11 +67,11 @@ void Renderer::drawCircle(int x, int y, int r) {
     }
 }
 
-void Renderer::drawRectangle(int x, int y, int w, int h) {
+void Renderer::drawRectangle(int x, int y, int w, int h, glm::vec3 color) {
     for (int yCoord = y; yCoord < y + h; ++yCoord) {
         for (int xCoord = x; xCoord < x + w; ++xCoord) {
             if (xCoord >= 0 && xCoord < _width && yCoord >= 0 && yCoord < _height)
-                setPixel(xCoord, yCoord, 0, 0, 0);
+                setPixel(xCoord, yCoord, color[0], color[1], color[2]);
         }
     }
 }

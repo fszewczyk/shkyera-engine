@@ -63,6 +63,7 @@ Image Image::ICON_CONSOLE_SUCCESS = Image("resources/icons/console/success.png")
 
 Image Image::ICON_COMPONENT_TRANSFORM = Image("resources/icons/components/transform.png");
 Image Image::ICON_COMPONENT_SCRIPT = Image("resources/icons/components/script.png");
+Image Image::ICON_COMPONENT_SHAPE = Image("resources/icons/components/shape.png");
 
 Image Image::ICON_FILES_FOLDER = Image("resources/icons/files/folder.png");
 Image Image::ICON_FILES_PYTHON = Image("resources/icons/files/python.png");

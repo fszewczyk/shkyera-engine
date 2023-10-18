@@ -8,6 +8,7 @@
 #pragma once
 
 #include "game/GameObject.hpp"
+#include "renderer/Renderer.hpp"
 #include "ui/UIComponent.hpp"
 #include "ui/Widget.hpp"
 
@@ -35,11 +36,15 @@ class PropertiesWidget : public Widget {
      */
     static void setObject(std::shared_ptr<GameObject> object);
 
+    void setRenderer(std::shared_ptr<Renderer> renderer);
+
   private:
     /**
      * @brief Draw a menu for adding new components to the game object.
      */
     void drawNewComponentMenu();
+
+    std::shared_ptr<Renderer> _renderer;
 
     static std::shared_ptr<GameObject> _object;                   ///< A shared pointer to the associated game object.
     static std::vector<std::shared_ptr<UIComponent>> _components; ///< Components associated with the game object.

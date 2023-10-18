@@ -15,7 +15,5 @@ class Game():
             obj._setup()
 
     def update(self):
-        draw_clear()
-
         for obj in self.objects:
             obj._update()

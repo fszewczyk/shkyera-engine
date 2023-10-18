@@ -35,9 +35,6 @@ class UIComponent {
      */
     virtual void draw() = 0;
 
-    std::string _name;                   ///< The name of the UI component.
-    std::shared_ptr<GameObject> _object; ///< The game object associated with the UI component.
-
     /**
      * @brief Static method to add a UI component to a game object.
      *
@@ -55,7 +52,9 @@ class UIComponent {
     static std::vector<std::shared_ptr<UIComponent>> getComponentsOfObject(std::shared_ptr<GameObject> object);
 
   protected:
-    uint64_t _uuid; ///< A unique identifier for the UI component.
+    uint64_t _uuid;                      ///< A unique identifier for the UI component.
+    std::string _name;                   ///< The name of the UI component.
+    std::shared_ptr<GameObject> _object; ///< The game object associated with the UI component.
 
   private:
     // Mapping of game objects to their associated UI components.

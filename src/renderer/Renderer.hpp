@@ -73,8 +73,9 @@ class Renderer {
      * @param y The y-coordinate of top-left corner of the rectangle.
      * @param w The width of the rectangle.
      * @param h The height of the rectangle.
+     * @param color The color of the rectangle as RGB
      */
-    void drawRectangle(int x, int y, int w, int h);
+    void drawRectangle(int x, int y, int w, int h, glm::vec3 color = {0, 0, 0});
 
   private:
     /**
