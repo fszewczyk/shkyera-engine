@@ -65,7 +65,7 @@ void PropertiesWidget::drawNewComponentMenu() {
                 ImGui::CloseCurrentPopup();
             }
             if (ImGui::Selectable("Rectangle")) {
-                auto rectangleUIComponent = std::make_shared<ShapeRectangleUIComponent>("Rectangle (Circle)", _object);
+                auto rectangleUIComponent = std::make_shared<ShapeRectangleUIComponent>("Shape (Rectangle)", _object);
                 rectangleUIComponent->initialize(_renderer);
                 UIComponent::addComponentToObject(_object, rectangleUIComponent);
 
@@ -73,7 +73,7 @@ void PropertiesWidget::drawNewComponentMenu() {
                 ImGui::CloseCurrentPopup();
             }
             if (ImGui::Selectable("Line")) {
-                auto lineUIComponent = std::make_shared<ShapeLineUIComponent>("Line (Circle)", _object);
+                auto lineUIComponent = std::make_shared<ShapeLineUIComponent>("Shape (Line)", _object);
                 lineUIComponent->initialize(_renderer);
                 UIComponent::addComponentToObject(_object, lineUIComponent);
 

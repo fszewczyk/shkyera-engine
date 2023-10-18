@@ -18,6 +18,12 @@ class Object(ShkyeraObject):
         pass
 ```
 
+## Shapes
+
+To render basic shapes, you can use the `Shape` component. You can create a `Rectangle`, a `Circle` or a `Line`. Each of them can be edited directly in Shkyera Engine. Position of the shape is directly linked to the `Transform` component of an object.
+
+![Shape Component](docs/img/shape_component.gif)
+
 ## Drawing
 
 Make sure you imported the drawing module at the top of your file.
