@@ -38,6 +38,8 @@ void PropertiesWidget::draw() {
     ImGui::End();
 }
 
+void PropertiesWidget::setRenderer(std::shared_ptr<Renderer> renderer) { _renderer = renderer; }
+
 void PropertiesWidget::setObject(std::shared_ptr<GameObject> object) {
     _object = object;
     _components = UIComponent::getComponentsOfObject(_object);
@@ -55,24 +57,27 @@ void PropertiesWidget::drawNewComponentMenu() {
         }
         if (ImGui::BeginMenu("Shape")) {
             if (ImGui::Selectable("Circle")) {
-                UIComponent::addComponentToObject(_object,
-                                                  std::make_shared<ShapeCircleUIComponent>("Shape (Circle)", _object));
-                setObject(_object);
+                auto circleUIComponent = std::make_shared<ShapeCircleUIComponent>("Shape (Circle)", _object);
+                circleUIComponent->initialize(_renderer);
+                UIComponent::addComponentToObject(_object, circleUIComponent);
 
+                setObject(_object);
                 ImGui::CloseCurrentPopup();
             }
             if (ImGui::Selectable("Rectangle")) {
-                UIComponent::addComponentToObject(
-                    _object, std::make_shared<ShapeRectangleUIComponent>("Shape (Rectangle)", _object));
-                setObject(_object);
+                auto rectangleUIComponent = std::make_shared<ShapeRectangleUIComponent>("Rectangle (Circle)", _object);
+                rectangleUIComponent->initialize(_renderer);
+                UIComponent::addComponentToObject(_object, rectangleUIComponent);
 
+                setObject(_object);
                 ImGui::CloseCurrentPopup();
             }
             if (ImGui::Selectable("Line")) {
-                UIComponent::addComponentToObject(_object,
-                                                  std::make_shared<ShapeLineUIComponent>("Shape (Line)", _object));
-                setObject(_object);
+                auto lineUIComponent = std::make_shared<ShapeLineUIComponent>("Line (Circle)", _object);
+                lineUIComponent->initialize(_renderer);
+                UIComponent::addComponentToObject(_object, lineUIComponent);
 
+                setObject(_object);
                 ImGui::CloseCurrentPopup();
             }
 

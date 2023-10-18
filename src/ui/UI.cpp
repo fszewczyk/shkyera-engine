@@ -89,8 +89,11 @@ void UI::initializeImgui() {
 }
 
 void UI::initializeWidgets() {
-    _widgets.emplace_back(std::make_unique<PropertiesWidget>("Properties"));
     _widgets.emplace_back(std::make_unique<ConsoleWidget>("Console"));
+
+    auto propertiesWidget = std::make_unique<PropertiesWidget>("Properties");
+    propertiesWidget->setRenderer(_renderer);
+    _widgets.emplace_back(std::move(propertiesWidget));
 
     auto objectsWidget = std::make_unique<ObjectsWidget>("Objects");
     objectsWidget->setGame(_game);

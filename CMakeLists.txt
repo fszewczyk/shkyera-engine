@@ -61,6 +61,10 @@ add_library(
     src/game/Component.cpp
 
     src/game/components/ScriptComponent.cpp
+    src/game/components/shapes/ShapeComponent.cpp
+    src/game/components/shapes/ShapeCircleComponent.cpp
+    src/game/components/shapes/ShapeRectangleComponent.cpp
+    src/game/components/shapes/ShapeLineComponent.cpp
 )
 
 add_library(
@@ -112,6 +116,7 @@ target_link_libraries(ui
 target_link_libraries(game  
     core
     python
+    renderer
 )
 target_link_libraries(renderer  
     glfw 

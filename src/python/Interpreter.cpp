@@ -2,6 +2,7 @@
 #include "game/Component.hpp"
 #include "game/GameObject.hpp"
 #include "game/components/ScriptComponent.hpp"
+#include "game/components/shapes/ShapeComponent.hpp"
 #include "python/Events.hpp"
 
 #include <iostream>
@@ -30,6 +31,12 @@ std::array<eventHandler, TOTAL_EVENTS> _eventHandlers;
 void setInterpreterRenderer(std::shared_ptr<Renderer> renderer) { _renderer = renderer; }
 
 void runEvents() {
+    _renderer->clear();
+
+    std::vector<std::shared_ptr<ShapeComponent>> shapes = ShapeComponent::getShapes();
+    for (std::shared_ptr<ShapeComponent> s : shapes)
+        s->drawShape();
+
     py::list events = _eventSystem.attr("get")();
 
     for (py::handle eventRef : events) {
