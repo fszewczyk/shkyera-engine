@@ -1,12 +1,12 @@
 #include "imgui.h"
 
+#include "core/Image.hpp"
 #include "ui/UI.hpp"
-#include "ui/widgets/PropertiesWidget.hpp"
-
 #include "ui/components/ScriptUIComponent.hpp"
 #include "ui/components/shapes/ShapeCircleUIComponent.hpp"
 #include "ui/components/shapes/ShapeLineUIComponent.hpp"
 #include "ui/components/shapes/ShapeRectangleUIComponent.hpp"
+#include "ui/widgets/PropertiesWidget.hpp"
 
 namespace shkyera {
 
@@ -49,12 +49,17 @@ void PropertiesWidget::drawNewComponentMenu() {
     if (ImGui::Button("New Component", ImVec2(-1, 0)))
         ImGui::OpenPopup("Add Component");
     if (ImGui::BeginPopup("Add Component")) {
+        ImGui::Image((ImTextureID)Image::ICON_COMPONENT_SCRIPT.getTextureId(), ImVec2(16, 16));
+        ImGui::SameLine();
         if (ImGui::Selectable("Script")) {
             UIComponent::addComponentToObject(_object, std::make_shared<ScriptUIComponent>("Script", _object));
             setObject(_object);
 
             ImGui::CloseCurrentPopup();
         }
+
+        ImGui::Image((ImTextureID)Image::ICON_COMPONENT_SHAPE.getTextureId(), ImVec2(16, 16));
+        ImGui::SameLine();
         if (ImGui::BeginMenu("Shape")) {
             if (ImGui::Selectable("Circle")) {
                 auto circleUIComponent = std::make_shared<ShapeCircleUIComponent>("Shape (Circle)", _object);
