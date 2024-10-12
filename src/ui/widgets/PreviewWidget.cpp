@@ -1,7 +1,7 @@
 #include "imgui.h"
 #include <imgui_internal.h>
 
-#include <UI/widgets/PreviewWidget.hpp>
+#include <UI/Widgets/PreviewWidget.hpp>
 
 namespace shkyera {
 

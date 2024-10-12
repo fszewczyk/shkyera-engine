@@ -1,9 +1,9 @@
 #include "imgui.h"
 #include <imgui_internal.h>
 
-#include <UI/widgets/ConsoleWidget.hpp>
-#include <UI/widgets/ObjectsWidget.hpp>
-#include <UI/widgets/PropertiesWidget.hpp>
+#include <UI/Widgets/ConsoleWidget.hpp>
+#include <UI/Widgets/ObjectsWidget.hpp>
+#include <UI/Widgets/PropertiesWidget.hpp>
 #include <Components/NameComponent.hpp>
 
 namespace shkyera {

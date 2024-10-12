@@ -5,8 +5,9 @@
 
 #include <AssetManager/Image.hpp>
 #include <UI/UI.hpp>
-#include <UI/widgets/ConsoleWidget.hpp>
-#include <UI/widgets/FilesystemWidget.hpp>
+#include <UI/Widgets/ConsoleWidget.hpp>
+#include <UI/Widgets/FilesystemWidget.hpp>
+#include <UI/Common/Style.hpp>
 
 namespace shkyera {
 
@@ -74,7 +75,7 @@ void FilesystemWidget::drawDirectoryTree(const std::shared_ptr<Directory> direct
 }
 
 void FilesystemWidget::drawDirectoryContents(const std::shared_ptr<Directory> directory) {
-    ImGui::PushFont(UI::BIG_FONT);
+    ImGui::PushFont(style::BIG_FONT);
     ImGui::TextUnformatted(directory->getPath().string().c_str());
     ImGui::PopFont();
     ImGui::Separator();
@@ -158,7 +159,7 @@ void FilesystemWidget::drawFile(const std::shared_ptr<File> file) {
 }
 
 void FilesystemWidget::drawIconName(const std::string name) const {
-    ImGui::PushFont(UI::SMALL_FONT);
+    ImGui::PushFont(style::SMALL_FONT);
 
     auto textWidth = ImGui::CalcTextSize(name.c_str()).x;
     ImGui::SetCursorPosX(ImGui::GetCursorPosX() + (CONTENTS_ICON_SIZE + 10 - textWidth) * 0.5f);

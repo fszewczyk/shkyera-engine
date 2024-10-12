@@ -2,9 +2,9 @@
 
 #include <iostream>
 
-#include <UI/UI.hpp>
-#include <UI/widgets/PropertiesWidget.hpp>
 #include <Components/NameComponent.hpp>
+#include <UI/Widgets/PropertiesWidget.hpp>
+#include <UI/Common/Style.hpp>
 
 namespace shkyera {
 
@@ -23,7 +23,7 @@ void PropertiesWidget::draw() {
     {
         ImGui::PushID(*_selectedEntity);
 
-        ImGui::PushFont(UI::HUGE_FONT);
+        ImGui::PushFont(style::HUGE_FONT);
         ImGui::TextUnformatted(_registry->getComponent<NameComponent>(*_selectedEntity).getName().c_str());
         ImGui::PopFont();
 

@@ -8,6 +8,7 @@
 #pragma once
 
 #include <UI/Widget.hpp>
+#include <ECS/Registry.hpp>
 
 namespace shkyera {
 

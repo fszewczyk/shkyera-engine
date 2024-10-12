@@ -5,12 +5,14 @@ add_library(
     ${CMAKE_CURRENT_LIST_DIR}/UI.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Widget.cpp
 
-    ${CMAKE_CURRENT_LIST_DIR}/widgets/PreviewWidget.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/widgets/ObjectsWidget.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/widgets/ConsoleWidget.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/widgets/PropertiesWidget.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/widgets/FilesystemWidget.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/widgets/SceneWidget.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/Common/Style.cpp
+
+    ${CMAKE_CURRENT_LIST_DIR}/Widgets/PreviewWidget.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/Widgets/ObjectsWidget.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/Widgets/ConsoleWidget.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/Widgets/PropertiesWidget.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/Widgets/FilesystemWidget.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/Widgets/SceneWidget.cpp
 )
 
 target_include_directories(

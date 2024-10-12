@@ -12,12 +12,13 @@
 
 #include <AssetManager/Image.hpp>
 #include <UI/UI.hpp>
-#include <UI/widgets/ConsoleWidget.hpp>
-#include <UI/widgets/FilesystemWidget.hpp>
-#include <UI/widgets/ObjectsWidget.hpp>
-#include <UI/widgets/PreviewWidget.hpp>
-#include <UI/widgets/PropertiesWidget.hpp>
-#include <UI/widgets/SceneWidget.hpp>
+#include <UI/Widgets/ConsoleWidget.hpp>
+#include <UI/Widgets/FilesystemWidget.hpp>
+#include <UI/Widgets/ObjectsWidget.hpp>
+#include <UI/Widgets/PreviewWidget.hpp>
+#include <UI/Widgets/PropertiesWidget.hpp>
+#include <UI/Widgets/SceneWidget.hpp>
+#include <UI/Common/Style.hpp>
 
 namespace shkyera {
 
@@ -135,16 +136,13 @@ void UI::styleImgui() {
     // Setup Dear ImGui style
     ImGui::StyleColorsDark();
 
-    const char *fontPath = "resources/fonts/OpenSansRegular.ttf";
-    NORMAL_FONT = io.Fonts->AddFontFromFileTTF(fontPath, 16);
-    HUGE_FONT = io.Fonts->AddFontFromFileTTF(fontPath, 24);
-    BIG_FONT = io.Fonts->AddFontFromFileTTF(fontPath, 20);
-    SMALL_FONT = io.Fonts->AddFontFromFileTTF(fontPath, 14);
-
     ImGuiStyle &style = ImGui::GetStyle();
     style.WindowMinSize = ImVec2(150, 150);
     style.ScrollbarSize = 12.0f;
     style.ScrollbarRounding = 16.0f;
+
+    style::loadFonts("resources/fonts/OpenSansRegular.ttf");
+    using namespace shkyera::style;
 
     /********        TEXT       *********/
     style.Colors[ImGuiCol_Text] = TEXT_COLOR;
@@ -320,10 +318,5 @@ void UI::close() {
 }
 
 bool UI::shouldClose() const { return !_open; }
-
-ImFont *UI::SMALL_FONT = nullptr;
-ImFont *UI::NORMAL_FONT = nullptr;
-ImFont *UI::BIG_FONT = nullptr;
-ImFont *UI::HUGE_FONT = nullptr;
 
 } // namespace shkyera

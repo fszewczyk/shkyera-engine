@@ -4,8 +4,8 @@
 #include <iostream>
 
 #include <AssetManager/Image.hpp>
-#include <UI/widgets/ConsoleWidget.hpp>
-#include <UI/widgets/SceneWidget.hpp>
+#include <UI/Widgets/ConsoleWidget.hpp>
+#include <UI/Widgets/SceneWidget.hpp>
 
 namespace shkyera {
 

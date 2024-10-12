@@ -4,7 +4,7 @@
 #include <imgui_internal.h>
 
 #include <AssetManager/Image.hpp>
-#include <UI/widgets/ConsoleWidget.hpp>
+#include <UI/Widgets/ConsoleWidget.hpp>
 
 namespace shkyera {
 
