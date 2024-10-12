@@ -4,6 +4,8 @@ add_library(
 
     ${CMAKE_CURRENT_LIST_DIR}/BaseComponent.hpp
     ${CMAKE_CURRENT_LIST_DIR}/NameComponent.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/TransformComponent.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/TextureComponent.hpp
 )
 
 target_include_directories(

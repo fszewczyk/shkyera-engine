@@ -90,8 +90,7 @@ void UI::initializeImgui() {
 void UI::initializeWidgets() {
   _widgets.emplace_back(std::make_unique<ConsoleWidget>("Console"));
 
-  auto propertiesWidget = std::make_unique<PropertiesWidget>("Properties");
-  propertiesWidget->setRegistry(_registry);
+  auto propertiesWidget = std::make_unique<PropertiesWidget>(_registry);
 
   auto objectsWidget = std::make_unique<ObjectsWidget>("Objects");
   objectsWidget->setRegistry(_registry);
@@ -105,7 +104,7 @@ void UI::initializeWidgets() {
   assetsWidget->setDirectory("resources");
   _widgets.emplace_back(std::move(assetsWidget));
 
-  auto sceneWidget = std::make_unique<SceneWidget>("Scene");
+  auto sceneWidget = std::make_unique<SceneWidget>(_registry);
   _widgets.emplace_back(std::move(sceneWidget));
 }
 

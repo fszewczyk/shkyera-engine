@@ -4,18 +4,19 @@
 
 #include <Components/NameComponent.hpp>
 #include <Components/TransformComponent.hpp>
+#include <Components/TextureComponent.hpp>
+
 #include <UI/Common/Style.hpp>
 #include <UI/Components/TransformComponentUI.hpp>
+#include <UI/Components/TextureComponentUI.hpp>
 #include <UI/Widgets/PropertiesWidget.hpp>
 
 namespace shkyera {
 
+PropertiesWidget::PropertiesWidget(std::shared_ptr<Registry> registry) : Widget("Properties"), _registry(registry) {}
+
 void PropertiesWidget::selectEntity(Entity entity) {
   _selectedEntity = entity;
-}
-
-void PropertiesWidget::setRegistry(std::shared_ptr<Registry> registry) {
-  _registry = registry;
 }
 
 void PropertiesWidget::draw() {
@@ -59,6 +60,14 @@ void PropertiesWidget::setupComponentsUI() {
     componentUi->setScaleGetter([&]() -> glm::vec3& { return component.getScale(); });
     _componentsUi.emplace_back(std::move(componentUi));
   }
+
+  if(_registry->hasComponent<TextureComponent>(*_selectedEntity)) {    
+    auto &component = _registry->getComponent<TextureComponent>(*_selectedEntity);
+    auto componentUi = std::make_unique<TextureComponentUI>();
+    
+    componentUi->setPathGetter([&]() -> std::string& { return component.getPath(); });
+    _componentsUi.emplace_back(std::move(componentUi));
+  }
 }
 
 void PropertiesWidget::drawNewComponentMenu() {
@@ -68,6 +77,12 @@ void PropertiesWidget::drawNewComponentMenu() {
   if (ImGui::BeginPopup("Add Component")) {
     if (ImGui::Selectable("Transform")) {
       _registry->addComponent<TransformComponent>(*_selectedEntity);
+      setupComponentsUI();
+      ImGui::CloseCurrentPopup();
+    }
+
+    if (ImGui::Selectable("Texture")) {
+      _registry->addComponent<TextureComponent>(*_selectedEntity);
       setupComponentsUI();
       ImGui::CloseCurrentPopup();
     }

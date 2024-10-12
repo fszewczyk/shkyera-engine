@@ -6,6 +6,8 @@
 
 #pragma once
 
+#include <Runtime/Runtime.hpp>
+
 #include <UI/Widget.hpp>
 
 namespace shkyera {
@@ -20,6 +22,8 @@ class SceneWidget : public Widget {
   public:
     using Widget::Widget;
 
+    SceneWidget(std::shared_ptr<Registry> registry);
+
     /**
      * @brief Implementation of the abstract `draw` method to render the scene widget.
      */
@@ -31,21 +35,9 @@ class SceneWidget : public Widget {
     void adjustSize();
 
   private:
-    /**
-     * @brief Draw the runtime rendered scene.
-     */
-    void drawRuntime() const;
-
-    /**
-     * @brief Draw the empty scene when it is not running.
-     */
     void drawScene();
 
-    /**
-     * @brief Read the user input from the keyboard and notify the Python intepreter of it.
-     */
-    void readInput() const;
-
+    Runtime _runtime;
     ImVec2 _renderSize;                  ///< The size of the rendered scene area.
 };
 

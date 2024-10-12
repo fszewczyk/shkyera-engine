@@ -18,8 +18,7 @@ namespace shkyera {
 class Registry {
 public:
     /**
-     * Default constructor.
-     * Initializes the registry for managing entities and components.
+     * Default constructor. Initializes the registry for managing entities and components.
      */
     Registry();
 
@@ -121,6 +120,16 @@ public:
     template <typename Component>
     const SparseSet<Component>& getComponentSet() const {
         return getOrCreateComponentSet<Component>();
+    }
+
+    template <typename Component>
+    std::vector<Component>& getComponents() {
+        return getOrCreateComponentSet<Component>().getComponents();
+    }
+
+    template <typename Component>
+    const std::vector<Component>& getComponents() const {
+        return getOrCreateComponentSet<Component>().getComponents();
     }
 
 private:

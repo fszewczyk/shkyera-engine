@@ -23,14 +23,14 @@ class PropertiesWidget : public Widget {
   public:
     using Widget::Widget;
 
+    PropertiesWidget(std::shared_ptr<Registry> registry);
+
     /**
      * @brief Implementation of the abstract `draw` method to render the properties widget.
      */
     void draw() override;
 
     void selectEntity(Entity entity);
-
-    void setRegistry(std::shared_ptr<Registry> registry);
 
   private:
     void drawNewComponentMenu();
