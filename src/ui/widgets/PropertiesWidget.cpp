@@ -3,7 +3,9 @@
 #include <iostream>
 
 #include <Components/NameComponent.hpp>
+#include <Components/TransformComponent.hpp>
 #include <UI/Common/Style.hpp>
+#include <UI/Components/TransformComponentUI.hpp>
 #include <UI/Widgets/PropertiesWidget.hpp>
 
 namespace shkyera {
@@ -31,6 +33,7 @@ void PropertiesWidget::draw() {
 
     ImGui::Separator();
 
+    drawExistingComponents();
     drawNewComponentMenu();
 
     ImGui::PopID();
@@ -40,11 +43,32 @@ void PropertiesWidget::draw() {
   ImGui::End();
 }
 
+void PropertiesWidget::drawExistingComponents() {
+  for (const auto& component : _componentsUi)
+    component->draw();
+}
+
+void PropertiesWidget::setupComponentsUI() {
+  _componentsUi.clear();
+
+  if(_registry->hasComponent<TransformComponent>(*_selectedEntity)) {    
+    auto &component = _registry->getComponent<TransformComponent>(*_selectedEntity);
+    auto componentUi = std::make_unique<TransformComponentUI>();
+    componentUi->setPositionGetter([&]() -> glm::vec3& { return component.getPosition(); });
+    componentUi->setOrientationGetter([&]() -> glm::vec3& { return component.getOrientation(); });
+    componentUi->setScaleGetter([&]() -> glm::vec3& { return component.getScale(); });
+    _componentsUi.emplace_back(std::move(componentUi));
+  }
+}
+
 void PropertiesWidget::drawNewComponentMenu() {
-  if (ImGui::Button("New Component", ImVec2(-1, 0)))
+  if (ImGui::Button("New Component", ImVec2(-1, 0))) {
     ImGui::OpenPopup("Add Component");
+  }
   if (ImGui::BeginPopup("Add Component")) {
-    if (ImGui::Selectable("Script")) {
+    if (ImGui::Selectable("Transform")) {
+      _registry->addComponent<TransformComponent>(*_selectedEntity);
+      setupComponentsUI();
       ImGui::CloseCurrentPopup();
     }
 

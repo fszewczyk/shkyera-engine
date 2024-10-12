@@ -8,6 +8,7 @@
 #pragma once
 
 #include <UI/Widget.hpp>
+#include <UI/ComponentUI.hpp>
 #include <ECS/Registry.hpp>
 
 namespace shkyera {
@@ -31,10 +32,15 @@ class PropertiesWidget : public Widget {
 
     void setRegistry(std::shared_ptr<Registry> registry);
 
+  private:
     void drawNewComponentMenu();
 
-    private:
+    void setupComponentsUI();
+
+    void drawExistingComponents();
+
     std::optional<Entity> _selectedEntity;
+    std::vector<std::unique_ptr<ComponentUI>> _componentsUi;
     std::shared_ptr<Registry> _registry;
 };
 

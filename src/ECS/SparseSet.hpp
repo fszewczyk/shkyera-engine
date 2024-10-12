@@ -33,10 +33,15 @@ public:
      * @param entity The entity to associate with the component.
      * @param component The component to add.
      */
-    void add(Entity entity, const Component &component) {
+    bool add(Entity entity, const Component &component) {
+        if(contains(entity)) {
+            return false;
+        }
         _entityToComponent[entity] = _entities.size();
         _entities.emplace_back(entity);
         _components.emplace_back(component);
+        
+        return true;
     }
 
     /**
