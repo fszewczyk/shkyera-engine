@@ -29,8 +29,6 @@ void PropertiesWidget::draw() {
 
         ImGui::Separator();
 
-        ImGui::Separator();
-
         drawNewComponentMenu();
 
         ImGui::PopID();
