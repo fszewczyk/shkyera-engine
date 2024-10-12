@@ -7,8 +7,8 @@
 
 #pragma once
 
-#include <UI/Widget.hpp>
 #include <ECS/Registry.hpp>
+#include <UI/Widget.hpp>
 
 namespace shkyera {
 
@@ -19,23 +19,23 @@ namespace shkyera {
  * components of a selected game object.
  */
 class PropertiesWidget : public Widget {
-  public:
-    using Widget::Widget;
+ public:
+  using Widget::Widget;
 
-    /**
-     * @brief Implementation of the abstract `draw` method to render the properties widget.
-     */
-    void draw() override;
+  /**
+         * @brief Implementation of the abstract `draw` method to render the properties widget.
+         */
+  void draw() override;
 
-    void selectEntity(Entity entity);
+  void selectEntity(Entity entity);
 
-    void setRegistry(std::shared_ptr<Registry> registry);
+  void setRegistry(std::shared_ptr<Registry> registry);
 
-    void drawNewComponentMenu();
+ private:
+  void drawNewComponentMenu();
 
-    private:
-    std::optional<Entity> _selectedEntity;
-    std::shared_ptr<Registry> _registry;
+  std::optional<Entity> _selectedEntity;
+  std::shared_ptr<Registry> _registry;
 };
 
-} // namespace shkyera
+}  // namespace shkyera

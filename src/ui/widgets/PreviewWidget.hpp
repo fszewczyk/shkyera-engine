@@ -17,13 +17,13 @@ namespace shkyera {
  * which may include visual or interactive previews.
  */
 class PreviewWidget : public Widget {
-  public:
-    using Widget::Widget;
+ public:
+  using Widget::Widget;
 
-    /**
+  /**
      * @brief Implementation of the abstract `draw` method to render the preview widget.
      */
-    virtual void draw() override;
+  virtual void draw() override;
 };
 
-} // namespace shkyera
+}  // namespace shkyera
