@@ -20,43 +20,42 @@ namespace shkyera {
  * The `ObjectsWidget` class provides a graphical user interface for creating, listing, and selecting game objects.
  */
 class ObjectsWidget : public Widget {
- public:
-  using Widget::Widget;
+  public:
+    using Widget::Widget;
 
-  ObjectsWidget(std::string name);
+    ObjectsWidget(std::string name);
 
-  /**
+    /**
      * @brief Set the game to associate with this widget.
      *
      * @param registry A shared pointer to the registry to associate with this widget.
      */
-  void setRegistry(std::shared_ptr<Registry> registry);
+    void setRegistry(std::shared_ptr<Registry> registry);
 
-  void addOnNewEntityCallback(std::function<void(Entity)> callback);
+    void addOnNewEntityCallback(std::function<void(Entity)> callback);
 
-  void addOnSelectEntityCallback(std::function<void(Entity)> callback);
+    void addOnSelectEntityCallback(std::function<void(Entity)> callback);
 
-  /**
+    /**
      * @brief Implementation of the abstract `draw` method to render the game objects widget.
      */
-  virtual void draw() override;
+    virtual void draw() override;
 
- private:
-  /**
+  private:
+    /**
      * @brief Draw the creation panel for new game objects.
      */
-  void drawCreate();
+    void drawCreate();
 
-  /**
+    /**
      * @brief Draw the list of game objects and allow selection.
      */
-  void drawList();
+    void drawList();
 
-  std::shared_ptr<Registry>
-      _registry;  ///< A shared pointer to the associated game.
-  Entity _selectedEntity = 0;
-  std::vector<std::function<void(Entity)>> _onNewEntityCallbacks;
-  std::vector<std::function<void(Entity)>> _onSelectEntityCallbacks;
+    std::shared_ptr<Registry> _registry;                           ///< A shared pointer to the associated game.
+    Entity _selectedEntity = 0;
+    std::vector<std::function<void(Entity)>> _onNewEntityCallbacks;
+    std::vector<std::function<void(Entity)>> _onSelectEntityCallbacks;
 };
 
-}  // namespace shkyera
+} // namespace shkyera

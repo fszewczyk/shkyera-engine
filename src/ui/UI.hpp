@@ -22,85 +22,83 @@ namespace shkyera {
  * The `UI` class is responsible for initializing and rendering the UI elements, including widgets, using ImGui.
  */
 class UI {
- public:
-  /**
+  public:
+    /**
      * @brief Constructor to create a UI manager for the specified game.
      *
      * @param registry A shared pointer to the registry that the UI will configure.
      */
-  UI(std::shared_ptr<Registry> registry);
+    UI(std::shared_ptr<Registry> registry);
 
-  /**
+    /**
      * @brief Initialize the UI, including ImGui, widgets, and assets.
      */
-  void initialize();
+    void initialize();
 
-  /**
+    /**
      * @brief Render the UI.
      */
-  void draw();
+    void draw();
 
-  /**
+    /**
      * @brief Close and clean up the UI.
      */
-  void close();
+    void close();
 
-  /**
+    /**
      * @brief Check if the UI should be closed.
      *
      * @return True if the UI should be closed, false otherwise.
      */
-  bool shouldClose() const;
+    bool shouldClose() const;
 
- private:
-  /**
+  private:
+    /**
      * @brief Initialize ImGui and other UI elements.
      */
-  void initializeImgui();
+    void initializeImgui();
 
-  /**
+    /**
      * @brief Initialize UI widgets.
      */
-  void initializeWidgets();
+    void initializeWidgets();
 
-  /**
+    /**
      * @brief Initialize UI assets.
      */
-  void initializeAssets();
+    void initializeAssets();
 
-  /**
+    /**
      * @brief Initialize the Python interpreter.
      */
-  void initializeInterpreter();
+    void initializeInterpreter();
 
-  /**
+    /**
      * @brief Apply styling to ImGui elements.
      */
-  void styleImgui();
+    void styleImgui();
 
-  /**
+    /**
      * @brief Begin a UI frame.
      */
-  void beginFrame();
+    void beginFrame();
 
-  /**
+    /**
      * @brief Render the UI frame.
      */
-  void renderFrame();
+    void renderFrame();
 
-  /**
+    /**
      * @brief End the UI frame.
      */
-  void endFrame();
+    void endFrame();
 
-  std::shared_ptr<Registry>
-      _registry;  ///< A shared pointer to the associated game.
+    std::shared_ptr<Registry> _registry;         ///< A shared pointer to the associated game.
 
-  bool _open;           ///< Flag indicating if the UI is open.
-  GLFWwindow* _window;  ///< The UI window.
+    bool _open;          ///< Flag indicating if the UI is open.
+    GLFWwindow *_window; ///< The UI window.
 
-  std::vector<std::unique_ptr<Widget>>
-      _widgets;  ///< A collection of UI widgets.
+    std::vector<std::unique_ptr<Widget>> _widgets; ///< A collection of UI widgets.
 };
 
-}  // namespace shkyera
+} // namespace shkyera

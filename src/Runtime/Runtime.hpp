@@ -19,21 +19,21 @@ namespace shkyera {
  * The `Runtime` class is responsible for managing game objects within the game environment.
  */
 class Runtime {
- public:
-  /**
+  public:
+    /**
      * @brief Default constructor for the `Runtime` class.
      */
-  Runtime(std::shared_ptr<Registry> registry);
+    Runtime(std::shared_ptr<Registry> registry);
 
-  void run();
+    void run();
 
-  /**
+    /**
      * @brief Default destructor for the `Runtime` class.
      */
-  ~Runtime() = default;
+    ~Runtime() = default;
 
- private:
-  std::shared_ptr<Registry> _registry;
+  private:
+    std::shared_ptr<Registry> _registry;
 };
 
-}  // namespace shkyera
+} // namespace shkyera

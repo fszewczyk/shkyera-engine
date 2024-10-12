@@ -17,36 +17,36 @@ namespace shkyera {
  * renderer.
  */
 class SceneWidget : public Widget {
- public:
-  using Widget::Widget;
+  public:
+    using Widget::Widget;
 
-  /**
+    /**
      * @brief Implementation of the abstract `draw` method to render the scene widget.
      */
-  virtual void draw() override;
+    virtual void draw() override;
 
-  /**
+    /**
      * @brief Adjust the size of the scene widget.
      */
-  void adjustSize();
+    void adjustSize();
 
- private:
-  /**
+  private:
+    /**
      * @brief Draw the runtime rendered scene.
      */
-  void drawRuntime() const;
+    void drawRuntime() const;
 
-  /**
+    /**
      * @brief Draw the empty scene when it is not running.
      */
-  void drawScene();
+    void drawScene();
 
-  /**
+    /**
      * @brief Read the user input from the keyboard and notify the Python intepreter of it.
      */
-  void readInput() const;
+    void readInput() const;
 
-  ImVec2 _renderSize;  ///< The size of the rendered scene area.
+    ImVec2 _renderSize;                  ///< The size of the rendered scene area.
 };
 
-}  // namespace shkyera
+} // namespace shkyera
