@@ -1,4 +1,4 @@
-#include "ui/Widget.hpp"
+#include <UI/Widget.hpp>
 
 namespace shkyera {
 

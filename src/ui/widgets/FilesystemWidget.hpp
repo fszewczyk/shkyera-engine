@@ -9,8 +9,8 @@
 
 #include <functional>
 
-#include "core/Filesystem.hpp"
-#include "ui/Widget.hpp"
+#include <AssetManager/Filesystem.hpp>
+#include <UI/Widget.hpp>
 
 namespace shkyera {
 

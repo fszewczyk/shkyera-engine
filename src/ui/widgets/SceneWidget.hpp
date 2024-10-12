@@ -6,8 +6,7 @@
 
 #pragma once
 
-#include "renderer/Renderer.hpp"
-#include "ui/Widget.hpp"
+#include <UI/Widget.hpp>
 
 namespace shkyera {
 
@@ -31,13 +30,6 @@ class SceneWidget : public Widget {
      */
     void adjustSize();
 
-    /**
-     * @brief Set the renderer to use for rendering the scene.
-     *
-     * @param renderer A shared pointer to the renderer to associate with this widget.
-     */
-    void setRenderer(std::shared_ptr<Renderer> renderer);
-
   private:
     /**
      * @brief Draw the runtime rendered scene.
@@ -54,7 +46,6 @@ class SceneWidget : public Widget {
      */
     void readInput() const;
 
-    std::shared_ptr<Renderer> _renderer; ///< A shared pointer to the renderer used for scene rendering.
     ImVec2 _renderSize;                  ///< The size of the rendered scene area.
 };
 

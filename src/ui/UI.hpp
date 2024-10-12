@@ -12,9 +12,8 @@
 #include "imgui.h"
 #include <GLFW/glfw3.h>
 
-#include "game/Game.hpp"
-#include "renderer/Renderer.hpp"
-#include "ui/Widget.hpp"
+#include <Game/Game.hpp>
+#include <UI/Widget.hpp>
 
 namespace shkyera {
 
@@ -113,7 +112,6 @@ class UI {
     void endFrame();
 
     std::shared_ptr<Game> _game;         ///< A shared pointer to the associated game.
-    std::shared_ptr<Renderer> _renderer; ///< A shared pointer to the renderer.
 
     bool _open;          ///< Flag indicating if the UI is open.
     GLFWwindow *_window; ///< The UI window.

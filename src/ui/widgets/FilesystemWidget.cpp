@@ -3,10 +3,10 @@
 
 #include <iostream>
 
-#include "core/Image.hpp"
-#include "ui/UI.hpp"
-#include "ui/widgets/ConsoleWidget.hpp"
-#include "ui/widgets/FilesystemWidget.hpp"
+#include <AssetManager/Image.hpp>
+#include <UI/UI.hpp>
+#include <UI/widgets/ConsoleWidget.hpp>
+#include <UI/widgets/FilesystemWidget.hpp>
 
 namespace shkyera {
 
@@ -14,7 +14,7 @@ void FilesystemWidget::draw() {
     ImGui::Begin(_name.c_str());
 
     if (_currentDirectory == nullptr) {
-        ImGui::Text("No directory specified.");
+        ImGui::TextUnformatted("No directory specified.");
     } else {
         ImGui::BeginChild("Directories", ImVec2(180, 0));
         drawDirectoryTree(Directory::getRoot());
@@ -75,7 +75,7 @@ void FilesystemWidget::drawDirectoryTree(const std::shared_ptr<Directory> direct
 
 void FilesystemWidget::drawDirectoryContents(const std::shared_ptr<Directory> directory) {
     ImGui::PushFont(UI::BIG_FONT);
-    ImGui::Text(directory->getPath().string().c_str());
+    ImGui::TextUnformatted(directory->getPath().string().c_str());
     ImGui::PopFont();
     ImGui::Separator();
     ImGui::Dummy(ImVec2(0, 3));
@@ -140,7 +140,7 @@ void FilesystemWidget::drawFile(const std::shared_ptr<File> file) {
         std::string fileName = file->getName();
         std::string filePath = file->getPath().string();
 
-        ImGui::Text(filePath.c_str());
+        ImGui::TextUnformatted(filePath.c_str());
         ImGui::SetDragDropPayload("DRAG_AND_DROP_SCRIPT", filePath.c_str(), filePath.length() * sizeof(char));
 
         ImGui::EndDragDropSource();
@@ -163,7 +163,7 @@ void FilesystemWidget::drawIconName(const std::string name) const {
     auto textWidth = ImGui::CalcTextSize(name.c_str()).x;
     ImGui::SetCursorPosX(ImGui::GetCursorPosX() + (CONTENTS_ICON_SIZE + 10 - textWidth) * 0.5f);
 
-    ImGui::Text(name.c_str());
+    ImGui::TextUnformatted(name.c_str());
 
     ImGui::PopFont();
 }

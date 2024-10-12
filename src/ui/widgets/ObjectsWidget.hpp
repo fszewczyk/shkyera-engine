@@ -9,8 +9,8 @@
 #include <memory>
 #include <vector>
 
-#include "game/Game.hpp"
-#include "ui/Widget.hpp"
+#include <Game/Game.hpp>
+#include <UI/Widget.hpp>
 
 namespace shkyera {
 
@@ -31,13 +31,6 @@ class ObjectsWidget : public Widget {
     void setGame(std::shared_ptr<Game> game);
 
     /**
-     * @brief Get the currently selected game object.
-     *
-     * @return A shared pointer to the currently selected game object.
-     */
-    std::shared_ptr<GameObject> getSelectedObject() const;
-
-    /**
      * @brief Implementation of the abstract `draw` method to render the game objects widget.
      */
     virtual void draw() override;
@@ -54,8 +47,6 @@ class ObjectsWidget : public Widget {
     void drawList();
 
     std::shared_ptr<Game> _game;                           ///< A shared pointer to the associated game.
-    std::vector<std::shared_ptr<GameObject>> _gameObjects; ///< A list of game objects.
-    size_t _selectedGameObject;                            ///< The index of the currently selected game object.
 };
 
 } // namespace shkyera

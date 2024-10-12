@@ -9,7 +9,7 @@
 #include <memory>
 #include <vector>
 
-#include "game/GameObject.hpp"
+#include <ECS/Registry.hpp>
 
 namespace shkyera {
 
@@ -25,27 +25,15 @@ class Game {
      */
     Game() = default;
 
+    void run();
+
     /**
      * @brief Default destructor for the `Game` class.
      */
     ~Game() = default;
 
-    /**
-     * @brief Get a vector of shared pointers to game objects in the game environment.
-     *
-     * @return A vector of shared pointers to game objects.
-     */
-    std::vector<std::shared_ptr<GameObject>> getGameObjects();
-
-    /**
-     * @brief Add a game object to the game environment.
-     *
-     * @param object A shared pointer to the game object to add.
-     */
-    void addGameObject(std::shared_ptr<GameObject> object);
-
   private:
-    std::vector<std::shared_ptr<GameObject>> _gameObjects; ///< The list of game objects within the game environment.
+    Registry _registry;
 };
 
 } // namespace shkyera

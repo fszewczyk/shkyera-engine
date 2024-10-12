@@ -6,9 +6,10 @@
 
 #pragma once
 
-#include <GLFW/glfw3.h>
 #include <cmath>
 #include <string>
+
+#include <GLFW/glfw3.h>
 
 namespace shkyera {
 
@@ -26,6 +27,11 @@ class Widget {
      * @param name The name of the widget.
      */
     Widget(std::string name);
+
+    /**
+     * @brief Default virtual destructor
+     */
+    virtual ~Widget() = default;
 
     /**
      * @brief Abstract method to draw the widget.

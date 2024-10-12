@@ -3,8 +3,8 @@
 #include "imgui.h"
 #include <imgui_internal.h>
 
-#include "core/Image.hpp"
-#include "ui/widgets/ConsoleWidget.hpp"
+#include <AssetManager/Image.hpp>
+#include <UI/widgets/ConsoleWidget.hpp>
 
 namespace shkyera {
 
@@ -13,7 +13,7 @@ Log::Log(std::string content) : _content(content) {}
 void Log::draw() const {
     ImGui::Image((ImTextureID)getIconId(), ImVec2(24, 24));
     ImGui::SameLine();
-    ImGui::Text(_content.c_str());
+    ImGui::TextUnformatted(_content.c_str());
     ImGui::Separator();
 }
 
@@ -45,31 +45,31 @@ void ConsoleWidget::drawInfoBar() const {
     ImGui::SameLine();
     ImGui::Image((ImTextureID)Image::ICON_CONSOLE_TOTAL.getTextureId(), ImVec2(22, 22));
     ImGui::SameLine();
-    ImGui::Text((std::to_string(_logs.size()) + " Total").c_str());
+    ImGui::TextUnformatted((std::to_string(_logs.size()) + " Total").c_str());
     ImGui::SameLine();
     ImGui::Dummy(ImVec2(15, 0));
     ImGui::SameLine();
     ImGui::Image((ImTextureID)Image::ICON_CONSOLE_ERROR.getTextureId(), ImVec2(22, 22));
     ImGui::SameLine();
-    ImGui::Text((std::to_string(_totalError) + " Error").c_str());
+    ImGui::TextUnformatted((std::to_string(_totalError) + " Error").c_str());
     ImGui::SameLine();
     ImGui::Dummy(ImVec2(15, 0));
     ImGui::SameLine();
     ImGui::Image((ImTextureID)Image::ICON_CONSOLE_SUCCESS.getTextureId(), ImVec2(22, 22));
     ImGui::SameLine();
-    ImGui::Text((std::to_string(_totalSuccess) + " Success").c_str());
+    ImGui::TextUnformatted((std::to_string(_totalSuccess) + " Success").c_str());
     ImGui::SameLine();
     ImGui::Dummy(ImVec2(15, 0));
     ImGui::SameLine();
     ImGui::Image((ImTextureID)Image::ICON_CONSOLE_INFO.getTextureId(), ImVec2(22, 22));
     ImGui::SameLine();
-    ImGui::Text((std::to_string(_totalInfo) + " Info").c_str());
+    ImGui::TextUnformatted((std::to_string(_totalInfo) + " Info").c_str());
     ImGui::SameLine();
     ImGui::Dummy(ImVec2(15, 0));
     ImGui::SameLine();
     ImGui::Image((ImTextureID)Image::ICON_CONSOLE_VERBOSE.getTextureId(), ImVec2(22, 22));
     ImGui::SameLine();
-    ImGui::Text((std::to_string(_totalVerbose) + " Verbose").c_str());
+    ImGui::TextUnformatted((std::to_string(_totalVerbose) + " Verbose").c_str());
 }
 
 void ConsoleWidget::clear() {

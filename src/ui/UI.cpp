@@ -10,16 +10,14 @@
 #include <glad/glad.h>
 #include <imgui_internal.h>
 
-#include "core/Image.hpp"
-#include "python/Events.hpp"
-#include "python/Interpreter.hpp"
-#include "ui/UI.hpp"
-#include "ui/widgets/ConsoleWidget.hpp"
-#include "ui/widgets/FilesystemWidget.hpp"
-#include "ui/widgets/ObjectsWidget.hpp"
-#include "ui/widgets/PreviewWidget.hpp"
-#include "ui/widgets/PropertiesWidget.hpp"
-#include "ui/widgets/SceneWidget.hpp"
+#include <AssetManager/Image.hpp>
+#include <UI/UI.hpp>
+#include <UI/widgets/ConsoleWidget.hpp>
+#include <UI/widgets/FilesystemWidget.hpp>
+#include <UI/widgets/ObjectsWidget.hpp>
+#include <UI/widgets/PreviewWidget.hpp>
+#include <UI/widgets/PropertiesWidget.hpp>
+#include <UI/widgets/SceneWidget.hpp>
 
 namespace shkyera {
 
@@ -31,8 +29,6 @@ void glfw_error_callback(int error, const char *description) {
 
 void UI::initialize() {
     initializeImgui();
-
-    _renderer = std::make_shared<Renderer>(_game);
 
     initializeWidgets();
     initializeAssets();
@@ -92,7 +88,6 @@ void UI::initializeWidgets() {
     _widgets.emplace_back(std::make_unique<ConsoleWidget>("Console"));
 
     auto propertiesWidget = std::make_unique<PropertiesWidget>("Properties");
-    propertiesWidget->setRenderer(_renderer);
     _widgets.emplace_back(std::move(propertiesWidget));
 
     auto objectsWidget = std::make_unique<ObjectsWidget>("Objects");
@@ -104,7 +99,6 @@ void UI::initializeWidgets() {
     _widgets.emplace_back(std::move(assetsWidget));
 
     auto sceneWidget = std::make_unique<SceneWidget>("Scene");
-    sceneWidget->setRenderer(_renderer);
     _widgets.emplace_back(std::move(sceneWidget));
 }
 
@@ -128,7 +122,7 @@ void UI::initializeAssets() {
     Image::ICON_BUTTON_STOP.updateTextureId();
 }
 
-void UI::initializeInterpreter() { Python::setRenderer(_renderer); }
+void UI::initializeInterpreter() {  }
 
 void UI::styleImgui() {
     ImGuiIO &io = ImGui::GetIO();
@@ -267,8 +261,6 @@ void UI::renderFrame() {
     for (const auto &w : _widgets) {
         w->draw();
     }
-
-    Python::allowRunning();
 
     if (ImGui::BeginMainMenuBar()) {
         if (ImGui::BeginMenu("File")) {

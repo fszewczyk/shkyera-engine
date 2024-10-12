@@ -3,18 +3,11 @@
 
 #include <iostream>
 
-#include "core/Image.hpp"
-#include "game/components/ScriptComponent.hpp"
-#include "python/Interpreter.hpp"
-#include "ui/widgets/ConsoleWidget.hpp"
-#include "ui/widgets/SceneWidget.hpp"
+#include <AssetManager/Image.hpp>
+#include <UI/widgets/ConsoleWidget.hpp>
+#include <UI/widgets/SceneWidget.hpp>
 
 namespace shkyera {
-
-void SceneWidget::setRenderer(std::shared_ptr<Renderer> renderer) {
-    _renderer = renderer;
-    Python::setInterpreterRenderer(_renderer);
-}
 
 void SceneWidget::draw() {
     ImGui::Begin(_name.c_str(), nullptr, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
@@ -22,10 +15,7 @@ void SceneWidget::draw() {
     ImGui::Dummy(ImVec2(ImGui::GetWindowSize()[0] / 2 - 48, 16));
     ImGui::SameLine();
 
-    if (Python::isRunning())
-        drawRuntime();
-    else
-        drawScene();
+    drawScene();
 
     ImGui::End();
 }
@@ -34,14 +24,10 @@ void SceneWidget::adjustSize() {
     _renderSize = ImGui::GetWindowSize();
     _renderSize[0] -= 16;
     _renderSize[1] -= 64;
-
-    _renderer->setDimension(_renderSize[0], _renderSize[1]);
 }
 
 void SceneWidget::drawRuntime() const {
     readInput();
-
-    _renderer->draw();
 
     ImGui::BeginDisabled();
     ImGui::ImageButton((ImTextureID)Image::ICON_BUTTON_PLAY.getTextureId(), ImVec2(16, 16));
@@ -50,17 +36,12 @@ void SceneWidget::drawRuntime() const {
     ImGui::SameLine();
 
     if (ImGui::ImageButton((ImTextureID)Image::ICON_BUTTON_STOP.getTextureId(), ImVec2(16, 16))) {
-        Python::stop();
     }
-
-    ImGui::Image((ImTextureID)_renderer->getTextureId(), _renderSize);
 }
 
 void SceneWidget::drawScene() {
     if (ImGui::ImageButton((ImTextureID)Image::ICON_BUTTON_PLAY.getTextureId(), ImVec2(16, 16))) {
         adjustSize();
-        ScriptComponent::moveScripts();
-        Python::start();
     }
     ImGui::SameLine();
 
@@ -70,12 +51,10 @@ void SceneWidget::drawScene() {
 }
 
 void SceneWidget::readInput() const {
-    Python::resetPressedButtons();
 
     for (int key = ImGuiKey_LeftArrow; key < ImGuiKey_KeypadEqual; ++key) {
         if (ImGui::IsKeyPressed(static_cast<ImGuiKey>(key))) {
             const char *keyName = ImGui::GetKeyName(static_cast<ImGuiKey>(key));
-            Python::addPressedButton(keyName);
         }
     }
 }
