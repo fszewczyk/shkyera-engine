@@ -27,23 +27,23 @@ include(${CMAKE_CURRENT_SOURCE_DIR}/extern/extern.cmake)
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/src/AssetManager)
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/src/Components)
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/src/ECS)
-add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/src/Game)
+add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/src/Runtime)
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/src/UI)
 
 add_executable(ShkyeraEngine src/main.cpp)
 
 target_include_directories(
     ShkyeraEngine
-    PRIVATE
+    PUBLIC
 
     ${CMAKE_SOURCE_DIR}/src
 )
 
 target_link_libraries(
     ShkyeraEngine
-    PRIVATE 
+    PUBLIC 
 
     UI
-    Game
+    Runtime
     ECS
 )

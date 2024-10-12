@@ -112,6 +112,17 @@ public:
         return getOrCreateComponentSet<Component>();
     }
 
+    /**
+     * Retrieves the component set for the specified component type.
+     * 
+     * @tparam Component Type of the component to retrieve the set for.
+     * @return Reference to the component set.
+     */
+    template <typename Component>
+    const SparseSet<Component>& getComponentSet() const {
+        return getOrCreateComponentSet<Component>();
+    }
+
 private:
     /**
      * Retrieves or creates the component set for the specified component type.
@@ -123,13 +134,28 @@ private:
     SparseSet<Component>& getOrCreateComponentSet() {
         const auto typeId = typeid(Component).hash_code();
         if (_componentSets.find(typeId) == _componentSets.end()) {
-            _componentSets[typeId] = new SparseSet<Component>();
+            _componentSets[typeId] = std::make_unique<SparseSet<Component>>();
         }
-        return *static_cast<SparseSet<Component>*>(_componentSets.at(typeId));
+        return *static_cast<SparseSet<Component>*>(_componentSets.at(typeId).get());
     }
 
-    std::unordered_map<size_t, void*> _componentSets; /**< Map of component sets by type ID. */
-    EntityProvider _entityProvider; /**< Manages the creation and management of entities. */
+    /**
+     * Retrieves or creates the component set for the specified component type.
+     * 
+     * @tparam Component Type of the component to get or create the set for.
+     * @return Reference to the component set.
+     */
+    template <typename Component>
+    const SparseSet<Component>& getOrCreateComponentSet() const {
+        const auto typeId = typeid(Component).hash_code();
+        if (_componentSets.find(typeId) == _componentSets.end()) {
+            _componentSets[typeId] = std::make_unique<SparseSet<Component>>();
+        }
+        return *static_cast<SparseSet<Component>*>(_componentSets.at(typeId).get());
+    }
+
+    mutable std::unordered_map<size_t, std::unique_ptr<SparseSetBase>> _componentSets; //< Map of component sets by type ID.
+    EntityProvider _entityProvider; //< Manages the creation and management of entities.
 };
 
 } // namespace shkyera

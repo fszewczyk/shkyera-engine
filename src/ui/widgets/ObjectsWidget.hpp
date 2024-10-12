@@ -9,7 +9,7 @@
 #include <memory>
 #include <vector>
 
-#include <Game/Game.hpp>
+#include <ECS/Registry.hpp>
 #include <UI/Widget.hpp>
 
 namespace shkyera {
@@ -23,12 +23,18 @@ class ObjectsWidget : public Widget {
   public:
     using Widget::Widget;
 
+    ObjectsWidget(std::string name);
+
     /**
      * @brief Set the game to associate with this widget.
      *
-     * @param game A shared pointer to the game to associate with this widget.
+     * @param registry A shared pointer to the registry to associate with this widget.
      */
-    void setGame(std::shared_ptr<Game> game);
+    void setRegistry(std::shared_ptr<Registry> registry);
+
+    void addOnNewEntityCallback(std::function<void(Entity)> callback);
+
+    void addOnSelectEntityCallback(std::function<void(Entity)> callback);
 
     /**
      * @brief Implementation of the abstract `draw` method to render the game objects widget.
@@ -46,7 +52,10 @@ class ObjectsWidget : public Widget {
      */
     void drawList();
 
-    std::shared_ptr<Game> _game;                           ///< A shared pointer to the associated game.
+    std::shared_ptr<Registry> _registry;                           ///< A shared pointer to the associated game.
+    Entity _selectedEntity = 0;
+    std::vector<std::function<void(Entity)>> _onNewEntityCallbacks;
+    std::vector<std::function<void(Entity)>> _onSelectEntityCallbacks;
 };
 
 } // namespace shkyera

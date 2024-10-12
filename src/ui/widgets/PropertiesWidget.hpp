@@ -24,7 +24,17 @@ class PropertiesWidget : public Widget {
     /**
      * @brief Implementation of the abstract `draw` method to render the properties widget.
      */
-    virtual void draw() override;
+    void draw() override;
+
+    void selectEntity(Entity entity);
+
+    void setRegistry(std::shared_ptr<Registry> registry);
+
+    void drawNewComponentMenu();
+
+    private:
+    std::optional<Entity> _selectedEntity;
+    std::shared_ptr<Registry> _registry;
 };
 
 } // namespace shkyera

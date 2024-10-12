@@ -12,7 +12,7 @@
 #include "imgui.h"
 #include <GLFW/glfw3.h>
 
-#include <Game/Game.hpp>
+#include <ECS/Registry.hpp>
 #include <UI/Widget.hpp>
 
 namespace shkyera {
@@ -27,9 +27,9 @@ class UI {
     /**
      * @brief Constructor to create a UI manager for the specified game.
      *
-     * @param game A shared pointer to the game to associate with the UI.
+     * @param registry A shared pointer to the registry that the UI will configure.
      */
-    UI(std::shared_ptr<Game> game);
+    UI(std::shared_ptr<Registry> registry);
 
     /**
      * @brief Initialize the UI, including ImGui, widgets, and assets.
@@ -111,7 +111,7 @@ class UI {
      */
     void endFrame();
 
-    std::shared_ptr<Game> _game;         ///< A shared pointer to the associated game.
+    std::shared_ptr<Registry> _registry;         ///< A shared pointer to the associated game.
 
     bool _open;          ///< Flag indicating if the UI is open.
     GLFWwindow *_window; ///< The UI window.

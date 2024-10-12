@@ -1,5 +1,6 @@
 add_library(
     UI
+    STATIC
 
     ${CMAKE_CURRENT_LIST_DIR}/UI.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Widget.cpp
@@ -14,19 +15,20 @@ add_library(
 
 target_include_directories(
     UI
-    PRIVATE 
+    PUBLIC 
     
     ${CMAKE_SOURCE_DIR}/src
-    ${CMAKE_CURRENT_SOURCE_DIR}/extern/imgui
-    ${CMAKE_CURRENT_SOURCE_DIR}/extern/glfw/include
+    ${CMAKE_SOURCE_DIR}/extern/imgui
+    ${CMAKE_SOURCE_DIR}/extern/glfw/include
 )
 
 target_link_libraries(
     UI
-    PRIVATE 
+    PUBLIC 
     
-    Game
+    Runtime
     ECS
+    AssetManager
 
     imgui
     glfw 

@@ -3,8 +3,7 @@ add_library(
     INTERFACE
 
     ${CMAKE_CURRENT_LIST_DIR}/BaseComponent.hpp
-    ${CMAKE_CURRENT_LIST_DIR}/LoggingComponent.hpp
-    ${CMAKE_CURRENT_LIST_DIR}/TransformComponent.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/NameComponent.hpp
 )
 
 target_include_directories(

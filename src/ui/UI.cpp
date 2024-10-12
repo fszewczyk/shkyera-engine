@@ -21,7 +21,7 @@
 
 namespace shkyera {
 
-UI::UI(std::shared_ptr<Game> game) : _open(true), _game(game) { initialize(); }
+UI::UI(std::shared_ptr<Registry> registry) : _open(true), _registry(registry) { initialize(); }
 
 void glfw_error_callback(int error, const char *description) {
     fprintf(stderr, "Glfw Error %d: %s\n", error, description);
@@ -88,11 +88,14 @@ void UI::initializeWidgets() {
     _widgets.emplace_back(std::make_unique<ConsoleWidget>("Console"));
 
     auto propertiesWidget = std::make_unique<PropertiesWidget>("Properties");
-    _widgets.emplace_back(std::move(propertiesWidget));
+    propertiesWidget->setRegistry(_registry);
 
     auto objectsWidget = std::make_unique<ObjectsWidget>("Objects");
-    objectsWidget->setGame(_game);
+    objectsWidget->setRegistry(_registry);
+    objectsWidget->addOnSelectEntityCallback([w = propertiesWidget.get()](Entity e) { w->selectEntity(e); } );
+
     _widgets.emplace_back(std::move(objectsWidget));
+    _widgets.emplace_back(std::move(propertiesWidget));
 
     auto assetsWidget = std::make_unique<FilesystemWidget>("Assets");
     assetsWidget->setDirectory("resources");

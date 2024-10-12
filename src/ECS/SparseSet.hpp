@@ -4,12 +4,18 @@
 
 namespace shkyera {
 
+class SparseSetBase {
+public:
+    virtual ~SparseSetBase() = default;
+    virtual bool remove(Entity entity) = 0; 
+};
+
 /**
  * Manages a sparse set of components associated with entities.
  * Allows adding, removing, and accessing components efficiently.
  */
 template <typename Component>
-class SparseSet {
+class SparseSet : public SparseSetBase {
 public:
     /**
      * Default constructor.
@@ -105,6 +111,74 @@ public:
      */
     const std::vector<Component> &getComponents() const {
         return _components;
+    }
+
+    template <bool IsConst>
+    class Iterator {
+    public:
+        using iterator_category = std::forward_iterator_tag;
+        using value_type = std::pair<Entity, std::conditional_t<IsConst, const Component, Component>>;
+        using difference_type = std::ptrdiff_t;
+        using pointer = value_type*;
+        using reference = value_type&;
+
+        // Constructor
+        Iterator(typename std::conditional_t<IsConst, const std::vector<Entity>*, std::vector<Entity>*> entities,
+                 typename std::conditional_t<IsConst, const std::vector<Component>*, std::vector<Component>*> components,
+                 size_t index)
+            : _entities(entities), _components(components), _index(index) {}
+
+        // Dereference operator
+        value_type operator*() const {
+            return { (*_entities)[_index], (*_components)[_index] };
+        }
+
+        // Pre-increment operator
+        Iterator& operator++() {
+            ++_index;
+            return *this;
+        }
+
+        // Post-increment operator
+        Iterator operator++(int) {
+            Iterator tmp = *this;
+            ++(*this);
+            return tmp;
+        }
+
+        // Equality comparison
+        bool operator==(const Iterator& other) const {
+            return _index == other._index;
+        }
+
+        // Inequality comparison
+        bool operator!=(const Iterator& other) const {
+            return _index != other._index;
+        }
+
+    private:
+        typename std::conditional_t<IsConst, const std::vector<Entity>*, std::vector<Entity>*> _entities;
+        typename std::conditional_t<IsConst, const std::vector<Component>*, std::vector<Component>*> _components;
+        size_t _index;
+    };
+
+    using iterator = Iterator<false>;
+    using const_iterator = Iterator<true>;
+
+    iterator begin() {
+        return iterator(&_entities, &_components, 0);
+    }
+
+    iterator end() {
+        return iterator(&_entities, &_components, _entities.size());
+    }
+
+    const_iterator begin() const {
+        return const_iterator(&_entities, &_components, 0);
+    }
+
+    const_iterator end() const {
+        return const_iterator(&_entities, &_components, _entities.size());
     }
 
 private:

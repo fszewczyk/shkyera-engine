@@ -40,13 +40,18 @@ class File {
      * @return The name of the file.
      */
     std::string getName() const;
-
+    
+    /**
+     * @brief Get the name of the files, stripped of the extension.
+     * 
+     * @return Name of the file.
+     */
     std::string getNameWithoutExtension() const;
 
     /**
      * @brief Get the type of the file.
      *
-     * @return The type of the file (e.g., PYTHON, IMAGE, OTHER).
+     * @return The type of the file (e.g. PYTHON, IMAGE, OTHER).
      */
     FILE_TYPE getType() const;
 

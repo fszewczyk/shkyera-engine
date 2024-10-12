@@ -1,5 +1,6 @@
 add_library(
     AssetManager
+    STATIC
 
     ${CMAKE_CURRENT_LIST_DIR}/Filesystem.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Image.cpp
@@ -7,7 +8,7 @@ add_library(
 
 target_include_directories(
     AssetManager    
-    PRIVATE
+    PUBLIC
     
     ${CMAKE_SOURCE_DIR}/src
     ${CMAKE_SOURCE_DIR}/extern/glm
@@ -16,7 +17,7 @@ target_include_directories(
 
 target_link_libraries(
     AssetManager
-    PRIVATE
+    PUBLIC
 
     stb_image
     glfw 
