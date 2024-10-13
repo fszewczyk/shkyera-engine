@@ -4,21 +4,22 @@
 #include <string>
 #include <thread>
 
+#include <glad/glad.h>
 #include <backends/imgui_impl_glfw.h>
 #include <backends/imgui_impl_opengl3.h>
-#include <glad/glad.h>
 #include <imgui_internal.h>
 #include "imgui.h"
 
 #include <AssetManager/Image.hpp>
+#include <Components/TriangleComponent.hpp>
 #include <UI/Common/Style.hpp>
-#include <UI/UI.hpp>
 #include <UI/Widgets/ConsoleWidget.hpp>
 #include <UI/Widgets/FilesystemWidget.hpp>
 #include <UI/Widgets/ObjectsWidget.hpp>
 #include <UI/Widgets/PreviewWidget.hpp>
 #include <UI/Widgets/PropertiesWidget.hpp>
 #include <UI/Widgets/SceneWidget.hpp>
+#include <UI/UI.hpp>
 
 namespace shkyera {
 
@@ -32,7 +33,6 @@ void glfw_error_callback(int error, const char* description) {
 
 void UI::initialize() {
   initializeImgui();
-
   initializeWidgets();
   initializeAssets();
   initializeInterpreter();

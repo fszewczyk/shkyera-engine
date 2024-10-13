@@ -11,3 +11,12 @@ target_include_directories(
     
     ${CMAKE_SOURCE_DIR}/src
 )
+
+target_link_libraries(
+    Runtime
+    PUBLIC 
+
+    Rendering 
+    
+    glad
+)

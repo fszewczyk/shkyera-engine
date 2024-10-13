@@ -8,6 +8,7 @@ add_library(
     ${CMAKE_CURRENT_LIST_DIR}/Common/Style.cpp
 
     ${CMAKE_CURRENT_LIST_DIR}/Components/TransformComponentUI.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/Components/TriangleComponentUI.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Components/TextureComponentUI.cpp
 
     ${CMAKE_CURRENT_LIST_DIR}/Widgets/PreviewWidget.cpp
@@ -25,6 +26,7 @@ target_include_directories(
     ${CMAKE_SOURCE_DIR}/src
     ${CMAKE_SOURCE_DIR}/extern/imgui
     ${CMAKE_SOURCE_DIR}/extern/glfw/include
+    ${CMAKE_SOURCE_DIR}/extern/glad/include
 )
 
 target_link_libraries(
@@ -33,6 +35,7 @@ target_link_libraries(
     
     Runtime
     ECS
+    Components
     AssetManager
 
     imgui

@@ -5,10 +5,12 @@
 #include <Components/NameComponent.hpp>
 #include <Components/TransformComponent.hpp>
 #include <Components/TextureComponent.hpp>
+#include <Components/TriangleComponent.hpp>
 
 #include <UI/Common/Style.hpp>
 #include <UI/Components/TransformComponentUI.hpp>
 #include <UI/Components/TextureComponentUI.hpp>
+#include <UI/Components/TriangleComponentUI.hpp>
 #include <UI/Widgets/PropertiesWidget.hpp>
 
 namespace shkyera {
@@ -17,6 +19,7 @@ PropertiesWidget::PropertiesWidget(std::shared_ptr<Registry> registry) : Widget(
 
 void PropertiesWidget::selectEntity(Entity entity) {
   _selectedEntity = entity;
+  setupComponentsUI();
 }
 
 void PropertiesWidget::draw() {
@@ -68,6 +71,13 @@ void PropertiesWidget::setupComponentsUI() {
     componentUi->setPathGetter([&]() -> std::string& { return component.getPath(); });
     _componentsUi.emplace_back(std::move(componentUi));
   }
+
+  if(_registry->hasComponent<TriangleComponent>(*_selectedEntity)) {    
+    auto &component = _registry->getComponent<TriangleComponent>(*_selectedEntity);
+    auto componentUi = std::make_unique<TriangleComponentUI>();
+    
+    _componentsUi.emplace_back(std::move(componentUi));
+  }
 }
 
 void PropertiesWidget::drawNewComponentMenu() {
@@ -83,6 +93,12 @@ void PropertiesWidget::drawNewComponentMenu() {
 
     if (ImGui::Selectable("Texture")) {
       _registry->addComponent<TextureComponent>(*_selectedEntity);
+      setupComponentsUI();
+      ImGui::CloseCurrentPopup();
+    }
+
+    if (ImGui::Selectable("Triangle")) {
+      _registry->addComponent<TriangleComponent>(*_selectedEntity);
       setupComponentsUI();
       ImGui::CloseCurrentPopup();
     }

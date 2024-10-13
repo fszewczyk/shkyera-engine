@@ -4,6 +4,8 @@ add_library(
 
     ${CMAKE_CURRENT_LIST_DIR}/Filesystem.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Image.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/AssetManager.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/Shader.cpp
 )
 
 target_include_directories(
@@ -13,6 +15,7 @@ target_include_directories(
     ${CMAKE_SOURCE_DIR}/src
     ${CMAKE_SOURCE_DIR}/extern/glm
     ${CMAKE_SOURCE_DIR}/extern/stbi
+    ${CMAKE_SOURCE_DIR}/extern/glad/include
 )
 
 target_link_libraries(

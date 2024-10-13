@@ -9,6 +9,7 @@
 #include <memory>
 #include <vector>
 
+#define GL_SILENCE_DEPRECATION
 #include <GLFW/glfw3.h>
 
 #include <ECS/Registry.hpp>

@@ -33,13 +33,13 @@ public:
      * @param entity The entity to associate with the component.
      * @param component The component to add.
      */
-    bool add(Entity entity, const Component &component) {
+    bool add(Entity entity, Component component) {
         if(contains(entity)) {
             return false;
         }
         _entityToComponent[entity] = _entities.size();
         _entities.emplace_back(entity);
-        _components.emplace_back(component);
+        _components.push_back(std::move(component));
         
         return true;
     }
@@ -59,7 +59,7 @@ public:
         const auto& lastIndex = _entities.size() - 1;
 
         _entities[index] = _entities[lastIndex];
-        _components[index] = _components[lastIndex];
+        _components[index] = std::move(_components[lastIndex]);
 
         _entityToComponent[_entities.at(index)] = index;
 

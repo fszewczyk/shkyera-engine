@@ -16,6 +16,5 @@ int main() {
   while (!ui.shouldClose()) {
     ui.draw();
   }
-
   return 0;
 }

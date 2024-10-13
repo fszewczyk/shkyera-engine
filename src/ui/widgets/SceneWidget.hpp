@@ -6,17 +6,19 @@
 
 #pragma once
 
+#include <Rendering/ShaderProgram.hpp>
+#include <Components/TriangleComponent.hpp>
 #include <Runtime/Runtime.hpp>
-
 #include <UI/Widget.hpp>
+#include <GLFW/glfw3.h>
+#include <memory>
 
 namespace shkyera {
 
 /**
  * @brief A user interface widget for rendering scenes.
  *
- * The `SceneWidget` class provides a graphical user interface widget for rendering and displaying scenes using a
- * renderer.
+ * The `SceneWidget` class provides a graphical user interface widget for rendering and contrlling the runtime
  */
 class SceneWidget : public Widget {
   public:
@@ -35,10 +37,8 @@ class SceneWidget : public Widget {
     void adjustSize();
 
   private:
-    void drawScene();
-
     Runtime _runtime;
-    ImVec2 _renderSize;                  ///< The size of the rendered scene area.
+    ImVec2 _renderSize;
 };
 
 } // namespace shkyera

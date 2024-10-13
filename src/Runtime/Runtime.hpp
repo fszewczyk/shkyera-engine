@@ -10,6 +10,7 @@
 #include <vector>
 
 #include <ECS/Registry.hpp>
+#include <Rendering/Renderer.hpp>
 
 namespace shkyera {
 
@@ -27,12 +28,16 @@ class Runtime {
 
     void run();
 
+    Renderer& getRenderer();
+    const Renderer& getRenderer() const;
+
     /**
      * @brief Default destructor for the `Runtime` class.
      */
     ~Runtime() = default;
 
   private:
+    Renderer _renderer;
     std::shared_ptr<Registry> _registry;
 };
 

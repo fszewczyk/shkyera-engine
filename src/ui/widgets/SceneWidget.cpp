@@ -1,38 +1,36 @@
 #include <imgui_internal.h>
 #include "imgui.h"
 
-#include <iostream>
+#include <glad/glad.h>
 
+#include <iostream>
 #include <AssetManager/Image.hpp>
+#include <AssetManager/AssetManager.hpp>
+#include <AssetManager/Shader.hpp>
+#include <Components/NameComponent.hpp>
+#include <Components/TriangleComponent.hpp>
 #include <UI/Widgets/ConsoleWidget.hpp>
 #include <UI/Widgets/SceneWidget.hpp>
 
 namespace shkyera {
 
-SceneWidget::SceneWidget(std::shared_ptr<Registry> registry) : Widget("Scene"), _runtime(registry) {
-  _runtime.run();
-}
-
+SceneWidget::SceneWidget(std::shared_ptr<Registry> registry) : Widget("Scene"), _runtime(registry) {}
 
 void SceneWidget::draw() {
-  ImGui::Begin(
-      _name.c_str(), nullptr,
-      ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
+    ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
+    ImGui::Begin(_name.c_str(), nullptr, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
+    adjustSize();
+    _runtime.run();
 
-  ImGui::Dummy(ImVec2(ImGui::GetWindowSize()[0] / 2 - 48, 16));
-  ImGui::SameLine();
+    ImGui::Image((void*)(intptr_t)_runtime.getRenderer().getTexture(), _renderSize);
 
-  drawScene();
-
-  ImGui::End();
+    ImGui::End();
+    ImGui::PopStyleVar();
 }
 
 void SceneWidget::adjustSize() {
-  _renderSize = ImGui::GetWindowSize();
-  _renderSize[0] -= 16;
-  _renderSize[1] -= 16;
+    _renderSize = ImGui::GetContentRegionAvail();
+    _runtime.getRenderer().setSize(_renderSize.x, _renderSize.y);
 }
-
-void SceneWidget::drawScene() {}
 
 }  // namespace shkyera
