@@ -11,7 +11,6 @@ target_include_directories(
     PUBLIC
     
     ${CMAKE_SOURCE_DIR}/src
-    ${CMAKE_SOURCE_DIR}/extern/glad/include
 )
 
 target_link_libraries(
@@ -19,4 +18,5 @@ target_link_libraries(
     PUBLIC 
 
     glad
+    glm::glm
 )

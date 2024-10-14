@@ -20,7 +20,7 @@ class Renderer {
 
     private:
         void drawScene();
-        void setupFramebuffer(); // Create and setup the framebuffer
+        void setupFramebuffer();
         void cleanupFramebuffer();
 
         std::shared_ptr<Registry> _registry;

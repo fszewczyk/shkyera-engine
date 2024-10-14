@@ -1,5 +1,8 @@
 #pragma once
 
+#include <glad/glad.h>
+#include <glm/glm.hpp>
+
 #include <memory>
 #include <string>
 #include <unordered_map>
@@ -13,17 +16,19 @@ public:
     ShaderProgram();
     ~ShaderProgram();
 
-    // Attach a shader to the program
     void attachShader(const std::shared_ptr<Shader>& shader);
 
-    // Link all attached shaders to create the shader program
     void link();
 
-    // Use the shader program (glUseProgram)
     void use() const;
+
+    void setUniform(const std::string& name, float value);
+    void setUniform(const std::string& name, const glm::vec3& value);
+    void setUniform(const std::string& name, const glm::mat4& value);
 
 private:
     GLuint _id;   // OpenGL shader program ID
+    std::unordered_map<std::string, GLint> _uniformLocationCache;
 
     GLint getUniformLocation(const std::string& name);
 };

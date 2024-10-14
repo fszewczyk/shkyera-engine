@@ -2,6 +2,7 @@
 
 #include <Rendering/Renderer.hpp>
 #include <Components/TriangleComponent.hpp>
+#include <Components/TransformComponent.hpp>
 
 namespace shkyera {
 
@@ -16,7 +17,6 @@ Renderer::~Renderer() {
 }
 
 void Renderer::draw() {
-    // Render the scene into the framebuffer
     glBindFramebuffer(GL_FRAMEBUFFER, _fbo);
     glViewport(0, 0, (GLsizei)_renderWidth, (GLsizei)_renderHeight);
     glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
@@ -26,7 +26,6 @@ void Renderer::draw() {
         comp.update();
     }
     
-    // Unbind framebuffer
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 

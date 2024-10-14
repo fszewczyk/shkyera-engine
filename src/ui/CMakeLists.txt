@@ -37,6 +37,7 @@ target_link_libraries(
     ECS
     Components
     AssetManager
+    InputManager
 
     imgui
     glfw 

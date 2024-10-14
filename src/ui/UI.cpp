@@ -32,6 +32,10 @@ void glfw_error_callback(int error, const char* description) {
 }
 
 void UI::initialize() {
+  _inputManager.registerKeyCallback(GLFW_KEY_W, []() {std::cout << "W" << std::endl;});
+  _inputManager.registerKeyCallback(GLFW_KEY_A, []() {std::cout << "A" << std::endl;});
+  _inputManager.registerKeyCallback(GLFW_KEY_1, []() {std::cout << "1" << std::endl;});
+
   initializeImgui();
   initializeWidgets();
   initializeAssets();
@@ -268,6 +272,8 @@ void UI::beginFrame() {
 }
 
 void UI::renderFrame() {
+  _inputManager.processInput(_window);
+
   for (const auto& w : _widgets) {
     w->draw();
   }
