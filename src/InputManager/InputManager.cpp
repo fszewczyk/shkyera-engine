@@ -2,6 +2,11 @@
 
 namespace shkyera {
 
+InputManager& InputManager::getInstance() {
+    static InputManager manager;
+    return manager;
+}
+
 void InputManager::registerKeyCallback(int key, std::function<void()> callback) {
     _keyCallbacks[key].push_back(callback);
 }

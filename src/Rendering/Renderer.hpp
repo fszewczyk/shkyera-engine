@@ -3,6 +3,7 @@
 #include <glad/glad.h>
 
 #include <ECS/Registry.hpp>
+#include <Components/TransformComponent.hpp>
 #include <Rendering/Renderer.hpp>
 
 namespace shkyera {
@@ -20,6 +21,7 @@ class Renderer {
 
     private:
         void drawScene();
+        void setupCameraMovement();
         void setupFramebuffer();
         void cleanupFramebuffer();
 
@@ -30,6 +32,8 @@ class Renderer {
         GLuint _fbo = 0;
         GLuint _textureColorBuffer = 0;
         GLuint _rbo = 0;
+
+        TransformComponent _camera;        
 };
 
 }

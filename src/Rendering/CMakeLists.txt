@@ -19,4 +19,5 @@ target_link_libraries(
 
     glad
     glm::glm
+    InputManager
 )

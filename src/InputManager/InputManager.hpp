@@ -8,6 +8,8 @@ namespace shkyera {
 
 class InputManager{
     public:
+        static InputManager& getInstance();
+
         void registerKeyCallback(int key, std::function<void()> callback);
 
         void unregisterKeyCallback(int key);
@@ -19,6 +21,8 @@ class InputManager{
         void processInput(GLFWwindow* window);
 
     private:
+        InputManager() = default;
+
         std::unordered_map<int, std::vector<std::function<void()>>> _keyCallbacks;
         std::vector<std::function<void(double, double)>> _mouseCallbacks;
 };

@@ -12,7 +12,6 @@
 #define GL_SILENCE_DEPRECATION
 #include <GLFW/glfw3.h>
 
-#include <InputManager/InputManager.hpp>
 #include <ECS/Registry.hpp>
 #include <UI/Widget.hpp>
 
@@ -97,8 +96,6 @@ class UI {
 
     std::shared_ptr<Registry> _registry;         ///< A shared pointer to the associated game.
     std::vector<std::unique_ptr<Widget>> _widgets; ///< A collection of UI widgets.
-
-    InputManager _inputManager;
 
     bool _open;          ///< Flag indicating if the UI is open.
     GLFWwindow *_window; ///< The UI window.
