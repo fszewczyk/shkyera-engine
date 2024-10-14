@@ -14,7 +14,7 @@ class AssetManager {
         template<typename AssetType, typename... Args>
         std::shared_ptr<AssetType> getAsset(const std::filesystem::path& path, Args... args) {
             if (_assets.contains(path.string())) {
-                if (auto asset = _assets.at(path.string())) {
+                if (auto asset = _assets.at(path.string()).lock()) {
                     return std::static_pointer_cast<AssetType>(asset);
                 }
             }
@@ -27,7 +27,7 @@ class AssetManager {
     private:
         AssetManager() = default;
 
-        std::unordered_map<std::string, std::shared_ptr<Asset>> _assets;
+        std::unordered_map<std::string, std::weak_ptr<Asset>> _assets;
 };
 
 }

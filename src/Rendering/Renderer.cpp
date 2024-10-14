@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include <Rendering/Renderer.hpp>
+#include <AssetManager/Mesh.hpp>
 #include <InputManager/InputManager.hpp>
 #include <Components/TriangleComponent.hpp>
 #include <Components/TransformComponent.hpp>
