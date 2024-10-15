@@ -7,7 +7,6 @@
 #pragma once
 
 #include <Rendering/ShaderProgram.hpp>
-#include <Components/TriangleComponent.hpp>
 #include <Runtime/Runtime.hpp>
 #include <UI/Widget.hpp>
 #include <GLFW/glfw3.h>

@@ -20,17 +20,20 @@ public:
 
     void link();
 
-    void use() const;
+    void use();
+    void stopUsing();
 
     void setUniform(const std::string& name, float value);
     void setUniform(const std::string& name, const glm::vec3& value);
     void setUniform(const std::string& name, const glm::mat4& value);
 
 private:
+    GLint getUniformLocation(const std::string& name);
+
+    bool _inUse;
     GLuint _id;   // OpenGL shader program ID
     std::unordered_map<std::string, GLint> _uniformLocationCache;
 
-    GLint getUniformLocation(const std::string& name);
 };
 
 }

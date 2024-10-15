@@ -33,7 +33,7 @@ class Renderer {
         GLuint _textureColorBuffer = 0;
         GLuint _rbo = 0;
 
-        TransformComponent _camera;        
+        Entity _camera;        
 };
 
 }

@@ -8,8 +8,8 @@ add_library(
     ${CMAKE_CURRENT_LIST_DIR}/Common/Style.cpp
 
     ${CMAKE_CURRENT_LIST_DIR}/Components/TransformComponentUI.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/Components/TriangleComponentUI.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Components/TextureComponentUI.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/Components/CameraComponentUI.cpp
 
     ${CMAKE_CURRENT_LIST_DIR}/Widgets/PreviewWidget.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Widgets/ObjectsWidget.cpp

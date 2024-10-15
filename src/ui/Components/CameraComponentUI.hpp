@@ -1,10 +1,13 @@
 #pragma once
 
+#include "imgui.h"
+
+#include <AssetManager/Image.hpp>
 #include <UI/ComponentUI.hpp>
 
 namespace shkyera {
 
-class TriangleComponentUI : public ComponentUI {
+class CameraComponentUI : public ComponentUI {
     public:
         void draw() override;
 };

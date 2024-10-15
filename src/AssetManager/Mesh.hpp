@@ -20,12 +20,15 @@ public:
     GLuint getEBO() const { return _ebo; }
     GLsizei getMeshSize() const { return _meshSize; }
 
-private:
-    GLuint _vao, _vbo, _ebo;
-    GLsizei _meshSize;
+    std::vector<float> _vertices;
+    std::vector<unsigned int> _indices;
 
+private:
     void loadFromFile(const std::string& filepath);
     void uploadToGPU(const std::vector<float>& vertices, const std::vector<unsigned int>& indices);
+
+    GLuint _vao, _vbo, _ebo;
+    GLsizei _meshSize;
 };
 
 } // namespace shkyera

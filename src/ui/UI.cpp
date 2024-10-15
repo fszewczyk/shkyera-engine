@@ -11,7 +11,6 @@
 #include "imgui.h"
 
 #include <AssetManager/Image.hpp>
-#include <Components/TriangleComponent.hpp>
 #include <InputManager/InputManager.hpp>
 #include <UI/Common/Style.hpp>
 #include <UI/Widgets/ConsoleWidget.hpp>

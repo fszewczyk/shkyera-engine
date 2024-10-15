@@ -3,10 +3,10 @@ add_library(
     INTERFACE
 
     ${CMAKE_CURRENT_LIST_DIR}/BaseComponent.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/CameraComponent.hpp
     ${CMAKE_CURRENT_LIST_DIR}/NameComponent.hpp
     ${CMAKE_CURRENT_LIST_DIR}/TransformComponent.hpp
     ${CMAKE_CURRENT_LIST_DIR}/TextureComponent.hpp
-    ${CMAKE_CURRENT_LIST_DIR}/TriangleComponent.hpp
 )
 
 target_include_directories(

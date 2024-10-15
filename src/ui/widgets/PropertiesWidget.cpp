@@ -5,12 +5,12 @@
 #include <Components/NameComponent.hpp>
 #include <Components/TransformComponent.hpp>
 #include <Components/TextureComponent.hpp>
-#include <Components/TriangleComponent.hpp>
+#include <Components/CameraComponent.hpp>
 
 #include <UI/Common/Style.hpp>
 #include <UI/Components/TransformComponentUI.hpp>
 #include <UI/Components/TextureComponentUI.hpp>
-#include <UI/Components/TriangleComponentUI.hpp>
+#include <UI/Components/CameraComponentUI.hpp>
 #include <UI/Widgets/PropertiesWidget.hpp>
 
 namespace shkyera {
@@ -72,9 +72,9 @@ void PropertiesWidget::setupComponentsUI() {
     _componentsUi.emplace_back(std::move(componentUi));
   }
 
-  if(_registry->hasComponent<TriangleComponent>(*_selectedEntity)) {    
-    auto &component = _registry->getComponent<TriangleComponent>(*_selectedEntity);
-    auto componentUi = std::make_unique<TriangleComponentUI>();
+  if(_registry->hasComponent<CameraComponent>(*_selectedEntity)) {    
+    auto &component = _registry->getComponent<CameraComponent>(*_selectedEntity);
+    auto componentUi = std::make_unique<CameraComponentUI>();
     
     _componentsUi.emplace_back(std::move(componentUi));
   }
@@ -97,8 +97,8 @@ void PropertiesWidget::drawNewComponentMenu() {
       ImGui::CloseCurrentPopup();
     }
 
-    if (ImGui::Selectable("Triangle")) {
-      _registry->addComponent<TriangleComponent>(*_selectedEntity);
+    if (ImGui::Selectable("Camera")) {
+      _registry->addComponent<CameraComponent>(*_selectedEntity);
       setupComponentsUI();
       ImGui::CloseCurrentPopup();
     }

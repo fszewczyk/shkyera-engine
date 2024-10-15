@@ -4,7 +4,7 @@
 
 namespace shkyera {
 
-ShaderProgram::ShaderProgram() {
+ShaderProgram::ShaderProgram() : _inUse(false) {
     _id = glCreateProgram();
 }
 
@@ -29,23 +29,59 @@ void ShaderProgram::link() {
     }
 }
 
-void ShaderProgram::use() const {
+void ShaderProgram::use() {
     glUseProgram(_id);
+    _inUse = true;
+}
+
+void ShaderProgram::stopUsing() {
+    glUseProgram(0);
+    _inUse = false;
 }
 
 void ShaderProgram::setUniform(const std::string& name, float value) {
+    if(!_inUse) {
+        std::cerr << "WARN::SHADER_PROGRAM::SET_UNIFORM::" << name 
+                  << " - Trying to set a uniform when a Shader Program is not in use." << std::endl;
+    }
+
     GLint location = getUniformLocation(name);
-    glUniform1f(location, value);
+    if (location != -1) { // Only set uniform if the location is valid
+        glUniform1f(location, value);
+    } else {
+        std::cerr << "ERROR::SHADER_PROGRAM::SET_UNIFORM::" << name 
+                  << " - Invalid location. Uniform not set." << std::endl;
+    }
 }
 
 void ShaderProgram::setUniform(const std::string& name, const glm::vec3& value) {
+    if(!_inUse) {
+        std::cerr << "WARN::SHADER_PROGRAM::SET_UNIFORM::" << name 
+                  << " - Trying to set a uniform when a Shader Program is not in use." << std::endl;
+    }
+
     GLint location = getUniformLocation(name);
-    glUniform3fv(location, 1, &value[0]);
+    if (location != -1) { // Only set uniform if the location is valid
+        glUniform3fv(location, 1, &value[0]);
+    } else {
+        std::cerr << "ERROR::SHADER_PROGRAM::SET_UNIFORM::" << name 
+                  << " - Invalid location. Uniform not set." << std::endl;
+    }
 }
 
 void ShaderProgram::setUniform(const std::string& name, const glm::mat4& value) {
+    if(!_inUse) {
+        std::cerr << "WARN::SHADER_PROGRAM::SET_UNIFORM::" << name 
+                  << " - Trying to set a uniform when a Shader Program is not in use." << std::endl;
+    }
+
     GLint location = getUniformLocation(name);
-    glUniformMatrix4fv(location, 1, GL_FALSE, &value[0][0]);
+    if (location != -1) { // Only set uniform if the location is valid
+        glUniformMatrix4fv(location, 1, GL_FALSE, &value[0][0]);
+    } else {
+        std::cerr << "ERROR::SHADER_PROGRAM::SET_UNIFORM::" << name 
+                  << " - Invalid location. Uniform not set." << std::endl;
+    }
 }
 
 GLint ShaderProgram::getUniformLocation(const std::string& name) {

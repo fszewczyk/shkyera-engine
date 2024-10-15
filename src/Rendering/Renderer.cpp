@@ -1,20 +1,26 @@
 #include <iostream>
 
 #include <Rendering/Renderer.hpp>
+#include <Rendering/ShaderProgram.hpp>
+#include <AssetManager/AssetManager.hpp>
 #include <AssetManager/Mesh.hpp>
 #include <InputManager/InputManager.hpp>
-#include <Components/TriangleComponent.hpp>
 #include <Components/TransformComponent.hpp>
+#include <Components/CameraComponent.hpp>
 
 namespace shkyera {
 
-constexpr static float MOVEMENT_SPEED = 0.1;
+constexpr static float MOVEMENT_SPEED = 0.6;
 constexpr static float MOUSE_SENSITIVITY = 0.1;
 
 
 Renderer::Renderer(std::shared_ptr<Registry> registry) : _registry(registry) {
-    setupCameraMovement();
+    _camera = registry->addEntity();
+    registry->addComponent<TransformComponent>(_camera);
+    registry->addComponent<CameraComponent>(_camera);
+
     setupFramebuffer();
+    setupCameraMovement();
 }
 
 Renderer::~Renderer() {
@@ -29,10 +35,35 @@ void Renderer::draw() {
     glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    for(auto& comp : _registry->getComponents<TriangleComponent>()) {
-        comp.update();
-    }
+    // Set up shaders and uniforms
+    static auto shaderProgram = ShaderProgram();
+    static bool setup = false;
+
+    if (!setup) {
+        auto vertexShader = AssetManager::getInstance().getAsset<Shader>("resources/shaders/vertex/camera_view.glsl", Shader::Type::Vertex);
+        auto fragmentShader = AssetManager::getInstance().getAsset<Shader>("resources/shaders/fragment/orange.glsl", Shader::Type::Fragment);
     
+        shaderProgram.attachShader(vertexShader);
+        shaderProgram.attachShader(fragmentShader);
+        shaderProgram.link();
+
+        setup = true;
+    }
+
+    const glm::mat4& viewMatrix = _registry->getComponent<CameraComponent>(_camera).getViewMatrix();
+    const glm::mat4& projectionMatrix = _registry->getComponent<CameraComponent>(_camera).getProjectionMatrix();
+
+    shaderProgram.use();
+    shaderProgram.setUniform("viewMatrix", viewMatrix);
+    shaderProgram.setUniform("projectionMatrix", projectionMatrix);
+
+    static auto teapotMesh = Mesh("resources/models/teapot.obj");
+
+    teapotMesh.bind();
+    glDrawElements(GL_TRIANGLES, teapotMesh.getMeshSize(), GL_UNSIGNED_INT, nullptr);
+    teapotMesh.unbind();
+
+    shaderProgram.stopUsing();
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
@@ -42,43 +73,74 @@ GLuint Renderer::getTexture() const {
 
 void Renderer::setupCameraMovement() {
     auto& inputManager = InputManager::getInstance();
-    auto& camera = _camera;
+    auto& cameraTransform = _registry->getComponent<CameraComponent>(_camera);
 
-    inputManager.registerKeyCallback(GLFW_KEY_W, [&camera]() {
-        glm::vec3 forward = glm::vec3(0.0f, 0.0f, -1.0f);  // Forward direction in local space
-        glm::vec3 worldForward = glm::vec3(glm::rotate(glm::mat4(1.0f), camera.getOrientation().y, glm::vec3(0.0f, 1.0f, 0.0f)) * glm::vec4(forward, 0.0f));
-        camera.setPosition(camera.getPosition() + worldForward * MOVEMENT_SPEED);
+    inputManager.registerKeyCallback(GLFW_KEY_W, [&cameraTransform]() {
+        glm::vec3 forward;
+        float yaw = cameraTransform.getOrientation().y;
+        float pitch = cameraTransform.getOrientation().x;
+
+        forward.x = cos(yaw) * cos(pitch);
+        forward.y = sin(pitch);
+        forward.z = sin(yaw) * cos(pitch);
+        forward = glm::normalize(forward);
+
+        cameraTransform.setPosition(cameraTransform.getPosition() + forward * MOVEMENT_SPEED);
     });
 
-    inputManager.registerKeyCallback(GLFW_KEY_S, [&camera]() {
-        glm::vec3 backward = glm::vec3(0.0f, 0.0f, 1.0f);  // Backward direction in local space
-        glm::vec3 worldBackward = glm::vec3(glm::rotate(glm::mat4(1.0f), camera.getOrientation().y, glm::vec3(0.0f, 1.0f, 0.0f)) * glm::vec4(backward, 0.0f));
-        camera.setPosition(camera.getPosition() + worldBackward * MOVEMENT_SPEED);
+    inputManager.registerKeyCallback(GLFW_KEY_S, [&cameraTransform]() {
+        glm::vec3 backward;
+        float yaw = cameraTransform.getOrientation().y;
+        float pitch = cameraTransform.getOrientation().x;
+
+        backward.x = -cos(yaw) * cos(pitch);
+        backward.y = -sin(pitch);
+        backward.z = -sin(yaw) * cos(pitch);
+        backward = glm::normalize(backward);
+
+        cameraTransform.setPosition(cameraTransform.getPosition() + backward * MOVEMENT_SPEED);
     });
 
-    inputManager.registerKeyCallback(GLFW_KEY_A, [&camera]() {
-        glm::vec3 left = glm::vec3(-1.0f, 0.0f, 0.0f);  // Left direction in local space
-        glm::vec3 worldLeft = glm::vec3(glm::rotate(glm::mat4(1.0f), camera.getOrientation().y, glm::vec3(0.0f, 1.0f, 0.0f)) * glm::vec4(left, 0.0f));
-        camera.setPosition(camera.getPosition() + worldLeft * MOVEMENT_SPEED);
+    inputManager.registerKeyCallback(GLFW_KEY_A, [&cameraTransform]() {
+        glm::vec3 left;
+        float yaw = cameraTransform.getOrientation().y;
+
+        left.x = -sin(yaw);
+        left.y = 0.0f;
+        left.z = cos(yaw);
+        left = glm::normalize(left);
+
+        cameraTransform.setPosition(cameraTransform.getPosition() + left * MOVEMENT_SPEED);
     });
 
-    inputManager.registerKeyCallback(GLFW_KEY_D, [&camera]() {
-        glm::vec3 right = glm::vec3(1.0f, 0.0f, 0.0f);  // Right direction in local space
-        glm::vec3 worldRight = glm::vec3(glm::rotate(glm::mat4(1.0f), camera.getOrientation().y, glm::vec3(0.0f, 1.0f, 0.0f)) * glm::vec4(right, 0.0f));
-        camera.setPosition(camera.getPosition() + worldRight * MOVEMENT_SPEED);
+    inputManager.registerKeyCallback(GLFW_KEY_D, [&cameraTransform]() {
+        glm::vec3 right;
+        float yaw = cameraTransform.getOrientation().y;
+
+        right.x = sin(yaw);
+        right.y = 0.0f;
+        right.z = -cos(yaw);
+        right = glm::normalize(right);
+
+        cameraTransform.setPosition(cameraTransform.getPosition() + right * MOVEMENT_SPEED);
     });
 
-    inputManager.registerKeyCallback(GLFW_KEY_Q, [&camera]() {
+
+    inputManager.registerKeyCallback(GLFW_KEY_Q, [&cameraTransform]() {
         glm::vec3 down = glm::vec3(0.0f, -1.0f, 0.0f);  // Down direction in world space
-        camera.setPosition(camera.getPosition() + down * MOVEMENT_SPEED);
+        cameraTransform.setPosition(cameraTransform.getPosition() + down * MOVEMENT_SPEED);
     });
 
-    inputManager.registerKeyCallback(GLFW_KEY_E, [&camera]() {
+    inputManager.registerKeyCallback(GLFW_KEY_E, [&cameraTransform]() {
         glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f);  // Up direction in world space
-        camera.setPosition(camera.getPosition() + up * MOVEMENT_SPEED);
+        cameraTransform.setPosition(cameraTransform.getPosition() + up * MOVEMENT_SPEED);
     });
 
-    inputManager.registerMouseMoveCallback([&camera](double xPos, double yPos) {
+    inputManager.registerKeyCallback(GLFW_KEY_1, [&cameraTransform]() {
+        std::cout << cameraTransform.getPosition()[0] << " " << cameraTransform.getPosition()[1] << " " << cameraTransform.getPosition()[2] << std::endl;
+    });
+
+    inputManager.registerMouseMoveCallback([&cameraTransform](double xPos, double yPos) {
         static double lastX = xPos, lastY = yPos;
 
         float xOffset = static_cast<float>(xPos - lastX) * MOUSE_SENSITIVITY;
@@ -87,8 +149,8 @@ void Renderer::setupCameraMovement() {
         lastX = xPos;
         lastY = yPos;
 
-        glm::vec3 orientation = camera.getOrientation();
-        orientation.y += glm::radians(xOffset);  // Yaw (Y-axis rotation)
+        glm::vec3 orientation = cameraTransform.getOrientation();
+        orientation.y -= glm::radians(xOffset);  // Yaw (Y-axis rotation)
         orientation.x += glm::radians(yOffset);  // Pitch (X-axis rotation)
 
         if (orientation.x > glm::radians(89.0f))
@@ -96,7 +158,7 @@ void Renderer::setupCameraMovement() {
         if (orientation.x < glm::radians(-89.0f))
             orientation.x = glm::radians(-89.0f);
 
-        camera.getOrientation() = orientation;
+        cameraTransform.getOrientation() = orientation;
     });
 }
 

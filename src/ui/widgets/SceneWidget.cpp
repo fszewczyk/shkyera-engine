@@ -8,7 +8,6 @@
 #include <AssetManager/AssetManager.hpp>
 #include <AssetManager/Shader.hpp>
 #include <Components/NameComponent.hpp>
-#include <Components/TriangleComponent.hpp>
 #include <UI/Widgets/ConsoleWidget.hpp>
 #include <UI/Widgets/SceneWidget.hpp>
 
