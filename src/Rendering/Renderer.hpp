@@ -17,6 +17,9 @@ class Renderer {
 
         GLuint getTexture() const;
 
+        void enableCameraMovement();
+        void disableCameraMovement();
+
         void setSize(uint32_t width, uint32_t height);
 
     private:
@@ -33,7 +36,8 @@ class Renderer {
         GLuint _textureColorBuffer = 0;
         GLuint _rbo = 0;
 
-        Entity _camera;        
+        Entity _camera;
+        bool _cameraControl;        
 };
 
 }

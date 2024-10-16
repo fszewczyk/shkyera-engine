@@ -19,8 +19,6 @@ Mesh::~Mesh() {
     glDeleteVertexArrays(1, &_vao);
     glDeleteBuffers(1, &_vbo);
     glDeleteBuffers(1, &_ebo);
-
-    std::cout << "Deleted vertices: " << _meshSize << std::endl;
 }
 
 // Load the mesh from a file (OBJ format for this example)
@@ -74,7 +72,6 @@ void Mesh::loadFromFile(const std::string& filepath) {
 
 void Mesh::uploadToGPU(const std::vector<float>& vertices, const std::vector<unsigned int>& indices) {
     _meshSize = static_cast<GLsizei>(indices.size());
-    std::cout << "Loaded vertices: " << _meshSize << std::endl;
 
     // Create VAO
     glGenVertexArrays(1, &_vao);

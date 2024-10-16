@@ -14,13 +14,20 @@ constexpr static float MOVEMENT_SPEED = 0.6;
 constexpr static float MOUSE_SENSITIVITY = 0.1;
 
 
-Renderer::Renderer(std::shared_ptr<Registry> registry) : _registry(registry) {
+Renderer::Renderer(std::shared_ptr<Registry> registry) : _registry(registry), _cameraControl(false) {
     _camera = registry->addEntity();
     registry->addComponent<TransformComponent>(_camera);
     registry->addComponent<CameraComponent>(_camera);
 
     setupFramebuffer();
     setupCameraMovement();
+
+    InputManager::getInstance().registerMouseButtonDownCallback(GLFW_MOUSE_BUTTON_LEFT, [this]() {
+        enableCameraMovement();
+    });
+    InputManager::getInstance().registerMouseButtonUpCallback(GLFW_MOUSE_BUTTON_LEFT, [this]() {
+        disableCameraMovement();
+    });
 }
 
 Renderer::~Renderer() {
@@ -71,76 +78,91 @@ GLuint Renderer::getTexture() const {
     return _textureColorBuffer;
 }
 
+void Renderer::enableCameraMovement() {
+    _cameraControl = true;
+}
+void Renderer::disableCameraMovement() {
+    _cameraControl = false;
+}
+
 void Renderer::setupCameraMovement() {
     auto& inputManager = InputManager::getInstance();
     auto& cameraTransform = _registry->getComponent<CameraComponent>(_camera);
 
-    inputManager.registerKeyCallback(GLFW_KEY_W, [&cameraTransform]() {
-        glm::vec3 forward;
-        float yaw = cameraTransform.getOrientation().y;
-        float pitch = cameraTransform.getOrientation().x;
+    inputManager.registerKeyCallback(GLFW_KEY_W, [&cameraTransform, &enabled=_cameraControl]() {
+        if(enabled) {
+            glm::vec3 forward;
+            float yaw = cameraTransform.getOrientation().y;
+            float pitch = cameraTransform.getOrientation().x;
 
-        forward.x = cos(yaw) * cos(pitch);
-        forward.y = sin(pitch);
-        forward.z = sin(yaw) * cos(pitch);
-        forward = glm::normalize(forward);
+            forward.x = cos(yaw) * cos(pitch);
+            forward.y = sin(pitch);
+            forward.z = sin(yaw) * cos(pitch);
+            forward = glm::normalize(forward);
 
-        cameraTransform.setPosition(cameraTransform.getPosition() + forward * MOVEMENT_SPEED);
+            cameraTransform.setPosition(cameraTransform.getPosition() + forward * MOVEMENT_SPEED);
+        }
     });
 
-    inputManager.registerKeyCallback(GLFW_KEY_S, [&cameraTransform]() {
-        glm::vec3 backward;
-        float yaw = cameraTransform.getOrientation().y;
-        float pitch = cameraTransform.getOrientation().x;
+    inputManager.registerKeyCallback(GLFW_KEY_S, [&cameraTransform, &enabled=_cameraControl]() {
+        if(enabled) {
+            glm::vec3 backward;
+            float yaw = cameraTransform.getOrientation().y;
+            float pitch = cameraTransform.getOrientation().x;
 
-        backward.x = -cos(yaw) * cos(pitch);
-        backward.y = -sin(pitch);
-        backward.z = -sin(yaw) * cos(pitch);
-        backward = glm::normalize(backward);
+            backward.x = -cos(yaw) * cos(pitch);
+            backward.y = -sin(pitch);
+            backward.z = -sin(yaw) * cos(pitch);
+            backward = glm::normalize(backward);
 
-        cameraTransform.setPosition(cameraTransform.getPosition() + backward * MOVEMENT_SPEED);
+            cameraTransform.setPosition(cameraTransform.getPosition() + backward * MOVEMENT_SPEED);
+        }
     });
 
-    inputManager.registerKeyCallback(GLFW_KEY_A, [&cameraTransform]() {
-        glm::vec3 left;
-        float yaw = cameraTransform.getOrientation().y;
+    inputManager.registerKeyCallback(GLFW_KEY_A, [&cameraTransform, &enabled=_cameraControl]() {
+        if(enabled) {
+            glm::vec3 left;
+            float yaw = cameraTransform.getOrientation().y;
 
-        left.x = -sin(yaw);
-        left.y = 0.0f;
-        left.z = cos(yaw);
-        left = glm::normalize(left);
+            left.x = -sin(yaw);
+            left.y = 0.0f;
+            left.z = cos(yaw);
+            left = glm::normalize(left);
 
-        cameraTransform.setPosition(cameraTransform.getPosition() + left * MOVEMENT_SPEED);
+            cameraTransform.setPosition(cameraTransform.getPosition() + left * MOVEMENT_SPEED);
+        }
     });
 
-    inputManager.registerKeyCallback(GLFW_KEY_D, [&cameraTransform]() {
-        glm::vec3 right;
-        float yaw = cameraTransform.getOrientation().y;
+    inputManager.registerKeyCallback(GLFW_KEY_D, [&cameraTransform, &enabled=_cameraControl]() {
+        if(enabled) {
+            glm::vec3 right;
+            float yaw = cameraTransform.getOrientation().y;
 
-        right.x = sin(yaw);
-        right.y = 0.0f;
-        right.z = -cos(yaw);
-        right = glm::normalize(right);
+            right.x = sin(yaw);
+            right.y = 0.0f;
+            right.z = -cos(yaw);
+            right = glm::normalize(right);
 
-        cameraTransform.setPosition(cameraTransform.getPosition() + right * MOVEMENT_SPEED);
+            cameraTransform.setPosition(cameraTransform.getPosition() + right * MOVEMENT_SPEED);
+        }
     });
 
 
-    inputManager.registerKeyCallback(GLFW_KEY_Q, [&cameraTransform]() {
-        glm::vec3 down = glm::vec3(0.0f, -1.0f, 0.0f);  // Down direction in world space
-        cameraTransform.setPosition(cameraTransform.getPosition() + down * MOVEMENT_SPEED);
+    inputManager.registerKeyCallback(GLFW_KEY_Q, [&cameraTransform, &enabled=_cameraControl]() {
+        if(enabled) {
+            glm::vec3 down = glm::vec3(0.0f, -1.0f, 0.0f);  // Down direction in world space
+            cameraTransform.setPosition(cameraTransform.getPosition() + down * MOVEMENT_SPEED);
+        }
     });
 
-    inputManager.registerKeyCallback(GLFW_KEY_E, [&cameraTransform]() {
-        glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f);  // Up direction in world space
-        cameraTransform.setPosition(cameraTransform.getPosition() + up * MOVEMENT_SPEED);
+    inputManager.registerKeyCallback(GLFW_KEY_E, [&cameraTransform, &enabled=_cameraControl]() {
+        if(enabled) {
+            glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f);  // Up direction in world space
+            cameraTransform.setPosition(cameraTransform.getPosition() + up * MOVEMENT_SPEED);
+        }
     });
 
-    inputManager.registerKeyCallback(GLFW_KEY_1, [&cameraTransform]() {
-        std::cout << cameraTransform.getPosition()[0] << " " << cameraTransform.getPosition()[1] << " " << cameraTransform.getPosition()[2] << std::endl;
-    });
-
-    inputManager.registerMouseMoveCallback([&cameraTransform](double xPos, double yPos) {
+    inputManager.registerMouseMoveCallback([&cameraTransform, &enabled=_cameraControl](double xPos, double yPos) {
         static double lastX = xPos, lastY = yPos;
 
         float xOffset = static_cast<float>(xPos - lastX) * MOUSE_SENSITIVITY;
@@ -149,16 +171,18 @@ void Renderer::setupCameraMovement() {
         lastX = xPos;
         lastY = yPos;
 
-        glm::vec3 orientation = cameraTransform.getOrientation();
-        orientation.y -= glm::radians(xOffset);  // Yaw (Y-axis rotation)
-        orientation.x += glm::radians(yOffset);  // Pitch (X-axis rotation)
+        if(enabled) {
+            glm::vec3 orientation = cameraTransform.getOrientation();
+            orientation.y -= glm::radians(xOffset);  // Yaw (Y-axis rotation)
+            orientation.x += glm::radians(yOffset);  // Pitch (X-axis rotation)
 
-        if (orientation.x > glm::radians(89.0f))
-            orientation.x = glm::radians(89.0f);
-        if (orientation.x < glm::radians(-89.0f))
-            orientation.x = glm::radians(-89.0f);
+            if (orientation.x > glm::radians(89.0f))
+                orientation.x = glm::radians(89.0f);
+            if (orientation.x < glm::radians(-89.0f))
+                orientation.x = glm::radians(-89.0f);
 
-        cameraTransform.getOrientation() = orientation;
+            cameraTransform.getOrientation() = orientation;
+        }
     });
 }
 
