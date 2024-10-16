@@ -91,7 +91,6 @@ void UI::initializeWidgets() {
   _widgets.emplace_back(std::make_unique<ConsoleWidget>("Console"));
 
   auto propertiesWidget = std::make_unique<PropertiesWidget>(_registry);
-
   auto objectsWidget = std::make_unique<ObjectsWidget>("Objects");
   objectsWidget->setRegistry(_registry);
   objectsWidget->addOnSelectEntityCallback(

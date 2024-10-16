@@ -4,12 +4,12 @@
 
 #include <Components/NameComponent.hpp>
 #include <Components/TransformComponent.hpp>
-#include <Components/TextureComponent.hpp>
+#include <Components/MeshComponent.hpp>
 #include <Components/CameraComponent.hpp>
 
 #include <UI/Common/Style.hpp>
 #include <UI/Components/TransformComponentUI.hpp>
-#include <UI/Components/TextureComponentUI.hpp>
+#include <UI/Components/MeshComponentUI.hpp>
 #include <UI/Components/CameraComponentUI.hpp>
 #include <UI/Widgets/PropertiesWidget.hpp>
 
@@ -64,11 +64,10 @@ void PropertiesWidget::setupComponentsUI() {
     _componentsUi.emplace_back(std::move(componentUi));
   }
 
-  if(_registry->hasComponent<TextureComponent>(*_selectedEntity)) {    
-    auto &component = _registry->getComponent<TextureComponent>(*_selectedEntity);
-    auto componentUi = std::make_unique<TextureComponentUI>();
+  if(_registry->hasComponent<MeshComponent>(*_selectedEntity)) {    
+    auto &component = _registry->getComponent<MeshComponent>(*_selectedEntity);
+    auto componentUi = std::make_unique<MeshComponentUI>();
     
-    componentUi->setPathGetter([&]() -> std::string& { return component.getPath(); });
     _componentsUi.emplace_back(std::move(componentUi));
   }
 
@@ -92,7 +91,7 @@ void PropertiesWidget::drawNewComponentMenu() {
     }
 
     if (ImGui::Selectable("Texture")) {
-      _registry->addComponent<TextureComponent>(*_selectedEntity);
+      _registry->addComponent<MeshComponent>(*_selectedEntity);
       setupComponentsUI();
       ImGui::CloseCurrentPopup();
     }

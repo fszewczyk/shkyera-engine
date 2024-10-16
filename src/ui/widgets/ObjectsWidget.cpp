@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include <imgui_internal.h>
 #include "imgui.h"
 
@@ -16,13 +18,11 @@ void ObjectsWidget::setRegistry(std::shared_ptr<Registry> registry) {
   _registry = registry;
 }
 
-void ObjectsWidget::addOnNewEntityCallback(
-    std::function<void(Entity)> callback) {
+void ObjectsWidget::addOnNewEntityCallback(std::function<void(Entity)> callback) {
   _onNewEntityCallbacks.emplace_back(callback);
 }
 
-void ObjectsWidget::addOnSelectEntityCallback(
-    std::function<void(Entity)> callback) {
+void ObjectsWidget::addOnSelectEntityCallback(std::function<void(Entity)> callback) {
   _onSelectEntityCallbacks.emplace_back(callback);
 }
 
@@ -60,9 +60,10 @@ void ObjectsWidget::drawList() {
     if (ImGui::Selectable(
             (nameComponent.getName() + "##" + std::to_string(i++)).c_str(),
             entity == _selectedEntity)) {
-      for (const auto& callback : _onSelectEntityCallbacks) {
-        callback(entity);
-      }
+        std::cout << entity << std::endl;
+        for (const auto& callback : _onSelectEntityCallbacks) {
+          callback(entity);
+        }
     }
   }
 }

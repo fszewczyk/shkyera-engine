@@ -1,11 +1,11 @@
 #include <iostream>
 
 #include <Rendering/Renderer.hpp>
-#include <Rendering/ShaderProgram.hpp>
 #include <AssetManager/AssetManager.hpp>
 #include <AssetManager/Mesh.hpp>
 #include <InputManager/InputManager.hpp>
 #include <Components/TransformComponent.hpp>
+#include <Components/MeshComponent.hpp>
 #include <Components/CameraComponent.hpp>
 
 namespace shkyera {
@@ -28,6 +28,13 @@ Renderer::Renderer(std::shared_ptr<Registry> registry) : _registry(registry), _c
     InputManager::getInstance().registerMouseButtonUpCallback(GLFW_MOUSE_BUTTON_LEFT, [this]() {
         disableCameraMovement();
     });
+
+    auto vertexShader = AssetManager::getInstance().getAsset<Shader>("resources/shaders/vertex/camera_view.glsl", Shader::Type::Vertex);
+    auto fragmentShader = AssetManager::getInstance().getAsset<Shader>("resources/shaders/fragment/orange.glsl", Shader::Type::Fragment);
+
+    _shaderProgram.attachShader(vertexShader);
+    _shaderProgram.attachShader(fragmentShader);
+    _shaderProgram.link();
 }
 
 Renderer::~Renderer() {
@@ -42,35 +49,18 @@ void Renderer::draw() {
     glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    // Set up shaders and uniforms
-    static auto shaderProgram = ShaderProgram();
-    static bool setup = false;
-
-    if (!setup) {
-        auto vertexShader = AssetManager::getInstance().getAsset<Shader>("resources/shaders/vertex/camera_view.glsl", Shader::Type::Vertex);
-        auto fragmentShader = AssetManager::getInstance().getAsset<Shader>("resources/shaders/fragment/orange.glsl", Shader::Type::Fragment);
-    
-        shaderProgram.attachShader(vertexShader);
-        shaderProgram.attachShader(fragmentShader);
-        shaderProgram.link();
-
-        setup = true;
-    }
-
     const glm::mat4& viewMatrix = _registry->getComponent<CameraComponent>(_camera).getViewMatrix();
     const glm::mat4& projectionMatrix = _registry->getComponent<CameraComponent>(_camera).getProjectionMatrix();
 
-    shaderProgram.use();
-    shaderProgram.setUniform("viewMatrix", viewMatrix);
-    shaderProgram.setUniform("projectionMatrix", projectionMatrix);
+    _shaderProgram.use();
+    _shaderProgram.setUniform("viewMatrix", viewMatrix);
+    _shaderProgram.setUniform("projectionMatrix", projectionMatrix);
 
-    static auto teapotMesh = Mesh("resources/models/teapot.obj");
+    for(auto& meshComponent : _registry->getComponents<MeshComponent>()) {
+        meshComponent.update();
+    }
 
-    teapotMesh.bind();
-    glDrawElements(GL_TRIANGLES, teapotMesh.getMeshSize(), GL_UNSIGNED_INT, nullptr);
-    teapotMesh.unbind();
-
-    shaderProgram.stopUsing();
+    _shaderProgram.stopUsing();
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 

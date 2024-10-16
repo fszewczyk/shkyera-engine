@@ -8,7 +8,7 @@
 
 namespace shkyera {
 
-class TextureComponentUI : public ComponentUI {
+class MeshComponentUI : public ComponentUI {
     public:
         void draw() override;
 

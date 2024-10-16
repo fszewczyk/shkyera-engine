@@ -4,6 +4,7 @@
 
 #include <ECS/Registry.hpp>
 #include <Components/TransformComponent.hpp>
+#include <Rendering/ShaderProgram.hpp>
 #include <Rendering/Renderer.hpp>
 
 namespace shkyera {
@@ -37,7 +38,9 @@ class Renderer {
         GLuint _rbo = 0;
 
         Entity _camera;
-        bool _cameraControl;        
+        bool _cameraControl;   
+
+        ShaderProgram _shaderProgram;     
 };
 
 }

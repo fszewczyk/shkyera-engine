@@ -4,9 +4,7 @@
 
 namespace shkyera {
 
-Runtime::Runtime(std::shared_ptr<Registry> registry) : _registry(registry), _renderer(registry) {
-    
-}
+Runtime::Runtime(std::shared_ptr<Registry> registry) : _registry(registry), _renderer(registry) {}
 
 void Runtime::run() {
     _renderer.draw();

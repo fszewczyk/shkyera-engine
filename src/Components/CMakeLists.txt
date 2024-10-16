@@ -6,7 +6,7 @@ add_library(
     ${CMAKE_CURRENT_LIST_DIR}/CameraComponent.hpp
     ${CMAKE_CURRENT_LIST_DIR}/NameComponent.hpp
     ${CMAKE_CURRENT_LIST_DIR}/TransformComponent.hpp
-    ${CMAKE_CURRENT_LIST_DIR}/TextureComponent.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/MeshComponent.hpp
 )
 
 target_include_directories(
