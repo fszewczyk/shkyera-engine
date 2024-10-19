@@ -27,11 +27,13 @@ void FileSelector::draw() {
     ImGui::TextUnformatted(_title.c_str());
 
     ImGui::SameLine();
-    ImGui::SetCursorPosX(5);
+    ImGui::SetCursorPosX(85);
 
     ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(7.0f, 5.0f));
     ImGui::PushStyleColor(ImGuiCol_ChildBg, style::DARK_ACCENT);
-    ImGui::BeginChild("Mesh Child", ImVec2(-60, 24), true,
+
+    const std::string childName = _title + "Child";
+    ImGui::BeginChild(childName.c_str(), ImVec2(-60, 24), true,
                       ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
 
     if (_file.has_value()) {

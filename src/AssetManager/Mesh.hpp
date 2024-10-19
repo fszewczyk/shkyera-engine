@@ -1,5 +1,6 @@
 #pragma once
 
+#include <glm/glm.hpp>
 #include <glad/glad.h>
 #include <AssetManager/Asset.hpp>
 #include <vector>
@@ -9,6 +10,15 @@ namespace shkyera {
 
 class Mesh : public Asset {
 public:
+    struct Vertex {
+        glm::vec3 position;
+        glm::vec3 normal;
+        glm::vec2 texcoord;
+
+        Vertex(const glm::vec3& pos, const glm::vec3& norm, const glm::vec2& tex)
+            : position(pos), normal(norm), texcoord(tex) {}
+    };
+
     Mesh(const std::string& filepath);
     ~Mesh();
 
@@ -25,7 +35,7 @@ public:
 
 private:
     void loadFromFile(const std::string& filepath);
-    void uploadToGPU(const std::vector<float>& vertices, const std::vector<unsigned int>& indices);
+    void uploadToGPU(const std::vector<Vertex>& vertices, const std::vector<unsigned int>& indices);
 
     GLuint _vao, _vbo, _ebo;
     GLsizei _meshSize;

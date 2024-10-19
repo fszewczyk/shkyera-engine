@@ -4,13 +4,13 @@
 
 #include <Components/NameComponent.hpp>
 #include <Components/TransformComponent.hpp>
-#include <Components/MeshComponent.hpp>
-#include <Components/CameraComponent.hpp>
+#include <Components/ModelComponent.hpp>
+#include <Components/PointLightComponent.hpp>
 
 #include <UI/Common/Style.hpp>
 #include <UI/Components/TransformComponentUI.hpp>
-#include <UI/Components/MeshComponentUI.hpp>
-#include <UI/Components/CameraComponentUI.hpp>
+#include <UI/Components/ModelComponentUI.hpp>
+#include <UI/Components/PointLightComponentUI.hpp>
 #include <UI/Widgets/PropertiesWidget.hpp>
 
 namespace shkyera {
@@ -64,16 +64,16 @@ void PropertiesWidget::setupComponentsUI() {
     _componentsUi.emplace_back(std::move(componentUi));
   }
 
-  if(_registry->hasComponent<MeshComponent>(*_selectedEntity)) {    
-    auto &component = _registry->getComponent<MeshComponent>(*_selectedEntity);
-    auto componentUi = std::make_unique<MeshComponentUI>(&component);
+  if(_registry->hasComponent<ModelComponent>(*_selectedEntity)) {    
+    auto &component = _registry->getComponent<ModelComponent>(*_selectedEntity);
+    auto componentUi = std::make_unique<ModelComponentUI>(&component);
 
     _componentsUi.emplace_back(std::move(componentUi));
   }
 
-  if(_registry->hasComponent<CameraComponent>(*_selectedEntity)) {    
-    auto &component = _registry->getComponent<CameraComponent>(*_selectedEntity);
-    auto componentUi = std::make_unique<CameraComponentUI>();
+  if(_registry->hasComponent<PointLightComponent>(*_selectedEntity)) {    
+    auto &component = _registry->getComponent<PointLightComponent>(*_selectedEntity);
+    auto componentUi = std::make_unique<PointLightComponentUI>(&component);
     
     _componentsUi.emplace_back(std::move(componentUi));
   }
@@ -90,15 +90,15 @@ void PropertiesWidget::drawNewComponentMenu() {
       ImGui::CloseCurrentPopup();
     }
 
-    if (ImGui::Selectable("Mesh")) {
-      _registry->addComponent<MeshComponent>(*_selectedEntity);
+    if (ImGui::Selectable("Model")) {
+      _registry->addComponent<ModelComponent>(*_selectedEntity);
 
       setupComponentsUI();
       ImGui::CloseCurrentPopup();
     }
 
-    if (ImGui::Selectable("Camera")) {
-      _registry->addComponent<CameraComponent>(*_selectedEntity);
+    if (ImGui::Selectable("Point Light")) {
+      _registry->addComponent<PointLightComponent>(*_selectedEntity);
       setupComponentsUI();
       ImGui::CloseCurrentPopup();
     }

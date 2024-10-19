@@ -3,7 +3,6 @@
 #include <sstream>
 
 #include <AssetManager/Mesh.hpp>
-
 // Assuming you are using a simple OBJ loader. You could integrate a library like Assimp for more advanced formats.
 #include <tiny_obj_loader.h>
 
@@ -21,9 +20,42 @@ Mesh::~Mesh() {
     glDeleteBuffers(1, &_ebo);
 }
 
-// Load the mesh from a file (OBJ format for this example)
+static std::vector<glm::vec3> calculateNormals(const std::vector<Mesh::Vertex>& vertices, const std::vector<unsigned int>& indices) {
+    std::vector<std::vector<size_t>> vertexToFaceIndex(vertices.size());
+    std::vector<glm::vec3> faceToNormal(indices.size(), glm::vec3(0.0f));
+
+    for (size_t faceIndex = 0; faceIndex < indices.size(); faceIndex += 3) {
+        unsigned int idx0 = indices[faceIndex];
+        unsigned int idx1 = indices[faceIndex + 1];
+        unsigned int idx2 = indices[faceIndex + 2];
+
+        glm::vec3 v0 = vertices[idx0].position;
+        glm::vec3 v1 = vertices[idx1].position;
+        glm::vec3 v2 = vertices[idx2].position;
+
+        glm::vec3 edge1 = v1 - v0;
+        glm::vec3 edge2 = v2 - v0;
+        glm::vec3 normal = glm::normalize(glm::cross(edge1, edge2));
+
+        faceToNormal[faceIndex] = normal;
+        vertexToFaceIndex[idx0].push_back(faceIndex);
+        vertexToFaceIndex[idx1].push_back(faceIndex);
+        vertexToFaceIndex[idx2].push_back(faceIndex);
+    }
+
+    std::vector<glm::vec3> vertexToNormal(vertices.size(), glm::vec3(0.0f));
+    for(size_t vertex = 0; vertex < vertices.size(); ++vertex) {
+        for(const auto& face : vertexToFaceIndex[vertex]) {
+            vertexToNormal[vertex] += faceToNormal[face];
+        }
+        vertexToNormal[vertex] /= vertexToFaceIndex[vertex].size();
+        vertexToNormal[vertex] = glm::normalize(vertexToNormal[vertex]);
+    }
+
+    return vertexToNormal;
+}
+
 void Mesh::loadFromFile(const std::string& filepath) {
-    // Use a third-party library to load the model, for example TinyOBJLoader
     tinyobj::attrib_t attrib;
     std::vector<tinyobj::shape_t> shapes;
     std::vector<tinyobj::material_t> materials;
@@ -36,41 +68,54 @@ void Mesh::loadFromFile(const std::string& filepath) {
         return;
     }
 
-    std::vector<float> vertices;
+    std::vector<Vertex> vertices;
     std::vector<unsigned int> indices;
+
+    bool hasNormals = false;
 
     for (const auto& shape : shapes) {
         for (const auto& index : shape.mesh.indices) {
-            vertices.push_back(attrib.vertices[3 * index.vertex_index + 0]);
-            vertices.push_back(attrib.vertices[3 * index.vertex_index + 1]);
-            vertices.push_back(attrib.vertices[3 * index.vertex_index + 2]);
+            glm::vec3 position(
+                attrib.vertices[3 * index.vertex_index + 0],
+                attrib.vertices[3 * index.vertex_index + 1],
+                attrib.vertices[3 * index.vertex_index + 2]
+            );
 
+            glm::vec3 normal(0.0f, 0.0f, 0.0f);
             if (index.normal_index >= 0) {
-                vertices.push_back(attrib.normals[3 * index.normal_index + 0]);
-                vertices.push_back(attrib.normals[3 * index.normal_index + 1]);
-                vertices.push_back(attrib.normals[3 * index.normal_index + 2]);
-            } else {
-                vertices.push_back(0.0f);
-                vertices.push_back(0.0f);
-                vertices.push_back(1.0f);
+                normal = glm::vec3(
+                    attrib.normals[3 * index.normal_index + 0],
+                    attrib.normals[3 * index.normal_index + 1],
+                    attrib.normals[3 * index.normal_index + 2]
+                );
+                hasNormals = true;
             }
 
+            glm::vec2 texcoord(0.0f, 0.0f);
             if (index.texcoord_index >= 0) {
-                vertices.push_back(attrib.texcoords[2 * index.texcoord_index + 0]);
-                vertices.push_back(attrib.texcoords[2 * index.texcoord_index + 1]);
-            } else {
-                vertices.push_back(0.0f);
-                vertices.push_back(0.0f);
+                texcoord = glm::vec2(
+                    attrib.texcoords[2 * index.texcoord_index + 0],
+                    attrib.texcoords[2 * index.texcoord_index + 1]
+                );
             }
 
+            vertices.emplace_back(position, normal, texcoord);
             indices.push_back(indices.size());
+        }
+    }
+
+    if (!hasNormals) {
+        auto calculatedNormals = calculateNormals(vertices, indices);
+
+        for (size_t i = 0; i < vertices.size(); ++i) {
+            vertices[i].normal = calculatedNormals[i];
         }
     }
 
     uploadToGPU(vertices, indices);
 }
 
-void Mesh::uploadToGPU(const std::vector<float>& vertices, const std::vector<unsigned int>& indices) {
+void Mesh::uploadToGPU(const std::vector<Vertex>& vertices, const std::vector<unsigned int>& indices) {
     _meshSize = static_cast<GLsizei>(indices.size());
 
     // Create VAO
@@ -80,7 +125,7 @@ void Mesh::uploadToGPU(const std::vector<float>& vertices, const std::vector<uns
     // Create VBO (vertex buffer object)
     glGenBuffers(1, &_vbo);
     glBindBuffer(GL_ARRAY_BUFFER, _vbo);
-    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(float), vertices.data(), GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), vertices.data(), GL_STATIC_DRAW);
 
     // Create EBO (element buffer object)
     glGenBuffers(1, &_ebo);
@@ -88,14 +133,13 @@ void Mesh::uploadToGPU(const std::vector<float>& vertices, const std::vector<uns
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), indices.data(), GL_STATIC_DRAW);
 
     // Define vertex attributes
-    // Assuming the layout is: 3 floats for position, 3 floats for normal, 2 floats for UV
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);                    // Position
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, position)); // Position
     glEnableVertexAttribArray(0);
 
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));  // Normal
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, normal));   // Normal
     glEnableVertexAttribArray(1);
 
-    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));  // UV
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, texcoord));  // UV
     glEnableVertexAttribArray(2);
 
     // Unbind VAO

@@ -39,6 +39,21 @@ void ShaderProgram::stopUsing() {
     _inUse = false;
 }
 
+void ShaderProgram::setUniform(const std::string& name, int value) {
+    if(!_inUse) {
+        std::cerr << "WARN::SHADER_PROGRAM::SET_UNIFORM::" << name 
+                  << " - Trying to set a uniform when a Shader Program is not in use." << std::endl;
+    }
+
+    GLint location = getUniformLocation(name);
+    if (location != -1) { // Only set uniform if the location is valid
+        glUniform1i(location, value);
+    } else {
+        std::cerr << "ERROR::SHADER_PROGRAM::SET_UNIFORM::" << name 
+                  << " - Invalid location. Uniform not set." << std::endl;
+    }
+}
+
 void ShaderProgram::setUniform(const std::string& name, float value) {
     if(!_inUse) {
         std::cerr << "WARN::SHADER_PROGRAM::SET_UNIFORM::" << name 

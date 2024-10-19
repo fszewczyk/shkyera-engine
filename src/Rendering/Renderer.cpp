@@ -5,7 +5,8 @@
 #include <AssetManager/Mesh.hpp>
 #include <InputManager/InputManager.hpp>
 #include <Components/TransformComponent.hpp>
-#include <Components/MeshComponent.hpp>
+#include <Components/PointLightComponent.hpp>
+#include <Components/ModelComponent.hpp>
 #include <Components/CameraComponent.hpp>
 
 namespace shkyera {
@@ -30,11 +31,13 @@ Renderer::Renderer(std::shared_ptr<Registry> registry) : _registry(registry), _c
     });
 
     auto vertexShader = AssetManager::getInstance().getAsset<Shader>("resources/shaders/vertex/camera_view.glsl", Shader::Type::Vertex);
-    auto fragmentShader = AssetManager::getInstance().getAsset<Shader>("resources/shaders/fragment/orange.glsl", Shader::Type::Fragment);
+    auto fragmentShader = AssetManager::getInstance().getAsset<Shader>("resources/shaders/fragment/uber.glsl", Shader::Type::Fragment);
 
     _shaderProgram.attachShader(vertexShader);
     _shaderProgram.attachShader(fragmentShader);
     _shaderProgram.link();
+
+    glEnable(GL_DEPTH_TEST);
 }
 
 Renderer::~Renderer() {
@@ -51,15 +54,36 @@ void Renderer::draw() {
 
     const glm::mat4& viewMatrix = _registry->getComponent<CameraComponent>(_camera).getViewMatrix();
     const glm::mat4& projectionMatrix = _registry->getComponent<CameraComponent>(_camera).getProjectionMatrix();
+    const glm::vec3& viewPos = _registry->getComponent<TransformComponent>(_camera).getPosition();
 
     _shaderProgram.use();
     _shaderProgram.setUniform("viewMatrix", viewMatrix);
     _shaderProgram.setUniform("projectionMatrix", projectionMatrix);
+    _shaderProgram.setUniform("viewPos", viewPos);  // Set camera position
 
-    for(const auto& [entity, meshComponent] : _registry->getComponentSet<MeshComponent>()) {
+    int lightIndex = 0;
+    for(const auto& [entity, pointLightComponent] : _registry->getComponentSet<PointLightComponent>()) {
+        const auto& transformComponent = _registry->getComponent<TransformComponent>(entity);
+        _shaderProgram.setUniform("lights[" + std::to_string(lightIndex) + "].position", transformComponent.getPosition());
+        _shaderProgram.setUniform("lights[" + std::to_string(lightIndex) + "].ambient", pointLightComponent.ambient);
+        _shaderProgram.setUniform("lights[" + std::to_string(lightIndex) + "].diffuse", pointLightComponent.diffuse);
+        _shaderProgram.setUniform("lights[" + std::to_string(lightIndex) + "].specular", pointLightComponent.specular);
+        ++lightIndex;
+    }
+    _shaderProgram.setUniform("numLights", lightIndex);
+
+    for(const auto& [entity, modelComponent] : _registry->getComponentSet<ModelComponent>()) {
         const auto& transformComponent = _registry->getComponent<TransformComponent>(entity);
         _shaderProgram.setUniform("modelMatrix", transformComponent.getTransformMatrix());
-        meshComponent.updateImpl();
+
+        const Material* material = modelComponent.getMaterial();
+        if (material) {
+            _shaderProgram.setUniform("material.diffuse", material->getDiffuseColor());
+            _shaderProgram.setUniform("material.specular", material->getSpecularColor());
+            _shaderProgram.setUniform("material.shininess", material->getShininess());
+        }
+
+        modelComponent.updateImpl();
     }
 
     _shaderProgram.stopUsing();

@@ -23,6 +23,7 @@ public:
     void use();
     void stopUsing();
 
+    void setUniform(const std::string& name, int value);
     void setUniform(const std::string& name, float value);
     void setUniform(const std::string& name, const glm::vec3& value);
     void setUniform(const std::string& name, const glm::mat4& value);
