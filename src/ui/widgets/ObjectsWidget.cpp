@@ -4,6 +4,7 @@
 #include "imgui.h"
 
 #include <Components/NameComponent.hpp>
+#include <Components/TransformComponent.hpp>
 #include <UI/Widgets/ConsoleWidget.hpp>
 #include <UI/Widgets/ObjectsWidget.hpp>
 #include <UI/Widgets/PropertiesWidget.hpp>
@@ -41,6 +42,7 @@ void ObjectsWidget::drawCreate() {
     if (ImGui::Selectable("Empty Object")) {
       const auto newEntity = _registry->addEntity();
       _registry->addComponent<NameComponent>(newEntity);
+      _registry->addComponent<TransformComponent>(newEntity);
 
       for (const auto& callback : _onNewEntityCallbacks) {
         callback(newEntity);
@@ -60,7 +62,6 @@ void ObjectsWidget::drawList() {
     if (ImGui::Selectable(
             (nameComponent.getName() + "##" + std::to_string(i++)).c_str(),
             entity == _selectedEntity)) {
-        std::cout << entity << std::endl;
         for (const auto& callback : _onSelectEntityCallbacks) {
           callback(entity);
         }

@@ -28,11 +28,11 @@ void TransformComponentUI::draw() {
 
     ImGui::Text("Position");
     ImGui::SameLine(120);
-    ImGui::DragFloat("X##Position", &position[0], 0.005f, 0.0f, 0.0f);
+    ImGui::DragFloat("X##Position", &position[0], 0.1f, 0.0f, 0.0f);
     ImGui::SameLine();
-    ImGui::DragFloat("Y##Position", &position[1], 0.005f, 0.0f, 0.0f);
+    ImGui::DragFloat("Y##Position", &position[1], 0.1f, 0.0f, 0.0f);
     ImGui::SameLine();
-    ImGui::DragFloat("Z##Position", &position[2], 0.005f, 0.0f, 0.0f);
+    ImGui::DragFloat("Z##Position", &position[2], 0.1f, 0.0f, 0.0f);
 
     ImGui::Text("Orientation");
     ImGui::SameLine(120);

@@ -92,6 +92,7 @@ void PropertiesWidget::drawNewComponentMenu() {
 
     if (ImGui::Selectable("Mesh")) {
       _registry->addComponent<MeshComponent>(*_selectedEntity);
+
       setupComponentsUI();
       ImGui::CloseCurrentPopup();
     }

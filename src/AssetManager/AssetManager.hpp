@@ -26,10 +26,10 @@ class AssetManager {
         }
 
         template<typename AssetType>
-        std::string getFilePath(AssetType* asset) {
+        std::optional<std::string> getFilePath(AssetType* asset) {
             void* ptr = (void *)(asset);
             if(_assetFilePaths.find(ptr) == _assetFilePaths.end()) {
-                return nullptr;
+                return std::nullopt;
             }
             return _assetFilePaths.at(ptr);
         }

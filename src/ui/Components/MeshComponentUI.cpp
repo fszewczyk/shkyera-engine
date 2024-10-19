@@ -1,12 +1,17 @@
 #include <UI/Components/MeshComponentUI.hpp>
 #include <AssetManager/AssetManager.hpp>
+#include <AssetManager/Filesystem.hpp>
 #include <AssetManager/Image.hpp>
 
 namespace shkyera {
 
 MeshComponentUI::MeshComponentUI(MeshComponent* meshComponent) :
   _fileSelector("Model"), _meshComponent(meshComponent) {
-  _fileSelector.setFile(File(AssetManager::getInstance().getFilePath(meshComponent->getMesh())));
+
+  const auto& defaultFilePath = AssetManager::getInstance().getFilePath(meshComponent->getMesh());
+  if(defaultFilePath) {
+    _fileSelector.setFile(File(std::filesystem::path(*defaultFilePath)));
+  }
   _fileSelector.setUpdateCallback([this](const auto& file) {
     _meshComponent->setMesh(AssetManager::getInstance().getAsset<Mesh>(file.getPath()));
   });
