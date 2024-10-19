@@ -2,20 +2,21 @@
 
 #include "imgui.h"
 
-#include <AssetManager/Image.hpp>
-#include <Components/TransformComponent.hpp>
+#include <Components/MeshComponent.hpp>
 #include <UI/ComponentUI.hpp>
+#include <UI/Common/FileSelector.hpp>
 
 namespace shkyera {
 
 class MeshComponentUI : public ComponentUI {
     public:
+        MeshComponentUI(MeshComponent* meshComponent);
+
         void draw() override;
 
-        void setPathGetter(std::function<std::string&(void)> getter);
-
     private:
-        std::function<std::string&(void)> _pathGetter;
+        MeshComponent* _meshComponent;
+        FileSelector _fileSelector;
 };
 
 }

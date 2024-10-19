@@ -66,8 +66,8 @@ void PropertiesWidget::setupComponentsUI() {
 
   if(_registry->hasComponent<MeshComponent>(*_selectedEntity)) {    
     auto &component = _registry->getComponent<MeshComponent>(*_selectedEntity);
-    auto componentUi = std::make_unique<MeshComponentUI>();
-    
+    auto componentUi = std::make_unique<MeshComponentUI>(&component);
+
     _componentsUi.emplace_back(std::move(componentUi));
   }
 
@@ -90,7 +90,7 @@ void PropertiesWidget::drawNewComponentMenu() {
       ImGui::CloseCurrentPopup();
     }
 
-    if (ImGui::Selectable("Texture")) {
+    if (ImGui::Selectable("Mesh")) {
       _registry->addComponent<MeshComponent>(*_selectedEntity);
       setupComponentsUI();
       ImGui::CloseCurrentPopup();

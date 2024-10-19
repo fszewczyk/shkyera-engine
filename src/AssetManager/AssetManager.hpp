@@ -20,14 +20,25 @@ class AssetManager {
             }
 
             auto asset = std::make_shared<AssetType>(path, args...);
+            _assetFilePaths[asset.get()] = path;
             _assets[path.string()] = asset;
             return asset;
+        }
+
+        template<typename AssetType>
+        std::string getFilePath(AssetType* asset) {
+            void* ptr = (void *)(asset);
+            if(_assetFilePaths.find(ptr) == _assetFilePaths.end()) {
+                return nullptr;
+            }
+            return _assetFilePaths.at(ptr);
         }
 
     private:
         AssetManager() = default;
 
         std::unordered_map<std::string, std::weak_ptr<Asset>> _assets;
+        std::unordered_map<void*, std::string> _assetFilePaths;
 };
 
 }

@@ -11,7 +11,7 @@
 namespace shkyera {
 
 constexpr static float MOVEMENT_SPEED = 0.6;
-constexpr static float MOUSE_SENSITIVITY = 0.1;
+constexpr static float MOUSE_SENSITIVITY = 0.0;
 
 
 Renderer::Renderer(std::shared_ptr<Registry> registry) : _registry(registry), _cameraControl(false) {
@@ -56,8 +56,10 @@ void Renderer::draw() {
     _shaderProgram.setUniform("viewMatrix", viewMatrix);
     _shaderProgram.setUniform("projectionMatrix", projectionMatrix);
 
-    for(auto& meshComponent : _registry->getComponents<MeshComponent>()) {
-        meshComponent.update();
+    for(const auto& [entity, meshComponent] : _registry->getComponentSet<MeshComponent>()) {
+        const auto& transformComponent = _registry->getComponent<TransformComponent>(entity);
+        _shaderProgram.setUniform("modelMatrix", transformComponent.getTransformMatrix());
+        meshComponent.updateImpl();
     }
 
     _shaderProgram.stopUsing();

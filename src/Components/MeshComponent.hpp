@@ -16,7 +16,11 @@ public:
         _mesh = mesh;
     }
 
-    void updateImpl() {
+    Mesh const* getMesh() const {
+        return _mesh.get();
+    }
+
+    void updateImpl() const {
         if(_mesh) {
             _mesh->bind();
             glDrawElements(GL_TRIANGLES, _mesh->getMeshSize(), GL_UNSIGNED_INT, nullptr);

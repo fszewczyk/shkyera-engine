@@ -13,7 +13,7 @@ public:
         Orthographic
     };
 
-    CameraComponent(float fov = 45.0f, float aspectRatio = 16.0f / 9.0f, float nearPlane = 0.1f, float farPlane = 1000.0f, ProjectionType projectionType = ProjectionType::Perspective)
+    CameraComponent(float fov = 45.0f, float aspectRatio = 16.0f / 9.0f, float nearPlane = 0.1f, float farPlane = 10000.0f, ProjectionType projectionType = ProjectionType::Perspective)
         : _fov(fov), _aspectRatio(aspectRatio), _nearPlane(nearPlane), _farPlane(farPlane), _projectionType(projectionType) {}
 
     // Set and get Field of View (for perspective projection)
