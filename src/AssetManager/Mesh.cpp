@@ -1,10 +1,21 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <unordered_map>
+#include <functional>
 
 #include <AssetManager/Mesh.hpp>
 // Assuming you are using a simple OBJ loader. You could integrate a library like Assimp for more advanced formats.
 #include <tiny_obj_loader.h>
+
+namespace std {
+    template <>
+    struct std::hash<glm::vec3> {
+        size_t operator()(const glm::vec3& vec) const {
+            return std::hash<float>()(vec.x) ^ std::hash<float>()(vec.y) ^ std::hash<float>()(vec.z);
+        }
+    };
+}
 
 namespace shkyera {
 
@@ -20,9 +31,10 @@ Mesh::~Mesh() {
     glDeleteBuffers(1, &_ebo);
 }
 
+
 static std::vector<glm::vec3> calculateNormals(const std::vector<Mesh::Vertex>& vertices, const std::vector<unsigned int>& indices) {
-    std::vector<std::vector<size_t>> vertexToFaceIndex(vertices.size());
-    std::vector<glm::vec3> faceToNormal(indices.size(), glm::vec3(0.0f));
+    std::unordered_map<glm::vec3, glm::vec3> vertexToNormalMap;
+    std::unordered_map<glm::vec3, std::vector<glm::vec3>> faceNormals;
 
     for (size_t faceIndex = 0; faceIndex < indices.size(); faceIndex += 3) {
         unsigned int idx0 = indices[faceIndex];
@@ -35,21 +47,32 @@ static std::vector<glm::vec3> calculateNormals(const std::vector<Mesh::Vertex>& 
 
         glm::vec3 edge1 = v1 - v0;
         glm::vec3 edge2 = v2 - v0;
-        glm::vec3 normal = glm::normalize(glm::cross(edge1, edge2));
+        glm::vec3 faceNormal = glm::normalize(glm::cross(edge1, edge2));
 
-        faceToNormal[faceIndex] = normal;
-        vertexToFaceIndex[idx0].push_back(faceIndex);
-        vertexToFaceIndex[idx1].push_back(faceIndex);
-        vertexToFaceIndex[idx2].push_back(faceIndex);
+        faceNormals[v0].push_back(faceNormal);
+        faceNormals[v1].push_back(faceNormal);
+        faceNormals[v2].push_back(faceNormal);
     }
 
     std::vector<glm::vec3> vertexToNormal(vertices.size(), glm::vec3(0.0f));
-    for(size_t vertex = 0; vertex < vertices.size(); ++vertex) {
-        for(const auto& face : vertexToFaceIndex[vertex]) {
-            vertexToNormal[vertex] += faceToNormal[face];
+
+    for (const auto& entry : faceNormals) {
+        const glm::vec3& position = entry.first;
+        const std::vector<glm::vec3>& normals = entry.second;
+
+        // Average the face normals for each position
+        glm::vec3 averagedNormal = glm::vec3(0.0f);
+        for (const glm::vec3& normal : normals) {
+            averagedNormal += normal;
         }
-        vertexToNormal[vertex] /= vertexToFaceIndex[vertex].size();
-        vertexToNormal[vertex] = glm::normalize(vertexToNormal[vertex]);
+        averagedNormal = glm::normalize(averagedNormal);
+
+        // Map the averaged normal back to the vertices
+        vertexToNormalMap[position] = averagedNormal;
+    }
+
+    for (size_t i = 0; i < vertices.size(); ++i) {
+        vertexToNormal[i] = vertexToNormalMap[vertices[i].position];
     }
 
     return vertexToNormal;
