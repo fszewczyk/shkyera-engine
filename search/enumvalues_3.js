@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['log_5ferror_900',['LOG_ERROR',['../namespaceshkyera_1_1_python.html#a1f9d3b8ccb604b80fdebb1d84adb7a9baf595feeb94420c0758e4c22b4552df0d',1,'shkyera::Python']]],
-  ['log_5finfo_901',['LOG_INFO',['../namespaceshkyera_1_1_python.html#a1f9d3b8ccb604b80fdebb1d84adb7a9ba8f5c729a037e9a1d6ee745dabbb1c7c2',1,'shkyera::Python']]],
-  ['log_5fsuccess_902',['LOG_SUCCESS',['../namespaceshkyera_1_1_python.html#a1f9d3b8ccb604b80fdebb1d84adb7a9ba6979fc89c25825042b62ea55ee5fec8c',1,'shkyera::Python']]],
-  ['log_5fverbose_903',['LOG_VERBOSE',['../namespaceshkyera_1_1_python.html#a1f9d3b8ccb604b80fdebb1d84adb7a9bace1d9d638c6f6b5c03ea87e6c5fdddb2',1,'shkyera::Python']]]
+  ['perspective_944',['Perspective',['../classshkyera_1_1_camera_component.html#a187a07d57febe7c8f3c02d24fe88b406aa80420eef88d11f77532f1b9cb467fa3',1,'shkyera::CameraComponent']]],
+  ['python_945',['PYTHON',['../namespaceshkyera.html#a7a2f2208944732e67483f7920f91aeb3acaf5c3fe2f331a51be77caa99fd32ca4',1,'shkyera']]]
 ];

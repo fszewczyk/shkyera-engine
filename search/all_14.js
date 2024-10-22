@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['widget_436',['Widget',['../classshkyera_1_1_widget.html',1,'shkyera::Widget'],['../classshkyera_1_1_widget.html#ae46a601747a2ff32f60cf5706004a44a',1,'shkyera::Widget::Widget()'],['../classshkyera_1_1_console_widget.html#ae46a601747a2ff32f60cf5706004a44a',1,'shkyera::ConsoleWidget::Widget()'],['../classshkyera_1_1_filesystem_widget.html#ae46a601747a2ff32f60cf5706004a44a',1,'shkyera::FilesystemWidget::Widget()'],['../classshkyera_1_1_objects_widget.html#ae46a601747a2ff32f60cf5706004a44a',1,'shkyera::ObjectsWidget::Widget()'],['../classshkyera_1_1_preview_widget.html#ae46a601747a2ff32f60cf5706004a44a',1,'shkyera::PreviewWidget::Widget()'],['../classshkyera_1_1_properties_widget.html#ae46a601747a2ff32f60cf5706004a44a',1,'shkyera::PropertiesWidget::Widget()'],['../classshkyera_1_1_scene_widget.html#ae46a601747a2ff32f60cf5706004a44a',1,'shkyera::SceneWidget::Widget()']]],
-  ['widget_2ecpp_437',['Widget.cpp',['../_widget_8cpp.html',1,'']]],
-  ['widget_2ehpp_438',['Widget.hpp',['../_widget_8hpp.html',1,'']]]
+  ['value_5ftype_430',['value_type',['../classshkyera_1_1_sparse_set_1_1_iterator.html#adce91866212111e0d43742968964184b',1,'shkyera::SparseSet::Iterator']]],
+  ['vertex_431',['Vertex',['../structshkyera_1_1_mesh_1_1_vertex.html',1,'shkyera::Mesh::Vertex'],['../structshkyera_1_1_mesh_1_1_vertex.html#ae26ba8448ee904fbc803f09152cae8c7',1,'shkyera::Mesh::Vertex::Vertex()'],['../classshkyera_1_1_shader.html#a8609b223b8cb0e0e71038b5a5208acc7ab22b929ba52471a02d18bb3a4e4472e6',1,'shkyera::Shader::Vertex()']]]
 ];

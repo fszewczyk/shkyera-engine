@@ -152,7 +152,7 @@ Drawing</h1>
 <div class="line">        <span class="comment"># This part will be executed at each frame (approximately 60 times a second)</span></div>
 <div class="line"> </div>
 <div class="line">        <span class="comment"># We can draw a rectangle!</span></div>
-<div class="line">        <a class="code" href="namespaceshkyera_1_1lib_1_1drawer.html#a63bb95f5c3d8c4ebf37f243ca35a32eb">draw_rectangle</a>(</div>
+<div class="line">        draw_rectangle(</div>
 <div class="line">            x=50,</div>
 <div class="line">            y=10,</div>
 <div class="line">            w=400,</div>
@@ -160,22 +160,19 @@ Drawing</h1>
 <div class="line">        )</div>
 <div class="line"> </div>
 <div class="line">        <span class="comment"># A circle</span></div>
-<div class="line">        <a class="code" href="namespaceshkyera_1_1lib_1_1drawer.html#acbdf82e44135e4c687e9a75d2d15b03f">draw_circle</a>(</div>
+<div class="line">        draw_circle(</div>
 <div class="line">            x=120,</div>
 <div class="line">            y=180,</div>
 <div class="line">            r=60</div>
 <div class="line">        )</div>
 <div class="line"> </div>
 <div class="line">        <span class="comment"># And a line!</span></div>
-<div class="line">        <a class="code" href="namespaceshkyera_1_1lib_1_1drawer.html#a5a07b975c3fdf8d7ee9d1348b6746bbc">draw_line</a>(</div>
+<div class="line">        draw_line(</div>
 <div class="line">            x1=300,</div>
 <div class="line">            y1=200,</div>
 <div class="line">            x2=380,</div>
 <div class="line">            y2=260</div>
 <div class="line">        )</div>
-<div class="ttc" id="anamespaceshkyera_1_1lib_1_1drawer_html_a5a07b975c3fdf8d7ee9d1348b6746bbc"><div class="ttname"><a href="namespaceshkyera_1_1lib_1_1drawer.html#a5a07b975c3fdf8d7ee9d1348b6746bbc">shkyera.lib.drawer.draw_line</a></div><div class="ttdeci">def draw_line(x1, y1, x2, y2)</div><div class="ttdef"><b>Definition:</b> drawer.py:4</div></div>
-<div class="ttc" id="anamespaceshkyera_1_1lib_1_1drawer_html_a63bb95f5c3d8c4ebf37f243ca35a32eb"><div class="ttname"><a href="namespaceshkyera_1_1lib_1_1drawer.html#a63bb95f5c3d8c4ebf37f243ca35a32eb">shkyera.lib.drawer.draw_rectangle</a></div><div class="ttdeci">def draw_rectangle(x, y, w, h)</div><div class="ttdef"><b>Definition:</b> drawer.py:37</div></div>
-<div class="ttc" id="anamespaceshkyera_1_1lib_1_1drawer_html_acbdf82e44135e4c687e9a75d2d15b03f"><div class="ttname"><a href="namespaceshkyera_1_1lib_1_1drawer.html#acbdf82e44135e4c687e9a75d2d15b03f">shkyera.lib.drawer.draw_circle</a></div><div class="ttdeci">def draw_circle(x, y, r)</div><div class="ttdef"><b>Definition:</b> drawer.py:24</div></div>
 </div><!-- fragment --><p>Using the above script allows for creating scenes such as this one.</p>
 <p><img src="drawing_demo.png" alt="" class="inline"/></p>
 <p>For a more detailed reference regarding drawing, check out the <a href="https://fszewczyk.github.io/shkyera-engine/namespaceshkyera_1_1lib_1_1drawer.html">original reference</a>.</p>
@@ -186,10 +183,9 @@ Input</h1>
 </div><!-- fragment --><p>Use the <a href="https://fszewczyk.github.io/shkyera-engine/namespaceshkyera_1_1lib_1_1input.html"><code>is_pressed(KEY_CODE)</code></a> function to check if a certain key was pressed. The key code is a string containing the code of the pressed key. Full list of available key codes is shown below. This function returns True if and only if selected key is currently being pressed.</p>
 <h2><a class="anchor" id="autotoc_md5"></a>
 Examples</h2>
-<div class="fragment"><div class="line"><a class="code" href="namespaceshkyera_1_1lib_1_1input.html#ade42417577eecbccdff2f78f86dfd788">is_pressed</a>(<span class="stringliteral">&quot;W&quot;</span>)</div>
-<div class="line"><a class="code" href="namespaceshkyera_1_1lib_1_1input.html#ade42417577eecbccdff2f78f86dfd788">is_pressed</a>(<span class="stringliteral">&quot;UpArrow&quot;</span>)</div>
-<div class="line"><a class="code" href="namespaceshkyera_1_1lib_1_1input.html#ade42417577eecbccdff2f78f86dfd788">is_pressed</a>(<span class="stringliteral">&quot;3&quot;</span>)</div>
-<div class="ttc" id="anamespaceshkyera_1_1lib_1_1input_html_ade42417577eecbccdff2f78f86dfd788"><div class="ttname"><a href="namespaceshkyera_1_1lib_1_1input.html#ade42417577eecbccdff2f78f86dfd788">shkyera.lib.input.is_pressed</a></div><div class="ttdeci">def is_pressed(str key)</div><div class="ttdef"><b>Definition:</b> input.py:17</div></div>
+<div class="fragment"><div class="line">is_pressed(<span class="stringliteral">&quot;W&quot;</span>)</div>
+<div class="line">is_pressed(<span class="stringliteral">&quot;UpArrow&quot;</span>)</div>
+<div class="line">is_pressed(<span class="stringliteral">&quot;3&quot;</span>)</div>
 </div><!-- fragment --><h2><a class="anchor" id="autotoc_md6"></a>
 Key Codes</h2>
 <table class="markdownTable">

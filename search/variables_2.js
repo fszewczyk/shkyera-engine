@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['background_5fcolor_831',['BACKGROUND_COLOR',['../classshkyera_1_1_u_i.html#af0b17487f4d589a97ef4e514b3016a15',1,'shkyera::UI']]],
-  ['big_5ffont_832',['BIG_FONT',['../classshkyera_1_1_u_i.html#a0a3d511bb01d40fdae9f223a6de69afc',1,'shkyera::UI']]],
-  ['black_833',['BLACK',['../classshkyera_1_1_u_i.html#ae91c09a3f775a5cada7130ca7587b50a',1,'shkyera::UI']]]
+  ['background_5fcolor_883',['BACKGROUND_COLOR',['../namespaceshkyera_1_1style.html#a201b1fed8eaa76d7000d76632f9e72e4',1,'shkyera::style']]],
+  ['big_5ffont_884',['BIG_FONT',['../namespaceshkyera_1_1style.html#a099f8ed061d7961c3c9a6a636be1ecad',1,'shkyera::style']]],
+  ['black_885',['BLACK',['../namespaceshkyera_1_1style.html#a22bdcb854f1659c51afd87cb5372eacb',1,'shkyera::style']]]
 ];

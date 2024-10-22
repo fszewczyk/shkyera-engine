@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['huge_5ffont_848',['HUGE_FONT',['../classshkyera_1_1_u_i.html#a4d4db19063ec03273f0dc3005112e561',1,'shkyera::UI']]]
+  ['huge_5ffont_897',['HUGE_FONT',['../namespaceshkyera_1_1style.html#acccd300817aaa184bcaff07e8c09f375',1,'shkyera::style']]]
 ];

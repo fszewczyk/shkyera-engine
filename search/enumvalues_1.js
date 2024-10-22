@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['float_897',['FLOAT',['../namespaceshkyera_1_1_python.html#a5eeac752197b2a83d6bf8f7f672ea4b1ab26b1a266cf887ecc14b8f887ec45516',1,'shkyera::Python']]]
+  ['image_941',['IMAGE',['../namespaceshkyera.html#a7a2f2208944732e67483f7920f91aeb3a1ddcc433d1fb5e5bc667b3a39429573c',1,'shkyera']]]
 ];

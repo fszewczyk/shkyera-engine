@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['name_873',['name',['../structshkyera_1_1_public_float.html#a24adc07c12a005581a2a83c9fe399a3c',1,'shkyera::PublicFloat::name()'],['../structshkyera_1_1_public_int.html#a215cc3eb5019064d578811e0959a21a0',1,'shkyera::PublicInt::name()'],['../structshkyera_1_1_public_string.html#a8e11ec1be02ffa78ccc0c6f1fef28424',1,'shkyera::PublicString::name()'],['../structshkyera_1_1_public_vec3.html#a680319666ed03ced24796de4b9d6bbcb',1,'shkyera::PublicVec3::name()']]],
-  ['normal_5ffont_874',['NORMAL_FONT',['../classshkyera_1_1_u_i.html#a4751a65809d8ad1f314d701f57607bec',1,'shkyera::UI']]]
+  ['nearplane_914',['nearPlane',['../classshkyera_1_1_camera_component.html#a7d0abbbd37021ee352808d124b12b076',1,'shkyera::CameraComponent']]],
+  ['normal_915',['normal',['../structshkyera_1_1_mesh_1_1_vertex.html#aa3663893f7d73aa9dc99cdd91e0033b0',1,'shkyera::Mesh::Vertex']]],
+  ['normal_5ffont_916',['NORMAL_FONT',['../namespaceshkyera_1_1style.html#a5c9a333680a17ab6d4ea3ae597c88fd5',1,'shkyera::style']]]
 ];

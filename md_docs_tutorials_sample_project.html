@@ -162,18 +162,17 @@ Keyboard Input</h1>
 <div class="fragment"><div class="line"><span class="keyword">from</span> .lib.input <span class="keyword">import</span> *</div>
 </div><!-- fragment --><p>We modify the <code>update</code> method, such that we move our position based on the user input. We will move the rope by 0.02 units at each frame. The direction of movement depends on the pressed keys.</p>
 <div class="fragment"><div class="line"><span class="keyword">def </span>update(self):</div>
-<div class="line">    <span class="keywordflow">if</span> <a class="code" href="namespaceshkyera_1_1lib_1_1input.html#ade42417577eecbccdff2f78f86dfd788">is_pressed</a>(<span class="stringliteral">&#39;W&#39;</span>):</div>
+<div class="line">    <span class="keywordflow">if</span> is_pressed(<span class="stringliteral">&#39;W&#39;</span>):</div>
 <div class="line">        self.position.y -= 0.02</div>
-<div class="line">    <span class="keywordflow">if</span> <a class="code" href="namespaceshkyera_1_1lib_1_1input.html#ade42417577eecbccdff2f78f86dfd788">is_pressed</a>(<span class="stringliteral">&#39;S&#39;</span>):</div>
+<div class="line">    <span class="keywordflow">if</span> is_pressed(<span class="stringliteral">&#39;S&#39;</span>):</div>
 <div class="line">        self.position.y += 0.02</div>
-<div class="line">    <span class="keywordflow">if</span> <a class="code" href="namespaceshkyera_1_1lib_1_1input.html#ade42417577eecbccdff2f78f86dfd788">is_pressed</a>(<span class="stringliteral">&#39;A&#39;</span>):</div>
+<div class="line">    <span class="keywordflow">if</span> is_pressed(<span class="stringliteral">&#39;A&#39;</span>):</div>
 <div class="line">        self.position.x -= 0.02</div>
-<div class="line">    <span class="keywordflow">if</span> <a class="code" href="namespaceshkyera_1_1lib_1_1input.html#ade42417577eecbccdff2f78f86dfd788">is_pressed</a>(<span class="stringliteral">&#39;D&#39;</span>):</div>
+<div class="line">    <span class="keywordflow">if</span> is_pressed(<span class="stringliteral">&#39;D&#39;</span>):</div>
 <div class="line">        self.position.x += 0.02</div>
 <div class="line"> </div>
 <div class="line">    self.rope.draw()</div>
 <div class="line">    self.rope.step()</div>
-<div class="ttc" id="anamespaceshkyera_1_1lib_1_1input_html_ade42417577eecbccdff2f78f86dfd788"><div class="ttname"><a href="namespaceshkyera_1_1lib_1_1input.html#ade42417577eecbccdff2f78f86dfd788">shkyera.lib.input.is_pressed</a></div><div class="ttdeci">def is_pressed(str key)</div><div class="ttdef"><b>Definition:</b> input.py:17</div></div>
 </div><!-- fragment --><dl class="section note"><dt>Note</dt><dd>Check out the <a href="https://fszewczyk.github.io/shkyera-engine/md_docs_tutorials_cheatsheet.html">cheatseet</a> for the full list of available keys.</dd></dl>
 <p>Let's start it! After pressing <code>▷</code>, you should be able to move the rope around using W, A, S, D keys on your keyboard!</p>
 <div align="center"> <img src="moving_rope.gif" alt="" class="inline" title="Moving Rope"/> </div><p>If you have encountered some problems, here is the whole contents of the script we wrote.</p>
@@ -195,13 +194,13 @@ Keyboard Input</h1>
 <div class="line">        )</div>
 <div class="line"> </div>
 <div class="line">    <span class="keyword">def </span>update(self):</div>
-<div class="line">        <span class="keywordflow">if</span> <a class="code" href="namespaceshkyera_1_1lib_1_1input.html#ade42417577eecbccdff2f78f86dfd788">is_pressed</a>(<span class="stringliteral">&#39;W&#39;</span>):</div>
+<div class="line">        <span class="keywordflow">if</span> is_pressed(<span class="stringliteral">&#39;W&#39;</span>):</div>
 <div class="line">            self.position.y -= 0.02</div>
-<div class="line">        <span class="keywordflow">if</span> <a class="code" href="namespaceshkyera_1_1lib_1_1input.html#ade42417577eecbccdff2f78f86dfd788">is_pressed</a>(<span class="stringliteral">&#39;S&#39;</span>):</div>
+<div class="line">        <span class="keywordflow">if</span> is_pressed(<span class="stringliteral">&#39;S&#39;</span>):</div>
 <div class="line">            self.position.y += 0.02</div>
-<div class="line">        <span class="keywordflow">if</span> <a class="code" href="namespaceshkyera_1_1lib_1_1input.html#ade42417577eecbccdff2f78f86dfd788">is_pressed</a>(<span class="stringliteral">&#39;A&#39;</span>):</div>
+<div class="line">        <span class="keywordflow">if</span> is_pressed(<span class="stringliteral">&#39;A&#39;</span>):</div>
 <div class="line">            self.position.x -= 0.02</div>
-<div class="line">        <span class="keywordflow">if</span> <a class="code" href="namespaceshkyera_1_1lib_1_1input.html#ade42417577eecbccdff2f78f86dfd788">is_pressed</a>(<span class="stringliteral">&#39;D&#39;</span>):</div>
+<div class="line">        <span class="keywordflow">if</span> is_pressed(<span class="stringliteral">&#39;D&#39;</span>):</div>
 <div class="line">            self.position.x += 0.02</div>
 <div class="line"> </div>
 <div class="line">        self.rope.draw()</div>

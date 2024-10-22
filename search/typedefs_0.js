@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['eventhandler_885',['eventHandler',['../namespaceshkyera_1_1_python.html#ae2915c857777d07c5160bd712767dcbf',1,'shkyera::Python']]]
+  ['const_5fiterator_927',['const_iterator',['../classshkyera_1_1_sparse_set.html#a79ffeb7d48af27b7f306633fa5b214d7',1,'shkyera::SparseSet']]]
 ];

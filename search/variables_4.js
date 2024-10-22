@@ -1,11 +1,9 @@
 var searchData=
 [
-  ['dark_5faccent_835',['DARK_ACCENT',['../classshkyera_1_1_u_i.html#a4ae81c4323729ec952baff51ef9d2a42',1,'shkyera::UI']]],
-  ['default_5ffile_5fname_836',['DEFAULT_FILE_NAME',['../classshkyera_1_1_filesystem_widget.html#ac434518571330a7bad792f46cc30ee23',1,'shkyera::FilesystemWidget']]],
-  ['default_5ffolder_5fname_837',['DEFAULT_FOLDER_NAME',['../classshkyera_1_1_filesystem_widget.html#a571ec54ba87cff3d9597dcadfaab5e18',1,'shkyera::FilesystemWidget']]],
-  ['disabled_5ftext_5fcolor_838',['DISABLED_TEXT_COLOR',['../classshkyera_1_1_u_i.html#a290f27c762c18ec6c68231d464fe4d3b',1,'shkyera::UI']]],
-  ['draw_5fcircle_839',['DRAW_CIRCLE',['../classshkyera_1_1lib_1_1events_1_1_event.html#a65f81ee8a2714bf9c90c9ce2368add5c',1,'shkyera::lib::events::Event']]],
-  ['draw_5fclear_840',['DRAW_CLEAR',['../classshkyera_1_1lib_1_1events_1_1_event.html#a63c11f5cee48e1eac7e9154517cdcc69',1,'shkyera::lib::events::Event']]],
-  ['draw_5fline_841',['DRAW_LINE',['../classshkyera_1_1lib_1_1events_1_1_event.html#ab306eec1ca6836efd95611493b398b29',1,'shkyera::lib::events::Event']]],
-  ['draw_5frectangle_842',['DRAW_RECTANGLE',['../classshkyera_1_1lib_1_1events_1_1_event.html#ad5564e2ce5b75b0dca89c3e134d282dc',1,'shkyera::lib::events::Event']]]
+  ['dark_5faccent_887',['DARK_ACCENT',['../namespaceshkyera_1_1style.html#a8a758c72b59b52d90a7c9165c7974825',1,'shkyera::style']]],
+  ['default_5ffile_5fname_888',['DEFAULT_FILE_NAME',['../classshkyera_1_1_filesystem_widget.html#ac434518571330a7bad792f46cc30ee23',1,'shkyera::FilesystemWidget']]],
+  ['default_5ffolder_5fname_889',['DEFAULT_FOLDER_NAME',['../classshkyera_1_1_filesystem_widget.html#a571ec54ba87cff3d9597dcadfaab5e18',1,'shkyera::FilesystemWidget']]],
+  ['diffuse_890',['diffuse',['../classshkyera_1_1_point_light_component.html#a79c88801e5ec672661524be95f05dee0',1,'shkyera::PointLightComponent']]],
+  ['diffusecolor_891',['diffuseColor',['../classshkyera_1_1_material.html#a65b6ced537efd33dece8293a048b63c8',1,'shkyera::Material']]],
+  ['disabled_5ftext_5fcolor_892',['DISABLED_TEXT_COLOR',['../namespaceshkyera_1_1style.html#a4f3f3786cb013394039aedd5a61e6d08',1,'shkyera::style']]]
 ];

@@ -160,8 +160,7 @@ Hello world!</h1>
 </div><!-- fragment --><p>Now, we can modify the <code>setup</code> method.</p>
 <div class="fragment"><div class="line"><span class="keyword">def </span>setup(self):</div>
 <div class="line">    <span class="comment"># This part will be executed at the beginning of the program</span></div>
-<div class="line">    <a class="code" href="namespaceshkyera_1_1lib_1_1logger.html#a23957010d04bf8c29ca2a084a084d780">log_success</a>(<span class="stringliteral">&quot;Hello world!&quot;</span>)</div>
-<div class="ttc" id="anamespaceshkyera_1_1lib_1_1logger_html_a23957010d04bf8c29ca2a084a084d780"><div class="ttname"><a href="namespaceshkyera_1_1lib_1_1logger.html#a23957010d04bf8c29ca2a084a084d780">shkyera.lib.logger.log_success</a></div><div class="ttdeci">def log_success(*kwargs)</div><div class="ttdef"><b>Definition:</b> logger.py:14</div></div>
+<div class="line">    log_success(<span class="stringliteral">&quot;Hello world!&quot;</span>)</div>
 </div><!-- fragment --><p>We want our object to remain idle, so we define our <code>update</code> function to do nothing.</p>
 <div class="fragment"><div class="line"><span class="keyword">def </span>update(self):</div>
 <div class="line">    <span class="comment"># This part will be executed at each frame (approximately 60 times a second)</span></div>
@@ -181,8 +180,7 @@ Public Variables</h1>
 <div class="fragment"><div class="line"><span class="keyword">def </span>setup(self):</div>
 <div class="line">    <span class="comment"># This part will be executed at the beginning of the program</span></div>
 <div class="line">    <span class="keywordflow">for</span> i <span class="keywordflow">in</span> range(self.Number):</div>
-<div class="line">        <a class="code" href="namespaceshkyera_1_1lib_1_1logger.html#a1c6759a7597841396e1d02f8478541ad">log_info</a>(self.Message)</div>
-<div class="ttc" id="anamespaceshkyera_1_1lib_1_1logger_html_a1c6759a7597841396e1d02f8478541ad"><div class="ttname"><a href="namespaceshkyera_1_1lib_1_1logger.html#a1c6759a7597841396e1d02f8478541ad">shkyera.lib.logger.log_info</a></div><div class="ttdeci">def log_info(*kwargs)</div><div class="ttdef"><b>Definition:</b> logger.py:4</div></div>
+<div class="line">        log_info(self.Message)</div>
 </div><!-- fragment --><dl class="section note"><dt>Note</dt><dd>Remember to use the <code>self.</code> prefix before you try to access member variables.</dd></dl>
 <p>Now, if we go back to Shkyera Engine and press <code>Reload</code> on the <code>Script</code> component, we should see the fields that allow us to alter the values of the public variables. Let's set these values. To set the <code>Number</code>, you can hold and drag the purple field or double-click it and type the number manually. The <code>Message</code> can be set by typing inside the corresponding purple field. Let's set <code>Number</code> to some positive value and define some <code>Message</code>.</p>
 <div align="center"> <img src="public_vars.png" alt="" class="inline" title="Public Variables"/> </div><p>If we <code>Clear</code> the <code>Console</code> widget and run the program using the <code>▷</code> button, we should see our <code>Message</code> be logged exactly <code>Number</code> amount of times.</p>
