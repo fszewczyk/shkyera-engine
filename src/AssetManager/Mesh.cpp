@@ -1,0 +1,300 @@
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <unordered_map>
+#include <functional>
+
+#include <AssetManager/Mesh.hpp>
+#include <tiny_obj_loader.h>
+
+namespace std {
+    template <>
+    struct std::hash<glm::vec3> {
+        size_t operator()(const glm::vec3& vec) const {
+            return std::hash<float>()(vec.x) ^ std::hash<float>()(vec.y) ^ std::hash<float>()(vec.z);
+        }
+    };
+}
+
+namespace shkyera {
+
+Mesh::Mesh(const std::string& filepath) {
+    loadFromFile(filepath);
+}
+
+Mesh::Mesh(const std::vector<Vertex>& vertices, std::vector<uint32_t> indices) {
+    uploadToGPU(vertices, indices);
+}
+
+// Destructor to clean up OpenGL resources
+Mesh::~Mesh() {
+    glDeleteVertexArrays(1, &_vao);
+    glDeleteBuffers(1, &_vbo);
+    glDeleteBuffers(1, &_ebo);
+}
+
+
+static std::vector<glm::vec3> calculateNormals(const std::vector<Mesh::Vertex>& vertices, const std::vector<unsigned int>& indices) {
+    std::unordered_map<glm::vec3, glm::vec3> vertexToNormalMap;
+    std::unordered_map<glm::vec3, std::vector<glm::vec3>> faceNormals;
+
+    for (size_t faceIndex = 0; faceIndex < indices.size(); faceIndex += 3) {
+        unsigned int idx0 = indices[faceIndex];
+        unsigned int idx1 = indices[faceIndex + 1];
+        unsigned int idx2 = indices[faceIndex + 2];
+
+        glm::vec3 v0 = vertices[idx0].position;
+        glm::vec3 v1 = vertices[idx1].position;
+        glm::vec3 v2 = vertices[idx2].position;
+
+        glm::vec3 faceNormal = glm::normalize(glm::cross(v1 - v0, v2 - v0));
+
+        faceNormals[v0].push_back(faceNormal);
+        faceNormals[v1].push_back(faceNormal);
+        faceNormals[v2].push_back(faceNormal);
+    }
+
+    std::vector<glm::vec3> vertexToNormal(vertices.size(), glm::vec3(0.0f));
+
+    for (const auto& entry : faceNormals) {
+        const glm::vec3& position = entry.first;
+        const std::vector<glm::vec3>& normals = entry.second;
+
+        glm::vec3 averagedNormal = glm::vec3(0.0f);
+        for (const glm::vec3& normal : normals) {
+            averagedNormal += normal;
+        }
+        averagedNormal = glm::normalize(averagedNormal);
+
+        // Map the averaged normal back to the vertices
+        vertexToNormalMap[position] = averagedNormal;
+    }
+
+    for (size_t i = 0; i < vertices.size(); ++i) {
+        vertexToNormal[i] = vertexToNormalMap[vertices[i].position];
+    }
+
+    return vertexToNormal;
+}
+
+void Mesh::loadFromFile(const std::string& filepath) {
+    tinyobj::attrib_t attrib;
+    std::vector<tinyobj::shape_t> shapes;
+    std::vector<tinyobj::material_t> materials;
+    std::string warn, err;
+
+    if (!tinyobj::LoadObj(&attrib, &shapes, &materials, &warn, &err, filepath.c_str())) {
+        std::cerr << "Failed to load OBJ file: " << filepath << std::endl;
+        if (!warn.empty()) std::cerr << "Warning: " << warn << std::endl;
+        if (!err.empty()) std::cerr << "Error: " << err << std::endl;
+        return;
+    }
+
+    std::vector<Vertex> vertices;
+    std::vector<unsigned int> indices;
+
+    bool hasNormals = false;
+
+    for (const auto& shape : shapes) {
+        for (const auto& index : shape.mesh.indices) {
+            glm::vec3 position(
+                attrib.vertices[3 * index.vertex_index + 0],
+                attrib.vertices[3 * index.vertex_index + 1],
+                attrib.vertices[3 * index.vertex_index + 2]
+            );
+
+            glm::vec3 normal(0.0f, 0.0f, 0.0f);
+            if (index.normal_index >= 0) {
+                normal = glm::vec3(
+                    attrib.normals[3 * index.normal_index + 0],
+                    attrib.normals[3 * index.normal_index + 1],
+                    attrib.normals[3 * index.normal_index + 2]
+                );
+                hasNormals = true;
+            }
+
+            glm::vec2 texcoord(0.0f, 0.0f);
+            if (index.texcoord_index >= 0) {
+                texcoord = glm::vec2(
+                    attrib.texcoords[2 * index.texcoord_index + 0],
+                    attrib.texcoords[2 * index.texcoord_index + 1]
+                );
+            }
+
+            vertices.emplace_back(position, normal, texcoord);
+            indices.push_back(indices.size());
+        }
+    }
+
+    if (!hasNormals) {
+        auto calculatedNormals = calculateNormals(vertices, indices);
+
+        for (size_t i = 0; i < vertices.size(); ++i) {
+            vertices[i].normal = calculatedNormals[i];
+        }
+    }
+
+    uploadToGPU(vertices, indices);
+}
+
+void Mesh::uploadToGPU(const std::vector<Vertex>& vertices, const std::vector<unsigned int>& indices) {
+    _meshSize = static_cast<GLsizei>(indices.size());
+
+    // Create VAO
+    glGenVertexArrays(1, &_vao);
+    glBindVertexArray(_vao);
+
+    // Create VBO (vertex buffer object)
+    glGenBuffers(1, &_vbo);
+    glBindBuffer(GL_ARRAY_BUFFER, _vbo);
+    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), vertices.data(), GL_STATIC_DRAW);
+
+    // Create EBO (element buffer object)
+    glGenBuffers(1, &_ebo);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _ebo);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), indices.data(), GL_STATIC_DRAW);
+
+    // Define vertex attributes
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, position)); // Position
+    glEnableVertexAttribArray(0);
+
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, normal));   // Normal
+    glEnableVertexAttribArray(1);
+
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, texcoord));  // UV
+    glEnableVertexAttribArray(2);
+
+    // Unbind VAO
+    glBindVertexArray(0);
+}
+
+Mesh* Mesh::Factory::createCube() {
+      std::vector<Vertex> vertices = {
+        // Front face
+        { { -1.0f, -1.0f, -1.0f }, { 0.0f,  0.0f, -1.0f }, { 0.0f, 0.0f } },  // 0
+        { {  1.0f, -1.0f, -1.0f }, { 0.0f,  0.0f, -1.0f }, { 1.0f, 0.0f } },  // 1
+        { {  1.0f,  1.0f, -1.0f }, { 0.0f,  0.0f, -1.0f }, { 1.0f, 1.0f } },  // 2
+        { { -1.0f,  1.0f, -1.0f }, { 0.0f,  0.0f, -1.0f }, { 0.0f, 1.0f } },  // 3
+
+        // Back face
+        { { -1.0f, -1.0f,  1.0f }, { 0.0f,  0.0f,  1.0f }, { 1.0f, 0.0f } },  // 4
+        { {  1.0f, -1.0f,  1.0f }, { 0.0f,  0.0f,  1.0f }, { 0.0f, 0.0f } },  // 5
+        { {  1.0f,  1.0f,  1.0f }, { 0.0f,  0.0f,  1.0f }, { 0.0f, 1.0f } },  // 6
+        { { -1.0f,  1.0f,  1.0f }, { 0.0f,  0.0f,  1.0f }, { 1.0f, 1.0f } },  // 7
+
+        // Left face
+        { { -1.0f, -1.0f,  1.0f }, { -1.0f,  0.0f,  0.0f }, { 0.0f, 0.0f } }, // 8
+        { { -1.0f,  1.0f,  1.0f }, { -1.0f,  0.0f,  0.0f }, { 1.0f, 0.0f } }, // 9
+        { { -1.0f,  1.0f, -1.0f }, { -1.0f,  0.0f,  0.0f }, { 1.0f, 1.0f } }, // 10
+        { { -1.0f, -1.0f, -1.0f }, { -1.0f,  0.0f,  0.0f }, { 0.0f, 1.0f } }, // 11
+
+        // Right face
+        { {  1.0f, -1.0f, -1.0f }, {  1.0f,  0.0f,  0.0f }, { 0.0f, 1.0f } }, // 12
+        { {  1.0f,  1.0f, -1.0f }, {  1.0f,  0.0f,  0.0f }, { 1.0f, 1.0f } }, // 13
+        { {  1.0f,  1.0f,  1.0f }, {  1.0f,  0.0f,  0.0f }, { 1.0f, 0.0f } }, // 14
+        { {  1.0f, -1.0f,  1.0f }, {  1.0f,  0.0f,  0.0f }, { 0.0f, 0.0f } }, // 15
+
+        // Top face
+        { { -1.0f,  1.0f, -1.0f }, {  0.0f,  1.0f,  0.0f }, { 0.0f, 1.0f } }, // 16
+        { {  1.0f,  1.0f, -1.0f }, {  0.0f,  1.0f,  0.0f }, { 1.0f, 1.0f } }, // 17
+        { {  1.0f,  1.0f,  1.0f }, {  0.0f,  1.0f,  0.0f }, { 1.0f, 0.0f } }, // 18
+        { { -1.0f,  1.0f,  1.0f }, {  0.0f,  1.0f,  0.0f }, { 0.0f, 0.0f } }, // 19
+
+        // Bottom face
+        { { -1.0f, -1.0f, -1.0f }, {  0.0f, -1.0f,  0.0f }, { 0.0f, 0.0f } }, // 20
+        { {  1.0f, -1.0f, -1.0f }, {  0.0f, -1.0f,  0.0f }, { 1.0f, 0.0f } }, // 21
+        { {  1.0f, -1.0f,  1.0f }, {  0.0f, -1.0f,  0.0f }, { 1.0f, 1.0f } }, // 22
+        { { -1.0f, -1.0f,  1.0f }, {  0.0f, -1.0f,  0.0f }, { 0.0f, 1.0f } }, // 23
+    };
+
+    std::vector<unsigned int> indices = {
+        // Front face
+        0, 1, 2, 2, 3, 0,
+        // Back face
+        4, 5, 6, 6, 7, 4,
+        // Left face
+        8, 11, 10, 10, 9, 8,
+        // Right face
+        12, 13, 14, 14, 15, 12,
+        // Top face
+        16, 17, 18, 18, 19, 16,
+        // Bottom face
+        20, 23, 22, 22, 21, 20,
+    };
+
+    return new Mesh(vertices, indices);
+}
+
+Mesh* Mesh::Factory::createCylinder() {
+    const int sectors = 36;
+    const float radius = 1.0f;
+    const float height = 2.0f;
+
+    std::vector<Vertex> vertices;
+    std::vector<unsigned int> indices;
+
+    // Generate vertices
+    for (int i = 0; i <= sectors; ++i) {
+        float theta = 2.0f * M_PI * float(i) / float(sectors);
+        float x = radius * cos(theta);
+        float z = radius * sin(theta);
+
+        vertices.push_back({ { x, -height / 2, z }, { x, 0.0f, z }, { float(i) / sectors, 0.0f } });
+        vertices.push_back({ { x,  height / 2, z }, { x, 0.0f, z }, { float(i) / sectors, 1.0f } });
+    }
+
+    // Generate indices for the sides
+    for (int i = 0; i < sectors; ++i) {
+        indices.push_back(i * 2);
+        indices.push_back(i * 2 + 1);
+        indices.push_back((i * 2 + 2) % (sectors * 2));
+
+        indices.push_back(i * 2 + 1);
+        indices.push_back((i * 2 + 3) % (sectors * 2));
+        indices.push_back((i * 2 + 2) % (sectors * 2));
+    }
+
+    return new Mesh(vertices, indices);
+}
+
+Mesh* Mesh::Factory::createSphere() {
+    const int stacks = 18;
+    const int sectors = 36;
+    const float radius = 1.0f;
+
+    std::vector<Vertex> vertices;
+    std::vector<unsigned int> indices;
+
+    for (int i = 0; i <= stacks; ++i) {
+        float stackAngle = M_PI / 2.0f - i * (M_PI / stacks);
+        float xy = radius * cosf(stackAngle);
+        float z = radius * sinf(stackAngle);
+
+        for (int j = 0; j <= sectors; ++j) {
+            float sectorAngle = j * (2.0f * M_PI / sectors);
+            float x = xy * cosf(sectorAngle);
+            float y = xy * sinf(sectorAngle);
+
+            vertices.push_back({ { x, y, z }, { x / radius, y / radius, z / radius }, { float(j) / sectors, float(i) / stacks } });
+        }
+    }
+
+    for (int i = 0; i < stacks; ++i) {
+        for (int j = 0; j < sectors; ++j) {
+            unsigned int first = (i * (sectors + 1)) + j;
+            unsigned int second = first + sectors + 1;
+
+            indices.push_back(first);
+            indices.push_back(second);
+            indices.push_back(first + 1);
+
+            indices.push_back(second);
+            indices.push_back(second + 1);
+            indices.push_back(first + 1);
+        }
+    }
+
+    return new Mesh(vertices, indices);
+}
+
+}

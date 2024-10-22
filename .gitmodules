@@ -16,3 +16,6 @@
 	path = extern/pybind11
 	url = ../../pybind/pybind11
 	branch = stable
+[submodule "extern/tinyobjloader"]
+	path = extern/tinyobjloader
+	url = git@github.com:tinyobjloader/tinyobjloader.git

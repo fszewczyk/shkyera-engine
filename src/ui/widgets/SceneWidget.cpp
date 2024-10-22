@@ -1,83 +1,33 @@
-#include "imgui.h"
 #include <imgui_internal.h>
+#include "imgui.h"
+
+#include <glad/glad.h>
 
 #include <iostream>
+#include <AssetManager/Image.hpp>
+#include <AssetManager/AssetManager.hpp>
+#include <AssetManager/Shader.hpp>
+#include <Components/NameComponent.hpp>
+#include <UI/Widgets/ConsoleWidget.hpp>
+#include <UI/Widgets/SceneWidget.hpp>
 
-#include "core/Image.hpp"
-#include "game/components/ScriptComponent.hpp"
-#include "python/Interpreter.hpp"
-#include "ui/widgets/ConsoleWidget.hpp"
-#include "ui/widgets/SceneWidget.hpp"
 
 namespace shkyera {
 
-void SceneWidget::setRenderer(std::shared_ptr<Renderer> renderer) {
-    _renderer = renderer;
-    Python::setInterpreterRenderer(_renderer);
-}
+SceneWidget::SceneWidget(std::shared_ptr<Registry> registry) : Widget("Scene"), _runtime(std::move(registry)) {}
 
 void SceneWidget::draw() {
+    ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
     ImGui::Begin(_name.c_str(), nullptr, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
+    
+    auto renderSize = ImGui::GetContentRegionAvail();
+    _runtime.getRenderingSystem().setSize(renderSize.x, renderSize.y);
+    _runtime.update();
 
-    ImGui::Dummy(ImVec2(ImGui::GetWindowSize()[0] / 2 - 48, 16));
-    ImGui::SameLine();
-
-    if (Python::isRunning())
-        drawRuntime();
-    else
-        drawScene();
+    ImGui::Image((void*)(intptr_t)_runtime.getRenderingSystem().getTexture(), renderSize);
 
     ImGui::End();
+    ImGui::PopStyleVar();
 }
 
-void SceneWidget::adjustSize() {
-    _renderSize = ImGui::GetWindowSize();
-    _renderSize[0] -= 16;
-    _renderSize[1] -= 64;
-
-    _renderer->setDimension(_renderSize[0], _renderSize[1]);
-}
-
-void SceneWidget::drawRuntime() const {
-    readInput();
-
-    _renderer->draw();
-
-    ImGui::BeginDisabled();
-    ImGui::ImageButton((ImTextureID)Image::ICON_BUTTON_PLAY.getTextureId(), ImVec2(16, 16));
-    ImGui::EndDisabled();
-
-    ImGui::SameLine();
-
-    if (ImGui::ImageButton((ImTextureID)Image::ICON_BUTTON_STOP.getTextureId(), ImVec2(16, 16))) {
-        Python::stop();
-    }
-
-    ImGui::Image((ImTextureID)_renderer->getTextureId(), _renderSize);
-}
-
-void SceneWidget::drawScene() {
-    if (ImGui::ImageButton((ImTextureID)Image::ICON_BUTTON_PLAY.getTextureId(), ImVec2(16, 16))) {
-        adjustSize();
-        ScriptComponent::moveScripts();
-        Python::start();
-    }
-    ImGui::SameLine();
-
-    ImGui::BeginDisabled();
-    ImGui::ImageButton((ImTextureID)Image::ICON_BUTTON_STOP.getTextureId(), ImVec2(16, 16));
-    ImGui::EndDisabled();
-}
-
-void SceneWidget::readInput() const {
-    Python::resetPressedButtons();
-
-    for (int key = ImGuiKey_LeftArrow; key < ImGuiKey_KeypadEqual; ++key) {
-        if (ImGui::IsKeyPressed(static_cast<ImGuiKey>(key))) {
-            const char *keyName = ImGui::GetKeyName(static_cast<ImGuiKey>(key));
-            Python::addPressedButton(keyName);
-        }
-    }
-}
-
-} // namespace shkyera
+}  // namespace shkyera
