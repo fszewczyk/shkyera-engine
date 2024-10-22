@@ -23,7 +23,7 @@
 
 namespace shkyera {
 
-UI::UI(std::shared_ptr<Registry> registry) : _open(true), _registry(registry) {
+UI::UI(std::shared_ptr<Registry> registry) : _open(true), _registry(std::move(registry)) {
   initialize();
 }
 
@@ -102,8 +102,9 @@ void UI::initializeWidgets() {
   auto assetsWidget = std::make_unique<FilesystemWidget>("Assets");
   assetsWidget->setDirectory("resources");
   _widgets.emplace_back(std::move(assetsWidget));
-
+    
   auto sceneWidget = std::make_unique<SceneWidget>(_registry);
+
   _widgets.emplace_back(std::move(sceneWidget));
 }
 

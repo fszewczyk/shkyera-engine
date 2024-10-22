@@ -30,14 +30,8 @@ class SceneWidget : public Widget {
      */
     virtual void draw() override;
 
-    /**
-     * @brief Adjust the size of the scene widget.
-     */
-    void adjustSize();
-
   private:
     Runtime _runtime;
-    ImVec2 _renderSize;
 };
 
 } // namespace shkyera

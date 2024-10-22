@@ -5,11 +5,13 @@
 #include <Components/NameComponent.hpp>
 #include <Components/TransformComponent.hpp>
 #include <Components/ModelComponent.hpp>
+#include <Components/WireframeComponent.hpp>
 #include <Components/PointLightComponent.hpp>
 
 #include <UI/Common/Style.hpp>
 #include <UI/Components/TransformComponentUI.hpp>
 #include <UI/Components/ModelComponentUI.hpp>
+#include <UI/Components/WireframeComponentUI.hpp>
 #include <UI/Components/PointLightComponentUI.hpp>
 #include <UI/Widgets/PropertiesWidget.hpp>
 
@@ -71,6 +73,13 @@ void PropertiesWidget::setupComponentsUI() {
     _componentsUi.emplace_back(std::move(componentUi));
   }
 
+  if(_registry->hasComponent<WireframeComponent>(*_selectedEntity)) {    
+    auto &component = _registry->getComponent<WireframeComponent>(*_selectedEntity);
+    auto componentUi = std::make_unique<WireframeComponentUI>(&component);
+
+    _componentsUi.emplace_back(std::move(componentUi));
+  }
+
   if(_registry->hasComponent<PointLightComponent>(*_selectedEntity)) {    
     auto &component = _registry->getComponent<PointLightComponent>(*_selectedEntity);
     auto componentUi = std::make_unique<PointLightComponentUI>(&component);
@@ -92,6 +101,13 @@ void PropertiesWidget::drawNewComponentMenu() {
 
     if (ImGui::Selectable("Model")) {
       _registry->addComponent<ModelComponent>(*_selectedEntity);
+
+      setupComponentsUI();
+      ImGui::CloseCurrentPopup();
+    }
+
+    if (ImGui::Selectable("Wireframe")) {
+      _registry->addComponent<WireframeComponent>(*_selectedEntity);
 
       setupComponentsUI();
       ImGui::CloseCurrentPopup();

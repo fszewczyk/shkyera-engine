@@ -11,7 +11,7 @@ add_library(
     ${CMAKE_CURRENT_LIST_DIR}/Components/TransformComponentUI.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Components/ModelComponentUI.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Components/PointLightComponentUI.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/Components/CameraComponentUI.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/Components/WireframeComponentUI.cpp
 
     ${CMAKE_CURRENT_LIST_DIR}/Widgets/PreviewWidget.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Widgets/ObjectsWidget.cpp
@@ -40,6 +40,7 @@ target_link_libraries(
     Components
     AssetManager
     InputManager
+    Systems
 
     imgui
     glfw 

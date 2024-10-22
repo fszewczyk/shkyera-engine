@@ -132,6 +132,8 @@ public:
         return getOrCreateComponentSet<Component>().getComponents();
     }
 
+    Entity getCamera() const;
+
 private:
     /**
      * Retrieves or creates the component set for the specified component type.
@@ -165,6 +167,8 @@ private:
 
     mutable std::unordered_map<size_t, std::unique_ptr<SparseSetBase>> _componentSets; //< Map of component sets by type ID.
     EntityProvider _entityProvider; //< Manages the creation and management of entities.
+
+    Entity _camera;
 };
 
 } // namespace shkyera

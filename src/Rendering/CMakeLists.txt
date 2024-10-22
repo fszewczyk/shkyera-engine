@@ -3,7 +3,6 @@ add_library(
     STATIC
 
     ${CMAKE_CURRENT_LIST_DIR}/ShaderProgram.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/Renderer.cpp
 )
 
 target_include_directories(
@@ -19,6 +18,5 @@ target_link_libraries(
 
     glad
     glm::glm
-    InputManager
     AssetManager
 )

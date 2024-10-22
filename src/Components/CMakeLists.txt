@@ -7,6 +7,7 @@ add_library(
     ${CMAKE_CURRENT_LIST_DIR}/NameComponent.hpp
     ${CMAKE_CURRENT_LIST_DIR}/TransformComponent.hpp
     ${CMAKE_CURRENT_LIST_DIR}/ModelComponent.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/WireframeComponent.hpp
     ${CMAKE_CURRENT_LIST_DIR}/PointLightComponent.hpp
 )
 

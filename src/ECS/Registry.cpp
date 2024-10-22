@@ -2,9 +2,11 @@
 
 namespace shkyera {
 
-static constexpr Entity InitialEntities = 100;
+static constexpr Entity INITIAL_ENTITIES = 100;
 
-Registry::Registry() : _entityProvider(InitialEntities) {}
+Registry::Registry() : _entityProvider(INITIAL_ENTITIES) {
+  _camera = addEntity();
+}
 
 Entity Registry::addEntity() {
   return _entityProvider.requestEntity();
@@ -16,6 +18,10 @@ void Registry::removeEntity(Entity entity) {
   }
 
   _entityProvider.removeEntity(entity);
+}
+
+Entity Registry::getCamera() const {
+  return _camera;
 }
 
 }  // namespace shkyera

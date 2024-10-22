@@ -7,6 +7,7 @@ add_library(
     ${CMAKE_CURRENT_LIST_DIR}/AssetManager.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Shader.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Mesh.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/Wireframe.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Material.cpp
 )
 

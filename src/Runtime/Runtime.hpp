@@ -1,44 +1,30 @@
-/**
- * @file Runtime.hpp
- *
- * @brief Contains the declaration of the `Runtime` class, representing the game environment.
- */
-
 #pragma once
 
 #include <memory>
-#include <vector>
-
 #include <ECS/Registry.hpp>
-#include <Rendering/Renderer.hpp>
+
+#include <Systems/CameraMovementSystem.hpp>
+#include <Systems/ModelRendererSystem.hpp>
+#include <Systems/RenderingSystem.hpp>
+
+#include <Systems/WireframeRendererSystem.hpp>
 
 namespace shkyera {
 
-/**
- * @brief A class representing the game environment.
- *
- * The `Runtime` class is responsible for managing game objects within the game environment.
- */
 class Runtime {
-  public:
-    /**
-     * @brief Default constructor for the `Runtime` class.
-     */
+public:
     Runtime(std::shared_ptr<Registry> registry);
+    void update();
 
-    void run();
+    RenderingSystem& getRenderingSystem();
+    const RenderingSystem& getRenderingSystem() const;
 
-    Renderer& getRenderer();
-    const Renderer& getRenderer() const;
-
-    /**
-     * @brief Default destructor for the `Runtime` class.
-     */
-    ~Runtime() = default;
-
-  private:
-    Renderer _renderer;
+private:
     std::shared_ptr<Registry> _registry;
+        CameraMovementSystem _cameraMovementSystem;
+    ModelRendererSystem _modelRendererSystem;
+    RenderingSystem _renderingSystem;
+    WireframeRendererSystem _wireframeRendererSystem;
 };
 
-} // namespace shkyera
+}

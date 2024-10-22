@@ -5,7 +5,6 @@
 #include <functional>
 
 #include <AssetManager/Mesh.hpp>
-// Assuming you are using a simple OBJ loader. You could integrate a library like Assimp for more advanced formats.
 #include <tiny_obj_loader.h>
 
 namespace std {
@@ -19,9 +18,12 @@ namespace std {
 
 namespace shkyera {
 
-// Constructor that loads the model from a file
 Mesh::Mesh(const std::string& filepath) {
     loadFromFile(filepath);
+}
+
+Mesh::Mesh(const std::vector<Vertex>& vertices, std::vector<uint32_t> indices) {
+    uploadToGPU(vertices, indices);
 }
 
 // Destructor to clean up OpenGL resources
@@ -45,9 +47,7 @@ static std::vector<glm::vec3> calculateNormals(const std::vector<Mesh::Vertex>& 
         glm::vec3 v1 = vertices[idx1].position;
         glm::vec3 v2 = vertices[idx2].position;
 
-        glm::vec3 edge1 = v1 - v0;
-        glm::vec3 edge2 = v2 - v0;
-        glm::vec3 faceNormal = glm::normalize(glm::cross(edge1, edge2));
+        glm::vec3 faceNormal = glm::normalize(glm::cross(v1 - v0, v2 - v0));
 
         faceNormals[v0].push_back(faceNormal);
         faceNormals[v1].push_back(faceNormal);
@@ -60,7 +60,6 @@ static std::vector<glm::vec3> calculateNormals(const std::vector<Mesh::Vertex>& 
         const glm::vec3& position = entry.first;
         const std::vector<glm::vec3>& normals = entry.second;
 
-        // Average the face normals for each position
         glm::vec3 averagedNormal = glm::vec3(0.0f);
         for (const glm::vec3& normal : normals) {
             averagedNormal += normal;
@@ -167,6 +166,135 @@ void Mesh::uploadToGPU(const std::vector<Vertex>& vertices, const std::vector<un
 
     // Unbind VAO
     glBindVertexArray(0);
+}
+
+Mesh* Mesh::Factory::createCube() {
+      std::vector<Vertex> vertices = {
+        // Front face
+        { { -1.0f, -1.0f, -1.0f }, { 0.0f,  0.0f, -1.0f }, { 0.0f, 0.0f } },  // 0
+        { {  1.0f, -1.0f, -1.0f }, { 0.0f,  0.0f, -1.0f }, { 1.0f, 0.0f } },  // 1
+        { {  1.0f,  1.0f, -1.0f }, { 0.0f,  0.0f, -1.0f }, { 1.0f, 1.0f } },  // 2
+        { { -1.0f,  1.0f, -1.0f }, { 0.0f,  0.0f, -1.0f }, { 0.0f, 1.0f } },  // 3
+
+        // Back face
+        { { -1.0f, -1.0f,  1.0f }, { 0.0f,  0.0f,  1.0f }, { 1.0f, 0.0f } },  // 4
+        { {  1.0f, -1.0f,  1.0f }, { 0.0f,  0.0f,  1.0f }, { 0.0f, 0.0f } },  // 5
+        { {  1.0f,  1.0f,  1.0f }, { 0.0f,  0.0f,  1.0f }, { 0.0f, 1.0f } },  // 6
+        { { -1.0f,  1.0f,  1.0f }, { 0.0f,  0.0f,  1.0f }, { 1.0f, 1.0f } },  // 7
+
+        // Left face
+        { { -1.0f, -1.0f,  1.0f }, { -1.0f,  0.0f,  0.0f }, { 0.0f, 0.0f } }, // 8
+        { { -1.0f,  1.0f,  1.0f }, { -1.0f,  0.0f,  0.0f }, { 1.0f, 0.0f } }, // 9
+        { { -1.0f,  1.0f, -1.0f }, { -1.0f,  0.0f,  0.0f }, { 1.0f, 1.0f } }, // 10
+        { { -1.0f, -1.0f, -1.0f }, { -1.0f,  0.0f,  0.0f }, { 0.0f, 1.0f } }, // 11
+
+        // Right face
+        { {  1.0f, -1.0f, -1.0f }, {  1.0f,  0.0f,  0.0f }, { 0.0f, 1.0f } }, // 12
+        { {  1.0f,  1.0f, -1.0f }, {  1.0f,  0.0f,  0.0f }, { 1.0f, 1.0f } }, // 13
+        { {  1.0f,  1.0f,  1.0f }, {  1.0f,  0.0f,  0.0f }, { 1.0f, 0.0f } }, // 14
+        { {  1.0f, -1.0f,  1.0f }, {  1.0f,  0.0f,  0.0f }, { 0.0f, 0.0f } }, // 15
+
+        // Top face
+        { { -1.0f,  1.0f, -1.0f }, {  0.0f,  1.0f,  0.0f }, { 0.0f, 1.0f } }, // 16
+        { {  1.0f,  1.0f, -1.0f }, {  0.0f,  1.0f,  0.0f }, { 1.0f, 1.0f } }, // 17
+        { {  1.0f,  1.0f,  1.0f }, {  0.0f,  1.0f,  0.0f }, { 1.0f, 0.0f } }, // 18
+        { { -1.0f,  1.0f,  1.0f }, {  0.0f,  1.0f,  0.0f }, { 0.0f, 0.0f } }, // 19
+
+        // Bottom face
+        { { -1.0f, -1.0f, -1.0f }, {  0.0f, -1.0f,  0.0f }, { 0.0f, 0.0f } }, // 20
+        { {  1.0f, -1.0f, -1.0f }, {  0.0f, -1.0f,  0.0f }, { 1.0f, 0.0f } }, // 21
+        { {  1.0f, -1.0f,  1.0f }, {  0.0f, -1.0f,  0.0f }, { 1.0f, 1.0f } }, // 22
+        { { -1.0f, -1.0f,  1.0f }, {  0.0f, -1.0f,  0.0f }, { 0.0f, 1.0f } }, // 23
+    };
+
+    std::vector<unsigned int> indices = {
+        // Front face
+        0, 1, 2, 2, 3, 0,
+        // Back face
+        4, 5, 6, 6, 7, 4,
+        // Left face
+        8, 11, 10, 10, 9, 8,
+        // Right face
+        12, 13, 14, 14, 15, 12,
+        // Top face
+        16, 17, 18, 18, 19, 16,
+        // Bottom face
+        20, 23, 22, 22, 21, 20,
+    };
+
+    return new Mesh(vertices, indices);
+}
+
+Mesh* Mesh::Factory::createCylinder() {
+    const int sectors = 36;
+    const float radius = 1.0f;
+    const float height = 2.0f;
+
+    std::vector<Vertex> vertices;
+    std::vector<unsigned int> indices;
+
+    // Generate vertices
+    for (int i = 0; i <= sectors; ++i) {
+        float theta = 2.0f * M_PI * float(i) / float(sectors);
+        float x = radius * cos(theta);
+        float z = radius * sin(theta);
+
+        vertices.push_back({ { x, -height / 2, z }, { x, 0.0f, z }, { float(i) / sectors, 0.0f } });
+        vertices.push_back({ { x,  height / 2, z }, { x, 0.0f, z }, { float(i) / sectors, 1.0f } });
+    }
+
+    // Generate indices for the sides
+    for (int i = 0; i < sectors; ++i) {
+        indices.push_back(i * 2);
+        indices.push_back(i * 2 + 1);
+        indices.push_back((i * 2 + 2) % (sectors * 2));
+
+        indices.push_back(i * 2 + 1);
+        indices.push_back((i * 2 + 3) % (sectors * 2));
+        indices.push_back((i * 2 + 2) % (sectors * 2));
+    }
+
+    return new Mesh(vertices, indices);
+}
+
+Mesh* Mesh::Factory::createSphere() {
+    const int stacks = 18;
+    const int sectors = 36;
+    const float radius = 1.0f;
+
+    std::vector<Vertex> vertices;
+    std::vector<unsigned int> indices;
+
+    for (int i = 0; i <= stacks; ++i) {
+        float stackAngle = M_PI / 2.0f - i * (M_PI / stacks);
+        float xy = radius * cosf(stackAngle);
+        float z = radius * sinf(stackAngle);
+
+        for (int j = 0; j <= sectors; ++j) {
+            float sectorAngle = j * (2.0f * M_PI / sectors);
+            float x = xy * cosf(sectorAngle);
+            float y = xy * sinf(sectorAngle);
+
+            vertices.push_back({ { x, y, z }, { x / radius, y / radius, z / radius }, { float(j) / sectors, float(i) / stacks } });
+        }
+    }
+
+    for (int i = 0; i < stacks; ++i) {
+        for (int j = 0; j < sectors; ++j) {
+            unsigned int first = (i * (sectors + 1)) + j;
+            unsigned int second = first + sectors + 1;
+
+            indices.push_back(first);
+            indices.push_back(second);
+            indices.push_back(first + 1);
+
+            indices.push_back(second);
+            indices.push_back(second + 1);
+            indices.push_back(first + 1);
+        }
+    }
+
+    return new Mesh(vertices, indices);
 }
 
 }

@@ -16,7 +16,5 @@ target_link_libraries(
     Runtime
     PUBLIC 
 
-    Rendering 
-    
-    glad
+    Systems
 )

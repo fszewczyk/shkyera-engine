@@ -20,6 +20,7 @@ public:
     };
 
     Mesh(const std::string& filepath);
+    Mesh(const std::vector<Vertex>& vertices, std::vector<uint32_t> indices);
     ~Mesh();
 
     void bind() const { glBindVertexArray(_vao); }
@@ -30,8 +31,12 @@ public:
     GLuint getEBO() const { return _ebo; }
     GLsizei getMeshSize() const { return _meshSize; }
 
-    std::vector<float> _vertices;
-    std::vector<unsigned int> _indices;
+    class Factory {
+        public:
+            static Mesh* createCube();
+            static Mesh* createCylinder();
+            static Mesh* createSphere();
+    };
 
 private:
     void loadFromFile(const std::string& filepath);

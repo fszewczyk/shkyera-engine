@@ -11,25 +11,23 @@
 #include <UI/Widgets/ConsoleWidget.hpp>
 #include <UI/Widgets/SceneWidget.hpp>
 
+
 namespace shkyera {
 
-SceneWidget::SceneWidget(std::shared_ptr<Registry> registry) : Widget("Scene"), _runtime(registry) {}
+SceneWidget::SceneWidget(std::shared_ptr<Registry> registry) : Widget("Scene"), _runtime(std::move(registry)) {}
 
 void SceneWidget::draw() {
     ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
     ImGui::Begin(_name.c_str(), nullptr, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
-    adjustSize();
-    _runtime.run();
+    
+    auto renderSize = ImGui::GetContentRegionAvail();
+    _runtime.getRenderingSystem().setSize(renderSize.x, renderSize.y);
+    _runtime.update();
 
-    ImGui::Image((void*)(intptr_t)_runtime.getRenderer().getTexture(), _renderSize);
+    ImGui::Image((void*)(intptr_t)_runtime.getRenderingSystem().getTexture(), renderSize);
 
     ImGui::End();
     ImGui::PopStyleVar();
-}
-
-void SceneWidget::adjustSize() {
-    _renderSize = ImGui::GetContentRegionAvail();
-    _runtime.getRenderer().setSize(_renderSize.x, _renderSize.y);
 }
 
 }  // namespace shkyera
