@@ -1,7 +1,7 @@
 #include "imgui.h"
 
 #include <UI/Components/ModelComponentUI.hpp>
-
+#include <Components/BoxColliderComponent.hpp>
 #include <AssetManager/AssetManager.hpp>
 #include <AssetManager/Filesystem.hpp>
 #include <AssetManager/Image.hpp>
@@ -15,7 +15,11 @@ ModelComponentUI::ModelComponentUI(ModelComponent* modelComponent) :
     _meshSelector.setFile(File(std::filesystem::path(*defaultMeshFilePath)));
   }
   _meshSelector.setUpdateCallback([this](const auto& file) {
-    _modelComponent->setMesh(AssetManager::getInstance().getAsset<Mesh>(file.getPath()));
+    const auto& mesh = AssetManager::getInstance().getAsset<Mesh>(file.getPath());
+    _modelComponent->setMesh(mesh);
+    if(_onMeshUpdate) {
+      _onMeshUpdate(mesh);
+    }
   });
   _meshSelector.setClearCallback([this]() {
     _modelComponent->setMesh(nullptr);
@@ -28,6 +32,10 @@ ModelComponentUI::ModelComponentUI(ModelComponent* modelComponent) :
   _materialSelector.setClearCallback([this]() {
     _modelComponent->setMaterial(nullptr);
   });
+}
+
+void ModelComponentUI::setOnMeshUpdate(std::function<void(std::shared_ptr<Mesh>)> callback) {
+  _onMeshUpdate = callback;
 }
 
 void ModelComponentUI::draw() {

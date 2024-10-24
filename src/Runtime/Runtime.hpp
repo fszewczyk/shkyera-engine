@@ -5,8 +5,8 @@
 
 #include <Systems/CameraMovementSystem.hpp>
 #include <Systems/ModelRendererSystem.hpp>
+#include <Systems/ObjectSelectionSystem.hpp>
 #include <Systems/RenderingSystem.hpp>
-
 #include <Systems/WireframeRendererSystem.hpp>
 
 namespace shkyera {
@@ -21,9 +21,9 @@ public:
 
 private:
     std::shared_ptr<Registry> _registry;
-        CameraMovementSystem _cameraMovementSystem;
-    ModelRendererSystem _modelRendererSystem;
+    CameraMovementSystem _cameraMovementSystem;
     RenderingSystem _renderingSystem;
+    ModelRendererSystem _modelRendererSystem;
     WireframeRendererSystem _wireframeRendererSystem;
 };
 

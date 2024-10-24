@@ -2,9 +2,11 @@
 
 #include <glm/glm.hpp>
 #include <glad/glad.h>
-#include <AssetManager/Asset.hpp>
 #include <vector>
 #include <string>
+
+#include <AssetManager/Asset.hpp>
+#include <Math/Box.hpp>
 
 namespace shkyera {
 
@@ -20,11 +22,13 @@ public:
     };
 
     Mesh(const std::string& filepath);
-    Mesh(const std::vector<Vertex>& vertices, std::vector<uint32_t> indices);
+    Mesh(std::vector<Vertex> vertices, std::vector<uint32_t> indices);
     ~Mesh();
 
     void bind() const { glBindVertexArray(_vao); }
     void unbind() const { glBindVertexArray(0); }
+
+    Box getBoundingBox() const;
 
     GLuint getVAO() const { return _vao; }
     GLuint getVBO() const { return _vbo; }
@@ -40,8 +44,10 @@ public:
 
 private:
     void loadFromFile(const std::string& filepath);
-    void uploadToGPU(const std::vector<Vertex>& vertices, const std::vector<unsigned int>& indices);
+    void uploadToGPU();
 
+    std::vector<Vertex> _vertices;
+    std::vector<uint32_t> _indices;
     GLuint _vao, _vbo, _ebo;
     GLsizei _meshSize;
 };

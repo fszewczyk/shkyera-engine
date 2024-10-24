@@ -7,6 +7,28 @@ InputManager& InputManager::getInstance() {
     return manager;
 }
 
+void InputManager::setCoordinateSystem(CoordinateSystem system, glm::vec2 topLeftCorner, glm::vec2 bottomRightCorner) {
+    _coordinateSystems[system] = {topLeftCorner, bottomRightCorner};
+}
+
+glm::vec2 InputManager::getRelativeMousePosition(CoordinateSystem system) {
+    if(_coordinateSystems.count(system) != 0)
+    {
+        const auto& [topLeft, bottomRight] = _coordinateSystems.at(system);
+        return (_latestMousePosition - topLeft) / (bottomRight - topLeft);
+    }
+    return {0, 0};
+}
+
+glm::vec2 InputManager::getMousePosition(CoordinateSystem system) {
+    if(_coordinateSystems.count(system) != 0)
+    {
+        const auto& [topLeft, _bottomRight] = _coordinateSystems.at(system);
+        return _latestMousePosition - topLeft;
+    }
+    return {0, 0};
+}
+
 void InputManager::registerKeyCallback(Key key, std::function<void()> callback) {
     _keyCallbacks[key].push_back(callback);
 }
@@ -50,6 +72,7 @@ void InputManager::processInput(GLFWwindow* window) {
 
     double xPos, yPos;
     glfwGetCursorPos(window, &xPos, &yPos);
+    _latestMousePosition = {xPos, yPos};
     for (const auto& callback : _mouseMoveCallbacks) {
         callback(xPos, yPos);
     }
@@ -73,20 +96,12 @@ void InputManager::processMouseButton(GLFWwindow* window, MouseButton button) {
 
 
 void InputManager::onMouseButtonDown(MouseButton button) {
-    if(_mouseButtonDownCallbacks.count(button) == 0) {
-        return;
-    }
-
     for(const auto& callback : _mouseButtonDownCallbacks[button]) {
         callback();
     }
 }
 
 void InputManager::onMouseButtonUp(MouseButton button) {
-    if(_mouseButtonUpCallbacks.count(button) == 0) {
-        return;
-    }
-    
     for(const auto& callback : _mouseButtonUpCallbacks[button]) {
         callback();
     }

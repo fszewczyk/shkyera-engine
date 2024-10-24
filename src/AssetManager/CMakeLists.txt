@@ -24,6 +24,7 @@ target_link_libraries(
     AssetManager
     PUBLIC
 
+    Math
     stb_image
     glfw 
     glm

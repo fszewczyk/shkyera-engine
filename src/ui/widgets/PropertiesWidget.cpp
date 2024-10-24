@@ -6,6 +6,7 @@
 #include <Components/TransformComponent.hpp>
 #include <Components/ModelComponent.hpp>
 #include <Components/WireframeComponent.hpp>
+#include <Components/BoxColliderComponent.hpp>
 #include <Components/PointLightComponent.hpp>
 
 #include <UI/Common/Style.hpp>
@@ -69,6 +70,14 @@ void PropertiesWidget::setupComponentsUI() {
   if(_registry->hasComponent<ModelComponent>(*_selectedEntity)) {    
     auto &component = _registry->getComponent<ModelComponent>(*_selectedEntity);
     auto componentUi = std::make_unique<ModelComponentUI>(&component);
+
+    componentUi->setOnMeshUpdate([this](const auto mesh) {
+      if(!_registry->hasComponent<BoxColliderComponent<ComponentMode::DEVELOPMENT>>(*_selectedEntity)) {
+        _registry->addComponent<BoxColliderComponent<ComponentMode::DEVELOPMENT>>(*_selectedEntity);
+      }
+      auto& colliderComponent = _registry->getComponent<BoxColliderComponent<ComponentMode::DEVELOPMENT>>(*_selectedEntity);
+      colliderComponent.box = mesh->getBoundingBox();
+    });
 
     _componentsUi.emplace_back(std::move(componentUi));
   }

@@ -2,6 +2,7 @@
 #include <fstream>
 #include <sstream>
 #include <unordered_map>
+#include <numeric>
 #include <functional>
 
 #include <AssetManager/Mesh.hpp>
@@ -22,8 +23,8 @@ Mesh::Mesh(const std::string& filepath) {
     loadFromFile(filepath);
 }
 
-Mesh::Mesh(const std::vector<Vertex>& vertices, std::vector<uint32_t> indices) {
-    uploadToGPU(vertices, indices);
+Mesh::Mesh(std::vector<Vertex> vertices, std::vector<uint32_t> indices) : _vertices(std::move(vertices)), _indices(std::move(indices)) {
+    uploadToGPU();
 }
 
 // Destructor to clean up OpenGL resources
@@ -33,8 +34,26 @@ Mesh::~Mesh() {
     glDeleteBuffers(1, &_ebo);
 }
 
+Box Mesh::getBoundingBox() const {
+    if (_vertices.empty()) {
+        return shkyera::Box();
+    }
 
-static std::vector<glm::vec3> calculateNormals(const std::vector<Mesh::Vertex>& vertices, const std::vector<unsigned int>& indices) {
+    glm::vec3 minBounds(FLT_MAX);
+    glm::vec3 maxBounds(-FLT_MAX);
+
+    for (const auto& vertex : _vertices) {
+        minBounds = glm::min(minBounds, vertex.position);
+        maxBounds = glm::max(maxBounds, vertex.position);
+    }
+
+    glm::vec3 center = (minBounds + maxBounds) * 0.5f;
+    glm::vec3 extents = (maxBounds - minBounds) * 0.5f;
+
+    return shkyera::Box(center, extents, glm::mat3(1.0f));
+}
+
+static std::vector<glm::vec3> calculateNormals(const std::vector<Mesh::Vertex>& vertices, const std::vector<uint32_t>& indices) {
     std::unordered_map<glm::vec3, glm::vec3> vertexToNormalMap;
     std::unordered_map<glm::vec3, std::vector<glm::vec3>> faceNormals;
 
@@ -66,7 +85,6 @@ static std::vector<glm::vec3> calculateNormals(const std::vector<Mesh::Vertex>& 
         }
         averagedNormal = glm::normalize(averagedNormal);
 
-        // Map the averaged normal back to the vertices
         vertexToNormalMap[position] = averagedNormal;
     }
 
@@ -90,8 +108,12 @@ void Mesh::loadFromFile(const std::string& filepath) {
         return;
     }
 
-    std::vector<Vertex> vertices;
-    std::vector<unsigned int> indices;
+    _vertices.clear();
+    _indices.clear();
+
+    size_t numberOfVertices = std::accumulate(shapes.begin(), shapes.end(), 0, [](size_t accumulatedSize, const auto& shape) { return accumulatedSize + shape.mesh.indices.size(); });
+    _vertices.reserve(numberOfVertices);
+    _indices.reserve(numberOfVertices);
 
     bool hasNormals = false;
 
@@ -121,24 +143,24 @@ void Mesh::loadFromFile(const std::string& filepath) {
                 );
             }
 
-            vertices.emplace_back(position, normal, texcoord);
-            indices.push_back(indices.size());
+            _vertices.emplace_back(position, normal, texcoord);
+            _indices.emplace_back(_indices.size());
         }
     }
 
     if (!hasNormals) {
-        auto calculatedNormals = calculateNormals(vertices, indices);
+        auto calculatedNormals = calculateNormals(_vertices, _indices);
 
-        for (size_t i = 0; i < vertices.size(); ++i) {
-            vertices[i].normal = calculatedNormals[i];
+        for (size_t i = 0; i < _vertices.size(); ++i) {
+            _vertices[i].normal = calculatedNormals[i];
         }
     }
 
-    uploadToGPU(vertices, indices);
+    uploadToGPU();
 }
 
-void Mesh::uploadToGPU(const std::vector<Vertex>& vertices, const std::vector<unsigned int>& indices) {
-    _meshSize = static_cast<GLsizei>(indices.size());
+void Mesh::uploadToGPU() {
+    _meshSize = static_cast<GLsizei>(_indices.size());
 
     // Create VAO
     glGenVertexArrays(1, &_vao);
@@ -147,12 +169,12 @@ void Mesh::uploadToGPU(const std::vector<Vertex>& vertices, const std::vector<un
     // Create VBO (vertex buffer object)
     glGenBuffers(1, &_vbo);
     glBindBuffer(GL_ARRAY_BUFFER, _vbo);
-    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), vertices.data(), GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, _vertices.size() * sizeof(Vertex), _vertices.data(), GL_STATIC_DRAW);
 
     // Create EBO (element buffer object)
     glGenBuffers(1, &_ebo);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _ebo);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), indices.data(), GL_STATIC_DRAW);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, _indices.size() * sizeof(unsigned int), _indices.data(), GL_STATIC_DRAW);
 
     // Define vertex attributes
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, position)); // Position

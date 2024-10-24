@@ -14,6 +14,7 @@
 
 #include <ECS/Registry.hpp>
 #include <UI/Widget.hpp>
+#include <Systems/ObjectSelectionSystem.hpp>
 
 
 namespace shkyera {
@@ -100,6 +101,8 @@ class UI {
 
     bool _open;          ///< Flag indicating if the UI is open.
     GLFWwindow *_window; ///< The UI window.
+
+    std::unique_ptr<ObjectSelectionSystem> _objectSelectionSystem;
 
 };
 

@@ -5,6 +5,7 @@
 
 #include <iostream>
 #include <AssetManager/Image.hpp>
+#include <InputManager/InputManager.hpp>
 #include <AssetManager/AssetManager.hpp>
 #include <AssetManager/Shader.hpp>
 #include <Components/NameComponent.hpp>
@@ -21,13 +22,30 @@ void SceneWidget::draw() {
     ImGui::Begin(_name.c_str(), nullptr, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
     
     auto renderSize = ImGui::GetContentRegionAvail();
-    _runtime.getRenderingSystem().setSize(renderSize.x, renderSize.y);
+    updateWindowCoordinateSystem();
+    _runtime.getRenderingSystem().setSize(renderSize.x * 2, renderSize.y * 2);
     _runtime.update();
 
     ImGui::Image((void*)(intptr_t)_runtime.getRenderingSystem().getTexture(), renderSize);
-
+    
     ImGui::End();
     ImGui::PopStyleVar();
 }
+
+void SceneWidget::updateWindowCoordinateSystem() {
+    ImVec2 topLeft = ImGui::GetWindowContentRegionMin();
+    ImVec2 topRight = ImGui::GetWindowContentRegionMax();
+
+    topLeft.x += ImGui::GetWindowPos().x;
+    topLeft.y += ImGui::GetWindowPos().y;
+    topRight.x += ImGui::GetWindowPos().x;
+    topRight.y += ImGui::GetWindowPos().y;
+
+    const glm::vec2 topLeftVec = {topLeft.x, topLeft.y};
+    const glm::vec2 bottomRightVec = {topRight.x, topRight.y};
+
+    InputManager::getInstance().setCoordinateSystem(InputManager::CoordinateSystem::SCENE, topLeftVec, bottomRightVec);
+}
+
 
 }  // namespace shkyera
