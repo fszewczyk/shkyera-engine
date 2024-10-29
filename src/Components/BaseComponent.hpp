@@ -2,6 +2,11 @@
 
 namespace shkyera {
 
+enum ComponentMode {
+    DEVELOPMENT,
+    PRODUCTION
+};
+
 /**
  * @brief Base component for implementing update functionality.
  *
@@ -9,7 +14,7 @@ namespace shkyera {
  *
  * @tparam Derived Type of the derived class inheriting from BaseComponent.
  */
-template <typename Derived>
+template <typename Derived, ComponentMode Mode = PRODUCTION>
 class BaseComponent {
 public:
     /**

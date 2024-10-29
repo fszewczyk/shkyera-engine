@@ -31,6 +31,8 @@ class SceneWidget : public Widget {
     virtual void draw() override;
 
   private:
+    void updateWindowCoordinateSystem();
+
     Runtime _runtime;
 };
 

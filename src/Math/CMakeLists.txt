@@ -1,21 +1,20 @@
 add_library(
-    InputManager
+    Math
     STATIC
 
-    ${CMAKE_CURRENT_LIST_DIR}/InputManager.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/Box.cpp
 )
 
 target_include_directories(
-    InputManager    
+    Math    
     PUBLIC
     
     ${CMAKE_SOURCE_DIR}/src
 )
 
 target_link_libraries(
-    InputManager
+    Math
     PUBLIC 
 
-    glfw
     glm::glm
 )

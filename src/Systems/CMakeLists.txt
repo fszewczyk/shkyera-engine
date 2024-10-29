@@ -6,6 +6,7 @@ add_library(
     ${CMAKE_CURRENT_LIST_DIR}/ModelRendererSystem.cpp
     ${CMAKE_CURRENT_LIST_DIR}/RenderingSystem.cpp
     ${CMAKE_CURRENT_LIST_DIR}/WireframeRendererSystem.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/ObjectSelectionSystem.cpp
 )
 
 target_include_directories(

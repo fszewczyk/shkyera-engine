@@ -2,6 +2,8 @@
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+
+#include <Math/Ray.hpp>
 #include <Components/TransformComponent.hpp>
 
 namespace shkyera {
@@ -25,7 +27,6 @@ public:
         glm::vec3 position = transformComponent.getPosition();
         glm::vec3 orientation = transformComponent.getOrientation();
         
-        // Calculate direction vectors
         glm::vec3 front;
         front.x = cos(orientation.y) * cos(orientation.x);
         front.y = sin(orientation.x);
@@ -49,6 +50,31 @@ public:
             return glm::ortho(-halfWidth, halfWidth, -halfHeight, halfHeight, nearPlane, farPlane);
         }
     }
+
+    Ray getRayAt(const TransformComponent& transformComponent, float x, float y) const {
+        glm::mat4 viewMatrix = getViewMatrix(transformComponent);
+        
+        glm::mat4 invViewProj = glm::inverse(getProjectionMatrix() * viewMatrix);
+        
+        float ndcX = 2.0f * x - 1.0f;
+        float ndcY = 1.0f - 2.0f * y;
+
+        glm::vec4 nearPoint = glm::vec4(ndcX, ndcY, -1.0f, 1.0f);
+        glm::vec4 farPoint = glm::vec4(ndcX, ndcY, 1.0f, 1.0f);
+
+        glm::vec4 nearWorld = invViewProj * nearPoint;
+        glm::vec4 farWorld = invViewProj * farPoint;
+
+        nearWorld /= nearWorld.w;
+        farWorld /= farWorld.w;
+
+        glm::vec3 rayOrigin = glm::vec3(nearWorld);
+        
+        glm::vec3 rayDirection = glm::normalize(glm::vec3(farWorld) - rayOrigin);
+
+        return { rayOrigin, rayDirection };
+    }
+
 };
 
 } // namespace shkyera

@@ -91,10 +91,12 @@ void UI::initializeWidgets() {
   _widgets.emplace_back(std::make_unique<ConsoleWidget>("Console"));
 
   auto propertiesWidget = std::make_unique<PropertiesWidget>(_registry);
+  _objectSelectionSystem = std::make_unique<ObjectSelectionSystem>(_registry);
   auto objectsWidget = std::make_unique<ObjectsWidget>("Objects");
   objectsWidget->setRegistry(_registry);
   objectsWidget->addOnSelectEntityCallback(
       [w = propertiesWidget.get()](Entity e) { w->selectEntity(e); });
+  _objectSelectionSystem->setOnSelectCallback([w = propertiesWidget.get()](Entity e) { w->selectEntity(e); });
 
   _widgets.emplace_back(std::move(objectsWidget));
   _widgets.emplace_back(std::move(propertiesWidget));
@@ -268,6 +270,8 @@ void UI::beginFrame() {
 }
 
 void UI::renderFrame() {
+  const auto& windowSize = ImGui::GetWindowSize();
+  InputManager::getInstance().setCoordinateSystem(InputManager::CoordinateSystem::ABSOLUTE, {0, 0}, {windowSize.x, windowSize.y});
   InputManager::getInstance().processInput(_window);
 
   for (const auto& w : _widgets) {
