@@ -26,6 +26,10 @@ void ObjectSelectionSystem::tryToSelectObject() {
     const auto& camera = _registry->getCamera();
     const auto& mousePosition = InputManager::getInstance().getRelativeMousePosition(InputManager::CoordinateSystem::SCENE);
 
+    if(mousePosition.x < 0 || mousePosition.y < 0 || mousePosition.x >= 1.0 || mousePosition.y >= 1.0) {
+        return;
+    }
+
     const auto& cameraTransform = _registry->getComponent<TransformComponent>(camera);
     const auto& cameraComponent = _registry->getComponent<CameraComponent>(camera);
     auto ray = cameraComponent.getRayAt(cameraTransform, mousePosition.x, mousePosition.y);

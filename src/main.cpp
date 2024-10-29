@@ -23,6 +23,8 @@ void addModel(std::shared_ptr<shkyera::Registry> registry,
               std::shared_ptr<shkyera::Mesh> mesh) {
     using namespace shkyera;
 
+    AssetManager::getInstance().addAsset<Mesh>("Shape: " + name, mesh);
+
     auto entity = registry->addEntity();
     registry->addComponent<TransformComponent>(entity);
     registry->getComponent<TransformComponent>(entity).setPosition(position);
@@ -40,6 +42,8 @@ void addWireframe(std::shared_ptr<shkyera::Registry> registry,
                   const std::string& name, 
                   std::shared_ptr<shkyera::Wireframe> wireframe) {
     using namespace shkyera;
+
+    AssetManager::getInstance().addAsset<Wireframe>("Wireframe: " + name, wireframe);
 
     auto entity = registry->addEntity();
     registry->addComponent<TransformComponent>(entity);
