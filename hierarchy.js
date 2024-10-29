@@ -7,7 +7,10 @@ var hierarchy =
       [ "shkyera::Wireframe", "classshkyera_1_1_wireframe.html", null ]
     ] ],
     [ "shkyera::AssetManager", "classshkyera_1_1_asset_manager.html", null ],
-    [ "shkyera::BaseComponent< Derived >", "classshkyera_1_1_base_component.html", null ],
+    [ "shkyera::BaseComponent< Derived, Mode >", "classshkyera_1_1_base_component.html", null ],
+    [ "shkyera::BaseComponent< BoxColliderComponent< PRODUCTION >, PRODUCTION >", "classshkyera_1_1_base_component.html", [
+      [ "shkyera::BoxColliderComponent< Mode >", "classshkyera_1_1_box_collider_component.html", null ]
+    ] ],
     [ "shkyera::BaseComponent< ModelComponent >", "classshkyera_1_1_base_component.html", [
       [ "shkyera::ModelComponent", "classshkyera_1_1_model_component.html", null ]
     ] ],
@@ -23,6 +26,7 @@ var hierarchy =
     [ "shkyera::BaseComponent< WireframeComponent >", "classshkyera_1_1_base_component.html", [
       [ "shkyera::WireframeComponent", "classshkyera_1_1_wireframe_component.html", null ]
     ] ],
+    [ "shkyera::Box", "structshkyera_1_1_box.html", null ],
     [ "shkyera::CameraComponent", "classshkyera_1_1_camera_component.html", null ],
     [ "shkyera::CameraMovementSystem", "classshkyera_1_1_camera_movement_system.html", null ],
     [ "shkyera::ComponentUI", "classshkyera_1_1_component_u_i.html", [
@@ -49,6 +53,8 @@ var hierarchy =
       [ "shkyera::LogVerbose", "classshkyera_1_1_log_verbose.html", null ]
     ] ],
     [ "shkyera::ModelRendererSystem", "classshkyera_1_1_model_renderer_system.html", null ],
+    [ "shkyera::ObjectSelectionSystem", "classshkyera_1_1_object_selection_system.html", null ],
+    [ "shkyera::Ray", "structshkyera_1_1_ray.html", null ],
     [ "shkyera::Registry", "classshkyera_1_1_registry.html", null ],
     [ "shkyera::RenderingSystem", "classshkyera_1_1_rendering_system.html", null ],
     [ "shkyera::Runtime", "classshkyera_1_1_runtime.html", null ],

@@ -26,6 +26,7 @@ var namespaceshkyera =
     [ "Shader", "classshkyera_1_1_shader.html", "classshkyera_1_1_shader" ],
     [ "Wireframe", "classshkyera_1_1_wireframe.html", "classshkyera_1_1_wireframe" ],
     [ "BaseComponent", "classshkyera_1_1_base_component.html", "classshkyera_1_1_base_component" ],
+    [ "BoxColliderComponent", "classshkyera_1_1_box_collider_component.html", "classshkyera_1_1_box_collider_component" ],
     [ "CameraComponent", "classshkyera_1_1_camera_component.html", "classshkyera_1_1_camera_component" ],
     [ "ModelComponent", "classshkyera_1_1_model_component.html", "classshkyera_1_1_model_component" ],
     [ "NameComponent", "classshkyera_1_1_name_component.html", "classshkyera_1_1_name_component" ],
@@ -37,10 +38,13 @@ var namespaceshkyera =
     [ "SparseSetBase", "classshkyera_1_1_sparse_set_base.html", "classshkyera_1_1_sparse_set_base" ],
     [ "SparseSet", "classshkyera_1_1_sparse_set.html", "classshkyera_1_1_sparse_set" ],
     [ "InputManager", "classshkyera_1_1_input_manager.html", "classshkyera_1_1_input_manager" ],
+    [ "Box", "structshkyera_1_1_box.html", "structshkyera_1_1_box" ],
+    [ "Ray", "structshkyera_1_1_ray.html", "structshkyera_1_1_ray" ],
     [ "ShaderProgram", "classshkyera_1_1_shader_program.html", "classshkyera_1_1_shader_program" ],
     [ "Runtime", "classshkyera_1_1_runtime.html", "classshkyera_1_1_runtime" ],
     [ "CameraMovementSystem", "classshkyera_1_1_camera_movement_system.html", "classshkyera_1_1_camera_movement_system" ],
     [ "ModelRendererSystem", "classshkyera_1_1_model_renderer_system.html", "classshkyera_1_1_model_renderer_system" ],
+    [ "ObjectSelectionSystem", "classshkyera_1_1_object_selection_system.html", "classshkyera_1_1_object_selection_system" ],
     [ "RenderingSystem", "classshkyera_1_1_rendering_system.html", "classshkyera_1_1_rendering_system" ],
     [ "WireframeRendererSystem", "classshkyera_1_1_wireframe_renderer_system.html", "classshkyera_1_1_wireframe_renderer_system" ],
     [ "FileSelector", "classshkyera_1_1_file_selector.html", "classshkyera_1_1_file_selector" ],
@@ -63,6 +67,10 @@ var namespaceshkyera =
     [ "PropertiesWidget", "classshkyera_1_1_properties_widget.html", "classshkyera_1_1_properties_widget" ],
     [ "SceneWidget", "classshkyera_1_1_scene_widget.html", "classshkyera_1_1_scene_widget" ],
     [ "Entity", "namespaceshkyera.html#a043bdd87686e0bd1bce19a1fd86298cd", null ],
+    [ "ComponentMode", "namespaceshkyera.html#a4384dbcaa13ebdacc7436154043938dc", [
+      [ "DEVELOPMENT", "namespaceshkyera.html#a4384dbcaa13ebdacc7436154043938dca5879692bccabb6ab6bc9705346dd604a", null ],
+      [ "PRODUCTION", "namespaceshkyera.html#a4384dbcaa13ebdacc7436154043938dca14d66429a0cfe5c04ad919d4534ebf7e", null ]
+    ] ],
     [ "FILE_TYPE", "namespaceshkyera.html#a7a2f2208944732e67483f7920f91aeb3", [
       [ "PYTHON", "namespaceshkyera.html#a7a2f2208944732e67483f7920f91aeb3acaf5c3fe2f331a51be77caa99fd32ca4", null ],
       [ "IMAGE", "namespaceshkyera.html#a7a2f2208944732e67483f7920f91aeb3a1ddcc433d1fb5e5bc667b3a39429573c", null ],

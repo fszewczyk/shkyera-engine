@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['type_939',['Type',['../classshkyera_1_1_shader.html#a8609b223b8cb0e0e71038b5a5208acc7',1,'shkyera::Shader']]]
+  ['projectiontype_1023',['ProjectionType',['../classshkyera_1_1_camera_component.html#a187a07d57febe7c8f3c02d24fe88b406',1,'shkyera::CameraComponent']]]
 ];

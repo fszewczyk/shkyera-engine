@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['orthographic_942',['Orthographic',['../classshkyera_1_1_camera_component.html#a187a07d57febe7c8f3c02d24fe88b406a03424250432f2aa71de95579d2c0eaeb',1,'shkyera::CameraComponent']]],
-  ['other_943',['OTHER',['../namespaceshkyera.html#a7a2f2208944732e67483f7920f91aeb3ac1c970c810ef92020ecbd10e3f35c814',1,'shkyera']]]
+  ['fragment_1027',['Fragment',['../classshkyera_1_1_shader.html#a8609b223b8cb0e0e71038b5a5208acc7a37d01b98065725fe3a1d30acf3a0064a',1,'shkyera::Shader']]]
 ];

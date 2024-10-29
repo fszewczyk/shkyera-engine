@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['fragment_940',['Fragment',['../classshkyera_1_1_shader.html#a8609b223b8cb0e0e71038b5a5208acc7a37d01b98065725fe3a1d30acf3a0064a',1,'shkyera::Shader']]]
+  ['absolute_1025',['ABSOLUTE',['../classshkyera_1_1_input_manager.html#a19d17fbbb411ba4f2ebe8b5f882e93daa3a0bc063b6db8cae0361657958be836f',1,'shkyera::InputManager']]]
 ];

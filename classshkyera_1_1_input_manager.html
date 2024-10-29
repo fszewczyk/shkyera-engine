@@ -127,6 +127,10 @@ $(document).ready(function(){initNavTree('classshkyera_1_1_input_manager.html','
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
+<tr class="memitem:a19d17fbbb411ba4f2ebe8b5f882e93da"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_input_manager.html#a19d17fbbb411ba4f2ebe8b5f882e93da">CoordinateSystem</a> { <a class="el" href="classshkyera_1_1_input_manager.html#a19d17fbbb411ba4f2ebe8b5f882e93daa3a0bc063b6db8cae0361657958be836f">ABSOLUTE</a>
+, <a class="el" href="classshkyera_1_1_input_manager.html#a19d17fbbb411ba4f2ebe8b5f882e93daaf151a543099185593a5a87339c552698">SCENE</a>
+ }</td></tr>
+<tr class="separator:a19d17fbbb411ba4f2ebe8b5f882e93da"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a31d2ffd3040040c147818b1d2945b3a6"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_input_manager.html#a31d2ffd3040040c147818b1d2945b3a6">Key</a> = int</td></tr>
 <tr class="separator:a31d2ffd3040040c147818b1d2945b3a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad365b43197ee5262ac6b397df7c701c6"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_input_manager.html#ad365b43197ee5262ac6b397df7c701c6">MouseButton</a> = int</td></tr>
@@ -134,6 +138,12 @@ Public Types</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:a97f9d7ce01f015a6fe441cbbac42746e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_input_manager.html#a97f9d7ce01f015a6fe441cbbac42746e">setCoordinateSystem</a> (<a class="el" href="classshkyera_1_1_input_manager.html#a19d17fbbb411ba4f2ebe8b5f882e93da">CoordinateSystem</a> system, glm::vec2 topLeftCorner, glm::vec2 bottomRightCorner)</td></tr>
+<tr class="separator:a97f9d7ce01f015a6fe441cbbac42746e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a59d88eec92762293531d259b4a3e93c0"><td class="memItemLeft" align="right" valign="top">glm::vec2&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_input_manager.html#a59d88eec92762293531d259b4a3e93c0">getRelativeMousePosition</a> (<a class="el" href="classshkyera_1_1_input_manager.html#a19d17fbbb411ba4f2ebe8b5f882e93da">CoordinateSystem</a> system)</td></tr>
+<tr class="separator:a59d88eec92762293531d259b4a3e93c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b59cc94b9fb5ad8d51b2c674ebcde14"><td class="memItemLeft" align="right" valign="top">glm::vec2&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_input_manager.html#a9b59cc94b9fb5ad8d51b2c674ebcde14">getMousePosition</a> (<a class="el" href="classshkyera_1_1_input_manager.html#a19d17fbbb411ba4f2ebe8b5f882e93da">CoordinateSystem</a> system)</td></tr>
+<tr class="separator:a9b59cc94b9fb5ad8d51b2c674ebcde14"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1e6bbd84d48ca1c81518373a96b94c0b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_input_manager.html#a1e6bbd84d48ca1c81518373a96b94c0b">registerKeyCallback</a> (<a class="el" href="classshkyera_1_1_input_manager.html#a31d2ffd3040040c147818b1d2945b3a6">Key</a> key, std::function&lt; void()&gt; callback)</td></tr>
 <tr class="separator:a1e6bbd84d48ca1c81518373a96b94c0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a85a8f139c95e5a0d5fbba81de6bc1d2f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_input_manager.html#a85a8f139c95e5a0d5fbba81de6bc1d2f">unregisterKeyCallback</a> (<a class="el" href="classshkyera_1_1_input_manager.html#a31d2ffd3040040c147818b1d2945b3a6">Key</a> key)</td></tr>
@@ -171,6 +181,12 @@ Private Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
+<tr class="memitem:a496ef3a73dfbd268934c379ccc60fd68"><td class="memItemLeft" align="right" valign="top">std::array&lt; bool, 10 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_input_manager.html#a496ef3a73dfbd268934c379ccc60fd68">_previousMouseButtonStates</a> = { false }</td></tr>
+<tr class="separator:a496ef3a73dfbd268934c379ccc60fd68"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6dfa1d8adebf513a34982f135297d151"><td class="memItemLeft" align="right" valign="top">glm::vec2&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_input_manager.html#a6dfa1d8adebf513a34982f135297d151">_latestMousePosition</a></td></tr>
+<tr class="separator:a6dfa1d8adebf513a34982f135297d151"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a764428eae4db6cc0e62b4e3653f2771c"><td class="memItemLeft" align="right" valign="top">std::unordered_map&lt; <a class="el" href="classshkyera_1_1_input_manager.html#a19d17fbbb411ba4f2ebe8b5f882e93da">CoordinateSystem</a>, std::pair&lt; glm::vec2, glm::vec2 &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_input_manager.html#a764428eae4db6cc0e62b4e3653f2771c">_coordinateSystems</a></td></tr>
+<tr class="separator:a764428eae4db6cc0e62b4e3653f2771c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3ab4f67a9385e6d5a04479eb2ca17125"><td class="memItemLeft" align="right" valign="top">std::unordered_map&lt; <a class="el" href="classshkyera_1_1_input_manager.html#a31d2ffd3040040c147818b1d2945b3a6">Key</a>, std::vector&lt; std::function&lt; void()&gt; &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_input_manager.html#a3ab4f67a9385e6d5a04479eb2ca17125">_keyCallbacks</a></td></tr>
 <tr class="separator:a3ab4f67a9385e6d5a04479eb2ca17125"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af8c7dbd28aed02012569b28b97e7410f"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::function&lt; void(double, double)&gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_input_manager.html#af8c7dbd28aed02012569b28b97e7410f">_mouseMoveCallbacks</a></td></tr>
@@ -179,8 +195,6 @@ Private Attributes</h2></td></tr>
 <tr class="separator:ad46eac8b8f500e4c2d490bd1137164dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adea52f65ab358ce74368cfba19640762"><td class="memItemLeft" align="right" valign="top">std::unordered_map&lt; <a class="el" href="classshkyera_1_1_input_manager.html#ad365b43197ee5262ac6b397df7c701c6">MouseButton</a>, std::vector&lt; std::function&lt; void()&gt; &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_input_manager.html#adea52f65ab358ce74368cfba19640762">_mouseButtonUpCallbacks</a></td></tr>
 <tr class="separator:adea52f65ab358ce74368cfba19640762"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a496ef3a73dfbd268934c379ccc60fd68"><td class="memItemLeft" align="right" valign="top">std::array&lt; bool, 10 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_input_manager.html#a496ef3a73dfbd268934c379ccc60fd68">_previousMouseButtonStates</a> = { false }</td></tr>
-<tr class="separator:a496ef3a73dfbd268934c379ccc60fd68"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Typedef Documentation</h2>
 <a id="a31d2ffd3040040c147818b1d2945b3a6"></a>
@@ -208,6 +222,33 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Member Enumeration Documentation</h2>
+<a id="a19d17fbbb411ba4f2ebe8b5f882e93da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a19d17fbbb411ba4f2ebe8b5f882e93da">&#9670;&nbsp;</a></span>CoordinateSystem</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="classshkyera_1_1_input_manager.html#a19d17fbbb411ba4f2ebe8b5f882e93da">shkyera::InputManager::CoordinateSystem</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a19d17fbbb411ba4f2ebe8b5f882e93daa3a0bc063b6db8cae0361657958be836f"></a>ABSOLUTE&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a19d17fbbb411ba4f2ebe8b5f882e93daaf151a543099185593a5a87339c552698"></a>SCENE&#160;</td><td class="fielddoc"></td></tr>
+</table>
 
 </div>
 </div>
@@ -259,6 +300,42 @@ Private Attributes</h2></td></tr>
 <span class="mlabels"><span class="mlabel">static</span></span>  </td>
   </tr>
 </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9b59cc94b9fb5ad8d51b2c674ebcde14"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b59cc94b9fb5ad8d51b2c674ebcde14">&#9670;&nbsp;</a></span>getMousePosition()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">glm::vec2 shkyera::InputManager::getMousePosition </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classshkyera_1_1_input_manager.html#a19d17fbbb411ba4f2ebe8b5f882e93da">CoordinateSystem</a>&#160;</td>
+          <td class="paramname"><em>system</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a59d88eec92762293531d259b4a3e93c0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a59d88eec92762293531d259b4a3e93c0">&#9670;&nbsp;</a></span>getRelativeMousePosition()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">glm::vec2 shkyera::InputManager::getRelativeMousePosition </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classshkyera_1_1_input_manager.html#a19d17fbbb411ba4f2ebe8b5f882e93da">CoordinateSystem</a>&#160;</td>
+          <td class="paramname"><em>system</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
 </div><div class="memdoc">
 
 </div>
@@ -471,6 +548,40 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a97f9d7ce01f015a6fe441cbbac42746e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a97f9d7ce01f015a6fe441cbbac42746e">&#9670;&nbsp;</a></span>setCoordinateSystem()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void shkyera::InputManager::setCoordinateSystem </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classshkyera_1_1_input_manager.html#a19d17fbbb411ba4f2ebe8b5f882e93da">CoordinateSystem</a>&#160;</td>
+          <td class="paramname"><em>system</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">glm::vec2&#160;</td>
+          <td class="paramname"><em>topLeftCorner</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">glm::vec2&#160;</td>
+          <td class="paramname"><em>bottomRightCorner</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a85a8f139c95e5a0d5fbba81de6bc1d2f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a85a8f139c95e5a0d5fbba81de6bc1d2f">&#9670;&nbsp;</a></span>unregisterKeyCallback()</h2>
 
@@ -543,6 +654,28 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
+<a id="a764428eae4db6cc0e62b4e3653f2771c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a764428eae4db6cc0e62b4e3653f2771c">&#9670;&nbsp;</a></span>_coordinateSystems</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::unordered_map&lt;<a class="el" href="classshkyera_1_1_input_manager.html#a19d17fbbb411ba4f2ebe8b5f882e93da">CoordinateSystem</a>, std::pair&lt;glm::vec2, glm::vec2&gt; &gt; shkyera::InputManager::_coordinateSystems</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a3ab4f67a9385e6d5a04479eb2ca17125"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3ab4f67a9385e6d5a04479eb2ca17125">&#9670;&nbsp;</a></span>_keyCallbacks</h2>
 
@@ -554,6 +687,28 @@ Private Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">std::unordered_map&lt;<a class="el" href="classshkyera_1_1_input_manager.html#a31d2ffd3040040c147818b1d2945b3a6">Key</a>, std::vector&lt;std::function&lt;void()&gt; &gt; &gt; shkyera::InputManager::_keyCallbacks</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6dfa1d8adebf513a34982f135297d151"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6dfa1d8adebf513a34982f135297d151">&#9670;&nbsp;</a></span>_latestMousePosition</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">glm::vec2 shkyera::InputManager::_latestMousePosition</td>
         </tr>
       </table>
   </td>

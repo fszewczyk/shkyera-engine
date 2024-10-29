@@ -6,6 +6,7 @@ var classshkyera_1_1_camera_component =
     ] ],
     [ "CameraComponent", "classshkyera_1_1_camera_component.html#ab78b9a4256d27c3d6f22d1306ac3e97c", null ],
     [ "getProjectionMatrix", "classshkyera_1_1_camera_component.html#ae574591598b0ef8e4bf98b438bee9440", null ],
+    [ "getRayAt", "classshkyera_1_1_camera_component.html#a2703c4471a5c63218ac5a0f4f7a13e4a", null ],
     [ "getViewMatrix", "classshkyera_1_1_camera_component.html#a7fab985572ddf873de560deb15cb5b39", null ],
     [ "aspectRatio", "classshkyera_1_1_camera_component.html#affee4df373d15e8a6137f0351f967470", null ],
     [ "farPlane", "classshkyera_1_1_camera_component.html#a194638d226e8c6d77918e90bd9b04e54", null ],

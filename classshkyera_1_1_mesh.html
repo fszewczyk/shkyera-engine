@@ -141,14 +141,16 @@ Classes</h2></td></tr>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:aa3e2317121b64647da057a71af7a09fe"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_mesh.html#aa3e2317121b64647da057a71af7a09fe">Mesh</a> (const std::string &amp;filepath)</td></tr>
 <tr class="separator:aa3e2317121b64647da057a71af7a09fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7f300bab73cc93c97f7f54105a83b71f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_mesh.html#a7f300bab73cc93c97f7f54105a83b71f">Mesh</a> (const std::vector&lt; <a class="el" href="structshkyera_1_1_mesh_1_1_vertex.html">Vertex</a> &gt; &amp;vertices, std::vector&lt; uint32_t &gt; indices)</td></tr>
-<tr class="separator:a7f300bab73cc93c97f7f54105a83b71f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a70dc682e465f00185806971c4824d555"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_mesh.html#a70dc682e465f00185806971c4824d555">Mesh</a> (std::vector&lt; <a class="el" href="structshkyera_1_1_mesh_1_1_vertex.html">Vertex</a> &gt; vertices, std::vector&lt; uint32_t &gt; indices)</td></tr>
+<tr class="separator:a70dc682e465f00185806971c4824d555"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac275570a0a6b4e9b848c8504e43088fb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_mesh.html#ac275570a0a6b4e9b848c8504e43088fb">~Mesh</a> ()</td></tr>
 <tr class="separator:ac275570a0a6b4e9b848c8504e43088fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae42dd433a99b69a14414156b65125d14"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_mesh.html#ae42dd433a99b69a14414156b65125d14">bind</a> () const</td></tr>
 <tr class="separator:ae42dd433a99b69a14414156b65125d14"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa4a0a1cc33acf4fca50f47898ed0d8e5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_mesh.html#aa4a0a1cc33acf4fca50f47898ed0d8e5">unbind</a> () const</td></tr>
 <tr class="separator:aa4a0a1cc33acf4fca50f47898ed0d8e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca6d043deafe814c00f74616761fb2bb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structshkyera_1_1_box.html">Box</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_mesh.html#aca6d043deafe814c00f74616761fb2bb">getBoundingBox</a> () const</td></tr>
+<tr class="separator:aca6d043deafe814c00f74616761fb2bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8eccf381919f0507008f5e1d6d75fb07"><td class="memItemLeft" align="right" valign="top">GLuint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_mesh.html#a8eccf381919f0507008f5e1d6d75fb07">getVAO</a> () const</td></tr>
 <tr class="separator:a8eccf381919f0507008f5e1d6d75fb07"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afa0705672ccd6644093a5da3c5398762"><td class="memItemLeft" align="right" valign="top">GLuint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_mesh.html#afa0705672ccd6644093a5da3c5398762">getVBO</a> () const</td></tr>
@@ -165,11 +167,15 @@ Public Member Functions</h2></td></tr>
 Private Member Functions</h2></td></tr>
 <tr class="memitem:a60a9341093d1f38003eb420f9431694f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_mesh.html#a60a9341093d1f38003eb420f9431694f">loadFromFile</a> (const std::string &amp;filepath)</td></tr>
 <tr class="separator:a60a9341093d1f38003eb420f9431694f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aebd3c295d90a1222cf14b16828eb9e77"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_mesh.html#aebd3c295d90a1222cf14b16828eb9e77">uploadToGPU</a> (const std::vector&lt; <a class="el" href="structshkyera_1_1_mesh_1_1_vertex.html">Vertex</a> &gt; &amp;vertices, const std::vector&lt; unsigned int &gt; &amp;indices)</td></tr>
-<tr class="separator:aebd3c295d90a1222cf14b16828eb9e77"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4a8b1eb138fb14f777035a238aea3034"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_mesh.html#a4a8b1eb138fb14f777035a238aea3034">uploadToGPU</a> ()</td></tr>
+<tr class="separator:a4a8b1eb138fb14f777035a238aea3034"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
+<tr class="memitem:af10178731d7c353b8aeb5a8f8a4b5cc1"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="structshkyera_1_1_mesh_1_1_vertex.html">Vertex</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_mesh.html#af10178731d7c353b8aeb5a8f8a4b5cc1">_vertices</a></td></tr>
+<tr class="separator:af10178731d7c353b8aeb5a8f8a4b5cc1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a17e6393e5a7073a4e64411075795489d"><td class="memItemLeft" align="right" valign="top">std::vector&lt; uint32_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_mesh.html#a17e6393e5a7073a4e64411075795489d">_indices</a></td></tr>
+<tr class="separator:a17e6393e5a7073a4e64411075795489d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afa70e926610bf29c9ce092f52d4531b4"><td class="memItemLeft" align="right" valign="top">GLuint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_mesh.html#afa70e926610bf29c9ce092f52d4531b4">_vao</a></td></tr>
 <tr class="separator:afa70e926610bf29c9ce092f52d4531b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a737a2f3aa8af792603efea333b3455d7"><td class="memItemLeft" align="right" valign="top">GLuint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_mesh.html#a737a2f3aa8af792603efea333b3455d7">_vbo</a></td></tr>
@@ -198,8 +204,8 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a7f300bab73cc93c97f7f54105a83b71f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7f300bab73cc93c97f7f54105a83b71f">&#9670;&nbsp;</a></span>Mesh() <span class="overload">[2/2]</span></h2>
+<a id="a70dc682e465f00185806971c4824d555"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a70dc682e465f00185806971c4824d555">&#9670;&nbsp;</a></span>Mesh() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -207,7 +213,7 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="memname">shkyera::Mesh::Mesh </td>
           <td>(</td>
-          <td class="paramtype">const std::vector&lt; <a class="el" href="structshkyera_1_1_mesh_1_1_vertex.html">Vertex</a> &gt; &amp;&#160;</td>
+          <td class="paramtype">std::vector&lt; <a class="el" href="structshkyera_1_1_mesh_1_1_vertex.html">Vertex</a> &gt;&#160;</td>
           <td class="paramname"><em>vertices</em>, </td>
         </tr>
         <tr>
@@ -265,6 +271,23 @@ Private Attributes</h2></td></tr>
 <span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aca6d043deafe814c00f74616761fb2bb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aca6d043deafe814c00f74616761fb2bb">&#9670;&nbsp;</a></span>getBoundingBox()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structshkyera_1_1_box.html">Box</a> shkyera::Mesh::getBoundingBox </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
 </div><div class="memdoc">
 
 </div>
@@ -420,8 +443,8 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="aebd3c295d90a1222cf14b16828eb9e77"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aebd3c295d90a1222cf14b16828eb9e77">&#9670;&nbsp;</a></span>uploadToGPU()</h2>
+<a id="a4a8b1eb138fb14f777035a238aea3034"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4a8b1eb138fb14f777035a238aea3034">&#9670;&nbsp;</a></span>uploadToGPU()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -432,19 +455,8 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="memname">void shkyera::Mesh::uploadToGPU </td>
           <td>(</td>
-          <td class="paramtype">const std::vector&lt; <a class="el" href="structshkyera_1_1_mesh_1_1_vertex.html">Vertex</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>vertices</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
-          <td class="paramtype">const std::vector&lt; unsigned int &gt; &amp;&#160;</td>
-          <td class="paramname"><em>indices</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -468,6 +480,28 @@ Private Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">GLuint shkyera::Mesh::_ebo</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a17e6393e5a7073a4e64411075795489d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a17e6393e5a7073a4e64411075795489d">&#9670;&nbsp;</a></span>_indices</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;uint32_t&gt; shkyera::Mesh::_indices</td>
         </tr>
       </table>
   </td>
@@ -534,6 +568,28 @@ Private Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">GLuint shkyera::Mesh::_vbo</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af10178731d7c353b8aeb5a8f8a4b5cc1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af10178731d7c353b8aeb5a8f8a4b5cc1">&#9670;&nbsp;</a></span>_vertices</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="structshkyera_1_1_mesh_1_1_vertex.html">Vertex</a>&gt; shkyera::Mesh::_vertices</td>
         </tr>
       </table>
   </td>

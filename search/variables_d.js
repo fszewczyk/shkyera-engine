@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['position_917',['position',['../structshkyera_1_1_mesh_1_1_vertex.html#abcad56902d8cc0b8c5e656f0715668ee',1,'shkyera::Mesh::Vertex']]],
-  ['projectiontype_918',['projectionType',['../classshkyera_1_1_camera_component.html#a610249b4b8b85eb245f09de4e31dcff5',1,'shkyera::CameraComponent']]]
+  ['orientation_998',['orientation',['../structshkyera_1_1_box.html#aa5f435d3402c0e0332c406734b42789f',1,'shkyera::Box']]],
+  ['origin_999',['origin',['../structshkyera_1_1_ray.html#a0e06343523f2cbcd9d52d6c882ce13db',1,'shkyera::Ray']]]
 ];
