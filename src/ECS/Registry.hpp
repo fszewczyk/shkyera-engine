@@ -41,6 +41,12 @@ public:
      */
     void removeEntity(Entity entity);
 
+    std::vector<Entity> getSelectedEntities();
+
+    void selectEntity(Entity entity);
+
+    void clearSelectedEntities();
+
     /**
      * Adds a component to the specified entity.
      * Initializes the component with default values.
@@ -169,6 +175,7 @@ private:
     EntityProvider _entityProvider; //< Manages the creation and management of entities.
 
     Entity _camera;
+    std::vector<Entity> _selectedEntities;
 };
 
 } // namespace shkyera

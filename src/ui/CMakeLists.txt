@@ -38,6 +38,7 @@ target_link_libraries(
     Runtime
     ECS
     Components
+    Common
     AssetManager
     InputManager
     Systems

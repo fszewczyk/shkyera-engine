@@ -1,76 +1,127 @@
-#include <iostream>
-
 #include <Systems/RenderingSystem.hpp>
-#include <Components/CameraComponent.hpp> 
+#include <AssetManager/AssetManager.hpp>
+#include <Components/TransformComponent.hpp>
+#include <Components/ModelComponent.hpp>
+#include <Components/WireframeComponent.hpp>
+#include <Components/CameraComponent.hpp>
+#include <Components/PointLightComponent.hpp>
 
 namespace shkyera {
 
 RenderingSystem::RenderingSystem(std::shared_ptr<Registry> registry)
-    : _registry(registry), _width(0), _height(0) {
-    setupFramebuffer();
+    : _registry(registry) {
+    const auto& vertexShader = AssetManager::getInstance().getAsset<Shader>("resources/shaders/vertex/model.glsl", Shader::Type::Vertex);
+    const auto& modelFragmentShader = AssetManager::getInstance().getAsset<Shader>("resources/shaders/fragment/uber.glsl", Shader::Type::Fragment);
+    const auto& wireframeFragmentShader = AssetManager::getInstance().getAsset<Shader>("resources/shaders/fragment/color.glsl", Shader::Type::Fragment);
+    const auto& outlineVertexShader = AssetManager::getInstance().getAsset<Shader>("resources/shaders/vertex/outline.glsl", Shader::Type::Vertex);
+    const auto& outlineFragmentShader = AssetManager::getInstance().getAsset<Shader>("resources/shaders/fragment/outline.glsl", Shader::Type::Fragment);
+    const auto& blurFragmentShader = AssetManager::getInstance().getAsset<Shader>("resources/shaders/fragment/blur.glsl", Shader::Type::Fragment);
+
+    _modelShaderProgram.attachShader(vertexShader);
+    _modelShaderProgram.attachShader(modelFragmentShader);
+    _modelShaderProgram.link();
+
+    _wireframeShaderProgram.attachShader(vertexShader);
+    _wireframeShaderProgram.attachShader(wireframeFragmentShader);
+    _wireframeShaderProgram.link();
+
+    _outlineShaderProgram.attachShader(outlineVertexShader);
+    _outlineShaderProgram.attachShader(outlineFragmentShader);
+    _outlineShaderProgram.link();
+
+    _blurShaderProgram.attachShader(outlineVertexShader);  // Reuse vertex shader
+    _blurShaderProgram.attachShader(blurFragmentShader);
+    _blurShaderProgram.link();
 }
 
-void RenderingSystem::startFrame() {
-    glBindFramebuffer(GL_FRAMEBUFFER, _fbo);
-    glViewport(0, 0, (GLsizei)_width, (GLsizei)_height);
-    glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+void RenderingSystem::setSize(uint32_t width, uint32_t height)
+{
+    _renderFrameBuffer.setSize(width, height);
+    _silhouetteFrameBuffer.setSize(width, height);
+    _blurredSilhouetteFrameBuffer.setSize(width / 2, height / 2);
+}
+
+GLuint RenderingSystem::getRenderFrameBuffer()
+{
+    return _renderFrameBuffer.getTexture().getID();
+}
+
+void RenderingSystem::render() {
+    _renderFrameBuffer.bind();
+    _renderFrameBuffer.clear();
+
+    renderModels();
+    renderWireframes();
+}
+
+void RenderingSystem::renderModels()
+{
+    _renderFrameBuffer.bind();
     glEnable(GL_DEPTH_TEST);
-}
 
-void RenderingSystem::endFrame() {
-    glDisable(GL_DEPTH_TEST);
-    glBindFramebuffer(GL_FRAMEBUFFER, 0);
-}
+    const auto& cameraTransform = _registry->getComponent<TransformComponent>(_registry->getCamera());
+    const glm::mat4& viewMatrix = _registry->getComponent<CameraComponent>(_registry->getCamera()).getViewMatrix(cameraTransform);
+    const glm::mat4& projectionMatrix = _registry->getComponent<CameraComponent>(_registry->getCamera()).getProjectionMatrix();
 
-void RenderingSystem::setSize(uint32_t width, uint32_t height) {
-    if(width == _width && height == _height) {
-        return;
+    _modelShaderProgram.use();
+    _modelShaderProgram.setUniform("viewMatrix", viewMatrix);
+    _modelShaderProgram.setUniform("projectionMatrix", projectionMatrix);
+    _modelShaderProgram.setUniform("viewPos", cameraTransform.getPosition());
+
+    int lightIndex = 0;
+    for(const auto& [entity, pointLightComponent] : _registry->getComponentSet<PointLightComponent>()) {
+        const auto& transformComponent = _registry->getComponent<TransformComponent>(entity);
+        _modelShaderProgram.setUniform("lights[" + std::to_string(lightIndex) + "].position", transformComponent.getPosition());
+        _modelShaderProgram.setUniform("lights[" + std::to_string(lightIndex) + "].ambient", pointLightComponent.ambient);
+        _modelShaderProgram.setUniform("lights[" + std::to_string(lightIndex) + "].diffuse", pointLightComponent.diffuse);
+        _modelShaderProgram.setUniform("lights[" + std::to_string(lightIndex) + "].specular", pointLightComponent.specular);
+        ++lightIndex;
+    }
+    _modelShaderProgram.setUniform("numLights", lightIndex);
+
+    for (const auto& [entity, modelComponent] : _registry->getComponentSet<ModelComponent>()) {
+        const auto& transformComponent = _registry->getComponent<TransformComponent>(entity);
+        _modelShaderProgram.setUniform("modelMatrix", transformComponent.getTransformMatrix());
+
+        const Material* material = modelComponent.getMaterial();
+        if (material) {
+            _modelShaderProgram.setUniform("material.diffuse", material->getDiffuseColor());
+            _modelShaderProgram.setUniform("material.specular", material->getSpecularColor());
+            _modelShaderProgram.setUniform("material.shininess", material->getShininess());
+        }
+
+        modelComponent.updateImpl();
     }
 
-    _width = width;
-    _height = height;
-
-    float aspectRatio = static_cast<float>(width) / height;
-    _registry->getComponent<CameraComponent>(_registry->getCamera()).aspectRatio = aspectRatio;
-
-    glBindTexture(GL_TEXTURE_2D, _textureColorBuffer);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, (GLsizei)_width, (GLsizei)_height, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
-    glBindRenderbuffer(GL_RENDERBUFFER, _rbo);
-    glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, (GLsizei)_width, (GLsizei)_height);
+    _modelShaderProgram.stopUsing();
+    _renderFrameBuffer.unbind();
 }
 
-GLuint RenderingSystem::getTexture() const {
-    return _textureColorBuffer;
-}
+void RenderingSystem::renderWireframes()
+{
+    _renderFrameBuffer.bind();
+    glEnable(GL_DEPTH_TEST);
 
-void RenderingSystem::setupFramebuffer() {
-    glGenFramebuffers(1, &_fbo);
-    glBindFramebuffer(GL_FRAMEBUFFER, _fbo);
+    const auto& cameraTransform = _registry->getComponent<TransformComponent>(_registry->getCamera());
+    const glm::mat4& viewMatrix = _registry->getComponent<CameraComponent>(_registry->getCamera()).getViewMatrix(cameraTransform);
+    const glm::mat4& projectionMatrix = _registry->getComponent<CameraComponent>(_registry->getCamera()).getProjectionMatrix();
 
-    glGenTextures(1, &_textureColorBuffer);
-    glBindTexture(GL_TEXTURE_2D, _textureColorBuffer);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, (GLsizei)_width, (GLsizei)_height, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, _textureColorBuffer, 0);
+    _wireframeShaderProgram.use();
+    _wireframeShaderProgram.setUniform("viewMatrix", viewMatrix);
+    _wireframeShaderProgram.setUniform("projectionMatrix", projectionMatrix);
 
-    glGenRenderbuffers(1, &_rbo);
-    glBindRenderbuffer(GL_RENDERBUFFER, _rbo);
-    glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, (GLsizei)_width, (GLsizei)_height);
-    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, _rbo);
+    static const glm::vec3 wireframeColor{0.08, 0.7, 0.15};
 
-    if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
-        std::cout << "ERROR::FRAMEBUFFER:: Framebuffer is not complete!" << std::endl;
+    for (const auto& [entity, wireframeComponent] : _registry->getComponentSet<WireframeComponent>()) {
+        const auto& transformComponent = _registry->getComponent<TransformComponent>(entity);
+        _wireframeShaderProgram.setUniform("modelMatrix", transformComponent.getTransformMatrix());
+        _wireframeShaderProgram.setUniform("fixedColor", wireframeColor);
+        wireframeComponent.updateImpl();
     }
 
-    glBindFramebuffer(GL_FRAMEBUFFER, 0);
-}
-
-void RenderingSystem::cleanupFramebuffer() {
-    glDeleteFramebuffers(1, &_fbo);
-    glDeleteTextures(1, &_textureColorBuffer);
-    glDeleteRenderbuffers(1, &_rbo);
+    _wireframeShaderProgram.stopUsing();
+    _renderFrameBuffer.unbind();
 }
 
 }

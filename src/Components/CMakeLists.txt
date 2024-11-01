@@ -26,7 +26,9 @@ target_link_libraries(
     INTERFACE
 
     Rendering
+    Common
     Math
+
     glad
     glm
 )

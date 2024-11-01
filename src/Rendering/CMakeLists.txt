@@ -3,6 +3,8 @@ add_library(
     STATIC
 
     ${CMAKE_CURRENT_LIST_DIR}/ShaderProgram.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/FrameBuffer.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/Texture.cpp
 )
 
 target_include_directories(

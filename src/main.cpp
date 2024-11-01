@@ -6,6 +6,7 @@
 
 #include <AssetManager/Mesh.hpp>
 #include <AssetManager/AssetManager.hpp>
+#include <Common/Types.hpp>
 #include <Components/TransformComponent.hpp>
 #include <Components/WireframeComponent.hpp>
 #include <Components/NameComponent.hpp>
@@ -33,8 +34,8 @@ void addModel(std::shared_ptr<shkyera::Registry> registry,
     registry->addComponent<ModelComponent>(entity);
     registry->getComponent<ModelComponent>(entity).setMesh(mesh);
     registry->getComponent<ModelComponent>(entity).setMaterial(std::make_shared<Material>());
-    registry->addComponent<BoxColliderComponent<ComponentMode::DEVELOPMENT>>(entity);
-    registry->getComponent<BoxColliderComponent<ComponentMode::DEVELOPMENT>>(entity).box = mesh->getBoundingBox();
+    registry->addComponent<BoxColliderComponent<RuntimeMode::DEVELOPMENT>>(entity);
+    registry->getComponent<BoxColliderComponent<RuntimeMode::DEVELOPMENT>>(entity).box = mesh->getBoundingBox();
 }
 
 void addWireframe(std::shared_ptr<shkyera::Registry> registry, 

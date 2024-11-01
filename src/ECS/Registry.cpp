@@ -20,6 +20,21 @@ void Registry::removeEntity(Entity entity) {
   _entityProvider.removeEntity(entity);
 }
 
+std::vector<Entity> Registry::getSelectedEntities()
+{
+    return _selectedEntities;
+}
+
+void Registry::selectEntity(Entity entity)
+{
+    _selectedEntities.emplace_back(entity);
+}
+
+void Registry::clearSelectedEntities()
+{
+    _selectedEntities.clear();
+}
+
 Entity Registry::getCamera() const {
   return _camera;
 }

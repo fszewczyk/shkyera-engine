@@ -3,9 +3,8 @@ add_library(
     STATIC
 
     ${CMAKE_CURRENT_LIST_DIR}/CameraMovementSystem.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/ModelRendererSystem.cpp
     ${CMAKE_CURRENT_LIST_DIR}/RenderingSystem.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/WireframeRendererSystem.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/DevelopmentRendererSystem.cpp
     ${CMAKE_CURRENT_LIST_DIR}/ObjectSelectionSystem.cpp
 )
 
@@ -23,5 +22,6 @@ target_link_libraries(
     glad
     glm::glm
     InputManager
+    Rendering
     ECS
 )

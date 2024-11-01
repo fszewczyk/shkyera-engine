@@ -9,6 +9,8 @@
 #include <memory>
 #include <vector>
 
+#include <glad/glad.h>
+#include <glm/glm.hpp>
 #define GL_SILENCE_DEPRECATION
 #include <GLFW/glfw3.h>
 
@@ -103,7 +105,6 @@ class UI {
     GLFWwindow *_window; ///< The UI window.
 
     std::unique_ptr<ObjectSelectionSystem> _objectSelectionSystem;
-
 };
 
 } // namespace shkyera

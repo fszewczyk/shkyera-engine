@@ -1,11 +1,8 @@
 #pragma once
 
-namespace shkyera {
+#include <Common/Types.hpp>
 
-enum ComponentMode {
-    DEVELOPMENT,
-    PRODUCTION
-};
+namespace shkyera {
 
 /**
  * @brief Base component for implementing update functionality.
@@ -14,7 +11,7 @@ enum ComponentMode {
  *
  * @tparam Derived Type of the derived class inheriting from BaseComponent.
  */
-template <typename Derived, ComponentMode Mode = PRODUCTION>
+template <typename Derived, RuntimeMode Mode = RuntimeMode::PRODUCTION>
 class BaseComponent {
 public:
     /**

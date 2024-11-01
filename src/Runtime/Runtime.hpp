@@ -2,29 +2,43 @@
 
 #include <memory>
 #include <ECS/Registry.hpp>
+#include <Common/Types.hpp>
 
 #include <Systems/CameraMovementSystem.hpp>
-#include <Systems/ModelRendererSystem.hpp>
-#include <Systems/ObjectSelectionSystem.hpp>
 #include <Systems/RenderingSystem.hpp>
-#include <Systems/WireframeRendererSystem.hpp>
+#include <Systems/DevelopmentRendererSystem.hpp>
+#include <Systems/ObjectSelectionSystem.hpp>
+#include <Rendering/FrameBuffer.hpp>
 
 namespace shkyera {
 
+template<RuntimeMode Mode>
 class Runtime {
 public:
-    Runtime(std::shared_ptr<Registry> registry);
-    void update();
+    Runtime(std::shared_ptr<Registry> registry)
+      : _registry(registry),
+        _cameraMovementSystem(registry),
+        _renderingSystem(registry) {}
 
-    RenderingSystem& getRenderingSystem();
-    const RenderingSystem& getRenderingSystem() const;
+    void update() {
+        _cameraMovementSystem.update();
+        _renderingSystem.render();
+    }
+
+    RenderingSystem& getRenderingSystem() {
+        return _renderingSystem;
+    }
+
+    const RenderingSystem& getRenderingSystem() const {
+        return _renderingSystem;
+    }
+
 
 private:
     std::shared_ptr<Registry> _registry;
+
     CameraMovementSystem _cameraMovementSystem;
     RenderingSystem _renderingSystem;
-    ModelRendererSystem _modelRendererSystem;
-    WireframeRendererSystem _wireframeRendererSystem;
 };
 
 }

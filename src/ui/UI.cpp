@@ -91,12 +91,18 @@ void UI::initializeWidgets() {
   _widgets.emplace_back(std::make_unique<ConsoleWidget>("Console"));
 
   auto propertiesWidget = std::make_unique<PropertiesWidget>(_registry);
+  auto onObjectSelect = [r = _registry, p = propertiesWidget.get()](Entity e) 
+  {
+    r->clearSelectedEntities();
+    r->selectEntity(e);
+    p->selectEntity(e);
+  };
   _objectSelectionSystem = std::make_unique<ObjectSelectionSystem>(_registry);
+  _objectSelectionSystem->setOnSelectCallback(onObjectSelect);
+
   auto objectsWidget = std::make_unique<ObjectsWidget>("Objects");
   objectsWidget->setRegistry(_registry);
-  objectsWidget->addOnSelectEntityCallback(
-      [w = propertiesWidget.get()](Entity e) { w->selectEntity(e); });
-  _objectSelectionSystem->setOnSelectCallback([w = propertiesWidget.get()](Entity e) { w->selectEntity(e); });
+  objectsWidget->addOnSelectEntityCallback(onObjectSelect);
 
   _widgets.emplace_back(std::move(objectsWidget));
   _widgets.emplace_back(std::move(propertiesWidget));

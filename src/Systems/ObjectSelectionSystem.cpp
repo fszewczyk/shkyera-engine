@@ -32,11 +32,11 @@ void ObjectSelectionSystem::tryToSelectObject() {
 
     const auto& cameraTransform = _registry->getComponent<TransformComponent>(camera);
     const auto& cameraComponent = _registry->getComponent<CameraComponent>(camera);
-    auto ray = cameraComponent.getRayAt(cameraTransform, mousePosition.x, mousePosition.y);
+    auto ray = cameraComponent.getRayAt(cameraTransform, mousePosition.x, 1 - mousePosition.y);
 
     float closestDistance = FLT_MAX;
     std::optional<Entity> closestEntity;
-    for(const auto& [entity, boxColliderComponent] : _registry->getComponentSet<BoxColliderComponent<ComponentMode::DEVELOPMENT>>()) {
+    for(const auto& [entity, boxColliderComponent] : _registry->getComponentSet<BoxColliderComponent<RuntimeMode::DEVELOPMENT>>()) {
         const auto& transform = _registry->getComponent<TransformComponent>(entity);
         float near, far;
         bool intersected = boxColliderComponent.intersect(transform, ray, near, far);

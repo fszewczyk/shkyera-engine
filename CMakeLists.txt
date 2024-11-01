@@ -33,6 +33,7 @@ add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/src/UI)
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/src/InputManager)
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/src/Math)
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/src/Systems)
+add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/src/Common)
 
 add_executable(ShkyeraEngine src/main.cpp)
 

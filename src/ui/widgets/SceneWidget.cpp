@@ -9,13 +9,14 @@
 #include <AssetManager/AssetManager.hpp>
 #include <AssetManager/Shader.hpp>
 #include <Components/NameComponent.hpp>
+#include <Components/CameraComponent.hpp>
 #include <UI/Widgets/ConsoleWidget.hpp>
 #include <UI/Widgets/SceneWidget.hpp>
 
 
 namespace shkyera {
 
-SceneWidget::SceneWidget(std::shared_ptr<Registry> registry) : Widget("Scene"), _runtime(std::move(registry)) {}
+SceneWidget::SceneWidget(std::shared_ptr<Registry> registry) : Widget("Scene"), _registry(registry), _runtime(std::move(registry)) {}
 
 void SceneWidget::draw() {
     ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
@@ -24,9 +25,12 @@ void SceneWidget::draw() {
     auto renderSize = ImGui::GetContentRegionAvail();
     updateWindowCoordinateSystem();
     _runtime.getRenderingSystem().setSize(renderSize.x * 2, renderSize.y * 2);
+    const auto aspectRatio = static_cast<float>(renderSize.x) / renderSize.y;
+    _registry->getComponent<CameraComponent>(_registry->getCamera()).aspectRatio = aspectRatio;
+
     _runtime.update();
 
-    ImGui::Image((void*)(intptr_t)_runtime.getRenderingSystem().getTexture(), renderSize);
+    ImGui::Image((void*)(intptr_t)_runtime.getRenderingSystem().getRenderFrameBuffer(), renderSize);
     
     ImGui::End();
     ImGui::PopStyleVar();

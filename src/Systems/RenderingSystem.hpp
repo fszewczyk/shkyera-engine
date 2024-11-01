@@ -1,28 +1,36 @@
 #pragma once
 
 #include <memory>
-#include <glad/glad.h>
-#include <ECS/Registry.hpp>
 
+#include <Common/Types.hpp>
+#include <ECS/Registry.hpp>
+#include <Rendering/ShaderProgram.hpp>
+#include <Rendering/FrameBuffer.hpp>
 
 namespace shkyera {
 
 class RenderingSystem {
 public:
     RenderingSystem(std::shared_ptr<Registry> registry);
+    void render();
 
-    void startFrame();
-    void endFrame();
     void setSize(uint32_t width, uint32_t height);
-    GLuint getTexture() const;
+    GLuint getRenderFrameBuffer();
 
 private:
-    void setupFramebuffer();
-    void cleanupFramebuffer();
+    void renderModels();
+    void renderWireframes();
 
     std::shared_ptr<Registry> _registry;
-    GLuint _fbo, _textureColorBuffer, _rbo;
-    uint32_t _width, _height;
+    
+    FrameBuffer _renderFrameBuffer;
+    FrameBuffer _silhouetteFrameBuffer;
+    FrameBuffer _blurredSilhouetteFrameBuffer;
+
+    ShaderProgram _modelShaderProgram;
+    ShaderProgram _wireframeShaderProgram;
+    ShaderProgram _outlineShaderProgram;
+    ShaderProgram _blurShaderProgram;
 };
 
 }
