@@ -18,19 +18,27 @@ public:
     GLuint getRenderFrameBuffer();
 
 private:
+    void renderOutline(const std::vector<Entity>& entities);
     void renderModels();
     void renderWireframes();
 
     std::shared_ptr<Registry> _registry;
     
+    // Main Rendering
     FrameBuffer _renderFrameBuffer;
-    FrameBuffer _silhouetteFrameBuffer;
-    FrameBuffer _blurredSilhouetteFrameBuffer;
-
     ShaderProgram _modelShaderProgram;
     ShaderProgram _wireframeShaderProgram;
-    ShaderProgram _outlineShaderProgram;
-    ShaderProgram _blurShaderProgram;
+
+    // Rendering Object Outline
+    FrameBuffer _silhouetteFrameBuffer;
+    FrameBuffer _horizontallyDilatedFrameBuffer;
+    FrameBuffer _fullyDilatedFrameBuffer;
+    FrameBuffer _differenceFrameBuffer;
+
+    ShaderProgram _silhouetteShaderProgram;
+    ShaderProgram _dilateShaderProgram;
+    ShaderProgram _subtractShaderProgram;
+    ShaderProgram _overlayShaderProgram;
 };
 
 }

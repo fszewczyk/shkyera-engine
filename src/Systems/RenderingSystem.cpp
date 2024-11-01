@@ -1,5 +1,6 @@
 #include <Systems/RenderingSystem.hpp>
 #include <AssetManager/AssetManager.hpp>
+#include <Rendering/Utils.hpp>
 #include <Components/TransformComponent.hpp>
 #include <Components/ModelComponent.hpp>
 #include <Components/WireframeComponent.hpp>
@@ -10,36 +11,47 @@ namespace shkyera {
 
 RenderingSystem::RenderingSystem(std::shared_ptr<Registry> registry)
     : _registry(registry) {
-    const auto& vertexShader = AssetManager::getInstance().getAsset<Shader>("resources/shaders/vertex/model.glsl", Shader::Type::Vertex);
+    const auto& positionAndNormalVertexShader = AssetManager::getInstance().getAsset<Shader>("resources/shaders/vertex/position_and_normal.glsl", Shader::Type::Vertex);
+    const auto& positionVertexShader = AssetManager::getInstance().getAsset<Shader>("resources/shaders/vertex/position.glsl", Shader::Type::Vertex);
+    const auto& texCoordsVertexShader = AssetManager::getInstance().getAsset<Shader>("resources/shaders/vertex/texcoords.glsl", Shader::Type::Vertex);
     const auto& modelFragmentShader = AssetManager::getInstance().getAsset<Shader>("resources/shaders/fragment/uber.glsl", Shader::Type::Fragment);
-    const auto& wireframeFragmentShader = AssetManager::getInstance().getAsset<Shader>("resources/shaders/fragment/color.glsl", Shader::Type::Fragment);
-    const auto& outlineVertexShader = AssetManager::getInstance().getAsset<Shader>("resources/shaders/vertex/outline.glsl", Shader::Type::Vertex);
-    const auto& outlineFragmentShader = AssetManager::getInstance().getAsset<Shader>("resources/shaders/fragment/outline.glsl", Shader::Type::Fragment);
-    const auto& blurFragmentShader = AssetManager::getInstance().getAsset<Shader>("resources/shaders/fragment/blur.glsl", Shader::Type::Fragment);
+    const auto& fixedColorFragmentShader = AssetManager::getInstance().getAsset<Shader>("resources/shaders/fragment/color.glsl", Shader::Type::Fragment);
+    const auto& dilateFragmentShader = AssetManager::getInstance().getAsset<Shader>("resources/shaders/fragment/dilate.glsl", Shader::Type::Fragment);
+    const auto& subtractFragmentShader = AssetManager::getInstance().getAsset<Shader>("resources/shaders/fragment/subtract.glsl", Shader::Type::Fragment);
+    const auto& overlayFragmentShader = AssetManager::getInstance().getAsset<Shader>("resources/shaders/fragment/overlay.glsl", Shader::Type::Fragment);
 
-    _modelShaderProgram.attachShader(vertexShader);
+    _modelShaderProgram.attachShader(positionAndNormalVertexShader);
     _modelShaderProgram.attachShader(modelFragmentShader);
     _modelShaderProgram.link();
 
-    _wireframeShaderProgram.attachShader(vertexShader);
-    _wireframeShaderProgram.attachShader(wireframeFragmentShader);
+    _wireframeShaderProgram.attachShader(positionAndNormalVertexShader);
+    _wireframeShaderProgram.attachShader(fixedColorFragmentShader);
     _wireframeShaderProgram.link();
 
-    _outlineShaderProgram.attachShader(outlineVertexShader);
-    _outlineShaderProgram.attachShader(outlineFragmentShader);
-    _outlineShaderProgram.link();
+    _silhouetteShaderProgram.attachShader(positionVertexShader);
+    _silhouetteShaderProgram.attachShader(fixedColorFragmentShader);
+    _silhouetteShaderProgram.link();
 
-    _blurShaderProgram.attachShader(outlineVertexShader);  // Reuse vertex shader
-    _blurShaderProgram.attachShader(blurFragmentShader);
-    _blurShaderProgram.link();
+    _dilateShaderProgram.attachShader(texCoordsVertexShader);
+    _dilateShaderProgram.attachShader(dilateFragmentShader);
+    _dilateShaderProgram.link();
+
+    _subtractShaderProgram.attachShader(texCoordsVertexShader);
+    _subtractShaderProgram.attachShader(subtractFragmentShader);
+    _subtractShaderProgram.link();
+
+    _overlayShaderProgram.attachShader(texCoordsVertexShader);
+    _overlayShaderProgram.attachShader(overlayFragmentShader);
+    _overlayShaderProgram.link();
 }
-
 
 void RenderingSystem::setSize(uint32_t width, uint32_t height)
 {
     _renderFrameBuffer.setSize(width, height);
     _silhouetteFrameBuffer.setSize(width, height);
-    _blurredSilhouetteFrameBuffer.setSize(width / 2, height / 2);
+    _horizontallyDilatedFrameBuffer.setSize(width, height);
+    _fullyDilatedFrameBuffer.setSize(width, height);
+    _differenceFrameBuffer.setSize(width, height);
 }
 
 GLuint RenderingSystem::getRenderFrameBuffer()
@@ -50,15 +62,89 @@ GLuint RenderingSystem::getRenderFrameBuffer()
 void RenderingSystem::render() {
     _renderFrameBuffer.bind();
     _renderFrameBuffer.clear();
+    _renderFrameBuffer.unbind();
 
+    // Main Rendering Pass
     renderModels();
     renderWireframes();
+    renderOutline(_registry->getSelectedEntities());
+}
+
+void RenderingSystem::renderOutline(const std::vector<Entity>& entities)
+{
+    glDisable(GL_DEPTH_TEST);
+
+    // Drawing a silhouette
+    _silhouetteFrameBuffer.bind();
+    _silhouetteFrameBuffer.clear();
+    const auto& cameraTransform = _registry->getComponent<TransformComponent>(_registry->getCamera());
+    const glm::mat4& viewMatrix = _registry->getComponent<CameraComponent>(_registry->getCamera()).getViewMatrix(cameraTransform);
+    const glm::mat4& projectionMatrix = _registry->getComponent<CameraComponent>(_registry->getCamera()).getProjectionMatrix();
+    _silhouetteShaderProgram.use();
+    _silhouetteShaderProgram.setUniform("viewMatrix", viewMatrix);
+    _silhouetteShaderProgram.setUniform("projectionMatrix", projectionMatrix);
+    _silhouetteShaderProgram.setUniform("fixedColor", glm::vec3{1.0, 0.1, 1.0});
+    for (const auto& entity : entities) {
+        const auto& modelComponent = _registry->getComponent<ModelComponent>(entity);
+        const auto& transformComponent = _registry->getComponent<TransformComponent>(entity);
+        _silhouetteShaderProgram.setUniform("modelMatrix", transformComponent.getTransformMatrix());
+        modelComponent.updateImpl();
+    }
+    _silhouetteShaderProgram.stopUsing();
+    _silhouetteFrameBuffer.unbind();
+
+    // First horizontal blur pass
+    _horizontallyDilatedFrameBuffer.bind();
+    _horizontallyDilatedFrameBuffer.clear();
+    _dilateShaderProgram.use();
+    _dilateShaderProgram.setUniform("horizontal", true);
+    _dilateShaderProgram.setUniform("kernelSize", 3);
+    _silhouetteFrameBuffer.getTexture().activate(GL_TEXTURE0);
+    _dilateShaderProgram.setUniform("silhouetteTexture", 0);
+    utils::drawFullscreenQuad();
+    _dilateShaderProgram.stopUsing();
+    _horizontallyDilatedFrameBuffer.unbind();
+
+    // Second, vertical blur pass
+    _fullyDilatedFrameBuffer.bind();
+    _fullyDilatedFrameBuffer.clear();
+    _dilateShaderProgram.use();
+    _dilateShaderProgram.setUniform("horizontal", false);
+    _dilateShaderProgram.setUniform("kernelSize", 3);
+    _horizontallyDilatedFrameBuffer.getTexture().activate(GL_TEXTURE0);
+    _dilateShaderProgram.setUniform("silhouetteTexture", 0);
+    utils::drawFullscreenQuad();
+    _dilateShaderProgram.stopUsing();
+    _fullyDilatedFrameBuffer.unbind();
+
+    // Third, subtract the silhouette from the dilated image
+    _differenceFrameBuffer.bind();
+    _subtractShaderProgram.use();
+    _fullyDilatedFrameBuffer.getTexture().activate(GL_TEXTURE0);
+    _subtractShaderProgram.setUniform("first", 0);
+    _silhouetteFrameBuffer.getTexture().activate(GL_TEXTURE1);
+    _subtractShaderProgram.setUniform("second", 1);
+    utils::drawFullscreenQuad();
+    _silhouetteShaderProgram.stopUsing();
+    _differenceFrameBuffer.unbind();
+
+    // Final blending
+    _renderFrameBuffer.bind();
+    _overlayShaderProgram.use();
+    _renderFrameBuffer.getTexture().activate(GL_TEXTURE0);
+    _overlayShaderProgram.setUniform("background", 0);
+    _differenceFrameBuffer.getTexture().activate(GL_TEXTURE1);
+    _overlayShaderProgram.setUniform("overlay", 1);
+    utils::drawFullscreenQuad();
+    _overlayShaderProgram.stopUsing();
+    _renderFrameBuffer.unbind();
 }
 
 void RenderingSystem::renderModels()
 {
-    _renderFrameBuffer.bind();
     glEnable(GL_DEPTH_TEST);
+
+    _renderFrameBuffer.bind();
 
     const auto& cameraTransform = _registry->getComponent<TransformComponent>(_registry->getCamera());
     const glm::mat4& viewMatrix = _registry->getComponent<CameraComponent>(_registry->getCamera()).getViewMatrix(cameraTransform);
@@ -100,8 +186,9 @@ void RenderingSystem::renderModels()
 
 void RenderingSystem::renderWireframes()
 {
-    _renderFrameBuffer.bind();
     glEnable(GL_DEPTH_TEST);
+
+    _renderFrameBuffer.bind();
 
     const auto& cameraTransform = _registry->getComponent<TransformComponent>(_registry->getCamera());
     const glm::mat4& viewMatrix = _registry->getComponent<CameraComponent>(_registry->getCamera()).getViewMatrix(cameraTransform);
