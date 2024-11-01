@@ -8,12 +8,14 @@
 #include <Components/WireframeComponent.hpp>
 #include <Components/BoxColliderComponent.hpp>
 #include <Components/PointLightComponent.hpp>
+#include <Components/DirectionalLightComponent.hpp>
 
 #include <UI/Common/Style.hpp>
 #include <UI/Components/TransformComponentUI.hpp>
 #include <UI/Components/ModelComponentUI.hpp>
 #include <UI/Components/WireframeComponentUI.hpp>
 #include <UI/Components/PointLightComponentUI.hpp>
+#include <UI/Components/DirectionalLightComponentUI.hpp>
 #include <UI/Widgets/PropertiesWidget.hpp>
 
 namespace shkyera {
@@ -28,8 +30,8 @@ void PropertiesWidget::draw() {
 
     if(!_selectedEntity.has_value() || firstSelectedEntity != *_selectedEntity)
     {
-      setupComponentsUI();
       _selectedEntity = firstSelectedEntity;
+      setupComponentsUI();
     }
 
     ImGui::PushID(*_selectedEntity);
@@ -99,6 +101,13 @@ void PropertiesWidget::setupComponentsUI() {
     
     _componentsUi.emplace_back(std::move(componentUi));
   }
+
+  if(_registry->hasComponent<DirectionalLightComponent>(*_selectedEntity)) {    
+    auto &component = _registry->getComponent<DirectionalLightComponent>(*_selectedEntity);
+    auto componentUi = std::make_unique<DirectionalLightComponentUI>(&component);
+    
+    _componentsUi.emplace_back(std::move(componentUi));
+  }
 }
 
 void PropertiesWidget::drawNewComponentMenu() {
@@ -128,6 +137,12 @@ void PropertiesWidget::drawNewComponentMenu() {
 
     if (ImGui::Selectable("Point Light")) {
       _registry->addComponent<PointLightComponent>(*_selectedEntity);
+      setupComponentsUI();
+      ImGui::CloseCurrentPopup();
+    }
+
+    if (ImGui::Selectable("Directional Light")) {
+      _registry->addComponent<DirectionalLightComponent>(*_selectedEntity);
       setupComponentsUI();
       ImGui::CloseCurrentPopup();
     }

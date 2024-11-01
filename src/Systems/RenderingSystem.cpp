@@ -6,6 +6,7 @@
 #include <Components/WireframeComponent.hpp>
 #include <Components/CameraComponent.hpp>
 #include <Components/PointLightComponent.hpp>
+#include <Components/DirectionalLightComponent.hpp>
 
 namespace shkyera {
 
@@ -150,16 +151,27 @@ void RenderingSystem::renderModels()
     _modelShaderProgram.setUniform("projectionMatrix", projectionMatrix);
     _modelShaderProgram.setUniform("viewPos", cameraTransform.getPosition());
 
-    int lightIndex = 0;
+    int pointLightIndex = 0;
     for(const auto& [entity, pointLightComponent] : _registry->getComponentSet<PointLightComponent>()) {
         const auto& transformComponent = _registry->getComponent<TransformComponent>(entity);
-        _modelShaderProgram.setUniform("lights[" + std::to_string(lightIndex) + "].position", transformComponent.getPosition());
-        _modelShaderProgram.setUniform("lights[" + std::to_string(lightIndex) + "].ambient", pointLightComponent.ambient);
-        _modelShaderProgram.setUniform("lights[" + std::to_string(lightIndex) + "].diffuse", pointLightComponent.diffuse);
-        _modelShaderProgram.setUniform("lights[" + std::to_string(lightIndex) + "].specular", pointLightComponent.specular);
-        ++lightIndex;
+        _modelShaderProgram.setUniform("pointLights[" + std::to_string(pointLightIndex) + "].position", transformComponent.getPosition());
+        _modelShaderProgram.setUniform("pointLights[" + std::to_string(pointLightIndex) + "].diffuse", pointLightComponent.diffuse);
+        _modelShaderProgram.setUniform("pointLights[" + std::to_string(pointLightIndex) + "].specular", pointLightComponent.specular);
+        ++pointLightIndex;
     }
-    _modelShaderProgram.setUniform("numLights", lightIndex);
+    _modelShaderProgram.setUniform("numPointLights", pointLightIndex);
+
+    int directionalLightIndex = 0;
+    for(const auto& [entity, pointLightComponent] : _registry->getComponentSet<DirectionalLightComponent>()) {
+        const auto& rotationMatrix = _registry->getComponent<TransformComponent>(entity).getRotationMatrix();
+        auto lightDirection = rotationMatrix * glm::vec4{0, 0, 1, 1};
+
+        _modelShaderProgram.setUniform("directionalLights[" + std::to_string(directionalLightIndex) + "].direction", glm::vec3{lightDirection.x, lightDirection.y, lightDirection.z});
+        _modelShaderProgram.setUniform("directionalLights[" + std::to_string(directionalLightIndex) + "].diffuse", pointLightComponent.diffuse);
+        _modelShaderProgram.setUniform("directionalLights[" + std::to_string(directionalLightIndex) + "].specular", pointLightComponent.specular);
+        ++directionalLightIndex;
+    }
+    _modelShaderProgram.setUniform("numDirectionalLights", directionalLightIndex);
 
     for (const auto& [entity, modelComponent] : _registry->getComponentSet<ModelComponent>()) {
         const auto& transformComponent = _registry->getComponent<TransformComponent>(entity);

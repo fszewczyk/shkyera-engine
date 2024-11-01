@@ -7,16 +7,25 @@ in vec3 Normal;   // Normal in world space
 
 uniform vec3 viewPos;  // Camera position
 
-// Light structure
-struct Light {
+struct PointLight {
   vec3 position;  // Light position
-  vec3 ambient;   // Ambient light color
   vec3 diffuse;   // Diffuse light color
   vec3 specular;  // Specular light color
 };
 
-uniform int numLights;     // Number of active lights
-uniform Light lights[16];  // Array of lights (supporting up to 16 point lights)
+struct DirectionalLight {
+  vec3 direction;  // Light position
+  vec3 diffuse;    // Diffuse light color
+  vec3 specular;   // Specular light color
+};
+
+uniform vec3 ambientLight;
+
+uniform int numPointLights;
+uniform PointLight pointLights[16];
+
+uniform int numDirectionalLights;
+uniform DirectionalLight directionalLights[16];
 
 // Material structure
 struct Material {
@@ -25,31 +34,40 @@ struct Material {
   float shininess;  // Shininess factor
 };
 
-uniform Material material;  // Material properties
+uniform Material material;
 
 void main() {
-  vec3 result = vec3(0.0);  // Initialize lighting result
+  vec3 result = ambientLight * material.diffuse;
 
-  // Process each light source
-  for (int i = 0; i < numLights; ++i) {
-    // Ambient component
-    vec3 ambient = lights[i].ambient * material.diffuse;
-
-    // Diffuse component
-    vec3 lightDir = normalize(lights[i].position - FragPos);
+  for (int i = 0; i < numPointLights; ++i) {
+    // Diffuse
+    vec3 lightDir = normalize(pointLights[i].position - FragPos);
     float diff = max(dot(Normal, lightDir), 0.0);
-    vec3 diffuse = lights[i].diffuse * diff * material.diffuse;
+    vec3 diffuse = pointLights[i].diffuse * diff * material.diffuse;
 
-    // Specular component
+    // Specular
     vec3 viewDir = normalize(viewPos - FragPos);
     vec3 reflectDir = reflect(-lightDir, Normal);
     float spec = pow(max(dot(viewDir, reflectDir), 0.0), material.shininess);
-    vec3 specular = lights[i].specular * spec * material.specular;
+    vec3 specular = pointLights[i].specular * spec * material.specular;
 
-    // Accumulate the lighting
-    result += ambient + diffuse + specular;
+    result += diffuse + specular;
   }
 
-  FragColor =
-      vec4(result, 1.0);  // Set the final fragment color with full opacity
+  for (int i = 0; i < numDirectionalLights; ++i) {
+    // Diffuse
+    vec3 lightDir = directionalLights[i].direction;
+    float diff = max(dot(Normal, lightDir), 0.0);
+    vec3 diffuse = directionalLights[i].diffuse * diff * material.diffuse;
+
+    // Specular
+    vec3 viewDir = normalize(viewPos - FragPos);
+    vec3 reflectDir = reflect(-lightDir, Normal);
+    float spec = pow(max(dot(viewDir, reflectDir), 0.0), material.shininess);
+    vec3 specular = directionalLights[i].specular * spec * material.specular;
+
+    result += diffuse + specular;
+  }
+
+  FragColor = vec4(result, 1.0);
 }

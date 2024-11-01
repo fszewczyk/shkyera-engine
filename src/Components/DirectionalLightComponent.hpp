@@ -8,7 +8,7 @@
 
 namespace shkyera {
 
-class PointLightComponent : public BaseComponent<PointLightComponent> {
+class DirectionalLightComponent : public BaseComponent<DirectionalLightComponent> {
 public:
     glm::vec3 diffuse = {0.5, 0.5, 0.5};
     glm::vec3 specular = {0.5, 0.5, 0.5};
