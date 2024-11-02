@@ -6,6 +6,7 @@
 #include <Components/WireframeComponent.hpp>
 #include <Components/CameraComponent.hpp>
 #include <Components/PointLightComponent.hpp>
+#include <Components/SkyboxComponent.hpp>
 #include <Components/DirectionalLightComponent.hpp>
 
 namespace shkyera {
@@ -13,37 +14,42 @@ namespace shkyera {
 RenderingSystem::RenderingSystem(std::shared_ptr<Registry> registry)
     : _registry(registry) {
     const auto& positionAndNormalVertexShader = AssetManager::getInstance().getAsset<Shader>("resources/shaders/vertex/position_and_normal.glsl", Shader::Type::Vertex);
-    const auto& positionVertexShader = AssetManager::getInstance().getAsset<Shader>("resources/shaders/vertex/position.glsl", Shader::Type::Vertex);
-    const auto& texCoordsVertexShader = AssetManager::getInstance().getAsset<Shader>("resources/shaders/vertex/texcoords.glsl", Shader::Type::Vertex);
     const auto& modelFragmentShader = AssetManager::getInstance().getAsset<Shader>("resources/shaders/fragment/uber.glsl", Shader::Type::Fragment);
-    const auto& fixedColorFragmentShader = AssetManager::getInstance().getAsset<Shader>("resources/shaders/fragment/color.glsl", Shader::Type::Fragment);
-    const auto& dilateFragmentShader = AssetManager::getInstance().getAsset<Shader>("resources/shaders/fragment/dilate.glsl", Shader::Type::Fragment);
-    const auto& subtractFragmentShader = AssetManager::getInstance().getAsset<Shader>("resources/shaders/fragment/subtract.glsl", Shader::Type::Fragment);
-    const auto& overlayFragmentShader = AssetManager::getInstance().getAsset<Shader>("resources/shaders/fragment/overlay.glsl", Shader::Type::Fragment);
-
     _modelShaderProgram.attachShader(positionAndNormalVertexShader);
     _modelShaderProgram.attachShader(modelFragmentShader);
     _modelShaderProgram.link();
 
+    const auto& fixedColorFragmentShader = AssetManager::getInstance().getAsset<Shader>("resources/shaders/fragment/color.glsl", Shader::Type::Fragment);
     _wireframeShaderProgram.attachShader(positionAndNormalVertexShader);
     _wireframeShaderProgram.attachShader(fixedColorFragmentShader);
     _wireframeShaderProgram.link();
 
+    const auto& positionVertexShader = AssetManager::getInstance().getAsset<Shader>("resources/shaders/vertex/position.glsl", Shader::Type::Vertex);
     _silhouetteShaderProgram.attachShader(positionVertexShader);
     _silhouetteShaderProgram.attachShader(fixedColorFragmentShader);
     _silhouetteShaderProgram.link();
 
+    const auto& texCoordsVertexShader = AssetManager::getInstance().getAsset<Shader>("resources/shaders/vertex/texcoords.glsl", Shader::Type::Vertex);
+    const auto& dilateFragmentShader = AssetManager::getInstance().getAsset<Shader>("resources/shaders/fragment/dilate.glsl", Shader::Type::Fragment);
     _dilateShaderProgram.attachShader(texCoordsVertexShader);
     _dilateShaderProgram.attachShader(dilateFragmentShader);
     _dilateShaderProgram.link();
 
+    const auto& subtractFragmentShader = AssetManager::getInstance().getAsset<Shader>("resources/shaders/fragment/subtract.glsl", Shader::Type::Fragment);
     _subtractShaderProgram.attachShader(texCoordsVertexShader);
     _subtractShaderProgram.attachShader(subtractFragmentShader);
     _subtractShaderProgram.link();
 
+    const auto& overlayFragmentShader = AssetManager::getInstance().getAsset<Shader>("resources/shaders/fragment/overlay.glsl", Shader::Type::Fragment);
     _overlayShaderProgram.attachShader(texCoordsVertexShader);
     _overlayShaderProgram.attachShader(overlayFragmentShader);
     _overlayShaderProgram.link();
+
+    const auto& skyboxVertexShader = AssetManager::getInstance().getAsset<Shader>("resources/shaders/vertex/skybox.glsl", Shader::Type::Vertex);
+    const auto& cubeMapFragmentShader = AssetManager::getInstance().getAsset<Shader>("resources/shaders/fragment/cubemap.glsl", Shader::Type::Fragment);
+    _skyboxShaderProgram.attachShader(skyboxVertexShader);
+    _skyboxShaderProgram.attachShader(cubeMapFragmentShader);
+    _skyboxShaderProgram.link();
 }
 
 void RenderingSystem::setSize(uint32_t width, uint32_t height)
@@ -66,6 +72,7 @@ void RenderingSystem::render() {
     _renderFrameBuffer.unbind();
 
     // Main Rendering Pass
+    renderSkybox();
     renderModels();
     renderWireframes();
     renderOutline(_registry->getSelectedEntities());
@@ -104,7 +111,7 @@ void RenderingSystem::renderOutline(const std::unordered_set<Entity>& entities)
             { "silhouetteTexture", &_silhouetteFrameBuffer.getTexture() }
         },
         utils::Uniform("horizontal", true),
-        utils::Uniform("kernelSize", 3)
+        utils::Uniform("kernelSize", 5)
     );
 
     utils::applyShaderToFrameBuffer(
@@ -114,7 +121,7 @@ void RenderingSystem::renderOutline(const std::unordered_set<Entity>& entities)
             { "silhouetteTexture", &_horizontallyDilatedFrameBuffer.getTexture() }
         },
         utils::Uniform("horizontal", false),
-        utils::Uniform("kernelSize", 3)
+        utils::Uniform("kernelSize", 5)
     );
 
     utils::applyShaderToFrameBuffer(
@@ -150,6 +157,13 @@ void RenderingSystem::renderModels()
     _modelShaderProgram.setUniform("viewMatrix", viewMatrix);
     _modelShaderProgram.setUniform("projectionMatrix", projectionMatrix);
     _modelShaderProgram.setUniform("viewPos", cameraTransform.getPosition());
+
+    glm::vec3 ambientLight{0, 0, 0};
+    for(const auto& skybox : _registry->getComponents<SkyboxComponent>())
+    {
+        ambientLight += skybox.ambientLight;
+    }
+    _modelShaderProgram.setUniform("ambientLight", ambientLight);
 
     int pointLightIndex = 0;
     for(const auto& [entity, pointLightComponent] : _registry->getComponentSet<PointLightComponent>()) {
@@ -216,6 +230,33 @@ void RenderingSystem::renderWireframes()
 
     _wireframeShaderProgram.stopUsing();
     _renderFrameBuffer.unbind();
+}
+
+void RenderingSystem::renderSkybox()
+{
+    const auto& cameraTransform = _registry->getComponent<TransformComponent>(_registry->getCamera());
+    const glm::mat4& viewMatrix = _registry->getComponent<CameraComponent>(_registry->getCamera()).getViewMatrix(cameraTransform);
+    const glm::mat4& projectionMatrix = _registry->getComponent<CameraComponent>(_registry->getCamera()).getProjectionMatrix();
+    static auto* cubemap = Mesh::Factory::createCubeMap();
+
+    glDepthFunc(GL_LEQUAL);
+
+    _renderFrameBuffer.bind();
+    _skyboxShaderProgram.use();
+    _skyboxShaderProgram.setUniform("viewMatrix", glm::mat4(viewMatrix));
+    _skyboxShaderProgram.setUniform("projectionMatrix", projectionMatrix);
+
+    for(const auto& skybox : _registry->getComponents<SkyboxComponent>())
+    {
+        skybox.skyboxCubeMap.activate(GL_TEXTURE0);
+        _skyboxShaderProgram.setUniform("skybox", 0);
+        cubemap->draw();
+    }
+    
+    _skyboxShaderProgram.stopUsing();
+    _renderFrameBuffer.unbind();
+
+    glDepthFunc(GL_LESS);
 }
 
 }

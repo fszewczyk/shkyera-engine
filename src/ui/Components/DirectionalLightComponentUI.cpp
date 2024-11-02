@@ -12,7 +12,7 @@ void DirectionalLightComponentUI::draw() {
     ImGui::Image((ImTextureID)Image::ICON_COMPONENT_TRANSFORM.getTextureId(),
                ImVec2(16, 16));
     ImGui::SameLine();
-  if (ImGui::TreeNodeEx("Point Light", ImGuiTreeNodeFlags_DefaultOpen)) {
+  if (ImGui::TreeNodeEx("Directional Light", ImGuiTreeNodeFlags_DefaultOpen)) {
     glm::vec3& diffuse = _directionalLightComponent->diffuse;
     glm::vec3& specular = _directionalLightComponent->specular;
 

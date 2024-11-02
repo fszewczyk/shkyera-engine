@@ -6,12 +6,13 @@ namespace shkyera {
 
 FrameBuffer::FrameBuffer()
     : _width(0), _height(0),
-      _textureColorBuffer(GL_TEXTURE_2D, GL_LINEAR, GL_LINEAR, GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE) {
+      _textureColorBuffer(GL_LINEAR, GL_LINEAR, GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE) {
     setupFramebuffer();
 }
 
 FrameBuffer::~FrameBuffer() {
-    cleanupFramebuffer();
+    glDeleteFramebuffers(1, &_fbo);
+    glDeleteRenderbuffers(1, &_rbo);
 }
 
 void FrameBuffer::bind() {
@@ -58,12 +59,6 @@ void FrameBuffer::setupFramebuffer() {
     }
 
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
-}
-
-void FrameBuffer::cleanupFramebuffer() {
-    glDeleteFramebuffers(1, &_fbo);
-    glDeleteRenderbuffers(1, &_rbo);
-    _textureColorBuffer.cleanup();
 }
 
 }

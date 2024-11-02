@@ -21,7 +21,6 @@ public:
 
 private:
     void setupFramebuffer();
-    void cleanupFramebuffer();
 
     GLuint _fbo, _rbo;
     uint32_t _width, _height;

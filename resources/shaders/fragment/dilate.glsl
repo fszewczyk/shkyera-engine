@@ -12,7 +12,7 @@ void main() {
   vec3 result = texture(silhouetteTexture, TexCoords).rgb;
 
   if (horizontal) {
-    for (int i = 1; i < kernelSize + 4; ++i) {
+    for (int i = 1; i < kernelSize; ++i) {
       result = max(
           texture(silhouetteTexture, TexCoords + vec2(tex_offset.x * i, 0.0))
               .rgb,

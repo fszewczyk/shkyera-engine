@@ -2,42 +2,36 @@
 
 #include <filesystem>
 
+#include <AssetManager/Asset.hpp>
+
 namespace shkyera {
 
 /**
  * @class Image
  * @brief A class for working with images and textures.
  */
-class Image {
+class Image : public Asset {
   public:
-    /**
-     * @brief Constructor for creating an image with the specified width and height.
-     *
-     * @param width The width of the image.
-     * @param height The height of the image.
-     */
-    Image(size_t width, size_t height);
-
     /**
      * @brief Constructor for loading an image from a file.
      *
      * @param path The path to the image file.
      */
-    Image(std::filesystem::path path);
+    Image(const std::string& path);
 
     /**
      * @brief Load an image from a file.
      *
      * @param path The path to the image file.
      */
-    void load(std::filesystem::path path);
+    void load(const std::string& path);
 
     /**
      * @brief Save the image to a file in PNG format.
      *
      * @param path The path to the output file.
      */
-    void save(std::filesystem::path path) const;
+    void save(const std::string& path) const;
 
     /**
      * @brief Update the OpenGL texture ID associated with the image.
@@ -50,6 +44,11 @@ class Image {
      * @return The OpenGL texture ID.
      */
     uint64_t getTextureId() const;
+
+    uint8_t const* getData() const;
+    int getWidth() const;
+    int getHeight() const;
+    int getChannels() const;
 
     // Static image objects representing icons
     static Image ICON_CONSOLE_TOTAL;

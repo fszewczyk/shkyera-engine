@@ -36,11 +36,11 @@ void TransformComponentUI::draw() {
 
     ImGui::Text("Orientation");
     ImGui::SameLine(120);
-    ImGui::DragFloat("X##Orientation", &orientation[0], 0.01f, -360.0f, 360.0f, "%.2f");
+    ImGui::DragFloat("X##Orientation", &orientation[0], 1.0f, -360.0f, 360.0f, "%.2f");
     ImGui::SameLine();
-    ImGui::DragFloat("Y##Orientation", &orientation[1], 0.01f, -360.0f, 360.0f, "%.2f");
+    ImGui::DragFloat("Y##Orientation", &orientation[1], 1.0f, -360.0f, 360.0f, "%.2f");
     ImGui::SameLine();
-    ImGui::DragFloat("Z##Orientation", &orientation[2], 0.01f, -360.0f, 360.0f, "%.2f");
+    ImGui::DragFloat("Z##Orientation", &orientation[2], 1.0f, -360.0f, 360.0f, "%.2f");
 
     ImGui::Text("Scale");
     ImGui::SameLine(120);

@@ -17,6 +17,8 @@ public:
         glm::vec3 normal;
         glm::vec2 texcoord;
 
+        Vertex(const glm::vec3& pos)
+            : position(pos), normal(0), texcoord(0) {}
         Vertex(const glm::vec3& pos, const glm::vec3& norm, const glm::vec2& tex)
             : position(pos), normal(norm), texcoord(tex) {}
     };
@@ -27,6 +29,7 @@ public:
 
     void bind() const { glBindVertexArray(_vao); }
     void unbind() const { glBindVertexArray(0); }
+    void draw() const;
 
     Box getBoundingBox() const;
 
@@ -38,6 +41,7 @@ public:
     class Factory {
         public:
             static Mesh* createCube();
+            static Mesh* createCubeMap();
             static Mesh* createCylinder();
             static Mesh* createSphere();
     };
