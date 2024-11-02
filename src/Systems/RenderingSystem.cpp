@@ -70,7 +70,7 @@ void RenderingSystem::render() {
     renderOutline(_registry->getSelectedEntities());
 }
 
-void RenderingSystem::renderOutline(const std::vector<Entity>& entities)
+void RenderingSystem::renderOutline(const std::unordered_set<Entity>& entities)
 {
     glDisable(GL_DEPTH_TEST);
 
@@ -85,10 +85,13 @@ void RenderingSystem::renderOutline(const std::vector<Entity>& entities)
     _silhouetteShaderProgram.setUniform("projectionMatrix", projectionMatrix);
     _silhouetteShaderProgram.setUniform("fixedColor", glm::vec3{1.0, 0.1, 1.0});
     for (const auto& entity : entities) {
-        const auto& modelComponent = _registry->getComponent<ModelComponent>(entity);
-        const auto& transformComponent = _registry->getComponent<TransformComponent>(entity);
-        _silhouetteShaderProgram.setUniform("modelMatrix", transformComponent.getTransformMatrix());
-        modelComponent.updateImpl();
+        if(_registry->hasComponents<TransformComponent, ModelComponent>(entity))
+        {
+            const auto& modelComponent = _registry->getComponent<ModelComponent>(entity);
+            const auto& transformComponent = _registry->getComponent<TransformComponent>(entity);
+            _silhouetteShaderProgram.setUniform("modelMatrix", transformComponent.getTransformMatrix());
+            modelComponent.updateImpl();
+        }
     }
     _silhouetteShaderProgram.stopUsing();
     _silhouetteFrameBuffer.unbind();

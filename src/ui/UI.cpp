@@ -98,11 +98,9 @@ void UI::initializeWidgets() {
     p->selectEntity(e);
   };
   _objectSelectionSystem = std::make_unique<ObjectSelectionSystem>(_registry);
-  _objectSelectionSystem->setOnSelectCallback(onObjectSelect);
 
   auto objectsWidget = std::make_unique<ObjectsWidget>("Objects");
   objectsWidget->setRegistry(_registry);
-  objectsWidget->addOnSelectEntityCallback(onObjectSelect);
 
   _widgets.emplace_back(std::move(objectsWidget));
   _widgets.emplace_back(std::move(propertiesWidget));

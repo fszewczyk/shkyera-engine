@@ -17,11 +17,6 @@ ObjectSelectionSystem::ObjectSelectionSystem(std::shared_ptr<Registry> registry)
     });
 }
 
-void ObjectSelectionSystem::setOnSelectCallback(std::function<void(Entity)> callback)
-{
-    _onSelectCallback = callback;
-}
-
 void ObjectSelectionSystem::tryToSelectObject() {
     const auto& camera = _registry->getCamera();
     const auto& mousePosition = InputManager::getInstance().getRelativeMousePosition(InputManager::CoordinateSystem::SCENE);
@@ -47,9 +42,10 @@ void ObjectSelectionSystem::tryToSelectObject() {
         }
     }
 
-    if(closestEntity && _onSelectCallback)
+    if(closestEntity)
     {
-        _onSelectCallback(*closestEntity);
+        _registry->clearSelectedEntities();
+        _registry->selectEntity(*closestEntity);
     }
 }
 

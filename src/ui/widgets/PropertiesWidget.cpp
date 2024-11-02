@@ -20,15 +20,18 @@ namespace shkyera {
 
 PropertiesWidget::PropertiesWidget(std::shared_ptr<Registry> registry) : Widget("Properties"), _registry(registry) {}
 
-void PropertiesWidget::selectEntity(Entity entity) {
-  _selectedEntity = entity;
-  setupComponentsUI();
-}
-
 void PropertiesWidget::draw() {
   ImGui::Begin(_name.c_str());
 
-  if (_selectedEntity.has_value()) {
+  if (_registry->getSelectedEntities().size() > 0) {
+    const auto firstSelectedEntity = *(_registry->getSelectedEntities().begin());
+
+    if(!_selectedEntity.has_value() || firstSelectedEntity != *_selectedEntity)
+    {
+      setupComponentsUI();
+      _selectedEntity = firstSelectedEntity;
+    }
+
     ImGui::PushID(*_selectedEntity);
 
     ImGui::PushFont(style::HUGE_FONT);
@@ -47,6 +50,7 @@ void PropertiesWidget::draw() {
   } else {
     ImGui::Text("No object has been selected.");
   }
+
   ImGui::End();
 }
 
