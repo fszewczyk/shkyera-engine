@@ -9,6 +9,9 @@ var dir_c610c8504d46288da7634b3c0b18263f =
     [ "CameraComponent.hpp", "_camera_component_8hpp.html", [
       [ "CameraComponent", "classshkyera_1_1_camera_component.html", "classshkyera_1_1_camera_component" ]
     ] ],
+    [ "DirectionalLightComponent.hpp", "_directional_light_component_8hpp.html", [
+      [ "DirectionalLightComponent", "classshkyera_1_1_directional_light_component.html", "classshkyera_1_1_directional_light_component" ]
+    ] ],
     [ "ModelComponent.hpp", "_model_component_8hpp.html", [
       [ "ModelComponent", "classshkyera_1_1_model_component.html", "classshkyera_1_1_model_component" ]
     ] ],

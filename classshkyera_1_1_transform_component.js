@@ -6,6 +6,7 @@ var classshkyera_1_1_transform_component =
     [ "getOrientation", "classshkyera_1_1_transform_component.html#a5a4340301f0a8cef8c03be6206e388a3", null ],
     [ "getPosition", "classshkyera_1_1_transform_component.html#af42dc6089f83a6e7b6007557bec3eee0", null ],
     [ "getPosition", "classshkyera_1_1_transform_component.html#addd0eca1a1ea045fca7221934a299a4f", null ],
+    [ "getRotationMatrix", "classshkyera_1_1_transform_component.html#ae35b0e1f88b76979e78a61f78d0ca1cb", null ],
     [ "getScale", "classshkyera_1_1_transform_component.html#a1651354fecf5a36a9f547805744b120b", null ],
     [ "getScale", "classshkyera_1_1_transform_component.html#a4f0ca4943cd039d13b6a22a1e27eac73", null ],
     [ "getTransformMatrix", "classshkyera_1_1_transform_component.html#a1eeb7aef7df7217e9adbc2f8e378548f", null ],

@@ -1,5 +1,9 @@
 var dir_03b2673553046158dff6b880fc282c90 =
 [
+    [ "DirectionalLightComponentUI.cpp", "_directional_light_component_u_i_8cpp.html", null ],
+    [ "DirectionalLightComponentUI.hpp", "_directional_light_component_u_i_8hpp.html", [
+      [ "DirectionalLightComponentUI", "classshkyera_1_1_directional_light_component_u_i.html", "classshkyera_1_1_directional_light_component_u_i" ]
+    ] ],
     [ "ModelComponentUI.cpp", "_model_component_u_i_8cpp.html", null ],
     [ "ModelComponentUI.hpp", "_model_component_u_i_8hpp.html", [
       [ "ModelComponentUI", "classshkyera_1_1_model_component_u_i.html", "classshkyera_1_1_model_component_u_i" ]

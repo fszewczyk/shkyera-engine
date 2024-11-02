@@ -11,6 +11,9 @@ var hierarchy =
     [ "shkyera::BaseComponent< BoxColliderComponent< RuntimeMode::PRODUCTION >, RuntimeMode::PRODUCTION >", "classshkyera_1_1_base_component.html", [
       [ "shkyera::BoxColliderComponent< Mode >", "classshkyera_1_1_box_collider_component.html", null ]
     ] ],
+    [ "shkyera::BaseComponent< DirectionalLightComponent >", "classshkyera_1_1_base_component.html", [
+      [ "shkyera::DirectionalLightComponent", "classshkyera_1_1_directional_light_component.html", null ]
+    ] ],
     [ "shkyera::BaseComponent< ModelComponent >", "classshkyera_1_1_base_component.html", [
       [ "shkyera::ModelComponent", "classshkyera_1_1_model_component.html", null ]
     ] ],
@@ -30,6 +33,7 @@ var hierarchy =
     [ "shkyera::CameraComponent", "classshkyera_1_1_camera_component.html", null ],
     [ "shkyera::CameraMovementSystem", "classshkyera_1_1_camera_movement_system.html", null ],
     [ "shkyera::ComponentUI", "classshkyera_1_1_component_u_i.html", [
+      [ "shkyera::DirectionalLightComponentUI", "classshkyera_1_1_directional_light_component_u_i.html", null ],
       [ "shkyera::ModelComponentUI", "classshkyera_1_1_model_component_u_i.html", null ],
       [ "shkyera::PointLightComponentUI", "classshkyera_1_1_point_light_component_u_i.html", null ],
       [ "shkyera::TransformComponentUI", "classshkyera_1_1_transform_component_u_i.html", null ],
