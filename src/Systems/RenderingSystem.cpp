@@ -93,51 +93,43 @@ void RenderingSystem::renderOutline(const std::vector<Entity>& entities)
     _silhouetteShaderProgram.stopUsing();
     _silhouetteFrameBuffer.unbind();
 
-    // First horizontal blur pass
-    _horizontallyDilatedFrameBuffer.bind();
-    _horizontallyDilatedFrameBuffer.clear();
-    _dilateShaderProgram.use();
-    _dilateShaderProgram.setUniform("horizontal", true);
-    _dilateShaderProgram.setUniform("kernelSize", 3);
-    _silhouetteFrameBuffer.getTexture().activate(GL_TEXTURE0);
-    _dilateShaderProgram.setUniform("silhouetteTexture", 0);
-    utils::drawFullscreenQuad();
-    _dilateShaderProgram.stopUsing();
-    _horizontallyDilatedFrameBuffer.unbind();
+    utils::applyShaderToFrameBuffer(
+        _horizontallyDilatedFrameBuffer,
+        _dilateShaderProgram,
+        {
+            { "silhouetteTexture", &_silhouetteFrameBuffer.getTexture() }
+        },
+        utils::Uniform("horizontal", true),
+        utils::Uniform("kernelSize", 3)
+    );
 
-    // Second, vertical blur pass
-    _fullyDilatedFrameBuffer.bind();
-    _fullyDilatedFrameBuffer.clear();
-    _dilateShaderProgram.use();
-    _dilateShaderProgram.setUniform("horizontal", false);
-    _dilateShaderProgram.setUniform("kernelSize", 3);
-    _horizontallyDilatedFrameBuffer.getTexture().activate(GL_TEXTURE0);
-    _dilateShaderProgram.setUniform("silhouetteTexture", 0);
-    utils::drawFullscreenQuad();
-    _dilateShaderProgram.stopUsing();
-    _fullyDilatedFrameBuffer.unbind();
+    utils::applyShaderToFrameBuffer(
+        _fullyDilatedFrameBuffer,
+        _dilateShaderProgram,
+        {
+            { "silhouetteTexture", &_horizontallyDilatedFrameBuffer.getTexture() }
+        },
+        utils::Uniform("horizontal", false),
+        utils::Uniform("kernelSize", 3)
+    );
 
-    // Third, subtract the silhouette from the dilated image
-    _differenceFrameBuffer.bind();
-    _subtractShaderProgram.use();
-    _fullyDilatedFrameBuffer.getTexture().activate(GL_TEXTURE0);
-    _subtractShaderProgram.setUniform("first", 0);
-    _silhouetteFrameBuffer.getTexture().activate(GL_TEXTURE1);
-    _subtractShaderProgram.setUniform("second", 1);
-    utils::drawFullscreenQuad();
-    _silhouetteShaderProgram.stopUsing();
-    _differenceFrameBuffer.unbind();
+    utils::applyShaderToFrameBuffer(
+        _differenceFrameBuffer,
+        _subtractShaderProgram,
+        {
+            { "first", &_fullyDilatedFrameBuffer.getTexture() },
+            { "second", &_silhouetteFrameBuffer.getTexture() }
+        }
+    );
 
-    // Final blending
-    _renderFrameBuffer.bind();
-    _overlayShaderProgram.use();
-    _renderFrameBuffer.getTexture().activate(GL_TEXTURE0);
-    _overlayShaderProgram.setUniform("background", 0);
-    _differenceFrameBuffer.getTexture().activate(GL_TEXTURE1);
-    _overlayShaderProgram.setUniform("overlay", 1);
-    utils::drawFullscreenQuad();
-    _overlayShaderProgram.stopUsing();
-    _renderFrameBuffer.unbind();
+    utils::applyShaderToFrameBuffer(
+        _renderFrameBuffer,
+        _overlayShaderProgram,
+        {
+            { "background", &_renderFrameBuffer.getTexture() },
+            { "overlay", &_differenceFrameBuffer.getTexture() }
+        }
+    );
 }
 
 void RenderingSystem::renderModels()

@@ -1,7 +1,5 @@
 #include <Rendering/Utils.hpp>
 
-#include <glad/glad.h>
-
 namespace shkyera::utils
 {
 

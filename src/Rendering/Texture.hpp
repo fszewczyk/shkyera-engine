@@ -13,6 +13,8 @@ public:
 
     ~Texture();
 
+    Texture(const Texture& other) = delete;
+
     // Bind and unbind texture
     void bind() const;
     void unbind() const;

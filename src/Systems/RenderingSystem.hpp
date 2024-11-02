@@ -18,9 +18,9 @@ public:
     GLuint getRenderFrameBuffer();
 
 private:
-    void renderOutline(const std::vector<Entity>& entities);
     void renderModels();
     void renderWireframes();
+    void renderOutline(const std::vector<Entity>& entities);
 
     std::shared_ptr<Registry> _registry;
     
