@@ -14,8 +14,8 @@
 #include <Components/BoxColliderComponent.hpp>
 #include <Components/CameraComponent.hpp>
 #include <Components/PointLightComponent.hpp>
+#include <Components/DirectionalLightComponent.hpp>
 #include <ECS/Registry.hpp>
-
 #include <UI/UI.hpp>
 
 void addModel(std::shared_ptr<shkyera::Registry> registry, 
@@ -82,6 +82,13 @@ void loadScene(std::shared_ptr<shkyera::Registry> registry) {
     registry->addComponent<NameComponent>(pointLight);
     registry->getComponent<NameComponent>(pointLight).setName("Point Light");
     registry->addComponent<PointLightComponent>(pointLight);
+
+    // Add Directional Light
+    auto directionalLight = registry->addEntity();
+    registry->addComponent<TransformComponent>(directionalLight);
+    registry->addComponent<NameComponent>(directionalLight);
+    registry->getComponent<NameComponent>(directionalLight).setName("Directional Light");
+    registry->addComponent<DirectionalLightComponent>(directionalLight);
 }
 
 int main() {

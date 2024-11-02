@@ -9,6 +9,7 @@ add_library(
     ${CMAKE_CURRENT_LIST_DIR}/ModelComponent.hpp
     ${CMAKE_CURRENT_LIST_DIR}/WireframeComponent.hpp
     ${CMAKE_CURRENT_LIST_DIR}/PointLightComponent.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/DirectionalLightComponent.hpp
     ${CMAKE_CURRENT_LIST_DIR}/BoxColliderComponent.hpp
 )
 

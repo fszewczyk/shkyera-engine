@@ -1,20 +1,20 @@
 #include "imgui.h"
 
 #include <AssetManager/Image.hpp>
-#include <UI/Components/PointLightComponentUI.hpp>
+#include <UI/Components/DirectionalLightComponentUI.hpp>
 
 namespace shkyera {
 
-PointLightComponentUI::PointLightComponentUI(PointLightComponent* pointLightComponent) :
-    _pointLightComponent(pointLightComponent) {}
+DirectionalLightComponentUI::DirectionalLightComponentUI(DirectionalLightComponent* directionalLightComponent) :
+    _directionalLightComponent(directionalLightComponent) {}
 
-void PointLightComponentUI::draw() {
+void DirectionalLightComponentUI::draw() {
     ImGui::Image((ImTextureID)Image::ICON_COMPONENT_TRANSFORM.getTextureId(),
                ImVec2(16, 16));
     ImGui::SameLine();
   if (ImGui::TreeNodeEx("Point Light", ImGuiTreeNodeFlags_DefaultOpen)) {
-    glm::vec3& diffuse = _pointLightComponent->diffuse;
-    glm::vec3& specular = _pointLightComponent->specular;
+    glm::vec3& diffuse = _directionalLightComponent->diffuse;
+    glm::vec3& specular = _directionalLightComponent->specular;
 
     ImGui::PushItemWidth(50);
 

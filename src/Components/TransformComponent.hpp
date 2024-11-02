@@ -27,13 +27,16 @@ public:
     const glm::vec3& getScale() const { return _scale; }
     void setScale(const glm::vec3& scale) { _scale = scale; }
 
-    glm::mat4 getTransformMatrix() const {
-        glm::mat4 translationMatrix = glm::translate(glm::mat4(1.0f), _position);
-
+    glm::mat4 getRotationMatrix() const {
         glm::mat4 rotationMatrix = glm::rotate(glm::mat4(1.0f), _orientation.y, glm::vec3(0.0f, 1.0f, 0.0f));
         rotationMatrix = glm::rotate(rotationMatrix, _orientation.x, glm::vec3(1.0f, 0.0f, 0.0f));
         rotationMatrix = glm::rotate(rotationMatrix, _orientation.z, glm::vec3(0.0f, 0.0f, 1.0f));
+        return rotationMatrix;
+    }
 
+    glm::mat4 getTransformMatrix() const {
+        glm::mat4 translationMatrix = glm::translate(glm::mat4(1.0f), _position);
+        glm::mat4 rotationMatrix = getRotationMatrix();
         glm::mat4 scaleMatrix = glm::scale(glm::mat4(1.0f), _scale);
 
         return translationMatrix * rotationMatrix * scaleMatrix;
