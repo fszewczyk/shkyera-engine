@@ -5,12 +5,15 @@
 #include <thread>
 
 #include <AssetManager/Mesh.hpp>
+#include <AssetManager/Image.hpp>
 #include <AssetManager/AssetManager.hpp>
+#include <Rendering/CubeMap.hpp>
 #include <Common/Types.hpp>
 #include <Components/TransformComponent.hpp>
 #include <Components/WireframeComponent.hpp>
 #include <Components/NameComponent.hpp>
 #include <Components/ModelComponent.hpp>
+#include <Components/SkyboxComponent.hpp>
 #include <Components/BoxColliderComponent.hpp>
 #include <Components/CameraComponent.hpp>
 #include <Components/PointLightComponent.hpp>
@@ -83,12 +86,21 @@ void loadScene(std::shared_ptr<shkyera::Registry> registry) {
     registry->getComponent<NameComponent>(pointLight).setName("Point Light");
     registry->addComponent<PointLightComponent>(pointLight);
 
-    // Add Directional Light
-    auto directionalLight = registry->addEntity();
-    registry->addComponent<TransformComponent>(directionalLight);
-    registry->addComponent<NameComponent>(directionalLight);
-    registry->getComponent<NameComponent>(directionalLight).setName("Directional Light");
-    registry->addComponent<DirectionalLightComponent>(directionalLight);
+    // Add Skybox
+    auto sky = registry->addEntity();
+    registry->addComponent<TransformComponent>(sky);
+    registry->addComponent<NameComponent>(sky);
+    registry->getComponent<NameComponent>(sky).setName("Sky");
+    registry->addComponent<DirectionalLightComponent>(sky);
+
+    const auto skyboxUp = AssetManager::getInstance().getAsset<Image>("resources/skyboxes/day/py.png");
+    const auto skyboxDown = AssetManager::getInstance().getAsset<Image>("resources/skyboxes/day/ny.png");
+    const auto skyboxLeft = AssetManager::getInstance().getAsset<Image>("resources/skyboxes/day/nx.png");
+    const auto skyboxRight = AssetManager::getInstance().getAsset<Image>("resources/skyboxes/day/px.png");
+    const auto skyboxFront = AssetManager::getInstance().getAsset<Image>("resources/skyboxes/day/pz.png");
+    const auto skyboxBack = AssetManager::getInstance().getAsset<Image>("resources/skyboxes/day/nz.png");
+    registry->addComponent<SkyboxComponent>(sky);
+    registry->getComponent<SkyboxComponent>(sky).skyboxCubeMap.loadFaces(skyboxUp, skyboxDown, skyboxLeft, skyboxRight, skyboxFront, skyboxBack);
 }
 
 int main() {

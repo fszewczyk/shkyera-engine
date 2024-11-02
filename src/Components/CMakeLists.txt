@@ -11,6 +11,7 @@ add_library(
     ${CMAKE_CURRENT_LIST_DIR}/PointLightComponent.hpp
     ${CMAKE_CURRENT_LIST_DIR}/DirectionalLightComponent.hpp
     ${CMAKE_CURRENT_LIST_DIR}/BoxColliderComponent.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/SkyboxComponent.hpp
 )
 
 target_include_directories(

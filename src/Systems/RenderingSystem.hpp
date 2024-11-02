@@ -6,6 +6,7 @@
 #include <ECS/Registry.hpp>
 #include <Rendering/ShaderProgram.hpp>
 #include <Rendering/FrameBuffer.hpp>
+#include <Rendering/CubeMap.hpp>
 
 namespace shkyera {
 
@@ -21,6 +22,7 @@ private:
     void renderModels();
     void renderWireframes();
     void renderOutline(const std::unordered_set<Entity>& entities);
+    void renderSkybox();
 
     std::shared_ptr<Registry> _registry;
     
@@ -34,11 +36,14 @@ private:
     FrameBuffer _horizontallyDilatedFrameBuffer;
     FrameBuffer _fullyDilatedFrameBuffer;
     FrameBuffer _differenceFrameBuffer;
-
     ShaderProgram _silhouetteShaderProgram;
     ShaderProgram _dilateShaderProgram;
     ShaderProgram _subtractShaderProgram;
     ShaderProgram _overlayShaderProgram;
+
+    // Skybox Rendering
+    CubeMap _skyboxCubeMap;
+    ShaderProgram _skyboxShaderProgram;
 };
 
 }

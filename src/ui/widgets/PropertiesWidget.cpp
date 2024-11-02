@@ -7,6 +7,7 @@
 #include <Components/ModelComponent.hpp>
 #include <Components/WireframeComponent.hpp>
 #include <Components/BoxColliderComponent.hpp>
+#include <Components/SkyboxComponent.hpp>
 #include <Components/PointLightComponent.hpp>
 #include <Components/DirectionalLightComponent.hpp>
 
@@ -14,6 +15,7 @@
 #include <UI/Components/TransformComponentUI.hpp>
 #include <UI/Components/ModelComponentUI.hpp>
 #include <UI/Components/WireframeComponentUI.hpp>
+#include <UI/Components/SkyboxComponentUI.hpp>
 #include <UI/Components/PointLightComponentUI.hpp>
 #include <UI/Components/DirectionalLightComponentUI.hpp>
 #include <UI/Widgets/PropertiesWidget.hpp>
@@ -70,6 +72,13 @@ void PropertiesWidget::setupComponentsUI() {
     componentUi->setPositionGetter([&]() -> glm::vec3& { return component.getPosition(); });
     componentUi->setOrientationGetter([&]() -> glm::vec3& { return component.getOrientation(); });
     componentUi->setScaleGetter([&]() -> glm::vec3& { return component.getScale(); });
+    _componentsUi.emplace_back(std::move(componentUi));
+  }
+
+  if(_registry->hasComponent<SkyboxComponent>(*_selectedEntity)) {    
+    auto &component = _registry->getComponent<SkyboxComponent>(*_selectedEntity);
+    auto componentUi = std::make_unique<SkyboxComponentUI>(&component);
+    
     _componentsUi.emplace_back(std::move(componentUi));
   }
 

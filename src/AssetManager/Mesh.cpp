@@ -27,6 +27,12 @@ Mesh::Mesh(std::vector<Vertex> vertices, std::vector<uint32_t> indices) : _verti
     uploadToGPU();
 }
 
+void Mesh::draw() const {
+    bind();
+    glDrawArrays(GL_TRIANGLES, 0, getMeshSize());
+    unbind();
+}
+
 // Destructor to clean up OpenGL resources
 Mesh::~Mesh() {
     glDeleteVertexArrays(1, &_vao);
@@ -247,6 +253,52 @@ Mesh* Mesh::Factory::createCube() {
     return new Mesh(vertices, indices);
 }
 
+Mesh* Mesh::Factory::createCubeMap() {
+    std::vector<Mesh::Vertex> vertices = {
+        {{-1.0f,  1.0f, -1.0f}},
+        {{-1.0f, -1.0f, -1.0f}},
+        {{1.0f, -1.0f, -1.0f}},
+        {{1.0f, -1.0f, -1.0f}},
+        {{1.0f,  1.0f, -1.0f}},
+        {{-1.0f,  1.0f, -1.0f}},
+        {{-1.0f, -1.0f,  1.0f}},
+        {{-1.0f, -1.0f, -1.0f}},
+        {{-1.0f,  1.0f, -1.0f}},
+        {{-1.0f,  1.0f, -1.0f}},
+        {{-1.0f,  1.0f,  1.0f}},
+        {{-1.0f, -1.0f,  1.0f}},
+        {{1.0f, -1.0f, -1.0f}},
+        {{1.0f, -1.0f,  1.0f}},
+        {{1.0f,  1.0f,  1.0f}},
+        {{1.0f,  1.0f,  1.0f}},
+        {{1.0f,  1.0f, -1.0f}},
+        {{1.0f, -1.0f, -1.0f}},
+        {{-1.0f, -1.0f,  1.0f}},
+        {{-1.0f,  1.0f,  1.0f}},
+        {{1.0f,  1.0f,  1.0f}},
+        {{1.0f,  1.0f,  1.0f}},
+        {{1.0f, -1.0f,  1.0f}},
+        {{-1.0f, -1.0f,  1.0f}},
+        {{-1.0f,  1.0f, -1.0f}},
+        {{1.0f,  1.0f, -1.0f}},
+        {{1.0f,  1.0f,  1.0f}},
+        {{1.0f,  1.0f,  1.0f}},
+        {{-1.0f,  1.0f,  1.0f}},
+        {{-1.0f,  1.0f, -1.0f}},
+        {{-1.0f, -1.0f, -1.0f}},
+        {{-1.0f, -1.0f,  1.0f}},
+        {{1.0f, -1.0f, -1.0f}},
+        {{1.0f, -1.0f, -1.0f}},
+        {{-1.0f, -1.0f,  1.0f}},
+        {{1.0f, -1.0f,  1.0f}}
+    };
+
+    std::vector<unsigned int> indices(36);
+    std::iota(indices.begin(), indices.end(), 0);
+
+    return new Mesh(vertices, indices);
+}
+
 Mesh* Mesh::Factory::createCylinder() {
     const int sectors = 36;
     const float radius = 1.0f;
@@ -280,8 +332,8 @@ Mesh* Mesh::Factory::createCylinder() {
 }
 
 Mesh* Mesh::Factory::createSphere() {
-    const int stacks = 18;
-    const int sectors = 36;
+    const int stacks = 48;
+    const int sectors = 96;
     const float radius = 1.0f;
 
     std::vector<Vertex> vertices;

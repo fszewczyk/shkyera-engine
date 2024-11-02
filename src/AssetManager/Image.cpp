@@ -16,29 +16,35 @@
 
 namespace shkyera {
 
-Image::Image(size_t width, size_t height)
-    : _width(width),
-      _height(height),
-      _components(4),
-      _wasAssignedTextureId(false) {
-  _data = new uint8_t[width * height * 4];
-}
-
-Image::Image(std::filesystem::path path) : _wasAssignedTextureId(false) {
+Image::Image(const std::string& path) : _wasAssignedTextureId(false) {
   load(path);
 }
 
-void Image::load(std::filesystem::path path) {
-  _data = stbi_load(path.string().c_str(), &_width, &_height, &_components,
+void Image::load(const std::string& path) {
+  _data = stbi_load(path.c_str(), &_width, &_height, &_components,
                     STBI_rgb_alpha);
 
   if (_data == nullptr)
-    throw std::invalid_argument("Could not load image at: " + path.string());
+    throw std::invalid_argument("Could not load image at: " + path);
 }
 
-void Image::save(std::filesystem::path path) const {
-  stbi_write_png(path.string().c_str(), _width, _height, _components, _data,
+void Image::save(const std::string& path) const {
+  stbi_write_png(path.c_str(), _width, _height, _components, _data,
                  _components * _width);
+}
+
+uint8_t const* Image::getData() const {
+  return _data;
+}
+
+int Image::getWidth() const {
+  return _width;
+}
+int Image::getHeight() const {
+  return _height;
+}
+int Image::getChannels() const {
+  return _components;
 }
 
 void Image::updateTextureId() {
