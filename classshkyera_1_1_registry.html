@@ -133,8 +133,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:adade4f4df213e42f8c71b843193efe52"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a392b890c70ac45a4709319914bd72d48"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_registry.html#a392b890c70ac45a4709319914bd72d48">removeEntity</a> (<a class="el" href="namespaceshkyera.html#a043bdd87686e0bd1bce19a1fd86298cd">Entity</a> entity)</td></tr>
 <tr class="separator:a392b890c70ac45a4709319914bd72d48"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae3469c0edc4d1ebb1b232424250767c9"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="namespaceshkyera.html#a043bdd87686e0bd1bce19a1fd86298cd">Entity</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_registry.html#ae3469c0edc4d1ebb1b232424250767c9">getSelectedEntities</a> ()</td></tr>
-<tr class="separator:ae3469c0edc4d1ebb1b232424250767c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a59ae30d228538a995634e16412fc0b26"><td class="memItemLeft" align="right" valign="top">const std::unordered_set&lt; <a class="el" href="namespaceshkyera.html#a043bdd87686e0bd1bce19a1fd86298cd">Entity</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_registry.html#a59ae30d228538a995634e16412fc0b26">getSelectedEntities</a> ()</td></tr>
+<tr class="separator:a59ae30d228538a995634e16412fc0b26"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5c3b25ab9ae87027aa7bb337f51cf0eb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_registry.html#a5c3b25ab9ae87027aa7bb337f51cf0eb">selectEntity</a> (<a class="el" href="namespaceshkyera.html#a043bdd87686e0bd1bce19a1fd86298cd">Entity</a> entity)</td></tr>
 <tr class="separator:a5c3b25ab9ae87027aa7bb337f51cf0eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ade3839d7405f7d0dab933b16a60241d5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_registry.html#ade3839d7405f7d0dab933b16a60241d5">clearSelectedEntities</a> ()</td></tr>
@@ -148,6 +148,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a8c1b251e1354f4ac17fd0edd259443b1"><td class="memTemplParams" colspan="2">template&lt;typename Component &gt; </td></tr>
 <tr class="memitem:a8c1b251e1354f4ac17fd0edd259443b1"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_registry.html#a8c1b251e1354f4ac17fd0edd259443b1">hasComponent</a> (<a class="el" href="namespaceshkyera.html#a043bdd87686e0bd1bce19a1fd86298cd">Entity</a> entity) const</td></tr>
 <tr class="separator:a8c1b251e1354f4ac17fd0edd259443b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aae292cdb7e242d71190c665090950608"><td class="memTemplParams" colspan="2">template&lt;typename... Components&gt; </td></tr>
+<tr class="memitem:aae292cdb7e242d71190c665090950608"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_registry.html#aae292cdb7e242d71190c665090950608">hasComponents</a> (<a class="el" href="namespaceshkyera.html#a043bdd87686e0bd1bce19a1fd86298cd">Entity</a> entity) const</td></tr>
+<tr class="separator:aae292cdb7e242d71190c665090950608"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a58293949c870d8cbdae39d2fc707ad62"><td class="memTemplParams" colspan="2">template&lt;typename Component &gt; </td></tr>
 <tr class="memitem:a58293949c870d8cbdae39d2fc707ad62"><td class="memTemplItemLeft" align="right" valign="top">Component &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_registry.html#a58293949c870d8cbdae39d2fc707ad62">getComponent</a> (<a class="el" href="namespaceshkyera.html#a043bdd87686e0bd1bce19a1fd86298cd">Entity</a> entity)</td></tr>
 <tr class="separator:a58293949c870d8cbdae39d2fc707ad62"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -186,8 +189,8 @@ Private Attributes</h2></td></tr>
 <tr class="separator:a24b4fa61858f7fd5121ed0be7319db5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:add302f4e12fd9a4304918bba4ecce4f1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceshkyera.html#a043bdd87686e0bd1bce19a1fd86298cd">Entity</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_registry.html#add302f4e12fd9a4304918bba4ecce4f1">_camera</a></td></tr>
 <tr class="separator:add302f4e12fd9a4304918bba4ecce4f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac3fa34c1fc58d26c48422bafaca34338"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="namespaceshkyera.html#a043bdd87686e0bd1bce19a1fd86298cd">Entity</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_registry.html#ac3fa34c1fc58d26c48422bafaca34338">_selectedEntities</a></td></tr>
-<tr class="separator:ac3fa34c1fc58d26c48422bafaca34338"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3264ce557ad456773a8c84345f1504b9"><td class="memItemLeft" align="right" valign="top">std::unordered_set&lt; <a class="el" href="namespaceshkyera.html#a043bdd87686e0bd1bce19a1fd86298cd">Entity</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_registry.html#a3264ce557ad456773a8c84345f1504b9">_selectedEntities</a></td></tr>
+<tr class="separator:a3264ce557ad456773a8c84345f1504b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Manages a collection of entities and their components. Provides methods to add, remove, and query entities and components. </p>
@@ -609,14 +612,14 @@ template&lt;typename Component &gt; </div>
 
 </div>
 </div>
-<a id="ae3469c0edc4d1ebb1b232424250767c9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae3469c0edc4d1ebb1b232424250767c9">&#9670;&nbsp;</a></span>getSelectedEntities()</h2>
+<a id="a59ae30d228538a995634e16412fc0b26"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a59ae30d228538a995634e16412fc0b26">&#9670;&nbsp;</a></span>getSelectedEntities()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::vector&lt; <a class="el" href="namespaceshkyera.html#a043bdd87686e0bd1bce19a1fd86298cd">Entity</a> &gt; shkyera::Registry::getSelectedEntities </td>
+          <td class="memname">const std::unordered_set&lt; <a class="el" href="namespaceshkyera.html#a043bdd87686e0bd1bce19a1fd86298cd">Entity</a> &gt; &amp; shkyera::Registry::getSelectedEntities </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -665,6 +668,48 @@ template&lt;typename Component &gt; </div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>True if the entity has the component, false otherwise. </dd></dl>
+
+</div>
+</div>
+<a id="aae292cdb7e242d71190c665090950608"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aae292cdb7e242d71190c665090950608">&#9670;&nbsp;</a></span>hasComponents()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename... Components&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool shkyera::Registry::hasComponents </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespaceshkyera.html#a043bdd87686e0bd1bce19a1fd86298cd">Entity</a>&#160;</td>
+          <td class="paramname"><em>entity</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Checks if the specified entity has all of the specified components.</p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">Components</td><td>Types of the components to check for. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">entity</td><td>The entity to check. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if the entity has all the components, false otherwise. </dd></dl>
 
 </div>
 </div>
@@ -819,8 +864,8 @@ template&lt;typename Component &gt; </div>
 
 </div>
 </div>
-<a id="ac3fa34c1fc58d26c48422bafaca34338"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac3fa34c1fc58d26c48422bafaca34338">&#9670;&nbsp;</a></span>_selectedEntities</h2>
+<a id="a3264ce557ad456773a8c84345f1504b9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3264ce557ad456773a8c84345f1504b9">&#9670;&nbsp;</a></span>_selectedEntities</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -829,7 +874,7 @@ template&lt;typename Component &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::vector&lt;<a class="el" href="namespaceshkyera.html#a043bdd87686e0bd1bce19a1fd86298cd">Entity</a>&gt; shkyera::Registry::_selectedEntities</td>
+          <td class="memname">std::unordered_set&lt;<a class="el" href="namespaceshkyera.html#a043bdd87686e0bd1bce19a1fd86298cd">Entity</a>&gt; shkyera::Registry::_selectedEntities</td>
         </tr>
       </table>
   </td>

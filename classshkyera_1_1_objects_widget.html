@@ -141,8 +141,6 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a6805fa022ce20e4cee19dd3c417527f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af6d459ff8f10ca76f3fb96c4bc3ea51c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_objects_widget.html#af6d459ff8f10ca76f3fb96c4bc3ea51c">addOnNewEntityCallback</a> (std::function&lt; void(<a class="el" href="namespaceshkyera.html#a043bdd87686e0bd1bce19a1fd86298cd">Entity</a>)&gt; callback)</td></tr>
 <tr class="separator:af6d459ff8f10ca76f3fb96c4bc3ea51c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6ac40745886b6028341f6bfec853816a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_objects_widget.html#a6ac40745886b6028341f6bfec853816a">addOnSelectEntityCallback</a> (std::function&lt; void(<a class="el" href="namespaceshkyera.html#a043bdd87686e0bd1bce19a1fd86298cd">Entity</a>)&gt; callback)</td></tr>
-<tr class="separator:a6ac40745886b6028341f6bfec853816a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a64843fb6e0e95a62b1cf5bee688f8c03"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_objects_widget.html#a64843fb6e0e95a62b1cf5bee688f8c03">draw</a> () override</td></tr>
 <tr class="memdesc:a64843fb6e0e95a62b1cf5bee688f8c03"><td class="mdescLeft">&#160;</td><td class="mdescRight">Implementation of the abstract <code>draw</code> method to render the game objects widget.  <a href="classshkyera_1_1_objects_widget.html#a64843fb6e0e95a62b1cf5bee688f8c03">More...</a><br /></td></tr>
 <tr class="separator:a64843fb6e0e95a62b1cf5bee688f8c03"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -171,12 +169,8 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:ab88fad4d5749eb3d4bbac6e6dbe6e68d"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="classshkyera_1_1_registry.html">Registry</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_objects_widget.html#ab88fad4d5749eb3d4bbac6e6dbe6e68d">_registry</a></td></tr>
 <tr class="memdesc:ab88fad4d5749eb3d4bbac6e6dbe6e68d"><td class="mdescLeft">&#160;</td><td class="mdescRight">A shared pointer to the associated game.  <a href="classshkyera_1_1_objects_widget.html#ab88fad4d5749eb3d4bbac6e6dbe6e68d">More...</a><br /></td></tr>
 <tr class="separator:ab88fad4d5749eb3d4bbac6e6dbe6e68d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa3838a905cb6fce0ece2e0da3683bfa6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceshkyera.html#a043bdd87686e0bd1bce19a1fd86298cd">Entity</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_objects_widget.html#aa3838a905cb6fce0ece2e0da3683bfa6">_selectedEntity</a> = 0</td></tr>
-<tr class="separator:aa3838a905cb6fce0ece2e0da3683bfa6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a56ba5a08d669045a5a07df1afb0b3bcc"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::function&lt; void(<a class="el" href="namespaceshkyera.html#a043bdd87686e0bd1bce19a1fd86298cd">Entity</a>)&gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_objects_widget.html#a56ba5a08d669045a5a07df1afb0b3bcc">_onNewEntityCallbacks</a></td></tr>
 <tr class="separator:a56ba5a08d669045a5a07df1afb0b3bcc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3961815ddde2a00e8e2b3de282a0acb0"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::function&lt; void(<a class="el" href="namespaceshkyera.html#a043bdd87686e0bd1bce19a1fd86298cd">Entity</a>)&gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_objects_widget.html#a3961815ddde2a00e8e2b3de282a0acb0">_onSelectEntityCallbacks</a></td></tr>
-<tr class="separator:a3961815ddde2a00e8e2b3de282a0acb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
@@ -216,24 +210,6 @@ Additional Inherited Members</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">void shkyera::ObjectsWidget::addOnNewEntityCallback </td>
-          <td>(</td>
-          <td class="paramtype">std::function&lt; void(<a class="el" href="namespaceshkyera.html#a043bdd87686e0bd1bce19a1fd86298cd">Entity</a>)&gt;&#160;</td>
-          <td class="paramname"><em>callback</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a6ac40745886b6028341f6bfec853816a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6ac40745886b6028341f6bfec853816a">&#9670;&nbsp;</a></span>addOnSelectEntityCallback()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void shkyera::ObjectsWidget::addOnSelectEntityCallback </td>
           <td>(</td>
           <td class="paramtype">std::function&lt; void(<a class="el" href="namespaceshkyera.html#a043bdd87686e0bd1bce19a1fd86298cd">Entity</a>)&gt;&#160;</td>
           <td class="paramname"><em>callback</em></td><td>)</td>
@@ -398,28 +374,6 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a3961815ddde2a00e8e2b3de282a0acb0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3961815ddde2a00e8e2b3de282a0acb0">&#9670;&nbsp;</a></span>_onSelectEntityCallbacks</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::vector&lt;std::function&lt;void(<a class="el" href="namespaceshkyera.html#a043bdd87686e0bd1bce19a1fd86298cd">Entity</a>)&gt; &gt; shkyera::ObjectsWidget::_onSelectEntityCallbacks</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="ab88fad4d5749eb3d4bbac6e6dbe6e68d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab88fad4d5749eb3d4bbac6e6dbe6e68d">&#9670;&nbsp;</a></span>_registry</h2>
 
@@ -441,28 +395,6 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 
 <p>A shared pointer to the associated game. </p>
-
-</div>
-</div>
-<a id="aa3838a905cb6fce0ece2e0da3683bfa6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa3838a905cb6fce0ece2e0da3683bfa6">&#9670;&nbsp;</a></span>_selectedEntity</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespaceshkyera.html#a043bdd87686e0bd1bce19a1fd86298cd">Entity</a> shkyera::ObjectsWidget::_selectedEntity = 0</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
 
 </div>
 </div>

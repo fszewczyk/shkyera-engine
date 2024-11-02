@@ -1,6 +1,5 @@
 var NAVTREEINDEX0 =
 {
-"":[3,0,1,0],
 "_asset_8hpp.html":[5,0,1,0,0],
 "_asset_8hpp_source.html":[5,0,1,0,0],
 "_asset_manager_8cpp.html":[5,0,1,0,1],
@@ -249,5 +248,6 @@ var NAVTREEINDEX0 =
 "classshkyera_1_1_file_selector.html#a973526be3dcdbf184af695a3fe6f98c2":[4,0,0,32,7],
 "classshkyera_1_1_file_selector.html#aa4a0124e1079ddf78a3e07680e140f62":[4,0,0,32,4],
 "classshkyera_1_1_file_selector.html#aa4a6305c977b8da2c15463ce4e099908":[4,0,0,32,8],
-"classshkyera_1_1_file_selector.html#ab0ed80c241915f0f330b416a3cc7eeb6":[4,0,0,32,1]
+"classshkyera_1_1_file_selector.html#ab0ed80c241915f0f330b416a3cc7eeb6":[4,0,0,32,1],
+"classshkyera_1_1_file_selector.html#ab611d7b100090c09c83d60c6d9645dc3":[4,0,0,32,3]
 };
