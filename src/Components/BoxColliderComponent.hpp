@@ -8,7 +8,7 @@
 
 namespace shkyera {
 
-template<ComponentMode Mode = PRODUCTION>
+template<RuntimeMode Mode = RuntimeMode::PRODUCTION>
 class BoxColliderComponent : public BaseComponent<BoxColliderComponent<Mode>, Mode> {
 public:
     BoxColliderComponent() = default;

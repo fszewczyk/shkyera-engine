@@ -11,11 +11,8 @@ out vec3 FragPos;  // Fragment position in world space
 out vec3 Normal;   // Normal in world space
 
 void main() {
-  FragPos = vec3(modelMatrix *
-                 vec4(position, 1.0));  // Transform position to world space
-  Normal = normalize(mat3(transpose(inverse(modelMatrix))) *
-                     normal);  // Transform normal to world space
+  FragPos = vec3(modelMatrix * vec4(position, 1.0));
+  Normal = normalize(mat3(transpose(inverse(modelMatrix))) * normal);
 
-  // Transform the vertex position to clip space
   gl_Position = projectionMatrix * viewMatrix * vec4(FragPos, 1.0);
 }

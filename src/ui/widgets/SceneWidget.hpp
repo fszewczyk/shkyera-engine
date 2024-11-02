@@ -6,11 +6,13 @@
 
 #pragma once
 
+#include <memory>
+
+#include <Common/Types.hpp>
 #include <Rendering/ShaderProgram.hpp>
 #include <Runtime/Runtime.hpp>
 #include <UI/Widget.hpp>
 #include <GLFW/glfw3.h>
-#include <memory>
 
 namespace shkyera {
 
@@ -33,7 +35,8 @@ class SceneWidget : public Widget {
   private:
     void updateWindowCoordinateSystem();
 
-    Runtime _runtime;
+    std::shared_ptr<Registry> _registry;
+    Runtime<RuntimeMode::DEVELOPMENT> _runtime;
 };
 
 } // namespace shkyera

@@ -72,10 +72,10 @@ void PropertiesWidget::setupComponentsUI() {
     auto componentUi = std::make_unique<ModelComponentUI>(&component);
 
     componentUi->setOnMeshUpdate([this](const auto mesh) {
-      if(!_registry->hasComponent<BoxColliderComponent<ComponentMode::DEVELOPMENT>>(*_selectedEntity)) {
-        _registry->addComponent<BoxColliderComponent<ComponentMode::DEVELOPMENT>>(*_selectedEntity);
+      if(!_registry->hasComponent<BoxColliderComponent<RuntimeMode::DEVELOPMENT>>(*_selectedEntity)) {
+        _registry->addComponent<BoxColliderComponent<RuntimeMode::DEVELOPMENT>>(*_selectedEntity);
       }
-      auto& colliderComponent = _registry->getComponent<BoxColliderComponent<ComponentMode::DEVELOPMENT>>(*_selectedEntity);
+      auto& colliderComponent = _registry->getComponent<BoxColliderComponent<RuntimeMode::DEVELOPMENT>>(*_selectedEntity);
       colliderComponent.box = mesh->getBoundingBox();
     });
 
