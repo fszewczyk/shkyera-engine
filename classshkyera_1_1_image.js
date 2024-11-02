@@ -1,10 +1,13 @@
 var classshkyera_1_1_image =
 [
-    [ "Image", "classshkyera_1_1_image.html#a429726d07fa426094235b862765adbbd", null ],
-    [ "Image", "classshkyera_1_1_image.html#abddcd3507c295553d2bbdd90b77d94f4", null ],
+    [ "Image", "classshkyera_1_1_image.html#a210fcbf7201e8ae644be598574327e97", null ],
+    [ "getChannels", "classshkyera_1_1_image.html#ac882e57705101b1c002ddd0d162135f3", null ],
+    [ "getData", "classshkyera_1_1_image.html#ab14c5b829e54f300adbd19fc39e4242b", null ],
+    [ "getHeight", "classshkyera_1_1_image.html#af806d4a50e780c6fd6161284b194068a", null ],
     [ "getTextureId", "classshkyera_1_1_image.html#a161f7bee928ea4afdb5c241f9b8f241d", null ],
-    [ "load", "classshkyera_1_1_image.html#a47b7ad67aad2befd5733eed31993ccc4", null ],
-    [ "save", "classshkyera_1_1_image.html#a34ed38ebbdb942de38a5cd0cc0308596", null ],
+    [ "getWidth", "classshkyera_1_1_image.html#a39ea1d6488ab07bba1248e28861b36bb", null ],
+    [ "load", "classshkyera_1_1_image.html#a947d463554d8265b728f534bd0bfa3a3", null ],
+    [ "save", "classshkyera_1_1_image.html#abcc6bff70570cbf38ff766405a133efc", null ],
     [ "updateTextureId", "classshkyera_1_1_image.html#a5d317c7705839b9b4ee28a6eed7cfbd5", null ],
     [ "_components", "classshkyera_1_1_image.html#abf64ff1d3a95c51e9743a25803f33929", null ],
     [ "_data", "classshkyera_1_1_image.html#a4286591819646dcf2eec2cfdb877d3c5", null ],

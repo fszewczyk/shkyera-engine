@@ -6,6 +6,7 @@ var classshkyera_1_1_mesh =
     [ "Mesh", "classshkyera_1_1_mesh.html#a70dc682e465f00185806971c4824d555", null ],
     [ "~Mesh", "classshkyera_1_1_mesh.html#ac275570a0a6b4e9b848c8504e43088fb", null ],
     [ "bind", "classshkyera_1_1_mesh.html#ae42dd433a99b69a14414156b65125d14", null ],
+    [ "draw", "classshkyera_1_1_mesh.html#adb4359efe80fa48ef2a59b7d24f1d333", null ],
     [ "getBoundingBox", "classshkyera_1_1_mesh.html#aca6d043deafe814c00f74616761fb2bb", null ],
     [ "getEBO", "classshkyera_1_1_mesh.html#a0d59d4ee4014c9e65acd6bc1e7746070", null ],
     [ "getMeshSize", "classshkyera_1_1_mesh.html#a9d40ec4434717e1b7af46d2780ff1b21", null ],

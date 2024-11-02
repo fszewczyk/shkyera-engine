@@ -21,6 +21,9 @@ var dir_c610c8504d46288da7634b3c0b18263f =
     [ "PointLightComponent.hpp", "_point_light_component_8hpp.html", [
       [ "PointLightComponent", "classshkyera_1_1_point_light_component.html", "classshkyera_1_1_point_light_component" ]
     ] ],
+    [ "SkyboxComponent.hpp", "_skybox_component_8hpp.html", [
+      [ "SkyboxComponent", "classshkyera_1_1_skybox_component.html", "classshkyera_1_1_skybox_component" ]
+    ] ],
     [ "TransformComponent.hpp", "_transform_component_8hpp.html", [
       [ "TransformComponent", "classshkyera_1_1_transform_component.html", "classshkyera_1_1_transform_component" ]
     ] ],

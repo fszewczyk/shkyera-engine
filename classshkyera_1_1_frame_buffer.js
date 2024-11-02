@@ -3,7 +3,6 @@ var classshkyera_1_1_frame_buffer =
     [ "FrameBuffer", "classshkyera_1_1_frame_buffer.html#a5a9b4a111e958f692642c45e98ba4586", null ],
     [ "~FrameBuffer", "classshkyera_1_1_frame_buffer.html#a81c7d002e20c530e57da245a9b88c189", null ],
     [ "bind", "classshkyera_1_1_frame_buffer.html#ab61a270f0eabe0f541e6e26ca60de3d1", null ],
-    [ "cleanupFramebuffer", "classshkyera_1_1_frame_buffer.html#a7b9cdec64f3b3655564b2272292a6778", null ],
     [ "clear", "classshkyera_1_1_frame_buffer.html#a9724f02becfb791d38d0d6631b2c7617", null ],
     [ "getTexture", "classshkyera_1_1_frame_buffer.html#a7b87bab942a06fd97a27dc86e1b27a6e", null ],
     [ "setSize", "classshkyera_1_1_frame_buffer.html#affd59ba0490573eff82e697055ba7d04", null ],

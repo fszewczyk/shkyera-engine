@@ -5,6 +5,7 @@ var classshkyera_1_1_rendering_system =
     [ "render", "classshkyera_1_1_rendering_system.html#acba8cd976c755fd096ab5bed422ff6a5", null ],
     [ "renderModels", "classshkyera_1_1_rendering_system.html#a5da446c75fab9264fd4ff7b970a77944", null ],
     [ "renderOutline", "classshkyera_1_1_rendering_system.html#aefd2635b12dfa7fc91b784d0720769b3", null ],
+    [ "renderSkybox", "classshkyera_1_1_rendering_system.html#abdc1fcfb974a5e24217e672e0465a952", null ],
     [ "renderWireframes", "classshkyera_1_1_rendering_system.html#a6619403cffc08fc4338f96a5d1296778", null ],
     [ "setSize", "classshkyera_1_1_rendering_system.html#a9a5f646789f0ca1b21a7d04fa1e5bcb0", null ],
     [ "_differenceFrameBuffer", "classshkyera_1_1_rendering_system.html#adde2d0af431ec02b044148f67d83fd19", null ],
@@ -17,6 +18,8 @@ var classshkyera_1_1_rendering_system =
     [ "_renderFrameBuffer", "classshkyera_1_1_rendering_system.html#ab89e60df65055588b959f76689127636", null ],
     [ "_silhouetteFrameBuffer", "classshkyera_1_1_rendering_system.html#aadf4d8ffdc54c6b057b9afc9c4eaabeb", null ],
     [ "_silhouetteShaderProgram", "classshkyera_1_1_rendering_system.html#a811a5f902cdbf1b82758819e819da8f6", null ],
+    [ "_skyboxCubeMap", "classshkyera_1_1_rendering_system.html#ac6b213714a6cfeda64cbd7124bb3c906", null ],
+    [ "_skyboxShaderProgram", "classshkyera_1_1_rendering_system.html#a15b91aa8f5140f484932847014ddba37", null ],
     [ "_subtractShaderProgram", "classshkyera_1_1_rendering_system.html#a92bca47e851e20bcc0e82d7cc862b7f0", null ],
     [ "_wireframeShaderProgram", "classshkyera_1_1_rendering_system.html#a63da32266fb627bc8f41ab9fe2841e2d", null ]
 ];

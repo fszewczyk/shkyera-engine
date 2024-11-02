@@ -12,6 +12,10 @@ var dir_03b2673553046158dff6b880fc282c90 =
     [ "PointLightComponentUI.hpp", "_point_light_component_u_i_8hpp.html", [
       [ "PointLightComponentUI", "classshkyera_1_1_point_light_component_u_i.html", "classshkyera_1_1_point_light_component_u_i" ]
     ] ],
+    [ "SkyboxComponentUI.cpp", "_skybox_component_u_i_8cpp.html", null ],
+    [ "SkyboxComponentUI.hpp", "_skybox_component_u_i_8hpp.html", [
+      [ "SkyboxComponentUI", "classshkyera_1_1_skybox_component_u_i.html", "classshkyera_1_1_skybox_component_u_i" ]
+    ] ],
     [ "TransformComponentUI.cpp", "_transform_component_u_i_8cpp.html", null ],
     [ "TransformComponentUI.hpp", "_transform_component_u_i_8hpp.html", [
       [ "TransformComponentUI", "classshkyera_1_1_transform_component_u_i.html", "classshkyera_1_1_transform_component_u_i" ]

@@ -1,6 +1,7 @@
 var hierarchy =
 [
     [ "shkyera::Asset", "classshkyera_1_1_asset.html", [
+      [ "shkyera::Image", "classshkyera_1_1_image.html", null ],
       [ "shkyera::Material", "classshkyera_1_1_material.html", null ],
       [ "shkyera::Mesh", "classshkyera_1_1_mesh.html", null ],
       [ "shkyera::Shader", "classshkyera_1_1_shader.html", null ],
@@ -23,6 +24,9 @@ var hierarchy =
     [ "shkyera::BaseComponent< PointLightComponent >", "classshkyera_1_1_base_component.html", [
       [ "shkyera::PointLightComponent", "classshkyera_1_1_point_light_component.html", null ]
     ] ],
+    [ "shkyera::BaseComponent< SkyboxComponent >", "classshkyera_1_1_base_component.html", [
+      [ "shkyera::SkyboxComponent", "classshkyera_1_1_skybox_component.html", null ]
+    ] ],
     [ "shkyera::BaseComponent< TransformComponent >", "classshkyera_1_1_base_component.html", [
       [ "shkyera::TransformComponent", "classshkyera_1_1_transform_component.html", null ]
     ] ],
@@ -36,9 +40,11 @@ var hierarchy =
       [ "shkyera::DirectionalLightComponentUI", "classshkyera_1_1_directional_light_component_u_i.html", null ],
       [ "shkyera::ModelComponentUI", "classshkyera_1_1_model_component_u_i.html", null ],
       [ "shkyera::PointLightComponentUI", "classshkyera_1_1_point_light_component_u_i.html", null ],
+      [ "shkyera::SkyboxComponentUI", "classshkyera_1_1_skybox_component_u_i.html", null ],
       [ "shkyera::TransformComponentUI", "classshkyera_1_1_transform_component_u_i.html", null ],
       [ "shkyera::WireframeComponentUI", "classshkyera_1_1_wireframe_component_u_i.html", null ]
     ] ],
+    [ "shkyera::CubeMap", "classshkyera_1_1_cube_map.html", null ],
     [ "shkyera::DevelopmentRendererSystem", "classshkyera_1_1_development_renderer_system.html", null ],
     [ "shkyera::Directory", "classshkyera_1_1_directory.html", null ],
     [ "shkyera::Wireframe::Edge", "structshkyera_1_1_wireframe_1_1_edge.html", null ],
@@ -49,7 +55,6 @@ var hierarchy =
     [ "shkyera::FileSelector", "classshkyera_1_1_file_selector.html", null ],
     [ "shkyera::FrameBuffer", "classshkyera_1_1_frame_buffer.html", null ],
     [ "std::std::hash< glm::vec3 >", "structstd_1_1std_1_1hash_3_01glm_1_1vec3_01_4.html", null ],
-    [ "shkyera::Image", "classshkyera_1_1_image.html", null ],
     [ "shkyera::InputManager", "classshkyera_1_1_input_manager.html", null ],
     [ "shkyera::SparseSet< Component >::Iterator< IsConst >", "classshkyera_1_1_sparse_set_1_1_iterator.html", null ],
     [ "shkyera::Log", "classshkyera_1_1_log.html", [

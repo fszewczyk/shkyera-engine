@@ -142,6 +142,8 @@ Private Member Functions</h2></td></tr>
 <tr class="separator:a6619403cffc08fc4338f96a5d1296778"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aefd2635b12dfa7fc91b784d0720769b3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_rendering_system.html#aefd2635b12dfa7fc91b784d0720769b3">renderOutline</a> (const std::unordered_set&lt; <a class="el" href="namespaceshkyera.html#a043bdd87686e0bd1bce19a1fd86298cd">Entity</a> &gt; &amp;entities)</td></tr>
 <tr class="separator:aefd2635b12dfa7fc91b784d0720769b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abdc1fcfb974a5e24217e672e0465a952"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_rendering_system.html#abdc1fcfb974a5e24217e672e0465a952">renderSkybox</a> ()</td></tr>
+<tr class="separator:abdc1fcfb974a5e24217e672e0465a952"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -169,6 +171,10 @@ Private Attributes</h2></td></tr>
 <tr class="separator:a92bca47e851e20bcc0e82d7cc862b7f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a73ef0a6478146143ef319d12289e7b21"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classshkyera_1_1_shader_program.html">ShaderProgram</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_rendering_system.html#a73ef0a6478146143ef319d12289e7b21">_overlayShaderProgram</a></td></tr>
 <tr class="separator:a73ef0a6478146143ef319d12289e7b21"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac6b213714a6cfeda64cbd7124bb3c906"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classshkyera_1_1_cube_map.html">CubeMap</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_rendering_system.html#ac6b213714a6cfeda64cbd7124bb3c906">_skyboxCubeMap</a></td></tr>
+<tr class="separator:ac6b213714a6cfeda64cbd7124bb3c906"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a15b91aa8f5140f484932847014ddba37"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classshkyera_1_1_shader_program.html">ShaderProgram</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_rendering_system.html#a15b91aa8f5140f484932847014ddba37">_skyboxShaderProgram</a></td></tr>
+<tr class="separator:a15b91aa8f5140f484932847014ddba37"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="afe2b76164bce819eb7af7ea36b66e477"></a>
@@ -263,6 +269,31 @@ Private Attributes</h2></td></tr>
           <td>(</td>
           <td class="paramtype">const std::unordered_set&lt; <a class="el" href="namespaceshkyera.html#a043bdd87686e0bd1bce19a1fd86298cd">Entity</a> &gt; &amp;&#160;</td>
           <td class="paramname"><em>entities</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="abdc1fcfb974a5e24217e672e0465a952"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abdc1fcfb974a5e24217e672e0465a952">&#9670;&nbsp;</a></span>renderSkybox()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void shkyera::RenderingSystem::renderSkybox </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -538,6 +569,50 @@ Private Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="classshkyera_1_1_shader_program.html">ShaderProgram</a> shkyera::RenderingSystem::_silhouetteShaderProgram</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac6b213714a6cfeda64cbd7124bb3c906"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac6b213714a6cfeda64cbd7124bb3c906">&#9670;&nbsp;</a></span>_skyboxCubeMap</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classshkyera_1_1_cube_map.html">CubeMap</a> shkyera::RenderingSystem::_skyboxCubeMap</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a15b91aa8f5140f484932847014ddba37"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a15b91aa8f5140f484932847014ddba37">&#9670;&nbsp;</a></span>_skyboxShaderProgram</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classshkyera_1_1_shader_program.html">ShaderProgram</a> shkyera::RenderingSystem::_skyboxShaderProgram</td>
         </tr>
       </table>
   </td>
