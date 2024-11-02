@@ -6,6 +6,8 @@
 
 #pragma once
 
+#include <unordered_set>
+
 #include <ECS/EntityProvider.hpp>
 #include <ECS/SparseSet.hpp>
 
@@ -41,7 +43,7 @@ public:
      */
     void removeEntity(Entity entity);
 
-    std::vector<Entity> getSelectedEntities();
+    const std::unordered_set<Entity>& getSelectedEntities();
 
     void selectEntity(Entity entity);
 
@@ -80,6 +82,18 @@ public:
     template <typename Component>
     bool hasComponent(Entity entity) const {
         return getOrCreateComponentSet<Component>().contains(entity);
+    }
+
+    /**
+     * Checks if the specified entity has all of the specified components.
+     * 
+     * @tparam Components Types of the components to check for.
+     * @param entity The entity to check.
+     * @return True if the entity has all the components, false otherwise.
+     */
+    template <typename... Components>
+    bool hasComponents(Entity entity) const {
+        return (hasComponent<Components>(entity) && ...);
     }
 
     /**
@@ -175,7 +189,7 @@ private:
     EntityProvider _entityProvider; //< Manages the creation and management of entities.
 
     Entity _camera;
-    std::vector<Entity> _selectedEntities;
+    std::unordered_set<Entity> _selectedEntities;
 };
 
 } // namespace shkyera

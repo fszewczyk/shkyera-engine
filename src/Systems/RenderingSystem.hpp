@@ -20,7 +20,7 @@ public:
 private:
     void renderModels();
     void renderWireframes();
-    void renderOutline(const std::vector<Entity>& entities);
+    void renderOutline(const std::unordered_set<Entity>& entities);
 
     std::shared_ptr<Registry> _registry;
     

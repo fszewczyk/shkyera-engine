@@ -34,8 +34,6 @@ class ObjectsWidget : public Widget {
 
     void addOnNewEntityCallback(std::function<void(Entity)> callback);
 
-    void addOnSelectEntityCallback(std::function<void(Entity)> callback);
-
     /**
      * @brief Implementation of the abstract `draw` method to render the game objects widget.
      */
@@ -53,9 +51,7 @@ class ObjectsWidget : public Widget {
     void drawList();
 
     std::shared_ptr<Registry> _registry;                           ///< A shared pointer to the associated game.
-    Entity _selectedEntity = 0;
     std::vector<std::function<void(Entity)>> _onNewEntityCallbacks;
-    std::vector<std::function<void(Entity)>> _onSelectEntityCallbacks;
 };
 
 } // namespace shkyera

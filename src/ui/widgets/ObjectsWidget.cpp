@@ -11,9 +11,7 @@
 
 namespace shkyera {
 
-ObjectsWidget::ObjectsWidget(std::string name) : Widget(name) {
-  addOnSelectEntityCallback([this](Entity e) { _selectedEntity = e; });
-}
+ObjectsWidget::ObjectsWidget(std::string name) : Widget(name) {}
 
 void ObjectsWidget::setRegistry(std::shared_ptr<Registry> registry) {
   _registry = registry;
@@ -21,10 +19,6 @@ void ObjectsWidget::setRegistry(std::shared_ptr<Registry> registry) {
 
 void ObjectsWidget::addOnNewEntityCallback(std::function<void(Entity)> callback) {
   _onNewEntityCallbacks.emplace_back(callback);
-}
-
-void ObjectsWidget::addOnSelectEntityCallback(std::function<void(Entity)> callback) {
-  _onSelectEntityCallbacks.emplace_back(callback);
 }
 
 void ObjectsWidget::draw() {
@@ -61,10 +55,9 @@ void ObjectsWidget::drawList() {
        _registry->getComponentSet<NameComponent>()) {
     if (ImGui::Selectable(
             (nameComponent.getName() + "##" + std::to_string(i++)).c_str(),
-            entity == _selectedEntity)) {
-        for (const auto& callback : _onSelectEntityCallbacks) {
-          callback(entity);
-        }
+            _registry->getSelectedEntities().count(entity) > 0)) {
+        _registry->clearSelectedEntities();
+        _registry->selectEntity(entity);
     }
   }
 }

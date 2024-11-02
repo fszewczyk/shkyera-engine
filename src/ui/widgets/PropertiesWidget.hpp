@@ -30,8 +30,6 @@ class PropertiesWidget : public Widget {
      */
     void draw() override;
 
-    void selectEntity(Entity entity);
-
   private:
     void drawNewComponentMenu();
 
