@@ -127,36 +127,48 @@ $(document).ready(function(){initNavTree('classshkyera_1_1_rendering_system.html
 Public Member Functions</h2></td></tr>
 <tr class="memitem:afe2b76164bce819eb7af7ea36b66e477"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_rendering_system.html#afe2b76164bce819eb7af7ea36b66e477">RenderingSystem</a> (std::shared_ptr&lt; <a class="el" href="classshkyera_1_1_registry.html">Registry</a> &gt; registry)</td></tr>
 <tr class="separator:afe2b76164bce819eb7af7ea36b66e477"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7222fdd34dd01c03879738a2465a483f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_rendering_system.html#a7222fdd34dd01c03879738a2465a483f">startFrame</a> ()</td></tr>
-<tr class="separator:a7222fdd34dd01c03879738a2465a483f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9d2c8568e41058eef7d70dfed2446400"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_rendering_system.html#a9d2c8568e41058eef7d70dfed2446400">endFrame</a> ()</td></tr>
-<tr class="separator:a9d2c8568e41058eef7d70dfed2446400"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acba8cd976c755fd096ab5bed422ff6a5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_rendering_system.html#acba8cd976c755fd096ab5bed422ff6a5">render</a> ()</td></tr>
+<tr class="separator:acba8cd976c755fd096ab5bed422ff6a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9a5f646789f0ca1b21a7d04fa1e5bcb0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_rendering_system.html#a9a5f646789f0ca1b21a7d04fa1e5bcb0">setSize</a> (uint32_t width, uint32_t height)</td></tr>
 <tr class="separator:a9a5f646789f0ca1b21a7d04fa1e5bcb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab936a0ec8de28cbcabe49d35aa2ce8ea"><td class="memItemLeft" align="right" valign="top">GLuint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_rendering_system.html#ab936a0ec8de28cbcabe49d35aa2ce8ea">getTexture</a> () const</td></tr>
-<tr class="separator:ab936a0ec8de28cbcabe49d35aa2ce8ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af3b5135941eaca157df246d919d84fc3"><td class="memItemLeft" align="right" valign="top">GLuint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_rendering_system.html#af3b5135941eaca157df246d919d84fc3">getRenderFrameBuffer</a> ()</td></tr>
+<tr class="separator:af3b5135941eaca157df246d919d84fc3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
-<tr class="memitem:a586c8c3622b6c01b737efc7afa3b3a07"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_rendering_system.html#a586c8c3622b6c01b737efc7afa3b3a07">setupFramebuffer</a> ()</td></tr>
-<tr class="separator:a586c8c3622b6c01b737efc7afa3b3a07"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a63b974c1ccaab9ee45c03228146b4364"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_rendering_system.html#a63b974c1ccaab9ee45c03228146b4364">cleanupFramebuffer</a> ()</td></tr>
-<tr class="separator:a63b974c1ccaab9ee45c03228146b4364"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5da446c75fab9264fd4ff7b970a77944"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_rendering_system.html#a5da446c75fab9264fd4ff7b970a77944">renderModels</a> ()</td></tr>
+<tr class="separator:a5da446c75fab9264fd4ff7b970a77944"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6619403cffc08fc4338f96a5d1296778"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_rendering_system.html#a6619403cffc08fc4338f96a5d1296778">renderWireframes</a> ()</td></tr>
+<tr class="separator:a6619403cffc08fc4338f96a5d1296778"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae04d1afb7db3e816a7eda9495f6c01c2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_rendering_system.html#ae04d1afb7db3e816a7eda9495f6c01c2">renderOutline</a> (const std::vector&lt; <a class="el" href="namespaceshkyera.html#a043bdd87686e0bd1bce19a1fd86298cd">Entity</a> &gt; &amp;entities)</td></tr>
+<tr class="separator:ae04d1afb7db3e816a7eda9495f6c01c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
 <tr class="memitem:ab7d1c1ac483ce7a525962b45db08dabd"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="classshkyera_1_1_registry.html">Registry</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_rendering_system.html#ab7d1c1ac483ce7a525962b45db08dabd">_registry</a></td></tr>
 <tr class="separator:ab7d1c1ac483ce7a525962b45db08dabd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a46e765a4f56ef4d6f5202eb88fcf9884"><td class="memItemLeft" align="right" valign="top">GLuint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_rendering_system.html#a46e765a4f56ef4d6f5202eb88fcf9884">_fbo</a></td></tr>
-<tr class="separator:a46e765a4f56ef4d6f5202eb88fcf9884"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7d9956999250ff57c5b37aa83b3bb3c1"><td class="memItemLeft" align="right" valign="top">GLuint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_rendering_system.html#a7d9956999250ff57c5b37aa83b3bb3c1">_textureColorBuffer</a></td></tr>
-<tr class="separator:a7d9956999250ff57c5b37aa83b3bb3c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab11d6aba06a10ee86447a0d182b59469"><td class="memItemLeft" align="right" valign="top">GLuint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_rendering_system.html#ab11d6aba06a10ee86447a0d182b59469">_rbo</a></td></tr>
-<tr class="separator:ab11d6aba06a10ee86447a0d182b59469"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5293a784dabe79ac4e3b097c5110ffa6"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_rendering_system.html#a5293a784dabe79ac4e3b097c5110ffa6">_width</a></td></tr>
-<tr class="separator:a5293a784dabe79ac4e3b097c5110ffa6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a885a0b9bee18c0b9a24dda6d8ec61b68"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_rendering_system.html#a885a0b9bee18c0b9a24dda6d8ec61b68">_height</a></td></tr>
-<tr class="separator:a885a0b9bee18c0b9a24dda6d8ec61b68"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab89e60df65055588b959f76689127636"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classshkyera_1_1_frame_buffer.html">FrameBuffer</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_rendering_system.html#ab89e60df65055588b959f76689127636">_renderFrameBuffer</a></td></tr>
+<tr class="separator:ab89e60df65055588b959f76689127636"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad797aa3ee3011e394a02ef7cea91c665"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classshkyera_1_1_shader_program.html">ShaderProgram</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_rendering_system.html#ad797aa3ee3011e394a02ef7cea91c665">_modelShaderProgram</a></td></tr>
+<tr class="separator:ad797aa3ee3011e394a02ef7cea91c665"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a63da32266fb627bc8f41ab9fe2841e2d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classshkyera_1_1_shader_program.html">ShaderProgram</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_rendering_system.html#a63da32266fb627bc8f41ab9fe2841e2d">_wireframeShaderProgram</a></td></tr>
+<tr class="separator:a63da32266fb627bc8f41ab9fe2841e2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aadf4d8ffdc54c6b057b9afc9c4eaabeb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classshkyera_1_1_frame_buffer.html">FrameBuffer</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_rendering_system.html#aadf4d8ffdc54c6b057b9afc9c4eaabeb">_silhouetteFrameBuffer</a></td></tr>
+<tr class="separator:aadf4d8ffdc54c6b057b9afc9c4eaabeb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3480c6c679ac3f00acb01ffcef46e75e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classshkyera_1_1_frame_buffer.html">FrameBuffer</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_rendering_system.html#a3480c6c679ac3f00acb01ffcef46e75e">_horizontallyDilatedFrameBuffer</a></td></tr>
+<tr class="separator:a3480c6c679ac3f00acb01ffcef46e75e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acd40a89139510ddbdf727dbfeebd65a9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classshkyera_1_1_frame_buffer.html">FrameBuffer</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_rendering_system.html#acd40a89139510ddbdf727dbfeebd65a9">_fullyDilatedFrameBuffer</a></td></tr>
+<tr class="separator:acd40a89139510ddbdf727dbfeebd65a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adde2d0af431ec02b044148f67d83fd19"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classshkyera_1_1_frame_buffer.html">FrameBuffer</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_rendering_system.html#adde2d0af431ec02b044148f67d83fd19">_differenceFrameBuffer</a></td></tr>
+<tr class="separator:adde2d0af431ec02b044148f67d83fd19"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a811a5f902cdbf1b82758819e819da8f6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classshkyera_1_1_shader_program.html">ShaderProgram</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_rendering_system.html#a811a5f902cdbf1b82758819e819da8f6">_silhouetteShaderProgram</a></td></tr>
+<tr class="separator:a811a5f902cdbf1b82758819e819da8f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a18a2a54836279d5454ab372306a1d30d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classshkyera_1_1_shader_program.html">ShaderProgram</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_rendering_system.html#a18a2a54836279d5454ab372306a1d30d">_dilateShaderProgram</a></td></tr>
+<tr class="separator:a18a2a54836279d5454ab372306a1d30d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a92bca47e851e20bcc0e82d7cc862b7f0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classshkyera_1_1_shader_program.html">ShaderProgram</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_rendering_system.html#a92bca47e851e20bcc0e82d7cc862b7f0">_subtractShaderProgram</a></td></tr>
+<tr class="separator:a92bca47e851e20bcc0e82d7cc862b7f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a73ef0a6478146143ef319d12289e7b21"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classshkyera_1_1_shader_program.html">ShaderProgram</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_rendering_system.html#a73ef0a6478146143ef319d12289e7b21">_overlayShaderProgram</a></td></tr>
+<tr class="separator:a73ef0a6478146143ef319d12289e7b21"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="afe2b76164bce819eb7af7ea36b66e477"></a>
@@ -178,8 +190,42 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a63b974c1ccaab9ee45c03228146b4364"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a63b974c1ccaab9ee45c03228146b4364">&#9670;&nbsp;</a></span>cleanupFramebuffer()</h2>
+<a id="af3b5135941eaca157df246d919d84fc3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af3b5135941eaca157df246d919d84fc3">&#9670;&nbsp;</a></span>getRenderFrameBuffer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">GLuint shkyera::RenderingSystem::getRenderFrameBuffer </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="acba8cd976c755fd096ab5bed422ff6a5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acba8cd976c755fd096ab5bed422ff6a5">&#9670;&nbsp;</a></span>render()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void shkyera::RenderingSystem::render </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5da446c75fab9264fd4ff7b970a77944"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5da446c75fab9264fd4ff7b970a77944">&#9670;&nbsp;</a></span>renderModels()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -188,7 +234,7 @@ Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void shkyera::RenderingSystem::cleanupFramebuffer </td>
+          <td class="memname">void shkyera::RenderingSystem::renderModels </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -203,36 +249,53 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a9d2c8568e41058eef7d70dfed2446400"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9d2c8568e41058eef7d70dfed2446400">&#9670;&nbsp;</a></span>endFrame()</h2>
+<a id="ae04d1afb7db3e816a7eda9495f6c01c2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae04d1afb7db3e816a7eda9495f6c01c2">&#9670;&nbsp;</a></span>renderOutline()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void shkyera::RenderingSystem::endFrame </td>
+          <td class="memname">void shkyera::RenderingSystem::renderOutline </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="namespaceshkyera.html#a043bdd87686e0bd1bce19a1fd86298cd">Entity</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>entities</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6619403cffc08fc4338f96a5d1296778"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6619403cffc08fc4338f96a5d1296778">&#9670;&nbsp;</a></span>renderWireframes()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void shkyera::RenderingSystem::renderWireframes </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ab936a0ec8de28cbcabe49d35aa2ce8ea"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab936a0ec8de28cbcabe49d35aa2ce8ea">&#9670;&nbsp;</a></span>getTexture()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">GLuint shkyera::RenderingSystem::getTexture </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
@@ -265,51 +328,9 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a586c8c3622b6c01b737efc7afa3b3a07"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a586c8c3622b6c01b737efc7afa3b3a07">&#9670;&nbsp;</a></span>setupFramebuffer()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void shkyera::RenderingSystem::setupFramebuffer </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a7222fdd34dd01c03879738a2465a483f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7222fdd34dd01c03879738a2465a483f">&#9670;&nbsp;</a></span>startFrame()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void shkyera::RenderingSystem::startFrame </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="a46e765a4f56ef4d6f5202eb88fcf9884"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a46e765a4f56ef4d6f5202eb88fcf9884">&#9670;&nbsp;</a></span>_fbo</h2>
+<a id="adde2d0af431ec02b044148f67d83fd19"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adde2d0af431ec02b044148f67d83fd19">&#9670;&nbsp;</a></span>_differenceFrameBuffer</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -318,7 +339,7 @@ Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">GLuint shkyera::RenderingSystem::_fbo</td>
+          <td class="memname"><a class="el" href="classshkyera_1_1_frame_buffer.html">FrameBuffer</a> shkyera::RenderingSystem::_differenceFrameBuffer</td>
         </tr>
       </table>
   </td>
@@ -330,8 +351,8 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a885a0b9bee18c0b9a24dda6d8ec61b68"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a885a0b9bee18c0b9a24dda6d8ec61b68">&#9670;&nbsp;</a></span>_height</h2>
+<a id="a18a2a54836279d5454ab372306a1d30d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a18a2a54836279d5454ab372306a1d30d">&#9670;&nbsp;</a></span>_dilateShaderProgram</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -340,7 +361,7 @@ Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">uint32_t shkyera::RenderingSystem::_height</td>
+          <td class="memname"><a class="el" href="classshkyera_1_1_shader_program.html">ShaderProgram</a> shkyera::RenderingSystem::_dilateShaderProgram</td>
         </tr>
       </table>
   </td>
@@ -352,8 +373,8 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="ab11d6aba06a10ee86447a0d182b59469"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab11d6aba06a10ee86447a0d182b59469">&#9670;&nbsp;</a></span>_rbo</h2>
+<a id="acd40a89139510ddbdf727dbfeebd65a9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acd40a89139510ddbdf727dbfeebd65a9">&#9670;&nbsp;</a></span>_fullyDilatedFrameBuffer</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -362,7 +383,73 @@ Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">GLuint shkyera::RenderingSystem::_rbo</td>
+          <td class="memname"><a class="el" href="classshkyera_1_1_frame_buffer.html">FrameBuffer</a> shkyera::RenderingSystem::_fullyDilatedFrameBuffer</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3480c6c679ac3f00acb01ffcef46e75e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3480c6c679ac3f00acb01ffcef46e75e">&#9670;&nbsp;</a></span>_horizontallyDilatedFrameBuffer</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classshkyera_1_1_frame_buffer.html">FrameBuffer</a> shkyera::RenderingSystem::_horizontallyDilatedFrameBuffer</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad797aa3ee3011e394a02ef7cea91c665"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad797aa3ee3011e394a02ef7cea91c665">&#9670;&nbsp;</a></span>_modelShaderProgram</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classshkyera_1_1_shader_program.html">ShaderProgram</a> shkyera::RenderingSystem::_modelShaderProgram</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a73ef0a6478146143ef319d12289e7b21"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a73ef0a6478146143ef319d12289e7b21">&#9670;&nbsp;</a></span>_overlayShaderProgram</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classshkyera_1_1_shader_program.html">ShaderProgram</a> shkyera::RenderingSystem::_overlayShaderProgram</td>
         </tr>
       </table>
   </td>
@@ -396,8 +483,8 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a7d9956999250ff57c5b37aa83b3bb3c1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7d9956999250ff57c5b37aa83b3bb3c1">&#9670;&nbsp;</a></span>_textureColorBuffer</h2>
+<a id="ab89e60df65055588b959f76689127636"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab89e60df65055588b959f76689127636">&#9670;&nbsp;</a></span>_renderFrameBuffer</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -406,7 +493,7 @@ Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">GLuint shkyera::RenderingSystem::_textureColorBuffer</td>
+          <td class="memname"><a class="el" href="classshkyera_1_1_frame_buffer.html">FrameBuffer</a> shkyera::RenderingSystem::_renderFrameBuffer</td>
         </tr>
       </table>
   </td>
@@ -418,8 +505,8 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a5293a784dabe79ac4e3b097c5110ffa6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5293a784dabe79ac4e3b097c5110ffa6">&#9670;&nbsp;</a></span>_width</h2>
+<a id="aadf4d8ffdc54c6b057b9afc9c4eaabeb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aadf4d8ffdc54c6b057b9afc9c4eaabeb">&#9670;&nbsp;</a></span>_silhouetteFrameBuffer</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -428,7 +515,73 @@ Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">uint32_t shkyera::RenderingSystem::_width</td>
+          <td class="memname"><a class="el" href="classshkyera_1_1_frame_buffer.html">FrameBuffer</a> shkyera::RenderingSystem::_silhouetteFrameBuffer</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a811a5f902cdbf1b82758819e819da8f6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a811a5f902cdbf1b82758819e819da8f6">&#9670;&nbsp;</a></span>_silhouetteShaderProgram</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classshkyera_1_1_shader_program.html">ShaderProgram</a> shkyera::RenderingSystem::_silhouetteShaderProgram</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a92bca47e851e20bcc0e82d7cc862b7f0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a92bca47e851e20bcc0e82d7cc862b7f0">&#9670;&nbsp;</a></span>_subtractShaderProgram</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classshkyera_1_1_shader_program.html">ShaderProgram</a> shkyera::RenderingSystem::_subtractShaderProgram</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a63da32266fb627bc8f41ab9fe2841e2d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a63da32266fb627bc8f41ab9fe2841e2d">&#9670;&nbsp;</a></span>_wireframeShaderProgram</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classshkyera_1_1_shader_program.html">ShaderProgram</a> shkyera::RenderingSystem::_wireframeShaderProgram</td>
         </tr>
       </table>
   </td>

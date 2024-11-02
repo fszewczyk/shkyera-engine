@@ -117,31 +117,26 @@ $(document).ready(function(){initNavTree('_base_component_8hpp_source.html','');
 <div class="contents">
 <a href="_base_component_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceshkyera.html">shkyera</a> {</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="_types_8hpp.html">Common/Types.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
-<div class="line"><a name="l00005"></a><span class="lineno"><a class="line" href="namespaceshkyera.html#a4384dbcaa13ebdacc7436154043938dc">    5</a></span>&#160;<span class="keyword">enum</span> <a class="code" href="namespaceshkyera.html#a4384dbcaa13ebdacc7436154043938dc">ComponentMode</a> {</div>
-<div class="line"><a name="l00006"></a><span class="lineno"><a class="line" href="namespaceshkyera.html#a4384dbcaa13ebdacc7436154043938dca5879692bccabb6ab6bc9705346dd604a">    6</a></span>&#160;    <a class="code" href="namespaceshkyera.html#a4384dbcaa13ebdacc7436154043938dca5879692bccabb6ab6bc9705346dd604a">DEVELOPMENT</a>,</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;    <a class="code" href="namespaceshkyera.html#a4384dbcaa13ebdacc7436154043938dca14d66429a0cfe5c04ad919d4534ebf7e">PRODUCTION</a></div>
-<div class="line"><a name="l00008"></a><span class="lineno"><a class="line" href="namespaceshkyera.html#a4384dbcaa13ebdacc7436154043938dca14d66429a0cfe5c04ad919d4534ebf7e">    8</a></span>&#160;};</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> Derived, ComponentMode Mode = PRODUCTION&gt;</div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="classshkyera_1_1_base_component.html">   18</a></span>&#160;<span class="keyword">class </span><a class="code" href="classshkyera_1_1_base_component.html">BaseComponent</a> {</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="classshkyera_1_1_base_component.html#a8f3960a847a386e315cab53bd248d914">   26</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classshkyera_1_1_base_component.html#a8f3960a847a386e315cab53bd248d914">update</a>() {</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        <span class="keyword">static_cast&lt;</span>Derived*<span class="keyword">&gt;</span>(<span class="keyword">this</span>)-&gt;updateImpl();</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    }</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="classshkyera_1_1_base_component.html#a1ca9ffa6c203bb524908ee58f24c9c6e">   35</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="classshkyera_1_1_base_component.html#a1ca9ffa6c203bb524908ee58f24c9c6e">~BaseComponent</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;};</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;} <span class="comment">// namespace shkyera</span></div>
-<div class="ttc" id="aclassshkyera_1_1_base_component_html"><div class="ttname"><a href="classshkyera_1_1_base_component.html">shkyera::BaseComponent</a></div><div class="ttdoc">Base component for implementing update functionality.</div><div class="ttdef"><b>Definition:</b> BaseComponent.hpp:18</div></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceshkyera.html">shkyera</a> {</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> Derived, RuntimeMode Mode = RuntimeMode::PRODUCTION&gt;</div>
+<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="classshkyera_1_1_base_component.html">   15</a></span>&#160;<span class="keyword">class </span><a class="code" href="classshkyera_1_1_base_component.html">BaseComponent</a> {</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="classshkyera_1_1_base_component.html#a8f3960a847a386e315cab53bd248d914">   23</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classshkyera_1_1_base_component.html#a8f3960a847a386e315cab53bd248d914">update</a>() {</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        <span class="keyword">static_cast&lt;</span>Derived*<span class="keyword">&gt;</span>(<span class="keyword">this</span>)-&gt;updateImpl();</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    }</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="classshkyera_1_1_base_component.html#a1ca9ffa6c203bb524908ee58f24c9c6e">   32</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="classshkyera_1_1_base_component.html#a1ca9ffa6c203bb524908ee58f24c9c6e">~BaseComponent</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;};</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;} <span class="comment">// namespace shkyera</span></div>
+<div class="ttc" id="a_types_8hpp_html"><div class="ttname"><a href="_types_8hpp.html">Types.hpp</a></div></div>
+<div class="ttc" id="aclassshkyera_1_1_base_component_html"><div class="ttname"><a href="classshkyera_1_1_base_component.html">shkyera::BaseComponent</a></div><div class="ttdoc">Base component for implementing update functionality.</div><div class="ttdef"><b>Definition:</b> BaseComponent.hpp:15</div></div>
 <div class="ttc" id="aclassshkyera_1_1_base_component_html_a1ca9ffa6c203bb524908ee58f24c9c6e"><div class="ttname"><a href="classshkyera_1_1_base_component.html#a1ca9ffa6c203bb524908ee58f24c9c6e">shkyera::BaseComponent::~BaseComponent</a></div><div class="ttdeci">virtual ~BaseComponent()=default</div><div class="ttdoc">Virtual destructor for proper cleanup.</div></div>
-<div class="ttc" id="aclassshkyera_1_1_base_component_html_a8f3960a847a386e315cab53bd248d914"><div class="ttname"><a href="classshkyera_1_1_base_component.html#a8f3960a847a386e315cab53bd248d914">shkyera::BaseComponent::update</a></div><div class="ttdeci">void update()</div><div class="ttdoc">Calls the derived class's update implementation.</div><div class="ttdef"><b>Definition:</b> BaseComponent.hpp:26</div></div>
+<div class="ttc" id="aclassshkyera_1_1_base_component_html_a8f3960a847a386e315cab53bd248d914"><div class="ttname"><a href="classshkyera_1_1_base_component.html#a8f3960a847a386e315cab53bd248d914">shkyera::BaseComponent::update</a></div><div class="ttdeci">void update()</div><div class="ttdoc">Calls the derived class's update implementation.</div><div class="ttdef"><b>Definition:</b> BaseComponent.hpp:23</div></div>
 <div class="ttc" id="anamespaceshkyera_html"><div class="ttname"><a href="namespaceshkyera.html">shkyera</a></div><div class="ttdef"><b>Definition:</b> Asset.hpp:5</div></div>
-<div class="ttc" id="anamespaceshkyera_html_a4384dbcaa13ebdacc7436154043938dc"><div class="ttname"><a href="namespaceshkyera.html#a4384dbcaa13ebdacc7436154043938dc">shkyera::ComponentMode</a></div><div class="ttdeci">ComponentMode</div><div class="ttdef"><b>Definition:</b> BaseComponent.hpp:5</div></div>
-<div class="ttc" id="anamespaceshkyera_html_a4384dbcaa13ebdacc7436154043938dca14d66429a0cfe5c04ad919d4534ebf7e"><div class="ttname"><a href="namespaceshkyera.html#a4384dbcaa13ebdacc7436154043938dca14d66429a0cfe5c04ad919d4534ebf7e">shkyera::PRODUCTION</a></div><div class="ttdeci">@ PRODUCTION</div><div class="ttdef"><b>Definition:</b> BaseComponent.hpp:7</div></div>
-<div class="ttc" id="anamespaceshkyera_html_a4384dbcaa13ebdacc7436154043938dca5879692bccabb6ab6bc9705346dd604a"><div class="ttname"><a href="namespaceshkyera.html#a4384dbcaa13ebdacc7436154043938dca5879692bccabb6ab6bc9705346dd604a">shkyera::DEVELOPMENT</a></div><div class="ttdeci">@ DEVELOPMENT</div><div class="ttdef"><b>Definition:</b> BaseComponent.hpp:6</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.9.6-->

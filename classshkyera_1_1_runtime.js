@@ -1,12 +1,10 @@
 var classshkyera_1_1_runtime =
 [
-    [ "Runtime", "classshkyera_1_1_runtime.html#afe308d7381762382ab8d87e223fcf373", null ],
-    [ "getRenderingSystem", "classshkyera_1_1_runtime.html#af5afccdef079f7109b082b72a7131a0e", null ],
-    [ "getRenderingSystem", "classshkyera_1_1_runtime.html#a9eff1c5e3ebc59d847eeee51c5d62e06", null ],
-    [ "update", "classshkyera_1_1_runtime.html#ada72c09d18243cd1c4e8910b416e948d", null ],
-    [ "_cameraMovementSystem", "classshkyera_1_1_runtime.html#aee82b6ad9095f6fe55391124d22d2da1", null ],
-    [ "_modelRendererSystem", "classshkyera_1_1_runtime.html#aa9e8df51213236b3a495b8564e717d69", null ],
-    [ "_registry", "classshkyera_1_1_runtime.html#ad385195c67b675ab63652f1364cbb7c4", null ],
-    [ "_renderingSystem", "classshkyera_1_1_runtime.html#a10ef3327f5b784f523b99682e99f545e", null ],
-    [ "_wireframeRendererSystem", "classshkyera_1_1_runtime.html#ab376f5091d6a6aa1c115ac4cef133713", null ]
+    [ "Runtime", "classshkyera_1_1_runtime.html#a21d9898d6816674a2da24f139fa6dd1f", null ],
+    [ "getRenderingSystem", "classshkyera_1_1_runtime.html#a664df8f57c2bd532eac31fce0a0184be", null ],
+    [ "getRenderingSystem", "classshkyera_1_1_runtime.html#addf982509c3e376b1800c6c5328f3913", null ],
+    [ "update", "classshkyera_1_1_runtime.html#aad6f8e92fdc2dc6295c82e9da0061e06", null ],
+    [ "_cameraMovementSystem", "classshkyera_1_1_runtime.html#a6f0b7c62ee6df295b61e00d610112d8e", null ],
+    [ "_registry", "classshkyera_1_1_runtime.html#a6364912b155a63206445773b45091069", null ],
+    [ "_renderingSystem", "classshkyera_1_1_runtime.html#a46fd5d0a008579aa51a9d539ca5cbd2c", null ]
 ];
