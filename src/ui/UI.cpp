@@ -34,7 +34,6 @@ void glfw_error_callback(int error, const char* description) {
 void UI::initialize() {
   initializeImgui();
   initializeWidgets();
-  initializeAssets();
   initializeInterpreter();
   styleImgui();
 }
@@ -106,26 +105,6 @@ void UI::initializeWidgets() {
   auto sceneWidget = std::make_unique<SceneWidget>(_registry);
 
   _widgets.emplace_back(std::move(sceneWidget));
-}
-
-void UI::initializeAssets() {
-  Image::ICON_CONSOLE_TOTAL.updateTextureId();
-  Image::ICON_CONSOLE_ERROR.updateTextureId();
-  Image::ICON_CONSOLE_INFO.updateTextureId();
-  Image::ICON_CONSOLE_VERBOSE.updateTextureId();
-  Image::ICON_CONSOLE_SUCCESS.updateTextureId();
-
-  Image::ICON_COMPONENT_TRANSFORM.updateTextureId();
-  Image::ICON_COMPONENT_SCRIPT.updateTextureId();
-  Image::ICON_COMPONENT_SHAPE.updateTextureId();
-
-  Image::ICON_FILES_FOLDER.updateTextureId();
-  Image::ICON_FILES_IMAGE.updateTextureId();
-  Image::ICON_FILES_PYTHON.updateTextureId();
-  Image::ICON_FILES_TEXT.updateTextureId();
-
-  Image::ICON_BUTTON_PLAY.updateTextureId();
-  Image::ICON_BUTTON_STOP.updateTextureId();
 }
 
 void UI::initializeInterpreter() {}

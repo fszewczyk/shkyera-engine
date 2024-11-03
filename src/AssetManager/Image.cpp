@@ -16,7 +16,7 @@
 
 namespace shkyera {
 
-Image::Image(const std::string& path) : _wasAssignedTextureId(false) {
+Image::Image(const std::string& path) {
   load(path);
 }
 
@@ -47,52 +47,20 @@ int Image::getChannels() const {
   return _components;
 }
 
-void Image::updateTextureId() {
-  uint32_t textureId = _textureId;
+std::string Image::ICON_CONSOLE_TOTAL = "resources/icons/console/total.png";
+std::string Image::ICON_CONSOLE_ERROR = "resources/icons/console/error.png";
+std::string Image::ICON_CONSOLE_INFO = "resources/icons/console/info.png";
+std::string Image::ICON_CONSOLE_VERBOSE = "resources/icons/console/verbose.png";
+std::string Image::ICON_CONSOLE_SUCCESS = "resources/icons/console/success.png";
+std::string Image::ICON_COMPONENT_TRANSFORM = "resources/icons/components/transform.png";
+std::string Image::ICON_COMPONENT_SCRIPT = "resources/icons/components/script.png";
+std::string Image::ICON_COMPONENT_SHAPE = "resources/icons/components/shape.png";
+std::string Image::ICON_FILES_FOLDER = "resources/icons/files/folder.png";
+std::string Image::ICON_FILES_PYTHON = "resources/icons/files/python.png";
+std::string Image::ICON_FILES_IMAGE = "resources/icons/files/image.png";
+std::string Image::ICON_FILES_TEXT = "resources/icons/files/text.png";
+std::string Image::ICON_BUTTON_PLAY = "resources/icons/buttons/play.png";
+std::string Image::ICON_BUTTON_STOP = "resources/icons/buttons/stop.png";
 
-  if (_wasAssignedTextureId)
-    glDeleteTextures(1, &textureId);
-
-  glGenTextures(1, &textureId);
-  glBindTexture(GL_TEXTURE_2D, textureId);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-  if (_components == 3)
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, _width, _height, 0, GL_RGB,
-                 GL_UNSIGNED_BYTE, _data);
-  else
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, _width, _height, 0, GL_RGBA,
-                 GL_UNSIGNED_BYTE, _data);
-
-  _wasAssignedTextureId = true;
-  _textureId = textureId;
-}
-
-uint64_t Image::getTextureId() const {
-  return _textureId;
-}
-
-Image Image::ICON_CONSOLE_TOTAL = Image("resources/icons/console/total.png");
-Image Image::ICON_CONSOLE_ERROR = Image("resources/icons/console/error.png");
-Image Image::ICON_CONSOLE_INFO = Image("resources/icons/console/info.png");
-Image Image::ICON_CONSOLE_VERBOSE =
-    Image("resources/icons/console/verbose.png");
-Image Image::ICON_CONSOLE_SUCCESS =
-    Image("resources/icons/console/success.png");
-
-Image Image::ICON_COMPONENT_TRANSFORM =
-    Image("resources/icons/components/transform.png");
-Image Image::ICON_COMPONENT_SCRIPT =
-    Image("resources/icons/components/script.png");
-Image Image::ICON_COMPONENT_SHAPE =
-    Image("resources/icons/components/shape.png");
-
-Image Image::ICON_FILES_FOLDER = Image("resources/icons/files/folder.png");
-Image Image::ICON_FILES_PYTHON = Image("resources/icons/files/python.png");
-Image Image::ICON_FILES_IMAGE = Image("resources/icons/files/image.png");
-Image Image::ICON_FILES_TEXT = Image("resources/icons/files/text.png");
-
-Image Image::ICON_BUTTON_PLAY = Image("resources/icons/buttons/play.png");
-Image Image::ICON_BUTTON_STOP = Image("resources/icons/buttons/stop.png");
 
 }  // namespace shkyera

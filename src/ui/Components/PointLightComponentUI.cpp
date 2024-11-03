@@ -9,7 +9,7 @@ PointLightComponentUI::PointLightComponentUI(PointLightComponent* pointLightComp
     _pointLightComponent(pointLightComponent) {}
 
 void PointLightComponentUI::draw() {
-    ImGui::Image((ImTextureID)Image::ICON_COMPONENT_TRANSFORM.getTextureId(),
+    ImGui::Image(_icon->getImguiTextureID(),
                ImVec2(16, 16));
     ImGui::SameLine();
   if (ImGui::TreeNodeEx("Point Light", ImGuiTreeNodeFlags_DefaultOpen)) {

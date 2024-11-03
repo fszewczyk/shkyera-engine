@@ -3,6 +3,7 @@
 
 #include <iostream>
 
+#include <AssetManager/AssetManager.hpp>
 #include <AssetManager/Image.hpp>
 #include <UI/Common/Style.hpp>
 #include <UI/UI.hpp>
@@ -10,6 +11,14 @@
 #include <UI/Widgets/FilesystemWidget.hpp>
 
 namespace shkyera {
+
+FilesystemWidget::FilesystemWidget(std::string name) : Widget(name)
+{
+  _folderIcon = AssetManager::getInstance().getAsset<Texture>(Image::ICON_FILES_FOLDER);
+  _pythonIcon = AssetManager::getInstance().getAsset<Texture>(Image::ICON_FILES_PYTHON);
+  _imageIcon = AssetManager::getInstance().getAsset<Texture>(Image::ICON_FILES_IMAGE);
+  _textIcon = AssetManager::getInstance().getAsset<Texture>(Image::ICON_FILES_TEXT);
+}
 
 void FilesystemWidget::draw() {
   ImGui::Begin(_name.c_str());
@@ -53,7 +62,7 @@ void FilesystemWidget::drawDirectoryTree(
 
   static bool initiallyOpenedTree = false;
 
-  ImGui::Image((ImTextureID)Image::ICON_FILES_FOLDER.getTextureId(),
+  ImGui::Image(_folderIcon->getImguiTextureID(),
                ImVec2(16, 16));
   ImGui::SameLine();
 
@@ -121,7 +130,7 @@ void FilesystemWidget::drawDirectory(
   ImGui::PushID(directory->getName().c_str());
 
   ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
-  if (ImGui::ImageButton((ImTextureID)Image::ICON_FILES_FOLDER.getTextureId(),
+  if (ImGui::ImageButton(_folderIcon->getImguiTextureID(),
                          ImVec2(CONTENTS_ICON_SIZE, CONTENTS_ICON_SIZE))) {
     _currentDirectory = directory;
   }
@@ -246,13 +255,13 @@ ImTextureID FilesystemWidget::getTextureOfFile(
     const std::shared_ptr<File> file) const {
   switch (file->getType()) {
     case PYTHON:
-      return (ImTextureID)Image::ICON_FILES_PYTHON.getTextureId();
+      return _pythonIcon->getImguiTextureID();
       break;
     case IMAGE:
-      return (ImTextureID)Image::ICON_FILES_IMAGE.getTextureId();
+      return _imageIcon->getImguiTextureID();
       break;
     default:
-      return (ImTextureID)Image::ICON_FILES_TEXT.getTextureId();
+      return _textIcon->getImguiTextureID();
       break;
   }
 }

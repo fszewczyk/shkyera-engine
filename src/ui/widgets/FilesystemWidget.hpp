@@ -10,6 +10,7 @@
 #include <functional>
 
 #include <AssetManager/Filesystem.hpp>
+#include <Rendering/Texture.hpp>
 #include <UI/Widget.hpp>
 
 namespace shkyera {
@@ -22,7 +23,7 @@ namespace shkyera {
  */
 class FilesystemWidget : public Widget {
   public:
-    using Widget::Widget;
+    FilesystemWidget(std::string name);
 
     /**
      * @brief Implementation of the abstract `draw` method to render the filesystem widget.
@@ -108,6 +109,11 @@ class FilesystemWidget : public Widget {
     static constexpr float CONTENTS_ICON_SIZE = 64; ///< The size of icons representing directory contents.
     static std::string DEFAULT_FOLDER_NAME;         ///< The default folder name.
     static std::string DEFAULT_FILE_NAME;           ///< The default file name.
+
+    TextureAsset _folderIcon;
+    TextureAsset _pythonIcon;
+    TextureAsset _imageIcon;
+    TextureAsset _textIcon;
 };
 
 } // namespace shkyera
