@@ -5,6 +5,7 @@ var hierarchy =
       [ "shkyera::Material", "classshkyera_1_1_material.html", null ],
       [ "shkyera::Mesh", "classshkyera_1_1_mesh.html", null ],
       [ "shkyera::Shader", "classshkyera_1_1_shader.html", null ],
+      [ "shkyera::Texture", "classshkyera_1_1_texture.html", null ],
       [ "shkyera::Wireframe", "classshkyera_1_1_wireframe.html", null ]
     ] ],
     [ "shkyera::AssetManager", "classshkyera_1_1_asset_manager.html", null ],
@@ -73,7 +74,6 @@ var hierarchy =
     [ "shkyera::SparseSetBase", "classshkyera_1_1_sparse_set_base.html", [
       [ "shkyera::SparseSet< Component >", "classshkyera_1_1_sparse_set.html", null ]
     ] ],
-    [ "shkyera::Texture", "classshkyera_1_1_texture.html", null ],
     [ "shkyera::UI", "classshkyera_1_1_u_i.html", null ],
     [ "shkyera::Mesh::Vertex", "structshkyera_1_1_mesh_1_1_vertex.html", null ],
     [ "shkyera::Widget", "classshkyera_1_1_widget.html", [

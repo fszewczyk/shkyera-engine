@@ -78,6 +78,7 @@ var namespaceshkyera =
     [ "PropertiesWidget", "classshkyera_1_1_properties_widget.html", "classshkyera_1_1_properties_widget" ],
     [ "SceneWidget", "classshkyera_1_1_scene_widget.html", "classshkyera_1_1_scene_widget" ],
     [ "Entity", "namespaceshkyera.html#a043bdd87686e0bd1bce19a1fd86298cd", null ],
+    [ "TextureAsset", "namespaceshkyera.html#aa96ae6f5cd4b22f69428d8f4be5298da", null ],
     [ "FILE_TYPE", "namespaceshkyera.html#a7a2f2208944732e67483f7920f91aeb3", [
       [ "PYTHON", "namespaceshkyera.html#a7a2f2208944732e67483f7920f91aeb3acaf5c3fe2f331a51be77caa99fd32ca4", null ],
       [ "IMAGE", "namespaceshkyera.html#a7a2f2208944732e67483f7920f91aeb3a1ddcc433d1fb5e5bc667b3a39429573c", null ],
