@@ -9,7 +9,7 @@ SkyboxComponentUI::SkyboxComponentUI(SkyboxComponent* skyboxComponent) :
     _skyboxComponent(skyboxComponent) {}
 
 void SkyboxComponentUI::draw() {
-    ImGui::Image((ImTextureID)Image::ICON_COMPONENT_TRANSFORM.getTextureId(),
+    ImGui::Image(_icon->getImguiTextureID(),
                ImVec2(16, 16));
     ImGui::SameLine();
   if (ImGui::TreeNodeEx("Skybox", ImGuiTreeNodeFlags_DefaultOpen)) {

@@ -25,7 +25,7 @@ WireframeComponentUI::WireframeComponentUI(WireframeComponent* wireframeComponen
 }
 
 void WireframeComponentUI::draw() {
-  ImGui::Image((ImTextureID)Image::ICON_FILES_IMAGE.getTextureId(), ImVec2(16, 16));
+  ImGui::Image(_icon->getImguiTextureID(), ImVec2(16, 16));
   ImGui::SameLine();
   if (ImGui::TreeNodeEx("Wireframe", ImGuiTreeNodeFlags_DefaultOpen)) {
     _wireframeSelector.draw();

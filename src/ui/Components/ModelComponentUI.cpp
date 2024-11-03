@@ -39,7 +39,7 @@ void ModelComponentUI::setOnMeshUpdate(std::function<void(std::shared_ptr<Mesh>)
 }
 
 void ModelComponentUI::draw() {
-  ImGui::Image((ImTextureID)Image::ICON_FILES_IMAGE.getTextureId(),
+  ImGui::Image(_icon->getImguiTextureID(),
                ImVec2(16, 16));
   ImGui::SameLine();
   if (ImGui::TreeNodeEx("Model", ImGuiTreeNodeFlags_DefaultOpen)) {

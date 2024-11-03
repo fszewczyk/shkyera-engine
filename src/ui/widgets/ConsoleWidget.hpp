@@ -11,6 +11,7 @@
 #include <vector>
 
 #include <UI/Widget.hpp>
+#include <Rendering/Texture.hpp>
 
 namespace shkyera {
 
@@ -24,7 +25,7 @@ class Log {
      *
      * @param content The text content of the log.
      */
-    Log(std::string content);
+    Log(const std::string& content);
 
     /**
      * @brief Virtual method to draw the log in the user interface.
@@ -36,9 +37,10 @@ class Log {
      *
      * @return An icon identifier.
      */
-    virtual uint64_t getIconId() const = 0;
+    void* getIconId() const;
 
     std::string _content; ///< The text content of the log.
+    TextureAsset _icon;
 };
 
 /**
@@ -48,12 +50,7 @@ class LogVerbose : public Log {
   public:
     using Log::Log;
 
-    /**
-     * @brief Get the icon identifier for verbose logs.
-     *
-     * @return An icon identifier for verbose logs.
-     */
-    virtual uint64_t getIconId() const override;
+    LogVerbose(const std::string& content);
 };
 
 /**
@@ -63,12 +60,7 @@ class LogInfo : public Log {
   public:
     using Log::Log;
 
-    /**
-     * @brief Get the icon identifier for informational logs.
-     *
-     * @return An icon identifier for informational logs.
-     */
-    virtual uint64_t getIconId() const override;
+    LogInfo(const std::string& content);
 };
 
 /**
@@ -78,12 +70,7 @@ class LogSuccess : public Log {
   public:
     using Log::Log;
 
-    /**
-     * @brief Get the icon identifier for success logs.
-     *
-     * @return An icon identifier for success logs.
-     */
-    virtual uint64_t getIconId() const override;
+    LogSuccess(const std::string& content);
 };
 
 /**
@@ -93,12 +80,7 @@ class LogError : public Log {
   public:
     using Log::Log;
 
-    /**
-     * @brief Get the icon identifier for error logs.
-     *
-     * @return An icon identifier for error logs.
-     */
-    virtual uint64_t getIconId() const override;
+    LogError(const std::string& content);
 };
 
 /**
@@ -107,6 +89,8 @@ class LogError : public Log {
 class ConsoleWidget : public Widget {
   public:
     using Widget::Widget;
+
+    ConsoleWidget(const std::string& name);
 
     /**
      * @brief Implementation of the abstract `draw` method to render the console widget.
@@ -174,6 +158,12 @@ class ConsoleWidget : public Widget {
 
     static std::vector<std::shared_ptr<Log>> _logs; ///< A collection of logs in the console.
     static bool _verbose;                           ///< A flag indicating verbose logging mode.
+
+    TextureAsset _totalIcon;
+    TextureAsset _errorIcon;
+    TextureAsset _successIcon;
+    TextureAsset _infoIcon;
+    TextureAsset _verboseIcon;
 };
 
 } // namespace shkyera

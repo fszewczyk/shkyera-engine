@@ -33,41 +33,28 @@ class Image : public Asset {
      */
     void save(const std::string& path) const;
 
-    /**
-     * @brief Update the OpenGL texture ID associated with the image.
-     */
-    void updateTextureId();
-
-    /**
-     * @brief Get the OpenGL texture ID associated with the image.
-     *
-     * @return The OpenGL texture ID.
-     */
-    uint64_t getTextureId() const;
-
     uint8_t const* getData() const;
     int getWidth() const;
     int getHeight() const;
     int getChannels() const;
 
-    // Static image objects representing icons
-    static Image ICON_CONSOLE_TOTAL;
-    static Image ICON_CONSOLE_ERROR;
-    static Image ICON_CONSOLE_INFO;
-    static Image ICON_CONSOLE_VERBOSE;
-    static Image ICON_CONSOLE_SUCCESS;
+    static std::string ICON_CONSOLE_TOTAL;
+    static std::string ICON_CONSOLE_ERROR;
+    static std::string ICON_CONSOLE_INFO;
+    static std::string ICON_CONSOLE_VERBOSE;
+    static std::string ICON_CONSOLE_SUCCESS;
 
-    static Image ICON_COMPONENT_TRANSFORM;
-    static Image ICON_COMPONENT_SCRIPT;
-    static Image ICON_COMPONENT_SHAPE;
+    static std::string ICON_COMPONENT_TRANSFORM;
+    static std::string ICON_COMPONENT_SCRIPT;
+    static std::string ICON_COMPONENT_SHAPE;
 
-    static Image ICON_FILES_FOLDER;
-    static Image ICON_FILES_PYTHON;
-    static Image ICON_FILES_IMAGE;
-    static Image ICON_FILES_TEXT;
+    static std::string ICON_FILES_FOLDER;
+    static std::string ICON_FILES_PYTHON;
+    static std::string ICON_FILES_IMAGE;
+    static std::string ICON_FILES_TEXT;
 
-    static Image ICON_BUTTON_PLAY;
-    static Image ICON_BUTTON_STOP;
+    static std::string ICON_BUTTON_PLAY;
+    static std::string ICON_BUTTON_STOP;
 
   private:
     uint8_t *_data; ///< The image pixel data.
@@ -75,9 +62,6 @@ class Image : public Asset {
     int _width;      ///< The width of the image.
     int _height;     ///< The height of the image.
     int _components; ///< The number of color components.
-
-    bool _wasAssignedTextureId; ///< Flag indicating if the texture ID has been assigned.
-    uint64_t _textureId;        ///< The OpenGL texture ID.
 };
 
 } // namespace shkyera

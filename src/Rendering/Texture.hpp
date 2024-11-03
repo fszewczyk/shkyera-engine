@@ -1,14 +1,17 @@
 #pragma once
 
 #include <glad/glad.h>
+#include <AssetManager/Image.hpp>
 
 namespace shkyera {
 
-class Texture {
+class Texture : public Asset {
 public:
     // Constructor with configurable filter and wrap modes
     Texture(GLenum minFilter = GL_LINEAR, GLenum magFilter = GL_LINEAR,
             GLenum wrapS = GL_CLAMP_TO_EDGE, GLenum wrapT = GL_CLAMP_TO_EDGE);
+
+    Texture(const std::string& path);
 
     ~Texture();
 
@@ -19,17 +22,22 @@ public:
     void bind() const;
     void unbind() const;
 
+    bool loadImage(std::shared_ptr<Image> imageAsset);
+
     // Set texture data
     void setData(GLenum internalFormat, uint32_t width, uint32_t height, GLenum format, GLenum type, const void* data = nullptr);
 
     // Activate this texture on a specified texture unit
     void activate(GLenum textureUnit) const;
 
-    // Get OpenGL texture ID
     GLuint getID() const { return _textureID; }
+
+    void* getImguiTextureID() const { return reinterpret_cast<void *>(_textureID); }
 
 private:
     GLuint _textureID;
 };
+
+using TextureAsset = std::shared_ptr<Texture>;
 
 }

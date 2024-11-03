@@ -3,12 +3,13 @@
 #include <imgui_internal.h>
 #include "imgui.h"
 
+#include <AssetManager/AssetManager.hpp>
 #include <AssetManager/Image.hpp>
 #include <UI/Widgets/ConsoleWidget.hpp>
 
 namespace shkyera {
 
-Log::Log(std::string content) : _content(content) {}
+Log::Log(const std::string& content) : _content(content) {}
 
 void Log::draw() const {
   ImGui::Image((ImTextureID)getIconId(), ImVec2(24, 24));
@@ -17,18 +18,39 @@ void Log::draw() const {
   ImGui::Separator();
 }
 
-uint64_t LogVerbose::getIconId() const {
-  return Image::ICON_CONSOLE_VERBOSE.getTextureId();
+void* Log::getIconId() const {
+  return _icon->getImguiTextureID();
 }
-uint64_t LogInfo::getIconId() const {
-  return Image::ICON_CONSOLE_INFO.getTextureId();
+
+LogVerbose::LogVerbose(const std::string& content) : Log(content)
+{
+  _icon = AssetManager::getInstance().getAsset<Texture>(Image::ICON_CONSOLE_VERBOSE);
 }
-uint64_t LogSuccess::getIconId() const {
-  return Image::ICON_CONSOLE_SUCCESS.getTextureId();
+
+LogInfo::LogInfo(const std::string& content) : Log(content)
+{
+  _icon = AssetManager::getInstance().getAsset<Texture>(Image::ICON_CONSOLE_INFO);
 }
-uint64_t LogError::getIconId() const {
-  return Image::ICON_CONSOLE_ERROR.getTextureId();
+
+LogSuccess::LogSuccess(const std::string& content) : Log(content)
+{
+  _icon = AssetManager::getInstance().getAsset<Texture>(Image::ICON_CONSOLE_SUCCESS);
 }
+
+LogError::LogError(const std::string& content) : Log(content)
+{
+  _icon = AssetManager::getInstance().getAsset<Texture>(Image::ICON_CONSOLE_ERROR);
+}
+
+ConsoleWidget::ConsoleWidget(const std::string& name) : Widget(name)
+{
+  _verboseIcon = AssetManager::getInstance().getAsset<Texture>(Image::ICON_CONSOLE_VERBOSE);
+  _infoIcon = AssetManager::getInstance().getAsset<Texture>(Image::ICON_CONSOLE_INFO);
+  _successIcon = AssetManager::getInstance().getAsset<Texture>(Image::ICON_CONSOLE_SUCCESS);
+  _errorIcon = AssetManager::getInstance().getAsset<Texture>(Image::ICON_CONSOLE_ERROR);
+  _totalIcon = AssetManager::getInstance().getAsset<Texture>(Image::ICON_CONSOLE_ERROR);
+}
+
 
 void ConsoleWidget::draw() {
   ImGui::Begin(_name.c_str());
@@ -51,35 +73,35 @@ void ConsoleWidget::drawInfoBar() const {
     clear();
 
   ImGui::SameLine();
-  ImGui::Image((ImTextureID)Image::ICON_CONSOLE_TOTAL.getTextureId(),
+  ImGui::Image(_totalIcon->getImguiTextureID(),
                ImVec2(22, 22));
   ImGui::SameLine();
   ImGui::TextUnformatted((std::to_string(_logs.size()) + " Total").c_str());
   ImGui::SameLine();
   ImGui::Dummy(ImVec2(15, 0));
   ImGui::SameLine();
-  ImGui::Image((ImTextureID)Image::ICON_CONSOLE_ERROR.getTextureId(),
+  ImGui::Image(_errorIcon->getImguiTextureID(),
                ImVec2(22, 22));
   ImGui::SameLine();
   ImGui::TextUnformatted((std::to_string(_totalError) + " Error").c_str());
   ImGui::SameLine();
   ImGui::Dummy(ImVec2(15, 0));
   ImGui::SameLine();
-  ImGui::Image((ImTextureID)Image::ICON_CONSOLE_SUCCESS.getTextureId(),
+  ImGui::Image(_successIcon->getImguiTextureID(),
                ImVec2(22, 22));
   ImGui::SameLine();
   ImGui::TextUnformatted((std::to_string(_totalSuccess) + " Success").c_str());
   ImGui::SameLine();
   ImGui::Dummy(ImVec2(15, 0));
   ImGui::SameLine();
-  ImGui::Image((ImTextureID)Image::ICON_CONSOLE_INFO.getTextureId(),
+  ImGui::Image(_infoIcon->getImguiTextureID(),
                ImVec2(22, 22));
   ImGui::SameLine();
   ImGui::TextUnformatted((std::to_string(_totalInfo) + " Info").c_str());
   ImGui::SameLine();
   ImGui::Dummy(ImVec2(15, 0));
   ImGui::SameLine();
-  ImGui::Image((ImTextureID)Image::ICON_CONSOLE_VERBOSE.getTextureId(),
+  ImGui::Image(_verboseIcon->getImguiTextureID(),
                ImVec2(22, 22));
   ImGui::SameLine();
   ImGui::TextUnformatted((std::to_string(_totalVerbose) + " Verbose").c_str());
