@@ -5,8 +5,9 @@
 #include <Components/ModelComponent.hpp>
 #include <Components/WireframeComponent.hpp>
 #include <Components/CameraComponent.hpp>
-#include <Components/PointLightComponent.hpp>
 #include <Components/SkyboxComponent.hpp>
+#include <Components/AmbientLightComponent.hpp>
+#include <Components/PointLightComponent.hpp>
 #include <Components/DirectionalLightComponent.hpp>
 
 namespace shkyera {
@@ -159,9 +160,9 @@ void RenderingSystem::renderModels()
     _modelShaderProgram.setUniform("viewPos", cameraTransform.getPosition());
 
     glm::vec3 ambientLight{0, 0, 0};
-    for(const auto& skybox : _registry->getComponents<SkyboxComponent>())
+    for(const auto& skybox : _registry->getComponents<AmbientLightComponent>())
     {
-        ambientLight += skybox.ambientLight;
+        ambientLight += skybox.ambient;
     }
     _modelShaderProgram.setUniform("ambientLight", ambientLight);
 

@@ -6,6 +6,7 @@ static constexpr Entity INITIAL_ENTITIES = 100;
 
 Registry::Registry() : _entityProvider(INITIAL_ENTITIES) {
   _camera = addEntity();
+  _environment = addEntity();
 }
 
 Entity Registry::addEntity() {
@@ -37,6 +38,10 @@ void Registry::clearSelectedEntities()
 
 Entity Registry::getCamera() const {
   return _camera;
+}
+
+Entity Registry::getEnvironment() const {
+  return _environment;
 }
 
 }  // namespace shkyera

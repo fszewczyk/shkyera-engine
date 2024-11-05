@@ -19,6 +19,9 @@ class Image : public Asset {
      */
     Image(const std::string& path);
 
+    Image(const Image& other) = delete;
+    Image& operator=(const Image& other) = delete;
+
     /**
      * @brief Load an image from a file.
      *

@@ -22,6 +22,7 @@ void TransformComponentUI::draw() {
   if (ImGui::TreeNodeEx("Transform", ImGuiTreeNodeFlags_DefaultOpen)) {
     glm::vec3& position = _positionGetter();
     glm::vec3& orientation = _orientationGetter();
+    glm::vec3 orientationInDegrees = { glm::degrees(orientation.x), glm::degrees(orientation.y), glm::degrees(orientation.z) };
     glm::vec3& scale = _scaleGetter();
 
     ImGui::PushItemWidth(50);
@@ -36,11 +37,11 @@ void TransformComponentUI::draw() {
 
     ImGui::Text("Orientation");
     ImGui::SameLine(120);
-    ImGui::DragFloat("X##Orientation", &orientation[0], 1.0f, -360.0f, 360.0f, "%.2f");
+    ImGui::DragFloat("X##Orientation", &orientationInDegrees[0], 1.0f, -360.0f, 360.0f, "%.2f");
     ImGui::SameLine();
-    ImGui::DragFloat("Y##Orientation", &orientation[1], 1.0f, -360.0f, 360.0f, "%.2f");
+    ImGui::DragFloat("Y##Orientation", &orientationInDegrees[1], 1.0f, -360.0f, 360.0f, "%.2f");
     ImGui::SameLine();
-    ImGui::DragFloat("Z##Orientation", &orientation[2], 1.0f, -360.0f, 360.0f, "%.2f");
+    ImGui::DragFloat("Z##Orientation", &orientationInDegrees[2], 1.0f, -360.0f, 360.0f, "%.2f");
 
     ImGui::Text("Scale");
     ImGui::SameLine(120);
@@ -53,6 +54,10 @@ void TransformComponentUI::draw() {
     ImGui::PopItemWidth();
 
     ImGui::TreePop();
+
+    orientation.x = glm::radians(orientationInDegrees.x);
+    orientation.y = glm::radians(orientationInDegrees.y);
+    orientation.z = glm::radians(orientationInDegrees.z);
   }
 }
 

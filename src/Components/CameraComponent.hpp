@@ -28,9 +28,9 @@ public:
         glm::vec3 orientation = transformComponent.getOrientation();
         
         glm::vec3 front;
-        front.x = cos(orientation.y) * cos(orientation.x);
-        front.y = sin(orientation.x);
-        front.z = sin(orientation.y) * cos(orientation.x);
+        front.x = std::cos(orientation.y) * std::cos(orientation.x);
+        front.y = std::sin(orientation.x);
+        front.z = std::sin(orientation.y) * std::cos(orientation.x);
         front = glm::normalize(front);
 
         glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f);

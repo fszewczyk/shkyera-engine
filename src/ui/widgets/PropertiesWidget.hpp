@@ -24,22 +24,43 @@ class PropertiesWidget : public Widget {
     using Widget::Widget;
 
     PropertiesWidget(std::shared_ptr<Registry> registry);
+    PropertiesWidget(std::shared_ptr<Registry> registry, const std::string& title);
 
     /**
      * @brief Implementation of the abstract `draw` method to render the properties widget.
      */
     void draw() override;
 
-  private:
-    void drawNewComponentMenu();
-
+  protected:
+    virtual void updateComponents();
+    virtual void drawNewComponentMenu();
     void setupComponentsUI();
 
+    std::shared_ptr<Registry> _registry;
+    std::optional<Entity> _selectedEntity;
+
+  private:
     void drawExistingComponents();
 
-    std::optional<Entity> _selectedEntity;
     std::vector<std::unique_ptr<ComponentUI>> _componentsUi;
-    std::shared_ptr<Registry> _registry;
+};
+
+class CameraPropertiesWidget : public PropertiesWidget {
+  public:
+    CameraPropertiesWidget(std::shared_ptr<Registry> registry);
+
+  protected:
+    void updateComponents() override;
+    void drawNewComponentMenu() override;
+};
+
+class EnvironmentPropertiesWidget : public PropertiesWidget {
+  public:
+    EnvironmentPropertiesWidget(std::shared_ptr<Registry> registry);
+
+  protected:
+    void updateComponents() override;
+    void drawNewComponentMenu() override;
 };
 
 } // namespace shkyera

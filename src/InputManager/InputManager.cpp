@@ -29,6 +29,12 @@ glm::vec2 InputManager::getMousePosition(CoordinateSystem system) {
     return {0, 0};
 }
 
+bool InputManager::isMouseInside(CoordinateSystem system) {
+    const auto& mousePosition = getRelativeMousePosition(InputManager::CoordinateSystem::SCENE);
+    return 0.0f < mousePosition.x && 0.0f < mousePosition.y && mousePosition.x < 1.0f && mousePosition.y < 1.0f;
+}
+
+
 void InputManager::registerKeyCallback(Key key, std::function<void()> callback) {
     _keyCallbacks[key].push_back(callback);
 }

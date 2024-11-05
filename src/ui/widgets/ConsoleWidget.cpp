@@ -48,7 +48,7 @@ ConsoleWidget::ConsoleWidget(const std::string& name) : Widget(name)
   _infoIcon = AssetManager::getInstance().getAsset<Texture>(Image::ICON_CONSOLE_INFO);
   _successIcon = AssetManager::getInstance().getAsset<Texture>(Image::ICON_CONSOLE_SUCCESS);
   _errorIcon = AssetManager::getInstance().getAsset<Texture>(Image::ICON_CONSOLE_ERROR);
-  _totalIcon = AssetManager::getInstance().getAsset<Texture>(Image::ICON_CONSOLE_ERROR);
+  _totalIcon = AssetManager::getInstance().getAsset<Texture>(Image::ICON_CONSOLE_TOTAL);
 }
 
 

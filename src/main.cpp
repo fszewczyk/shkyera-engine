@@ -16,6 +16,7 @@
 #include <Components/SkyboxComponent.hpp>
 #include <Components/BoxColliderComponent.hpp>
 #include <Components/CameraComponent.hpp>
+#include <Components/AmbientLightComponent.hpp>
 #include <Components/PointLightComponent.hpp>
 #include <Components/DirectionalLightComponent.hpp>
 #include <ECS/Registry.hpp>
@@ -92,6 +93,7 @@ void loadScene(std::shared_ptr<shkyera::Registry> registry) {
     registry->addComponent<NameComponent>(sky);
     registry->getComponent<NameComponent>(sky).setName("Sky");
     registry->addComponent<DirectionalLightComponent>(sky);
+    registry->addComponent<AmbientLightComponent>(sky);
 
     const auto skyboxUp = AssetManager::getInstance().getAsset<Image>("resources/skyboxes/day/py.png");
     const auto skyboxDown = AssetManager::getInstance().getAsset<Image>("resources/skyboxes/day/ny.png");
@@ -99,8 +101,8 @@ void loadScene(std::shared_ptr<shkyera::Registry> registry) {
     const auto skyboxRight = AssetManager::getInstance().getAsset<Image>("resources/skyboxes/day/px.png");
     const auto skyboxFront = AssetManager::getInstance().getAsset<Image>("resources/skyboxes/day/pz.png");
     const auto skyboxBack = AssetManager::getInstance().getAsset<Image>("resources/skyboxes/day/nz.png");
-    registry->addComponent<SkyboxComponent>(sky);
-    registry->getComponent<SkyboxComponent>(sky).skyboxCubeMap.loadFaces(skyboxUp, skyboxDown, skyboxLeft, skyboxRight, skyboxFront, skyboxBack);
+    registry->addComponent<SkyboxComponent>(registry->getEnvironment());
+    registry->getComponent<SkyboxComponent>(registry->getEnvironment()).skyboxCubeMap.loadFaces(skyboxUp, skyboxDown, skyboxLeft, skyboxRight, skyboxFront, skyboxBack);
 }
 
 int main() {

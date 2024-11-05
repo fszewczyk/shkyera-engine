@@ -69,6 +69,11 @@ class UI {
     void initializeWidgets();
 
     /**
+     * @brief Initialize internal systems.
+     */
+    void initializeSystems();
+
+    /**
      * @brief Initialize UI assets.
      */
     void initializeAssets();

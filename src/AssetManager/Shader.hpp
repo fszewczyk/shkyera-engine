@@ -14,6 +14,8 @@ public:
     };
 
     Shader(const std::string& filepath, Type type);
+    Shader(const Shader& other) = delete;
+    Shader& operator=(const Shader& other) = delete;
     
     ~Shader();
 

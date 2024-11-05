@@ -23,6 +23,7 @@ class InputManager{
 
         glm::vec2 getRelativeMousePosition(CoordinateSystem system);
         glm::vec2 getMousePosition(CoordinateSystem system);
+        bool isMouseInside(CoordinateSystem system);
 
         void registerKeyCallback(Key key, std::function<void()> callback);
 

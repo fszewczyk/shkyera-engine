@@ -20,6 +20,10 @@ public:
 
     Wireframe(const std::string& filepath);
     Wireframe(const std::vector<Edge>& edges);
+
+    Wireframe(const Wireframe& other) = delete;
+    Wireframe& operator=(const Wireframe& other) = delete;
+
     ~Wireframe();
 
     void bind() const { glBindVertexArray(_vao); }
