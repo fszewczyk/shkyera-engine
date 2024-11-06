@@ -10,8 +10,8 @@ namespace shkyera {
 
 class DirectionalLightComponent : public BaseComponent<DirectionalLightComponent> {
 public:
-    glm::vec3 diffuse = {0.5, 0.5, 0.5};
-    glm::vec3 specular = {0.5, 0.5, 0.5};
+    float intensity = 0.5;
+    glm::vec3 color = {1.0f, 1.0f, 1.0f};
 };
 
 } // namespace shkyera

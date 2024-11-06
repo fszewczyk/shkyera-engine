@@ -3,6 +3,7 @@ add_library(
     STATIC
 
     ${CMAKE_CURRENT_LIST_DIR}/Box.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/Utils.cpp
 )
 
 target_include_directories(

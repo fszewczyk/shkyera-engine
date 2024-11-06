@@ -9,7 +9,6 @@ namespace shkyera {
 
 class SkyboxComponent : public BaseComponent<SkyboxComponent> {
 public:
-    glm::vec3 ambientLight = {0.1, 0.1, 0.1};
     CubeMap skyboxCubeMap;
 };
 

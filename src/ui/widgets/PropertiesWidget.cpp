@@ -15,7 +15,7 @@
 #include <UI/Components/TransformComponentUI.hpp>
 #include <UI/Components/ModelComponentUI.hpp>
 #include <UI/Components/WireframeComponentUI.hpp>
-#include <UI/Components/SkyboxComponentUI.hpp>
+#include <UI/Components/AmbientLightComponentUI.hpp>
 #include <UI/Components/PointLightComponentUI.hpp>
 #include <UI/Components/DirectionalLightComponentUI.hpp>
 #include <UI/Widgets/PropertiesWidget.hpp>
@@ -23,10 +23,10 @@
 namespace shkyera {
 
 PropertiesWidget::PropertiesWidget(std::shared_ptr<Registry> registry) : Widget("Properties"), _registry(registry) {}
+PropertiesWidget::PropertiesWidget(std::shared_ptr<Registry> registry, const std::string& title) : Widget(title), _registry(registry) {}
 
-void PropertiesWidget::draw() {
-  ImGui::Begin(_name.c_str());
-
+void PropertiesWidget::updateComponents()
+{
   if (_registry->getSelectedEntities().size() > 0) {
     const auto firstSelectedEntity = *(_registry->getSelectedEntities().begin());
 
@@ -35,17 +35,27 @@ void PropertiesWidget::draw() {
       _selectedEntity = firstSelectedEntity;
       setupComponentsUI();
     }
+  }
+}
 
+void PropertiesWidget::draw() {
+  updateComponents();
+
+  ImGui::Begin(_name.c_str());
+  if(_selectedEntity.has_value())
+  {  
     ImGui::PushID(*_selectedEntity);
 
-    ImGui::PushFont(style::HUGE_FONT);
-    ImGui::TextUnformatted(
-        _registry->getComponent<NameComponent>(*_selectedEntity)
-            .getName()
-            .c_str());
-    ImGui::PopFont();
-
-    ImGui::Separator();
+    if(_registry->hasComponent<NameComponent>(*_selectedEntity))
+    {
+      ImGui::PushFont(style::HUGE_FONT);
+      ImGui::TextUnformatted(
+          _registry->getComponent<NameComponent>(*_selectedEntity)
+              .getName()
+              .c_str());
+      ImGui::PopFont();
+      ImGui::Separator();
+    }
 
     drawExistingComponents();
     drawNewComponentMenu();
@@ -75,13 +85,6 @@ void PropertiesWidget::setupComponentsUI() {
     _componentsUi.emplace_back(std::move(componentUi));
   }
 
-  if(_registry->hasComponent<SkyboxComponent>(*_selectedEntity)) {    
-    auto &component = _registry->getComponent<SkyboxComponent>(*_selectedEntity);
-    auto componentUi = std::make_unique<SkyboxComponentUI>(&component);
-    
-    _componentsUi.emplace_back(std::move(componentUi));
-  }
-
   if(_registry->hasComponent<ModelComponent>(*_selectedEntity)) {    
     auto &component = _registry->getComponent<ModelComponent>(*_selectedEntity);
     auto componentUi = std::make_unique<ModelComponentUI>(&component);
@@ -101,6 +104,13 @@ void PropertiesWidget::setupComponentsUI() {
     auto &component = _registry->getComponent<WireframeComponent>(*_selectedEntity);
     auto componentUi = std::make_unique<WireframeComponentUI>(&component);
 
+    _componentsUi.emplace_back(std::move(componentUi));
+  }
+
+  if(_registry->hasComponent<AmbientLightComponent>(*_selectedEntity)) {    
+    auto &component = _registry->getComponent<AmbientLightComponent>(*_selectedEntity);
+    auto componentUi = std::make_unique<AmbientLightComponentUI>(&component);
+    
     _componentsUi.emplace_back(std::move(componentUi));
   }
 
@@ -144,6 +154,12 @@ void PropertiesWidget::drawNewComponentMenu() {
       ImGui::CloseCurrentPopup();
     }
 
+    if (ImGui::Selectable("Ambient Light")) {
+      _registry->addComponent<AmbientLightComponent>(*_selectedEntity);
+      setupComponentsUI();
+      ImGui::CloseCurrentPopup();
+    }
+
     if (ImGui::Selectable("Point Light")) {
       _registry->addComponent<PointLightComponent>(*_selectedEntity);
       setupComponentsUI();
@@ -159,5 +175,31 @@ void PropertiesWidget::drawNewComponentMenu() {
     ImGui::EndPopup();
   }
 }
+
+CameraPropertiesWidget::CameraPropertiesWidget(std::shared_ptr<Registry> registry) : PropertiesWidget(registry, "Scene Camera") {}
+
+void CameraPropertiesWidget::updateComponents()
+{
+  static auto onlyOnce = [this]() {
+    _selectedEntity = _registry->getCamera();
+    setupComponentsUI();
+    return true;
+  } ();
+}
+
+void CameraPropertiesWidget::drawNewComponentMenu() {}
+
+EnvironmentPropertiesWidget::EnvironmentPropertiesWidget(std::shared_ptr<Registry> registry) : PropertiesWidget(registry, "Environment") {}
+
+void EnvironmentPropertiesWidget::updateComponents()
+{
+  static auto onlyOnce = [this]() {
+    _selectedEntity = _registry->getEnvironment();
+    setupComponentsUI();
+    return true;
+  } ();
+}
+
+void EnvironmentPropertiesWidget::drawNewComponentMenu() {}
 
 }  // namespace shkyera

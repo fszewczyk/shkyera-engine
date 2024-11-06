@@ -33,6 +33,7 @@ void glfw_error_callback(int error, const char* description) {
 
 void UI::initialize() {
   initializeImgui();
+  initializeSystems();
   initializeWidgets();
   initializeInterpreter();
   styleImgui();
@@ -86,25 +87,26 @@ void UI::initializeImgui() {
   ImGui_ImplOpenGL3_Init(glsl_version);
 }
 
+void UI::initializeSystems() {
+  _objectSelectionSystem = std::make_unique<ObjectSelectionSystem>(_registry);
+}
+
 void UI::initializeWidgets() {
   _widgets.emplace_back(std::make_unique<ConsoleWidget>("Console"));
+  
+  _widgets.emplace_back(std::make_unique<PropertiesWidget>(_registry));
+  _widgets.emplace_back(std::make_unique<CameraPropertiesWidget>(_registry));
+  _widgets.emplace_back(std::make_unique<EnvironmentPropertiesWidget>(_registry));
 
-  auto propertiesWidget = std::make_unique<PropertiesWidget>(_registry);
-  _objectSelectionSystem = std::make_unique<ObjectSelectionSystem>(_registry);
+  _widgets.emplace_back(std::make_unique<SceneWidget>(_registry));
 
   auto objectsWidget = std::make_unique<ObjectsWidget>("Objects");
   objectsWidget->setRegistry(_registry);
-
   _widgets.emplace_back(std::move(objectsWidget));
-  _widgets.emplace_back(std::move(propertiesWidget));
 
   auto assetsWidget = std::make_unique<FilesystemWidget>("Assets");
   assetsWidget->setDirectory("resources");
   _widgets.emplace_back(std::move(assetsWidget));
-    
-  auto sceneWidget = std::make_unique<SceneWidget>(_registry);
-
-  _widgets.emplace_back(std::move(sceneWidget));
 }
 
 void UI::initializeInterpreter() {}
@@ -144,15 +146,15 @@ void UI::styleImgui() {
 
   /********        TABS     *********/
   style.Colors[ImGuiCol_Tab] = ACCENT_COLOR;
-  style.Colors[ImGuiCol_TabHovered] = BACKGROUND_COLOR;
+  style.Colors[ImGuiCol_TabHovered] = STRONG_ACCENT_COLOR;
   style.Colors[ImGuiCol_TabUnfocused] = ACCENT_COLOR;
-  style.Colors[ImGuiCol_TabUnfocusedActive] = BACKGROUND_COLOR;
-  style.Colors[ImGuiCol_TabActive] = BACKGROUND_COLOR;
+  style.Colors[ImGuiCol_TabUnfocusedActive] = STRONG_ACCENT_COLOR;
+  style.Colors[ImGuiCol_TabActive] = STRONG_ACCENT_COLOR;
 
   /********        TITLE      *********/
-  style.Colors[ImGuiCol_TitleBg] = ACCENT_COLOR;
-  style.Colors[ImGuiCol_TitleBgActive] = ACCENT_COLOR;
-  style.Colors[ImGuiCol_TitleBgCollapsed] = ACCENT_COLOR;
+  style.Colors[ImGuiCol_TitleBg] = BACKGROUND_COLOR;
+  style.Colors[ImGuiCol_TitleBgActive] = BACKGROUND_COLOR;
+  style.Colors[ImGuiCol_TitleBgCollapsed] = BACKGROUND_COLOR;
 
   /********      HEADERS     ********/
   style.Colors[ImGuiCol_Header] = ACCENT_COLOR;
@@ -160,7 +162,7 @@ void UI::styleImgui() {
   style.Colors[ImGuiCol_HeaderHovered] = STRONG_ACCENT_COLOR;
 
   /********       SLIDER      *********/
-  style.Colors[ImGuiCol_SliderGrab] = ACCENT_COLOR;
+  style.Colors[ImGuiCol_SliderGrab] = STRONG_ACCENT_COLOR;
   style.Colors[ImGuiCol_SliderGrabActive] = STRONG_ACCENT_COLOR;
 
   /********      SEPARATOR     ********/
@@ -237,6 +239,8 @@ void UI::beginFrame() {
     ImGui::DockBuilderDockWindow("Objects", dock_id_left_up_left);
     ImGui::DockBuilderDockWindow("Scene", dock_id_left_up_right);
     ImGui::DockBuilderDockWindow("Properties", dock_id_right);
+    ImGui::DockBuilderDockWindow("Scene Camera", dock_id_right);
+    ImGui::DockBuilderDockWindow("Environment", dock_id_right);
     ImGui::DockBuilderDockWindow("Assets", dock_id_left_bottom);
     ImGui::DockBuilderDockWindow("Console", dock_id_left_bottom);
 
@@ -270,6 +274,11 @@ void UI::renderFrame() {
 
     ImGui::EndMainMenuBar();
   }
+
+  static auto onlyOnce = [this]() {
+    ImGui::SetWindowFocus("Properties");
+    return true;
+  } ();
 }
 
 void UI::endFrame() {

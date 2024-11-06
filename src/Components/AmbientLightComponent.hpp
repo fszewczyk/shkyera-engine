@@ -8,11 +8,10 @@
 
 namespace shkyera {
 
-class PointLightComponent : public BaseComponent<PointLightComponent> {
+class AmbientLightComponent : public BaseComponent<AmbientLightComponent> {
 public:
     float intensity = 1;
-    float range = 5;
-    glm::vec3 color = {1, 1, 1};
+    glm::vec3 color = {0.1, 0.1, 0.1};
 };
 
 } // namespace shkyera

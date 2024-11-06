@@ -25,6 +25,10 @@ public:
 
     Mesh(const std::string& filepath);
     Mesh(std::vector<Vertex> vertices, std::vector<uint32_t> indices);
+
+    Mesh(const Mesh& other) = delete;
+    Mesh& operator=(const Mesh& other) = delete;
+
     ~Mesh();
 
     void bind() const { glBindVertexArray(_vao); }

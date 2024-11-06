@@ -6,12 +6,6 @@
 #include "stb_image.h"
 #include "stb_image_write.h"
 
-#define GL_SILENCE_DEPRECATION
-#if defined(IMGUI_IMPL_OPENGL_ES2)
-#include <GLES2/gl2.h>
-#endif
-#include <glad/glad.h>
-
 #include <AssetManager/Image.hpp>
 
 namespace shkyera {

@@ -6,7 +6,7 @@
 namespace shkyera {
 
 constexpr static float MOVEMENT_SPEED = 0.6;
-constexpr static float MOUSE_SENSITIVITY = 0.05;
+constexpr static float MOUSE_SENSITIVITY = 0.2;
 
 CameraMovementSystem::CameraMovementSystem(std::shared_ptr<Registry> registry)
     : _registry(registry), _cameraControl(false) {
@@ -18,9 +18,13 @@ void CameraMovementSystem::update() {}
 void CameraMovementSystem::setupCameraMovement() {
     auto& inputManager = InputManager::getInstance();
     
-    inputManager.registerMouseButtonDownCallback(GLFW_MOUSE_BUTTON_LEFT, [this]() {
-        _cameraControl = true;
+    inputManager.registerMouseButtonDownCallback(GLFW_MOUSE_BUTTON_LEFT, [this, &inputManager]() {
+        if(inputManager.isMouseInside(InputManager::CoordinateSystem::SCENE))
+        {
+            _cameraControl = true;
+        }
     });
+    
     inputManager.registerMouseButtonUpCallback(GLFW_MOUSE_BUTTON_LEFT, [this]() {
         _cameraControl = false;
     });

@@ -153,6 +153,8 @@ public:
     }
 
     Entity getCamera() const;
+    
+    Entity getEnvironment() const;
 
 private:
     /**
@@ -189,6 +191,7 @@ private:
     EntityProvider _entityProvider; //< Manages the creation and management of entities.
 
     Entity _camera;
+    Entity _environment;
     std::unordered_set<Entity> _selectedEntities;
 };
 
