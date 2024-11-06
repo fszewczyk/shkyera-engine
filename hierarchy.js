@@ -10,6 +10,9 @@ var hierarchy =
     ] ],
     [ "shkyera::AssetManager", "classshkyera_1_1_asset_manager.html", null ],
     [ "shkyera::BaseComponent< Derived, Mode >", "classshkyera_1_1_base_component.html", null ],
+    [ "shkyera::BaseComponent< AmbientLightComponent >", "classshkyera_1_1_base_component.html", [
+      [ "shkyera::AmbientLightComponent", "classshkyera_1_1_ambient_light_component.html", null ]
+    ] ],
     [ "shkyera::BaseComponent< BoxColliderComponent< RuntimeMode::PRODUCTION >, RuntimeMode::PRODUCTION >", "classshkyera_1_1_base_component.html", [
       [ "shkyera::BoxColliderComponent< Mode >", "classshkyera_1_1_box_collider_component.html", null ]
     ] ],
@@ -37,11 +40,12 @@ var hierarchy =
     [ "shkyera::Box", "structshkyera_1_1_box.html", null ],
     [ "shkyera::CameraComponent", "classshkyera_1_1_camera_component.html", null ],
     [ "shkyera::CameraMovementSystem", "classshkyera_1_1_camera_movement_system.html", null ],
+    [ "shkyera::ColorSelector", "classshkyera_1_1_color_selector.html", null ],
     [ "shkyera::ComponentUI", "classshkyera_1_1_component_u_i.html", [
+      [ "shkyera::AmbientLightComponentUI", "classshkyera_1_1_ambient_light_component_u_i.html", null ],
       [ "shkyera::DirectionalLightComponentUI", "classshkyera_1_1_directional_light_component_u_i.html", null ],
       [ "shkyera::ModelComponentUI", "classshkyera_1_1_model_component_u_i.html", null ],
       [ "shkyera::PointLightComponentUI", "classshkyera_1_1_point_light_component_u_i.html", null ],
-      [ "shkyera::SkyboxComponentUI", "classshkyera_1_1_skybox_component_u_i.html", null ],
       [ "shkyera::TransformComponentUI", "classshkyera_1_1_transform_component_u_i.html", null ],
       [ "shkyera::WireframeComponentUI", "classshkyera_1_1_wireframe_component_u_i.html", null ]
     ] ],
@@ -54,6 +58,7 @@ var hierarchy =
     [ "shkyera::Wireframe::Factory", "classshkyera_1_1_wireframe_1_1_factory.html", null ],
     [ "shkyera::File", "classshkyera_1_1_file.html", null ],
     [ "shkyera::FileSelector", "classshkyera_1_1_file_selector.html", null ],
+    [ "shkyera::FloatSlider", "classshkyera_1_1_float_slider.html", null ],
     [ "shkyera::FrameBuffer", "classshkyera_1_1_frame_buffer.html", null ],
     [ "std::std::hash< glm::vec3 >", "structstd_1_1std_1_1hash_3_01glm_1_1vec3_01_4.html", null ],
     [ "shkyera::InputManager", "classshkyera_1_1_input_manager.html", null ],
@@ -81,7 +86,10 @@ var hierarchy =
       [ "shkyera::FilesystemWidget", "classshkyera_1_1_filesystem_widget.html", null ],
       [ "shkyera::ObjectsWidget", "classshkyera_1_1_objects_widget.html", null ],
       [ "shkyera::PreviewWidget", "classshkyera_1_1_preview_widget.html", null ],
-      [ "shkyera::PropertiesWidget", "classshkyera_1_1_properties_widget.html", null ],
+      [ "shkyera::PropertiesWidget", "classshkyera_1_1_properties_widget.html", [
+        [ "shkyera::CameraPropertiesWidget", "classshkyera_1_1_camera_properties_widget.html", null ],
+        [ "shkyera::EnvironmentPropertiesWidget", "classshkyera_1_1_environment_properties_widget.html", null ]
+      ] ],
       [ "shkyera::SceneWidget", "classshkyera_1_1_scene_widget.html", null ]
     ] ]
 ];

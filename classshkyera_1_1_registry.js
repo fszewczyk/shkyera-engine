@@ -12,6 +12,7 @@ var classshkyera_1_1_registry =
     [ "getComponents", "classshkyera_1_1_registry.html#a9b9adc795620f493e9e8284bc964a9d0", null ],
     [ "getComponentSet", "classshkyera_1_1_registry.html#a6e184d58eb1da8203ea6972d4abfe659", null ],
     [ "getComponentSet", "classshkyera_1_1_registry.html#aaeaf8718334ec42442ddf457665bf8f8", null ],
+    [ "getEnvironment", "classshkyera_1_1_registry.html#a594625347984ddd359ce363563cf7704", null ],
     [ "getOrCreateComponentSet", "classshkyera_1_1_registry.html#ac1c53a7b56cdeca41b99c5777933d521", null ],
     [ "getOrCreateComponentSet", "classshkyera_1_1_registry.html#a53b227dc44de9d54a853d4483a9e3aa3", null ],
     [ "getSelectedEntities", "classshkyera_1_1_registry.html#a59ae30d228538a995634e16412fc0b26", null ],
@@ -23,5 +24,6 @@ var classshkyera_1_1_registry =
     [ "_camera", "classshkyera_1_1_registry.html#add302f4e12fd9a4304918bba4ecce4f1", null ],
     [ "_componentSets", "classshkyera_1_1_registry.html#ac7294f22186f34c86456a3e2d21c4c70", null ],
     [ "_entityProvider", "classshkyera_1_1_registry.html#a24b4fa61858f7fd5121ed0be7319db5f", null ],
+    [ "_environment", "classshkyera_1_1_registry.html#a0db04552d018363876288f956741891c", null ],
     [ "_selectedEntities", "classshkyera_1_1_registry.html#a3264ce557ad456773a8c84345f1504b9", null ]
 ];

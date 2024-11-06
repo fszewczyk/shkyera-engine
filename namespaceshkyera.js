@@ -30,6 +30,7 @@ var namespaceshkyera =
     [ "Mesh", "classshkyera_1_1_mesh.html", "classshkyera_1_1_mesh" ],
     [ "Shader", "classshkyera_1_1_shader.html", "classshkyera_1_1_shader" ],
     [ "Wireframe", "classshkyera_1_1_wireframe.html", "classshkyera_1_1_wireframe" ],
+    [ "AmbientLightComponent", "classshkyera_1_1_ambient_light_component.html", "classshkyera_1_1_ambient_light_component" ],
     [ "BaseComponent", "classshkyera_1_1_base_component.html", "classshkyera_1_1_base_component" ],
     [ "BoxColliderComponent", "classshkyera_1_1_box_collider_component.html", "classshkyera_1_1_box_collider_component" ],
     [ "CameraComponent", "classshkyera_1_1_camera_component.html", "classshkyera_1_1_camera_component" ],
@@ -56,11 +57,13 @@ var namespaceshkyera =
     [ "DevelopmentRendererSystem", "classshkyera_1_1_development_renderer_system.html", "classshkyera_1_1_development_renderer_system" ],
     [ "ObjectSelectionSystem", "classshkyera_1_1_object_selection_system.html", "classshkyera_1_1_object_selection_system" ],
     [ "RenderingSystem", "classshkyera_1_1_rendering_system.html", "classshkyera_1_1_rendering_system" ],
+    [ "ColorSelector", "classshkyera_1_1_color_selector.html", "classshkyera_1_1_color_selector" ],
     [ "FileSelector", "classshkyera_1_1_file_selector.html", "classshkyera_1_1_file_selector" ],
+    [ "FloatSlider", "classshkyera_1_1_float_slider.html", "classshkyera_1_1_float_slider" ],
+    [ "AmbientLightComponentUI", "classshkyera_1_1_ambient_light_component_u_i.html", "classshkyera_1_1_ambient_light_component_u_i" ],
     [ "DirectionalLightComponentUI", "classshkyera_1_1_directional_light_component_u_i.html", "classshkyera_1_1_directional_light_component_u_i" ],
     [ "ModelComponentUI", "classshkyera_1_1_model_component_u_i.html", "classshkyera_1_1_model_component_u_i" ],
     [ "PointLightComponentUI", "classshkyera_1_1_point_light_component_u_i.html", "classshkyera_1_1_point_light_component_u_i" ],
-    [ "SkyboxComponentUI", "classshkyera_1_1_skybox_component_u_i.html", "classshkyera_1_1_skybox_component_u_i" ],
     [ "TransformComponentUI", "classshkyera_1_1_transform_component_u_i.html", "classshkyera_1_1_transform_component_u_i" ],
     [ "WireframeComponentUI", "classshkyera_1_1_wireframe_component_u_i.html", "classshkyera_1_1_wireframe_component_u_i" ],
     [ "ComponentUI", "classshkyera_1_1_component_u_i.html", "classshkyera_1_1_component_u_i" ],
@@ -76,6 +79,8 @@ var namespaceshkyera =
     [ "ObjectsWidget", "classshkyera_1_1_objects_widget.html", "classshkyera_1_1_objects_widget" ],
     [ "PreviewWidget", "classshkyera_1_1_preview_widget.html", "classshkyera_1_1_preview_widget" ],
     [ "PropertiesWidget", "classshkyera_1_1_properties_widget.html", "classshkyera_1_1_properties_widget" ],
+    [ "CameraPropertiesWidget", "classshkyera_1_1_camera_properties_widget.html", "classshkyera_1_1_camera_properties_widget" ],
+    [ "EnvironmentPropertiesWidget", "classshkyera_1_1_environment_properties_widget.html", "classshkyera_1_1_environment_properties_widget" ],
     [ "SceneWidget", "classshkyera_1_1_scene_widget.html", "classshkyera_1_1_scene_widget" ],
     [ "Entity", "namespaceshkyera.html#a043bdd87686e0bd1bce19a1fd86298cd", null ],
     [ "TextureAsset", "namespaceshkyera.html#aa96ae6f5cd4b22f69428d8f4be5298da", null ],
@@ -88,5 +93,7 @@ var namespaceshkyera =
       [ "DEVELOPMENT", "namespaceshkyera.html#a1fa85003a0e458be0cf85cccc54d3d55afcee1a292eac6108bef8021e1c3d4c83", null ],
       [ "PRODUCTION", "namespaceshkyera.html#a1fa85003a0e458be0cf85cccc54d3d55a86601675138015edb458866e7d879118", null ]
     ] ],
-    [ "glfw_error_callback", "namespaceshkyera.html#ae9c2a9a12dbc40b72c040bb1db3888cb", null ]
+    [ "glfw_error_callback", "namespaceshkyera.html#ae9c2a9a12dbc40b72c040bb1db3888cb", null ],
+    [ "toDegrees", "namespaceshkyera.html#af2fbd0c477c63b0c2032b04876a5fc9f", null ],
+    [ "toRadians", "namespaceshkyera.html#a4b6a401929f14f43633c9d857d4d923a", null ]
 ];

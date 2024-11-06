@@ -1,5 +1,9 @@
 var searchData=
 [
-  ['texcoord_1155',['texcoord',['../structshkyera_1_1_mesh_1_1_vertex.html#afe728aa623560a937f367f7380cebfb0',1,'shkyera::Mesh::Vertex']]],
-  ['text_5fcolor_1156',['TEXT_COLOR',['../namespaceshkyera_1_1style.html#ad7211225b6c32df28d02a521a1167e71',1,'shkyera::style']]]
+  ['shininess_1204',['shininess',['../classshkyera_1_1_material.html#a8e70da513e6902063035d0b20c151b66',1,'shkyera::Material']]],
+  ['skyboxcubemap_1205',['skyboxCubeMap',['../classshkyera_1_1_skybox_component.html#afb16699e36e7a48e1e73358819456a0e',1,'shkyera::SkyboxComponent']]],
+  ['small_5ffont_1206',['SMALL_FONT',['../namespaceshkyera_1_1style.html#aa5aea7565ee35b9376f11435bd1313a7',1,'shkyera::style']]],
+  ['specularcolor_1207',['specularColor',['../classshkyera_1_1_material.html#a8d5d3a932c1b6c5fbc9df5217a099cd7',1,'shkyera::Material']]],
+  ['start_1208',['start',['../structshkyera_1_1_wireframe_1_1_edge.html#ab4f9928b728d8a3c64d905d6e78c7281',1,'shkyera::Wireframe::Edge']]],
+  ['strong_5faccent_5fcolor_1209',['STRONG_ACCENT_COLOR',['../namespaceshkyera_1_1style.html#aea06ff132bd6ad909b2f2c4a689b527c',1,'shkyera::style']]]
 ];

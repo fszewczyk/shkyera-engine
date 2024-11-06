@@ -1,5 +1,8 @@
 var dir_c610c8504d46288da7634b3c0b18263f =
 [
+    [ "AmbientLightComponent.hpp", "_ambient_light_component_8hpp.html", [
+      [ "AmbientLightComponent", "classshkyera_1_1_ambient_light_component.html", "classshkyera_1_1_ambient_light_component" ]
+    ] ],
     [ "BaseComponent.hpp", "_base_component_8hpp.html", [
       [ "BaseComponent", "classshkyera_1_1_base_component.html", "classshkyera_1_1_base_component" ]
     ] ],

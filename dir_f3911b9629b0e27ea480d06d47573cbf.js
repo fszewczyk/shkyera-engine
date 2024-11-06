@@ -23,7 +23,9 @@ var dir_f3911b9629b0e27ea480d06d47573cbf =
     ] ],
     [ "PropertiesWidget.cpp", "_properties_widget_8cpp.html", null ],
     [ "PropertiesWidget.hpp", "_properties_widget_8hpp.html", [
-      [ "PropertiesWidget", "classshkyera_1_1_properties_widget.html", "classshkyera_1_1_properties_widget" ]
+      [ "PropertiesWidget", "classshkyera_1_1_properties_widget.html", "classshkyera_1_1_properties_widget" ],
+      [ "CameraPropertiesWidget", "classshkyera_1_1_camera_properties_widget.html", "classshkyera_1_1_camera_properties_widget" ],
+      [ "EnvironmentPropertiesWidget", "classshkyera_1_1_environment_properties_widget.html", "classshkyera_1_1_environment_properties_widget" ]
     ] ],
     [ "SceneWidget.cpp", "_scene_widget_8cpp.html", null ],
     [ "SceneWidget.hpp", "_scene_widget_8hpp.html", [

@@ -6,5 +6,7 @@ var dir_3813464283bee2267f39dcf080a84d74 =
     ] ],
     [ "Ray.hpp", "_ray_8hpp.html", [
       [ "Ray", "structshkyera_1_1_ray.html", "structshkyera_1_1_ray" ]
-    ] ]
+    ] ],
+    [ "Utils.cpp", "_math_2_utils_8cpp.html", "_math_2_utils_8cpp" ],
+    [ "Utils.hpp", "_math_2_utils_8hpp.html", "_math_2_utils_8hpp" ]
 ];

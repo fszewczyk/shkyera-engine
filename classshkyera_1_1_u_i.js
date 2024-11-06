@@ -9,6 +9,7 @@ var classshkyera_1_1_u_i =
     [ "initializeAssets", "classshkyera_1_1_u_i.html#ae2aa98fa5f649655b6401a9eecc93b06", null ],
     [ "initializeImgui", "classshkyera_1_1_u_i.html#a341889907d6fb872337cf8be2f3f57f0", null ],
     [ "initializeInterpreter", "classshkyera_1_1_u_i.html#a81bd9c29b3f8c1bbf27acd8145d7ab07", null ],
+    [ "initializeSystems", "classshkyera_1_1_u_i.html#adf2b92fdf53ed8334f8ce2958e0297d5", null ],
     [ "initializeWidgets", "classshkyera_1_1_u_i.html#ac0f3e85639d8a3280708b2fe8690cf48", null ],
     [ "renderFrame", "classshkyera_1_1_u_i.html#ab2b53958f2098d78ddf8f735d07af945", null ],
     [ "shouldClose", "classshkyera_1_1_u_i.html#a5c72b2d3c48c92381f91b3fed3e5216f", null ],
