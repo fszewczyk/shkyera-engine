@@ -10,8 +10,9 @@ namespace shkyera {
 
 class PointLightComponent : public BaseComponent<PointLightComponent> {
 public:
-    glm::vec3 diffuse = {0.5, 0.5, 0.5};
-    glm::vec3 specular = {0.5, 0.5, 0.5};
+    float intensity = 1;
+    float range = 5;
+    glm::vec3 color = {1, 1, 1};
 };
 
 } // namespace shkyera

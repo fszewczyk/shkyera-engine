@@ -82,7 +82,7 @@ void loadScene(std::shared_ptr<shkyera::Registry> registry) {
     // Add Point Light
     auto pointLight = registry->addEntity();
     registry->addComponent<TransformComponent>(pointLight);
-    registry->getComponent<TransformComponent>(pointLight).setPosition({-2, 5, 5});
+    registry->getComponent<TransformComponent>(pointLight).setPosition({-2, 2, 2});
     registry->addComponent<NameComponent>(pointLight);
     registry->getComponent<NameComponent>(pointLight).setName("Point Light");
     registry->addComponent<PointLightComponent>(pointLight);

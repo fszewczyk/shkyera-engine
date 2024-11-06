@@ -6,35 +6,25 @@
 namespace shkyera {
 
 DirectionalLightComponentUI::DirectionalLightComponentUI(DirectionalLightComponent* directionalLightComponent) :
-    _directionalLightComponent(directionalLightComponent) {}
+    _directionalLightComponent(directionalLightComponent),
+    _colorSelector("Color", directionalLightComponent->color),
+    _intensitySlider("Intensity", directionalLightComponent->intensity, 0.0f, 5.0f)
+{
+  _colorSelector.setUpdateCallback([this](const glm::vec3& color) {
+      _directionalLightComponent->color = color;
+    });
+  _intensitySlider.setUpdateCallback([this](float value) {
+    _directionalLightComponent->intensity = value;
+  });
+}
 
 void DirectionalLightComponentUI::draw() {
     ImGui::Image(_icon->getImguiTextureID(),
                ImVec2(16, 16));
     ImGui::SameLine();
   if (ImGui::TreeNodeEx("Directional Light", ImGuiTreeNodeFlags_DefaultOpen)) {
-    glm::vec3& diffuse = _directionalLightComponent->diffuse;
-    glm::vec3& specular = _directionalLightComponent->specular;
-
-    ImGui::PushItemWidth(50);
-
-    ImGui::Text("Diffuse");
-    ImGui::SameLine(120);
-    ImGui::DragFloat("R##Diffuse", &diffuse[0], 0.01f, 0.0f, 1.0f);
-    ImGui::SameLine();
-    ImGui::DragFloat("G##Diffuse", &diffuse[1], 0.01f, 0.0f, 1.0f);
-    ImGui::SameLine();
-    ImGui::DragFloat("B##Diffuse", &diffuse[2], 0.01f, 0.0f, 1.0f);
-
-    ImGui::Text("Specular");
-    ImGui::SameLine(120);
-    ImGui::DragFloat("R##Specular", &specular[0], 0.01f, 0.0f, 1.0f);
-    ImGui::SameLine();
-    ImGui::DragFloat("G##Specular", &specular[1], 0.01f, 0.0f, 1.0f);
-    ImGui::SameLine();
-    ImGui::DragFloat("B##Specular", &specular[2], 0.01f, 0.0f, 1.0f);
-
-    ImGui::PopItemWidth();
+    _colorSelector.draw();
+    _intensitySlider.draw();
 
     ImGui::TreePop();
   }

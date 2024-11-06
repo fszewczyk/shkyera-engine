@@ -332,8 +332,8 @@ Mesh* Mesh::Factory::createCylinder() {
 }
 
 Mesh* Mesh::Factory::createSphere() {
-    const int stacks = 48;
-    const int sectors = 96;
+    const int stacks = 24;
+    const int sectors = 48;
     const float radius = 1.0f;
 
     std::vector<Vertex> vertices;

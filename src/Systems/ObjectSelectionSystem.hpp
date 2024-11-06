@@ -10,8 +10,9 @@ public:
     ObjectSelectionSystem(std::shared_ptr<Registry> registry);
 
 private:
-    void tryToSelectObject();
+    std::optional<Entity> getHoveredObject();
 
+    std::optional<Entity> _objectSelectedOnMouseDown;
     std::shared_ptr<Registry> _registry;
 };
 

@@ -93,9 +93,11 @@ void UI::initializeSystems() {
 
 void UI::initializeWidgets() {
   _widgets.emplace_back(std::make_unique<ConsoleWidget>("Console"));
+  
   _widgets.emplace_back(std::make_unique<PropertiesWidget>(_registry));
   _widgets.emplace_back(std::make_unique<CameraPropertiesWidget>(_registry));
   _widgets.emplace_back(std::make_unique<EnvironmentPropertiesWidget>(_registry));
+
   _widgets.emplace_back(std::make_unique<SceneWidget>(_registry));
 
   auto objectsWidget = std::make_unique<ObjectsWidget>("Objects");
@@ -160,7 +162,7 @@ void UI::styleImgui() {
   style.Colors[ImGuiCol_HeaderHovered] = STRONG_ACCENT_COLOR;
 
   /********       SLIDER      *********/
-  style.Colors[ImGuiCol_SliderGrab] = ACCENT_COLOR;
+  style.Colors[ImGuiCol_SliderGrab] = STRONG_ACCENT_COLOR;
   style.Colors[ImGuiCol_SliderGrabActive] = STRONG_ACCENT_COLOR;
 
   /********      SEPARATOR     ********/
@@ -272,6 +274,11 @@ void UI::renderFrame() {
 
     ImGui::EndMainMenuBar();
   }
+
+  static auto onlyOnce = [this]() {
+    ImGui::SetWindowFocus("Properties");
+    return true;
+  } ();
 }
 
 void UI::endFrame() {

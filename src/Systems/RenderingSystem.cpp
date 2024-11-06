@@ -159,19 +159,19 @@ void RenderingSystem::renderModels()
     _modelShaderProgram.setUniform("projectionMatrix", projectionMatrix);
     _modelShaderProgram.setUniform("viewPos", cameraTransform.getPosition());
 
-    glm::vec3 ambientLight{0, 0, 0};
-    for(const auto& skybox : _registry->getComponents<AmbientLightComponent>())
+    glm::vec3 ambientColor{0, 0, 0};
+    for(const auto& ambientLightComponent : _registry->getComponents<AmbientLightComponent>())
     {
-        ambientLight += skybox.ambient;
+        ambientColor += ambientLightComponent.color * ambientLightComponent.intensity;
     }
-    _modelShaderProgram.setUniform("ambientLight", ambientLight);
+    _modelShaderProgram.setUniform("ambientLight", ambientColor);
 
     int pointLightIndex = 0;
     for(const auto& [entity, pointLightComponent] : _registry->getComponentSet<PointLightComponent>()) {
         const auto& transformComponent = _registry->getComponent<TransformComponent>(entity);
         _modelShaderProgram.setUniform("pointLights[" + std::to_string(pointLightIndex) + "].position", transformComponent.getPosition());
-        _modelShaderProgram.setUniform("pointLights[" + std::to_string(pointLightIndex) + "].diffuse", pointLightComponent.diffuse);
-        _modelShaderProgram.setUniform("pointLights[" + std::to_string(pointLightIndex) + "].specular", pointLightComponent.specular);
+        _modelShaderProgram.setUniform("pointLights[" + std::to_string(pointLightIndex) + "].color", pointLightComponent.intensity * pointLightComponent.color);
+        _modelShaderProgram.setUniform("pointLights[" + std::to_string(pointLightIndex) + "].range", pointLightComponent.range);
         ++pointLightIndex;
     }
     _modelShaderProgram.setUniform("numPointLights", pointLightIndex);
@@ -181,9 +181,8 @@ void RenderingSystem::renderModels()
         const auto& rotationMatrix = _registry->getComponent<TransformComponent>(entity).getRotationMatrix();
         auto lightDirection = rotationMatrix * glm::vec4{0, 0, 1, 1};
 
-        _modelShaderProgram.setUniform("directionalLights[" + std::to_string(directionalLightIndex) + "].direction", glm::vec3{lightDirection.x, lightDirection.y, lightDirection.z});
-        _modelShaderProgram.setUniform("directionalLights[" + std::to_string(directionalLightIndex) + "].diffuse", pointLightComponent.diffuse);
-        _modelShaderProgram.setUniform("directionalLights[" + std::to_string(directionalLightIndex) + "].specular", pointLightComponent.specular);
+        _modelShaderProgram.setUniform("directionalLights[" + std::to_string(directionalLightIndex) + "].direction", glm::vec3{lightDirection});
+        _modelShaderProgram.setUniform("directionalLights[" + std::to_string(directionalLightIndex) + "].color", pointLightComponent.intensity * pointLightComponent.color);
         ++directionalLightIndex;
     }
     _modelShaderProgram.setUniform("numDirectionalLights", directionalLightIndex);
