@@ -50,6 +50,7 @@ var hierarchy =
       [ "shkyera::WireframeComponentUI", "classshkyera_1_1_wireframe_component_u_i.html", null ]
     ] ],
     [ "shkyera::CubeMap", "classshkyera_1_1_cube_map.html", null ],
+    [ "shkyera::DepthFrameBuffer", "classshkyera_1_1_depth_frame_buffer.html", null ],
     [ "shkyera::DevelopmentRendererSystem", "classshkyera_1_1_development_renderer_system.html", null ],
     [ "shkyera::Directory", "classshkyera_1_1_directory.html", null ],
     [ "shkyera::Wireframe::Edge", "structshkyera_1_1_wireframe_1_1_edge.html", null ],
@@ -59,7 +60,6 @@ var hierarchy =
     [ "shkyera::File", "classshkyera_1_1_file.html", null ],
     [ "shkyera::FileSelector", "classshkyera_1_1_file_selector.html", null ],
     [ "shkyera::FloatSlider", "classshkyera_1_1_float_slider.html", null ],
-    [ "shkyera::FrameBuffer", "classshkyera_1_1_frame_buffer.html", null ],
     [ "std::std::hash< glm::vec3 >", "structstd_1_1std_1_1hash_3_01glm_1_1vec3_01_4.html", null ],
     [ "shkyera::InputManager", "classshkyera_1_1_input_manager.html", null ],
     [ "shkyera::SparseSet< Component >::Iterator< IsConst >", "classshkyera_1_1_sparse_set_1_1_iterator.html", null ],
@@ -75,6 +75,7 @@ var hierarchy =
     [ "shkyera::RenderingSystem", "classshkyera_1_1_rendering_system.html", null ],
     [ "shkyera::Runtime< Mode >", "classshkyera_1_1_runtime.html", null ],
     [ "shkyera::Runtime< RuntimeMode::DEVELOPMENT >", "classshkyera_1_1_runtime.html", null ],
+    [ "shkyera::SceneFrameBuffer", "classshkyera_1_1_scene_frame_buffer.html", null ],
     [ "shkyera::ShaderProgram", "classshkyera_1_1_shader_program.html", null ],
     [ "shkyera::SparseSetBase", "classshkyera_1_1_sparse_set_base.html", [
       [ "shkyera::SparseSet< Component >", "classshkyera_1_1_sparse_set.html", null ]

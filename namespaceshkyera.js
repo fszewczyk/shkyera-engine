@@ -17,7 +17,7 @@ var namespaceshkyera =
       [ "TEXT_COLOR", "namespaceshkyera_1_1style.html#ad7211225b6c32df28d02a521a1167e71", null ]
     ] ],
     [ "utils", "namespaceshkyera_1_1utils.html", [
-      [ "applyShaderToFrameBuffer", "namespaceshkyera_1_1utils.html#a718338c088722dff436d2254cedb19d0", null ],
+      [ "applyShaderToFrameBuffer", "namespaceshkyera_1_1utils.html#acb31e92c4b23d5759dde87e196c32b47", null ],
       [ "drawFullscreenQuad", "namespaceshkyera_1_1utils.html#acbddaf0a75d9f16775156bd752f84827", null ],
       [ "Uniform", "namespaceshkyera_1_1utils.html#a10a4be30914b578f9f091999fa68ae68", null ]
     ] ],
@@ -49,7 +49,8 @@ var namespaceshkyera =
     [ "Box", "structshkyera_1_1_box.html", "structshkyera_1_1_box" ],
     [ "Ray", "structshkyera_1_1_ray.html", "structshkyera_1_1_ray" ],
     [ "CubeMap", "classshkyera_1_1_cube_map.html", "classshkyera_1_1_cube_map" ],
-    [ "FrameBuffer", "classshkyera_1_1_frame_buffer.html", "classshkyera_1_1_frame_buffer" ],
+    [ "DepthFrameBuffer", "classshkyera_1_1_depth_frame_buffer.html", "classshkyera_1_1_depth_frame_buffer" ],
+    [ "SceneFrameBuffer", "classshkyera_1_1_scene_frame_buffer.html", "classshkyera_1_1_scene_frame_buffer" ],
     [ "ShaderProgram", "classshkyera_1_1_shader_program.html", "classshkyera_1_1_shader_program" ],
     [ "Texture", "classshkyera_1_1_texture.html", "classshkyera_1_1_texture" ],
     [ "Runtime", "classshkyera_1_1_runtime.html", "classshkyera_1_1_runtime" ],

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['grey_1177',['GREY',['../namespaceshkyera_1_1style.html#a51102491bd3604c6032c157dc1adf560',1,'shkyera::style']]]
+  ['grey_1198',['GREY',['../namespaceshkyera_1_1style.html#a51102491bd3604c6032c157dc1adf560',1,'shkyera::style']]]
 ];
