@@ -22,7 +22,7 @@
 #include <ECS/Registry.hpp>
 #include <UI/UI.hpp>
 
-void addModel(std::shared_ptr<shkyera::Registry> registry, 
+shkyera::Entity addModel(std::shared_ptr<shkyera::Registry> registry, 
               const glm::vec3& position, 
               const std::string& name, 
               std::shared_ptr<shkyera::Mesh> mesh) {
@@ -40,9 +40,11 @@ void addModel(std::shared_ptr<shkyera::Registry> registry,
     registry->getComponent<ModelComponent>(entity).setMaterial(std::make_shared<Material>());
     registry->addComponent<BoxColliderComponent<RuntimeMode::DEVELOPMENT>>(entity);
     registry->getComponent<BoxColliderComponent<RuntimeMode::DEVELOPMENT>>(entity).box = mesh->getBoundingBox();
+
+    return entity;
 }
 
-void addWireframe(std::shared_ptr<shkyera::Registry> registry, 
+shkyera::Entity addWireframe(std::shared_ptr<shkyera::Registry> registry, 
                   const glm::vec3& position, 
                   const std::string& name, 
                   std::shared_ptr<shkyera::Wireframe> wireframe) {
@@ -57,6 +59,8 @@ void addWireframe(std::shared_ptr<shkyera::Registry> registry,
     registry->getComponent<NameComponent>(entity).setName(name);
     registry->addComponent<WireframeComponent>(entity);
     registry->getComponent<WireframeComponent>(entity).setWireframe(wireframe);
+
+    return entity;
 }
 
 void loadScene(std::shared_ptr<shkyera::Registry> registry) {
@@ -65,6 +69,8 @@ void loadScene(std::shared_ptr<shkyera::Registry> registry) {
     // Camera setup
     auto camera = registry->getCamera();
     registry->addComponent<TransformComponent>(camera);
+    registry->getComponent<TransformComponent>(camera).setPosition({0, 15, 0});
+    registry->getComponent<TransformComponent>(camera).setOrientation({-M_PI_2 + 0.01, 0, 0});
     registry->addComponent<CameraComponent>(camera);
 
     // Add Cylinder and its wireframe
@@ -76,8 +82,12 @@ void loadScene(std::shared_ptr<shkyera::Registry> registry) {
     addWireframe(registry, {3, 3, 0}, "Cube Wireframe", std::shared_ptr<Wireframe>(Wireframe::Factory::createCube()));
 
     // Add Sphere and its wireframe
-    addModel(registry, {3, 0, 3}, "Sphere", std::shared_ptr<Mesh>(Mesh::Factory::createSphere()));
-    addWireframe(registry, {3, 3, 3}, "Sphere Wireframe", std::shared_ptr<Wireframe>(Wireframe::Factory::createSphere()));
+    addModel(registry, {3, 6, 3}, "Sphere", std::shared_ptr<Mesh>(Mesh::Factory::createSphere()));
+    addWireframe(registry, {3, 9, 3}, "Sphere Wireframe", std::shared_ptr<Wireframe>(Wireframe::Factory::createSphere()));
+
+    // Add World Plane
+    auto worldPlane = addModel(registry, {0, -2, 0}, "Plane", std::shared_ptr<Mesh>(Mesh::Factory::createPlane()));
+    registry->getComponent<TransformComponent>(worldPlane).setScale({15, 1, 15});
 
     // Add Point Light
     auto pointLight = registry->addEntity();
@@ -90,10 +100,23 @@ void loadScene(std::shared_ptr<shkyera::Registry> registry) {
     // Add Skybox
     auto sky = registry->addEntity();
     registry->addComponent<TransformComponent>(sky);
+    registry->getComponent<TransformComponent>(sky).setOrientation({-M_PI_2 + 0.1, -0.1, 0});
     registry->addComponent<NameComponent>(sky);
-    registry->getComponent<NameComponent>(sky).setName("Sky");
+    registry->getComponent<NameComponent>(sky).setName("Sun");
     registry->addComponent<DirectionalLightComponent>(sky);
+    registry->getComponent<DirectionalLightComponent>(sky).color = glm::vec3{0.95, 0.92, 0.6};
+    registry->getComponent<DirectionalLightComponent>(sky).intensity = 0.4;
     registry->addComponent<AmbientLightComponent>(sky);
+
+    auto moon = registry->addEntity();
+    registry->addComponent<TransformComponent>(moon);
+    registry->getComponent<TransformComponent>(moon).setOrientation({-M_PI_2 / 2, -M_PI_2 / 2, 0});
+    registry->addComponent<NameComponent>(moon);
+    registry->getComponent<NameComponent>(moon).setName("Moon");
+    registry->addComponent<DirectionalLightComponent>(moon);
+    registry->getComponent<DirectionalLightComponent>(moon).color = glm::vec3{0.85, 0.95, 0.95};
+    registry->getComponent<DirectionalLightComponent>(moon).intensity = 0.15;
+    registry->addComponent<AmbientLightComponent>(moon);
 
     const auto skyboxUp = AssetManager::getInstance().getAsset<Image>("resources/skyboxes/day/py.png");
     const auto skyboxDown = AssetManager::getInstance().getAsset<Image>("resources/skyboxes/day/ny.png");

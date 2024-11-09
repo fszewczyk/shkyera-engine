@@ -24,10 +24,32 @@ Texture::Texture(const std::string& path) : Texture()
     loadImage(image);
 }
 
+Texture::Texture(Texture&& other) noexcept
+{
+    _textureID = other._textureID;
+    other._textureID = 0;
+}
+
+Texture& Texture::operator=(Texture&& other) noexcept
+{
+    if(this != &other)
+    {
+        if(_textureID)
+        {
+            glDeleteTextures(1, &_textureID);
+        }
+        _textureID = other._textureID;
+        other._textureID = 0;
+    }
+
+    return *this;
+}
+
 Texture::~Texture() {
-    if (_textureID) {
+
+    if (_textureID) 
+    {
         glDeleteTextures(1, &_textureID);
-        _textureID = 0;
     }
 }
 

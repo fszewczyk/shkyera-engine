@@ -23,7 +23,7 @@ public:
 
     glm::vec3& getOrientation() { return _orientation; }
     const glm::vec3& getOrientation() const { return _orientation; }
-    void getOrientation(const glm::vec3& orientation) { _orientation = orientation; }
+    void setOrientation(const glm::vec3& orientation) { _orientation = orientation; }
 
     glm::vec3& getScale() { return _scale; }
     const glm::vec3& getScale() const { return _scale; }

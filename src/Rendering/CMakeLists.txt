@@ -3,10 +3,12 @@ add_library(
     STATIC
 
     ${CMAKE_CURRENT_LIST_DIR}/ShaderProgram.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/FrameBuffer.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Texture.cpp
     ${CMAKE_CURRENT_LIST_DIR}/CubeMap.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Utils.cpp
+
+    ${CMAKE_CURRENT_LIST_DIR}/FrameBuffers/SceneFrameBuffer.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/FrameBuffers/DepthFrameBuffer.cpp
 )
 
 target_include_directories(

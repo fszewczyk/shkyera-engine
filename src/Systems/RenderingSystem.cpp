@@ -51,6 +51,12 @@ RenderingSystem::RenderingSystem(std::shared_ptr<Registry> registry)
     _skyboxShaderProgram.attachShader(skyboxVertexShader);
     _skyboxShaderProgram.attachShader(cubeMapFragmentShader);
     _skyboxShaderProgram.link();
+
+    const auto& shadowMapVertexShader = AssetManager::getInstance().getAsset<Shader>("resources/shaders/vertex/shadowmap.glsl", Shader::Type::Vertex);
+    const auto& depthFragmentShader = AssetManager::getInstance().getAsset<Shader>("resources/shaders/fragment/depth.glsl", Shader::Type::Fragment);
+    _shadowMapShaderProgram.attachShader(shadowMapVertexShader);
+    _shadowMapShaderProgram.attachShader(depthFragmentShader);
+    _shadowMapShaderProgram.link();
 }
 
 void RenderingSystem::setSize(uint32_t width, uint32_t height)
@@ -112,7 +118,7 @@ void RenderingSystem::renderOutline(const std::unordered_set<Entity>& entities)
             { "silhouetteTexture", &_silhouetteFrameBuffer.getTexture() }
         },
         utils::Uniform("horizontal", true),
-        utils::Uniform("kernelSize", 5)
+        utils::Uniform("kernelSize", 3)
     );
 
     utils::applyShaderToFrameBuffer(
@@ -122,7 +128,7 @@ void RenderingSystem::renderOutline(const std::unordered_set<Entity>& entities)
             { "silhouetteTexture", &_horizontallyDilatedFrameBuffer.getTexture() }
         },
         utils::Uniform("horizontal", false),
-        utils::Uniform("kernelSize", 5)
+        utils::Uniform("kernelSize", 3)
     );
 
     utils::applyShaderToFrameBuffer(
@@ -148,9 +154,64 @@ void RenderingSystem::renderModels()
 {
     glEnable(GL_DEPTH_TEST);
 
+    const auto& cameraTransform = _registry->getComponent<TransformComponent>(_registry->getCamera());
+
+    // ********* Rendering the shadow maps *********
+    std::unordered_set<Entity> directionalLightEntities;
+    for(const auto& [entity, directionalLightComponent] : _registry->getComponentSet<DirectionalLightComponent>()) {
+        directionalLightEntities.insert(entity);
+        if(_directionalLightToShadowMaps.find(entity) == _directionalLightToShadowMaps.end())
+        {
+            _directionalLightToShadowMaps.emplace(entity, std::array<DepthFrameBuffer, DirectionalLightLOD>{});
+        }
+    }
+
+    std::vector<Entity> entitiesWithFrameBuffersToRemove;
+    for(const auto& [entity, _buffer] : _directionalLightToShadowMaps)
+    {
+        if(directionalLightEntities.find(entity) == directionalLightEntities.end())
+        {
+            entitiesWithFrameBuffersToRemove.push_back(entity);
+        }
+    }
+
+    for(const auto& entityToRemove : entitiesWithFrameBuffersToRemove)
+    {
+        _directionalLightToShadowMaps.erase(entityToRemove);
+    }
+
+    for(auto& [lightEntity, lodBuffers] : _directionalLightToShadowMaps)
+    {
+        uint8_t levelOfDetail = 0;
+        for(auto& buffer : lodBuffers)
+        {
+            buffer.bind();
+            buffer.setSize(2048, 2048);
+            buffer.clear();
+            _shadowMapShaderProgram.use();
+
+            const auto& directionalLightComponent = _registry->getComponent<DirectionalLightComponent>(lightEntity);
+            const auto& lightTransform = _registry->getComponent<TransformComponent>(lightEntity);
+            const glm::mat4& viewMatrix = directionalLightComponent.getViewMatrix(lightTransform, cameraTransform);
+            const glm::mat4& projectionMatrix = directionalLightComponent.getProjectionMatrix(levelOfDetail++);
+
+            _shadowMapShaderProgram.setUniform("viewMatrix", viewMatrix);
+            _shadowMapShaderProgram.setUniform("projectionMatrix", projectionMatrix);
+            for (const auto& [modelEntity, modelComponent] : _registry->getComponentSet<ModelComponent>()) {
+                const auto& transformComponent = _registry->getComponent<TransformComponent>(modelEntity);
+                _shadowMapShaderProgram.setUniform("modelMatrix", transformComponent.getTransformMatrix());
+
+                modelComponent.updateImpl();
+            }
+
+            _shadowMapShaderProgram.stopUsing();
+            buffer.unbind();
+        }
+    }        
+
+    // ********* Rendering the world *********
     _renderFrameBuffer.bind();
 
-    const auto& cameraTransform = _registry->getComponent<TransformComponent>(_registry->getCamera());
     const glm::mat4& viewMatrix = _registry->getComponent<CameraComponent>(_registry->getCamera()).getViewMatrix(cameraTransform);
     const glm::mat4& projectionMatrix = _registry->getComponent<CameraComponent>(_registry->getCamera()).getProjectionMatrix();
 
@@ -177,12 +238,27 @@ void RenderingSystem::renderModels()
     _modelShaderProgram.setUniform("numPointLights", pointLightIndex);
 
     int directionalLightIndex = 0;
-    for(const auto& [entity, pointLightComponent] : _registry->getComponentSet<DirectionalLightComponent>()) {
-        const auto& rotationMatrix = _registry->getComponent<TransformComponent>(entity).getRotationMatrix();
-        auto lightDirection = rotationMatrix * glm::vec4{0, 0, 1, 1};
+    int textureIndex = 0;
+    for (const auto& [entity, directionalLightComponent] : _registry->getComponentSet<DirectionalLightComponent>()) {
+        const auto& transformComponent = _registry->getComponent<TransformComponent>(entity);
+        const auto& orientation = transformComponent.getOrientation();
 
-        _modelShaderProgram.setUniform("directionalLights[" + std::to_string(directionalLightIndex) + "].direction", glm::vec3{lightDirection});
-        _modelShaderProgram.setUniform("directionalLights[" + std::to_string(directionalLightIndex) + "].color", pointLightComponent.intensity * pointLightComponent.color);
+        const auto& depthFrameBuffers = _directionalLightToShadowMaps.at(entity);
+
+        for(size_t levelOfDetail = 0; levelOfDetail < depthFrameBuffers.size(); levelOfDetail++)
+        {
+            depthFrameBuffers[levelOfDetail].getTexture().activate(GL_TEXTURE0 + textureIndex);
+            const glm::mat4 lightSpaceMatrix = directionalLightComponent.getProjectionMatrix(levelOfDetail) * directionalLightComponent.getViewMatrix(transformComponent, cameraTransform);
+
+            _modelShaderProgram.setUniform("directionalLights[" + std::to_string(directionalLightIndex) + "].shadowSampler[" + std::to_string(levelOfDetail) + "]", textureIndex);
+            _modelShaderProgram.setUniform("directionalLights[" + std::to_string(directionalLightIndex) + "].lightSpaceMatrix[" + std::to_string(levelOfDetail) + "]", lightSpaceMatrix);
+            ++textureIndex;
+        }
+
+
+        glm::vec3 lightDirection = DirectionalLightComponent::getDirection(transformComponent);
+        _modelShaderProgram.setUniform("directionalLights[" + std::to_string(directionalLightIndex) + "].direction", lightDirection);
+        _modelShaderProgram.setUniform("directionalLights[" + std::to_string(directionalLightIndex) + "].color", directionalLightComponent.intensity * directionalLightComponent.color);
         ++directionalLightIndex;
     }
     _modelShaderProgram.setUniform("numDirectionalLights", directionalLightIndex);
@@ -193,8 +269,7 @@ void RenderingSystem::renderModels()
 
         const Material* material = modelComponent.getMaterial();
         if (material) {
-            _modelShaderProgram.setUniform("material.diffuse", material->getDiffuseColor());
-            _modelShaderProgram.setUniform("material.specular", material->getSpecularColor());
+            _modelShaderProgram.setUniform("material.color", material->getDiffuseColor());
             _modelShaderProgram.setUniform("material.shininess", material->getShininess());
         }
 
