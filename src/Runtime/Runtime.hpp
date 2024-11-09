@@ -8,7 +8,7 @@
 #include <Systems/RenderingSystem.hpp>
 #include <Systems/DevelopmentRendererSystem.hpp>
 #include <Systems/ObjectSelectionSystem.hpp>
-#include <Rendering/FrameBuffer.hpp>
+#include <Rendering/FrameBuffers/SceneFrameBuffer.hpp>
 
 namespace shkyera {
 

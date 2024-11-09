@@ -44,6 +44,7 @@ public:
 
     class Factory {
         public:
+            static Mesh* createPlane();
             static Mesh* createCube();
             static Mesh* createCubeMap();
             static Mesh* createCylinder();

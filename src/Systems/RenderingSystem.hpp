@@ -5,7 +5,8 @@
 #include <Common/Types.hpp>
 #include <ECS/Registry.hpp>
 #include <Rendering/ShaderProgram.hpp>
-#include <Rendering/FrameBuffer.hpp>
+#include <Rendering/FrameBuffers/SceneFrameBuffer.hpp>
+#include <Rendering/FrameBuffers/DepthFrameBuffer.hpp>
 #include <Rendering/CubeMap.hpp>
 
 namespace shkyera {
@@ -27,15 +28,15 @@ private:
     std::shared_ptr<Registry> _registry;
     
     // Main Rendering
-    FrameBuffer _renderFrameBuffer;
+    SceneFrameBuffer _renderFrameBuffer;
     ShaderProgram _modelShaderProgram;
     ShaderProgram _wireframeShaderProgram;
 
     // Rendering Object Outline
-    FrameBuffer _silhouetteFrameBuffer;
-    FrameBuffer _horizontallyDilatedFrameBuffer;
-    FrameBuffer _fullyDilatedFrameBuffer;
-    FrameBuffer _differenceFrameBuffer;
+    SceneFrameBuffer _silhouetteFrameBuffer;
+    SceneFrameBuffer _horizontallyDilatedFrameBuffer;
+    SceneFrameBuffer _fullyDilatedFrameBuffer;
+    SceneFrameBuffer _differenceFrameBuffer;
     ShaderProgram _silhouetteShaderProgram;
     ShaderProgram _dilateShaderProgram;
     ShaderProgram _subtractShaderProgram;
@@ -44,6 +45,11 @@ private:
     // Skybox Rendering
     CubeMap _skyboxCubeMap;
     ShaderProgram _skyboxShaderProgram;
+
+    // Light rendering
+    constexpr static size_t DirectionalLightLOD = 4;
+    std::unordered_map<Entity, std::array<DepthFrameBuffer, DirectionalLightLOD>> _directionalLightToShadowMaps;
+    ShaderProgram _shadowMapShaderProgram;
 };
 
 }

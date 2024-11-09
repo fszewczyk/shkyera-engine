@@ -18,6 +18,9 @@ public:
     Texture(const Texture& other) = delete;
     Texture& operator=(const Texture& other) = delete;
 
+    Texture(Texture&& other) noexcept;
+    Texture& operator=(Texture&& other) noexcept;
+
     // Bind and unbind texture
     void bind() const;
     void unbind() const;

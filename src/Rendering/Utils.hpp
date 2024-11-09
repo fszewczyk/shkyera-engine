@@ -2,7 +2,7 @@
 
 #include <glad/glad.h>
 #include <Rendering/ShaderProgram.hpp>
-#include <Rendering/FrameBuffer.hpp>
+#include <Rendering/FrameBuffers/SceneFrameBuffer.hpp>
 
 namespace shkyera::utils
 {
@@ -17,7 +17,7 @@ std::pair<std::string, ValueType> Uniform(const std::string& name, const ValueTy
 
 template <typename... Uniforms>
 void applyShaderToFrameBuffer(
-    FrameBuffer& frameBuffer,
+    SceneFrameBuffer& frameBuffer,
     ShaderProgram& shaderProgram,
     std::vector<std::pair<const char *, const Texture *>> textures, // List of texture bindings with texture unit indices
     Uniforms... uniforms) // Parameter pack for uniform values

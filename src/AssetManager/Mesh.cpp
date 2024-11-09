@@ -196,6 +196,23 @@ void Mesh::uploadToGPU() {
     glBindVertexArray(0);
 }
 
+
+Mesh* Mesh::Factory::createPlane() {
+    std::vector<Vertex> vertices = {
+        { { -1.0f, 0.0f, -1.0f }, { 0.0f, 1.0f, 0.0f }, { 0.0f, 0.0f } },  // 0
+        { {  1.0f, 0.0f, -1.0f }, { 0.0f, 1.0f, 0.0f }, { 1.0f, 0.0f } },  // 1
+        { {  1.0f, 0.0f,  1.0f }, { 0.0f, 1.0f, 0.0f }, { 1.0f, 1.0f } },  // 2
+        { { -1.0f, 0.0f,  1.0f }, { 0.0f, 1.0f, 0.0f }, { 0.0f, 1.0f } }   // 3
+    };
+
+    std::vector<unsigned int> indices = {
+        0, 1, 2,
+        2, 3, 0
+    };
+
+    return new Mesh(vertices, indices);
+}
+
 Mesh* Mesh::Factory::createCube() {
       std::vector<Vertex> vertices = {
         // Front face
