@@ -6,6 +6,7 @@
 #include <Components/WireframeComponent.hpp>
 #include <Components/CameraComponent.hpp>
 #include <Components/SkyboxComponent.hpp>
+#include <Components/NameComponent.hpp>
 #include <Components/AmbientLightComponent.hpp>
 #include <Components/PointLightComponent.hpp>
 #include <Components/DirectionalLightComponent.hpp>
@@ -155,6 +156,7 @@ void RenderingSystem::renderModels()
     glEnable(GL_DEPTH_TEST);
 
     const auto& cameraTransform = _registry->getComponent<TransformComponent>(_registry->getCamera());
+    const auto& cameraComponent = _registry->getComponent<CameraComponent>(_registry->getCamera());
 
     // ********* Rendering the shadow maps *********
     std::unordered_set<Entity> directionalLightEntities;
@@ -162,7 +164,7 @@ void RenderingSystem::renderModels()
         directionalLightEntities.insert(entity);
         if(_directionalLightToShadowMaps.find(entity) == _directionalLightToShadowMaps.end())
         {
-            _directionalLightToShadowMaps.emplace(entity, std::array<DepthFrameBuffer, DirectionalLightLOD>{});
+            _directionalLightToShadowMaps.emplace(entity, std::vector<DepthFrameBuffer>(DirectionalLightComponent::LevelsOfDetail));
         }
     }
 
@@ -183,20 +185,19 @@ void RenderingSystem::renderModels()
     for(auto& [lightEntity, lodBuffers] : _directionalLightToShadowMaps)
     {
         uint8_t levelOfDetail = 0;
+        lodBuffers.resize(DirectionalLightComponent::LevelsOfDetail);
         for(auto& buffer : lodBuffers)
         {
             buffer.bind();
-            buffer.setSize(2048, 2048);
+            buffer.setSize(1600, 1600);
             buffer.clear();
             _shadowMapShaderProgram.use();
 
             const auto& directionalLightComponent = _registry->getComponent<DirectionalLightComponent>(lightEntity);
             const auto& lightTransform = _registry->getComponent<TransformComponent>(lightEntity);
-            const glm::mat4& viewMatrix = directionalLightComponent.getViewMatrix(lightTransform, cameraTransform);
-            const glm::mat4& projectionMatrix = directionalLightComponent.getProjectionMatrix(levelOfDetail++);
+            const glm::mat4& lightSpaceMatrix = directionalLightComponent.getLightSpaceMatrix(lightTransform, cameraTransform, cameraComponent, levelOfDetail);
 
-            _shadowMapShaderProgram.setUniform("viewMatrix", viewMatrix);
-            _shadowMapShaderProgram.setUniform("projectionMatrix", projectionMatrix);
+            _shadowMapShaderProgram.setUniform("lightSpaceMatrix", lightSpaceMatrix);
             for (const auto& [modelEntity, modelComponent] : _registry->getComponentSet<ModelComponent>()) {
                 const auto& transformComponent = _registry->getComponent<TransformComponent>(modelEntity);
                 _shadowMapShaderProgram.setUniform("modelMatrix", transformComponent.getTransformMatrix());
@@ -206,6 +207,7 @@ void RenderingSystem::renderModels()
 
             _shadowMapShaderProgram.stopUsing();
             buffer.unbind();
+            levelOfDetail++;
         }
     }        
 
@@ -240,15 +242,15 @@ void RenderingSystem::renderModels()
     int directionalLightIndex = 0;
     int textureIndex = 0;
     for (const auto& [entity, directionalLightComponent] : _registry->getComponentSet<DirectionalLightComponent>()) {
-        const auto& transformComponent = _registry->getComponent<TransformComponent>(entity);
-        const auto& orientation = transformComponent.getOrientation();
+        const auto& lightTransform = _registry->getComponent<TransformComponent>(entity);
+        const auto& orientation = lightTransform.getOrientation();
 
         const auto& depthFrameBuffers = _directionalLightToShadowMaps.at(entity);
 
         for(size_t levelOfDetail = 0; levelOfDetail < depthFrameBuffers.size(); levelOfDetail++)
         {
             depthFrameBuffers[levelOfDetail].getTexture().activate(GL_TEXTURE0 + textureIndex);
-            const glm::mat4 lightSpaceMatrix = directionalLightComponent.getProjectionMatrix(levelOfDetail) * directionalLightComponent.getViewMatrix(transformComponent, cameraTransform);
+            const glm::mat4 lightSpaceMatrix = directionalLightComponent.getLightSpaceMatrix(lightTransform, cameraTransform, cameraComponent, levelOfDetail);
 
             _modelShaderProgram.setUniform("directionalLights[" + std::to_string(directionalLightIndex) + "].shadowSampler[" + std::to_string(levelOfDetail) + "]", textureIndex);
             _modelShaderProgram.setUniform("directionalLights[" + std::to_string(directionalLightIndex) + "].lightSpaceMatrix[" + std::to_string(levelOfDetail) + "]", lightSpaceMatrix);
@@ -256,7 +258,7 @@ void RenderingSystem::renderModels()
         }
 
 
-        glm::vec3 lightDirection = DirectionalLightComponent::getDirection(transformComponent);
+        glm::vec3 lightDirection = DirectionalLightComponent::getDirection(lightTransform);
         _modelShaderProgram.setUniform("directionalLights[" + std::to_string(directionalLightIndex) + "].direction", lightDirection);
         _modelShaderProgram.setUniform("directionalLights[" + std::to_string(directionalLightIndex) + "].color", directionalLightComponent.intensity * directionalLightComponent.color);
         ++directionalLightIndex;

@@ -96,34 +96,43 @@ float calculateShadowFactor(int directionalLightIndex, LodBlend lodBlend) {
   }
 
   // Define PCF kernel size and bias for shadow comparison
-  float bias = 0.001;
-  float shadowLowLod = 0.0;
-  float shadowHighLod = 0.0;
-  int pcfKernelSize =
-      2;  // You can adjust this value for more or less smoothing
-  float texelSize =
-      1.0 / 2048.0;  // Assume a shadow map resolution of 2048x2048
+  float bias = 0.01;
+  int pcfKernelSize = 1;
 
-  // Loop over the kernel to sample neighboring depths for the low LOD
+  // Set texel sizes for low and high LODs
+  float texelSizeLowLod =
+      1.0 / 1024.0;  // Low LOD texel size (assumed 1024x1024)
+  float texelSizeHighLod =
+      1.0 * texelSizeLowLod;  // High LOD texel size, twice as large
+
+  // Calculate shadow factor for low LOD
+  float shadowLowLod = 0.0;
   for (int x = -pcfKernelSize; x <= pcfKernelSize; ++x) {
     for (int y = -pcfKernelSize; y <= pcfKernelSize; ++y) {
-      // Sample the shadow map for the low LOD
+      // Sample shadow map for low LOD
       float closestDepthLowLod =
           texture(directionalLights[directionalLightIndex]
                       .shadowSampler[lodBlend.lowLod],
-                  projCoordsLowLod.xy + vec2(x, y) * texelSize)
+                  projCoordsLowLod.xy + vec2(x, y) * texelSizeLowLod)
               .r;
       closestDepthLowLod =
           closestDepthLowLod * 0.5 + 0.5;  // Remap to [0, 1] range
       if (projCoordsLowLod.z - bias > closestDepthLowLod) {
         shadowLowLod += 1.0;
       }
+    }
+  }
+  shadowLowLod /= float((pcfKernelSize * 2 + 1) * (pcfKernelSize * 2 + 1));
 
-      // Sample the shadow map for the high LOD
+  // Calculate shadow factor for high LOD
+  float shadowHighLod = 0.0;
+  for (int x = -pcfKernelSize; x <= pcfKernelSize; ++x) {
+    for (int y = -pcfKernelSize; y <= pcfKernelSize; ++y) {
+      // Sample shadow map for high LOD
       float closestDepthHighLod =
           texture(directionalLights[directionalLightIndex]
                       .shadowSampler[lodBlend.highLod],
-                  projCoordsHighLod.xy + vec2(2 * x, 2 * y) * texelSize)
+                  projCoordsHighLod.xy + vec2(x, y) * texelSizeHighLod)
               .r;
       closestDepthHighLod =
           closestDepthHighLod * 0.5 + 0.5;  // Remap to [0, 1] range
@@ -132,9 +141,6 @@ float calculateShadowFactor(int directionalLightIndex, LodBlend lodBlend) {
       }
     }
   }
-
-  // Normalize shadow values by the kernel size
-  shadowLowLod /= float((pcfKernelSize * 2 + 1) * (pcfKernelSize * 2 + 1));
   shadowHighLod /= float((pcfKernelSize * 2 + 1) * (pcfKernelSize * 2 + 1));
 
   // Blend the shadow factors between the low and high LOD based on highLodWeight
@@ -142,28 +148,47 @@ float calculateShadowFactor(int directionalLightIndex, LodBlend lodBlend) {
 }
 
 LodBlend chooseLightLOD(mat4 lightSpaceMatrix[4], vec3 fragPos) {
-  // Transform fragment position to light space
+  const float blendRange = 0.2;  // Range near cascade far edge to blend
+
   for (int lod = 0; lod < 4; ++lod) {
     vec4 fragPosLightSpace = lightSpaceMatrix[lod] * vec4(fragPos, 1.0);
     vec3 projCoords = fragPosLightSpace.xyz / fragPosLightSpace.w;
     projCoords = projCoords * 0.5 + 0.5;
 
+    // Check if fragment is inside current LOD's view
     if (projCoords.x >= 0.0 && projCoords.y >= 0.0 && projCoords.x <= 1.0 &&
         projCoords.y <= 1.0 && projCoords.z < 1.0) {
+
+      // If we're at the last LOD, no blending with a higher LOD
       if (lod == 3) {
         return LodBlend(lod, lod, 1.0);
-      } else {
-        float distanceToEdgeX = min(projCoords.x, 1.0 - projCoords.x);
-        float distanceToEdgeY = min(projCoords.y, 1.0 - projCoords.y);
+      }
 
-        float distanceToEdge = min(distanceToEdgeX, distanceToEdgeY);
+      // Transform to next LOD’s light space to calculate depth blending
+      vec4 fragPosLightSpaceNext =
+          lightSpaceMatrix[lod + 1] * vec4(fragPos, 1.0);
+      vec3 projCoordsNext = fragPosLightSpaceNext.xyz / fragPosLightSpaceNext.w;
+      projCoordsNext = projCoordsNext * 0.5 + 0.5;
 
-        float highLodWeight = distanceToEdge / 0.5;
+      // Verify that fragment is also within next LOD's frustum
+      if (projCoordsNext.x >= 0.0 && projCoordsNext.y >= 0.0 &&
+          projCoordsNext.x <= 1.0 && projCoordsNext.y <= 1.0 &&
+          projCoordsNext.z < 1.0) {
+
+        // Compute blending weight based on fragment's depth in current LOD
+        float depthInCurrentLOD = projCoords.z;
+        float highLodWeight =
+            smoothstep(1.0 - blendRange, 1.0, depthInCurrentLOD);
+
         return LodBlend(lod, lod + 1, highLodWeight);
       }
+
+      // If fragment not inside next LOD, return current LOD without blending
+      return LodBlend(lod, lod, 1.0);
     }
   }
 
+  // Default return if fragment is outside all cascades
   return LodBlend(-1, -1, 0.0);
 }
 

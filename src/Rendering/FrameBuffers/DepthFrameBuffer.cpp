@@ -76,7 +76,7 @@ void DepthFrameBuffer::setSize(uint32_t width, uint32_t height) {
     _width = width;
     _height = height;
 
-    _textureDepthBuffer.setData(GL_R16F, _width, _height, GL_RED, GL_FLOAT);
+    _textureDepthBuffer.setData(GL_R32F, _width, _height, GL_RED, GL_FLOAT);
 
     glBindRenderbuffer(GL_RENDERBUFFER, _rbo);
     glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, _width, _height);
@@ -94,13 +94,9 @@ void DepthFrameBuffer::setupFramebuffer() {
     glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, _rbo);
 
     glBindTexture(GL_TEXTURE_2D, _textureDepthBuffer.getID());
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
     
-    GLfloat borderColor[] = { 0.0f, 0.0f, 0.0f, 0.0f };
-    glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, borderColor);
-
-    // Verify the framebuffer completeness
     if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
         std::cout << "ERROR::FRAMEBUFFER:: Depth Frame Buffer is not complete!" << std::endl;
     }
