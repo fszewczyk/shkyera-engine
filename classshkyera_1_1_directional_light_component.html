@@ -115,6 +115,7 @@ $(document).ready(function(){initNavTree('classshkyera_1_1_directional_light_com
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="classshkyera_1_1_directional_light_component-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">shkyera::DirectionalLightComponent Class Reference</div>  </div>
@@ -131,10 +132,8 @@ Inheritance diagram for shkyera::DirectionalLightComponent:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a631eeaf544f11e5459478603151d0c95"><td class="memItemLeft" align="right" valign="top">glm::mat4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_directional_light_component.html#a631eeaf544f11e5459478603151d0c95">getViewMatrix</a> (const <a class="el" href="classshkyera_1_1_transform_component.html">TransformComponent</a> &amp;lightTransformComponent, const <a class="el" href="classshkyera_1_1_transform_component.html">TransformComponent</a> &amp;cameraTransformComponent) const</td></tr>
-<tr class="separator:a631eeaf544f11e5459478603151d0c95"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5cde7d9ddcd5eb813fc2c827aa4f29a7"><td class="memItemLeft" align="right" valign="top">glm::mat4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_directional_light_component.html#a5cde7d9ddcd5eb813fc2c827aa4f29a7">getProjectionMatrix</a> (uint8_t levelOfDetail) const</td></tr>
-<tr class="separator:a5cde7d9ddcd5eb813fc2c827aa4f29a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae349b45a914ea348506acc0e8a3f68a9"><td class="memItemLeft" align="right" valign="top">glm::mat4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_directional_light_component.html#ae349b45a914ea348506acc0e8a3f68a9">getLightSpaceMatrix</a> (const <a class="el" href="classshkyera_1_1_transform_component.html">TransformComponent</a> &amp;lightTransformComponent, const <a class="el" href="classshkyera_1_1_transform_component.html">TransformComponent</a> &amp;cameraTransformComponent, const <a class="el" href="classshkyera_1_1_camera_component.html">CameraComponent</a> &amp;cameraComponent, uint8_t levelOfDetail) const</td></tr>
+<tr class="separator:ae349b45a914ea348506acc0e8a3f68a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classshkyera_1_1_base_component"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classshkyera_1_1_base_component')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classshkyera_1_1_base_component.html">shkyera::BaseComponent&lt; DirectionalLightComponent &gt;</a></td></tr>
 <tr class="memitem:a8f3960a847a386e315cab53bd248d914 inherit pub_methods_classshkyera_1_1_base_component"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_base_component.html#a8f3960a847a386e315cab53bd248d914">update</a> ()</td></tr>
 <tr class="memdesc:a8f3960a847a386e315cab53bd248d914 inherit pub_methods_classshkyera_1_1_base_component"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calls the derived class's update implementation.  <a href="classshkyera_1_1_base_component.html#a8f3960a847a386e315cab53bd248d914">More...</a><br /></td></tr>
@@ -154,6 +153,13 @@ Public Attributes</h2></td></tr>
 <tr class="separator:a8eaa78d578558cc33e012f3467e0a02f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab530aae292eccb6b50eacf29d1f55c40"><td class="memItemLeft" align="right" valign="top">glm::vec3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_directional_light_component.html#ab530aae292eccb6b50eacf29d1f55c40">color</a> = {1.0f, 1.0f, 1.0f}</td></tr>
 <tr class="separator:ab530aae292eccb6b50eacf29d1f55c40"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:a910d4ab7c31e5286033f5dd2700800c6"><td class="memItemLeft" align="right" valign="top">static uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_directional_light_component.html#a910d4ab7c31e5286033f5dd2700800c6">LevelsOfDetail</a> = 4</td></tr>
+<tr class="separator:a910d4ab7c31e5286033f5dd2700800c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aec7f2a36bf7826d271e53bd179e08b8b"><td class="memItemLeft" align="right" valign="top">static std::vector&lt; float &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_directional_light_component.html#aec7f2a36bf7826d271e53bd179e08b8b">CascadePlanes</a> = {0.01, 2.0, 5.0, 10.0, 100.0}</td></tr>
+<tr class="separator:aec7f2a36bf7826d271e53bd179e08b8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
 <a id="a50be3f0ddf94bbd09ff2b0c7a8148da6"></a>
@@ -182,8 +188,8 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a5cde7d9ddcd5eb813fc2c827aa4f29a7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5cde7d9ddcd5eb813fc2c827aa4f29a7">&#9670;&nbsp;</a></span>getProjectionMatrix()</h2>
+<a id="ae349b45a914ea348506acc0e8a3f68a9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae349b45a914ea348506acc0e8a3f68a9">&#9670;&nbsp;</a></span>getLightSpaceMatrix()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -192,33 +198,7 @@ Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">glm::mat4 shkyera::DirectionalLightComponent::getProjectionMatrix </td>
-          <td>(</td>
-          <td class="paramtype">uint8_t&#160;</td>
-          <td class="paramname"><em>levelOfDetail</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a631eeaf544f11e5459478603151d0c95"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a631eeaf544f11e5459478603151d0c95">&#9670;&nbsp;</a></span>getViewMatrix()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">glm::mat4 shkyera::DirectionalLightComponent::getViewMatrix </td>
+          <td class="memname">glm::mat4 shkyera::DirectionalLightComponent::getLightSpaceMatrix </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classshkyera_1_1_transform_component.html">TransformComponent</a> &amp;&#160;</td>
           <td class="paramname"><em>lightTransformComponent</em>, </td>
@@ -227,7 +207,19 @@ Public Attributes</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const <a class="el" href="classshkyera_1_1_transform_component.html">TransformComponent</a> &amp;&#160;</td>
-          <td class="paramname"><em>cameraTransformComponent</em>&#160;</td>
+          <td class="paramname"><em>cameraTransformComponent</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classshkyera_1_1_camera_component.html">CameraComponent</a> &amp;&#160;</td>
+          <td class="paramname"><em>cameraComponent</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>levelOfDetail</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -245,6 +237,28 @@ Public Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
+<a id="aec7f2a36bf7826d271e53bd179e08b8b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aec7f2a36bf7826d271e53bd179e08b8b">&#9670;&nbsp;</a></span>CascadePlanes</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;float&gt; shkyera::DirectionalLightComponent::CascadePlanes = {0.01, 2.0, 5.0, 10.0, 100.0}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="ab530aae292eccb6b50eacf29d1f55c40"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab530aae292eccb6b50eacf29d1f55c40">&#9670;&nbsp;</a></span>color</h2>
 
@@ -269,6 +283,28 @@ Public Attributes</h2></td></tr>
           <td class="memname">float shkyera::DirectionalLightComponent::intensity = 0.5</td>
         </tr>
       </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a910d4ab7c31e5286033f5dd2700800c6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a910d4ab7c31e5286033f5dd2700800c6">&#9670;&nbsp;</a></span>LevelsOfDetail</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t shkyera::DirectionalLightComponent::LevelsOfDetail = 4</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>

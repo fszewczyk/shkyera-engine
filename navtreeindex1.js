@@ -1,5 +1,6 @@
 var NAVTREEINDEX1 =
 {
+"classshkyera_1_1_color_selector.html#a9558d5deab3b616de6f2b9659c565474":[4,0,0,37,0],
 "classshkyera_1_1_color_selector.html#ad2be4b304af87f481a0a39bcf63d20f7":[4,0,0,37,3],
 "classshkyera_1_1_color_selector.html#ad8bb56cba8f12017f90777f143ff9e16":[4,0,0,37,4],
 "classshkyera_1_1_color_selector.html#aea56112af107da95354a1a7b4a90f093":[4,0,0,37,2],
@@ -58,10 +59,9 @@ var NAVTREEINDEX1 =
 "classshkyera_1_1_development_renderer_system.html#ac4945216f3ef7074aec1be546563cb1a":[4,0,0,34,1],
 "classshkyera_1_1_development_renderer_system.html#accb3af4771efe63e27bb516e6cdd3002":[4,0,0,34,4],
 "classshkyera_1_1_directional_light_component.html":[4,0,0,13],
-"classshkyera_1_1_directional_light_component.html#a5cde7d9ddcd5eb813fc2c827aa4f29a7":[4,0,0,13,0],
-"classshkyera_1_1_directional_light_component.html#a631eeaf544f11e5459478603151d0c95":[4,0,0,13,1],
-"classshkyera_1_1_directional_light_component.html#a8eaa78d578558cc33e012f3467e0a02f":[4,0,0,13,3],
-"classshkyera_1_1_directional_light_component.html#ab530aae292eccb6b50eacf29d1f55c40":[4,0,0,13,2],
+"classshkyera_1_1_directional_light_component.html#a8eaa78d578558cc33e012f3467e0a02f":[4,0,0,13,2],
+"classshkyera_1_1_directional_light_component.html#ab530aae292eccb6b50eacf29d1f55c40":[4,0,0,13,1],
+"classshkyera_1_1_directional_light_component.html#ae349b45a914ea348506acc0e8a3f68a9":[4,0,0,13,0],
 "classshkyera_1_1_directional_light_component_u_i.html":[4,0,0,41],
 "classshkyera_1_1_directional_light_component_u_i.html#a2a03fd4e63a0314db1440b2cfd57a5c4":[4,0,0,41,2],
 "classshkyera_1_1_directional_light_component_u_i.html#aadb7d2276142b8d8155fbbbd0d5b5289":[4,0,0,41,4],

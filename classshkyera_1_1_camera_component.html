@@ -115,6 +115,7 @@ $(document).ready(function(){initNavTree('classshkyera_1_1_camera_component.html
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="classshkyera_1_1_camera_component-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">shkyera::CameraComponent Class Reference</div>  </div>
@@ -132,14 +133,16 @@ Public Types</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ab78b9a4256d27c3d6f22d1306ac3e97c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_camera_component.html#ab78b9a4256d27c3d6f22d1306ac3e97c">CameraComponent</a> (float <a class="el" href="classshkyera_1_1_camera_component.html#a15e2b579ba489bfdcd90012c109315fc">fov</a>=45.0f, float <a class="el" href="classshkyera_1_1_camera_component.html#affee4df373d15e8a6137f0351f967470">aspectRatio</a>=16.0f/9.0f, float <a class="el" href="classshkyera_1_1_camera_component.html#a7d0abbbd37021ee352808d124b12b076">nearPlane</a>=0.1f, float <a class="el" href="classshkyera_1_1_camera_component.html#a194638d226e8c6d77918e90bd9b04e54">farPlane</a>=10000.0f, <a class="el" href="classshkyera_1_1_camera_component.html#a187a07d57febe7c8f3c02d24fe88b406">ProjectionType</a> <a class="el" href="classshkyera_1_1_camera_component.html#a610249b4b8b85eb245f09de4e31dcff5">projectionType</a>=<a class="el" href="classshkyera_1_1_camera_component.html#a187a07d57febe7c8f3c02d24fe88b406aa80420eef88d11f77532f1b9cb467fa3">ProjectionType::Perspective</a>)</td></tr>
-<tr class="separator:ab78b9a4256d27c3d6f22d1306ac3e97c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad7a76142b5de9922199a629686f084e1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_camera_component.html#ad7a76142b5de9922199a629686f084e1">CameraComponent</a> (float <a class="el" href="classshkyera_1_1_camera_component.html#a15e2b579ba489bfdcd90012c109315fc">fov</a>=45.0f, float <a class="el" href="classshkyera_1_1_camera_component.html#affee4df373d15e8a6137f0351f967470">aspectRatio</a>=16.0f/9.0f, float <a class="el" href="classshkyera_1_1_camera_component.html#a7d0abbbd37021ee352808d124b12b076">nearPlane</a>=0.01f, float <a class="el" href="classshkyera_1_1_camera_component.html#a194638d226e8c6d77918e90bd9b04e54">farPlane</a>=2000.0f, <a class="el" href="classshkyera_1_1_camera_component.html#a187a07d57febe7c8f3c02d24fe88b406">ProjectionType</a> <a class="el" href="classshkyera_1_1_camera_component.html#a610249b4b8b85eb245f09de4e31dcff5">projectionType</a>=<a class="el" href="classshkyera_1_1_camera_component.html#a187a07d57febe7c8f3c02d24fe88b406aa80420eef88d11f77532f1b9cb467fa3">ProjectionType::Perspective</a>)</td></tr>
+<tr class="separator:ad7a76142b5de9922199a629686f084e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7fab985572ddf873de560deb15cb5b39"><td class="memItemLeft" align="right" valign="top">glm::mat4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_camera_component.html#a7fab985572ddf873de560deb15cb5b39">getViewMatrix</a> (const <a class="el" href="classshkyera_1_1_transform_component.html">TransformComponent</a> &amp;transformComponent) const</td></tr>
 <tr class="separator:a7fab985572ddf873de560deb15cb5b39"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae574591598b0ef8e4bf98b438bee9440"><td class="memItemLeft" align="right" valign="top">glm::mat4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_camera_component.html#ae574591598b0ef8e4bf98b438bee9440">getProjectionMatrix</a> () const</td></tr>
 <tr class="separator:ae574591598b0ef8e4bf98b438bee9440"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2703c4471a5c63218ac5a0f4f7a13e4a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structshkyera_1_1_ray.html">Ray</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_camera_component.html#a2703c4471a5c63218ac5a0f4f7a13e4a">getRayAt</a> (const <a class="el" href="classshkyera_1_1_transform_component.html">TransformComponent</a> &amp;transformComponent, float x, float y) const</td></tr>
 <tr class="separator:a2703c4471a5c63218ac5a0f4f7a13e4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0c1e36a1b0c0df237e35ae0c24f12c8c"><td class="memItemLeft" align="right" valign="top">std::vector&lt; glm::vec3 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_camera_component.html#a0c1e36a1b0c0df237e35ae0c24f12c8c">getFrustumCornersWorldSpace</a> (float localNearPlane, float localFarPlane, const <a class="el" href="classshkyera_1_1_transform_component.html">TransformComponent</a> &amp;transformComponent) const</td></tr>
+<tr class="separator:a0c1e36a1b0c0df237e35ae0c24f12c8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -153,6 +156,11 @@ Public Attributes</h2></td></tr>
 <tr class="separator:a194638d226e8c6d77918e90bd9b04e54"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a610249b4b8b85eb245f09de4e31dcff5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classshkyera_1_1_camera_component.html#a187a07d57febe7c8f3c02d24fe88b406">ProjectionType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_camera_component.html#a610249b4b8b85eb245f09de4e31dcff5">projectionType</a></td></tr>
 <tr class="separator:a610249b4b8b85eb245f09de4e31dcff5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:a7cc4c321d6799c43affe6018228e8949"><td class="memItemLeft" align="right" valign="top">glm::mat4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_camera_component.html#a7cc4c321d6799c43affe6018228e8949">getProjectionMatrix</a> (float localNearPlane, float localFarPlane) const</td></tr>
+<tr class="separator:a7cc4c321d6799c43affe6018228e8949"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Enumeration Documentation</h2>
 <a id="a187a07d57febe7c8f3c02d24fe88b406"></a>
@@ -182,8 +190,8 @@ Public Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ab78b9a4256d27c3d6f22d1306ac3e97c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab78b9a4256d27c3d6f22d1306ac3e97c">&#9670;&nbsp;</a></span>CameraComponent()</h2>
+<a id="ad7a76142b5de9922199a629686f084e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad7a76142b5de9922199a629686f084e1">&#9670;&nbsp;</a></span>CameraComponent()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -207,13 +215,13 @@ Public Attributes</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>nearPlane</em> = <code>0.1f</code>, </td>
+          <td class="paramname"><em>nearPlane</em> = <code>0.01f</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>farPlane</em> = <code>10000.0f</code>, </td>
+          <td class="paramname"><em>farPlane</em> = <code>2000.0f</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -237,8 +245,50 @@ Public Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a0c1e36a1b0c0df237e35ae0c24f12c8c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c1e36a1b0c0df237e35ae0c24f12c8c">&#9670;&nbsp;</a></span>getFrustumCornersWorldSpace()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;glm::vec3&gt; shkyera::CameraComponent::getFrustumCornersWorldSpace </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>localNearPlane</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>localFarPlane</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classshkyera_1_1_transform_component.html">TransformComponent</a> &amp;&#160;</td>
+          <td class="paramname"><em>transformComponent</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="ae574591598b0ef8e4bf98b438bee9440"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae574591598b0ef8e4bf98b438bee9440">&#9670;&nbsp;</a></span>getProjectionMatrix()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ae574591598b0ef8e4bf98b438bee9440">&#9670;&nbsp;</a></span>getProjectionMatrix() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -256,6 +306,42 @@ Public Attributes</h2></td></tr>
   </td>
   <td class="mlabels-right">
 <span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7cc4c321d6799c43affe6018228e8949"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7cc4c321d6799c43affe6018228e8949">&#9670;&nbsp;</a></span>getProjectionMatrix() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">glm::mat4 shkyera::CameraComponent::getProjectionMatrix </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>localNearPlane</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>localFarPlane</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">private</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
