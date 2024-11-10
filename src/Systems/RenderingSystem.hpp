@@ -4,6 +4,7 @@
 
 #include <Common/Types.hpp>
 #include <ECS/Registry.hpp>
+#include <Components/DirectionalLightComponent.hpp>
 #include <Rendering/ShaderProgram.hpp>
 #include <Rendering/FrameBuffers/SceneFrameBuffer.hpp>
 #include <Rendering/FrameBuffers/DepthFrameBuffer.hpp>
@@ -47,8 +48,7 @@ private:
     ShaderProgram _skyboxShaderProgram;
 
     // Light rendering
-    constexpr static size_t DirectionalLightLOD = 4;
-    std::unordered_map<Entity, std::array<DepthFrameBuffer, DirectionalLightLOD>> _directionalLightToShadowMaps;
+    std::unordered_map<Entity, std::vector<DepthFrameBuffer>> _directionalLightToShadowMaps;
     ShaderProgram _shadowMapShaderProgram;
 };
 

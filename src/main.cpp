@@ -108,15 +108,15 @@ void loadScene(std::shared_ptr<shkyera::Registry> registry) {
     registry->getComponent<DirectionalLightComponent>(sky).intensity = 0.4;
     registry->addComponent<AmbientLightComponent>(sky);
 
-    auto moon = registry->addEntity();
-    registry->addComponent<TransformComponent>(moon);
-    registry->getComponent<TransformComponent>(moon).setOrientation({-M_PI_2 / 2, -M_PI_2 / 2, 0});
-    registry->addComponent<NameComponent>(moon);
-    registry->getComponent<NameComponent>(moon).setName("Moon");
-    registry->addComponent<DirectionalLightComponent>(moon);
-    registry->getComponent<DirectionalLightComponent>(moon).color = glm::vec3{0.85, 0.95, 0.95};
-    registry->getComponent<DirectionalLightComponent>(moon).intensity = 0.15;
-    registry->addComponent<AmbientLightComponent>(moon);
+    // auto moon = registry->addEntity();
+    // registry->addComponent<TransformComponent>(moon);
+    // registry->getComponent<TransformComponent>(moon).setOrientation({-M_PI_2 / 2, -M_PI_2 / 2, 0});
+    // registry->addComponent<NameComponent>(moon);
+    // registry->getComponent<NameComponent>(moon).setName("Moon");
+    // registry->addComponent<DirectionalLightComponent>(moon);
+    // registry->getComponent<DirectionalLightComponent>(moon).color = glm::vec3{0.85, 0.95, 0.95};
+    // registry->getComponent<DirectionalLightComponent>(moon).intensity = 0.15;
+    // registry->addComponent<AmbientLightComponent>(moon);
 
     const auto skyboxUp = AssetManager::getInstance().getAsset<Image>("resources/skyboxes/day/py.png");
     const auto skyboxDown = AssetManager::getInstance().getAsset<Image>("resources/skyboxes/day/ny.png");
