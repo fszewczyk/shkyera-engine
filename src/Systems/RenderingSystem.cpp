@@ -189,7 +189,7 @@ void RenderingSystem::renderModels()
         for(auto& buffer : lodBuffers)
         {
             buffer.bind();
-            buffer.setSize(1600, 1600);
+            buffer.setSize(1024, 1024);
             buffer.clear();
             _shadowMapShaderProgram.use();
 

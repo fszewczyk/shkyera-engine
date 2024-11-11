@@ -97,13 +97,17 @@ float calculateShadowFactor(int directionalLightIndex, LodBlend lodBlend) {
 
   // Define PCF kernel size and bias for shadow comparison
   float bias = 0.01;
-  int pcfKernelSize = 1;
+  int pcfKernelSize = 3;
 
   // Set texel sizes for low and high LODs
   float texelSizeLowLod =
-      1.0 / 1024.0;  // Low LOD texel size (assumed 1024x1024)
+      1.0 / 2048.0;  // Low LOD texel size (assumed 1024x1024)
   float texelSizeHighLod =
-      1.0 * texelSizeLowLod;  // High LOD texel size, twice as large
+      2 * texelSizeLowLod;  // High LOD texel size, twice as large
+
+  if (lodBlend.highLod == lodBlend.lowLod) {
+    texelSizeHighLod = texelSizeLowLod;
+  }
 
   // Calculate shadow factor for low LOD
   float shadowLowLod = 0.0;
