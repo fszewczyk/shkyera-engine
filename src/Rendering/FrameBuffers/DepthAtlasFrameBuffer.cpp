@@ -1,18 +1,25 @@
 #include <iostream>
 
-#include <Rendering/FrameBuffers/DepthFrameBuffer.hpp>
+#include <Rendering/FrameBuffers/DepthAtlasFrameBuffer.hpp>
 
 namespace shkyera {
 
-DepthFrameBuffer::DepthFrameBuffer(GLenum minFilter, GLenum magFilter,
+DepthAtlasFrameBuffer::DepthAtlasFrameBuffer(int texturesInAtlas, GLenum minFilter, GLenum magFilter,
                          GLenum wrapS, GLenum wrapT)
-    : _width(2048), _height(2048),
+    : _texturesInAtlas(texturesInAtlas), _width(2048), _height(2048),
       _textureDepthBuffer(minFilter, magFilter, wrapS, wrapT) {
     setupFramebuffer();
+    bind();
+    setSize(_width, _height);
+    clear();
+    unbind();
 }
 
-DepthFrameBuffer::DepthFrameBuffer(DepthFrameBuffer&& other) noexcept
+DepthAtlasFrameBuffer::DepthAtlasFrameBuffer(DepthAtlasFrameBuffer&& other) noexcept
 {
+    _texturesInAtlas = other._texturesInAtlas;
+    _width = other._width;
+    _height = other._height;
     _fbo = other._fbo;
     _rbo = other._rbo;
     _textureDepthBuffer = std::move(other._textureDepthBuffer);
@@ -21,7 +28,7 @@ DepthFrameBuffer::DepthFrameBuffer(DepthFrameBuffer&& other) noexcept
     other._rbo = 0;
 }
 
-DepthFrameBuffer& DepthFrameBuffer::operator=(DepthFrameBuffer&& other) noexcept
+DepthAtlasFrameBuffer& DepthAtlasFrameBuffer::operator=(DepthAtlasFrameBuffer&& other) noexcept
 {
     if(this != &other)
     {
@@ -34,6 +41,9 @@ DepthFrameBuffer& DepthFrameBuffer::operator=(DepthFrameBuffer&& other) noexcept
             glDeleteRenderbuffers(1, &_rbo);
         }
 
+        _texturesInAtlas = other._texturesInAtlas;
+        _width = other._width;
+        _height = other._height;
         _fbo = other._fbo;
         _rbo = other._rbo;
         _textureDepthBuffer = std::move(other._textureDepthBuffer);
@@ -45,7 +55,7 @@ DepthFrameBuffer& DepthFrameBuffer::operator=(DepthFrameBuffer&& other) noexcept
     return *this;
 }
 
-DepthFrameBuffer::~DepthFrameBuffer() {
+DepthAtlasFrameBuffer::~DepthAtlasFrameBuffer() {
     if(_fbo != 0)
     {
         glDeleteFramebuffers(1, &_fbo);
@@ -56,21 +66,31 @@ DepthFrameBuffer::~DepthFrameBuffer() {
     }
 }
 
-void DepthFrameBuffer::bind() {
+int DepthAtlasFrameBuffer::getNumberOfTextures() const {
+    return _texturesInAtlas;
+}
+
+
+void DepthAtlasFrameBuffer::bind(int index) {
+    glBindFramebuffer(GL_FRAMEBUFFER, _fbo);
+    glViewport(static_cast<GLsizei>(index * _width / _texturesInAtlas), 0, static_cast<GLsizei>(_width / _texturesInAtlas), static_cast<GLsizei>(_height));
+}
+
+void DepthAtlasFrameBuffer::bind() {
     glBindFramebuffer(GL_FRAMEBUFFER, _fbo);
     glViewport(0, 0, static_cast<GLsizei>(_width), static_cast<GLsizei>(_height));
 }
 
-void DepthFrameBuffer::unbind() {
+void DepthAtlasFrameBuffer::unbind() {
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
-void DepthFrameBuffer::clear() {
+void DepthAtlasFrameBuffer::clear() {
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-void DepthFrameBuffer::setSize(uint32_t width, uint32_t height) {
+void DepthAtlasFrameBuffer::setSize(uint32_t width, uint32_t height) {
     if (width == _width && height == _height) return;
 
     _width = width;
@@ -82,7 +102,7 @@ void DepthFrameBuffer::setSize(uint32_t width, uint32_t height) {
     glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, _width, _height);
 }
 
-void DepthFrameBuffer::setupFramebuffer() {
+void DepthAtlasFrameBuffer::setupFramebuffer() {
     glGenFramebuffers(1, &_fbo);
     glBindFramebuffer(GL_FRAMEBUFFER, _fbo);
 

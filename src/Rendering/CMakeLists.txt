@@ -8,7 +8,7 @@ add_library(
     ${CMAKE_CURRENT_LIST_DIR}/Utils.cpp
 
     ${CMAKE_CURRENT_LIST_DIR}/FrameBuffers/SceneFrameBuffer.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/FrameBuffers/DepthFrameBuffer.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/FrameBuffers/DepthAtlasFrameBuffer.cpp
 )
 
 target_include_directories(

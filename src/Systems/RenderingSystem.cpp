@@ -164,7 +164,12 @@ void RenderingSystem::renderModels()
         directionalLightEntities.insert(entity);
         if(_directionalLightToShadowMaps.find(entity) == _directionalLightToShadowMaps.end())
         {
-            _directionalLightToShadowMaps.emplace(entity, std::vector<DepthFrameBuffer>(DirectionalLightComponent::LevelsOfDetail));
+            _directionalLightToShadowMaps.emplace(entity, DepthAtlasFrameBuffer(DirectionalLightComponent::LevelsOfDetail));
+            auto& newShadowMap = _directionalLightToShadowMaps.at(entity);
+            newShadowMap.bind();
+            newShadowMap.setSize(DirectionalLightComponent::LevelsOfDetail * 2048, 2048);
+            newShadowMap.clear();
+            newShadowMap.unbind();
         }
     }
 
@@ -182,15 +187,15 @@ void RenderingSystem::renderModels()
         _directionalLightToShadowMaps.erase(entityToRemove);
     }
 
-    for(auto& [lightEntity, lodBuffers] : _directionalLightToShadowMaps)
+    for(auto& [lightEntity, shadowMapAtlas] : _directionalLightToShadowMaps)
     {
-        uint8_t levelOfDetail = 0;
-        lodBuffers.resize(DirectionalLightComponent::LevelsOfDetail);
-        for(auto& buffer : lodBuffers)
+        shadowMapAtlas.bind();
+        shadowMapAtlas.clear();
+        shadowMapAtlas.unbind();
+
+        for(uint8_t levelOfDetail = 0; levelOfDetail < DirectionalLightComponent::LevelsOfDetail; ++levelOfDetail)
         {
-            buffer.bind();
-            buffer.setSize(1600, 1600);
-            buffer.clear();
+            shadowMapAtlas.bind(levelOfDetail);
             _shadowMapShaderProgram.use();
 
             const auto& directionalLightComponent = _registry->getComponent<DirectionalLightComponent>(lightEntity);
@@ -206,8 +211,7 @@ void RenderingSystem::renderModels()
             }
 
             _shadowMapShaderProgram.stopUsing();
-            buffer.unbind();
-            levelOfDetail++;
+            shadowMapAtlas.unbind();
         }
     }        
 
@@ -245,18 +249,17 @@ void RenderingSystem::renderModels()
         const auto& lightTransform = _registry->getComponent<TransformComponent>(entity);
         const auto& orientation = lightTransform.getOrientation();
 
-        const auto& depthFrameBuffers = _directionalLightToShadowMaps.at(entity);
+        const auto& depthAtlasFrameBuffer = _directionalLightToShadowMaps.at(entity);
 
-        for(size_t levelOfDetail = 0; levelOfDetail < depthFrameBuffers.size(); levelOfDetail++)
+        for(size_t levelOfDetail = 0; levelOfDetail < DirectionalLightComponent::LevelsOfDetail; levelOfDetail++)
         {
-            depthFrameBuffers[levelOfDetail].getTexture().activate(GL_TEXTURE0 + textureIndex);
             const glm::mat4 lightSpaceMatrix = directionalLightComponent.getLightSpaceMatrix(lightTransform, cameraTransform, cameraComponent, levelOfDetail);
-
-            _modelShaderProgram.setUniform("directionalLights[" + std::to_string(directionalLightIndex) + "].shadowSampler[" + std::to_string(levelOfDetail) + "]", textureIndex);
             _modelShaderProgram.setUniform("directionalLights[" + std::to_string(directionalLightIndex) + "].lightSpaceMatrix[" + std::to_string(levelOfDetail) + "]", lightSpaceMatrix);
-            ++textureIndex;
         }
 
+        depthAtlasFrameBuffer.getTexture().activate(GL_TEXTURE0 + textureIndex);
+        _modelShaderProgram.setUniform("directionalLights[" + std::to_string(directionalLightIndex) + "].shadowSampler", textureIndex);
+        ++textureIndex;
 
         glm::vec3 lightDirection = DirectionalLightComponent::getDirection(lightTransform);
         _modelShaderProgram.setUniform("directionalLights[" + std::to_string(directionalLightIndex) + "].direction", lightDirection);

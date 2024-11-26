@@ -17,7 +17,7 @@ public:
     glm::vec3 color = {1.0f, 1.0f, 1.0f};
 
     inline static uint8_t LevelsOfDetail = 4;
-    inline static std::vector<float> CascadePlanes = {0.01, 5.0, 15.0, 30.0, 100.0};
+    inline static std::vector<float> CascadePlanes = {0.01, 5.0, 16.0, 32.0, 64.0};
 
     glm::mat4 getLightSpaceMatrix(
         const TransformComponent& lightTransformComponent,
