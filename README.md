@@ -13,17 +13,16 @@
 
 </div>
 
-_Under development. See the roadmap [here](https://trello.com/b/mVROG8st/shkyera-engine)_
+_Under development. Some of the information may not be up to date. See the roadmap [here](https://trello.com/b/mVROG8st/shkyera-engine)_
 
-Shkyera Engine is an open-source game engine written in C++, designed to allow Python programmers to create visual applications. The engine's goal is to create a very easy interface that allows for reading user input, creating physical simulations and basic rendering.
+Shkyera Engine is an open-source game engine written in C++, designed to allow everyone to create visual applications. The engine's goal is to create a very easy interface that allows for creating fully functional 3D experiences.
 
 See the [documentation](https://fszewczyk.github.io/shkyera-engine) for a comprehensive guide and tutorials.
 
 Requirements
 
-1. [Python](https://www.python.org/)
-2. [CMake](https://cmake.org/)
-3. Compiler supporting C++17, e.g. [Clang 5](https://releases.llvm.org/download.html)
+1. [CMake](https://cmake.org/)
+2. Compiler supporting C++17, e.g. [Clang 5](https://releases.llvm.org/download.html)
 
 Download the repository with its submodules.
 
@@ -45,6 +44,6 @@ This will make `build.sh` an executable. Now, we can easily build and run the pr
 
 This can take a while, but the project should compile and you should see a window that looks somewhat like this.
 
-![Default Window](docs/img/empty_window.png)
+![Default Window](docs/img/basic_scene.png)
 
 Follow the tutorials in the [documentation](https://fszewczyk.github.io/shkyera-engine/md_docs_tutorials_get_started.html) to learn more about Shkyera Engine capabilities.
