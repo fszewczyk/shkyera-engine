@@ -56,6 +56,11 @@ DepthFrameBuffer::~DepthFrameBuffer() {
     }
 }
 
+void DepthFrameBuffer::bind(int index) {
+    glBindFramebuffer(GL_FRAMEBUFFER, _fbo);
+    glViewport(static_cast<GLsizei>(index * _width / 4), 0, static_cast<GLsizei>(_width / 4), static_cast<GLsizei>(_height));
+}
+
 void DepthFrameBuffer::bind() {
     glBindFramebuffer(GL_FRAMEBUFFER, _fbo);
     glViewport(0, 0, static_cast<GLsizei>(_width), static_cast<GLsizei>(_height));

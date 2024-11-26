@@ -48,7 +48,7 @@ private:
     ShaderProgram _skyboxShaderProgram;
 
     // Light rendering
-    std::unordered_map<Entity, std::vector<DepthFrameBuffer>> _directionalLightToShadowMaps;
+    std::unordered_map<Entity, DepthFrameBuffer> _directionalLightToShadowMaps;
     ShaderProgram _shadowMapShaderProgram;
 };
 

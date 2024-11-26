@@ -20,6 +20,7 @@ public:
     DepthFrameBuffer& operator=(DepthFrameBuffer&& other) noexcept;
 
     void bind();
+    void bind(int index);
     void unbind();
     void clear();
 
