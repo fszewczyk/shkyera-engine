@@ -44,6 +44,6 @@ This will make `build.sh` an executable. Now, we can easily build and run the pr
 
 This can take a while, but the project should compile and you should see a window that looks somewhat like this.
 
-![Default Window](docs/img/empty_window.png)
+![Default Window](docs/img/basic_scene.png)
 
 Follow the tutorials in the [documentation](https://fszewczyk.github.io/shkyera-engine/md_docs_tutorials_get_started.html) to learn more about Shkyera Engine capabilities.
