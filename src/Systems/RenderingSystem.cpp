@@ -164,7 +164,12 @@ void RenderingSystem::renderModels()
         directionalLightEntities.insert(entity);
         if(_directionalLightToShadowMaps.find(entity) == _directionalLightToShadowMaps.end())
         {
-            _directionalLightToShadowMaps.emplace(entity, DepthFrameBuffer{});
+            _directionalLightToShadowMaps.emplace(entity, DepthAtlasFrameBuffer(DirectionalLightComponent::LevelsOfDetail));
+            auto& newShadowMap = _directionalLightToShadowMaps.at(entity);
+            newShadowMap.bind();
+            newShadowMap.setSize(DirectionalLightComponent::LevelsOfDetail * 2048, 2048);
+            newShadowMap.clear();
+            newShadowMap.unbind();
         }
     }
 
@@ -185,7 +190,6 @@ void RenderingSystem::renderModels()
     for(auto& [lightEntity, shadowMapAtlas] : _directionalLightToShadowMaps)
     {
         shadowMapAtlas.bind();
-        shadowMapAtlas.setSize(4 * 2048, 2048);
         shadowMapAtlas.clear();
         shadowMapAtlas.unbind();
 
@@ -245,7 +249,7 @@ void RenderingSystem::renderModels()
         const auto& lightTransform = _registry->getComponent<TransformComponent>(entity);
         const auto& orientation = lightTransform.getOrientation();
 
-        const auto& depthFrameBuffer = _directionalLightToShadowMaps.at(entity);
+        const auto& depthAtlasFrameBuffer = _directionalLightToShadowMaps.at(entity);
 
         for(size_t levelOfDetail = 0; levelOfDetail < DirectionalLightComponent::LevelsOfDetail; levelOfDetail++)
         {
@@ -253,7 +257,7 @@ void RenderingSystem::renderModels()
             _modelShaderProgram.setUniform("directionalLights[" + std::to_string(directionalLightIndex) + "].lightSpaceMatrix[" + std::to_string(levelOfDetail) + "]", lightSpaceMatrix);
         }
 
-        depthFrameBuffer.getTexture().activate(GL_TEXTURE0 + textureIndex);
+        depthAtlasFrameBuffer.getTexture().activate(GL_TEXTURE0 + textureIndex);
         _modelShaderProgram.setUniform("directionalLights[" + std::to_string(directionalLightIndex) + "].shadowSampler", textureIndex);
         ++textureIndex;
 

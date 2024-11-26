@@ -7,7 +7,7 @@
 #include <Components/DirectionalLightComponent.hpp>
 #include <Rendering/ShaderProgram.hpp>
 #include <Rendering/FrameBuffers/SceneFrameBuffer.hpp>
-#include <Rendering/FrameBuffers/DepthFrameBuffer.hpp>
+#include <Rendering/FrameBuffers/DepthAtlasFrameBuffer.hpp>
 #include <Rendering/CubeMap.hpp>
 
 namespace shkyera {
@@ -48,7 +48,7 @@ private:
     ShaderProgram _skyboxShaderProgram;
 
     // Light rendering
-    std::unordered_map<Entity, DepthFrameBuffer> _directionalLightToShadowMaps;
+    std::unordered_map<Entity, DepthAtlasFrameBuffer> _directionalLightToShadowMaps;
     ShaderProgram _shadowMapShaderProgram;
 };
 

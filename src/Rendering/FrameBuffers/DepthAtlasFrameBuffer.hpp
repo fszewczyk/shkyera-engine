@@ -7,17 +7,17 @@
 
 namespace shkyera {
 
-class DepthFrameBuffer {
+class DepthAtlasFrameBuffer {
 public:
-    DepthFrameBuffer(GLenum minFilter = GL_LINEAR, GLenum magFilter = GL_LINEAR,
+    DepthAtlasFrameBuffer(int texturesInAtlas, GLenum minFilter = GL_LINEAR, GLenum magFilter = GL_LINEAR,
                 GLenum wrapS = GL_CLAMP_TO_EDGE, GLenum wrapT = GL_CLAMP_TO_EDGE);
-    ~DepthFrameBuffer();
+    ~DepthAtlasFrameBuffer();
 
-    DepthFrameBuffer(const DepthFrameBuffer& other) = delete;
-    DepthFrameBuffer& operator=(const DepthFrameBuffer& other) = delete;
+    DepthAtlasFrameBuffer(const DepthAtlasFrameBuffer& other) = delete;
+    DepthAtlasFrameBuffer& operator=(const DepthAtlasFrameBuffer& other) = delete;
 
-    DepthFrameBuffer(DepthFrameBuffer&& other) noexcept;
-    DepthFrameBuffer& operator=(DepthFrameBuffer&& other) noexcept;
+    DepthAtlasFrameBuffer(DepthAtlasFrameBuffer&& other) noexcept;
+    DepthAtlasFrameBuffer& operator=(DepthAtlasFrameBuffer&& other) noexcept;
 
     void bind();
     void bind(int index);
@@ -27,9 +27,12 @@ public:
     void setSize(uint32_t width, uint32_t height);
     const Texture& getTexture() const { return _textureDepthBuffer; }
 
+    int getNumberOfTextures() const;
+
 private:
     void setupFramebuffer();
 
+    int _texturesInAtlas;
     int _width, _height;
     GLuint _fbo, _rbo;
     Texture _textureDepthBuffer;
