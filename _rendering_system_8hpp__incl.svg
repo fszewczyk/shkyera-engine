@@ -113,18 +113,18 @@
 <!-- Node30 -->
 <g id="node30" class="node">
 <title>Node30</title>
-<g id="a_node30"><a xlink:href="_depth_frame_buffer_8hpp.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="1593.67,-224.5 1593.67,-254.5 1727.67,-254.5 1727.67,-224.5 1593.67,-224.5"/>
+<g id="a_node30"><a xlink:href="_depth_atlas_frame_buffer_8hpp.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="black" points="1593.67,-224.5 1593.67,-254.5 1747.67,-254.5 1747.67,-224.5 1593.67,-224.5"/>
 <text text-anchor="start" x="1601.67" y="-242.5" font-family="Helvetica,sans-Serif" font-size="10.00">Rendering/FrameBuffers</text>
-<text text-anchor="middle" x="1660.67" y="-231.5" font-family="Helvetica,sans-Serif" font-size="10.00">/DepthFrameBuffer.hpp</text>
+<text text-anchor="middle" x="1670.67" y="-231.5" font-family="Helvetica,sans-Serif" font-size="10.00">/DepthAtlasFrameBuffer.hpp</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node30 -->
 <g id="edge47" class="edge">
 <title>Node1&#45;&gt;Node30</title>
-<path fill="none" stroke="midnightblue" d="M1401.08,-291.48C1448.65,-282.13 1525.88,-266.97 1583.76,-255.6"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="1584.46,-259.03 1593.6,-253.67 1583.11,-252.16 1584.46,-259.03"/>
+<path fill="none" stroke="midnightblue" d="M1402.52,-291.48C1450.45,-282.36 1527.56,-267.71 1586.81,-256.44"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="1587.73,-259.83 1596.9,-254.52 1586.43,-252.95 1587.73,-259.83"/>
 </g>
 <!-- Node31 -->
 <g id="node31" class="node">
@@ -138,8 +138,8 @@
 <!-- Node1&#45;&gt;Node31 -->
 <g id="edge51" class="edge">
 <title>Node1&#45;&gt;Node31</title>
-<path fill="none" stroke="midnightblue" d="M1451,-294.22C1545.98,-287.39 1686.21,-274.45 1736.67,-255 1772.58,-241.16 1807.67,-212.51 1827.4,-194.61"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="1829.93,-197.04 1834.88,-187.67 1825.17,-191.91 1829.93,-197.04"/>
+<path fill="none" stroke="midnightblue" d="M1450.86,-295.9C1551.22,-290.37 1703.65,-278.37 1756.67,-255 1786.95,-241.65 1814.34,-213.94 1829.99,-195.92"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="1832.92,-197.87 1836.68,-187.96 1827.57,-193.36 1832.92,-197.87"/>
 </g>
 <!-- Node5 -->
 <g id="node5" class="node">
@@ -582,20 +582,20 @@
 <!-- Node30&#45;&gt;Node2 -->
 <g id="edge48" class="edge">
 <title>Node30&#45;&gt;Node2</title>
-<path fill="none" stroke="midnightblue" d="M1624.65,-224.4C1599.03,-214.37 1564.94,-201.03 1540.36,-191.4"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="1541.38,-188.04 1530.79,-187.66 1538.83,-194.56 1541.38,-188.04"/>
+<path fill="none" stroke="midnightblue" d="M1632.28,-224.4C1604.74,-214.28 1568,-200.79 1541.75,-191.15"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="1542.84,-187.82 1532.24,-187.66 1540.42,-194.39 1542.84,-187.82"/>
 </g>
 <!-- Node30&#45;&gt;Node22 -->
 <g id="edge49" class="edge">
 <title>Node30&#45;&gt;Node22</title>
-<path fill="none" stroke="midnightblue" d="M1649.02,-224.34C1631.36,-202.86 1597.89,-162.17 1579.18,-139.43"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="1581.86,-137.17 1572.8,-131.67 1576.45,-141.62 1581.86,-137.17"/>
+<path fill="none" stroke="midnightblue" d="M1657.07,-224.49C1647.37,-214.44 1634.09,-200.51 1622.67,-188 1607.73,-171.63 1591.06,-152.52 1579.63,-139.28"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="1582.12,-136.81 1572.94,-131.51 1576.81,-141.37 1582.12,-136.81"/>
 </g>
 <!-- Node30&#45;&gt;Node28 -->
 <g id="edge50" class="edge">
 <title>Node30&#45;&gt;Node28</title>
-<path fill="none" stroke="midnightblue" d="M1668.73,-224.4C1673.52,-216.02 1679.63,-205.33 1684.72,-196.42"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="1687.8,-198.08 1689.72,-187.66 1681.72,-194.6 1687.8,-198.08"/>
+<path fill="none" stroke="midnightblue" d="M1676.36,-224.4C1679.67,-216.2 1683.87,-205.78 1687.41,-196.99"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="1690.68,-198.24 1691.18,-187.66 1684.19,-195.62 1690.68,-198.24"/>
 </g>
 <!-- Node31&#45;&gt;Node11 -->
 <g id="edge53" class="edge">

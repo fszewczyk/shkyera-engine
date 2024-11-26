@@ -49,7 +49,7 @@ var namespaceshkyera =
     [ "Box", "structshkyera_1_1_box.html", "structshkyera_1_1_box" ],
     [ "Ray", "structshkyera_1_1_ray.html", "structshkyera_1_1_ray" ],
     [ "CubeMap", "classshkyera_1_1_cube_map.html", "classshkyera_1_1_cube_map" ],
-    [ "DepthFrameBuffer", "classshkyera_1_1_depth_frame_buffer.html", "classshkyera_1_1_depth_frame_buffer" ],
+    [ "DepthAtlasFrameBuffer", "classshkyera_1_1_depth_atlas_frame_buffer.html", "classshkyera_1_1_depth_atlas_frame_buffer" ],
     [ "SceneFrameBuffer", "classshkyera_1_1_scene_frame_buffer.html", "classshkyera_1_1_scene_frame_buffer" ],
     [ "ShaderProgram", "classshkyera_1_1_shader_program.html", "classshkyera_1_1_shader_program" ],
     [ "Texture", "classshkyera_1_1_texture.html", "classshkyera_1_1_texture" ],
