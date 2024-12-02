@@ -51,6 +51,7 @@ var hierarchy =
     ] ],
     [ "shkyera::CubeMap", "classshkyera_1_1_cube_map.html", null ],
     [ "shkyera::DepthAtlasFrameBuffer", "classshkyera_1_1_depth_atlas_frame_buffer.html", null ],
+    [ "shkyera::DepthCubeMapFrameBuffer", "classshkyera_1_1_depth_cube_map_frame_buffer.html", null ],
     [ "shkyera::DevelopmentRendererSystem", "classshkyera_1_1_development_renderer_system.html", null ],
     [ "shkyera::Directory", "classshkyera_1_1_directory.html", null ],
     [ "shkyera::Wireframe::Edge", "structshkyera_1_1_wireframe_1_1_edge.html", null ],

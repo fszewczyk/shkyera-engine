@@ -30,6 +30,7 @@ var annotated_dup =
       [ "Ray", "structshkyera_1_1_ray.html", "structshkyera_1_1_ray" ],
       [ "CubeMap", "classshkyera_1_1_cube_map.html", "classshkyera_1_1_cube_map" ],
       [ "DepthAtlasFrameBuffer", "classshkyera_1_1_depth_atlas_frame_buffer.html", "classshkyera_1_1_depth_atlas_frame_buffer" ],
+      [ "DepthCubeMapFrameBuffer", "classshkyera_1_1_depth_cube_map_frame_buffer.html", "classshkyera_1_1_depth_cube_map_frame_buffer" ],
       [ "SceneFrameBuffer", "classshkyera_1_1_scene_frame_buffer.html", "classshkyera_1_1_scene_frame_buffer" ],
       [ "ShaderProgram", "classshkyera_1_1_shader_program.html", "classshkyera_1_1_shader_program" ],
       [ "Texture", "classshkyera_1_1_texture.html", "classshkyera_1_1_texture" ],

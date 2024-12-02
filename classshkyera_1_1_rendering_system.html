@@ -144,6 +144,10 @@ Private Member Functions</h2></td></tr>
 <tr class="separator:aefd2635b12dfa7fc91b784d0720769b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abdc1fcfb974a5e24217e672e0465a952"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_rendering_system.html#abdc1fcfb974a5e24217e672e0465a952">renderSkybox</a> ()</td></tr>
 <tr class="separator:abdc1fcfb974a5e24217e672e0465a952"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad80b3a3cc8ab3e0e38819a5b5c245271"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_rendering_system.html#ad80b3a3cc8ab3e0e38819a5b5c245271">renderDirectionalLightShadowMaps</a> ()</td></tr>
+<tr class="separator:ad80b3a3cc8ab3e0e38819a5b5c245271"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3c44f491dd1ce4d7d7f50cfde3d21812"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_rendering_system.html#a3c44f491dd1ce4d7d7f50cfde3d21812">renderPointLightShadowMaps</a> ()</td></tr>
+<tr class="separator:a3c44f491dd1ce4d7d7f50cfde3d21812"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -175,10 +179,14 @@ Private Attributes</h2></td></tr>
 <tr class="separator:ac6b213714a6cfeda64cbd7124bb3c906"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a15b91aa8f5140f484932847014ddba37"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classshkyera_1_1_shader_program.html">ShaderProgram</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_rendering_system.html#a15b91aa8f5140f484932847014ddba37">_skyboxShaderProgram</a></td></tr>
 <tr class="separator:a15b91aa8f5140f484932847014ddba37"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a86ff273cde7ae7b2a2dd302a5411bcfe"><td class="memItemLeft" align="right" valign="top">std::unordered_map&lt; <a class="el" href="namespaceshkyera.html#a043bdd87686e0bd1bce19a1fd86298cd">Entity</a>, <a class="el" href="classshkyera_1_1_depth_atlas_frame_buffer.html">DepthAtlasFrameBuffer</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_rendering_system.html#a86ff273cde7ae7b2a2dd302a5411bcfe">_directionalLightToShadowMaps</a></td></tr>
-<tr class="separator:a86ff273cde7ae7b2a2dd302a5411bcfe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac6954257a8a186f4077157e756c8a720"><td class="memItemLeft" align="right" valign="top">std::unordered_map&lt; <a class="el" href="namespaceshkyera.html#a043bdd87686e0bd1bce19a1fd86298cd">Entity</a>, <a class="el" href="classshkyera_1_1_depth_atlas_frame_buffer.html">DepthAtlasFrameBuffer</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_rendering_system.html#ac6954257a8a186f4077157e756c8a720">_directionalLightToShadowMap</a></td></tr>
+<tr class="separator:ac6954257a8a186f4077157e756c8a720"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1c81d5388683c19b1a468e9df77dca56"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classshkyera_1_1_shader_program.html">ShaderProgram</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_rendering_system.html#a1c81d5388683c19b1a468e9df77dca56">_shadowMapShaderProgram</a></td></tr>
 <tr class="separator:a1c81d5388683c19b1a468e9df77dca56"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a73c67053f75b1ba86c298675264db8c2"><td class="memItemLeft" align="right" valign="top">std::unordered_map&lt; <a class="el" href="namespaceshkyera.html#a043bdd87686e0bd1bce19a1fd86298cd">Entity</a>, <a class="el" href="classshkyera_1_1_depth_atlas_frame_buffer.html">DepthAtlasFrameBuffer</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_rendering_system.html#a73c67053f75b1ba86c298675264db8c2">_pointLightToShadowMap</a></td></tr>
+<tr class="separator:a73c67053f75b1ba86c298675264db8c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8101c7529a82f66847ba6eb86b7ce490"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classshkyera_1_1_shader_program.html">ShaderProgram</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_rendering_system.html#a8101c7529a82f66847ba6eb86b7ce490">_shadowMapDistanceShaderProgram</a></td></tr>
+<tr class="separator:a8101c7529a82f66847ba6eb86b7ce490"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="afe2b76164bce819eb7af7ea36b66e477"></a>
@@ -234,6 +242,31 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="ad80b3a3cc8ab3e0e38819a5b5c245271"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad80b3a3cc8ab3e0e38819a5b5c245271">&#9670;&nbsp;</a></span>renderDirectionalLightShadowMaps()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void shkyera::RenderingSystem::renderDirectionalLightShadowMaps </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a5da446c75fab9264fd4ff7b970a77944"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5da446c75fab9264fd4ff7b970a77944">&#9670;&nbsp;</a></span>renderModels()</h2>
 
@@ -273,6 +306,31 @@ Private Attributes</h2></td></tr>
           <td>(</td>
           <td class="paramtype">const std::unordered_set&lt; <a class="el" href="namespaceshkyera.html#a043bdd87686e0bd1bce19a1fd86298cd">Entity</a> &gt; &amp;&#160;</td>
           <td class="paramname"><em>entities</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3c44f491dd1ce4d7d7f50cfde3d21812"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3c44f491dd1ce4d7d7f50cfde3d21812">&#9670;&nbsp;</a></span>renderPointLightShadowMaps()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void shkyera::RenderingSystem::renderPointLightShadowMaps </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -408,8 +466,8 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a86ff273cde7ae7b2a2dd302a5411bcfe"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a86ff273cde7ae7b2a2dd302a5411bcfe">&#9670;&nbsp;</a></span>_directionalLightToShadowMaps</h2>
+<a id="ac6954257a8a186f4077157e756c8a720"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac6954257a8a186f4077157e756c8a720">&#9670;&nbsp;</a></span>_directionalLightToShadowMap</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -418,7 +476,7 @@ Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::unordered_map&lt;<a class="el" href="namespaceshkyera.html#a043bdd87686e0bd1bce19a1fd86298cd">Entity</a>, <a class="el" href="classshkyera_1_1_depth_atlas_frame_buffer.html">DepthAtlasFrameBuffer</a>&gt; shkyera::RenderingSystem::_directionalLightToShadowMaps</td>
+          <td class="memname">std::unordered_map&lt;<a class="el" href="namespaceshkyera.html#a043bdd87686e0bd1bce19a1fd86298cd">Entity</a>, <a class="el" href="classshkyera_1_1_depth_atlas_frame_buffer.html">DepthAtlasFrameBuffer</a>&gt; shkyera::RenderingSystem::_directionalLightToShadowMap</td>
         </tr>
       </table>
   </td>
@@ -518,6 +576,28 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a73c67053f75b1ba86c298675264db8c2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a73c67053f75b1ba86c298675264db8c2">&#9670;&nbsp;</a></span>_pointLightToShadowMap</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::unordered_map&lt;<a class="el" href="namespaceshkyera.html#a043bdd87686e0bd1bce19a1fd86298cd">Entity</a>, <a class="el" href="classshkyera_1_1_depth_atlas_frame_buffer.html">DepthAtlasFrameBuffer</a>&gt; shkyera::RenderingSystem::_pointLightToShadowMap</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="ab7d1c1ac483ce7a525962b45db08dabd"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab7d1c1ac483ce7a525962b45db08dabd">&#9670;&nbsp;</a></span>_registry</h2>
 
@@ -551,6 +631,28 @@ Private Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="classshkyera_1_1_scene_frame_buffer.html">SceneFrameBuffer</a> shkyera::RenderingSystem::_renderFrameBuffer</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8101c7529a82f66847ba6eb86b7ce490"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8101c7529a82f66847ba6eb86b7ce490">&#9670;&nbsp;</a></span>_shadowMapDistanceShaderProgram</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classshkyera_1_1_shader_program.html">ShaderProgram</a> shkyera::RenderingSystem::_shadowMapDistanceShaderProgram</td>
         </tr>
       </table>
   </td>

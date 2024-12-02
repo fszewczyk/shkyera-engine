@@ -2,6 +2,7 @@ var classshkyera_1_1_shader =
 [
     [ "Type", "classshkyera_1_1_shader.html#a8609b223b8cb0e0e71038b5a5208acc7", [
       [ "Vertex", "classshkyera_1_1_shader.html#a8609b223b8cb0e0e71038b5a5208acc7ab22b929ba52471a02d18bb3a4e4472e6", null ],
+      [ "Geometry", "classshkyera_1_1_shader.html#a8609b223b8cb0e0e71038b5a5208acc7ad9c6333623e6357515fcbf17be806273", null ],
       [ "Fragment", "classshkyera_1_1_shader.html#a8609b223b8cb0e0e71038b5a5208acc7a37d01b98065725fe3a1d30acf3a0064a", null ]
     ] ],
     [ "Shader", "classshkyera_1_1_shader.html#ad9bd53d4b901576bd307fa7a56061495", null ],
