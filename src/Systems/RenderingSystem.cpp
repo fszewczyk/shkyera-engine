@@ -21,12 +21,12 @@ RenderingSystem::RenderingSystem(std::shared_ptr<Registry> registry)
     _modelShaderProgram.attachShader(modelFragmentShader);
     _modelShaderProgram.link();
 
+    const auto& positionVertexShader = AssetManager::getInstance().getAsset<Shader>("resources/shaders/vertex/position.glsl", Shader::Type::Vertex);
     const auto& fixedColorFragmentShader = AssetManager::getInstance().getAsset<Shader>("resources/shaders/fragment/color.glsl", Shader::Type::Fragment);
-    _wireframeShaderProgram.attachShader(positionAndNormalVertexShader);
+    _wireframeShaderProgram.attachShader(positionVertexShader);
     _wireframeShaderProgram.attachShader(fixedColorFragmentShader);
     _wireframeShaderProgram.link();
 
-    const auto& positionVertexShader = AssetManager::getInstance().getAsset<Shader>("resources/shaders/vertex/position.glsl", Shader::Type::Vertex);
     _silhouetteShaderProgram.attachShader(positionVertexShader);
     _silhouetteShaderProgram.attachShader(fixedColorFragmentShader);
     _silhouetteShaderProgram.link();
@@ -58,6 +58,12 @@ RenderingSystem::RenderingSystem(std::shared_ptr<Registry> registry)
     _shadowMapShaderProgram.attachShader(shadowMapVertexShader);
     _shadowMapShaderProgram.attachShader(depthFragmentShader);
     _shadowMapShaderProgram.link();
+
+    const auto& distanceVertexShader = AssetManager::getInstance().getAsset<Shader>("resources/shaders/vertex/distance.glsl", Shader::Type::Vertex);
+    const auto& distanceFragmentShader = AssetManager::getInstance().getAsset<Shader>("resources/shaders/fragment/distance.glsl", Shader::Type::Fragment);
+    _shadowMapDistanceShaderProgram.attachShader(distanceVertexShader);
+    _shadowMapDistanceShaderProgram.attachShader(distanceFragmentShader);
+    _shadowMapDistanceShaderProgram.link();
 }
 
 void RenderingSystem::setSize(uint32_t width, uint32_t height)
@@ -72,6 +78,7 @@ void RenderingSystem::setSize(uint32_t width, uint32_t height)
 GLuint RenderingSystem::getRenderFrameBuffer()
 {
     return _renderFrameBuffer.getTexture().getID();
+    return _pointLightToShadowMap.begin()->second.getTexture().getID();
 }
 
 void RenderingSystem::render() {
@@ -96,16 +103,16 @@ void RenderingSystem::renderOutline(const std::unordered_set<Entity>& entities)
     const auto& cameraTransform = _registry->getComponent<TransformComponent>(_registry->getCamera());
     const glm::mat4& viewMatrix = _registry->getComponent<CameraComponent>(_registry->getCamera()).getViewMatrix(cameraTransform);
     const glm::mat4& projectionMatrix = _registry->getComponent<CameraComponent>(_registry->getCamera()).getProjectionMatrix();
+    const auto& projectionViewMatrix = projectionMatrix * viewMatrix;
+
     _silhouetteShaderProgram.use();
-    _silhouetteShaderProgram.setUniform("viewMatrix", viewMatrix);
-    _silhouetteShaderProgram.setUniform("projectionMatrix", projectionMatrix);
     _silhouetteShaderProgram.setUniform("fixedColor", glm::vec3{1.0, 0.1, 1.0});
     for (const auto& entity : entities) {
         if(_registry->hasComponents<TransformComponent, ModelComponent>(entity))
         {
             const auto& modelComponent = _registry->getComponent<ModelComponent>(entity);
             const auto& transformComponent = _registry->getComponent<TransformComponent>(entity);
-            _silhouetteShaderProgram.setUniform("modelMatrix", transformComponent.getTransformMatrix());
+            _silhouetteShaderProgram.setUniform("projectionViewModelMatrix", projectionViewMatrix * transformComponent.getTransformMatrix());
             modelComponent.updateImpl();
         }
     }
@@ -151,21 +158,19 @@ void RenderingSystem::renderOutline(const std::unordered_set<Entity>& entities)
     );
 }
 
-void RenderingSystem::renderModels()
+void RenderingSystem::renderDirectionalLightShadowMaps()
 {
-    glEnable(GL_DEPTH_TEST);
-
     const auto& cameraTransform = _registry->getComponent<TransformComponent>(_registry->getCamera());
     const auto& cameraComponent = _registry->getComponent<CameraComponent>(_registry->getCamera());
 
-    // ********* Rendering the shadow maps *********
     std::unordered_set<Entity> directionalLightEntities;
     for(const auto& [entity, directionalLightComponent] : _registry->getComponentSet<DirectionalLightComponent>()) {
         directionalLightEntities.insert(entity);
-        if(_directionalLightToShadowMaps.find(entity) == _directionalLightToShadowMaps.end())
+        if(_directionalLightToShadowMap.find(entity) == _directionalLightToShadowMap.end())
         {
-            _directionalLightToShadowMaps.emplace(entity, DepthAtlasFrameBuffer(DirectionalLightComponent::LevelsOfDetail));
-            auto& newShadowMap = _directionalLightToShadowMaps.at(entity);
+            _directionalLightToShadowMap.emplace(entity, DepthAtlasFrameBuffer(DirectionalLightComponent::LevelsOfDetail));
+            auto& newShadowMap = _directionalLightToShadowMap.at(entity);
+            
             newShadowMap.bind();
             newShadowMap.setSize(DirectionalLightComponent::LevelsOfDetail * 2048, 2048);
             newShadowMap.clear();
@@ -174,7 +179,7 @@ void RenderingSystem::renderModels()
     }
 
     std::vector<Entity> entitiesWithFrameBuffersToRemove;
-    for(const auto& [entity, _buffer] : _directionalLightToShadowMaps)
+    for(const auto& [entity, _buffer] : _directionalLightToShadowMap)
     {
         if(directionalLightEntities.find(entity) == directionalLightEntities.end())
         {
@@ -184,22 +189,23 @@ void RenderingSystem::renderModels()
 
     for(const auto& entityToRemove : entitiesWithFrameBuffersToRemove)
     {
-        _directionalLightToShadowMaps.erase(entityToRemove);
+        _directionalLightToShadowMap.erase(entityToRemove);
     }
 
-    for(auto& [lightEntity, shadowMapAtlas] : _directionalLightToShadowMaps)
+    for(auto& [lightEntity, shadowMapAtlas] : _directionalLightToShadowMap)
     {
         shadowMapAtlas.bind();
         shadowMapAtlas.clear();
         shadowMapAtlas.unbind();
+
+        const auto& directionalLightComponent = _registry->getComponent<DirectionalLightComponent>(lightEntity);
+        const auto& lightTransform = _registry->getComponent<TransformComponent>(lightEntity);    
 
         for(uint8_t levelOfDetail = 0; levelOfDetail < DirectionalLightComponent::LevelsOfDetail; ++levelOfDetail)
         {
             shadowMapAtlas.bind(levelOfDetail);
             _shadowMapShaderProgram.use();
 
-            const auto& directionalLightComponent = _registry->getComponent<DirectionalLightComponent>(lightEntity);
-            const auto& lightTransform = _registry->getComponent<TransformComponent>(lightEntity);
             const glm::mat4& lightSpaceMatrix = directionalLightComponent.getLightSpaceMatrix(lightTransform, cameraTransform, cameraComponent, levelOfDetail);
 
             _shadowMapShaderProgram.setUniform("lightSpaceMatrix", lightSpaceMatrix);
@@ -213,7 +219,98 @@ void RenderingSystem::renderModels()
             _shadowMapShaderProgram.stopUsing();
             shadowMapAtlas.unbind();
         }
-    }        
+    }
+}
+
+void RenderingSystem::renderPointLightShadowMaps()
+{
+    const auto& cameraTransform = _registry->getComponent<TransformComponent>(_registry->getCamera());
+    const auto& cameraComponent = _registry->getComponent<CameraComponent>(_registry->getCamera());
+
+    std::unordered_set<Entity> pointLightEntities;
+    for(const auto& [entity, pointLightComponent] : _registry->getComponentSet<PointLightComponent>()) {
+        pointLightEntities.insert(entity);
+        if(_pointLightToShadowMap.find(entity) == _pointLightToShadowMap.end())
+        {
+            _pointLightToShadowMap.emplace(entity, DepthAtlasFrameBuffer(6));
+            auto& newShadowMap = _pointLightToShadowMap.at(entity);
+            
+            newShadowMap.bind();
+            newShadowMap.setSize(6 * 1024, 1024);
+            newShadowMap.clear();
+            newShadowMap.unbind();
+        }
+    }
+
+    std::vector<Entity> entitiesWithFrameBuffersToRemove;
+    for(const auto& [entity, _buffer] : _pointLightToShadowMap)
+    {
+        if(pointLightEntities.find(entity) == pointLightEntities.end())
+        {
+            entitiesWithFrameBuffersToRemove.push_back(entity);
+        }
+    }
+
+    for(const auto& entityToRemove : entitiesWithFrameBuffersToRemove)
+    {
+        _pointLightToShadowMap.erase(entityToRemove);
+    }
+
+    for(auto& [lightEntity, shadowMapCubeAtlas] : _pointLightToShadowMap)
+    {
+        shadowMapCubeAtlas.bind();
+        shadowMapCubeAtlas.clear();
+        shadowMapCubeAtlas.unbind();
+
+        _shadowMapDistanceShaderProgram.use();
+
+        const auto& lightPosition = _registry->getComponent<TransformComponent>(lightEntity).getPosition();
+        const auto& lightRange = _registry->getComponent<PointLightComponent>(lightEntity).range;
+
+        glm::mat4 projection = glm::perspective(glm::radians(90.0f), 1.0f, 0.01f, lightRange);
+        glm::mat4 captureViews[6] = {
+            projection * glm::lookAt(lightPosition, lightPosition + glm::vec3( 1.0f,  0.0f,  0.0f), glm::vec3( 0.0f, -1.0f,  0.0f)),  // +X
+            projection * glm::lookAt(lightPosition, lightPosition + glm::vec3(-1.0f,  0.0f,  0.0f), glm::vec3( 0.0f, -1.0f,  0.0f)),  // -X
+            projection * glm::lookAt(lightPosition, lightPosition + glm::vec3( 0.0f,  1.0f,  0.0f), glm::vec3( 0.0f,  0.0f,  1.0f)),  // +Y
+            projection * glm::lookAt(lightPosition, lightPosition + glm::vec3( 0.0f, -1.0f,  0.0f), glm::vec3( 0.0f,  0.0f, -1.0f)),  // -Y
+            projection * glm::lookAt(lightPosition, lightPosition + glm::vec3( 0.0f,  0.0f,  1.0f), glm::vec3( 0.0f, -1.0f,  0.0f)),  // +Z
+            projection * glm::lookAt(lightPosition, lightPosition + glm::vec3( 0.0f,  0.0f, -1.0f), glm::vec3( 0.0f, -1.0f,  0.0f))   // -Z
+        };
+
+        _shadowMapDistanceShaderProgram.use();
+
+        for(uint8_t face = 0; face < 6; ++face)
+        {
+            shadowMapCubeAtlas.bind(face);
+
+            const glm::mat4& lightSpaceMatrix = captureViews[face];
+            _shadowMapDistanceShaderProgram.setUniform("lightSpaceMatrix", lightSpaceMatrix);
+
+            for (const auto& [modelEntity, modelComponent] : _registry->getComponentSet<ModelComponent>()) {
+                const auto& transformComponent = _registry->getComponent<TransformComponent>(modelEntity);
+                _shadowMapDistanceShaderProgram.setUniform("modelMatrix", transformComponent.getTransformMatrix());
+
+                modelComponent.updateImpl();
+            }
+
+            shadowMapCubeAtlas.unbind();
+        }
+
+        _shadowMapDistanceShaderProgram.stopUsing();
+        shadowMapCubeAtlas.unbind();
+    }
+}
+
+void RenderingSystem::renderModels()
+{
+    glEnable(GL_DEPTH_TEST);
+
+    // ********* Rendering the shadow maps *********
+    renderDirectionalLightShadowMaps();
+    renderPointLightShadowMaps();
+
+    const auto& cameraTransform = _registry->getComponent<TransformComponent>(_registry->getCamera());
+    const auto& cameraComponent = _registry->getComponent<CameraComponent>(_registry->getCamera());
 
     // ********* Rendering the world *********
     _renderFrameBuffer.bind();
@@ -222,8 +319,7 @@ void RenderingSystem::renderModels()
     const glm::mat4& projectionMatrix = _registry->getComponent<CameraComponent>(_registry->getCamera()).getProjectionMatrix();
 
     _modelShaderProgram.use();
-    _modelShaderProgram.setUniform("viewMatrix", viewMatrix);
-    _modelShaderProgram.setUniform("projectionMatrix", projectionMatrix);
+    _modelShaderProgram.setUniform("projectionViewMatrix", projectionMatrix * viewMatrix);
     _modelShaderProgram.setUniform("viewPos", cameraTransform.getPosition());
 
     glm::vec3 ambientColor{0, 0, 0};
@@ -233,8 +329,14 @@ void RenderingSystem::renderModels()
     }
     _modelShaderProgram.setUniform("ambientLight", ambientColor);
 
+    int textureIndex = 0;
     int pointLightIndex = 0;
     for(const auto& [entity, pointLightComponent] : _registry->getComponentSet<PointLightComponent>()) {
+        auto& depthCubeMap = _pointLightToShadowMap.at(entity);
+        depthCubeMap.getTexture().activate(GL_TEXTURE0 + textureIndex);
+        _modelShaderProgram.setUniform("pointLightsDepthCubeMap[" + std::to_string(pointLightIndex) + "]", textureIndex);
+        ++textureIndex;
+
         const auto& transformComponent = _registry->getComponent<TransformComponent>(entity);
         _modelShaderProgram.setUniform("pointLights[" + std::to_string(pointLightIndex) + "].position", transformComponent.getPosition());
         _modelShaderProgram.setUniform("pointLights[" + std::to_string(pointLightIndex) + "].color", pointLightComponent.intensity * pointLightComponent.color);
@@ -244,12 +346,11 @@ void RenderingSystem::renderModels()
     _modelShaderProgram.setUniform("numPointLights", pointLightIndex);
 
     int directionalLightIndex = 0;
-    int textureIndex = 0;
     for (const auto& [entity, directionalLightComponent] : _registry->getComponentSet<DirectionalLightComponent>()) {
         const auto& lightTransform = _registry->getComponent<TransformComponent>(entity);
         const auto& orientation = lightTransform.getOrientation();
 
-        const auto& depthAtlasFrameBuffer = _directionalLightToShadowMaps.at(entity);
+        const auto& depthAtlasFrameBuffer = _directionalLightToShadowMap.at(entity);
 
         for(size_t levelOfDetail = 0; levelOfDetail < DirectionalLightComponent::LevelsOfDetail; levelOfDetail++)
         {
@@ -258,7 +359,7 @@ void RenderingSystem::renderModels()
         }
 
         depthAtlasFrameBuffer.getTexture().activate(GL_TEXTURE0 + textureIndex);
-        _modelShaderProgram.setUniform("directionalLights[" + std::to_string(directionalLightIndex) + "].shadowSampler", textureIndex);
+        _modelShaderProgram.setUniform("directionalLightsDepthMap[" + std::to_string(directionalLightIndex) + "]", textureIndex);
         ++textureIndex;
 
         glm::vec3 lightDirection = DirectionalLightComponent::getDirection(lightTransform);
@@ -296,14 +397,14 @@ void RenderingSystem::renderWireframes()
     const glm::mat4& projectionMatrix = _registry->getComponent<CameraComponent>(_registry->getCamera()).getProjectionMatrix();
 
     _wireframeShaderProgram.use();
-    _wireframeShaderProgram.setUniform("viewMatrix", viewMatrix);
-    _wireframeShaderProgram.setUniform("projectionMatrix", projectionMatrix);
+
+    const auto& projectionViewMatrix = projectionMatrix * viewMatrix;
 
     static const glm::vec3 wireframeColor{0.08, 0.7, 0.15};
 
     for (const auto& [entity, wireframeComponent] : _registry->getComponentSet<WireframeComponent>()) {
         const auto& transformComponent = _registry->getComponent<TransformComponent>(entity);
-        _wireframeShaderProgram.setUniform("modelMatrix", transformComponent.getTransformMatrix());
+        _wireframeShaderProgram.setUniform("projectionViewModelMatrix", projectionViewMatrix * transformComponent.getTransformMatrix());
         _wireframeShaderProgram.setUniform("fixedColor", wireframeColor);
         wireframeComponent.updateImpl();
     }

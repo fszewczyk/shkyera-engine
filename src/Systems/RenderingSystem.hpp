@@ -26,6 +26,9 @@ private:
     void renderOutline(const std::unordered_set<Entity>& entities);
     void renderSkybox();
 
+    void renderDirectionalLightShadowMaps();
+    void renderPointLightShadowMaps();
+
     std::shared_ptr<Registry> _registry;
     
     // Main Rendering
@@ -48,8 +51,11 @@ private:
     ShaderProgram _skyboxShaderProgram;
 
     // Light rendering
-    std::unordered_map<Entity, DepthAtlasFrameBuffer> _directionalLightToShadowMaps;
+    std::unordered_map<Entity, DepthAtlasFrameBuffer> _directionalLightToShadowMap;
     ShaderProgram _shadowMapShaderProgram;
+
+    std::unordered_map<Entity, DepthAtlasFrameBuffer> _pointLightToShadowMap;
+    ShaderProgram _shadowMapDistanceShaderProgram;
 };
 
 }

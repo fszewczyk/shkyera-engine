@@ -10,7 +10,8 @@ class Shader : public Asset {
 public:
     enum class Type {
         Vertex,
-        Fragment
+        Geometry,
+        Fragment,
     };
 
     Shader(const std::string& filepath, Type type);
