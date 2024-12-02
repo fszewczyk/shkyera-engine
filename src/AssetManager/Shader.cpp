@@ -48,6 +48,8 @@ GLenum Shader::shaderTypeToGLenum(Type type) {
     switch (type) {
         case Type::Vertex:
             return GL_VERTEX_SHADER;
+        case Type::Geometry:
+            return GL_GEOMETRY_SHADER;
         case Type::Fragment:
             return GL_FRAGMENT_SHADER;
         default:

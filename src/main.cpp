@@ -92,10 +92,11 @@ void loadScene(std::shared_ptr<shkyera::Registry> registry) {
     // Add Point Light
     auto pointLight = registry->addEntity();
     registry->addComponent<TransformComponent>(pointLight);
-    registry->getComponent<TransformComponent>(pointLight).setPosition({-2, 2, 2});
+    registry->getComponent<TransformComponent>(pointLight).setPosition({4.7, 8.1, 2});
     registry->addComponent<NameComponent>(pointLight);
     registry->getComponent<NameComponent>(pointLight).setName("Point Light");
     registry->addComponent<PointLightComponent>(pointLight);
+    registry->getComponent<PointLightComponent>(pointLight).range = 15;
 
     // Add Skybox
     auto sky = registry->addEntity();
@@ -104,19 +105,19 @@ void loadScene(std::shared_ptr<shkyera::Registry> registry) {
     registry->addComponent<NameComponent>(sky);
     registry->getComponent<NameComponent>(sky).setName("Sun");
     registry->addComponent<DirectionalLightComponent>(sky);
-    registry->getComponent<DirectionalLightComponent>(sky).color = glm::vec3{0.95, 0.92, 0.6};
+    registry->getComponent<DirectionalLightComponent>(sky).color = glm::vec3{0.95, 0.95, 0.95};
     registry->getComponent<DirectionalLightComponent>(sky).intensity = 0.4;
     registry->addComponent<AmbientLightComponent>(sky);
 
-    // auto moon = registry->addEntity();
-    // registry->addComponent<TransformComponent>(moon);
-    // registry->getComponent<TransformComponent>(moon).setOrientation({-M_PI_2 / 2, -M_PI_2 / 2, 0});
-    // registry->addComponent<NameComponent>(moon);
-    // registry->getComponent<NameComponent>(moon).setName("Moon");
-    // registry->addComponent<DirectionalLightComponent>(moon);
-    // registry->getComponent<DirectionalLightComponent>(moon).color = glm::vec3{0.85, 0.95, 0.95};
-    // registry->getComponent<DirectionalLightComponent>(moon).intensity = 0.15;
-    // registry->addComponent<AmbientLightComponent>(moon);
+    auto moon = registry->addEntity();
+    registry->addComponent<TransformComponent>(moon);
+    registry->getComponent<TransformComponent>(moon).setOrientation({-M_PI_2 / 2, -M_PI_2 / 2, 0});
+    registry->addComponent<NameComponent>(moon);
+    registry->getComponent<NameComponent>(moon).setName("Moon");
+    registry->addComponent<DirectionalLightComponent>(moon);
+    registry->getComponent<DirectionalLightComponent>(moon).color = glm::vec3{0.85, 0.95, 0.95};
+    registry->getComponent<DirectionalLightComponent>(moon).intensity = 0.15;
+    registry->addComponent<AmbientLightComponent>(moon);
 
     const auto skyboxUp = AssetManager::getInstance().getAsset<Image>("resources/skyboxes/day/py.png");
     const auto skyboxDown = AssetManager::getInstance().getAsset<Image>("resources/skyboxes/day/ny.png");

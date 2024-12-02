@@ -9,10 +9,6 @@ DepthAtlasFrameBuffer::DepthAtlasFrameBuffer(int texturesInAtlas, GLenum minFilt
     : _texturesInAtlas(texturesInAtlas), _width(2048), _height(2048),
       _textureDepthBuffer(minFilter, magFilter, wrapS, wrapT) {
     setupFramebuffer();
-    bind();
-    setSize(_width, _height);
-    clear();
-    unbind();
 }
 
 DepthAtlasFrameBuffer::DepthAtlasFrameBuffer(DepthAtlasFrameBuffer&& other) noexcept
