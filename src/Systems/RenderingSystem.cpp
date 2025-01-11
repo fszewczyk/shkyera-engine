@@ -95,6 +95,17 @@ void RenderingSystem::render() {
 
 void RenderingSystem::renderOutline(const std::unordered_set<Entity>& entities)
 {
+    if(entities.empty())
+    {
+        return;
+    }
+
+    for(const auto& entity : entities)
+    {
+        const auto& children = _registry->getHierarchy().getChildren(entity);
+        renderOutline(children);
+    }
+
     glDisable(GL_DEPTH_TEST);
 
     // Drawing a silhouette
