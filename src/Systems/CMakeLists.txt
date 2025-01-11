@@ -4,7 +4,6 @@ add_library(
 
     ${CMAKE_CURRENT_LIST_DIR}/CameraMovementSystem.cpp
     ${CMAKE_CURRENT_LIST_DIR}/RenderingSystem.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/DevelopmentRendererSystem.cpp
     ${CMAKE_CURRENT_LIST_DIR}/ObjectSelectionSystem.cpp
 )
 

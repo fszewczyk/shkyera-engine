@@ -32,8 +32,6 @@ class ObjectsWidget : public Widget {
      */
     void setRegistry(std::shared_ptr<Registry> registry);
 
-    void addOnNewEntityCallback(std::function<void(Entity)> callback);
-
     /**
      * @brief Implementation of the abstract `draw` method to render the game objects widget.
      */
@@ -48,9 +46,9 @@ class ObjectsWidget : public Widget {
     /**
      * @brief Draw the list of game objects and allow selection.
      */
-    void drawList();
+    void drawObjectHierarchy(Entity parent, const EntityHierarchy& hierarchy, size_t depth) const;
 
-    std::shared_ptr<Registry> _registry;                           ///< A shared pointer to the associated game.
+    std::shared_ptr<Registry> _registry;
     std::vector<std::function<void(Entity)>> _onNewEntityCallbacks;
 };
 

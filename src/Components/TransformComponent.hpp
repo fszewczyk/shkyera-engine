@@ -6,6 +6,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 #include <Math/Utils.hpp>
+#include <ECS/Registry.hpp>
 #include <Components/BaseComponent.hpp>
 
 namespace shkyera {
@@ -42,6 +43,31 @@ public:
         glm::mat4 scaleMatrix = glm::scale(glm::mat4(1.0f), _scale);
 
         return translationMatrix * rotationMatrix * scaleMatrix;
+    }
+
+    static glm::mat4 getGlobalTransformMatrix(Entity entity, std::shared_ptr<Registry> registry)
+    {
+        std::vector<glm::mat4> transforms;
+        auto localTransform = registry->getComponent<TransformComponent>(entity).getTransformMatrix();
+        transforms.emplace_back(std::move(localTransform));
+
+        const auto& hierarchy = registry->getHierarchy();
+        while(const auto& parentOpt = hierarchy.getParent(entity))
+        {
+            entity = *parentOpt;
+            if(registry->hasComponent<TransformComponent>(entity))
+            {
+                auto localParentTransform = registry->getComponent<TransformComponent>(entity).getTransformMatrix();
+                transforms.emplace_back(std::move(localParentTransform));
+            }
+        }
+
+        auto result = glm::mat4(1.0);
+        for(auto it = transforms.rbegin(); it != transforms.rend(); ++it)
+        {
+            result *= *it;
+        }
+        return result;
     }
 
 private:

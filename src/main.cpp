@@ -74,8 +74,15 @@ void loadScene(std::shared_ptr<shkyera::Registry> registry) {
     registry->addComponent<CameraComponent>(camera);
 
     // Add Cylinder and its wireframe
-    addModel(registry, {3, 0, -3}, "Cylinder", std::shared_ptr<Mesh>(Mesh::Factory::createCylinder()));
-    addWireframe(registry, {3, 3, -3}, "Cylinder Wireframe", std::shared_ptr<Wireframe>(Wireframe::Factory::createCylinder()));
+    auto cylinderParent = registry->addEntity();
+    registry->addComponent<TransformComponent>(cylinderParent);
+    registry->getComponent<TransformComponent>(cylinderParent).setPosition({3, 0, -3});
+    registry->addComponent<NameComponent>(cylinderParent);
+    registry->getComponent<NameComponent>(cylinderParent).setName("Cylinder");
+    auto cylinderModel = addModel(registry, {0, 0, 0}, "Cylinder Model", std::shared_ptr<Mesh>(Mesh::Factory::createCylinder()));
+    auto cylinderWireframe = addWireframe(registry, {0, 3, 0}, "Cylinder Wireframe", std::shared_ptr<Wireframe>(Wireframe::Factory::createCylinder()));
+    registry->getHierarchy().attributeChild(cylinderParent, cylinderModel);
+    registry->getHierarchy().attributeChild(cylinderParent, cylinderWireframe);
 
     // Add Cube and its wireframe
     addModel(registry, {3, 0, 0}, "Cube", std::shared_ptr<Mesh>(Mesh::Factory::createCube()));

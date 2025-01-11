@@ -8,9 +8,9 @@
 #include <stdlib.h>
 #include <queue>
 
-namespace shkyera {
+#include <ECS/Entity.hpp>
 
-using Entity = uint32_t;
+namespace shkyera {
 
 /**
  * Manages a pool of reusable entity identifiers.
