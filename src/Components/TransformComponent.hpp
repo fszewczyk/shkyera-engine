@@ -13,10 +13,7 @@ namespace shkyera {
 
 class TransformComponent : public BaseComponent<TransformComponent> {
 public:
-    TransformComponent()
-        : _position(0.0f, 0.0f, 0.0f),
-          _orientation(0.0, 0.0, 0.0),
-          _scale(1.0f, 1.0f, 1.0f) {}
+    TransformComponent() = default;
 
     glm::vec3& getPosition() { return _position; }
     const glm::vec3& getPosition() const { return _position; }
@@ -71,9 +68,9 @@ public:
     }
 
 private:
-    glm::vec3 _position;
-    glm::vec3 _orientation;
-    glm::vec3 _scale;
+    glm::vec3 _position {0.0, 0.0, 0.0};
+    glm::vec3 _orientation {0.0, 0.0, 0.0};
+    glm::vec3 _scale {1.0, 1.0, 1.0};
 };
 
 } // namespace shkyera
