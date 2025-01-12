@@ -104,6 +104,7 @@ void loadScene(std::shared_ptr<shkyera::Registry> registry) {
     registry->getComponent<NameComponent>(pointLight).setName("Point Light");
     registry->addComponent<PointLightComponent>(pointLight);
     registry->getComponent<PointLightComponent>(pointLight).range = 15;
+    registry->getComponent<PointLightComponent>(pointLight).intensity = 3;
 
     // Add Skybox
     auto sky = registry->addEntity();

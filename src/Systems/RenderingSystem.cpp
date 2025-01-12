@@ -332,6 +332,8 @@ void RenderingSystem::renderModels()
     _modelShaderProgram.use();
     _modelShaderProgram.setUniform("projectionViewMatrix", projectionMatrix * viewMatrix);
     _modelShaderProgram.setUniform("viewPos", cameraTransform.getPosition());
+    constexpr float OneOverGamma = 1.0 / 2.2;
+    _modelShaderProgram.setUniform("oneOverGamma", OneOverGamma);
 
     glm::vec3 ambientColor{0, 0, 0};
     for(const auto& ambientLightComponent : _registry->getComponents<AmbientLightComponent>())
