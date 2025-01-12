@@ -8,6 +8,8 @@
 
 #include <unordered_set>
 
+#include <ECS/Entity.hpp>
+#include <ECS/EntityHierarchy.hpp>
 #include <ECS/EntityProvider.hpp>
 #include <ECS/SparseSet.hpp>
 
@@ -156,7 +158,11 @@ public:
     
     Entity getEnvironment() const;
 
+    EntityHierarchy& getHierarchy();
+
 private:
+    using ParentAndChild = std::pair<Entity, Entity>;
+
     /**
      * Retrieves or creates the component set for the specified component type.
      * 
@@ -189,6 +195,7 @@ private:
 
     mutable std::unordered_map<size_t, std::unique_ptr<SparseSetBase>> _componentSets; //< Map of component sets by type ID.
     EntityProvider _entityProvider; //< Manages the creation and management of entities.
+    EntityHierarchy _entityHierarchy; //< Maintains the parent-child relationships between the entities
 
     Entity _camera;
     Entity _environment;

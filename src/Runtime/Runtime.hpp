@@ -6,7 +6,6 @@
 
 #include <Systems/CameraMovementSystem.hpp>
 #include <Systems/RenderingSystem.hpp>
-#include <Systems/DevelopmentRendererSystem.hpp>
 #include <Systems/ObjectSelectionSystem.hpp>
 #include <Rendering/FrameBuffers/SceneFrameBuffer.hpp>
 

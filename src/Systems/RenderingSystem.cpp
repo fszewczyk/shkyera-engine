@@ -95,6 +95,17 @@ void RenderingSystem::render() {
 
 void RenderingSystem::renderOutline(const std::unordered_set<Entity>& entities)
 {
+    if(entities.empty())
+    {
+        return;
+    }
+
+    for(const auto& entity : entities)
+    {
+        const auto& children = _registry->getHierarchy().getChildren(entity);
+        renderOutline(children);
+    }
+
     glDisable(GL_DEPTH_TEST);
 
     // Drawing a silhouette
@@ -111,8 +122,8 @@ void RenderingSystem::renderOutline(const std::unordered_set<Entity>& entities)
         if(_registry->hasComponents<TransformComponent, ModelComponent>(entity))
         {
             const auto& modelComponent = _registry->getComponent<ModelComponent>(entity);
-            const auto& transformComponent = _registry->getComponent<TransformComponent>(entity);
-            _silhouetteShaderProgram.setUniform("projectionViewModelMatrix", projectionViewMatrix * transformComponent.getTransformMatrix());
+            const auto& transformMatrix = TransformComponent::getGlobalTransformMatrix(entity, _registry);
+            _silhouetteShaderProgram.setUniform("projectionViewModelMatrix", projectionViewMatrix * transformMatrix);
             modelComponent.updateImpl();
         }
     }
@@ -210,8 +221,8 @@ void RenderingSystem::renderDirectionalLightShadowMaps()
 
             _shadowMapShaderProgram.setUniform("lightSpaceMatrix", lightSpaceMatrix);
             for (const auto& [modelEntity, modelComponent] : _registry->getComponentSet<ModelComponent>()) {
-                const auto& transformComponent = _registry->getComponent<TransformComponent>(modelEntity);
-                _shadowMapShaderProgram.setUniform("modelMatrix", transformComponent.getTransformMatrix());
+                const auto& transformMatrix = TransformComponent::getGlobalTransformMatrix(modelEntity, _registry);
+                _shadowMapShaderProgram.setUniform("modelMatrix", transformMatrix);
 
                 modelComponent.updateImpl();
             }
@@ -287,8 +298,8 @@ void RenderingSystem::renderPointLightShadowMaps()
             _shadowMapDistanceShaderProgram.setUniform("lightSpaceMatrix", lightSpaceMatrix);
 
             for (const auto& [modelEntity, modelComponent] : _registry->getComponentSet<ModelComponent>()) {
-                const auto& transformComponent = _registry->getComponent<TransformComponent>(modelEntity);
-                _shadowMapDistanceShaderProgram.setUniform("modelMatrix", transformComponent.getTransformMatrix());
+                const auto& transformMatrix = TransformComponent::getGlobalTransformMatrix(modelEntity, _registry);
+                _shadowMapDistanceShaderProgram.setUniform("modelMatrix", transformMatrix);
 
                 modelComponent.updateImpl();
             }
@@ -370,8 +381,8 @@ void RenderingSystem::renderModels()
     _modelShaderProgram.setUniform("numDirectionalLights", directionalLightIndex);
 
     for (const auto& [entity, modelComponent] : _registry->getComponentSet<ModelComponent>()) {
-        const auto& transformComponent = _registry->getComponent<TransformComponent>(entity);
-        _modelShaderProgram.setUniform("modelMatrix", transformComponent.getTransformMatrix());
+        const auto& transformMatrix = TransformComponent::getGlobalTransformMatrix(entity, _registry);
+        _modelShaderProgram.setUniform("modelMatrix", transformMatrix);
 
         const Material* material = modelComponent.getMaterial();
         if (material) {
@@ -403,8 +414,8 @@ void RenderingSystem::renderWireframes()
     static const glm::vec3 wireframeColor{0.08, 0.7, 0.15};
 
     for (const auto& [entity, wireframeComponent] : _registry->getComponentSet<WireframeComponent>()) {
-        const auto& transformComponent = _registry->getComponent<TransformComponent>(entity);
-        _wireframeShaderProgram.setUniform("projectionViewModelMatrix", projectionViewMatrix * transformComponent.getTransformMatrix());
+        const auto& transformMatrix = TransformComponent::getGlobalTransformMatrix(entity, _registry);
+        _wireframeShaderProgram.setUniform("projectionViewModelMatrix", projectionViewMatrix * transformMatrix);
         _wireframeShaderProgram.setUniform("fixedColor", wireframeColor);
         wireframeComponent.updateImpl();
     }

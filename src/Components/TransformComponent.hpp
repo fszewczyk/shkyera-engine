@@ -6,16 +6,14 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 #include <Math/Utils.hpp>
+#include <ECS/Registry.hpp>
 #include <Components/BaseComponent.hpp>
 
 namespace shkyera {
 
 class TransformComponent : public BaseComponent<TransformComponent> {
 public:
-    TransformComponent()
-        : _position(0.0f, 0.0f, 0.0f),
-          _orientation(0.0, 0.0, 0.0),
-          _scale(1.0f, 1.0f, 1.0f) {}
+    TransformComponent() = default;
 
     glm::vec3& getPosition() { return _position; }
     const glm::vec3& getPosition() const { return _position; }
@@ -44,10 +42,35 @@ public:
         return translationMatrix * rotationMatrix * scaleMatrix;
     }
 
+    static glm::mat4 getGlobalTransformMatrix(Entity entity, std::shared_ptr<Registry> registry)
+    {
+        std::vector<glm::mat4> transforms;
+        auto localTransform = registry->getComponent<TransformComponent>(entity).getTransformMatrix();
+        transforms.emplace_back(std::move(localTransform));
+
+        const auto& hierarchy = registry->getHierarchy();
+        while(const auto& parentOpt = hierarchy.getParent(entity))
+        {
+            entity = *parentOpt;
+            if(registry->hasComponent<TransformComponent>(entity))
+            {
+                auto localParentTransform = registry->getComponent<TransformComponent>(entity).getTransformMatrix();
+                transforms.emplace_back(std::move(localParentTransform));
+            }
+        }
+
+        auto result = glm::mat4(1.0);
+        for(auto it = transforms.rbegin(); it != transforms.rend(); ++it)
+        {
+            result = result * (*it);
+        }
+        return result;
+    }
+
 private:
-    glm::vec3 _position;
-    glm::vec3 _orientation;
-    glm::vec3 _scale;
+    glm::vec3 _position {0.0, 0.0, 0.0};
+    glm::vec3 _orientation {0.0, 0.0, 0.0};
+    glm::vec3 _scale {1.0, 1.0, 1.0};
 };
 
 } // namespace shkyera

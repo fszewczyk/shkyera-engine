@@ -44,4 +44,8 @@ Entity Registry::getEnvironment() const {
   return _environment;
 }
 
+EntityHierarchy& Registry::getHierarchy() {
+  return _entityHierarchy;
+}
+
 }  // namespace shkyera

@@ -3,6 +3,7 @@ add_library(
     STATIC
 
     ${CMAKE_CURRENT_LIST_DIR}/EntityProvider.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/EntityHierarchy.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Registry.cpp
 )
 

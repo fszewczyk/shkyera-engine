@@ -17,15 +17,17 @@ void ObjectsWidget::setRegistry(std::shared_ptr<Registry> registry) {
   _registry = registry;
 }
 
-void ObjectsWidget::addOnNewEntityCallback(std::function<void(Entity)> callback) {
-  _onNewEntityCallbacks.emplace_back(callback);
-}
-
 void ObjectsWidget::draw() {
   ImGui::Begin(_name.c_str());
   drawCreate();
   ImGui::Separator();
-  drawList();
+  const auto& hierarchy = _registry->getHierarchy();
+  for (const auto& [entity, nameComponent] : _registry->getComponentSet<NameComponent>()) {
+    if(!hierarchy.getParent(entity))
+    {
+      drawObjectHierarchy(entity, hierarchy, 0);
+    }
+  }
   ImGui::End();
 }
 
@@ -49,17 +51,56 @@ void ObjectsWidget::drawCreate() {
   }
 }
 
-void ObjectsWidget::drawList() {
-  size_t i = 0;
-  for (const auto& [entity, nameComponent] :
-       _registry->getComponentSet<NameComponent>()) {
-    if (ImGui::Selectable(
-            (nameComponent.getName() + "##" + std::to_string(i++)).c_str(),
-            _registry->getSelectedEntities().count(entity) > 0)) {
-        _registry->clearSelectedEntities();
-        _registry->selectEntity(entity);
-    }
+void ObjectsWidget::drawObjectHierarchy(Entity parent, const EntityHierarchy& hierarchy, size_t depth) {
+  constexpr size_t MaximumDepth = 6;
+  if(depth > MaximumDepth)
+  {
+    ImGui::Text("** Maximum Hierarchy Depth Reached **");
+    return;
   }
+
+  ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_OpenOnDoubleClick | ImGuiTreeNodeFlags_OpenOnArrow;
+  const auto& children = hierarchy.getChildren(parent);
+  if(children.empty()) {
+    flags |= ImGuiTreeNodeFlags_Leaf;
+  }
+  
+  static bool initiallyOpenedTree = false;
+  if (!initiallyOpenedTree)
+    ImGui::SetNextItemOpen(initiallyOpenedTree == false);
+
+  const auto& name = _registry->getComponent<NameComponent>(parent).getName();
+  const auto& uniqueName = name + "##" + std::to_string(parent);
+  if (ImGui::TreeNodeEx(uniqueName.c_str(), flags)) {
+    if (ImGui::BeginDragDropTarget()) {
+        if (ImGui::AcceptDragDropPayload("DRAG_AND_DROP_ENTITY")) {
+          _registry->getHierarchy().attributeChild(parent, _draggedEntity);
+        }
+
+        ImGui::EndDragDropTarget();
+    }
+
+    if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_None)) {
+      ImGui::SameLine();
+      ImGui::TextUnformatted(name.c_str());
+      _draggedEntity = parent;
+      ImGui::SetDragDropPayload("DRAG_AND_DROP_ENTITY", nullptr, 0);
+      ImGui::EndDragDropSource();
+    }
+
+    if (ImGui::IsItemClicked() && !_registry->getSelectedEntities().contains(parent)) {
+      _registry->clearSelectedEntities();
+      _registry->selectEntity(parent);
+    }
+
+    for (const auto& child : children) {
+      drawObjectHierarchy(child, hierarchy, depth + 1);
+    }
+
+    ImGui::TreePop();
+  }
+
+  initiallyOpenedTree = true;
 }
 
 }  // namespace shkyera
