@@ -46,10 +46,11 @@ class ObjectsWidget : public Widget {
     /**
      * @brief Draw the list of game objects and allow selection.
      */
-    void drawObjectHierarchy(Entity parent, const EntityHierarchy& hierarchy, size_t depth) const;
+    void drawObjectHierarchy(Entity parent, const EntityHierarchy& hierarchy, size_t depth);
 
     std::shared_ptr<Registry> _registry;
     std::vector<std::function<void(Entity)>> _onNewEntityCallbacks;
+    Entity _draggedEntity;
 };
 
 } // namespace shkyera

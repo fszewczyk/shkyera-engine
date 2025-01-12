@@ -51,7 +51,7 @@ void ObjectsWidget::drawCreate() {
   }
 }
 
-void ObjectsWidget::drawObjectHierarchy(Entity parent, const EntityHierarchy& hierarchy, size_t depth) const {
+void ObjectsWidget::drawObjectHierarchy(Entity parent, const EntityHierarchy& hierarchy, size_t depth) {
   constexpr size_t MaximumDepth = 6;
   if(depth > MaximumDepth)
   {
@@ -72,6 +72,22 @@ void ObjectsWidget::drawObjectHierarchy(Entity parent, const EntityHierarchy& hi
   const auto& name = _registry->getComponent<NameComponent>(parent).getName();
   const auto& uniqueName = name + "##" + std::to_string(parent);
   if (ImGui::TreeNodeEx(uniqueName.c_str(), flags)) {
+    if (ImGui::BeginDragDropTarget()) {
+        if (ImGui::AcceptDragDropPayload("DRAG_AND_DROP_ENTITY")) {
+          _registry->getHierarchy().attributeChild(parent, _draggedEntity);
+        }
+
+        ImGui::EndDragDropTarget();
+    }
+
+    if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_None)) {
+      ImGui::SameLine();
+      ImGui::TextUnformatted(name.c_str());
+      _draggedEntity = parent;
+      ImGui::SetDragDropPayload("DRAG_AND_DROP_ENTITY", nullptr, 0);
+      ImGui::EndDragDropSource();
+    }
+
     if (ImGui::IsItemClicked() && !_registry->getSelectedEntities().contains(parent)) {
       _registry->clearSelectedEntities();
       _registry->selectEntity(parent);

@@ -62,7 +62,7 @@ public:
         auto result = glm::mat4(1.0);
         for(auto it = transforms.rbegin(); it != transforms.rend(); ++it)
         {
-            result *= *it;
+            result = result * (*it);
         }
         return result;
     }

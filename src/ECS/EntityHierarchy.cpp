@@ -8,16 +8,24 @@ void EntityHierarchy::attributeChild(Entity parent, Entity child)
     {
         return;
     }
+
+    const auto& existingParentIt = _childToParent.find(child);
+    if(existingParentIt != _childToParent.end())
+    {
+        _parentToChildren.at(existingParentIt->second).erase(child);
+    }
     _parentToChildren[parent].insert(child);
     _childToParent[child] = parent;
 }
 
 void EntityHierarchy::removeFromParent(Entity child)
 {
-    const auto& parent = _childToParent[child];
-
-    _parentToChildren[parent].erase(child);
-    _childToParent.erase(child);
+    const auto& parentIt = _childToParent.find(child);
+    if(parentIt != _childToParent.end())
+    {
+        _parentToChildren.at(parentIt->second).erase(child);
+        _childToParent.erase(child);
+    }
 }
 
 std::optional<Entity> EntityHierarchy::getParent(Entity child) const

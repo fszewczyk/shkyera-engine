@@ -47,9 +47,9 @@ std::optional<Entity> ObjectSelectionSystem::getHoveredObject()
     float closestDistance = std::numeric_limits<float>::max();
     std::optional<Entity> closestEntity;
     for(const auto& [entity, boxColliderComponent] : _registry->getComponentSet<BoxColliderComponent<RuntimeMode::DEVELOPMENT>>()) {
-        const auto& transform = _registry->getComponent<TransformComponent>(entity);
+        const auto& transformMatrix = TransformComponent::getGlobalTransformMatrix(entity, _registry);
         float near, far;
-        bool intersected = boxColliderComponent.intersect(transform, ray, near, far);
+        bool intersected = boxColliderComponent.intersect(transformMatrix, ray, near, far);
         if(intersected && near < closestDistance)
         {
             closestEntity = entity;

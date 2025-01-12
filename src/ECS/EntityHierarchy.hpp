@@ -1,5 +1,6 @@
 #pragma once
 
+#include <functional>
 #include <unordered_set>
 #include <unordered_map>
 
@@ -15,9 +16,7 @@ namespace shkyera {
  */
 class EntityHierarchy {
     public:
-        /**
-         * @brief Alias for a set of child entities.
-         */
+        /// Alias for a set of child entities.
         using Children = std::unordered_set<Entity>;
 
         /**
