@@ -40,7 +40,24 @@ struct Material {
 };
 uniform Material material;
 
+// ******** POST-PROCESSING DATA ********
+uniform float oneOverGamma;
+
 // ******** FUNCTIONS ********
+vec3 toneMappingACES(vec3 color) {
+    const float a = 2.51;
+    const float b = 0.03;
+    const float c = 2.43;
+    const float d = 0.59;
+    const float e = 0.14;
+    return (color * (a * color + b)) / (color * (c * color + d) + e);
+}
+
+vec3 gammaCorrection(vec3 color)
+{
+  return pow(color, vec3(oneOverGamma));
+}
+
 vec3 calculateAmbient() {
   return ambientLight * material.color;
 }
@@ -219,10 +236,13 @@ vec3 calculateDirectionalLights() {
 }
 
 void main() {
-  vec3 ambient = calculateAmbient();
-  vec3 pointLightResult = calculatePointLights();
-  vec3 directionalLightResult = calculateDirectionalLights();
+  // Lighting
+  vec3 color = calculateAmbient();
+  color += calculatePointLights();
+  color += calculateDirectionalLights();
 
-  vec3 result = ambient + pointLightResult + directionalLightResult;
-  FragColor = vec4(result, 1.0);
+  // Post-Processing
+  color = toneMappingACES(color);
+  color = gammaCorrection(color);
+  FragColor = vec4(color, 1.0);
 }

@@ -80,7 +80,7 @@ void SceneFrameBuffer::setSize(uint32_t width, uint32_t height) {
     _height = height;
 
     // Resize texture and renderbuffer
-    _textureColorBuffer.setData(GL_RGB, _width, _height, GL_RGB, GL_UNSIGNED_BYTE);
+    _textureColorBuffer.setData(GL_RGB16F, _width, _height, GL_RGB, GL_HALF_FLOAT);
     glBindRenderbuffer(GL_RENDERBUFFER, _rbo);
     glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, _width, _height);
 }
