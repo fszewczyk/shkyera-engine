@@ -113,6 +113,7 @@ $(document).ready(function(){initNavTree('classshkyera_1_1_registry.html',''); i
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-types">Private Types</a> &#124;
 <a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classshkyera_1_1_registry-members.html">List of all members</a>  </div>
@@ -173,6 +174,13 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a316522ca2139247366dd91d2317ebee3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a594625347984ddd359ce363563cf7704"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceshkyera.html#a043bdd87686e0bd1bce19a1fd86298cd">Entity</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_registry.html#a594625347984ddd359ce363563cf7704">getEnvironment</a> () const</td></tr>
 <tr class="separator:a594625347984ddd359ce363563cf7704"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7ca67965e9d18cd6eddeb05de7c49152"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classshkyera_1_1_entity_hierarchy.html">EntityHierarchy</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_registry.html#a7ca67965e9d18cd6eddeb05de7c49152">getHierarchy</a> ()</td></tr>
+<tr class="separator:a7ca67965e9d18cd6eddeb05de7c49152"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-types"></a>
+Private Types</h2></td></tr>
+<tr class="memitem:a8213f36e4ee81deed5b2373dff3ec2c7"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_registry.html#a8213f36e4ee81deed5b2373dff3ec2c7">ParentAndChild</a> = std::pair&lt; <a class="el" href="namespaceshkyera.html#a043bdd87686e0bd1bce19a1fd86298cd">Entity</a>, <a class="el" href="namespaceshkyera.html#a043bdd87686e0bd1bce19a1fd86298cd">Entity</a> &gt;</td></tr>
+<tr class="separator:a8213f36e4ee81deed5b2373dff3ec2c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
@@ -189,6 +197,8 @@ Private Attributes</h2></td></tr>
 <tr class="separator:ac7294f22186f34c86456a3e2d21c4c70"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a24b4fa61858f7fd5121ed0be7319db5f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classshkyera_1_1_entity_provider.html">EntityProvider</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_registry.html#a24b4fa61858f7fd5121ed0be7319db5f">_entityProvider</a></td></tr>
 <tr class="separator:a24b4fa61858f7fd5121ed0be7319db5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acbe11d70c55ad4e32494ac573b86cb3d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classshkyera_1_1_entity_hierarchy.html">EntityHierarchy</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_registry.html#acbe11d70c55ad4e32494ac573b86cb3d">_entityHierarchy</a></td></tr>
+<tr class="separator:acbe11d70c55ad4e32494ac573b86cb3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:add302f4e12fd9a4304918bba4ecce4f1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceshkyera.html#a043bdd87686e0bd1bce19a1fd86298cd">Entity</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_registry.html#add302f4e12fd9a4304918bba4ecce4f1">_camera</a></td></tr>
 <tr class="separator:add302f4e12fd9a4304918bba4ecce4f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0db04552d018363876288f956741891c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceshkyera.html#a043bdd87686e0bd1bce19a1fd86298cd">Entity</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_registry.html#a0db04552d018363876288f956741891c">_environment</a></td></tr>
@@ -198,7 +208,30 @@ Private Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Manages a collection of entities and their components. Provides methods to add, remove, and query entities and components. </p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="a8213f36e4ee81deed5b2373dff3ec2c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8213f36e4ee81deed5b2373dff3ec2c7">&#9670;&nbsp;</a></span>ParentAndChild</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="classshkyera_1_1_registry.html#a8213f36e4ee81deed5b2373dff3ec2c7">shkyera::Registry::ParentAndChild</a> =  std::pair&lt;<a class="el" href="namespaceshkyera.html#a043bdd87686e0bd1bce19a1fd86298cd">Entity</a>, <a class="el" href="namespaceshkyera.html#a043bdd87686e0bd1bce19a1fd86298cd">Entity</a>&gt;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="aa796150becc2521c83b61f4887b5242e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa796150becc2521c83b61f4887b5242e">&#9670;&nbsp;</a></span>Registry()</h2>
 
@@ -563,6 +596,23 @@ template&lt;typename Component &gt; </div>
 
 </div>
 </div>
+<a id="a7ca67965e9d18cd6eddeb05de7c49152"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7ca67965e9d18cd6eddeb05de7c49152">&#9670;&nbsp;</a></span>getHierarchy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classshkyera_1_1_entity_hierarchy.html">EntityHierarchy</a> &amp; shkyera::Registry::getHierarchy </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="ac1c53a7b56cdeca41b99c5777933d521"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac1c53a7b56cdeca41b99c5777933d521">&#9670;&nbsp;</a></span>getOrCreateComponentSet() <span class="overload">[1/2]</span></h2>
 
@@ -857,6 +907,28 @@ template&lt;typename Component &gt; </div>
   </td>
   <td class="mlabels-right">
 <span class="mlabels"><span class="mlabel">mutable</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="acbe11d70c55ad4e32494ac573b86cb3d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acbe11d70c55ad4e32494ac573b86cb3d">&#9670;&nbsp;</a></span>_entityHierarchy</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classshkyera_1_1_entity_hierarchy.html">EntityHierarchy</a> shkyera::Registry::_entityHierarchy</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">

@@ -113,6 +113,7 @@ $(document).ready(function(){initNavTree('classshkyera_1_1_transform_component.h
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classshkyera_1_1_transform_component-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -130,8 +131,8 @@ Inheritance diagram for shkyera::TransformComponent:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ad37bc5bec66a74bf4e73b9e43648ada0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_transform_component.html#ad37bc5bec66a74bf4e73b9e43648ada0">TransformComponent</a> ()</td></tr>
-<tr class="separator:ad37bc5bec66a74bf4e73b9e43648ada0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4b53ce50846e7ab71654b3db7d01a969"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_transform_component.html#a4b53ce50846e7ab71654b3db7d01a969">TransformComponent</a> ()=default</td></tr>
+<tr class="separator:a4b53ce50846e7ab71654b3db7d01a969"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af42dc6089f83a6e7b6007557bec3eee0"><td class="memItemLeft" align="right" valign="top">glm::vec3 &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_transform_component.html#af42dc6089f83a6e7b6007557bec3eee0">getPosition</a> ()</td></tr>
 <tr class="separator:af42dc6089f83a6e7b6007557bec3eee0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:addd0eca1a1ea045fca7221934a299a4f"><td class="memItemLeft" align="right" valign="top">const glm::vec3 &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_transform_component.html#addd0eca1a1ea045fca7221934a299a4f">getPosition</a> () const</td></tr>
@@ -162,18 +163,23 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a1ca9ffa6c203bb524908ee58f24c9c6e inherit pub_methods_classshkyera_1_1_base_component"><td class="mdescLeft">&#160;</td><td class="mdescRight">Virtual destructor for proper cleanup.  <a href="classshkyera_1_1_base_component.html#a1ca9ffa6c203bb524908ee58f24c9c6e">More...</a><br /></td></tr>
 <tr class="separator:a1ca9ffa6c203bb524908ee58f24c9c6e inherit pub_methods_classshkyera_1_1_base_component"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a63da148f938010834db070a1f01cd6cd"><td class="memItemLeft" align="right" valign="top">static glm::mat4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_transform_component.html#a63da148f938010834db070a1f01cd6cd">getGlobalTransformMatrix</a> (<a class="el" href="namespaceshkyera.html#a043bdd87686e0bd1bce19a1fd86298cd">Entity</a> entity, std::shared_ptr&lt; <a class="el" href="classshkyera_1_1_registry.html">Registry</a> &gt; registry)</td></tr>
+<tr class="separator:a63da148f938010834db070a1f01cd6cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
-<tr class="memitem:ab18ba43abd924cd548eb1b183148b44f"><td class="memItemLeft" align="right" valign="top">glm::vec3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_transform_component.html#ab18ba43abd924cd548eb1b183148b44f">_position</a></td></tr>
+<tr class="memitem:ab18ba43abd924cd548eb1b183148b44f"><td class="memItemLeft" align="right" valign="top">glm::vec3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_transform_component.html#ab18ba43abd924cd548eb1b183148b44f">_position</a> {0.0, 0.0, 0.0}</td></tr>
 <tr class="separator:ab18ba43abd924cd548eb1b183148b44f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aea66cbb8fccfaac0e4049d58f1a8c88d"><td class="memItemLeft" align="right" valign="top">glm::vec3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_transform_component.html#aea66cbb8fccfaac0e4049d58f1a8c88d">_orientation</a></td></tr>
+<tr class="memitem:aea66cbb8fccfaac0e4049d58f1a8c88d"><td class="memItemLeft" align="right" valign="top">glm::vec3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_transform_component.html#aea66cbb8fccfaac0e4049d58f1a8c88d">_orientation</a> {0.0, 0.0, 0.0}</td></tr>
 <tr class="separator:aea66cbb8fccfaac0e4049d58f1a8c88d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af907a2046b6b07ff8034f8f0a5205e43"><td class="memItemLeft" align="right" valign="top">glm::vec3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_transform_component.html#af907a2046b6b07ff8034f8f0a5205e43">_scale</a></td></tr>
+<tr class="memitem:af907a2046b6b07ff8034f8f0a5205e43"><td class="memItemLeft" align="right" valign="top">glm::vec3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_transform_component.html#af907a2046b6b07ff8034f8f0a5205e43">_scale</a> {1.0, 1.0, 1.0}</td></tr>
 <tr class="separator:af907a2046b6b07ff8034f8f0a5205e43"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ad37bc5bec66a74bf4e73b9e43648ada0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad37bc5bec66a74bf4e73b9e43648ada0">&#9670;&nbsp;</a></span>TransformComponent()</h2>
+<a id="a4b53ce50846e7ab71654b3db7d01a969"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4b53ce50846e7ab71654b3db7d01a969">&#9670;&nbsp;</a></span>TransformComponent()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -190,7 +196,7 @@ Private Attributes</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">default</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -198,6 +204,42 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a63da148f938010834db070a1f01cd6cd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a63da148f938010834db070a1f01cd6cd">&#9670;&nbsp;</a></span>getGlobalTransformMatrix()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static glm::mat4 shkyera::TransformComponent::getGlobalTransformMatrix </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespaceshkyera.html#a043bdd87686e0bd1bce19a1fd86298cd">Entity</a>&#160;</td>
+          <td class="paramname"><em>entity</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::shared_ptr&lt; <a class="el" href="classshkyera_1_1_registry.html">Registry</a> &gt;&#160;</td>
+          <td class="paramname"><em>registry</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a14939e297264d6cbe5d1b93b3412c989"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a14939e297264d6cbe5d1b93b3412c989">&#9670;&nbsp;</a></span>getOrientation() <span class="overload">[1/2]</span></h2>
 
@@ -487,7 +529,7 @@ Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">glm::vec3 shkyera::TransformComponent::_orientation</td>
+          <td class="memname">glm::vec3 shkyera::TransformComponent::_orientation {0.0, 0.0, 0.0}</td>
         </tr>
       </table>
   </td>
@@ -509,7 +551,7 @@ Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">glm::vec3 shkyera::TransformComponent::_position</td>
+          <td class="memname">glm::vec3 shkyera::TransformComponent::_position {0.0, 0.0, 0.0}</td>
         </tr>
       </table>
   </td>
@@ -531,7 +573,7 @@ Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">glm::vec3 shkyera::TransformComponent::_scale</td>
+          <td class="memname">glm::vec3 shkyera::TransformComponent::_scale {1.0, 1.0, 1.0}</td>
         </tr>
       </table>
   </td>
