@@ -1,6 +1,5 @@
 #include <Rendering/ShaderProgram.hpp>
-
-#include <iostream>
+#include <Common/Logger.hpp>
 
 namespace shkyera {
 
@@ -25,7 +24,7 @@ void ShaderProgram::link() {
     if (!success) {
         char infoLog[512];
         glGetProgramInfoLog(_id, 512, nullptr, infoLog);
-        std::cerr << "ERROR::SHADER_PROGRAM::LINKING_FAILED\n" << infoLog << std::endl;
+        Logger::ERROR("Shader Linking Failed: " + std::string(infoLog));
     }
 }
 
@@ -41,61 +40,53 @@ void ShaderProgram::stopUsing() {
 
 void ShaderProgram::setUniform(const std::string& name, int value) {
     if(!_inUse) {
-        std::cerr << "WARN::SHADER_PROGRAM::SET_UNIFORM::" << name 
-                  << " - Trying to set a uniform when a Shader Program is not in use." << std::endl;
+        Logger::ERROR("Trying to set a uniform (" + name + ") while the shader program is not in use.");
     }
 
     GLint location = getUniformLocation(name);
     if (location != -1) { // Only set uniform if the location is valid
         glUniform1i(location, value);
     } else {
-        std::cerr << "ERROR::SHADER_PROGRAM::SET_UNIFORM::" << name 
-                  << " - Invalid location. Uniform not set." << std::endl;
+        Logger::ERROR("Shader uniform cannot be set due to invalid location '" + name);
     }
 }
 
 void ShaderProgram::setUniform(const std::string& name, float value) {
     if(!_inUse) {
-        std::cerr << "WARN::SHADER_PROGRAM::SET_UNIFORM::" << name 
-                  << " - Trying to set a uniform when a Shader Program is not in use." << std::endl;
+        Logger::ERROR("Trying to set a uniform (" + name + ") while the shader program is not in use.");
     }
 
     GLint location = getUniformLocation(name);
     if (location != -1) { // Only set uniform if the location is valid
         glUniform1f(location, value);
     } else {
-        std::cerr << "ERROR::SHADER_PROGRAM::SET_UNIFORM::" << name 
-                  << " - Invalid location. Uniform not set." << std::endl;
+        Logger::ERROR("Shader uniform cannot be set due to invalid location '" + name);
     }
 }
 
 void ShaderProgram::setUniform(const std::string& name, const glm::vec3& value) {
     if(!_inUse) {
-        std::cerr << "WARN::SHADER_PROGRAM::SET_UNIFORM::" << name 
-                  << " - Trying to set a uniform when a Shader Program is not in use." << std::endl;
+        Logger::ERROR("Trying to set a uniform (" + name + ") while the shader program is not in use.");
     }
 
     GLint location = getUniformLocation(name);
     if (location != -1) { // Only set uniform if the location is valid
         glUniform3fv(location, 1, &value[0]);
     } else {
-        std::cerr << "ERROR::SHADER_PROGRAM::SET_UNIFORM::" << name 
-                  << " - Invalid location. Uniform not set." << std::endl;
+        Logger::ERROR("Shader uniform cannot be set due to invalid location '" + name);
     }
 }
 
 void ShaderProgram::setUniform(const std::string& name, const glm::mat4& value) {
     if(!_inUse) {
-        std::cerr << "WARN::SHADER_PROGRAM::SET_UNIFORM::" << name 
-                  << " - Trying to set a uniform when a Shader Program is not in use." << std::endl;
+        Logger::ERROR("Trying to set a uniform (" + name + ") while the shader program is not in use.");
     }
 
     GLint location = getUniformLocation(name);
     if (location != -1) { // Only set uniform if the location is valid
         glUniformMatrix4fv(location, 1, GL_FALSE, &value[0][0]);
     } else {
-        std::cerr << "ERROR::SHADER_PROGRAM::SET_UNIFORM::" << name 
-                  << " - Invalid location. Uniform not set." << std::endl;
+        Logger::ERROR("Shader uniform cannot be set due to invalid location '" + name);
     }
 }
 
@@ -107,7 +98,7 @@ GLint ShaderProgram::getUniformLocation(const std::string& name) {
     GLint location = glGetUniformLocation(_id, name.c_str());
 
     if (location == -1) {
-        std::cerr << "Warning: uniform '" << name << "' doesn't exist or wasn't used." << std::endl;
+        Logger::ERROR("Uniform '" + name + "' doesn't exist or wasn't used.");
     }
 
     _uniformLocationCache[name] = location;

@@ -1,5 +1,6 @@
+#include <Common/Logger.hpp>
 #include <Rendering/CubeMap.hpp>
-#include <stb_image.h> // Assuming stb_image is used for image loading
+#include <stb_image.h>
 #include <iostream>
 
 namespace shkyera {
@@ -76,7 +77,7 @@ bool CubeMap::loadFaces(std::shared_ptr<Image> up, std::shared_ptr<Image> down, 
                 glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGBA, width, height, 0, GL_RGBA,
                             GL_UNSIGNED_BYTE, data);        
         } else {
-            std::cerr << "Image was not loaded. Could not load cubemap." << std::endl;
+            Logger::ERROR("Image was not loaded. Could not load cubemap");
             return false;
         }
     }
@@ -86,7 +87,7 @@ bool CubeMap::loadFaces(std::shared_ptr<Image> up, std::shared_ptr<Image> down, 
 
 void CubeMap::setFaceData(GLenum face, GLenum internalFormat, uint32_t width, uint32_t height, GLenum format, GLenum type, const void* data) {
     if (face < GL_TEXTURE_CUBE_MAP_POSITIVE_X || face > GL_TEXTURE_CUBE_MAP_NEGATIVE_Z) {
-        std::cerr << "Invalid cube map face enum." << std::endl;
+        Logger::ERROR("Invalid Cube Map Face enum");
         return;
     }
 

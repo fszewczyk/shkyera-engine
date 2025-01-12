@@ -1,5 +1,6 @@
 #include <iostream>
 
+#include <Common/Logger.hpp>
 #include <Rendering/Texture.hpp>
 #include <AssetManager/AssetManager.hpp>
 
@@ -84,7 +85,7 @@ bool Texture::loadImage(std::shared_ptr<Image> imageAsset)
     }
     else
     {
-        std::cerr << "Image was not loaded. Could not load cubemap." << std::endl;
+        Logger::ERROR("Image was not loaded. Could not load cubemap.");
         return false;
     }
 

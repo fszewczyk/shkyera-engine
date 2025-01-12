@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <AssetManager/Shader.hpp>
+#include <Common/Logger.hpp>
 
 namespace shkyera {
 
@@ -18,7 +19,7 @@ Shader::~Shader() {
 std::string Shader::loadFromFile(const std::string& filepath) {
     std::ifstream file(filepath);
     if (!file.is_open()) {
-        std::cerr << "Failed to open shader file: " << filepath << std::endl;
+        Logger::ERROR("Failed to open shader file: " + filepath);
         return "";
     }
 
@@ -40,7 +41,7 @@ void Shader::compile(const std::string& source) {
     if (!success) {
         char infoLog[512];
         glGetShaderInfoLog(_id, 512, nullptr, infoLog);
-        std::cerr << "ERROR::SHADER::COMPILATION_FAILED\n" << infoLog << std::endl;
+        Logger::ERROR("Shader Compilation Failed: " + std::string(infoLog));
     }
 }
 

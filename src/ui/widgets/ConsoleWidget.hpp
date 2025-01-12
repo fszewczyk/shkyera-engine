@@ -91,6 +91,7 @@ class ConsoleWidget : public Widget {
     using Widget::Widget;
 
     ConsoleWidget(const std::string& name);
+    ~ConsoleWidget();
 
     /**
      * @brief Implementation of the abstract `draw` method to render the console widget.

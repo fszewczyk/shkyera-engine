@@ -1,5 +1,6 @@
 #include <iostream>
 
+#include <Common/Logger.hpp>
 #include <Rendering/FrameBuffers/DepthAtlasFrameBuffer.hpp>
 
 namespace shkyera {
@@ -114,7 +115,7 @@ void DepthAtlasFrameBuffer::setupFramebuffer() {
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
     
     if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
-        std::cout << "ERROR::FRAMEBUFFER:: Depth Frame Buffer is not complete!" << std::endl;
+        Logger::INFO("Depth Frame Buffer is not complete!");
     }
 
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
