@@ -5,6 +5,7 @@
 
 #include <AssetManager/AssetManager.hpp>
 #include <AssetManager/Image.hpp>
+#include <Common/Logger.hpp>
 #include <UI/Widgets/ConsoleWidget.hpp>
 
 namespace shkyera {
@@ -49,8 +50,31 @@ ConsoleWidget::ConsoleWidget(const std::string& name) : Widget(name)
   _successIcon = AssetManager::getInstance().getAsset<Texture>(Image::ICON_CONSOLE_SUCCESS);
   _errorIcon = AssetManager::getInstance().getAsset<Texture>(Image::ICON_CONSOLE_ERROR);
   _totalIcon = AssetManager::getInstance().getAsset<Texture>(Image::ICON_CONSOLE_TOTAL);
+
+  Logger::subscribe(this, [](const auto& messageType, const auto& message) {
+    switch(messageType) {
+      case Logger::MessageType::ERROR:
+        logError(message);
+        break;
+      case Logger::MessageType::INFO:
+        logInfo(message);
+        break;
+      case Logger::MessageType::VERBOSE:
+        logVerbose(message);
+        break;
+      case Logger::MessageType::SUCCESS:
+        logSuccess(message);
+        break;
+      default:
+        break;      
+    };
+  });
 }
 
+ConsoleWidget::~ConsoleWidget()
+{
+  Logger::unsubscribe(this);
+}
 
 void ConsoleWidget::draw() {
   ImGui::Begin(_name.c_str());

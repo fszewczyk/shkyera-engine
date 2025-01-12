@@ -5,8 +5,10 @@
 #include <numeric>
 #include <functional>
 
-#include <AssetManager/Mesh.hpp>
 #include <tiny_obj_loader.h>
+
+#include <AssetManager/Mesh.hpp>
+#include <Common/Logger.hpp>
 
 namespace std {
     template <>
@@ -108,9 +110,7 @@ void Mesh::loadFromFile(const std::string& filepath) {
     std::string warn, err;
 
     if (!tinyobj::LoadObj(&attrib, &shapes, &materials, &warn, &err, filepath.c_str())) {
-        std::cerr << "Failed to load OBJ file: " << filepath << std::endl;
-        if (!warn.empty()) std::cerr << "Warning: " << warn << std::endl;
-        if (!err.empty()) std::cerr << "Error: " << err << std::endl;
+        Logger::ERROR("Failed to load OBJ file: " + filepath);
         return;
     }
 

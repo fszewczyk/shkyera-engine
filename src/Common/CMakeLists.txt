@@ -1,8 +1,15 @@
 add_library(
     Common
-    INTERFACE
+    STATIC
 
-    ${CMAKE_CURRENT_LIST_DIR}/Types.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/Logger.cpp
+)
+
+target_include_directories(
+    Common    
+    PUBLIC
+    
+    ${CMAKE_SOURCE_DIR}/src
 )
 
 set_target_properties(Common PROPERTIES LINKER_LANGUAGE CXX)

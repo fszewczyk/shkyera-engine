@@ -1,6 +1,5 @@
+#include <Common/Logger.hpp>
 #include <Rendering/FrameBuffers/DepthCubeMapFrameBuffer.hpp>
-
-#include <iostream>
 
 namespace shkyera {
 
@@ -77,7 +76,7 @@ void DepthCubeMapFrameBuffer::setSize(int width, int height) {
 
     glBindFramebuffer(GL_FRAMEBUFFER, _fbo);
     if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
-        std::cout << "ERROR::FRAMEBUFFER:: Depth Cubemap Framebuffer is not complete!" << std::endl;
+        Logger::INFO("Depth Cubemap Framebuffer is not complete!");
     }
 
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
@@ -100,7 +99,7 @@ void DepthCubeMapFrameBuffer::setupFramebuffer() {
     glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, _rbo);
 
     if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
-        std::cout << "ERROR::FRAMEBUFFER:: Depth Cubemap Framebuffer is not complete!" << std::endl;
+        Logger::INFO("Depth Cubemap Framebuffer is not complete!");
     }
 
     glBindFramebuffer(GL_FRAMEBUFFER, 0);

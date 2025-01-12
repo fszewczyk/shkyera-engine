@@ -1,5 +1,4 @@
-#include <iostream>
-
+#include <Common/Logger.hpp>
 #include <Rendering/FrameBuffers/SceneFrameBuffer.hpp>
 
 namespace shkyera {
@@ -99,7 +98,7 @@ void SceneFrameBuffer::setupFramebuffer() {
     glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, _rbo);
 
     if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
-        std::cout << "ERROR::FRAMEBUFFER:: Scene Frame Buffer is not complete!" << std::endl;
+        Logger::INFO("Scene Frame Buffer is not complete!");
     }
 
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
