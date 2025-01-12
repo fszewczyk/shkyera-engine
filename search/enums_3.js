@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['runtimemode_1297',['RuntimeMode',['../namespaceshkyera.html#a1fa85003a0e458be0cf85cccc54d3d55',1,'shkyera']]]
+  ['projectiontype_1320',['ProjectionType',['../classshkyera_1_1_camera_component.html#a187a07d57febe7c8f3c02d24fe88b406',1,'shkyera::CameraComponent']]]
 ];

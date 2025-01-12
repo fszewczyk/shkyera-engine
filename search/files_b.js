@@ -1,10 +1,7 @@
 var searchData=
 [
-  ['pointlightcomponent_2ehpp_772',['PointLightComponent.hpp',['../_point_light_component_8hpp.html',1,'']]],
-  ['pointlightcomponentui_2ecpp_773',['PointLightComponentUI.cpp',['../_point_light_component_u_i_8cpp.html',1,'']]],
-  ['pointlightcomponentui_2ehpp_774',['PointLightComponentUI.hpp',['../_point_light_component_u_i_8hpp.html',1,'']]],
-  ['previewwidget_2ecpp_775',['PreviewWidget.cpp',['../_preview_widget_8cpp.html',1,'']]],
-  ['previewwidget_2ehpp_776',['PreviewWidget.hpp',['../_preview_widget_8hpp.html',1,'']]],
-  ['propertieswidget_2ecpp_777',['PropertiesWidget.cpp',['../_properties_widget_8cpp.html',1,'']]],
-  ['propertieswidget_2ehpp_778',['PropertiesWidget.hpp',['../_properties_widget_8hpp.html',1,'']]]
+  ['objectselectionsystem_2ecpp_783',['ObjectSelectionSystem.cpp',['../_object_selection_system_8cpp.html',1,'']]],
+  ['objectselectionsystem_2ehpp_784',['ObjectSelectionSystem.hpp',['../_object_selection_system_8hpp.html',1,'']]],
+  ['objectswidget_2ecpp_785',['ObjectsWidget.cpp',['../_objects_widget_8cpp.html',1,'']]],
+  ['objectswidget_2ehpp_786',['ObjectsWidget.hpp',['../_objects_widget_8hpp.html',1,'']]]
 ];

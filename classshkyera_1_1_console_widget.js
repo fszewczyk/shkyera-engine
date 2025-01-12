@@ -1,6 +1,7 @@
 var classshkyera_1_1_console_widget =
 [
     [ "ConsoleWidget", "classshkyera_1_1_console_widget.html#afe897ba7e7c8d9a6ec126e5db8837a63", null ],
+    [ "~ConsoleWidget", "classshkyera_1_1_console_widget.html#a874482649a6016a64d9ac8c5362b5d11", null ],
     [ "draw", "classshkyera_1_1_console_widget.html#a660045aa538686cdeef4e7710481d94d", null ],
     [ "drawInfoBar", "classshkyera_1_1_console_widget.html#a7bbad5cbe38acbde475621fc558f36a4", null ],
     [ "Widget", "classshkyera_1_1_console_widget.html#ae46a601747a2ff32f60cf5706004a44a", null ],

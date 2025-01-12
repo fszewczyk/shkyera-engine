@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['value_5ftype_600',['value_type',['../classshkyera_1_1_sparse_set_1_1_iterator.html#adce91866212111e0d43742968964184b',1,'shkyera::SparseSet::Iterator']]],
-  ['vertex_601',['Vertex',['../structshkyera_1_1_mesh_1_1_vertex.html',1,'shkyera::Mesh::Vertex'],['../structshkyera_1_1_mesh_1_1_vertex.html#abdbb84c37aae8b25afa2300d5ac33718',1,'shkyera::Mesh::Vertex::Vertex(const glm::vec3 &amp;pos)'],['../structshkyera_1_1_mesh_1_1_vertex.html#ae26ba8448ee904fbc803f09152cae8c7',1,'shkyera::Mesh::Vertex::Vertex(const glm::vec3 &amp;pos, const glm::vec3 &amp;norm, const glm::vec2 &amp;tex)'],['../classshkyera_1_1_shader.html#a8609b223b8cb0e0e71038b5a5208acc7ab22b929ba52471a02d18bb3a4e4472e6',1,'shkyera::Shader::Vertex()']]]
+  ['value_5ftype_610',['value_type',['../classshkyera_1_1_sparse_set_1_1_iterator.html#adce91866212111e0d43742968964184b',1,'shkyera::SparseSet::Iterator']]],
+  ['verbose_611',['VERBOSE',['../namespaceshkyera_1_1_logger.html#a1262a50515784a57572d87afda264183',1,'shkyera::Logger::VERBOSE(const std::string &amp;message)'],['../namespaceshkyera_1_1_logger.html#a084332fcbe48f0afc6144c58a5b2ae05aec1f06e9fb39c4ef0729b3c7c9c8e8cc',1,'shkyera::Logger::VERBOSE()']]],
+  ['vertex_612',['Vertex',['../structshkyera_1_1_mesh_1_1_vertex.html',1,'shkyera::Mesh::Vertex'],['../structshkyera_1_1_mesh_1_1_vertex.html#abdbb84c37aae8b25afa2300d5ac33718',1,'shkyera::Mesh::Vertex::Vertex(const glm::vec3 &amp;pos)'],['../structshkyera_1_1_mesh_1_1_vertex.html#ae26ba8448ee904fbc803f09152cae8c7',1,'shkyera::Mesh::Vertex::Vertex(const glm::vec3 &amp;pos, const glm::vec3 &amp;norm, const glm::vec2 &amp;tex)'],['../classshkyera_1_1_shader.html#a8609b223b8cb0e0e71038b5a5208acc7ab22b929ba52471a02d18bb3a4e4472e6',1,'shkyera::Shader::Vertex()']]]
 ];

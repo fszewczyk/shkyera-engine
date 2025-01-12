@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['projectiontype_1296',['ProjectionType',['../classshkyera_1_1_camera_component.html#a187a07d57febe7c8f3c02d24fe88b406',1,'shkyera::CameraComponent']]]
+  ['messagetype_1319',['MessageType',['../namespaceshkyera_1_1_logger.html#a084332fcbe48f0afc6144c58a5b2ae05',1,'shkyera::Logger']]]
 ];
