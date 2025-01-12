@@ -1,5 +1,6 @@
 var NAVTREEINDEX1 =
 {
+"classshkyera_1_1_camera_properties_widget.html#af737c98f79dd77a8761e1a2c6bd2ba9b":[4,0,0,60,0],
 "classshkyera_1_1_color_selector.html":[4,0,0,38],
 "classshkyera_1_1_color_selector.html#a383d08b18582daa5ff9c9a122a33cd9b":[4,0,0,38,6],
 "classshkyera_1_1_color_selector.html#a462c643bc80cedfb6ea135abe08fafdf":[4,0,0,38,7],
@@ -248,6 +249,5 @@ var NAVTREEINDEX1 =
 "classshkyera_1_1_mesh.html#a17e6393e5a7073a4e64411075795489d":[4,0,0,6,18],
 "classshkyera_1_1_mesh.html#a3839c211f97f191e21bcadea317aee97":[4,0,0,6,4],
 "classshkyera_1_1_mesh.html#a4a8b1eb138fb14f777035a238aea3034":[4,0,0,6,16],
-"classshkyera_1_1_mesh.html#a60a9341093d1f38003eb420f9431694f":[4,0,0,6,13],
-"classshkyera_1_1_mesh.html#a70dc682e465f00185806971c4824d555":[4,0,0,6,3]
+"classshkyera_1_1_mesh.html#a60a9341093d1f38003eb420f9431694f":[4,0,0,6,13]
 };

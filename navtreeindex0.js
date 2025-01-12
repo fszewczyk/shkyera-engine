@@ -1,5 +1,6 @@
 var NAVTREEINDEX0 =
 {
+"":[3,0,1,0],
 "_ambient_light_component_8hpp.html":[5,0,1,2,0],
 "_ambient_light_component_8hpp_source.html":[5,0,1,2,0],
 "_ambient_light_component_u_i_8cpp.html":[5,0,1,9,1,0],
@@ -248,6 +249,5 @@ var NAVTREEINDEX0 =
 "classshkyera_1_1_camera_movement_system.html#af48a8a70f4062deab0d1c638f2f0669c":[4,0,0,35,2],
 "classshkyera_1_1_camera_properties_widget.html":[4,0,0,60],
 "classshkyera_1_1_camera_properties_widget.html#a09d169b2132a0ab2de8a8c0905c6bd17":[4,0,0,60,1],
-"classshkyera_1_1_camera_properties_widget.html#ad4e2bf9eebd8c50ba075e2406876645e":[4,0,0,60,2],
-"classshkyera_1_1_camera_properties_widget.html#af737c98f79dd77a8761e1a2c6bd2ba9b":[4,0,0,60,0]
+"classshkyera_1_1_camera_properties_widget.html#ad4e2bf9eebd8c50ba075e2406876645e":[4,0,0,60,2]
 };

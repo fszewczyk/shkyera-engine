@@ -1,5 +1,6 @@
 var NAVTREEINDEX3 =
 {
+"classshkyera_1_1_texture.html#a9da8c9546041b997d075305a3c230fec":[4,0,0,33,0],
 "classshkyera_1_1_texture.html#ac5d0ded0adca789236b3ae15d1bb1a31":[4,0,0,33,6],
 "classshkyera_1_1_texture.html#ad06340bd3781f280f551980e848299b6":[4,0,0,33,8],
 "classshkyera_1_1_texture.html#ae6e7dbd861cadb72d9dd7ee9fbc19cf8":[4,0,0,33,2],
@@ -187,6 +188,5 @@ var NAVTREEINDEX3 =
 "structshkyera_1_1_wireframe_1_1_edge.html#a68f06781b86336df4c6a89ccc7fed6b2":[4,0,0,8,0,1],
 "structshkyera_1_1_wireframe_1_1_edge.html#ab4f9928b728d8a3c64d905d6e78c7281":[4,0,0,8,0,2],
 "structstd_1_1std_1_1hash_3_01glm_1_1vec3_01_4.html":[4,0,1,0,0],
-"structstd_1_1std_1_1hash_3_01glm_1_1vec3_01_4.html#ab2581c7f23524814e85c8ca2f9cc4d14":[4,0,1,0,0,0],
-"":[3,0,1,0]
+"structstd_1_1std_1_1hash_3_01glm_1_1vec3_01_4.html#ab2581c7f23524814e85c8ca2f9cc4d14":[4,0,1,0,0,0]
 };
