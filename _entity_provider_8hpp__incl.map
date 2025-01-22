@@ -1,6 +1,10 @@
 <map id="src/ECS/EntityProvider.hpp" name="src/ECS/EntityProvider.hpp">
-<area shape="rect" id="node1" title="Manages a pool of unused entity identifiers and provides mechanisms for requesting and removing them." alt="" coords="5,5,199,32"/>
-<area shape="rect" id="node2" title=" " alt="" coords="88,155,159,181"/>
-<area shape="rect" id="node3" title=" " alt="" coords="71,80,133,107"/>
-<area shape="rect" id="node4" href="$_entity_8hpp.html" title=" " alt="" coords="158,80,273,107"/>
+<area shape="rect" id="Node000001" title="Manages a pool of unused entity identifiers and provides mechanisms for requesting and removing them." alt="" coords="5,5,199,31"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="88,152,159,177"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="90,33,65,65,58,84,60,103,75,124,94,142,90,146,71,128,56,105,53,83,60,62,86,29"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="71,79,133,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="105,31,105,65,99,65,99,31"/>
+<area shape="rect" id="Node000004" href="$_entity_8hpp.html" title=" " alt="" coords="158,79,273,104"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="122,28,187,69,184,74,119,33"/>
+<area shape="poly" id="edge4_Node000004_Node000002" title=" " alt="" coords="202,106,151,146,147,141,199,102"/>
 </map>

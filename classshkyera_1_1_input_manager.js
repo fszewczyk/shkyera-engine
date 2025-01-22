@@ -9,6 +9,7 @@ var classshkyera_1_1_input_manager =
     [ "InputManager", "classshkyera_1_1_input_manager.html#a0fb94b3dccdb08f6680d07bc41002583", null ],
     [ "getMousePosition", "classshkyera_1_1_input_manager.html#a9b59cc94b9fb5ad8d51b2c674ebcde14", null ],
     [ "getRelativeMousePosition", "classshkyera_1_1_input_manager.html#a59d88eec92762293531d259b4a3e93c0", null ],
+    [ "isMouseButtonDown", "classshkyera_1_1_input_manager.html#ae5a7067d64868aa10812ef3e1f04f610", null ],
     [ "isMouseInside", "classshkyera_1_1_input_manager.html#a8938f21879abfce5e9a869b2f13cac0d", null ],
     [ "onMouseButtonDown", "classshkyera_1_1_input_manager.html#ad041657b934e3b6011730a4e333b9f1b", null ],
     [ "onMouseButtonUp", "classshkyera_1_1_input_manager.html#a4c0689599167fa8c54838d5678b0121e", null ],

@@ -9,7 +9,7 @@ var classshkyera_1_1_cube_map =
     [ "getID", "classshkyera_1_1_cube_map.html#a80a392a0baa579d77f68b1e0a679ec58", null ],
     [ "initialize", "classshkyera_1_1_cube_map.html#a8e145a5270f21b2d710b72c90eb23fae", null ],
     [ "loadFaces", "classshkyera_1_1_cube_map.html#a4c4aff4cc8c94dea9098edff9a30f95d", null ],
-    [ "operator=", "classshkyera_1_1_cube_map.html#af08ac31708cb5726f3144ce8b623aa45", null ],
+    [ "operator=", "classshkyera_1_1_cube_map.html#a81b85678136be2558dc92cd8586d9cc2", null ],
     [ "operator=", "classshkyera_1_1_cube_map.html#a276055cacf764d441d4c8f0f84960ed9", null ],
     [ "setFaceData", "classshkyera_1_1_cube_map.html#ab73ab495fe4e30db6232ff39828ac024", null ],
     [ "unbind", "classshkyera_1_1_cube_map.html#a7a3f5dfbcadad876e10e085a80998fd7", null ],

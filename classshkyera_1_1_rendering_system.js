@@ -4,6 +4,7 @@ var classshkyera_1_1_rendering_system =
     [ "getRenderFrameBuffer", "classshkyera_1_1_rendering_system.html#af3b5135941eaca157df246d919d84fc3", null ],
     [ "render", "classshkyera_1_1_rendering_system.html#acba8cd976c755fd096ab5bed422ff6a5", null ],
     [ "renderDirectionalLightShadowMaps", "classshkyera_1_1_rendering_system.html#ad80b3a3cc8ab3e0e38819a5b5c245271", null ],
+    [ "renderGizmo", "classshkyera_1_1_rendering_system.html#a0b0e4071cd0c3fae0c57f103ebb49c59", null ],
     [ "renderModels", "classshkyera_1_1_rendering_system.html#a5da446c75fab9264fd4ff7b970a77944", null ],
     [ "renderOutline", "classshkyera_1_1_rendering_system.html#aefd2635b12dfa7fc91b784d0720769b3", null ],
     [ "renderPointLightShadowMaps", "classshkyera_1_1_rendering_system.html#a3c44f491dd1ce4d7d7f50cfde3d21812", null ],

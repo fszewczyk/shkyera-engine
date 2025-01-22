@@ -1,5 +1,6 @@
 var hierarchy =
 [
+    [ "shkyera::AABB", "structshkyera_1_1_a_a_b_b.html", null ],
     [ "shkyera::Asset", "classshkyera_1_1_asset.html", [
       [ "shkyera::Image", "classshkyera_1_1_image.html", null ],
       [ "shkyera::Material", "classshkyera_1_1_material.html", null ],
@@ -9,21 +10,27 @@ var hierarchy =
       [ "shkyera::Wireframe", "classshkyera_1_1_wireframe.html", null ]
     ] ],
     [ "shkyera::AssetManager", "classshkyera_1_1_asset_manager.html", null ],
-    [ "shkyera::BaseComponent< Derived, Mode >", "classshkyera_1_1_base_component.html", null ],
+    [ "shkyera::BaseComponent< Derived, Mode >", "classshkyera_1_1_base_component.html", [
+      [ "shkyera::BoxColliderComponent< Mode >", "classshkyera_1_1_box_collider_component.html", null ]
+    ] ],
     [ "shkyera::BaseComponent< AmbientLightComponent >", "classshkyera_1_1_base_component.html", [
       [ "shkyera::AmbientLightComponent", "classshkyera_1_1_ambient_light_component.html", null ]
     ] ],
-    [ "shkyera::BaseComponent< BoxColliderComponent< RuntimeMode::PRODUCTION >, RuntimeMode::PRODUCTION >", "classshkyera_1_1_base_component.html", [
-      [ "shkyera::BoxColliderComponent< Mode >", "classshkyera_1_1_box_collider_component.html", null ]
-    ] ],
+    [ "shkyera::BaseComponent< BoxColliderComponent< RuntimeMode::PRODUCTION >, RuntimeMode::PRODUCTION >", "classshkyera_1_1_base_component.html", null ],
     [ "shkyera::BaseComponent< DirectionalLightComponent >", "classshkyera_1_1_base_component.html", [
       [ "shkyera::DirectionalLightComponent", "classshkyera_1_1_directional_light_component.html", null ]
+    ] ],
+    [ "shkyera::BaseComponent< GizmoHandleComponent >", "classshkyera_1_1_base_component.html", [
+      [ "shkyera::GizmoHandleComponent", "classshkyera_1_1_gizmo_handle_component.html", null ]
     ] ],
     [ "shkyera::BaseComponent< ModelComponent >", "classshkyera_1_1_base_component.html", [
       [ "shkyera::ModelComponent", "classshkyera_1_1_model_component.html", null ]
     ] ],
     [ "shkyera::BaseComponent< NameComponent >", "classshkyera_1_1_base_component.html", [
       [ "shkyera::NameComponent", "classshkyera_1_1_name_component.html", null ]
+    ] ],
+    [ "shkyera::BaseComponent< OverlayModelComponent >", "classshkyera_1_1_base_component.html", [
+      [ "shkyera::OverlayModelComponent", "classshkyera_1_1_overlay_model_component.html", null ]
     ] ],
     [ "shkyera::BaseComponent< PointLightComponent >", "classshkyera_1_1_base_component.html", [
       [ "shkyera::PointLightComponent", "classshkyera_1_1_point_light_component.html", null ]
@@ -37,7 +44,6 @@ var hierarchy =
     [ "shkyera::BaseComponent< WireframeComponent >", "classshkyera_1_1_base_component.html", [
       [ "shkyera::WireframeComponent", "classshkyera_1_1_wireframe_component.html", null ]
     ] ],
-    [ "shkyera::Box", "structshkyera_1_1_box.html", null ],
     [ "shkyera::CameraComponent", "classshkyera_1_1_camera_component.html", null ],
     [ "shkyera::CameraMovementSystem", "classshkyera_1_1_camera_movement_system.html", null ],
     [ "shkyera::ColorSelector", "classshkyera_1_1_color_selector.html", null ],
@@ -61,6 +67,7 @@ var hierarchy =
     [ "shkyera::File", "classshkyera_1_1_file.html", null ],
     [ "shkyera::FileSelector", "classshkyera_1_1_file_selector.html", null ],
     [ "shkyera::FloatSlider", "classshkyera_1_1_float_slider.html", null ],
+    [ "shkyera::GizmoSystem", "classshkyera_1_1_gizmo_system.html", null ],
     [ "std::std::hash< glm::vec3 >", "structstd_1_1std_1_1hash_3_01glm_1_1vec3_01_4.html", null ],
     [ "shkyera::InputManager", "classshkyera_1_1_input_manager.html", null ],
     [ "shkyera::SparseSet< Component >::Iterator< IsConst >", "classshkyera_1_1_sparse_set_1_1_iterator.html", null ],

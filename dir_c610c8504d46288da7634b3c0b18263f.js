@@ -1,36 +1,16 @@
 var dir_c610c8504d46288da7634b3c0b18263f =
 [
-    [ "AmbientLightComponent.hpp", "_ambient_light_component_8hpp.html", [
-      [ "AmbientLightComponent", "classshkyera_1_1_ambient_light_component.html", "classshkyera_1_1_ambient_light_component" ]
-    ] ],
-    [ "BaseComponent.hpp", "_base_component_8hpp.html", [
-      [ "BaseComponent", "classshkyera_1_1_base_component.html", "classshkyera_1_1_base_component" ]
-    ] ],
-    [ "BoxColliderComponent.hpp", "_box_collider_component_8hpp.html", [
-      [ "BoxColliderComponent", "classshkyera_1_1_box_collider_component.html", "classshkyera_1_1_box_collider_component" ]
-    ] ],
-    [ "CameraComponent.hpp", "_camera_component_8hpp.html", [
-      [ "CameraComponent", "classshkyera_1_1_camera_component.html", "classshkyera_1_1_camera_component" ]
-    ] ],
-    [ "DirectionalLightComponent.hpp", "_directional_light_component_8hpp.html", [
-      [ "DirectionalLightComponent", "classshkyera_1_1_directional_light_component.html", "classshkyera_1_1_directional_light_component" ]
-    ] ],
-    [ "ModelComponent.hpp", "_model_component_8hpp.html", [
-      [ "ModelComponent", "classshkyera_1_1_model_component.html", "classshkyera_1_1_model_component" ]
-    ] ],
-    [ "NameComponent.hpp", "_name_component_8hpp.html", [
-      [ "NameComponent", "classshkyera_1_1_name_component.html", "classshkyera_1_1_name_component" ]
-    ] ],
-    [ "PointLightComponent.hpp", "_point_light_component_8hpp.html", [
-      [ "PointLightComponent", "classshkyera_1_1_point_light_component.html", "classshkyera_1_1_point_light_component" ]
-    ] ],
-    [ "SkyboxComponent.hpp", "_skybox_component_8hpp.html", [
-      [ "SkyboxComponent", "classshkyera_1_1_skybox_component.html", "classshkyera_1_1_skybox_component" ]
-    ] ],
-    [ "TransformComponent.hpp", "_transform_component_8hpp.html", [
-      [ "TransformComponent", "classshkyera_1_1_transform_component.html", "classshkyera_1_1_transform_component" ]
-    ] ],
-    [ "WireframeComponent.hpp", "_wireframe_component_8hpp.html", [
-      [ "WireframeComponent", "classshkyera_1_1_wireframe_component.html", "classshkyera_1_1_wireframe_component" ]
-    ] ]
+    [ "AmbientLightComponent.hpp", "_ambient_light_component_8hpp.html", "_ambient_light_component_8hpp" ],
+    [ "BaseComponent.hpp", "_base_component_8hpp.html", "_base_component_8hpp" ],
+    [ "BoxColliderComponent.hpp", "_box_collider_component_8hpp.html", "_box_collider_component_8hpp" ],
+    [ "CameraComponent.hpp", "_camera_component_8hpp.html", "_camera_component_8hpp" ],
+    [ "DirectionalLightComponent.hpp", "_directional_light_component_8hpp.html", "_directional_light_component_8hpp" ],
+    [ "GizmoHandleComponent.hpp", "_gizmo_handle_component_8hpp.html", "_gizmo_handle_component_8hpp" ],
+    [ "ModelComponent.hpp", "_model_component_8hpp.html", "_model_component_8hpp" ],
+    [ "NameComponent.hpp", "_name_component_8hpp.html", "_name_component_8hpp" ],
+    [ "OverlayModelComponent.hpp", "_overlay_model_component_8hpp.html", "_overlay_model_component_8hpp" ],
+    [ "PointLightComponent.hpp", "_point_light_component_8hpp.html", "_point_light_component_8hpp" ],
+    [ "SkyboxComponent.hpp", "_skybox_component_8hpp.html", "_skybox_component_8hpp" ],
+    [ "TransformComponent.hpp", "_transform_component_8hpp.html", "_transform_component_8hpp" ],
+    [ "WireframeComponent.hpp", "_wireframe_component_8hpp.html", "_wireframe_component_8hpp" ]
 ];

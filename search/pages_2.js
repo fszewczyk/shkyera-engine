@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['sample_20project_1344',['Sample Project',['../md_docs_tutorials_sample_project.html',1,'']]]
+  ['get_20started_0',['Get Started!',['../md_docs_2tutorials_2get__started.html',1,'']]]
 ];

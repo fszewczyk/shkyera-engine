@@ -1,16 +1,19 @@
 var searchData=
 [
-  ['activate_832',['activate',['../classshkyera_1_1_cube_map.html#a41111136300a4238daa4fdb034b60a2f',1,'shkyera::CubeMap::activate()'],['../classshkyera_1_1_depth_cube_map_frame_buffer.html#aec70645b76f1e727fa49dbf812437ae1',1,'shkyera::DepthCubeMapFrameBuffer::activate()'],['../classshkyera_1_1_texture.html#a5b9be56506c2633c3ee4fd88b10d4d71',1,'shkyera::Texture::activate()']]],
-  ['add_833',['add',['../classshkyera_1_1_sparse_set.html#af5c853d4ef11e204fe2c8c83871ccb71',1,'shkyera::SparseSet']]],
-  ['addasset_834',['addAsset',['../classshkyera_1_1_asset_manager.html#aadf1bb27293b6ac43826acae394f0b10',1,'shkyera::AssetManager']]],
-  ['addcomponent_835',['addComponent',['../classshkyera_1_1_registry.html#ac3f8fba3a5a1f205458b33f0c45af4cb',1,'shkyera::Registry']]],
-  ['addentity_836',['addEntity',['../classshkyera_1_1_registry.html#adade4f4df213e42f8c71b843193efe52',1,'shkyera::Registry']]],
-  ['addmodel_837',['addModel',['../main_8cpp.html#a4f4f849f291ece9a1d7ece74335cce68',1,'main.cpp']]],
-  ['addwireframe_838',['addWireframe',['../main_8cpp.html#ac3f6c764e2306e9137399b64a69c57c2',1,'main.cpp']]],
-  ['allocateentities_839',['allocateEntities',['../classshkyera_1_1_entity_provider.html#ab7a22a4ca624a9c328a4a89dab44d9af',1,'shkyera::EntityProvider']]],
-  ['ambientlightcomponentui_840',['AmbientLightComponentUI',['../classshkyera_1_1_ambient_light_component_u_i.html#a31bb36364a18fa8cd545dc8cb950f762',1,'shkyera::AmbientLightComponentUI']]],
-  ['applyshadertoframebuffer_841',['applyShaderToFrameBuffer',['../namespaceshkyera_1_1utils.html#acb31e92c4b23d5759dde87e196c32b47',1,'shkyera::utils']]],
-  ['assetmanager_842',['AssetManager',['../classshkyera_1_1_asset_manager.html#af7cfdf83662cadfa08e44c672a82cbc9',1,'shkyera::AssetManager']]],
-  ['attachshader_843',['attachShader',['../classshkyera_1_1_shader_program.html#a0a2e89b5f987b7f170a7143f24bb3726',1,'shkyera::ShaderProgram']]],
-  ['attributechild_844',['attributeChild',['../classshkyera_1_1_entity_hierarchy.html#aaaa77335f827dc1f3b386163620a3c21',1,'shkyera::EntityHierarchy']]]
+  ['activate_0',['activate',['../classshkyera_1_1_depth_cube_map_frame_buffer.html#aec70645b76f1e727fa49dbf812437ae1',1,'shkyera::DepthCubeMapFrameBuffer::activate()'],['../classshkyera_1_1_texture.html#a5b9be56506c2633c3ee4fd88b10d4d71',1,'shkyera::Texture::activate()'],['../classshkyera_1_1_cube_map.html#a41111136300a4238daa4fdb034b60a2f',1,'shkyera::CubeMap::activate()']]],
+  ['add_1',['add',['../classshkyera_1_1_sparse_set.html#af5c853d4ef11e204fe2c8c83871ccb71',1,'shkyera::SparseSet']]],
+  ['addasset_2',['addAsset',['../classshkyera_1_1_asset_manager.html#aadf1bb27293b6ac43826acae394f0b10',1,'shkyera::AssetManager']]],
+  ['addcomponent_3',['addComponent',['../classshkyera_1_1_registry.html#a1807984c3e3b27053c6028917b0bf13c',1,'shkyera::Registry']]],
+  ['addentity_4',['addEntity',['../classshkyera_1_1_registry.html#adade4f4df213e42f8c71b843193efe52',1,'shkyera::Registry']]],
+  ['addwireframe_5',['addWireframe',['../main_8cpp.html#ac3f6c764e2306e9137399b64a69c57c2',1,'main.cpp']]],
+  ['adjustgizmotransform_6',['adjustGizmoTransform',['../classshkyera_1_1_gizmo_system.html#af891ef2b8e2de6fd215140f38e3d889b',1,'shkyera::GizmoSystem']]],
+  ['allocateentities_7',['allocateEntities',['../classshkyera_1_1_entity_provider.html#ab7a22a4ca624a9c328a4a89dab44d9af',1,'shkyera::EntityProvider']]],
+  ['ambientlightcomponentui_8',['AmbientLightComponentUI',['../classshkyera_1_1_ambient_light_component_u_i.html#a31bb36364a18fa8cd545dc8cb950f762',1,'shkyera::AmbientLightComponentUI']]],
+  ['anglearoundaxis_9',['angleAroundAxis',['../namespaceshkyera.html#ad464a8f71a551cf5046153038d4a8fc0',1,'shkyera']]],
+  ['angleaxisrotation_10',['angleAxisRotation',['../namespaceshkyera.html#afbdc9be08f9c9dfa862c709e3a8ad866',1,'shkyera']]],
+  ['applyshadertoframebuffer_11',['applyShaderToFrameBuffer',['../namespaceshkyera_1_1utils.html#aea3daf2c96ec2e3cb4073ac47e430d9b',1,'shkyera::utils']]],
+  ['assetmanager_12',['AssetManager',['../classshkyera_1_1_asset_manager.html#af7cfdf83662cadfa08e44c672a82cbc9',1,'shkyera::AssetManager']]],
+  ['at_13',['at',['../structshkyera_1_1_ray.html#a0d94e8db9e31d14faf5ea86b5e4cdb27',1,'shkyera::Ray']]],
+  ['attachshader_14',['attachShader',['../classshkyera_1_1_shader_program.html#a0a2e89b5f987b7f170a7143f24bb3726',1,'shkyera::ShaderProgram']]],
+  ['attributechild_15',['attributeChild',['../classshkyera_1_1_entity_hierarchy.html#aaaa77335f827dc1f3b386163620a3c21',1,'shkyera::EntityHierarchy']]]
 ];

@@ -1,8 +1,7 @@
 var searchData=
 [
-  ['ray_700',['Ray',['../structshkyera_1_1_ray.html',1,'shkyera']]],
-  ['registry_701',['Registry',['../classshkyera_1_1_registry.html',1,'shkyera']]],
-  ['renderingsystem_702',['RenderingSystem',['../classshkyera_1_1_rendering_system.html',1,'shkyera']]],
-  ['runtime_703',['Runtime',['../classshkyera_1_1_runtime.html',1,'shkyera']]],
-  ['runtime_3c_20runtimemode_3a_3adevelopment_20_3e_704',['Runtime&lt; RuntimeMode::DEVELOPMENT &gt;',['../classshkyera_1_1_runtime.html',1,'shkyera']]]
+  ['pointlightcomponent_0',['PointLightComponent',['../classshkyera_1_1_point_light_component.html',1,'shkyera']]],
+  ['pointlightcomponentui_1',['PointLightComponentUI',['../classshkyera_1_1_point_light_component_u_i.html',1,'shkyera']]],
+  ['previewwidget_2',['PreviewWidget',['../classshkyera_1_1_preview_widget.html',1,'shkyera']]],
+  ['propertieswidget_3',['PropertiesWidget',['../classshkyera_1_1_properties_widget.html',1,'shkyera']]]
 ];

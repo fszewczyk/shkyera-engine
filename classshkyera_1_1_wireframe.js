@@ -11,7 +11,7 @@ var classshkyera_1_1_wireframe =
     [ "getVAO", "classshkyera_1_1_wireframe.html#abc6efca3018d0085c31f79a5954f52b7", null ],
     [ "getVBO", "classshkyera_1_1_wireframe.html#a04baa0db24942790408f60ac916c9572", null ],
     [ "loadFromFile", "classshkyera_1_1_wireframe.html#a4f31b11ccebd952f5546f3758b8eccb8", null ],
-    [ "operator=", "classshkyera_1_1_wireframe.html#ae11d01320ab69003950c0b6cf3482d42", null ],
+    [ "operator=", "classshkyera_1_1_wireframe.html#ad7d1a66d0a5d56d7992a9e703558535d", null ],
     [ "unbind", "classshkyera_1_1_wireframe.html#a8e6bbed2703c27d8620ccb0f8b449cac", null ],
     [ "uploadToGPU", "classshkyera_1_1_wireframe.html#a35365b7aa68a17637edf5a0542af12d0", null ],
     [ "_edgeCount", "classshkyera_1_1_wireframe.html#ac63cc8799162a76597c393fabec10c4a", null ],

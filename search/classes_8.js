@@ -1,8 +1,6 @@
 var searchData=
 [
-  ['log_684',['Log',['../classshkyera_1_1_log.html',1,'shkyera']]],
-  ['logerror_685',['LogError',['../classshkyera_1_1_log_error.html',1,'shkyera']]],
-  ['loginfo_686',['LogInfo',['../classshkyera_1_1_log_info.html',1,'shkyera']]],
-  ['logsuccess_687',['LogSuccess',['../classshkyera_1_1_log_success.html',1,'shkyera']]],
-  ['logverbose_688',['LogVerbose',['../classshkyera_1_1_log_verbose.html',1,'shkyera']]]
+  ['image_0',['Image',['../classshkyera_1_1_image.html',1,'shkyera']]],
+  ['inputmanager_1',['InputManager',['../classshkyera_1_1_input_manager.html',1,'shkyera']]],
+  ['iterator_2',['Iterator',['../classshkyera_1_1_sparse_set_1_1_iterator.html',1,'shkyera::SparseSet']]]
 ];

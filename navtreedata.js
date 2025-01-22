@@ -25,24 +25,24 @@
 var NAVTREE =
 [
   [ "Shkyera Engine", "index.html", [
-    [ "Cheatsheet", "md_docs_tutorials_cheatsheet.html", [
-      [ "Boilerplate", "md_docs_tutorials_cheatsheet.html#autotoc_md1", null ],
-      [ "Shapes", "md_docs_tutorials_cheatsheet.html#autotoc_md2", null ],
-      [ "Drawing", "md_docs_tutorials_cheatsheet.html#autotoc_md3", null ],
-      [ "Input", "md_docs_tutorials_cheatsheet.html#autotoc_md4", [
-        [ "Examples", "md_docs_tutorials_cheatsheet.html#autotoc_md5", null ],
-        [ "Key Codes", "md_docs_tutorials_cheatsheet.html#autotoc_md6", null ]
+    [ "Cheatsheet", "md_docs_2tutorials_2cheatsheet.html", [
+      [ "Boilerplate", "md_docs_2tutorials_2cheatsheet.html#autotoc_md1", null ],
+      [ "Shapes", "md_docs_2tutorials_2cheatsheet.html#autotoc_md2", null ],
+      [ "Drawing", "md_docs_2tutorials_2cheatsheet.html#autotoc_md3", null ],
+      [ "Input", "md_docs_2tutorials_2cheatsheet.html#autotoc_md4", [
+        [ "Examples", "md_docs_2tutorials_2cheatsheet.html#autotoc_md5", null ],
+        [ "Key Codes", "md_docs_2tutorials_2cheatsheet.html#autotoc_md6", null ]
       ] ]
     ] ],
-    [ "Get Started!", "md_docs_tutorials_get_started.html", [
-      [ "Installation", "md_docs_tutorials_get_started.html#autotoc_md8", null ],
-      [ "Hello world!", "md_docs_tutorials_get_started.html#autotoc_md9", null ],
-      [ "Public Variables", "md_docs_tutorials_get_started.html#autotoc_md10", null ]
+    [ "Get Started!", "md_docs_2tutorials_2get__started.html", [
+      [ "Installation", "md_docs_2tutorials_2get__started.html#autotoc_md8", null ],
+      [ "Hello world!", "md_docs_2tutorials_2get__started.html#autotoc_md9", null ],
+      [ "Public Variables", "md_docs_2tutorials_2get__started.html#autotoc_md10", null ]
     ] ],
-    [ "Sample Project", "md_docs_tutorials_sample_project.html", [
-      [ "Set up", "md_docs_tutorials_sample_project.html#autotoc_md12", null ],
-      [ "Physics", "md_docs_tutorials_sample_project.html#autotoc_md13", null ],
-      [ "Keyboard Input", "md_docs_tutorials_sample_project.html#autotoc_md14", null ]
+    [ "Sample Project", "md_docs_2tutorials_2sample__project.html", [
+      [ "Set up", "md_docs_2tutorials_2sample__project.html#autotoc_md12", null ],
+      [ "Physics", "md_docs_2tutorials_2sample__project.html#autotoc_md13", null ],
+      [ "Keyboard Input", "md_docs_2tutorials_2sample__project.html#autotoc_md14", null ]
     ] ],
     [ "Namespaces", "namespaces.html", [
       [ "Namespace List", "namespaces.html", "namespaces_dup" ],
@@ -68,10 +68,14 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"_ambient_light_component_8hpp.html",
-"classshkyera_1_1_camera_component.html#a187a07d57febe7c8f3c02d24fe88b406aa80420eef88d11f77532f1b9cb467fa3",
-"classshkyera_1_1_log_success.html#af500623818a062b446e10a8d80bc4957",
-"classshkyera_1_1_sparse_set_1_1_iterator.html#a2e41e91798bbc4a6e009b39ce50da886"
+"_a_a_b_b_8cpp.html",
+"classshkyera_1_1_ambient_light_component_u_i.html#a96cb097eac062ed6df11c72d0297bec2",
+"classshkyera_1_1_directional_light_component_u_i.html#a2a03fd4e63a0314db1440b2cfd57a5c4",
+"classshkyera_1_1_gizmo_system.html#abf141550ffacac16f9f8a4fef8078554",
+"classshkyera_1_1_name_component.html#a81c09b8d39995524d9f200878e6524df",
+"classshkyera_1_1_scene_frame_buffer.html#a56dc1c34ec39207395ebcf40fdf77b8d",
+"classshkyera_1_1_transform_component_u_i.html#a6e9049bf8aa8d3795dd0787bcad0d967",
+"structshkyera_1_1_wireframe_1_1_edge.html#ab4f9928b728d8a3c64d905d6e78c7281"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

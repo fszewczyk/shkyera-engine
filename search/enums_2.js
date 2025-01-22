@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['messagetype_1319',['MessageType',['../namespaceshkyera_1_1_logger.html#a084332fcbe48f0afc6144c58a5b2ae05',1,'shkyera::Logger']]]
+  ['file_5ftype_0',['FILE_TYPE',['../namespaceshkyera.html#a7a2f2208944732e67483f7920f91aeb3',1,'shkyera']]]
 ];

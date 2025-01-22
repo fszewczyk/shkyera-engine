@@ -1,15 +1,32 @@
 <map id="src/ui/widgets/PropertiesWidget.hpp" name="src/ui/widgets/PropertiesWidget.hpp">
-<area shape="rect" id="node1" title="Contains the declaration of the PropertiesWidget class, a user interface widget for managing game obj..." alt="" coords="131,5,314,47"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,95,120,121"/>
-<area shape="rect" id="node3" title=" " alt="" coords="144,95,301,121"/>
-<area shape="rect" id="node4" href="$_registry_8hpp.html" title=" " alt="" coords="325,95,456,121"/>
-<area shape="rect" id="node5" title=" " alt="" coords="428,244,543,271"/>
-<area shape="rect" id="node6" href="$_entity_8hpp.html" title=" " alt="" coords="333,319,448,345"/>
-<area shape="rect" id="node8" href="$_entity_hierarchy_8hpp.html" title=" " alt="" coords="521,169,700,196"/>
-<area shape="rect" id="node11" href="$_entity_provider_8hpp.html" title="Manages a pool of unused entity identifiers and provides mechanisms for requesting and removing them." alt="" coords="183,244,353,271"/>
-<area shape="rect" id="node13" href="$_sparse_set_8hpp.html" title=" " alt="" coords="159,169,303,196"/>
-<area shape="rect" id="node7" title=" " alt="" coords="263,393,334,420"/>
-<area shape="rect" id="node9" title=" " alt="" coords="567,244,654,271"/>
-<area shape="rect" id="node10" title=" " alt="" coords="678,244,802,271"/>
-<area shape="rect" id="node12" title=" " alt="" coords="246,319,309,345"/>
+<area shape="rect" id="Node000001" title="Contains the declaration of the PropertiesWidget class, a user interface widget for managing game obj..." alt="" coords="131,5,314,45"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,93,120,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="186,48,100,90,97,85,183,43"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="144,93,301,119"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="225,46,225,79,220,79,220,46"/>
+<area shape="rect" id="Node000004" href="$_registry_8hpp.html" title=" " alt="" coords="325,93,456,119"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="264,43,355,85,352,90,262,48"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="428,240,543,265"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="401,118,472,227,468,230,396,121"/>
+<area shape="rect" id="Node000006" href="$_entity_8hpp.html" title=" " alt="" coords="333,313,448,339"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="393,119,393,299,388,299,388,119"/>
+<area shape="rect" id="Node000008" href="$_entity_hierarchy_8hpp.html" title=" " alt="" coords="521,167,700,192"/>
+<area shape="poly" id="edge7_Node000004_Node000008" title=" " alt="" coords="427,116,563,160,562,165,425,121"/>
+<area shape="rect" id="Node000011" href="$_entity_provider_8hpp.html" title="Manages a pool of unused entity identifiers and provides mechanisms for requesting and removing them." alt="" coords="183,240,353,265"/>
+<area shape="poly" id="edge12_Node000004_Node000011" title=" " alt="" coords="383,121,289,231,285,228,379,117"/>
+<area shape="rect" id="Node000013" href="$_sparse_set_8hpp.html" title=" " alt="" coords="159,167,303,192"/>
+<area shape="poly" id="edge16_Node000004_Node000013" title=" " alt="" coords="366,121,270,163,268,159,364,116"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="263,387,334,412"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="378,341,326,380,323,376,374,337"/>
+<area shape="poly" id="edge9_Node000008_Node000005" title=" " alt="" coords="592,194,519,235,516,231,589,190"/>
+<area shape="poly" id="edge11_Node000008_Node000006" title=" " alt="" coords="701,186,754,196,800,212,816,222,826,235,826,250,817,267,792,285,757,299,712,310,662,317,556,326,462,328,461,323,556,320,662,312,711,304,755,294,790,280,813,264,821,249,821,237,812,226,798,217,753,202,700,192"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="567,240,654,265"/>
+<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="613,192,613,226,608,226,608,192"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="678,240,802,265"/>
+<area shape="poly" id="edge10_Node000008_Node000010" title=" " alt="" coords="633,190,708,231,705,235,630,194"/>
+<area shape="poly" id="edge15_Node000011_Node000006" title=" " alt="" coords="289,263,360,304,358,309,286,268"/>
+<area shape="poly" id="edge13_Node000011_Node000007" title=" " alt="" coords="259,267,238,300,233,319,236,338,250,359,269,376,266,380,246,362,231,340,228,318,233,297,255,264"/>
+<area shape="rect" id="Node000012" title=" " alt="" coords="246,313,309,339"/>
+<area shape="poly" id="edge14_Node000011_Node000012" title=" " alt="" coords="272,265,277,299,271,300,267,266"/>
+<area shape="poly" id="edge17_Node000013_Node000011" title=" " alt="" coords="239,191,258,227,253,229,234,194"/>
 </map>

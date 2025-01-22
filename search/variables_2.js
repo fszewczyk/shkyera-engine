@@ -1,7 +1,8 @@
 var searchData=
 [
-  ['background_5fcolor_1250',['BACKGROUND_COLOR',['../namespaceshkyera_1_1style.html#a201b1fed8eaa76d7000d76632f9e72e4',1,'shkyera::style']]],
-  ['big_5ffont_1251',['BIG_FONT',['../namespaceshkyera_1_1style.html#a099f8ed061d7961c3c9a6a636be1ecad',1,'shkyera::style']]],
-  ['black_1252',['BLACK',['../namespaceshkyera_1_1style.html#a22bdcb854f1659c51afd87cb5372eacb',1,'shkyera::style']]],
-  ['box_1253',['box',['../classshkyera_1_1_box_collider_component.html#a4e38aade8656b35edb026a16237be6be',1,'shkyera::BoxColliderComponent']]]
+  ['background_5fcolor_0',['BACKGROUND_COLOR',['../namespaceshkyera_1_1style.html#a201b1fed8eaa76d7000d76632f9e72e4',1,'shkyera::style']]],
+  ['big_5ffont_1',['BIG_FONT',['../namespaceshkyera_1_1style.html#a099f8ed061d7961c3c9a6a636be1ecad',1,'shkyera::style']]],
+  ['black_2',['BLACK',['../namespaceshkyera_1_1style.html#a22bdcb854f1659c51afd87cb5372eacb',1,'shkyera::style']]],
+  ['blue_3',['Blue',['../classshkyera_1_1_gizmo_system.html#a21e14af398c3eb4a9c615840c87b2695',1,'shkyera::GizmoSystem']]],
+  ['box_4',['box',['../classshkyera_1_1_box_collider_component.html#acc3b7d5374f5fc6b63cddec37f939eaf',1,'shkyera::BoxColliderComponent']]]
 ];
