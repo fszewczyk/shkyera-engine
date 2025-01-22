@@ -3,6 +3,7 @@ add_library(
     STATIC
 
     ${CMAKE_CURRENT_LIST_DIR}/CameraMovementSystem.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/GizmoSystem.cpp
     ${CMAKE_CURRENT_LIST_DIR}/RenderingSystem.cpp
     ${CMAKE_CURRENT_LIST_DIR}/ObjectSelectionSystem.cpp
 )

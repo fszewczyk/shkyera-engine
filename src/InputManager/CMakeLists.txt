@@ -16,6 +16,8 @@ target_link_libraries(
     InputManager
     PUBLIC 
 
+    ECS
+    Components
     glfw
     glm::glm
 )

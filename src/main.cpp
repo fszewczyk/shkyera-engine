@@ -13,6 +13,7 @@
 #include <Components/WireframeComponent.hpp>
 #include <Components/NameComponent.hpp>
 #include <Components/ModelComponent.hpp>
+#include <Components/OverlayModelComponent.hpp>
 #include <Components/SkyboxComponent.hpp>
 #include <Components/BoxColliderComponent.hpp>
 #include <Components/CameraComponent.hpp>
@@ -22,13 +23,11 @@
 #include <ECS/Registry.hpp>
 #include <UI/UI.hpp>
 
-shkyera::Entity addModel(std::shared_ptr<shkyera::Registry> registry, 
+static shkyera::Entity addModel(std::shared_ptr<shkyera::Registry> registry, 
               const glm::vec3& position, 
               const std::string& name, 
               std::shared_ptr<shkyera::Mesh> mesh) {
     using namespace shkyera;
-
-    AssetManager::getInstance().addAsset<Mesh>("Shape: " + name, mesh);
 
     auto entity = registry->addEntity();
     registry->addComponent<TransformComponent>(entity);
@@ -49,8 +48,6 @@ shkyera::Entity addWireframe(std::shared_ptr<shkyera::Registry> registry,
                   const std::string& name, 
                   std::shared_ptr<shkyera::Wireframe> wireframe) {
     using namespace shkyera;
-
-    AssetManager::getInstance().addAsset<Wireframe>("Wireframe: " + name, wireframe);
 
     auto entity = registry->addEntity();
     registry->addComponent<TransformComponent>(entity);
@@ -104,7 +101,7 @@ void loadScene(std::shared_ptr<shkyera::Registry> registry) {
     registry->getComponent<NameComponent>(pointLight).setName("Point Light");
     registry->addComponent<PointLightComponent>(pointLight);
     registry->getComponent<PointLightComponent>(pointLight).range = 15;
-    registry->getComponent<PointLightComponent>(pointLight).intensity = 3;
+    registry->getComponent<PointLightComponent>(pointLight).intensity = 3; 
 
     // Add Skybox
     auto sky = registry->addEntity();

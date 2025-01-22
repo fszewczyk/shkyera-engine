@@ -5,6 +5,12 @@
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 
+#include <ECS/Registry.hpp>
+#include <Common/Logger.hpp>
+#include <Components/CameraComponent.hpp>
+#include <Components/BoxColliderComponent.hpp>
+#include <Components/TransformComponent.hpp>
+
 namespace shkyera {
 
 class InputManager{
@@ -24,6 +30,8 @@ class InputManager{
         glm::vec2 getRelativeMousePosition(CoordinateSystem system);
         glm::vec2 getMousePosition(CoordinateSystem system);
         bool isMouseInside(CoordinateSystem system);
+        
+        bool isMouseButtonDown(MouseButton mouseButton) const;
 
         void registerKeyCallback(Key key, std::function<void()> callback);
 
@@ -42,6 +50,34 @@ class InputManager{
         void unregisterMouseButtonUpCallback(MouseButton button);
 
         void processInput(GLFWwindow* window);
+
+        template<CoordinateSystem CS, RuntimeMode RN, typename... RequiredComponents>
+        static std::optional<Entity> getHoveredObject(std::shared_ptr<Registry> registry)
+        {
+            const auto& camera = registry->getCamera();
+            const auto& mousePosition = getInstance().getRelativeMousePosition(CS);
+            const auto& cameraTransform = registry->getComponent<TransformComponent>(camera);
+            const auto& cameraComponent = registry->getComponent<CameraComponent>(camera);
+            auto ray = cameraComponent.getRayAt(cameraTransform, mousePosition.x, 1 - mousePosition.y);
+
+            float closestDistance = std::numeric_limits<float>::max();
+            std::optional<Entity> closestEntity;
+            for(const auto& [entity, boxColliderComponent] : registry->getComponentSet<BoxColliderComponent<RN>>()) {
+                if(!registry->hasComponents<RequiredComponents...>(entity))
+                {
+                    continue;
+                }
+                const auto& transformMatrix = TransformComponent::getGlobalTransformMatrix(entity, registry);
+                const auto intersectionDistanceOpt = boxColliderComponent.box.intersect(ray, transformMatrix);
+                if(intersectionDistanceOpt && intersectionDistanceOpt < closestDistance)
+                {
+                    closestEntity = entity;
+                    closestDistance = *intersectionDistanceOpt;
+                }
+            }
+
+            return closestEntity;
+        }
 
     private:
         InputManager() = default;

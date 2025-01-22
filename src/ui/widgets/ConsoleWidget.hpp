@@ -144,7 +144,7 @@ class ConsoleWidget : public Widget {
     /**
      * @brief The maximum number of logs to keep in the console.
      */
-    static constexpr size_t MAX_LOGS = 50;
+    static constexpr size_t MAX_LOGS = 10000;
 
   private:
     /**

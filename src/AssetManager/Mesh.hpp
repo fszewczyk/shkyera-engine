@@ -6,7 +6,7 @@
 #include <string>
 
 #include <AssetManager/Asset.hpp>
-#include <Math/Box.hpp>
+#include <Math/AABB.hpp>
 
 namespace shkyera {
 
@@ -35,7 +35,7 @@ public:
     void unbind() const { glBindVertexArray(0); }
     void draw() const;
 
-    Box getBoundingBox() const;
+    AABB getBoundingBox() const;
 
     GLuint getVAO() const { return _vao; }
     GLuint getVBO() const { return _vbo; }
@@ -48,6 +48,8 @@ public:
             static Mesh* createCube();
             static Mesh* createCubeMap();
             static Mesh* createCylinder();
+            static Mesh* createCone();
+            static Mesh* createTorus(float innerRadius, float outerRadius, int radialSegments, int tubularSegments);
             static Mesh* createSphere();
     };
 

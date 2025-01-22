@@ -34,6 +34,10 @@ bool InputManager::isMouseInside(CoordinateSystem system) {
     return 0.0f < mousePosition.x && 0.0f < mousePosition.y && mousePosition.x < 1.0f && mousePosition.y < 1.0f;
 }
 
+bool InputManager::isMouseButtonDown(MouseButton mouseButton) const
+{
+    return mouseButton >= 0 && mouseButton <= GLFW_MOUSE_BUTTON_8 && _previousMouseButtonStates[mouseButton];
+}
 
 void InputManager::registerKeyCallback(Key key, std::function<void()> callback) {
     _keyCallbacks[key].push_back(callback);
@@ -44,7 +48,7 @@ void InputManager::unregisterKeyCallback(Key key) {
 }
 
 void InputManager::registerMouseMoveCallback(std::function<void(double, double)> callback) {
-    _mouseMoveCallbacks.push_back(callback);
+    _mouseMoveCallbacks.emplace_back(std::move(callback));
 }
 
 void InputManager::unregisterMouseMoveCallback() {
@@ -52,7 +56,7 @@ void InputManager::unregisterMouseMoveCallback() {
 }
 
 void InputManager::registerMouseButtonUpCallback(MouseButton button, std::function<void()> callback) {
-    _mouseButtonUpCallbacks[button].push_back(callback);
+    _mouseButtonUpCallbacks[button].emplace_back(std::move(callback));
 }
 
 void InputManager::unregisterMouseButtonUpCallback(MouseButton button) {
@@ -60,7 +64,7 @@ void InputManager::unregisterMouseButtonUpCallback(MouseButton button) {
 }
 
 void InputManager::registerMouseButtonDownCallback(MouseButton button, std::function<void()> callback) {
-    _mouseButtonDownCallbacks[button].push_back(callback);
+    _mouseButtonDownCallbacks[button].emplace_back(std::move(callback));
 }
 
 void InputManager::unregisterMouseButtonDownCallback(MouseButton button) {

@@ -3,6 +3,7 @@
 #include <Rendering/Utils.hpp>
 #include <Components/TransformComponent.hpp>
 #include <Components/ModelComponent.hpp>
+#include <Components/OverlayModelComponent.hpp>
 #include <Components/WireframeComponent.hpp>
 #include <Components/CameraComponent.hpp>
 #include <Components/SkyboxComponent.hpp>
@@ -91,6 +92,7 @@ void RenderingSystem::render() {
     renderModels();
     renderWireframes();
     renderOutline(_registry->getSelectedEntities());
+    renderGizmo();
 }
 
 void RenderingSystem::renderOutline(const std::unordered_set<Entity>& entities)
@@ -451,6 +453,33 @@ void RenderingSystem::renderSkybox()
     _renderFrameBuffer.unbind();
 
     glDepthFunc(GL_LESS);
+}
+
+void RenderingSystem::renderGizmo()
+{
+    glDisable(GL_DEPTH_TEST);
+
+    _renderFrameBuffer.bind();
+
+    const auto& cameraTransform = _registry->getComponent<TransformComponent>(_registry->getCamera());
+    const glm::mat4& viewMatrix = _registry->getComponent<CameraComponent>(_registry->getCamera()).getViewMatrix(cameraTransform);
+    const glm::mat4& projectionMatrix = _registry->getComponent<CameraComponent>(_registry->getCamera()).getProjectionMatrix();
+
+    _wireframeShaderProgram.use();
+
+    const auto& projectionViewMatrix = projectionMatrix * viewMatrix;
+
+    for (const auto& [entity, overlayModelComponent] : _registry->getComponentSet<OverlayModelComponent>()) {
+        const auto& transformMatrix = TransformComponent::getGlobalTransformMatrix(entity, _registry);
+        _wireframeShaderProgram.setUniform("projectionViewModelMatrix", projectionViewMatrix * transformMatrix);
+        _wireframeShaderProgram.setUniform("fixedColor", overlayModelComponent.getMaterial()->getDiffuseColor());
+        overlayModelComponent.updateImpl();
+    }
+
+    _wireframeShaderProgram.stopUsing();
+    _renderFrameBuffer.unbind();
+
+    glEnable(GL_DEPTH_TEST);
 }
 
 }

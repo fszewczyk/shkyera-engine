@@ -25,6 +25,7 @@ private:
     void renderWireframes();
     void renderOutline(const std::unordered_set<Entity>& entities);
     void renderSkybox();
+    void renderGizmo();
 
     void renderDirectionalLightShadowMaps();
     void renderPointLightShadowMaps();
