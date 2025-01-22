@@ -18,14 +18,14 @@ void CameraMovementSystem::update() {}
 void CameraMovementSystem::setupCameraMovement() {
     auto& inputManager = InputManager::getInstance();
     
-    inputManager.registerMouseButtonDownCallback(GLFW_MOUSE_BUTTON_LEFT, [this, &inputManager]() {
+    inputManager.registerMouseButtonDownCallback(GLFW_MOUSE_BUTTON_RIGHT, [this, &inputManager]() {
         if(inputManager.isMouseInside(InputManager::CoordinateSystem::SCENE))
         {
             _cameraControl = true;
         }
     });
     
-    inputManager.registerMouseButtonUpCallback(GLFW_MOUSE_BUTTON_LEFT, [this]() {
+    inputManager.registerMouseButtonUpCallback(GLFW_MOUSE_BUTTON_RIGHT, [this]() {
         _cameraControl = false;
     });
 

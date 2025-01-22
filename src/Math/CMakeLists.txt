@@ -2,7 +2,8 @@ add_library(
     Math
     STATIC
 
-    ${CMAKE_CURRENT_LIST_DIR}/Box.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/AABB.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/Ray.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Utils.cpp
 )
 

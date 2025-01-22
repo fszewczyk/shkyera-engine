@@ -15,7 +15,6 @@ private:
     void setupCameraMovement();
 
     bool _cameraControl;
-    Entity _camera;
     std::shared_ptr<Registry> _registry;
 };
 

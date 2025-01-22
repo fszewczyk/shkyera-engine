@@ -58,9 +58,9 @@ public:
      * @tparam Component Type of the component to add.
      * @param entity The entity to which the component is added.
      */
-    template <typename Component>
-    void addComponent(Entity entity) {
-        getOrCreateComponentSet<Component>().add(entity, Component());
+    template <typename Component, typename... Args>
+    void addComponent(Entity entity, Args&&... args) {
+        getOrCreateComponentSet<Component>().add(entity, Component(std::forward<Args>(args)...));
     }
 
     /**
@@ -95,7 +95,7 @@ public:
      */
     template <typename... Components>
     bool hasComponents(Entity entity) const {
-        return (hasComponent<Components>(entity) && ...);
+        return true && (hasComponent<Components>(entity) && ...);
     }
 
     /**

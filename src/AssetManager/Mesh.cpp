@@ -5,6 +5,9 @@
 #include <numeric>
 #include <functional>
 
+#define GLM_ENABLE_EXPERIMENTAL
+#include <glm/gtx/string_cast.hpp>
+
 #include <tiny_obj_loader.h>
 
 #include <AssetManager/Mesh.hpp>
@@ -42,13 +45,13 @@ Mesh::~Mesh() {
     glDeleteBuffers(1, &_ebo);
 }
 
-Box Mesh::getBoundingBox() const {
+AABB Mesh::getBoundingBox() const {
     if (_vertices.empty()) {
-        return shkyera::Box();
+        return shkyera::AABB();
     }
 
-    glm::vec3 minBounds(FLT_MAX);
-    glm::vec3 maxBounds(-FLT_MAX);
+    glm::vec3 minBounds = {FLT_MAX, FLT_MAX, FLT_MAX};
+    glm::vec3 maxBounds = {-FLT_MAX, -FLT_MAX, -FLT_MAX};
 
     for (const auto& vertex : _vertices) {
         minBounds = glm::min(minBounds, vertex.position);
@@ -58,7 +61,9 @@ Box Mesh::getBoundingBox() const {
     glm::vec3 center = (minBounds + maxBounds) * 0.5f;
     glm::vec3 extents = (maxBounds - minBounds) * 0.5f;
 
-    return shkyera::Box(center, extents, glm::mat3(1.0f));
+    Logger::INFO(glm::to_string(center) + " " + glm::to_string(extents));
+
+    return shkyera::AABB{.center = center, .extents = extents};
 }
 
 static std::vector<glm::vec3> calculateNormals(const std::vector<Mesh::Vertex>& vertices, const std::vector<uint32_t>& indices) {
@@ -317,9 +322,9 @@ Mesh* Mesh::Factory::createCubeMap() {
 }
 
 Mesh* Mesh::Factory::createCylinder() {
-    const int sectors = 36;
-    const float radius = 1.0f;
-    const float height = 2.0f;
+    constexpr int sectors = 36;
+    constexpr float radius = 1.0f;
+    constexpr float height = 1.0f;
 
     std::vector<Vertex> vertices;
     std::vector<unsigned int> indices;
@@ -343,6 +348,88 @@ Mesh* Mesh::Factory::createCylinder() {
         indices.push_back(i * 2 + 1);
         indices.push_back((i * 2 + 3) % (sectors * 2));
         indices.push_back((i * 2 + 2) % (sectors * 2));
+    }
+
+    return new Mesh(vertices, indices);
+}
+
+Mesh* Mesh::Factory::createCone() {
+    constexpr int sectors = 36;
+    constexpr float radius = 1.0f;
+    constexpr float height = 2.0f;
+
+    std::vector<Vertex> vertices;
+    std::vector<unsigned int> indices;
+
+    // Generate vertices
+    for (int i = 0; i <= sectors; ++i) {
+        float theta = 2.0f * M_PI * float(i) / float(sectors);
+        float x = radius * cos(theta);
+        float z = radius * sin(theta);
+
+        vertices.push_back({ { x, -height / 2, z }, { x, 0.0f, z }, { float(i) / sectors, 0.0f } });
+        vertices.push_back({ { 0,  height / 2, 0 }, { 0, 0.0f, 1 }, { float(i) / sectors, 1.0f } });
+    }
+
+    // Generate indices for the sides
+    for (int i = 0; i < sectors; ++i) {
+        indices.push_back(i * 2);
+        indices.push_back(i * 2 + 1);
+        indices.push_back((i * 2 + 2) % (sectors * 2));
+
+        indices.push_back(i * 2 + 1);
+        indices.push_back((i * 2 + 3) % (sectors * 2));
+        indices.push_back((i * 2 + 2) % (sectors * 2));
+    }
+
+    return new Mesh(vertices, indices);
+}
+
+Mesh* Mesh::Factory::createTorus(float innerRadius, float outerRadius, int radialSegments, int tubularSegments) {
+    std::vector<Vertex> vertices;
+    std::vector<unsigned int> indices;
+
+    const float PI = 3.14159265359f;
+    float tubeRadius = (outerRadius - innerRadius) * 0.5f;
+    float torusRadius = innerRadius + tubeRadius;
+
+    for (int i = 0; i <= radialSegments; ++i) {
+        float u = static_cast<float>(i) / radialSegments;
+        float theta = u * 2.0f * PI;
+        float cosTheta = std::cos(theta);
+        float sinTheta = std::sin(theta);
+
+        for (int j = 0; j <= tubularSegments; ++j) {
+            float v = static_cast<float>(j) / tubularSegments;
+            float phi = v * 2.0f * PI;
+            float cosPhi = std::cos(phi);
+            float sinPhi = std::sin(phi);
+
+            glm::vec3 center(torusRadius * cosTheta, torusRadius * sinTheta, 0.0f);
+            glm::vec3 position = center + glm::vec3(tubeRadius * cosTheta * cosPhi, tubeRadius * sinTheta * cosPhi, tubeRadius * sinPhi);
+            glm::vec3 normal = glm::normalize(glm::vec3(cosTheta * cosPhi, sinTheta * cosPhi, sinPhi));
+            glm::vec2 texcoord(u, v);
+
+            vertices.push_back({ position, normal, texcoord });
+        }
+    }
+
+    // Generate indices
+    for (int i = 0; i < radialSegments; ++i) {
+        for (int j = 0; j < tubularSegments; ++j) {
+            int a = i * (tubularSegments + 1) + j;
+            int b = (i + 1) * (tubularSegments + 1) + j;
+            int c = (i + 1) * (tubularSegments + 1) + (j + 1);
+            int d = i * (tubularSegments + 1) + (j + 1);
+
+            indices.push_back(a);
+            indices.push_back(b);
+            indices.push_back(d);
+
+            indices.push_back(b);
+            indices.push_back(c);
+            indices.push_back(d);
+        }
     }
 
     return new Mesh(vertices, indices);

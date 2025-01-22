@@ -17,6 +17,7 @@
 #include <ECS/Registry.hpp>
 #include <UI/Widget.hpp>
 #include <Systems/ObjectSelectionSystem.hpp>
+#include <Systems/GizmoSystem.hpp>
 
 
 namespace shkyera {
@@ -110,6 +111,7 @@ class UI {
     GLFWwindow *_window; ///< The UI window.
 
     std::unique_ptr<ObjectSelectionSystem> _objectSelectionSystem;
+    std::unique_ptr<GizmoSystem> _gizmoSystem;
 };
 
 } // namespace shkyera

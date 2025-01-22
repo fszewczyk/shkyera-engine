@@ -8,7 +8,7 @@ namespace shkyera {
 PointLightComponentUI::PointLightComponentUI(PointLightComponent* pointLightComponent) :
     _pointLightComponent(pointLightComponent),
     _colorSelector("Color", pointLightComponent->color), 
-    _intensitySlider("Intensity", pointLightComponent->intensity, 0.0f, 5.0f), 
+    _intensitySlider("Intensity", pointLightComponent->intensity, 0.0f, 20.0f), 
     _rangeSlider("Range", pointLightComponent->range, 0.0f, 100.0f)
 {
   _colorSelector.setUpdateCallback([this](const glm::vec3& color) {

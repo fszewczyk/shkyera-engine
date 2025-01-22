@@ -89,6 +89,7 @@ void UI::initializeImgui() {
 
 void UI::initializeSystems() {
   _objectSelectionSystem = std::make_unique<ObjectSelectionSystem>(_registry);
+  _gizmoSystem = std::make_unique<GizmoSystem>(_registry);
 }
 
 void UI::initializeWidgets() {
@@ -254,6 +255,7 @@ void UI::renderFrame() {
   const auto& windowSize = ImGui::GetWindowSize();
   InputManager::getInstance().setCoordinateSystem(InputManager::CoordinateSystem::ABSOLUTE, {0, 0}, {windowSize.x, windowSize.y});
   InputManager::getInstance().processInput(_window);
+  _gizmoSystem->update();
 
   for (const auto& w : _widgets) {
     w->draw();

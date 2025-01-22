@@ -59,10 +59,20 @@ void ObjectsWidget::drawObjectHierarchy(Entity parent, const EntityHierarchy& hi
     return;
   }
 
+  if(!_registry->hasComponent<NameComponent>(parent))
+  {
+    return;
+  }
+
   ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_OpenOnDoubleClick | ImGuiTreeNodeFlags_OpenOnArrow;
   const auto& children = hierarchy.getChildren(parent);
-  if(children.empty()) {
+  if(std::ranges::none_of(children, [this](const Entity entity) { return _registry->hasComponent<NameComponent>(entity); }))
+  {
     flags |= ImGuiTreeNodeFlags_Leaf;
+  }
+  if(_registry->getSelectedEntities().contains(parent))
+  {
+    flags |= ImGuiTreeNodeFlags_Selected;
   }
   
   static bool initiallyOpenedTree = false;

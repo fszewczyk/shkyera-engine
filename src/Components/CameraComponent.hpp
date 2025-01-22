@@ -61,7 +61,6 @@ public:
         farWorld /= farWorld.w;
 
         glm::vec3 rayOrigin = glm::vec3(nearWorld);
-        
         glm::vec3 rayDirection = glm::normalize(glm::vec3(farWorld) - rayOrigin);
 
         return { rayOrigin, rayDirection };

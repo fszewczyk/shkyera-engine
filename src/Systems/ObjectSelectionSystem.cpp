@@ -3,6 +3,7 @@
 #include <Components/BoxColliderComponent.hpp>
 #include <Components/TransformComponent.hpp>
 #include <Components/ModelComponent.hpp>
+#include <Components/NameComponent.hpp>
 #include <Components/CameraComponent.hpp>
 #include <InputManager/InputManager.hpp>
 
@@ -18,15 +19,23 @@ ObjectSelectionSystem::ObjectSelectionSystem(std::shared_ptr<Registry> registry)
             return;
         }
 
-        _objectSelectedOnMouseDown = getHoveredObject();
+        _objectSelectedOnMouseDown = InputManager::getHoveredObject<
+                InputManager::CoordinateSystem::SCENE, 
+                RuntimeMode::DEVELOPMENT, 
+                NameComponent
+            >(_registry);
     });
     InputManager::getInstance().registerMouseButtonUpCallback(GLFW_MOUSE_BUTTON_LEFT, [this]() {
-        if(!_objectSelectedOnMouseDown.has_value() && !InputManager::getInstance().isMouseInside(InputManager::CoordinateSystem::SCENE)) {
+        if(!_objectSelectedOnMouseDown.has_value() || !InputManager::getInstance().isMouseInside(InputManager::CoordinateSystem::SCENE)) {
             _objectSelectedOnMouseDown = std::nullopt;
             return;
         }
 
-        const auto hoveredCurrently = getHoveredObject();
+        const auto hoveredCurrently = InputManager::getHoveredObject<
+                InputManager::CoordinateSystem::SCENE, 
+                RuntimeMode::DEVELOPMENT,
+                NameComponent
+            >(_registry);
         if(hoveredCurrently.has_value() && _objectSelectedOnMouseDown.has_value() && *hoveredCurrently == *_objectSelectedOnMouseDown)
         {
             _registry->clearSelectedEntities();
@@ -35,30 +44,5 @@ ObjectSelectionSystem::ObjectSelectionSystem(std::shared_ptr<Registry> registry)
         }
     });
 }
-
-std::optional<Entity> ObjectSelectionSystem::getHoveredObject()
-{
-    const auto& camera = _registry->getCamera();
-    const auto& mousePosition = InputManager::getInstance().getRelativeMousePosition(InputManager::CoordinateSystem::SCENE);
-    const auto& cameraTransform = _registry->getComponent<TransformComponent>(camera);
-    const auto& cameraComponent = _registry->getComponent<CameraComponent>(camera);
-    auto ray = cameraComponent.getRayAt(cameraTransform, mousePosition.x, 1 - mousePosition.y);
-
-    float closestDistance = std::numeric_limits<float>::max();
-    std::optional<Entity> closestEntity;
-    for(const auto& [entity, boxColliderComponent] : _registry->getComponentSet<BoxColliderComponent<RuntimeMode::DEVELOPMENT>>()) {
-        const auto& transformMatrix = TransformComponent::getGlobalTransformMatrix(entity, _registry);
-        float near, far;
-        bool intersected = boxColliderComponent.intersect(transformMatrix, ray, near, far);
-        if(intersected && near < closestDistance)
-        {
-            closestEntity = entity;
-            closestDistance = near;
-        }
-    }
-
-    return closestEntity;
-}
-
 
 }
