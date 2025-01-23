@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['range_0',['range',['../classshkyera_1_1_point_light_component.html#a8384fb2f4f129e8237d89e03028f017f',1,'shkyera::PointLightComponent']]],
+  ['range_0',['range',['../classshkyera_1_1_spot_light_component.html#a70b5319f1e41c1ee4884ea92704b7720',1,'shkyera::SpotLightComponent::range'],['../classshkyera_1_1_point_light_component.html#a8384fb2f4f129e8237d89e03028f017f',1,'shkyera::PointLightComponent::range']]],
   ['ray_1',['Ray',['../structshkyera_1_1_ray.html',1,'shkyera']]],
   ['ray_2ecpp_2',['Ray.cpp',['../_ray_8cpp.html',1,'']]],
   ['ray_2ehpp_3',['Ray.hpp',['../_ray_8hpp.html',1,'']]],
@@ -29,11 +29,12 @@ var searchData=
   ['renderoutline_26',['renderOutline',['../classshkyera_1_1_rendering_system.html#aefd2635b12dfa7fc91b784d0720769b3',1,'shkyera::RenderingSystem']]],
   ['renderpointlightshadowmaps_27',['renderPointLightShadowMaps',['../classshkyera_1_1_rendering_system.html#a3c44f491dd1ce4d7d7f50cfde3d21812',1,'shkyera::RenderingSystem']]],
   ['renderskybox_28',['renderSkybox',['../classshkyera_1_1_rendering_system.html#abdc1fcfb974a5e24217e672e0465a952',1,'shkyera::RenderingSystem']]],
-  ['renderwireframes_29',['renderWireframes',['../classshkyera_1_1_rendering_system.html#a6619403cffc08fc4338f96a5d1296778',1,'shkyera::RenderingSystem']]],
-  ['requestentity_30',['requestEntity',['../classshkyera_1_1_entity_provider.html#a97a788880da8b7116c8a697fb4a57f6b',1,'shkyera::EntityProvider']]],
-  ['runtime_31',['runtime',['../classshkyera_1_1_runtime.html',1,'shkyera::Runtime&lt; Mode &gt;'],['../classshkyera_1_1_runtime.html#a21d9898d6816674a2da24f139fa6dd1f',1,'shkyera::Runtime::Runtime()']]],
-  ['runtime_2ecpp_32',['Runtime.cpp',['../_runtime_8cpp.html',1,'']]],
-  ['runtime_2ehpp_33',['Runtime.hpp',['../_runtime_8hpp.html',1,'']]],
-  ['runtime_3c_20runtimemode_3a_3adevelopment_20_3e_34',['Runtime&lt; RuntimeMode::DEVELOPMENT &gt;',['../classshkyera_1_1_runtime.html',1,'shkyera']]],
-  ['runtimemode_35',['RuntimeMode',['../namespaceshkyera.html#a1fa85003a0e458be0cf85cccc54d3d55',1,'shkyera']]]
+  ['renderspotlightshadowmaps_29',['renderSpotLightShadowMaps',['../classshkyera_1_1_rendering_system.html#a2ae542d3005d95eea9986a927eb366f9',1,'shkyera::RenderingSystem']]],
+  ['renderwireframes_30',['renderWireframes',['../classshkyera_1_1_rendering_system.html#a6619403cffc08fc4338f96a5d1296778',1,'shkyera::RenderingSystem']]],
+  ['requestentity_31',['requestEntity',['../classshkyera_1_1_entity_provider.html#a97a788880da8b7116c8a697fb4a57f6b',1,'shkyera::EntityProvider']]],
+  ['runtime_32',['runtime',['../classshkyera_1_1_runtime.html',1,'shkyera::Runtime&lt; Mode &gt;'],['../classshkyera_1_1_runtime.html#a21d9898d6816674a2da24f139fa6dd1f',1,'shkyera::Runtime::Runtime()']]],
+  ['runtime_2ecpp_33',['Runtime.cpp',['../_runtime_8cpp.html',1,'']]],
+  ['runtime_2ehpp_34',['Runtime.hpp',['../_runtime_8hpp.html',1,'']]],
+  ['runtime_3c_20runtimemode_3a_3adevelopment_20_3e_35',['Runtime&lt; RuntimeMode::DEVELOPMENT &gt;',['../classshkyera_1_1_runtime.html',1,'shkyera']]],
+  ['runtimemode_36',['RuntimeMode',['../namespaceshkyera.html#a1fa85003a0e458be0cf85cccc54d3d55',1,'shkyera']]]
 ];

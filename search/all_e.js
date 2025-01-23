@@ -17,6 +17,7 @@ var searchData=
   ['origin_14',['origin',['../structshkyera_1_1_ray.html#a0e06343523f2cbcd9d52d6c882ce13db',1,'shkyera::Ray']]],
   ['orthographic_15',['Orthographic',['../classshkyera_1_1_camera_component.html#a187a07d57febe7c8f3c02d24fe88b406a03424250432f2aa71de95579d2c0eaeb',1,'shkyera::CameraComponent']]],
   ['other_16',['OTHER',['../namespaceshkyera.html#a7a2f2208944732e67483f7920f91aeb3ac1c970c810ef92020ecbd10e3f35c814',1,'shkyera']]],
-  ['overlaymodelcomponent_17',['overlaymodelcomponent',['../classshkyera_1_1_overlay_model_component.html',1,'shkyera::OverlayModelComponent'],['../classshkyera_1_1_overlay_model_component.html#a227c5cc4102d3e95c18db9f83cb923ef',1,'shkyera::OverlayModelComponent::OverlayModelComponent()']]],
-  ['overlaymodelcomponent_2ehpp_18',['OverlayModelComponent.hpp',['../_overlay_model_component_8hpp.html',1,'']]]
+  ['outercutoff_17',['outerCutoff',['../classshkyera_1_1_spot_light_component.html#a9baddf78b496fc89c8dd0cf530b2f9e1',1,'shkyera::SpotLightComponent']]],
+  ['overlaymodelcomponent_18',['overlaymodelcomponent',['../classshkyera_1_1_overlay_model_component.html',1,'shkyera::OverlayModelComponent'],['../classshkyera_1_1_overlay_model_component.html#a227c5cc4102d3e95c18db9f83cb923ef',1,'shkyera::OverlayModelComponent::OverlayModelComponent()']]],
+  ['overlaymodelcomponent_2ehpp_19',['OverlayModelComponent.hpp',['../_overlay_model_component_8hpp.html',1,'']]]
 ];

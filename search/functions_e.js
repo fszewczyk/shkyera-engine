@@ -18,7 +18,8 @@ var searchData=
   ['renderoutline_15',['renderOutline',['../classshkyera_1_1_rendering_system.html#aefd2635b12dfa7fc91b784d0720769b3',1,'shkyera::RenderingSystem']]],
   ['renderpointlightshadowmaps_16',['renderPointLightShadowMaps',['../classshkyera_1_1_rendering_system.html#a3c44f491dd1ce4d7d7f50cfde3d21812',1,'shkyera::RenderingSystem']]],
   ['renderskybox_17',['renderSkybox',['../classshkyera_1_1_rendering_system.html#abdc1fcfb974a5e24217e672e0465a952',1,'shkyera::RenderingSystem']]],
-  ['renderwireframes_18',['renderWireframes',['../classshkyera_1_1_rendering_system.html#a6619403cffc08fc4338f96a5d1296778',1,'shkyera::RenderingSystem']]],
-  ['requestentity_19',['requestEntity',['../classshkyera_1_1_entity_provider.html#a97a788880da8b7116c8a697fb4a57f6b',1,'shkyera::EntityProvider']]],
-  ['runtime_20',['Runtime',['../classshkyera_1_1_runtime.html#a21d9898d6816674a2da24f139fa6dd1f',1,'shkyera::Runtime']]]
+  ['renderspotlightshadowmaps_18',['renderSpotLightShadowMaps',['../classshkyera_1_1_rendering_system.html#a2ae542d3005d95eea9986a927eb366f9',1,'shkyera::RenderingSystem']]],
+  ['renderwireframes_19',['renderWireframes',['../classshkyera_1_1_rendering_system.html#a6619403cffc08fc4338f96a5d1296778',1,'shkyera::RenderingSystem']]],
+  ['requestentity_20',['requestEntity',['../classshkyera_1_1_entity_provider.html#a97a788880da8b7116c8a697fb4a57f6b',1,'shkyera::EntityProvider']]],
+  ['runtime_21',['Runtime',['../classshkyera_1_1_runtime.html#a21d9898d6816674a2da24f139fa6dd1f',1,'shkyera::Runtime']]]
 ];

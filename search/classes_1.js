@@ -10,7 +10,8 @@ var searchData=
   ['basecomponent_3c_20overlaymodelcomponent_20_3e_7',['BaseComponent&lt; OverlayModelComponent &gt;',['../classshkyera_1_1_base_component.html',1,'shkyera']]],
   ['basecomponent_3c_20pointlightcomponent_20_3e_8',['BaseComponent&lt; PointLightComponent &gt;',['../classshkyera_1_1_base_component.html',1,'shkyera']]],
   ['basecomponent_3c_20skyboxcomponent_20_3e_9',['BaseComponent&lt; SkyboxComponent &gt;',['../classshkyera_1_1_base_component.html',1,'shkyera']]],
-  ['basecomponent_3c_20transformcomponent_20_3e_10',['BaseComponent&lt; TransformComponent &gt;',['../classshkyera_1_1_base_component.html',1,'shkyera']]],
-  ['basecomponent_3c_20wireframecomponent_20_3e_11',['BaseComponent&lt; WireframeComponent &gt;',['../classshkyera_1_1_base_component.html',1,'shkyera']]],
-  ['boxcollidercomponent_12',['BoxColliderComponent',['../classshkyera_1_1_box_collider_component.html',1,'shkyera']]]
+  ['basecomponent_3c_20spotlightcomponent_20_3e_10',['BaseComponent&lt; SpotLightComponent &gt;',['../classshkyera_1_1_base_component.html',1,'shkyera']]],
+  ['basecomponent_3c_20transformcomponent_20_3e_11',['BaseComponent&lt; TransformComponent &gt;',['../classshkyera_1_1_base_component.html',1,'shkyera']]],
+  ['basecomponent_3c_20wireframecomponent_20_3e_12',['BaseComponent&lt; WireframeComponent &gt;',['../classshkyera_1_1_base_component.html',1,'shkyera']]],
+  ['boxcollidercomponent_13',['BoxColliderComponent',['../classshkyera_1_1_box_collider_component.html',1,'shkyera']]]
 ];

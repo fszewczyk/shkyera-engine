@@ -160,7 +160,7 @@ $(document).ready(function(){initNavTree('_camera_component_8hpp_source.html',''
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="classshkyera_1_1_camera_component.html#a7fab985572ddf873de560deb15cb5b39">   25</a></span>    glm::mat4 <a class="code hl_function" href="classshkyera_1_1_camera_component.html#a7fab985572ddf873de560deb15cb5b39">getViewMatrix</a>(<span class="keyword">const</span> <a class="code hl_class" href="classshkyera_1_1_transform_component.html">TransformComponent</a>&amp; transformComponent)<span class="keyword"> const </span>{</div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        glm::vec3 position = transformComponent.<a class="code hl_function" href="classshkyera_1_1_transform_component.html#aeb9d78850808c51bac869aa0e2759abb">getPosition</a>();</div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        glm::vec3 orientation = transformComponent.<a class="code hl_function" href="classshkyera_1_1_transform_component.html#ade9c1687f77032151487e41028d3b4d3">getOrientation</a>();</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        </div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        glm::vec3 front;</div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        front.x = std::cos(orientation.y) * std::cos(orientation.x);</div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        front.y = std::sin(orientation.x);</div>

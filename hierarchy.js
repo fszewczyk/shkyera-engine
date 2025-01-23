@@ -38,6 +38,9 @@ var hierarchy =
     [ "shkyera::BaseComponent< SkyboxComponent >", "classshkyera_1_1_base_component.html", [
       [ "shkyera::SkyboxComponent", "classshkyera_1_1_skybox_component.html", null ]
     ] ],
+    [ "shkyera::BaseComponent< SpotLightComponent >", "classshkyera_1_1_base_component.html", [
+      [ "shkyera::SpotLightComponent", "classshkyera_1_1_spot_light_component.html", null ]
+    ] ],
     [ "shkyera::BaseComponent< TransformComponent >", "classshkyera_1_1_base_component.html", [
       [ "shkyera::TransformComponent", "classshkyera_1_1_transform_component.html", null ]
     ] ],
@@ -52,6 +55,7 @@ var hierarchy =
       [ "shkyera::DirectionalLightComponentUI", "classshkyera_1_1_directional_light_component_u_i.html", null ],
       [ "shkyera::ModelComponentUI", "classshkyera_1_1_model_component_u_i.html", null ],
       [ "shkyera::PointLightComponentUI", "classshkyera_1_1_point_light_component_u_i.html", null ],
+      [ "shkyera::SpotLightComponentUI", "classshkyera_1_1_spot_light_component_u_i.html", null ],
       [ "shkyera::TransformComponentUI", "classshkyera_1_1_transform_component_u_i.html", null ],
       [ "shkyera::WireframeComponentUI", "classshkyera_1_1_wireframe_component_u_i.html", null ]
     ] ],

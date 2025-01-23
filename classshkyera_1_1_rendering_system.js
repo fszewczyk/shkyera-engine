@@ -9,6 +9,7 @@ var classshkyera_1_1_rendering_system =
     [ "renderOutline", "classshkyera_1_1_rendering_system.html#aefd2635b12dfa7fc91b784d0720769b3", null ],
     [ "renderPointLightShadowMaps", "classshkyera_1_1_rendering_system.html#a3c44f491dd1ce4d7d7f50cfde3d21812", null ],
     [ "renderSkybox", "classshkyera_1_1_rendering_system.html#abdc1fcfb974a5e24217e672e0465a952", null ],
+    [ "renderSpotLightShadowMaps", "classshkyera_1_1_rendering_system.html#a2ae542d3005d95eea9986a927eb366f9", null ],
     [ "renderWireframes", "classshkyera_1_1_rendering_system.html#a6619403cffc08fc4338f96a5d1296778", null ],
     [ "setSize", "classshkyera_1_1_rendering_system.html#a9a5f646789f0ca1b21a7d04fa1e5bcb0", null ],
     [ "_differenceFrameBuffer", "classshkyera_1_1_rendering_system.html#accf406b6ee9d23b79b0f5de82184058b", null ],
@@ -27,6 +28,7 @@ var classshkyera_1_1_rendering_system =
     [ "_silhouetteShaderProgram", "classshkyera_1_1_rendering_system.html#a811a5f902cdbf1b82758819e819da8f6", null ],
     [ "_skyboxCubeMap", "classshkyera_1_1_rendering_system.html#ac6b213714a6cfeda64cbd7124bb3c906", null ],
     [ "_skyboxShaderProgram", "classshkyera_1_1_rendering_system.html#a15b91aa8f5140f484932847014ddba37", null ],
+    [ "_spotLightToShadowMap", "classshkyera_1_1_rendering_system.html#ae15c3cf38a6c3729190a923ac522ac14", null ],
     [ "_subtractShaderProgram", "classshkyera_1_1_rendering_system.html#a92bca47e851e20bcc0e82d7cc862b7f0", null ],
     [ "_wireframeShaderProgram", "classshkyera_1_1_rendering_system.html#a63da32266fb627bc8f41ab9fe2841e2d", null ]
 ];

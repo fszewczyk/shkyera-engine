@@ -37,9 +37,10 @@ var searchData=
   ['shadertypetoglenum_34',['shaderTypeToGLenum',['../classshkyera_1_1_shader.html#ad35f61eafa2cec5a0fa3c6462d8d7217',1,'shkyera::Shader']]],
   ['shouldclose_35',['shouldClose',['../classshkyera_1_1_u_i.html#a5c72b2d3c48c92381f91b3fed3e5216f',1,'shkyera::UI']]],
   ['sparseset_36',['SparseSet',['../classshkyera_1_1_sparse_set.html#a234c2ea47fa785695bc6d5e025b9538d',1,'shkyera::SparseSet']]],
-  ['stopusing_37',['stopUsing',['../classshkyera_1_1_shader_program.html#a6bbc8080b6b59529c38d25a100a20995',1,'shkyera::ShaderProgram']]],
-  ['styleimgui_38',['styleImgui',['../classshkyera_1_1_u_i.html#a4005c6205fca258e010e1273635ccf91',1,'shkyera::UI']]],
-  ['styleonhover_39',['styleOnHover',['../classshkyera_1_1_gizmo_system.html#ad67ae8764ef0c2c7f01e99a84874c842',1,'shkyera::GizmoSystem']]],
-  ['subscribe_40',['subscribe',['../namespaceshkyera_1_1_logger.html#ab9843fcbda4e096b9534cd3cbcfcaeb5',1,'shkyera::Logger']]],
-  ['success_41',['SUCCESS',['../namespaceshkyera_1_1_logger.html#adc512f67bfb7208e1c5e6609a0f2541d',1,'shkyera::Logger']]]
+  ['spotlightcomponentui_37',['SpotLightComponentUI',['../classshkyera_1_1_spot_light_component_u_i.html#af84625766579099ae509da89b9fd0d47',1,'shkyera::SpotLightComponentUI']]],
+  ['stopusing_38',['stopUsing',['../classshkyera_1_1_shader_program.html#a6bbc8080b6b59529c38d25a100a20995',1,'shkyera::ShaderProgram']]],
+  ['styleimgui_39',['styleImgui',['../classshkyera_1_1_u_i.html#a4005c6205fca258e010e1273635ccf91',1,'shkyera::UI']]],
+  ['styleonhover_40',['styleOnHover',['../classshkyera_1_1_gizmo_system.html#ad67ae8764ef0c2c7f01e99a84874c842',1,'shkyera::GizmoSystem']]],
+  ['subscribe_41',['subscribe',['../namespaceshkyera_1_1_logger.html#ab9843fcbda4e096b9534cd3cbcfcaeb5',1,'shkyera::Logger']]],
+  ['success_42',['SUCCESS',['../namespaceshkyera_1_1_logger.html#adc512f67bfb7208e1c5e6609a0f2541d',1,'shkyera::Logger']]]
 ];

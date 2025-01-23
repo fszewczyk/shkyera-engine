@@ -8,6 +8,8 @@ var dir_03b2673553046158dff6b880fc282c90 =
     [ "ModelComponentUI.hpp", "_model_component_u_i_8hpp.html", "_model_component_u_i_8hpp" ],
     [ "PointLightComponentUI.cpp", "_point_light_component_u_i_8cpp.html", null ],
     [ "PointLightComponentUI.hpp", "_point_light_component_u_i_8hpp.html", "_point_light_component_u_i_8hpp" ],
+    [ "SpotLightComponentUI.cpp", "_spot_light_component_u_i_8cpp.html", null ],
+    [ "SpotLightComponentUI.hpp", "_spot_light_component_u_i_8hpp.html", "_spot_light_component_u_i_8hpp" ],
     [ "TransformComponentUI.cpp", "_transform_component_u_i_8cpp.html", null ],
     [ "TransformComponentUI.hpp", "_transform_component_u_i_8hpp.html", "_transform_component_u_i_8hpp" ],
     [ "WireframeComponentUI.cpp", "_wireframe_component_u_i_8cpp.html", null ],

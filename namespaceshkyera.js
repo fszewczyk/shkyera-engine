@@ -94,6 +94,8 @@ var namespaceshkyera =
     [ "SkyboxComponent", "classshkyera_1_1_skybox_component.html", "classshkyera_1_1_skybox_component" ],
     [ "SparseSet", "classshkyera_1_1_sparse_set.html", "classshkyera_1_1_sparse_set" ],
     [ "SparseSetBase", "classshkyera_1_1_sparse_set_base.html", "classshkyera_1_1_sparse_set_base" ],
+    [ "SpotLightComponent", "classshkyera_1_1_spot_light_component.html", "classshkyera_1_1_spot_light_component" ],
+    [ "SpotLightComponentUI", "classshkyera_1_1_spot_light_component_u_i.html", "classshkyera_1_1_spot_light_component_u_i" ],
     [ "Texture", "classshkyera_1_1_texture.html", "classshkyera_1_1_texture" ],
     [ "TransformComponent", "classshkyera_1_1_transform_component.html", "classshkyera_1_1_transform_component" ],
     [ "TransformComponentUI", "classshkyera_1_1_transform_component_u_i.html", "classshkyera_1_1_transform_component_u_i" ],
