@@ -18,6 +18,7 @@
 #include <Components/BoxColliderComponent.hpp>
 #include <Components/CameraComponent.hpp>
 #include <Components/AmbientLightComponent.hpp>
+#include <Components/SpotLightComponent.hpp>
 #include <Components/PointLightComponent.hpp>
 #include <Components/DirectionalLightComponent.hpp>
 #include <ECS/Registry.hpp>
@@ -96,33 +97,49 @@ void loadScene(std::shared_ptr<shkyera::Registry> registry) {
     // Add Point Light
     auto pointLight = registry->addEntity();
     registry->addComponent<TransformComponent>(pointLight);
-    registry->getComponent<TransformComponent>(pointLight).setPosition({4.7, 8.1, 2});
+    registry->getComponent<TransformComponent>(pointLight).setPosition({-2, 5, 1});
     registry->addComponent<NameComponent>(pointLight);
     registry->getComponent<NameComponent>(pointLight).setName("Point Light");
     registry->addComponent<PointLightComponent>(pointLight);
     registry->getComponent<PointLightComponent>(pointLight).range = 15;
-    registry->getComponent<PointLightComponent>(pointLight).intensity = 3; 
+    registry->getComponent<PointLightComponent>(pointLight).intensity = 1; 
 
     // Add Skybox
     auto sky = registry->addEntity();
     registry->addComponent<TransformComponent>(sky);
-    registry->getComponent<TransformComponent>(sky).setOrientation({-M_PI_2 + 0.1, -0.1, 0});
+    registry->getComponent<TransformComponent>(sky).setOrientation({-M_PI_4, 0, -1.5 * M_PI_4});
     registry->addComponent<NameComponent>(sky);
     registry->getComponent<NameComponent>(sky).setName("Sun");
     registry->addComponent<DirectionalLightComponent>(sky);
     registry->getComponent<DirectionalLightComponent>(sky).color = glm::vec3{0.95, 0.95, 0.95};
-    registry->getComponent<DirectionalLightComponent>(sky).intensity = 0.4;
+    registry->getComponent<DirectionalLightComponent>(sky).intensity = 0.3;
     registry->addComponent<AmbientLightComponent>(sky);
 
-    auto moon = registry->addEntity();
-    registry->addComponent<TransformComponent>(moon);
-    registry->getComponent<TransformComponent>(moon).setOrientation({-M_PI_2 / 2, -M_PI_2 / 2, 0});
-    registry->addComponent<NameComponent>(moon);
-    registry->getComponent<NameComponent>(moon).setName("Moon");
-    registry->addComponent<DirectionalLightComponent>(moon);
-    registry->getComponent<DirectionalLightComponent>(moon).color = glm::vec3{0.85, 0.95, 0.95};
-    registry->getComponent<DirectionalLightComponent>(moon).intensity = 0.15;
-    registry->addComponent<AmbientLightComponent>(moon);
+    auto redSpotLight = registry->addEntity();
+    registry->addComponent<TransformComponent>(redSpotLight);
+    registry->getComponent<TransformComponent>(redSpotLight).setOrientation({0, 1.5 * M_PI_2, -M_PI_4 / 2});
+    registry->getComponent<TransformComponent>(redSpotLight).setPosition({20, 10, 20});
+    registry->addComponent<NameComponent>(redSpotLight);
+    registry->getComponent<NameComponent>(redSpotLight).setName("Red Spot Light");
+    registry->addComponent<SpotLightComponent>(redSpotLight);
+    registry->getComponent<SpotLightComponent>(redSpotLight).color = glm::vec3{0.95, 0.55, 0.15};
+    registry->getComponent<SpotLightComponent>(redSpotLight).intensity = 2.0;
+    registry->getComponent<SpotLightComponent>(redSpotLight).range = 50.0;
+    registry->getComponent<SpotLightComponent>(redSpotLight).innerCutoff = glm::radians(10.0);
+    registry->getComponent<SpotLightComponent>(redSpotLight).outerCutoff = glm::radians(15.0);
+
+    auto blueSpotLight = registry->addEntity();
+    registry->addComponent<TransformComponent>(blueSpotLight);
+    registry->getComponent<TransformComponent>(blueSpotLight).setOrientation({0, M_PI_4, -M_PI_4 / 2});
+    registry->getComponent<TransformComponent>(blueSpotLight).setPosition({-20, 10, 20});
+    registry->addComponent<NameComponent>(blueSpotLight);
+    registry->getComponent<NameComponent>(blueSpotLight).setName("Blue Spot Light");
+    registry->addComponent<SpotLightComponent>(blueSpotLight);
+    registry->getComponent<SpotLightComponent>(blueSpotLight).color = glm::vec3{0.15, 0.35, 0.95};
+    registry->getComponent<SpotLightComponent>(blueSpotLight).intensity = 2.0;
+    registry->getComponent<SpotLightComponent>(blueSpotLight).range = 50.0;
+    registry->getComponent<SpotLightComponent>(blueSpotLight).innerCutoff = glm::radians(10.0);
+    registry->getComponent<SpotLightComponent>(blueSpotLight).outerCutoff = glm::radians(15.0);
 
     const auto skyboxUp = AssetManager::getInstance().getAsset<Image>("resources/skyboxes/day/py.png");
     const auto skyboxDown = AssetManager::getInstance().getAsset<Image>("resources/skyboxes/day/ny.png");

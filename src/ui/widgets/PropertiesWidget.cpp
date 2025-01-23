@@ -9,6 +9,7 @@
 #include <Components/BoxColliderComponent.hpp>
 #include <Components/SkyboxComponent.hpp>
 #include <Components/PointLightComponent.hpp>
+#include <Components/SpotLightComponent.hpp>
 #include <Components/DirectionalLightComponent.hpp>
 
 #include <UI/Common/Style.hpp>
@@ -17,6 +18,7 @@
 #include <UI/Components/WireframeComponentUI.hpp>
 #include <UI/Components/AmbientLightComponentUI.hpp>
 #include <UI/Components/PointLightComponentUI.hpp>
+#include <UI/Components/SpotLightComponentUI.hpp>
 #include <UI/Components/DirectionalLightComponentUI.hpp>
 #include <UI/Widgets/PropertiesWidget.hpp>
 
@@ -117,6 +119,13 @@ void PropertiesWidget::setupComponentsUI() {
   if(_registry->hasComponent<PointLightComponent>(*_selectedEntity)) {    
     auto &component = _registry->getComponent<PointLightComponent>(*_selectedEntity);
     auto componentUi = std::make_unique<PointLightComponentUI>(&component);
+    
+    _componentsUi.emplace_back(std::move(componentUi));
+  }
+
+  if(_registry->hasComponent<SpotLightComponent>(*_selectedEntity)) {    
+    auto &component = _registry->getComponent<SpotLightComponent>(*_selectedEntity);
+    auto componentUi = std::make_unique<SpotLightComponentUI>(&component);
     
     _componentsUi.emplace_back(std::move(componentUi));
   }

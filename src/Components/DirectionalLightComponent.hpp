@@ -20,14 +20,14 @@ public:
     inline static std::vector<float> CascadePlanes = {0.01, 5.0, 16.0, 32.0, 96.0};
 
     glm::mat4 getLightSpaceMatrix(
-        const TransformComponent& lightTransformComponent,
+        const glm::mat4& lightTransformMatrix,
         const TransformComponent& cameraTransformComponent,
         const CameraComponent& cameraComponent,
         uint8_t levelOfDetail) const
     {
         auto frustumCorners = cameraComponent.getFrustumCornersWorldSpace(CascadePlanes[levelOfDetail], CascadePlanes[levelOfDetail + 1], cameraTransformComponent);
 
-        glm::vec3 front = getDirection(lightTransformComponent);
+        glm::vec3 front = getDirection(lightTransformMatrix);
         glm::vec3 center = glm::vec3(0.0f);
 
         for (const auto& corner : frustumCorners)
@@ -49,14 +49,9 @@ public:
         return lightProjection * lightView;
     }
 
-    static glm::vec3 getDirection(const TransformComponent& lightTransformComponent)
+    static glm::vec3 getDirection(const glm::mat4& lightTransformMatrix)
     {
-        const auto& orientation = lightTransformComponent.getOrientation();
-        glm::vec3 front;
-        front.x = std::cos(orientation.y) * std::cos(orientation.x);
-        front.y = std::sin(orientation.x);
-        front.z = std::sin(orientation.y) * std::cos(orientation.x);
-        front = glm::normalize(front);
+        auto front = glm::normalize(glm::vec3{1, 0, 0} * glm::inverse(glm::mat3{lightTransformMatrix}));
         return -front;
     }
 };

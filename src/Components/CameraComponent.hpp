@@ -25,7 +25,7 @@ public:
     glm::mat4 getViewMatrix(const TransformComponent& transformComponent) const {
         glm::vec3 position = transformComponent.getPosition();
         glm::vec3 orientation = transformComponent.getOrientation();
-        
+
         glm::vec3 front;
         front.x = std::cos(orientation.y) * std::cos(orientation.x);
         front.y = std::sin(orientation.x);

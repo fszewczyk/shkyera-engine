@@ -9,7 +9,7 @@ in vec3 Normal;
 uniform vec3 viewPos;  // Camera position
 
 // ******** LIGHT DATA ********
-#define POINT_LIGHT_MAX_NUM 8
+#define POINT_LIGHT_MAX_NUM 4
 struct PointLight {
   vec3 position; 
   vec3 color;  
@@ -21,7 +21,7 @@ uniform PointLight pointLights[POINT_LIGHT_MAX_NUM];
 uniform sampler2D pointLightsDepthCubeMap[POINT_LIGHT_MAX_NUM];
 
 #define DIRECTIONAL_LIGHT_LODS 4
-#define DIRECTIONAL_LIGHT_MAX_NUM 2
+#define DIRECTIONAL_LIGHT_MAX_NUM 4
 struct DirectionalLight {
   mat4 lightSpaceMatrix[DIRECTIONAL_LIGHT_LODS];
   vec3 direction; 
@@ -30,6 +30,21 @@ struct DirectionalLight {
 uniform int numDirectionalLights;
 uniform DirectionalLight directionalLights[DIRECTIONAL_LIGHT_MAX_NUM];
 uniform sampler2D directionalLightsDepthMap[DIRECTIONAL_LIGHT_MAX_NUM];
+
+#define SPOT_LIGHT_MAX_NUM 4
+struct SpotLight {
+  mat4 lightSpaceMatrix;
+  vec3 position;
+  vec3 direction;
+  vec3 color;
+  float range;
+  float innerCutoffCosine; // Cosine of inner cutoff angle
+  float outerCutoffCosine; // Cosine of outer cutoff angle
+};
+
+uniform int numSpotLights;
+uniform SpotLight spotLights[SPOT_LIGHT_MAX_NUM];
+uniform sampler2D spotLightsShadowMap[SPOT_LIGHT_MAX_NUM];
 
 uniform vec3 ambientLight;
 
@@ -56,10 +71,6 @@ vec3 toneMappingACES(vec3 color) {
 vec3 gammaCorrection(vec3 color)
 {
   return pow(color, vec3(oneOverGamma));
-}
-
-vec3 calculateAmbient() {
-  return ambientLight * material.color;
 }
 
 float sampleAtlas(sampler2D map, int cols, int index, vec2 xy)
@@ -106,6 +117,78 @@ float sampleCubeMap(sampler2D map, vec3 direction)
   uv = uv * 0.5 + 0.5;
 
   return sampleAtlas(map, 6, faceIndex, uv);
+}
+
+vec3 calculateAmbient() {
+  return ambientLight * material.color;
+}
+
+float calculateSpotFalloff(vec3 lightDir, vec3 spotlightDir, float innerCutoffCosine, float outerCutoffCosine) {
+  float theta = dot(lightDir, normalize(-spotlightDir));
+  float epsilon = innerCutoffCosine - outerCutoffCosine;
+  return clamp((theta - outerCutoffCosine) / epsilon, 0.0, 1.0);
+}
+
+vec3 calculateSpotLights() {
+  vec3 normal = normalize(Normal);
+  vec3 result = vec3(0.0);
+
+  for (int i = 0; i < numSpotLights; ++i) {
+    vec3 lightToFrag = FragPos - spotLights[i].position;
+    float distanceToLight = length(lightToFrag);
+
+    float attenuation = 1.0 - (distanceToLight / spotLights[i].range);
+
+    if (attenuation > 0.0) {
+      vec3 lightDir = normalize(-lightToFrag);
+      float falloff = calculateSpotFalloff(lightDir, spotLights[i].direction, spotLights[i].innerCutoffCosine, spotLights[i].outerCutoffCosine);
+
+      if (falloff > 0.0) {
+        // Shadow calculation
+        vec4 fragPosLightSpace = spotLights[i].lightSpaceMatrix * vec4(FragPos, 1.0);
+        vec3 projCoords = fragPosLightSpace.xyz / fragPosLightSpace.w;
+        projCoords = projCoords * 0.5 + 0.5;
+
+        // Check if fragment is outside the shadow map's range
+        if (projCoords.z > 1.0) {
+          continue;
+        }
+
+        // Percentage-closer filtering
+        float shadow = 0.0;
+        float bias = 0.005;  // Bias to reduce shadow acne
+        int pcfKernelSize = 3;
+        float texelSize = 1.0 / 1024.0; // Assuming 1024x1024 shadow map resolution
+
+        for (int x = -pcfKernelSize; x <= pcfKernelSize; ++x) {
+          for (int y = -pcfKernelSize; y <= pcfKernelSize; ++y) {
+            vec2 offset = vec2(x, y) * texelSize;
+            float shadowMapDepth = texture(spotLightsShadowMap[i], projCoords.xy + offset).r;
+            if (distanceToLight - bias <= shadowMapDepth) {
+              shadow += 1.0;
+            }
+          }
+        }
+
+        int totalSamples = (2 * pcfKernelSize + 1) * (2 * pcfKernelSize + 1);
+        shadow /= float(totalSamples);
+
+        // Diffuse lighting
+        float diff = max(dot(normal, lightDir), 0.0);
+        vec3 diffuse = spotLights[i].color * diff * material.color;
+
+        // Specular lighting
+        vec3 viewDir = normalize(viewPos - FragPos);
+        vec3 reflectDir = reflect(-lightDir, normal);
+        float spec = pow(max(dot(viewDir, reflectDir), 0.0), material.shininess);
+        vec3 specular = spotLights[i].color * spec * material.color;
+
+        result += attenuation * falloff * (diffuse + specular) * shadow;
+      }
+    }
+  }
+
+  return result;
 }
 
 vec3 calculatePointLights() {
@@ -240,6 +323,7 @@ void main() {
   vec3 color = calculateAmbient();
   color += calculatePointLights();
   color += calculateDirectionalLights();
+  color += calculateSpotLights();
 
   // Post-Processing
   color = toneMappingACES(color);

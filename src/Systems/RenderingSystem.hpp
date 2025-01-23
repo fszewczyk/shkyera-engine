@@ -29,6 +29,7 @@ private:
 
     void renderDirectionalLightShadowMaps();
     void renderPointLightShadowMaps();
+    void renderSpotLightShadowMaps();
 
     std::shared_ptr<Registry> _registry;
     
@@ -57,6 +58,8 @@ private:
 
     std::unordered_map<Entity, DepthAtlasFrameBuffer> _pointLightToShadowMap;
     ShaderProgram _shadowMapDistanceShaderProgram;
+
+    std::unordered_map<Entity, DepthAtlasFrameBuffer> _spotLightToShadowMap;
 };
 
 }

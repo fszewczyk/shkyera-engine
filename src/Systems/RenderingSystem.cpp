@@ -10,6 +10,7 @@
 #include <Components/NameComponent.hpp>
 #include <Components/AmbientLightComponent.hpp>
 #include <Components/PointLightComponent.hpp>
+#include <Components/SpotLightComponent.hpp>
 #include <Components/DirectionalLightComponent.hpp>
 
 namespace shkyera {
@@ -212,14 +213,14 @@ void RenderingSystem::renderDirectionalLightShadowMaps()
         shadowMapAtlas.unbind();
 
         const auto& directionalLightComponent = _registry->getComponent<DirectionalLightComponent>(lightEntity);
-        const auto& lightTransform = _registry->getComponent<TransformComponent>(lightEntity);    
+        const auto lightTransformMatrix = TransformComponent::getGlobalTransformMatrix(lightEntity, _registry);
 
         for(uint8_t levelOfDetail = 0; levelOfDetail < DirectionalLightComponent::LevelsOfDetail; ++levelOfDetail)
         {
             shadowMapAtlas.bind(levelOfDetail);
             _shadowMapShaderProgram.use();
 
-            const glm::mat4& lightSpaceMatrix = directionalLightComponent.getLightSpaceMatrix(lightTransform, cameraTransform, cameraComponent, levelOfDetail);
+            const glm::mat4& lightSpaceMatrix = directionalLightComponent.getLightSpaceMatrix(lightTransformMatrix, cameraTransform, cameraComponent, levelOfDetail);
 
             _shadowMapShaderProgram.setUniform("lightSpaceMatrix", lightSpaceMatrix);
             for (const auto& [modelEntity, modelComponent] : _registry->getComponentSet<ModelComponent>()) {
@@ -275,8 +276,7 @@ void RenderingSystem::renderPointLightShadowMaps()
         shadowMapCubeAtlas.clear();
         shadowMapCubeAtlas.unbind();
 
-        _shadowMapDistanceShaderProgram.use();
-
+        // TODO: Use global position
         const auto& lightPosition = _registry->getComponent<TransformComponent>(lightEntity).getPosition();
         const auto& lightRange = _registry->getComponent<PointLightComponent>(lightEntity).range;
 
@@ -310,7 +310,67 @@ void RenderingSystem::renderPointLightShadowMaps()
         }
 
         _shadowMapDistanceShaderProgram.stopUsing();
-        shadowMapCubeAtlas.unbind();
+    }
+}
+
+void RenderingSystem::renderSpotLightShadowMaps()
+{
+    const auto& cameraTransform = _registry->getComponent<TransformComponent>(_registry->getCamera());
+    const auto& cameraComponent = _registry->getComponent<CameraComponent>(_registry->getCamera());
+
+    std::unordered_set<Entity> spotLightEntities;
+    for(const auto& [entity, spotLightComponent] : _registry->getComponentSet<SpotLightComponent>()) {
+        spotLightEntities.insert(entity);
+        if(_spotLightToShadowMap.find(entity) == _spotLightToShadowMap.end())
+        {
+            _spotLightToShadowMap.emplace(entity, DepthAtlasFrameBuffer(1));
+            auto& newShadowMap = _spotLightToShadowMap.at(entity);
+            
+            newShadowMap.bind();
+            newShadowMap.setSize(1500, 1500);
+            newShadowMap.clear();
+            newShadowMap.unbind();
+        }
+    }
+
+    std::vector<Entity> entitiesWithFrameBuffersToRemove;
+    for(const auto& [entity, _buffer] : _spotLightToShadowMap)
+    {
+        if(spotLightEntities.find(entity) == spotLightEntities.end())
+        {
+            entitiesWithFrameBuffersToRemove.push_back(entity);
+        }
+    }
+
+    for(const auto& entityToRemove : entitiesWithFrameBuffersToRemove)
+    {
+        _spotLightToShadowMap.erase(entityToRemove);
+    }
+
+    for(auto& [lightEntity, shadowMap] : _spotLightToShadowMap)
+    {
+        shadowMap.bind();
+        shadowMap.clear();
+        shadowMap.unbind();
+
+        const auto lightTransformMatrix = TransformComponent::getGlobalTransformMatrix(lightEntity, _registry);
+        const auto lightPosition = glm::vec3{lightTransformMatrix[3]};
+        const auto& lightRange = _registry->getComponent<SpotLightComponent>(lightEntity).range;
+        const auto& lightOuterCutoff = _registry->getComponent<SpotLightComponent>(lightEntity).outerCutoff;
+        const auto lightSpaceMatrix = _registry->getComponent<SpotLightComponent>(lightEntity).getLightSpaceMatrix(lightTransformMatrix);
+
+        _shadowMapDistanceShaderProgram.use();
+
+        shadowMap.bind(0);
+        _shadowMapDistanceShaderProgram.setUniform("lightSpaceMatrix", lightSpaceMatrix);
+        for (const auto& [modelEntity, modelComponent] : _registry->getComponentSet<ModelComponent>()) {
+            const auto& transformMatrix = TransformComponent::getGlobalTransformMatrix(modelEntity, _registry);
+            _shadowMapDistanceShaderProgram.setUniform("modelMatrix", transformMatrix);
+            modelComponent.updateImpl();
+        }
+        shadowMap.unbind();
+
+        _shadowMapDistanceShaderProgram.stopUsing();
     }
 }
 
@@ -321,6 +381,7 @@ void RenderingSystem::renderModels()
     // ********* Rendering the shadow maps *********
     renderDirectionalLightShadowMaps();
     renderPointLightShadowMaps();
+    renderSpotLightShadowMaps();
 
     const auto& cameraTransform = _registry->getComponent<TransformComponent>(_registry->getCamera());
     const auto& cameraComponent = _registry->getComponent<CameraComponent>(_registry->getCamera());
@@ -361,15 +422,15 @@ void RenderingSystem::renderModels()
     _modelShaderProgram.setUniform("numPointLights", pointLightIndex);
 
     int directionalLightIndex = 0;
-    for (const auto& [entity, directionalLightComponent] : _registry->getComponentSet<DirectionalLightComponent>()) {
+    for (const auto& [entity, directionalLightComponent] : _registry->getComponentSet<DirectionalLightComponent>())
+    {
         const auto& lightTransform = _registry->getComponent<TransformComponent>(entity);
-        const auto& orientation = lightTransform.getOrientation();
-
         const auto& depthAtlasFrameBuffer = _directionalLightToShadowMap.at(entity);
+        const auto lightTransformMatrix = TransformComponent::getGlobalTransformMatrix(entity, _registry);
 
         for(size_t levelOfDetail = 0; levelOfDetail < DirectionalLightComponent::LevelsOfDetail; levelOfDetail++)
         {
-            const glm::mat4 lightSpaceMatrix = directionalLightComponent.getLightSpaceMatrix(lightTransform, cameraTransform, cameraComponent, levelOfDetail);
+            const glm::mat4 lightSpaceMatrix = directionalLightComponent.getLightSpaceMatrix(lightTransformMatrix, cameraTransform, cameraComponent, levelOfDetail);
             _modelShaderProgram.setUniform("directionalLights[" + std::to_string(directionalLightIndex) + "].lightSpaceMatrix[" + std::to_string(levelOfDetail) + "]", lightSpaceMatrix);
         }
 
@@ -377,12 +438,42 @@ void RenderingSystem::renderModels()
         _modelShaderProgram.setUniform("directionalLightsDepthMap[" + std::to_string(directionalLightIndex) + "]", textureIndex);
         ++textureIndex;
 
-        glm::vec3 lightDirection = DirectionalLightComponent::getDirection(lightTransform);
+        glm::vec3 lightDirection = DirectionalLightComponent::getDirection(lightTransformMatrix);
         _modelShaderProgram.setUniform("directionalLights[" + std::to_string(directionalLightIndex) + "].direction", lightDirection);
         _modelShaderProgram.setUniform("directionalLights[" + std::to_string(directionalLightIndex) + "].color", directionalLightComponent.intensity * directionalLightComponent.color);
         ++directionalLightIndex;
     }
     _modelShaderProgram.setUniform("numDirectionalLights", directionalLightIndex);
+
+    int spotLightIndex = 0;
+    for(const auto& [entity, spotLightComponent] : _registry->getComponentSet<SpotLightComponent>())
+    {
+        {
+            const auto& lightTransform = _registry->getComponent<TransformComponent>(entity);
+            const auto lightTransformMatrix = TransformComponent::getGlobalTransformMatrix(entity, _registry);
+            const auto globalLightPosition = glm::vec3{lightTransformMatrix[3]};
+            const auto lightDirection = glm::normalize(glm::vec3{1, 0, 0} * glm::mat3{glm::inverse(lightTransformMatrix)});
+            const auto lightSpaceMatrix = _registry->getComponent<SpotLightComponent>(entity).getLightSpaceMatrix(lightTransformMatrix);
+
+            _modelShaderProgram.setUniform("spotLights[" + std::to_string(spotLightIndex) + "].lightSpaceMatrix", lightSpaceMatrix);
+            _modelShaderProgram.setUniform("spotLights[" + std::to_string(spotLightIndex) + "].position", globalLightPosition);
+            _modelShaderProgram.setUniform("spotLights[" + std::to_string(spotLightIndex) + "].direction", lightDirection);
+            _modelShaderProgram.setUniform("spotLights[" + std::to_string(spotLightIndex) + "].color", spotLightComponent.intensity * spotLightComponent.color);
+            _modelShaderProgram.setUniform("spotLights[" + std::to_string(spotLightIndex) + "].range", spotLightComponent.range);
+            _modelShaderProgram.setUniform("spotLights[" + std::to_string(spotLightIndex) + "].innerCutoffCosine", std::cos(spotLightComponent.innerCutoff));
+            _modelShaderProgram.setUniform("spotLights[" + std::to_string(spotLightIndex) + "].outerCutoffCosine", std::cos(spotLightComponent.outerCutoff));
+        }
+
+        {
+            const auto& depthBuffer = _spotLightToShadowMap.at(entity);
+            depthBuffer.getTexture().activate(GL_TEXTURE0 + textureIndex);
+            _modelShaderProgram.setUniform("spotLightsShadowMap[" + std::to_string(spotLightIndex) + "]", textureIndex);
+            ++textureIndex;
+        }
+
+        ++spotLightIndex;
+    }
+    _modelShaderProgram.setUniform("numSpotLights", spotLightIndex);
 
     for (const auto& [entity, modelComponent] : _registry->getComponentSet<ModelComponent>()) {
         const auto& transformMatrix = TransformComponent::getGlobalTransformMatrix(entity, _registry);
