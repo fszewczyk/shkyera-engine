@@ -55,24 +55,7 @@ struct Material {
 };
 uniform Material material;
 
-// ******** POST-PROCESSING DATA ********
-uniform float oneOverGamma;
-
 // ******** FUNCTIONS ********
-vec3 toneMappingACES(vec3 color) {
-    const float a = 2.51;
-    const float b = 0.03;
-    const float c = 2.43;
-    const float d = 0.59;
-    const float e = 0.14;
-    return (color * (a * color + b)) / (color * (c * color + d) + e);
-}
-
-vec3 gammaCorrection(vec3 color)
-{
-  return pow(color, vec3(oneOverGamma));
-}
-
 float sampleAtlas(sampler2D map, int cols, int index, vec2 xy)
 {
   return texture(map, vec2((1.0 / cols) * index + 0.0005, 0) + xy * vec2((1.0 / cols) - 0.001, 1)).r;
@@ -324,9 +307,5 @@ void main() {
   color += calculatePointLights();
   color += calculateDirectionalLights();
   color += calculateSpotLights();
-
-  // Post-Processing
-  color = toneMappingACES(color);
-  color = gammaCorrection(color);
   FragColor = vec4(color, 1.0);
 }

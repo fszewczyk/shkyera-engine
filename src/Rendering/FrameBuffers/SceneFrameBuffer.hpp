@@ -2,6 +2,7 @@
 
 #include <memory>
 #include <glad/glad.h>
+#include <glm/glm.hpp>
 
 #include <Rendering/Texture.hpp>
 
@@ -24,6 +25,7 @@ public:
     void clear();
 
     void setSize(uint32_t width, uint32_t height);
+    glm::vec2 getSize() const;
     const Texture& getTexture() const { return _textureColorBuffer; }
 
 private:

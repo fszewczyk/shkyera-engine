@@ -1,4 +1,5 @@
 #include <Systems/RenderingSystem.hpp>
+#include <Common/Logger.hpp>
 #include <AssetManager/AssetManager.hpp>
 #include <Rendering/Utils.hpp>
 #include <Components/TransformComponent.hpp>
@@ -23,6 +24,32 @@ RenderingSystem::RenderingSystem(std::shared_ptr<Registry> registry)
     _modelShaderProgram.attachShader(modelFragmentShader);
     _modelShaderProgram.link();
 
+    const auto& texCoordsVertexShader = AssetManager::getInstance().getAsset<Shader>("resources/shaders/vertex/texcoords.glsl", Shader::Type::Vertex);
+    const auto& toneMappingFragmentShader = AssetManager::getInstance().getAsset<Shader>("resources/shaders/fragment/tonemapping_aces.glsl", Shader::Type::Fragment);
+    _toneMappingShaderProgram.attachShader(texCoordsVertexShader);
+    _toneMappingShaderProgram.attachShader(toneMappingFragmentShader);
+    _toneMappingShaderProgram.link();
+
+    const auto& luminosityThresholdFragmentShader = AssetManager::getInstance().getAsset<Shader>("resources/shaders/fragment/luminosity_threshold.glsl", Shader::Type::Fragment);
+    _thresholdShaderProgram.attachShader(texCoordsVertexShader);
+    _thresholdShaderProgram.attachShader(luminosityThresholdFragmentShader);
+    _thresholdShaderProgram.link();
+
+    const auto& horizontalGaussianBlur5FragmentShader = AssetManager::getInstance().getAsset<Shader>("resources/shaders/fragment/horizontal_gaussianblur_5.glsl", Shader::Type::Fragment);
+    _horizontalBlurShaderProgram.attachShader(texCoordsVertexShader);
+    _horizontalBlurShaderProgram.attachShader(horizontalGaussianBlur5FragmentShader);
+    _horizontalBlurShaderProgram.link();
+
+    const auto& verticallGaussianBlur5FragmentShader = AssetManager::getInstance().getAsset<Shader>("resources/shaders/fragment/vertical_gaussianblur_5.glsl", Shader::Type::Fragment);
+    _verticalBlurShaderProgram.attachShader(texCoordsVertexShader);
+    _verticalBlurShaderProgram.attachShader(verticallGaussianBlur5FragmentShader);
+    _verticalBlurShaderProgram.link();
+
+    const auto& weightedAdditionFragmentShader = AssetManager::getInstance().getAsset<Shader>("resources/shaders/fragment/weighted_addition.glsl", Shader::Type::Fragment);
+    _weightedAdditionShaderProgram.attachShader(texCoordsVertexShader);
+    _weightedAdditionShaderProgram.attachShader(weightedAdditionFragmentShader);
+    _weightedAdditionShaderProgram.link();
+
     const auto& positionVertexShader = AssetManager::getInstance().getAsset<Shader>("resources/shaders/vertex/position.glsl", Shader::Type::Vertex);
     const auto& fixedColorFragmentShader = AssetManager::getInstance().getAsset<Shader>("resources/shaders/fragment/color.glsl", Shader::Type::Fragment);
     _wireframeShaderProgram.attachShader(positionVertexShader);
@@ -33,7 +60,6 @@ RenderingSystem::RenderingSystem(std::shared_ptr<Registry> registry)
     _silhouetteShaderProgram.attachShader(fixedColorFragmentShader);
     _silhouetteShaderProgram.link();
 
-    const auto& texCoordsVertexShader = AssetManager::getInstance().getAsset<Shader>("resources/shaders/vertex/texcoords.glsl", Shader::Type::Vertex);
     const auto& dilateFragmentShader = AssetManager::getInstance().getAsset<Shader>("resources/shaders/fragment/dilate.glsl", Shader::Type::Fragment);
     _dilateShaderProgram.attachShader(texCoordsVertexShader);
     _dilateShaderProgram.attachShader(dilateFragmentShader);
@@ -70,30 +96,56 @@ RenderingSystem::RenderingSystem(std::shared_ptr<Registry> registry)
 
 void RenderingSystem::setSize(uint32_t width, uint32_t height)
 {
-    _renderFrameBuffer.setSize(width, height);
+    _litModelsFrameBuffer.setSize(width, height);
+    _toneMappedFrameBuffer.setSize(width, height);
     _silhouetteFrameBuffer.setSize(width, height);
     _horizontallyDilatedFrameBuffer.setSize(width, height);
     _fullyDilatedFrameBuffer.setSize(width, height);
     _differenceFrameBuffer.setSize(width, height);
+    _bloomedFrameBuffer.setSize(width, height);
+    
+    size_t downscaleFactor = 2;
+    for(size_t i = 0; i < BloomSteps; ++i)
+    {
+        _downscaledFrameBuffers[i].setSize(width / downscaleFactor, height / downscaleFactor);
+        _horizontallyBluredDownscaledFrameBuffers[i].setSize(width / downscaleFactor, height / downscaleFactor);
+        _fullyBluredDownscaledFrameBuffers[i].setSize(width / downscaleFactor, height / downscaleFactor);
+        downscaleFactor *= 2;
+    }
 }
 
 GLuint RenderingSystem::getRenderFrameBuffer()
 {
-    return _renderFrameBuffer.getTexture().getID();
-    return _pointLightToShadowMap.begin()->second.getTexture().getID();
+    return _mostRecentFrameBufferPtr->getTexture().getID();
 }
 
 void RenderingSystem::render() {
-    _renderFrameBuffer.bind();
-    _renderFrameBuffer.clear();
-    _renderFrameBuffer.unbind();
+    _litModelsFrameBuffer.clear();
+    _toneMappedFrameBuffer.clear();
+    _bloomedFrameBuffer.clear();
+    for(auto& buffer : _downscaledFrameBuffers)
+    {
+        buffer.clear();
+    }
+    for(auto& buffer : _horizontallyBluredDownscaledFrameBuffers)
+    {
+        buffer.clear();
+    }
+    for(auto& buffer : _fullyBluredDownscaledFrameBuffers)
+    {
+        buffer.clear();
+    }
+
+    _mostRecentFrameBufferPtr = &_litModelsFrameBuffer;
 
     // Main Rendering Pass
     renderSkybox();
     renderModels();
+    renderBloom();
+    toneMapping();
     renderWireframes();
     renderOutline(_registry->getSelectedEntities());
-    renderGizmo();
+    renderOverlayModels();
 }
 
 void RenderingSystem::renderOutline(const std::unordered_set<Entity>& entities)
@@ -163,10 +215,10 @@ void RenderingSystem::renderOutline(const std::unordered_set<Entity>& entities)
     );
 
     utils::applyShaderToFrameBuffer(
-        _renderFrameBuffer,
+        (*_mostRecentFrameBufferPtr),
         _overlayShaderProgram,
         {
-            { "background", &_renderFrameBuffer.getTexture() },
+            { "background", &_mostRecentFrameBufferPtr->getTexture() },
             { "overlay", &_differenceFrameBuffer.getTexture() }
         }
     );
@@ -387,7 +439,7 @@ void RenderingSystem::renderModels()
     const auto& cameraComponent = _registry->getComponent<CameraComponent>(_registry->getCamera());
 
     // ********* Rendering the world *********
-    _renderFrameBuffer.bind();
+    _mostRecentFrameBufferPtr->bind();
 
     const glm::mat4& viewMatrix = _registry->getComponent<CameraComponent>(_registry->getCamera()).getViewMatrix(cameraTransform);
     const glm::mat4& projectionMatrix = _registry->getComponent<CameraComponent>(_registry->getCamera()).getProjectionMatrix();
@@ -395,8 +447,6 @@ void RenderingSystem::renderModels()
     _modelShaderProgram.use();
     _modelShaderProgram.setUniform("projectionViewMatrix", projectionMatrix * viewMatrix);
     _modelShaderProgram.setUniform("viewPos", cameraTransform.getPosition());
-    constexpr float OneOverGamma = 1.0 / 2.2;
-    _modelShaderProgram.setUniform("oneOverGamma", OneOverGamma);
 
     glm::vec3 ambientColor{0, 0, 0};
     for(const auto& ambientLightComponent : _registry->getComponents<AmbientLightComponent>())
@@ -489,14 +539,115 @@ void RenderingSystem::renderModels()
     }
 
     _modelShaderProgram.stopUsing();
-    _renderFrameBuffer.unbind();
+    _mostRecentFrameBufferPtr->unbind();
+}
+
+void RenderingSystem::renderBloom()
+{
+    // Downscaling Pass
+    utils::applyShaderToFrameBuffer(
+        _downscaledFrameBuffers[0],
+        _thresholdShaderProgram,
+        {
+            { "sceneTexture", &_mostRecentFrameBufferPtr->getTexture() }
+        },
+        utils::Uniform("threshold", 1.0f)
+    );
+    for(size_t i = 1; i < BloomSteps; ++i)
+    {
+        utils::applyShaderToFrameBuffer(
+        _downscaledFrameBuffers[i],
+        _thresholdShaderProgram,
+        {
+            { "sceneTexture", &_downscaledFrameBuffers[i - 1].getTexture() }
+        },
+        utils::Uniform("threshold", 0.0f)
+    );
+    }
+
+    // Horizontal Blur Pass
+    for(size_t i = 0; i < BloomSteps; ++i)
+    {
+        utils::applyShaderToFrameBuffer(
+            _horizontallyBluredDownscaledFrameBuffers[i],
+            _horizontalBlurShaderProgram,
+            {
+                { "textureToBlur", &_downscaledFrameBuffers[i].getTexture() }
+            },
+            utils::Uniform("resolution", _downscaledFrameBuffers[i].getSize())
+        );
+    }
+    
+
+    // Vertical Blur Pass
+    for(size_t i = 0; i < BloomSteps; ++i)
+    {
+        utils::applyShaderToFrameBuffer(
+            _fullyBluredDownscaledFrameBuffers[i],
+            _verticalBlurShaderProgram,
+            {
+                { "textureToBlur", &_horizontallyBluredDownscaledFrameBuffers[i].getTexture() }
+            },
+            utils::Uniform("resolution", _horizontallyBluredDownscaledFrameBuffers[i].getSize())
+        );
+    }
+
+    // Blur Combination Pass
+    auto* currentBuffer = &_fullyBluredDownscaledFrameBuffers[BloomSteps - 1];
+    float currentWeight = 1.0f / (1 << (BloomSteps - 1));
+
+    for (int i = BloomSteps - 2; i >= 0; --i)
+    {
+        auto* nextBuffer = &_fullyBluredDownscaledFrameBuffers[i];
+        float nextWeight = 1.0f / (1 << i);
+
+        utils::applyShaderToFrameBuffer(
+            *currentBuffer,
+            _weightedAdditionShaderProgram,
+            {
+                { "firstTexture", &currentBuffer->getTexture() },
+                { "secondTexture", &nextBuffer->getTexture() }
+            },
+            utils::Uniform("firstWeight", currentWeight),
+            utils::Uniform("secondWeight", nextWeight)
+        );
+
+        currentWeight += nextWeight;
+    }
+
+    // Composite bloom with the original scene
+    utils::applyShaderToFrameBuffer(
+        _bloomedFrameBuffer,
+        _weightedAdditionShaderProgram,
+        {
+            { "firstTexture", &_mostRecentFrameBufferPtr->getTexture() },
+            { "secondTexture", &currentBuffer->getTexture() }
+        },
+        utils::Uniform("firstWeight", 1.0f),
+        utils::Uniform("secondWeight", 0.5f)
+    );
+
+    _mostRecentFrameBufferPtr = &_bloomedFrameBuffer;
+}
+
+void RenderingSystem::toneMapping()
+{
+    utils::applyShaderToFrameBuffer(
+        _toneMappedFrameBuffer,
+        _toneMappingShaderProgram,
+        {
+            { "original", &_mostRecentFrameBufferPtr->getTexture() }
+        }
+    );
+
+    _mostRecentFrameBufferPtr = &_toneMappedFrameBuffer;
 }
 
 void RenderingSystem::renderWireframes()
 {
     glEnable(GL_DEPTH_TEST);
 
-    _renderFrameBuffer.bind();
+    _mostRecentFrameBufferPtr->bind();
 
     const auto& cameraTransform = _registry->getComponent<TransformComponent>(_registry->getCamera());
     const glm::mat4& viewMatrix = _registry->getComponent<CameraComponent>(_registry->getCamera()).getViewMatrix(cameraTransform);
@@ -516,7 +667,7 @@ void RenderingSystem::renderWireframes()
     }
 
     _wireframeShaderProgram.stopUsing();
-    _renderFrameBuffer.unbind();
+    _mostRecentFrameBufferPtr->unbind();
 }
 
 void RenderingSystem::renderSkybox()
@@ -528,7 +679,7 @@ void RenderingSystem::renderSkybox()
 
     glDepthFunc(GL_LEQUAL);
 
-    _renderFrameBuffer.bind();
+    _mostRecentFrameBufferPtr->bind();
     _skyboxShaderProgram.use();
     _skyboxShaderProgram.setUniform("viewMatrix", glm::mat4(viewMatrix));
     _skyboxShaderProgram.setUniform("projectionMatrix", projectionMatrix);
@@ -541,16 +692,17 @@ void RenderingSystem::renderSkybox()
     }
     
     _skyboxShaderProgram.stopUsing();
-    _renderFrameBuffer.unbind();
+    _mostRecentFrameBufferPtr->unbind();
 
     glDepthFunc(GL_LESS);
+
 }
 
-void RenderingSystem::renderGizmo()
+void RenderingSystem::renderOverlayModels()
 {
     glDisable(GL_DEPTH_TEST);
 
-    _renderFrameBuffer.bind();
+    _mostRecentFrameBufferPtr->bind();
 
     const auto& cameraTransform = _registry->getComponent<TransformComponent>(_registry->getCamera());
     const glm::mat4& viewMatrix = _registry->getComponent<CameraComponent>(_registry->getCamera()).getViewMatrix(cameraTransform);
@@ -568,7 +720,7 @@ void RenderingSystem::renderGizmo()
     }
 
     _wireframeShaderProgram.stopUsing();
-    _renderFrameBuffer.unbind();
+    _mostRecentFrameBufferPtr->unbind();
 
     glEnable(GL_DEPTH_TEST);
 }
