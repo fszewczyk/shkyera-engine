@@ -30,9 +30,9 @@ RenderingSystem::RenderingSystem(std::shared_ptr<Registry> registry)
     _toneMappingShaderProgram.attachShader(toneMappingFragmentShader);
     _toneMappingShaderProgram.link();
 
-    const auto& thresholdFragmentShader = AssetManager::getInstance().getAsset<Shader>("resources/shaders/fragment/threshold.glsl", Shader::Type::Fragment);
+    const auto& luminosityThresholdFragmentShader = AssetManager::getInstance().getAsset<Shader>("resources/shaders/fragment/luminosity_threshold.glsl", Shader::Type::Fragment);
     _thresholdShaderProgram.attachShader(texCoordsVertexShader);
-    _thresholdShaderProgram.attachShader(thresholdFragmentShader);
+    _thresholdShaderProgram.attachShader(luminosityThresholdFragmentShader);
     _thresholdShaderProgram.link();
 
     const auto& horizontalGaussianBlur5FragmentShader = AssetManager::getInstance().getAsset<Shader>("resources/shaders/fragment/horizontal_gaussianblur_5.glsl", Shader::Type::Fragment);
