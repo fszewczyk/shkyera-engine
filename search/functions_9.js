@@ -11,5 +11,5 @@ var searchData=
   ['logerror_8',['logerror',['../classshkyera_1_1_console_widget.html#ae9a8e1877f9950079a0c0bc9c9116dd2',1,'shkyera::ConsoleWidget::logError()'],['../classshkyera_1_1_log_error.html#a6562ddf165dbfb0f1927835ca2f7633e',1,'shkyera::LogError::LogError()']]],
   ['loginfo_9',['loginfo',['../classshkyera_1_1_console_widget.html#a4c70f7374c4882b57481c8244eeffca2',1,'shkyera::ConsoleWidget::logInfo()'],['../classshkyera_1_1_log_info.html#aa8255a2e15d1166e3cda672263f8e562',1,'shkyera::LogInfo::LogInfo()']]],
   ['logsuccess_10',['logsuccess',['../classshkyera_1_1_console_widget.html#af179a3033175a24cd30a12f151ccd66c',1,'shkyera::ConsoleWidget::logSuccess()'],['../classshkyera_1_1_log_success.html#af500623818a062b446e10a8d80bc4957',1,'shkyera::LogSuccess::LogSuccess()']]],
-  ['logverbose_11',['logverbose',['../classshkyera_1_1_console_widget.html#aa44ad2ecc723c69363224ea70e1756b6',1,'shkyera::ConsoleWidget::logVerbose()'],['../classshkyera_1_1_log_verbose.html#aad497afeb820452bf744fd3ea55a7754',1,'shkyera::LogVerbose::LogVerbose()']]]
+  ['logverbose_11',['logverbose',['../classshkyera_1_1_log_verbose.html#aad497afeb820452bf744fd3ea55a7754',1,'shkyera::LogVerbose::LogVerbose()'],['../classshkyera_1_1_console_widget.html#aa44ad2ecc723c69363224ea70e1756b6',1,'shkyera::ConsoleWidget::logVerbose()']]]
 ];

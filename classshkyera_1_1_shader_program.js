@@ -6,6 +6,7 @@ var classshkyera_1_1_shader_program =
     [ "getUniformLocation", "classshkyera_1_1_shader_program.html#a79c57d219b63af329c2f0a37bb7a3329", null ],
     [ "link", "classshkyera_1_1_shader_program.html#a0b762e2a709d30fa7f88ccc6274f052a", null ],
     [ "setUniform", "classshkyera_1_1_shader_program.html#a4a2894d84c8bb4af32041a5590ba97d6", null ],
+    [ "setUniform", "classshkyera_1_1_shader_program.html#a672fb89f99e61e958dcf8ef56a0e4703", null ],
     [ "setUniform", "classshkyera_1_1_shader_program.html#a9f44c511f18a297caf917bad7422f71f", null ],
     [ "setUniform", "classshkyera_1_1_shader_program.html#ab208aed944e08dfcd6e88460469a0d5b", null ],
     [ "setUniform", "classshkyera_1_1_shader_program.html#adc2b0a07246d56a481911c4a82b57b91", null ],
