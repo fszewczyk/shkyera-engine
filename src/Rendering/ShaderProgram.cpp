@@ -64,6 +64,19 @@ void ShaderProgram::setUniform(const std::string& name, float value) {
     }
 }
 
+void ShaderProgram::setUniform(const std::string& name, const glm::vec2& value) {
+    if(!_inUse) {
+        Logger::ERROR("Trying to set a uniform (" + name + ") while the shader program is not in use.");
+    }
+
+    GLint location = getUniformLocation(name);
+    if (location != -1) { // Only set uniform if the location is valid
+        glUniform2fv(location, 1, &value[0]);
+    } else {
+        Logger::ERROR("Shader uniform cannot be set due to invalid location '" + name);
+    }
+}
+
 void ShaderProgram::setUniform(const std::string& name, const glm::vec3& value) {
     if(!_inUse) {
         Logger::ERROR("Trying to set a uniform (" + name + ") while the shader program is not in use.");

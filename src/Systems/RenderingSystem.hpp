@@ -22,10 +22,12 @@ public:
 
 private:
     void renderModels();
+    void renderBloom();
+    void toneMapping();
     void renderWireframes();
     void renderOutline(const std::unordered_set<Entity>& entities);
     void renderSkybox();
-    void renderGizmo();
+    void renderOverlayModels();
 
     void renderDirectionalLightShadowMaps();
     void renderPointLightShadowMaps();
@@ -33,10 +35,28 @@ private:
 
     std::shared_ptr<Registry> _registry;
     
+    // Rendering Pipeline
+    SceneFrameBuffer* _mostRecentFrameBufferPtr;
+
     // Main Rendering
-    SceneFrameBuffer _renderFrameBuffer;
+    SceneFrameBuffer _litModelsFrameBuffer;
     ShaderProgram _modelShaderProgram;
     ShaderProgram _wireframeShaderProgram;
+
+    // Tone Mapping
+    SceneFrameBuffer _toneMappedFrameBuffer;
+    ShaderProgram _toneMappingShaderProgram;
+
+    // Bloom
+    inline static constexpr size_t BloomSteps = 4;
+    std::array<SceneFrameBuffer, BloomSteps> _downscaledFrameBuffers;
+    std::array<SceneFrameBuffer, BloomSteps> _horizontallyBluredDownscaledFrameBuffers;
+    std::array<SceneFrameBuffer, BloomSteps> _fullyBluredDownscaledFrameBuffers;
+    SceneFrameBuffer _bloomedFrameBuffer;
+    ShaderProgram _thresholdShaderProgram;
+    ShaderProgram _horizontalBlurShaderProgram;
+    ShaderProgram _verticalBlurShaderProgram;
+    ShaderProgram _weightedAdditionShaderProgram;
 
     // Rendering Object Outline
     SceneFrameBuffer _silhouetteFrameBuffer;

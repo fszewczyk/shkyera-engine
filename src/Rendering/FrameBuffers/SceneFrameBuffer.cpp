@@ -68,8 +68,10 @@ void SceneFrameBuffer::unbind() {
 }
 
 void SceneFrameBuffer::clear() {
+    bind();
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    unbind();
 }
 
 void SceneFrameBuffer::setSize(uint32_t width, uint32_t height) {
@@ -82,6 +84,11 @@ void SceneFrameBuffer::setSize(uint32_t width, uint32_t height) {
     _textureColorBuffer.setData(GL_RGB16F, _width, _height, GL_RGB, GL_HALF_FLOAT);
     glBindRenderbuffer(GL_RENDERBUFFER, _rbo);
     glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, _width, _height);
+}
+
+glm::vec2 SceneFrameBuffer::getSize() const
+{
+    return {_width, _height};
 }
 
 void SceneFrameBuffer::setupFramebuffer() {
