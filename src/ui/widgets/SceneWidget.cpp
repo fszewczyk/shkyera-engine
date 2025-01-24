@@ -24,7 +24,7 @@ void SceneWidget::draw() {
     
     auto renderSize = ImGui::GetContentRegionAvail();
     updateWindowCoordinateSystem();
-    _runtime.getRenderingSystem().setSize(renderSize.x * 2, renderSize.y * 2);
+    _runtime.getRenderingSystem().setSize(renderSize.x * 1.5f, renderSize.y * 1.5f);
     const auto aspectRatio = static_cast<float>(renderSize.x) / renderSize.y;
     _registry->getComponent<CameraComponent>(_registry->getCamera()).aspectRatio = aspectRatio;
 

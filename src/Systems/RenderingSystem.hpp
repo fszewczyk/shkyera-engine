@@ -21,6 +21,8 @@ public:
     GLuint getRenderFrameBuffer();
 
 private:
+    void clearFrameBuffers();
+
     void renderModels();
     void renderBloom();
     void toneMapping();
@@ -28,6 +30,7 @@ private:
     void renderOutline(const std::unordered_set<Entity>& entities);
     void renderSkybox();
     void renderOverlayModels();
+    void antiAliasing();
 
     void renderDirectionalLightShadowMaps();
     void renderPointLightShadowMaps();
@@ -42,6 +45,10 @@ private:
     SceneFrameBuffer _litModelsFrameBuffer;
     ShaderProgram _modelShaderProgram;
     ShaderProgram _wireframeShaderProgram;
+
+    // Anti-Aliasing
+    SceneFrameBuffer _antiAliasedFrameBuffer;
+    ShaderProgram _antiAliasingShaderProgram;
 
     // Tone Mapping
     SceneFrameBuffer _toneMappedFrameBuffer;
@@ -63,6 +70,7 @@ private:
     SceneFrameBuffer _horizontallyDilatedFrameBuffer;
     SceneFrameBuffer _fullyDilatedFrameBuffer;
     SceneFrameBuffer _differenceFrameBuffer;
+    SceneFrameBuffer _outlinedObjectsFrameBuffer;
     ShaderProgram _silhouetteShaderProgram;
     ShaderProgram _dilateShaderProgram;
     ShaderProgram _subtractShaderProgram;
