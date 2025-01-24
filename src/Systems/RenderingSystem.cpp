@@ -164,14 +164,15 @@ void RenderingSystem::render()
     renderSkybox();
     renderModels();
 
+    // Debug Info
+    renderWireframes();
+    renderOutline(_registry->getSelectedEntities());
+
     // Post-Processing
     renderBloom();
     toneMapping();
     antiAliasing();
 
-    // Debug Info
-    renderWireframes();
-    renderOutline(_registry->getSelectedEntities());
     renderOverlayModels();
 }
 

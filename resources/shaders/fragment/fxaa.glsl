@@ -6,8 +6,8 @@ in vec2 TexCoords;
 
 uniform sampler2D sceneTexture;
 
-const float FXAA_SPAN_MAX = 4.0;
-const float FXAA_REDUCE_MIN = 1.0 / 128.0;
+const float FXAA_SPAN_MAX = 2.0;
+const float FXAA_REDUCE_MIN = 1.0 / 1024.0;
 
 void main() {
     vec3 color = texture(sceneTexture, TexCoords).rgb;
