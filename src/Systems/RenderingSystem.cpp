@@ -119,7 +119,7 @@ void RenderingSystem::setSize(uint32_t width, uint32_t height)
         _downscaledFrameBuffers[i].setSize(width / downscaleFactor, height / downscaleFactor);
         _horizontallyBluredDownscaledFrameBuffers[i].setSize(width / downscaleFactor, height / downscaleFactor);
         _fullyBluredDownscaledFrameBuffers[i].setSize(width / downscaleFactor, height / downscaleFactor);
-        downscaleFactor *= 2;
+        downscaleFactor *= 1.5;
     }
 }
 
@@ -660,7 +660,7 @@ void RenderingSystem::renderBloom()
             { "secondTexture", &currentBuffer->getTexture() }
         },
         utils::Uniform("firstWeight", 1.0f),
-        utils::Uniform("secondWeight", 0.5f)
+        utils::Uniform("secondWeight", 0.2f)
     );
 
     _mostRecentFrameBufferPtr = &_bloomedFrameBuffer;
