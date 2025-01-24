@@ -1,5 +1,15 @@
 var NAVTREEINDEX7 =
 {
+"namespaceshkyera.html#a7a2f2208944732e67483f7920f91aeb3a1ddcc433d1fb5e5bc667b3a39429573c":[3,0,0,73,1],
+"namespaceshkyera.html#a7a2f2208944732e67483f7920f91aeb3ac1c970c810ef92020ecbd10e3f35c814":[3,0,0,73,2],
+"namespaceshkyera.html#a7a2f2208944732e67483f7920f91aeb3acaf5c3fe2f331a51be77caa99fd32ca4":[3,0,0,73,0],
+"namespaceshkyera.html#aa96ae6f5cd4b22f69428d8f4be5298da":[3,0,0,72],
+"namespaceshkyera.html#ad464a8f71a551cf5046153038d4a8fc0":[3,0,0,75],
+"namespaceshkyera.html#ae9c2a9a12dbc40b72c040bb1db3888cb":[3,0,0,78],
+"namespaceshkyera.html#af2fbd0c477c63b0c2032b04876a5fc9f":[3,0,0,79],
+"namespaceshkyera.html#afbdc9be08f9c9dfa862c709e3a8ad866":[3,0,0,76],
+"namespaceshkyera_1_1_logger.html":[3,0,0,0],
+"namespaceshkyera_1_1_logger.html#a084332fcbe48f0afc6144c58a5b2ae05":[3,0,0,0,1],
 "namespaceshkyera_1_1_logger.html#a084332fcbe48f0afc6144c58a5b2ae05a551b723eafd6a31d444fcb2f5920fbd3":[3,0,0,0,1,1],
 "namespaceshkyera_1_1_logger.html#a084332fcbe48f0afc6144c58a5b2ae05abb1ca97ec761fc37101737ba0aa2e7c5":[3,0,0,0,1,0],
 "namespaceshkyera_1_1_logger.html#a084332fcbe48f0afc6144c58a5b2ae05ad0749aaba8b833466dfcbb0428e4f89c":[3,0,0,0,1,3],
