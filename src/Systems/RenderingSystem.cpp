@@ -1,3 +1,5 @@
+#include <chrono>
+
 #include <Systems/RenderingSystem.hpp>
 #include <Common/Logger.hpp>
 #include <AssetManager/AssetManager.hpp>
@@ -75,6 +77,11 @@ RenderingSystem::RenderingSystem(std::shared_ptr<Registry> registry)
     _overlayShaderProgram.attachShader(overlayFragmentShader);
     _overlayShaderProgram.link();
 
+    const auto& fxaaFragmentShader = AssetManager::getInstance().getAsset<Shader>("resources/shaders/fragment/fxaa.glsl", Shader::Type::Fragment);
+    _antiAliasingShaderProgram.attachShader(texCoordsVertexShader);
+    _antiAliasingShaderProgram.attachShader(fxaaFragmentShader);
+    _antiAliasingShaderProgram.link();
+
     const auto& skyboxVertexShader = AssetManager::getInstance().getAsset<Shader>("resources/shaders/vertex/skybox.glsl", Shader::Type::Vertex);
     const auto& cubeMapFragmentShader = AssetManager::getInstance().getAsset<Shader>("resources/shaders/fragment/cubemap.glsl", Shader::Type::Fragment);
     _skyboxShaderProgram.attachShader(skyboxVertexShader);
@@ -103,7 +110,9 @@ void RenderingSystem::setSize(uint32_t width, uint32_t height)
     _fullyDilatedFrameBuffer.setSize(width, height);
     _differenceFrameBuffer.setSize(width, height);
     _bloomedFrameBuffer.setSize(width, height);
-    
+    _antiAliasedFrameBuffer.setSize(width, height);
+    _outlinedObjectsFrameBuffer.setSize(width, height);
+
     size_t downscaleFactor = 2;
     for(size_t i = 0; i < BloomSteps; ++i)
     {
@@ -119,10 +128,17 @@ GLuint RenderingSystem::getRenderFrameBuffer()
     return _mostRecentFrameBufferPtr->getTexture().getID();
 }
 
-void RenderingSystem::render() {
+void RenderingSystem::clearFrameBuffers()
+{
     _litModelsFrameBuffer.clear();
     _toneMappedFrameBuffer.clear();
     _bloomedFrameBuffer.clear();
+    _antiAliasedFrameBuffer.clear();
+    _outlinedObjectsFrameBuffer.clear();
+    _silhouetteFrameBuffer.clear();
+    _horizontallyDilatedFrameBuffer.clear();
+    _fullyDilatedFrameBuffer.clear();
+    _differenceFrameBuffer.clear();
     for(auto& buffer : _downscaledFrameBuffers)
     {
         buffer.clear();
@@ -135,14 +151,25 @@ void RenderingSystem::render() {
     {
         buffer.clear();
     }
+}
 
+void RenderingSystem::render() 
+{   
     _mostRecentFrameBufferPtr = &_litModelsFrameBuffer;
+
+    // Rendering Preparation
+    clearFrameBuffers();
 
     // Main Rendering Pass
     renderSkybox();
     renderModels();
+
+    // Post-Processing
     renderBloom();
     toneMapping();
+    antiAliasing();
+
+    // Debug Info
     renderWireframes();
     renderOutline(_registry->getSelectedEntities());
     renderOverlayModels();
@@ -165,7 +192,6 @@ void RenderingSystem::renderOutline(const std::unordered_set<Entity>& entities)
 
     // Drawing a silhouette
     _silhouetteFrameBuffer.bind();
-    _silhouetteFrameBuffer.clear();
     const auto& cameraTransform = _registry->getComponent<TransformComponent>(_registry->getCamera());
     const glm::mat4& viewMatrix = _registry->getComponent<CameraComponent>(_registry->getCamera()).getViewMatrix(cameraTransform);
     const glm::mat4& projectionMatrix = _registry->getComponent<CameraComponent>(_registry->getCamera()).getProjectionMatrix();
@@ -215,17 +241,21 @@ void RenderingSystem::renderOutline(const std::unordered_set<Entity>& entities)
     );
 
     utils::applyShaderToFrameBuffer(
-        (*_mostRecentFrameBufferPtr),
+        _outlinedObjectsFrameBuffer,
         _overlayShaderProgram,
         {
             { "background", &_mostRecentFrameBufferPtr->getTexture() },
             { "overlay", &_differenceFrameBuffer.getTexture() }
         }
     );
+
+    _mostRecentFrameBufferPtr = &_outlinedObjectsFrameBuffer;
 }
 
 void RenderingSystem::renderDirectionalLightShadowMaps()
 {
+    glEnable(GL_DEPTH_TEST);
+
     const auto& cameraTransform = _registry->getComponent<TransformComponent>(_registry->getCamera());
     const auto& cameraComponent = _registry->getComponent<CameraComponent>(_registry->getCamera());
 
@@ -290,6 +320,8 @@ void RenderingSystem::renderDirectionalLightShadowMaps()
 
 void RenderingSystem::renderPointLightShadowMaps()
 {
+    glEnable(GL_DEPTH_TEST);
+
     const auto& cameraTransform = _registry->getComponent<TransformComponent>(_registry->getCamera());
     const auto& cameraComponent = _registry->getComponent<CameraComponent>(_registry->getCamera());
 
@@ -367,6 +399,8 @@ void RenderingSystem::renderPointLightShadowMaps()
 
 void RenderingSystem::renderSpotLightShadowMaps()
 {
+    glEnable(GL_DEPTH_TEST);
+
     const auto& cameraTransform = _registry->getComponent<TransformComponent>(_registry->getCamera());
     const auto& cameraComponent = _registry->getComponent<CameraComponent>(_registry->getCamera());
 
@@ -544,6 +578,8 @@ void RenderingSystem::renderModels()
 
 void RenderingSystem::renderBloom()
 {
+    glDisable(GL_DEPTH_TEST);
+
     // Downscaling Pass
     utils::applyShaderToFrameBuffer(
         _downscaledFrameBuffers[0],
@@ -632,6 +668,8 @@ void RenderingSystem::renderBloom()
 
 void RenderingSystem::toneMapping()
 {
+    glDisable(GL_DEPTH_TEST);
+
     utils::applyShaderToFrameBuffer(
         _toneMappedFrameBuffer,
         _toneMappingShaderProgram,
@@ -723,6 +761,19 @@ void RenderingSystem::renderOverlayModels()
     _mostRecentFrameBufferPtr->unbind();
 
     glEnable(GL_DEPTH_TEST);
+}
+
+void RenderingSystem::antiAliasing()
+{
+    utils::applyShaderToFrameBuffer(
+        _antiAliasedFrameBuffer,
+        _antiAliasingShaderProgram,
+        {
+            {"sceneTexture", &_mostRecentFrameBufferPtr->getTexture()}
+        }
+    );
+
+    _mostRecentFrameBufferPtr = &_antiAliasedFrameBuffer;
 }
 
 }
