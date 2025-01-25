@@ -1,4 +1,5 @@
 #include <InputManager/InputManager.hpp>
+#include <Common/Profiler.hpp>
 
 namespace shkyera {
 
@@ -72,6 +73,8 @@ void InputManager::unregisterMouseButtonDownCallback(MouseButton button) {
 }
 
 void InputManager::processInput(GLFWwindow* window) {
+    SHKYERA_PROFILE("InputManager::processInput");
+
     for (const auto& [key, callbacks] : _keyCallbacks) {
         if (glfwGetKey(window, key) == GLFW_PRESS) {
             for (const auto& callback : callbacks) {
