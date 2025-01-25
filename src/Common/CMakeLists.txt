@@ -3,6 +3,7 @@ add_library(
     STATIC
 
     ${CMAKE_CURRENT_LIST_DIR}/Logger.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/Profiler.cpp
 )
 
 target_include_directories(

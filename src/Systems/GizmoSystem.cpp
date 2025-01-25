@@ -1,5 +1,6 @@
 #include <Systems/GizmoSystem.hpp>
 #include <Common/Logger.hpp>
+#include <Common/Profiler.hpp>
 
 #include <AssetManager/AssetManager.hpp>
 #include <AssetManager/Mesh.hpp>
@@ -178,6 +179,8 @@ GizmoSystem::~GizmoSystem()
 
 void GizmoSystem::update()
 {
+    SHKYERA_PROFILE("GizmoSystem::update");
+
     selectEntity();
     styleOnHover();
 

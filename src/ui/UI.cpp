@@ -15,8 +15,8 @@
 #include <UI/Common/Style.hpp>
 #include <UI/Widgets/ConsoleWidget.hpp>
 #include <UI/Widgets/FilesystemWidget.hpp>
+#include <UI/Widgets/ProfilerWidget.hpp>
 #include <UI/Widgets/ObjectsWidget.hpp>
-#include <UI/Widgets/PreviewWidget.hpp>
 #include <UI/Widgets/PropertiesWidget.hpp>
 #include <UI/Widgets/SceneWidget.hpp>
 #include <UI/UI.hpp>
@@ -93,11 +93,11 @@ void UI::initializeSystems() {
 }
 
 void UI::initializeWidgets() {
-  _widgets.emplace_back(std::make_unique<ConsoleWidget>("Console"));
-  
+  _widgets.emplace_back(std::make_unique<ConsoleWidget>("Console"));  
   _widgets.emplace_back(std::make_unique<PropertiesWidget>(_registry));
   _widgets.emplace_back(std::make_unique<CameraPropertiesWidget>(_registry));
   _widgets.emplace_back(std::make_unique<EnvironmentPropertiesWidget>(_registry));
+  _widgets.emplace_back(std::make_unique<ProfilerWidget>("Profiler"));
 
   _widgets.emplace_back(std::make_unique<SceneWidget>(_registry));
 
@@ -187,6 +187,8 @@ void UI::styleImgui() {
 }
 
 void UI::beginFrame() {
+  SHKYERA_PROFILE("UI::beginFrame");
+
   glfwPollEvents();
 
   glClearColor(0.1f, 0.1f, 0.1f, 0.1f);
@@ -241,6 +243,7 @@ void UI::beginFrame() {
     ImGui::DockBuilderDockWindow("Scene", dock_id_left_up_right);
     ImGui::DockBuilderDockWindow("Properties", dock_id_right);
     ImGui::DockBuilderDockWindow("Scene Camera", dock_id_right);
+    ImGui::DockBuilderDockWindow("Profiler", dock_id_right);
     ImGui::DockBuilderDockWindow("Environment", dock_id_right);
     ImGui::DockBuilderDockWindow("Assets", dock_id_left_bottom);
     ImGui::DockBuilderDockWindow("Console", dock_id_left_bottom);
@@ -252,6 +255,8 @@ void UI::beginFrame() {
 }
 
 void UI::renderFrame() {
+  SHKYERA_PROFILE("UI::renderFrame");
+
   const auto& windowSize = ImGui::GetWindowSize();
   InputManager::getInstance().setCoordinateSystem(InputManager::CoordinateSystem::ABSOLUTE, {0, 0}, {windowSize.x, windowSize.y});
   InputManager::getInstance().processInput(_window);
@@ -284,6 +289,8 @@ void UI::renderFrame() {
 }
 
 void UI::endFrame() {
+  SHKYERA_PROFILE("UI::endFrame");
+
   ImGui::Render();
 
   int display_w, display_h;

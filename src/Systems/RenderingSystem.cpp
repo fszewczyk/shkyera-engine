@@ -2,6 +2,7 @@
 
 #include <Systems/RenderingSystem.hpp>
 #include <Common/Logger.hpp>
+#include <Common/Profiler.hpp>
 #include <AssetManager/AssetManager.hpp>
 #include <Rendering/Utils.hpp>
 #include <Components/TransformComponent.hpp>
@@ -103,6 +104,8 @@ RenderingSystem::RenderingSystem(std::shared_ptr<Registry> registry)
 
 void RenderingSystem::setSize(uint32_t width, uint32_t height)
 {
+    SHKYERA_PROFILE("RenderingSystem::setSize");
+
     _litModelsFrameBuffer.setSize(width, height);
     _toneMappedFrameBuffer.setSize(width, height);
     _silhouetteFrameBuffer.setSize(width, height);
@@ -130,6 +133,8 @@ GLuint RenderingSystem::getRenderFrameBuffer()
 
 void RenderingSystem::clearFrameBuffers()
 {
+    SHKYERA_PROFILE("RenderingSystem::clearFrameBuffers");
+
     _litModelsFrameBuffer.clear();
     _toneMappedFrameBuffer.clear();
     _bloomedFrameBuffer.clear();
@@ -155,6 +160,8 @@ void RenderingSystem::clearFrameBuffers()
 
 void RenderingSystem::render() 
 {   
+    SHKYERA_PROFILE("RenderingSystem::render");
+
     _mostRecentFrameBufferPtr = &_litModelsFrameBuffer;
 
     // Rendering Preparation
@@ -178,10 +185,12 @@ void RenderingSystem::render()
 
 void RenderingSystem::renderOutline(const std::unordered_set<Entity>& entities)
 {
-    if(entities.empty())
+    if(std::none_of(entities.begin(), entities.end(), [this](auto e) { return _registry->hasComponent<NameComponent>(e); }))
     {
         return;
     }
+
+    SHKYERA_PROFILE("RenderingSystem::renderOutline");
 
     for(const auto& entity : entities)
     {
@@ -255,6 +264,8 @@ void RenderingSystem::renderOutline(const std::unordered_set<Entity>& entities)
 
 void RenderingSystem::renderDirectionalLightShadowMaps()
 {
+    SHKYERA_PROFILE("RenderingSystem::renderDirectionalLightShadowMaps");
+
     glEnable(GL_DEPTH_TEST);
 
     const auto& cameraTransform = _registry->getComponent<TransformComponent>(_registry->getCamera());
@@ -321,6 +332,8 @@ void RenderingSystem::renderDirectionalLightShadowMaps()
 
 void RenderingSystem::renderPointLightShadowMaps()
 {
+    SHKYERA_PROFILE("RenderingSystem::renderPointLightShadowMaps");
+
     glEnable(GL_DEPTH_TEST);
 
     const auto& cameraTransform = _registry->getComponent<TransformComponent>(_registry->getCamera());
@@ -400,6 +413,8 @@ void RenderingSystem::renderPointLightShadowMaps()
 
 void RenderingSystem::renderSpotLightShadowMaps()
 {
+    SHKYERA_PROFILE("RenderingSystem::renderSpotLightShadowMaps");
+
     glEnable(GL_DEPTH_TEST);
 
     const auto& cameraTransform = _registry->getComponent<TransformComponent>(_registry->getCamera());
@@ -463,6 +478,8 @@ void RenderingSystem::renderSpotLightShadowMaps()
 
 void RenderingSystem::renderModels()
 {
+    SHKYERA_PROFILE("RenderingSystem::renderModels");
+
     glEnable(GL_DEPTH_TEST);
 
     // ********* Rendering the shadow maps *********
@@ -579,6 +596,8 @@ void RenderingSystem::renderModels()
 
 void RenderingSystem::renderBloom()
 {
+    SHKYERA_PROFILE("RenderingSystem::renderBloom");
+
     glDisable(GL_DEPTH_TEST);
 
     // Downscaling Pass
@@ -669,6 +688,8 @@ void RenderingSystem::renderBloom()
 
 void RenderingSystem::toneMapping()
 {
+    SHKYERA_PROFILE("RenderingSystem::toneMapping");
+
     glDisable(GL_DEPTH_TEST);
 
     utils::applyShaderToFrameBuffer(
@@ -684,6 +705,8 @@ void RenderingSystem::toneMapping()
 
 void RenderingSystem::renderWireframes()
 {
+    SHKYERA_PROFILE("RenderingSystem::renderWireframes");
+
     glEnable(GL_DEPTH_TEST);
 
     _mostRecentFrameBufferPtr->bind();
@@ -711,6 +734,8 @@ void RenderingSystem::renderWireframes()
 
 void RenderingSystem::renderSkybox()
 {
+    SHKYERA_PROFILE("RenderingSystem::renderSkybox");
+
     const auto& cameraTransform = _registry->getComponent<TransformComponent>(_registry->getCamera());
     const glm::mat4& viewMatrix = _registry->getComponent<CameraComponent>(_registry->getCamera()).getViewMatrix(cameraTransform);
     const glm::mat4& projectionMatrix = _registry->getComponent<CameraComponent>(_registry->getCamera()).getProjectionMatrix();
@@ -739,6 +764,8 @@ void RenderingSystem::renderSkybox()
 
 void RenderingSystem::renderOverlayModels()
 {
+    SHKYERA_PROFILE("RenderingSystem::renderOverlayModels");
+
     glDisable(GL_DEPTH_TEST);
 
     _mostRecentFrameBufferPtr->bind();
@@ -766,6 +793,8 @@ void RenderingSystem::renderOverlayModels()
 
 void RenderingSystem::antiAliasing()
 {
+    SHKYERA_PROFILE("RenderingSystem::antiAliasing");
+
     utils::applyShaderToFrameBuffer(
         _antiAliasedFrameBuffer,
         _antiAliasingShaderProgram,
