@@ -22,5 +22,6 @@ var searchData=
   ['renderspotlightshadowmaps_19',['renderSpotLightShadowMaps',['../classshkyera_1_1_rendering_system.html#a2ae542d3005d95eea9986a927eb366f9',1,'shkyera::RenderingSystem']]],
   ['renderwireframes_20',['renderWireframes',['../classshkyera_1_1_rendering_system.html#a6619403cffc08fc4338f96a5d1296778',1,'shkyera::RenderingSystem']]],
   ['requestentity_21',['requestEntity',['../classshkyera_1_1_entity_provider.html#a97a788880da8b7116c8a697fb4a57f6b',1,'shkyera::EntityProvider']]],
-  ['runtime_22',['Runtime',['../classshkyera_1_1_runtime.html#a21d9898d6816674a2da24f139fa6dd1f',1,'shkyera::Runtime']]]
+  ['reset_22',['reset',['../classshkyera_1_1_profiler_widget.html#af4659365b8553fd2119cbe0a4c30c099',1,'shkyera::ProfilerWidget']]],
+  ['runtime_23',['Runtime',['../classshkyera_1_1_runtime.html#a21d9898d6816674a2da24f139fa6dd1f',1,'shkyera::Runtime']]]
 ];

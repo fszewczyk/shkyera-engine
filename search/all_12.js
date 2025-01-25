@@ -9,12 +9,13 @@ var searchData=
   ['todegrees_6',['toDegrees',['../namespaceshkyera.html#af2fbd0c477c63b0c2032b04876a5fc9f',1,'shkyera']]],
   ['tonemapping_7',['toneMapping',['../classshkyera_1_1_rendering_system.html#a3d950bfcd84d3c6b74d1f9b42090e7e6',1,'shkyera::RenderingSystem']]],
   ['toradians_8',['toRadians',['../namespaceshkyera.html#a4b6a401929f14f43633c9d857d4d923a',1,'shkyera']]],
-  ['transformcomponent_9',['transformcomponent',['../classshkyera_1_1_transform_component.html#a4b53ce50846e7ab71654b3db7d01a969',1,'shkyera::TransformComponent::TransformComponent()'],['../classshkyera_1_1_transform_component.html',1,'shkyera::TransformComponent']]],
-  ['transformcomponent_2ehpp_10',['TransformComponent.hpp',['../_transform_component_8hpp.html',1,'']]],
-  ['transformcomponentui_11',['TransformComponentUI',['../classshkyera_1_1_transform_component_u_i.html',1,'shkyera']]],
-  ['transformcomponentui_2ecpp_12',['TransformComponentUI.cpp',['../_transform_component_u_i_8cpp.html',1,'']]],
-  ['transformcomponentui_2ehpp_13',['TransformComponentUI.hpp',['../_transform_component_u_i_8hpp.html',1,'']]],
-  ['translation_14',['TRANSLATION',['../classshkyera_1_1_gizmo_system.html#a63727ecf275348fe911d450f1ecb3505a0da044e5b37e6bcb3a8d01dc7362b276',1,'shkyera::GizmoSystem']]],
-  ['type_15',['Type',['../classshkyera_1_1_shader.html#a8609b223b8cb0e0e71038b5a5208acc7',1,'shkyera::Shader']]],
-  ['types_2ehpp_16',['Types.hpp',['../_types_8hpp.html',1,'']]]
+  ['totallengthinnanoseconds_9',['totalLengthInNanoSeconds',['../structshkyera_1_1_profile_block.html#aba92fb0d8add3947b40fdbe7e3cd2656',1,'shkyera::ProfileBlock']]],
+  ['transformcomponent_10',['transformcomponent',['../classshkyera_1_1_transform_component.html#a4b53ce50846e7ab71654b3db7d01a969',1,'shkyera::TransformComponent::TransformComponent()'],['../classshkyera_1_1_transform_component.html',1,'shkyera::TransformComponent']]],
+  ['transformcomponent_2ehpp_11',['TransformComponent.hpp',['../_transform_component_8hpp.html',1,'']]],
+  ['transformcomponentui_12',['TransformComponentUI',['../classshkyera_1_1_transform_component_u_i.html',1,'shkyera']]],
+  ['transformcomponentui_2ecpp_13',['TransformComponentUI.cpp',['../_transform_component_u_i_8cpp.html',1,'']]],
+  ['transformcomponentui_2ehpp_14',['TransformComponentUI.hpp',['../_transform_component_u_i_8hpp.html',1,'']]],
+  ['translation_15',['TRANSLATION',['../classshkyera_1_1_gizmo_system.html#a63727ecf275348fe911d450f1ecb3505a0da044e5b37e6bcb3a8d01dc7362b276',1,'shkyera::GizmoSystem']]],
+  ['type_16',['Type',['../classshkyera_1_1_shader.html#a8609b223b8cb0e0e71038b5a5208acc7',1,'shkyera::Shader']]],
+  ['types_2ehpp_17',['Types.hpp',['../_types_8hpp.html',1,'']]]
 ];

@@ -82,6 +82,9 @@ var hierarchy =
       [ "shkyera::LogVerbose", "classshkyera_1_1_log_verbose.html", null ]
     ] ],
     [ "shkyera::ObjectSelectionSystem", "classshkyera_1_1_object_selection_system.html", null ],
+    [ "shkyera::ProfileBlock", "structshkyera_1_1_profile_block.html", null ],
+    [ "shkyera::ProfileGuard", "classshkyera_1_1_profile_guard.html", null ],
+    [ "shkyera::Profiler", "classshkyera_1_1_profiler.html", null ],
     [ "shkyera::Ray", "structshkyera_1_1_ray.html", null ],
     [ "shkyera::Registry", "classshkyera_1_1_registry.html", null ],
     [ "shkyera::RenderingSystem", "classshkyera_1_1_rendering_system.html", null ],
@@ -98,7 +101,7 @@ var hierarchy =
       [ "shkyera::ConsoleWidget", "classshkyera_1_1_console_widget.html", null ],
       [ "shkyera::FilesystemWidget", "classshkyera_1_1_filesystem_widget.html", null ],
       [ "shkyera::ObjectsWidget", "classshkyera_1_1_objects_widget.html", null ],
-      [ "shkyera::PreviewWidget", "classshkyera_1_1_preview_widget.html", null ],
+      [ "shkyera::ProfilerWidget", "classshkyera_1_1_profiler_widget.html", null ],
       [ "shkyera::PropertiesWidget", "classshkyera_1_1_properties_widget.html", [
         [ "shkyera::CameraPropertiesWidget", "classshkyera_1_1_camera_properties_widget.html", null ],
         [ "shkyera::EnvironmentPropertiesWidget", "classshkyera_1_1_environment_properties_widget.html", null ]

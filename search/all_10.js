@@ -33,9 +33,10 @@ var searchData=
   ['renderspotlightshadowmaps_30',['renderSpotLightShadowMaps',['../classshkyera_1_1_rendering_system.html#a2ae542d3005d95eea9986a927eb366f9',1,'shkyera::RenderingSystem']]],
   ['renderwireframes_31',['renderWireframes',['../classshkyera_1_1_rendering_system.html#a6619403cffc08fc4338f96a5d1296778',1,'shkyera::RenderingSystem']]],
   ['requestentity_32',['requestEntity',['../classshkyera_1_1_entity_provider.html#a97a788880da8b7116c8a697fb4a57f6b',1,'shkyera::EntityProvider']]],
-  ['runtime_33',['runtime',['../classshkyera_1_1_runtime.html',1,'shkyera::Runtime&lt; Mode &gt;'],['../classshkyera_1_1_runtime.html#a21d9898d6816674a2da24f139fa6dd1f',1,'shkyera::Runtime::Runtime()']]],
-  ['runtime_2ecpp_34',['Runtime.cpp',['../_runtime_8cpp.html',1,'']]],
-  ['runtime_2ehpp_35',['Runtime.hpp',['../_runtime_8hpp.html',1,'']]],
-  ['runtime_3c_20runtimemode_3a_3adevelopment_20_3e_36',['Runtime&lt; RuntimeMode::DEVELOPMENT &gt;',['../classshkyera_1_1_runtime.html',1,'shkyera']]],
-  ['runtimemode_37',['RuntimeMode',['../namespaceshkyera.html#a1fa85003a0e458be0cf85cccc54d3d55',1,'shkyera']]]
+  ['reset_33',['reset',['../classshkyera_1_1_profiler_widget.html#af4659365b8553fd2119cbe0a4c30c099',1,'shkyera::ProfilerWidget']]],
+  ['runtime_34',['runtime',['../classshkyera_1_1_runtime.html',1,'shkyera::Runtime&lt; Mode &gt;'],['../classshkyera_1_1_runtime.html#a21d9898d6816674a2da24f139fa6dd1f',1,'shkyera::Runtime::Runtime()']]],
+  ['runtime_2ecpp_35',['Runtime.cpp',['../_runtime_8cpp.html',1,'']]],
+  ['runtime_2ehpp_36',['Runtime.hpp',['../_runtime_8hpp.html',1,'']]],
+  ['runtime_3c_20runtimemode_3a_3adevelopment_20_3e_37',['Runtime&lt; RuntimeMode::DEVELOPMENT &gt;',['../classshkyera_1_1_runtime.html',1,'shkyera']]],
+  ['runtimemode_38',['RuntimeMode',['../namespaceshkyera.html#a1fa85003a0e458be0cf85cccc54d3d55',1,'shkyera']]]
 ];

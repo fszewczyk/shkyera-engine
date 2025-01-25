@@ -11,13 +11,14 @@ var searchData=
   ['_7eentityprovider_8',['~EntityProvider',['../classshkyera_1_1_entity_provider.html#aed3e7d956ab8d88ed3e405dd1cbbaf81',1,'shkyera::EntityProvider']]],
   ['_7egizmosystem_9',['~GizmoSystem',['../classshkyera_1_1_gizmo_system.html#ad1d746fe68862cf4d1818d7f9c9c77b3',1,'shkyera::GizmoSystem']]],
   ['_7emesh_10',['~Mesh',['../classshkyera_1_1_mesh.html#ac275570a0a6b4e9b848c8504e43088fb',1,'shkyera::Mesh']]],
-  ['_7eregistry_11',['~Registry',['../classshkyera_1_1_registry.html#af9e3a8e70a882a373963883cfcd3cbd1',1,'shkyera::Registry']]],
-  ['_7esceneframebuffer_12',['~SceneFrameBuffer',['../classshkyera_1_1_scene_frame_buffer.html#a90baf18c151d14b728fb96887a629f6c',1,'shkyera::SceneFrameBuffer']]],
-  ['_7eshader_13',['~Shader',['../classshkyera_1_1_shader.html#a64cb0b01c88924d82c66dc456fafdcab',1,'shkyera::Shader']]],
-  ['_7eshaderprogram_14',['~ShaderProgram',['../classshkyera_1_1_shader_program.html#a13184ee43647c161c508e10fc9dc90de',1,'shkyera::ShaderProgram']]],
-  ['_7esparseset_15',['~SparseSet',['../classshkyera_1_1_sparse_set.html#a8fcd4a6f26348b7c3bc83aa3ac5ea5d8',1,'shkyera::SparseSet']]],
-  ['_7esparsesetbase_16',['~SparseSetBase',['../classshkyera_1_1_sparse_set_base.html#acddf178e782a12f4953c6dc8ad02c55d',1,'shkyera::SparseSetBase']]],
-  ['_7etexture_17',['~Texture',['../classshkyera_1_1_texture.html#ae6e7dbd861cadb72d9dd7ee9fbc19cf8',1,'shkyera::Texture']]],
-  ['_7ewidget_18',['~Widget',['../classshkyera_1_1_widget.html#aff0e6c9ec0918578614e54a695f675c8',1,'shkyera::Widget']]],
-  ['_7ewireframe_19',['~Wireframe',['../classshkyera_1_1_wireframe.html#a5736cc5678e52d9f633a8ec7ff82d856',1,'shkyera::Wireframe']]]
+  ['_7eprofileguard_11',['~ProfileGuard',['../classshkyera_1_1_profile_guard.html#a6f96c7ae493426dc4a2158327a920216',1,'shkyera::ProfileGuard']]],
+  ['_7eregistry_12',['~Registry',['../classshkyera_1_1_registry.html#af9e3a8e70a882a373963883cfcd3cbd1',1,'shkyera::Registry']]],
+  ['_7esceneframebuffer_13',['~SceneFrameBuffer',['../classshkyera_1_1_scene_frame_buffer.html#a90baf18c151d14b728fb96887a629f6c',1,'shkyera::SceneFrameBuffer']]],
+  ['_7eshader_14',['~Shader',['../classshkyera_1_1_shader.html#a64cb0b01c88924d82c66dc456fafdcab',1,'shkyera::Shader']]],
+  ['_7eshaderprogram_15',['~ShaderProgram',['../classshkyera_1_1_shader_program.html#a13184ee43647c161c508e10fc9dc90de',1,'shkyera::ShaderProgram']]],
+  ['_7esparseset_16',['~SparseSet',['../classshkyera_1_1_sparse_set.html#a8fcd4a6f26348b7c3bc83aa3ac5ea5d8',1,'shkyera::SparseSet']]],
+  ['_7esparsesetbase_17',['~SparseSetBase',['../classshkyera_1_1_sparse_set_base.html#acddf178e782a12f4953c6dc8ad02c55d',1,'shkyera::SparseSetBase']]],
+  ['_7etexture_18',['~Texture',['../classshkyera_1_1_texture.html#ae6e7dbd861cadb72d9dd7ee9fbc19cf8',1,'shkyera::Texture']]],
+  ['_7ewidget_19',['~Widget',['../classshkyera_1_1_widget.html#aff0e6c9ec0918578614e54a695f675c8',1,'shkyera::Widget']]],
+  ['_7ewireframe_20',['~Wireframe',['../classshkyera_1_1_wireframe.html#a5736cc5678e52d9f633a8ec7ff82d856',1,'shkyera::Wireframe']]]
 ];
