@@ -12,8 +12,8 @@
 <g id="Node000001" class="node">
 <title>Node1</title>
 <g id="a_Node000001"><a xlink:title=" ">
-<polygon fill="#999999" stroke="#666666" points="309,-151 130,-151 130,-132 309,-132 309,-151"/>
-<text text-anchor="middle" x="219.5" y="-139" font-family="Helvetica,sans-Serif" font-size="10.00">src/AssetManager/Wireframe.hpp</text>
+<polygon fill="#999999" stroke="#666666" points="401,-151 222,-151 222,-132 401,-132 401,-151"/>
+<text text-anchor="middle" x="311.5" y="-139" font-family="Helvetica,sans-Serif" font-size="10.00">src/AssetManager/Wireframe.hpp</text>
 </a>
 </g>
 </g>
@@ -30,8 +30,8 @@
 <g id="edge1_Node000001_Node000002" class="edge">
 <title>Node1&#45;&gt;Node2</title>
 <g id="a_edge1_Node000001_Node000002"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M197.19,-126.16C179.9,-115.05 156.52,-100.01 141.98,-90.67"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="195.77,-129.4 206.07,-131.87 199.55,-123.52 195.77,-129.4"/>
+<path fill="none" stroke="#63b8ff" d="M274.95,-128.82C239.56,-117.5 186.73,-100.62 155.14,-90.52"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="274.3,-132.28 284.89,-131.99 276.43,-125.61 274.3,-132.28"/>
 </a>
 </g>
 </g>
@@ -49,8 +49,26 @@
 <g id="edge2_Node000001_Node000003" class="edge">
 <title>Node1&#45;&gt;Node3</title>
 <g id="a_edge2_Node000001_Node000003"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M241.84,-126.29C256.25,-117.13 274.92,-105.26 289.3,-96.11"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="239.64,-123.55 233.07,-131.87 243.39,-129.46 239.64,-123.55"/>
+<path fill="none" stroke="#63b8ff" d="M311.5,-121.65C311.5,-113.36 311.5,-103.78 311.5,-96.11"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="308,-121.87 311.5,-131.87 315,-121.87 308,-121.87"/>
+</a>
+</g>
+</g>
+<!-- Node8 -->
+<g id="Node000008" class="node">
+<title>Node8</title>
+<g id="a_Node000008"><a xlink:href="_asset_selector_8hpp.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="#666666" points="584.5,-90.5 404.5,-90.5 404.5,-71.5 584.5,-71.5 584.5,-90.5"/>
+<text text-anchor="middle" x="494.5" y="-78.5" font-family="Helvetica,sans-Serif" font-size="10.00">src/ui/Common/AssetSelector.hpp</text>
+</a>
+</g>
+</g>
+<!-- Node1&#45;&gt;Node8 -->
+<g id="edge7_Node000001_Node000008" class="edge">
+<title>Node1&#45;&gt;Node8</title>
+<g id="a_edge7_Node000001_Node000008"><a xlink:title=" ">
+<path fill="none" stroke="#63b8ff" d="M348.05,-128.82C383.44,-117.5 436.27,-100.62 467.86,-90.52"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="346.57,-125.61 338.11,-131.99 348.7,-132.28 346.57,-125.61"/>
 </a>
 </g>
 </g>

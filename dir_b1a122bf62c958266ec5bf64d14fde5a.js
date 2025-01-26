@@ -7,5 +7,6 @@ var dir_b1a122bf62c958266ec5bf64d14fde5a =
     [ "EntityProvider.hpp", "_entity_provider_8hpp.html", "_entity_provider_8hpp" ],
     [ "Registry.cpp", "_registry_8cpp.html", null ],
     [ "Registry.hpp", "_registry_8hpp.html", "_registry_8hpp" ],
+    [ "SingletonComponent.hpp", "_singleton_component_8hpp.html", "_singleton_component_8hpp" ],
     [ "SparseSet.hpp", "_sparse_set_8hpp.html", "_sparse_set_8hpp" ]
 ];

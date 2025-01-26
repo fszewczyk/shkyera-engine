@@ -6,5 +6,6 @@ var searchData=
   ['depthcubemapframebuffer_2ehpp_3',['DepthCubeMapFrameBuffer.hpp',['../_depth_cube_map_frame_buffer_8hpp.html',1,'']]],
   ['directionallightcomponent_2ehpp_4',['DirectionalLightComponent.hpp',['../_directional_light_component_8hpp.html',1,'']]],
   ['directionallightcomponentui_2ecpp_5',['DirectionalLightComponentUI.cpp',['../_directional_light_component_u_i_8cpp.html',1,'']]],
-  ['directionallightcomponentui_2ehpp_6',['DirectionalLightComponentUI.hpp',['../_directional_light_component_u_i_8hpp.html',1,'']]]
+  ['directionallightcomponentui_2ehpp_6',['DirectionalLightComponentUI.hpp',['../_directional_light_component_u_i_8hpp.html',1,'']]],
+  ['directorycomponent_2ehpp_7',['DirectoryComponent.hpp',['../_directory_component_8hpp.html',1,'']]]
 ];

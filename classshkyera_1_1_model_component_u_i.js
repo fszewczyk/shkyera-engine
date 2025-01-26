@@ -1,10 +1,11 @@
 var classshkyera_1_1_model_component_u_i =
 [
-    [ "ModelComponentUI", "classshkyera_1_1_model_component_u_i.html#a7cc948f759966f465ff0d6350a6e0cde", null ],
+    [ "ModelComponentUI", "classshkyera_1_1_model_component_u_i.html#ab0860a5f86789d6ad5cca9372332cfad", null ],
     [ "draw", "classshkyera_1_1_model_component_u_i.html#a74d4dc622f4e151e846f44d796f700cf", null ],
-    [ "setOnMeshUpdate", "classshkyera_1_1_model_component_u_i.html#a847571ffa4db315de8bc65ea15f52ff7", null ],
-    [ "_materialSelector", "classshkyera_1_1_model_component_u_i.html#a5dcac47e138f1714460599b9d55d3e21", null ],
-    [ "_meshSelector", "classshkyera_1_1_model_component_u_i.html#a06c77c6794b1d75e01bc524438f7c402", null ],
+    [ "setOnMeshUpdate", "classshkyera_1_1_model_component_u_i.html#a8262e794c17a6acabc0c95b3bb02adb4", null ],
+    [ "_materialSelector", "classshkyera_1_1_model_component_u_i.html#a3cc91540853a9add3c5122d9d902d696", null ],
+    [ "_meshSelector", "classshkyera_1_1_model_component_u_i.html#af5efb4998890a18c49027103e96b20d6", null ],
     [ "_modelComponent", "classshkyera_1_1_model_component_u_i.html#ade8f18bc069f7f95d4b1a31e6aaadd4c", null ],
-    [ "_onMeshUpdate", "classshkyera_1_1_model_component_u_i.html#a9f91a8473ee9dc4db543e988e5a1a6e3", null ]
+    [ "_onMeshUpdate", "classshkyera_1_1_model_component_u_i.html#afc40f80280920bc709d0c19e0f3d06b9", null ],
+    [ "_registry", "classshkyera_1_1_model_component_u_i.html#a5752b90ddf0777309c4a40657dc71f51", null ]
 ];

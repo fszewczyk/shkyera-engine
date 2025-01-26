@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['file_5ftype_0',['FILE_TYPE',['../namespaceshkyera.html#a7a2f2208944732e67483f7920f91aeb3',1,'shkyera']]]
+  ['messagetype_0',['MessageType',['../namespaceshkyera_1_1_logger.html#a084332fcbe48f0afc6144c58a5b2ae05',1,'shkyera::Logger']]],
+  ['mode_1',['Mode',['../classshkyera_1_1_gizmo_system.html#a63727ecf275348fe911d450f1ecb3505',1,'shkyera::GizmoSystem']]]
 ];

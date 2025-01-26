@@ -129,20 +129,59 @@ $(document).ready(function(){initNavTree('_types_8hpp_source.html',''); initResi
 <div class="contents">
 <a href="_types_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespaceshkyera.html">shkyera</a> {</div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;filesystem&gt;</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
-<div class="foldopen" id="foldopen00005" data-start="{" data-end="};">
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno"><a class="line" href="namespaceshkyera.html#a1fa85003a0e458be0cf85cccc54d3d55">    5</a></span><span class="keyword">enum class</span> <a class="code hl_enumeration" href="namespaceshkyera.html#a1fa85003a0e458be0cf85cccc54d3d55">RuntimeMode</a> {</div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>    <a class="code hl_enumvalue" href="namespaceshkyera.html#a1fa85003a0e458be0cf85cccc54d3d55afcee1a292eac6108bef8021e1c3d4c83">DEVELOPMENT</a>,</div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>    <a class="code hl_enumvalue" href="namespaceshkyera.html#a1fa85003a0e458be0cf85cccc54d3d55a86601675138015edb458866e7d879118">PRODUCTION</a></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>};</div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespaceshkyera.html">shkyera</a> {</div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
+<div class="foldopen" id="foldopen00007" data-start="{" data-end="};">
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno"><a class="line" href="namespaceshkyera.html#a1fa85003a0e458be0cf85cccc54d3d55">    7</a></span><span class="keyword">enum class</span> <a class="code hl_enumeration" href="namespaceshkyera.html#a1fa85003a0e458be0cf85cccc54d3d55">RuntimeMode</a> {</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>    <a class="code hl_enumvalue" href="namespaceshkyera.html#a1fa85003a0e458be0cf85cccc54d3d55afcee1a292eac6108bef8021e1c3d4c83">DEVELOPMENT</a>,</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>    <a class="code hl_enumvalue" href="namespaceshkyera.html#a1fa85003a0e458be0cf85cccc54d3d55a86601675138015edb458866e7d879118">PRODUCTION</a></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>};</div>
 </div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>}</div>
-<div class="ttc" id="anamespaceshkyera_html"><div class="ttname"><a href="namespaceshkyera.html">shkyera</a></div><div class="ttdef"><b>Definition</b> Asset.hpp:5</div></div>
-<div class="ttc" id="anamespaceshkyera_html_a1fa85003a0e458be0cf85cccc54d3d55"><div class="ttname"><a href="namespaceshkyera.html#a1fa85003a0e458be0cf85cccc54d3d55">shkyera::RuntimeMode</a></div><div class="ttdeci">RuntimeMode</div><div class="ttdef"><b>Definition</b> Types.hpp:5</div></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span>... Args&gt;</div>
+<div class="foldopen" id="foldopen00013" data-start="{" data-end="}">
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno"><a class="line" href="conceptshkyera_1_1_path_constructible.html">   13</a></span><span class="keyword">concept </span><a class="code hl_concept" href="conceptshkyera_1_1_path_constructible.html">PathConstructible</a> = <span class="keyword">requires</span>(<span class="keyword">const</span> std::filesystem::path&amp; p, Args&amp;&amp;... args) {</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    T{p, std::forward&lt;decltype(args)&gt;(args)...};</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>};</div>
+</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
+<div class="foldopen" id="foldopen00017" data-start="{" data-end="};">
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="structshkyera_1_1_global_path_hash.html">   17</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structshkyera_1_1_global_path_hash.html">GlobalPathHash</a> {</div>
+<div class="foldopen" id="foldopen00018" data-start="{" data-end="}">
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="structshkyera_1_1_global_path_hash.html#a9bb6640ea70416ca73b07ee3087c32da">   18</a></span>    std::size_t <a class="code hl_function" href="structshkyera_1_1_global_path_hash.html#a9bb6640ea70416ca73b07ee3087c32da">operator()</a>(<span class="keyword">const</span> std::filesystem::path&amp; p)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keyword">    </span>{</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>        std::string absolutePath = std::filesystem::absolute(p);</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>        <span class="keywordflow">return</span> std::hash&lt;std::string&gt;()(absolutePath);</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    }</div>
+</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>};</div>
+</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="foldopen" id="foldopen00025" data-start="{" data-end="};">
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="structshkyera_1_1_global_path_equal.html">   25</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structshkyera_1_1_global_path_equal.html">GlobalPathEqual</a> {</div>
+<div class="foldopen" id="foldopen00026" data-start="{" data-end="}">
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="structshkyera_1_1_global_path_equal.html#ae7b37f7b41b3705a3364b1e2d87b9b10">   26</a></span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="structshkyera_1_1_global_path_equal.html#ae7b37f7b41b3705a3364b1e2d87b9b10">operator()</a>(<span class="keyword">const</span> std::filesystem::path&amp; lhs, <span class="keyword">const</span> std::filesystem::path&amp; rhs)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="keyword">    </span>{</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        <span class="keyword">const</span> <span class="keyword">auto</span> lhsAbsolute = std::filesystem::absolute(lhs);</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        <span class="keyword">const</span> <span class="keyword">auto</span> rhsAbsolute = std::filesystem::absolute(rhs);</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        <span class="keywordflow">return</span> lhsAbsolute == rhsAbsolute;</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    }</div>
+</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>};</div>
+</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>}</div>
+<div class="ttc" id="aconceptshkyera_1_1_path_constructible_html"><div class="ttname"><a href="conceptshkyera_1_1_path_constructible.html">shkyera::PathConstructible</a></div><div class="ttdef"><b>Definition</b> Types.hpp:13</div></div>
+<div class="ttc" id="anamespaceshkyera_html"><div class="ttname"><a href="namespaceshkyera.html">shkyera</a></div><div class="ttdef"><b>Definition</b> Asset.hpp:6</div></div>
+<div class="ttc" id="anamespaceshkyera_html_a1fa85003a0e458be0cf85cccc54d3d55"><div class="ttname"><a href="namespaceshkyera.html#a1fa85003a0e458be0cf85cccc54d3d55">shkyera::RuntimeMode</a></div><div class="ttdeci">RuntimeMode</div><div class="ttdef"><b>Definition</b> Types.hpp:7</div></div>
 <div class="ttc" id="anamespaceshkyera_html_a1fa85003a0e458be0cf85cccc54d3d55a86601675138015edb458866e7d879118"><div class="ttname"><a href="namespaceshkyera.html#a1fa85003a0e458be0cf85cccc54d3d55a86601675138015edb458866e7d879118">shkyera::RuntimeMode::PRODUCTION</a></div><div class="ttdeci">@ PRODUCTION</div></div>
 <div class="ttc" id="anamespaceshkyera_html_a1fa85003a0e458be0cf85cccc54d3d55afcee1a292eac6108bef8021e1c3d4c83"><div class="ttname"><a href="namespaceshkyera.html#a1fa85003a0e458be0cf85cccc54d3d55afcee1a292eac6108bef8021e1c3d4c83">shkyera::RuntimeMode::DEVELOPMENT</a></div><div class="ttdeci">@ DEVELOPMENT</div></div>
+<div class="ttc" id="astructshkyera_1_1_global_path_equal_html"><div class="ttname"><a href="structshkyera_1_1_global_path_equal.html">shkyera::GlobalPathEqual</a></div><div class="ttdef"><b>Definition</b> Types.hpp:25</div></div>
+<div class="ttc" id="astructshkyera_1_1_global_path_equal_html_ae7b37f7b41b3705a3364b1e2d87b9b10"><div class="ttname"><a href="structshkyera_1_1_global_path_equal.html#ae7b37f7b41b3705a3364b1e2d87b9b10">shkyera::GlobalPathEqual::operator()</a></div><div class="ttdeci">bool operator()(const std::filesystem::path &amp;lhs, const std::filesystem::path &amp;rhs) const</div><div class="ttdef"><b>Definition</b> Types.hpp:26</div></div>
+<div class="ttc" id="astructshkyera_1_1_global_path_hash_html"><div class="ttname"><a href="structshkyera_1_1_global_path_hash.html">shkyera::GlobalPathHash</a></div><div class="ttdef"><b>Definition</b> Types.hpp:17</div></div>
+<div class="ttc" id="astructshkyera_1_1_global_path_hash_html_a9bb6640ea70416ca73b07ee3087c32da"><div class="ttname"><a href="structshkyera_1_1_global_path_hash.html#a9bb6640ea70416ca73b07ee3087c32da">shkyera::GlobalPathHash::operator()</a></div><div class="ttdeci">std::size_t operator()(const std::filesystem::path &amp;p) const</div><div class="ttdef"><b>Definition</b> Types.hpp:18</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.9.6-->

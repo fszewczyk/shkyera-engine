@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['image_0',['image',['../classshkyera_1_1_image.html#ae0d9915eb7d1e96d46cc0eeb383aebb8',1,'shkyera::Image::Image(const Image &amp;other)=delete'],['../classshkyera_1_1_image.html#a210fcbf7201e8ae644be598574327e97',1,'shkyera::Image::Image(const std::string &amp;path)']]],
+  ['image_0',['image',['../classshkyera_1_1_image.html#ae0d9915eb7d1e96d46cc0eeb383aebb8',1,'shkyera::Image::Image(const Image &amp;other)=delete'],['../classshkyera_1_1_image.html#a1f7565bc61b6a95196eaf5ecdb67e734',1,'shkyera::Image::Image(Image &amp;&amp;other) noexcept'],['../classshkyera_1_1_image.html#acfd4fd8ac66bd90f1b40f7a1809dce7c',1,'shkyera::Image::Image(const std::filesystem::path &amp;path)']]],
   ['info_1',['INFO',['../namespaceshkyera_1_1_logger.html#a49913dc3c12db0f629e1a27b3ccb3273',1,'shkyera::Logger']]],
   ['initialize_2',['initialize',['../classshkyera_1_1_u_i.html#aabdd8bbe75209eb00777de87725a28f7',1,'shkyera::UI::initialize()'],['../classshkyera_1_1_cube_map.html#a8e145a5270f21b2d710b72c90eb23fae',1,'shkyera::CubeMap::initialize()']]],
   ['initializeassets_3',['initializeAssets',['../classshkyera_1_1_u_i.html#ae2aa98fa5f649655b6401a9eecc93b06',1,'shkyera::UI']]],

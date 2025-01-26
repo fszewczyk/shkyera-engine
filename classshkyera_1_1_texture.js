@@ -1,12 +1,14 @@
 var classshkyera_1_1_texture =
 [
     [ "Texture", "classshkyera_1_1_texture.html#a9da8c9546041b997d075305a3c230fec", null ],
-    [ "Texture", "classshkyera_1_1_texture.html#a71902164ccc17d383c9d900334df75c3", null ],
+    [ "Texture", "classshkyera_1_1_texture.html#abd72df433b5c9c9f7475ee3c58fe90ab", null ],
+    [ "Texture", "classshkyera_1_1_texture.html#ae413bfc78747f8c2773946ba0824969b", null ],
     [ "~Texture", "classshkyera_1_1_texture.html#ae6e7dbd861cadb72d9dd7ee9fbc19cf8", null ],
     [ "Texture", "classshkyera_1_1_texture.html#a1300139db81954c347dff4c88a42c41f", null ],
     [ "Texture", "classshkyera_1_1_texture.html#a9cd8f6cd4f71f4b299625b04041c3aa7", null ],
     [ "activate", "classshkyera_1_1_texture.html#a5b9be56506c2633c3ee4fd88b10d4d71", null ],
     [ "bind", "classshkyera_1_1_texture.html#ac5d0ded0adca789236b3ae15d1bb1a31", null ],
+    [ "generateTexture", "classshkyera_1_1_texture.html#a5030f7b179a173f43ea9de2851a3f5e3", null ],
     [ "getID", "classshkyera_1_1_texture.html#a107901f4e7dfbb7656bbed9a9fc33996", null ],
     [ "getImguiTextureID", "classshkyera_1_1_texture.html#ab41bd95d92f212a228df94c79395e520", null ],
     [ "loadImage", "classshkyera_1_1_texture.html#aefafe1e4d8a0ccc16f5ac68854e70857", null ],

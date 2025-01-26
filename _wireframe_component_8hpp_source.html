@@ -136,49 +136,32 @@ $(document).ready(function(){initNavTree('_wireframe_component_8hpp_source.html'
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespaceshkyera.html">shkyera</a> {</div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
 <div class="foldopen" id="foldopen00009" data-start="{" data-end="};">
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="classshkyera_1_1_wireframe_component.html">    9</a></span><span class="keyword">class </span><a class="code hl_class" href="classshkyera_1_1_wireframe_component.html">WireframeComponent</a> : <span class="keyword">public</span> <a class="code hl_class" href="classshkyera_1_1_base_component.html">BaseComponent</a>&lt;WireframeComponent&gt; {</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="classshkyera_1_1_wireframe_component.html#a7942e719dc08d2316b7c1edc3226612f">   11</a></span>    <a class="code hl_function" href="classshkyera_1_1_wireframe_component.html#a7942e719dc08d2316b7c1edc3226612f">WireframeComponent</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
-<div class="foldopen" id="foldopen00013" data-start="{" data-end="}">
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno"><a class="line" href="classshkyera_1_1_wireframe_component.html#ac00f1495ee29ec79b4cbd9c67d3be8cb">   13</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classshkyera_1_1_wireframe_component.html#ac00f1495ee29ec79b4cbd9c67d3be8cb">setWireframe</a>(std::shared_ptr&lt;Wireframe&gt; wireframe) {</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>        <a class="code hl_variable" href="classshkyera_1_1_wireframe_component.html#aec7c3e552cc4c0eb4f0d5b77777c0586">_wireframe</a> = wireframe;</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    }</div>
-</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
-<div class="foldopen" id="foldopen00017" data-start="{" data-end="}">
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="classshkyera_1_1_wireframe_component.html#acb3359dac9b007eb4d5c88b510fa9a9e">   17</a></span>    <a class="code hl_class" href="classshkyera_1_1_wireframe.html">Wireframe</a> <span class="keyword">const</span>* <a class="code hl_function" href="classshkyera_1_1_wireframe_component.html#acb3359dac9b007eb4d5c88b510fa9a9e">getWireframe</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classshkyera_1_1_wireframe_component.html#aec7c3e552cc4c0eb4f0d5b77777c0586">_wireframe</a>.get();</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="structshkyera_1_1_wireframe_component.html">    9</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structshkyera_1_1_wireframe_component.html">WireframeComponent</a> : <span class="keyword">public</span> <a class="code hl_class" href="classshkyera_1_1_base_component.html">BaseComponent</a>&lt;WireframeComponent&gt; {</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno"><a class="line" href="structshkyera_1_1_wireframe_component.html#a497e9104da1ba89e87a187b4402c89f6">   10</a></span>    <a class="code hl_typedef" href="namespaceshkyera.html#af88b8951608a991d076ce45e31c20caf">HandleAndAsset&lt;Wireframe&gt;</a> <a class="code hl_variable" href="structshkyera_1_1_wireframe_component.html#a497e9104da1ba89e87a187b4402c89f6">wireframe</a>{};</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="foldopen" id="foldopen00012" data-start="{" data-end="}">
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno"><a class="line" href="structshkyera_1_1_wireframe_component.html#a13f736920c6ee5f6af1f47fca53dfa16">   12</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="structshkyera_1_1_wireframe_component.html#a13f736920c6ee5f6af1f47fca53dfa16">updateImpl</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>        <span class="keyword">const</span> <span class="keyword">auto</span>&amp; wireframeAsset = std::get&lt;AssetRef&lt;Wireframe&gt;&gt;(<a class="code hl_variable" href="structshkyera_1_1_wireframe_component.html#a497e9104da1ba89e87a187b4402c89f6">wireframe</a>);</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>        <span class="keywordflow">if</span> (wireframeAsset) {</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>            wireframeAsset-&gt;bind();</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>            glDrawArrays(GL_LINES, 0, wireframeAsset-&gt;getEdgeCount());</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>            wireframeAsset-&gt;unbind();</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>        }</div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    }</div>
 </div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
-<div class="foldopen" id="foldopen00021" data-start="{" data-end="}">
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="classshkyera_1_1_wireframe_component.html#a13f736920c6ee5f6af1f47fca53dfa16">   21</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classshkyera_1_1_wireframe_component.html#a13f736920c6ee5f6af1f47fca53dfa16">updateImpl</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="classshkyera_1_1_wireframe_component.html#aec7c3e552cc4c0eb4f0d5b77777c0586">_wireframe</a>) {</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>            <a class="code hl_variable" href="classshkyera_1_1_wireframe_component.html#aec7c3e552cc4c0eb4f0d5b77777c0586">_wireframe</a>-&gt;bind();</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>            glDrawArrays(GL_LINES, 0, <a class="code hl_variable" href="classshkyera_1_1_wireframe_component.html#aec7c3e552cc4c0eb4f0d5b77777c0586">_wireframe</a>-&gt;getEdgeCount());</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>            <a class="code hl_variable" href="classshkyera_1_1_wireframe_component.html#aec7c3e552cc4c0eb4f0d5b77777c0586">_wireframe</a>-&gt;unbind();</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        }</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    }</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>};</div>
 </div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="classshkyera_1_1_wireframe_component.html#aec7c3e552cc4c0eb4f0d5b77777c0586">   30</a></span>    std::shared_ptr&lt;Wireframe&gt; <a class="code hl_variable" href="classshkyera_1_1_wireframe_component.html#aec7c3e552cc4c0eb4f0d5b77777c0586">_wireframe</a>;</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>};</div>
-</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>} <span class="comment">// namespace shkyera</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>} <span class="comment">// namespace shkyera</span></div>
 <div class="ttc" id="a_base_component_8hpp_html"><div class="ttname"><a href="_base_component_8hpp.html">BaseComponent.hpp</a></div></div>
 <div class="ttc" id="a_wireframe_8hpp_html"><div class="ttname"><a href="_wireframe_8hpp.html">Wireframe.hpp</a></div></div>
 <div class="ttc" id="aclassshkyera_1_1_base_component_html"><div class="ttname"><a href="classshkyera_1_1_base_component.html">shkyera::BaseComponent</a></div><div class="ttdoc">Base component for implementing update functionality.</div><div class="ttdef"><b>Definition</b> BaseComponent.hpp:15</div></div>
-<div class="ttc" id="aclassshkyera_1_1_wireframe_component_html"><div class="ttname"><a href="classshkyera_1_1_wireframe_component.html">shkyera::WireframeComponent</a></div><div class="ttdef"><b>Definition</b> WireframeComponent.hpp:9</div></div>
-<div class="ttc" id="aclassshkyera_1_1_wireframe_component_html_a13f736920c6ee5f6af1f47fca53dfa16"><div class="ttname"><a href="classshkyera_1_1_wireframe_component.html#a13f736920c6ee5f6af1f47fca53dfa16">shkyera::WireframeComponent::updateImpl</a></div><div class="ttdeci">void updateImpl() const</div><div class="ttdef"><b>Definition</b> WireframeComponent.hpp:21</div></div>
-<div class="ttc" id="aclassshkyera_1_1_wireframe_component_html_a7942e719dc08d2316b7c1edc3226612f"><div class="ttname"><a href="classshkyera_1_1_wireframe_component.html#a7942e719dc08d2316b7c1edc3226612f">shkyera::WireframeComponent::WireframeComponent</a></div><div class="ttdeci">WireframeComponent()=default</div></div>
-<div class="ttc" id="aclassshkyera_1_1_wireframe_component_html_ac00f1495ee29ec79b4cbd9c67d3be8cb"><div class="ttname"><a href="classshkyera_1_1_wireframe_component.html#ac00f1495ee29ec79b4cbd9c67d3be8cb">shkyera::WireframeComponent::setWireframe</a></div><div class="ttdeci">void setWireframe(std::shared_ptr&lt; Wireframe &gt; wireframe)</div><div class="ttdef"><b>Definition</b> WireframeComponent.hpp:13</div></div>
-<div class="ttc" id="aclassshkyera_1_1_wireframe_component_html_acb3359dac9b007eb4d5c88b510fa9a9e"><div class="ttname"><a href="classshkyera_1_1_wireframe_component.html#acb3359dac9b007eb4d5c88b510fa9a9e">shkyera::WireframeComponent::getWireframe</a></div><div class="ttdeci">Wireframe const * getWireframe() const</div><div class="ttdef"><b>Definition</b> WireframeComponent.hpp:17</div></div>
-<div class="ttc" id="aclassshkyera_1_1_wireframe_component_html_aec7c3e552cc4c0eb4f0d5b77777c0586"><div class="ttname"><a href="classshkyera_1_1_wireframe_component.html#aec7c3e552cc4c0eb4f0d5b77777c0586">shkyera::WireframeComponent::_wireframe</a></div><div class="ttdeci">std::shared_ptr&lt; Wireframe &gt; _wireframe</div><div class="ttdef"><b>Definition</b> WireframeComponent.hpp:30</div></div>
-<div class="ttc" id="aclassshkyera_1_1_wireframe_html"><div class="ttname"><a href="classshkyera_1_1_wireframe.html">shkyera::Wireframe</a></div><div class="ttdef"><b>Definition</b> Wireframe.hpp:12</div></div>
-<div class="ttc" id="anamespaceshkyera_html"><div class="ttname"><a href="namespaceshkyera.html">shkyera</a></div><div class="ttdef"><b>Definition</b> Asset.hpp:5</div></div>
+<div class="ttc" id="anamespaceshkyera_html"><div class="ttname"><a href="namespaceshkyera.html">shkyera</a></div><div class="ttdef"><b>Definition</b> Asset.hpp:6</div></div>
+<div class="ttc" id="anamespaceshkyera_html_af88b8951608a991d076ce45e31c20caf"><div class="ttname"><a href="namespaceshkyera.html#af88b8951608a991d076ce45e31c20caf">shkyera::HandleAndAsset</a></div><div class="ttdeci">std::pair&lt; OptionalAssetHandle, AssetRef&lt; AssetType &gt; &gt; HandleAndAsset</div><div class="ttdef"><b>Definition</b> Asset.hpp:15</div></div>
+<div class="ttc" id="astructshkyera_1_1_wireframe_component_html"><div class="ttname"><a href="structshkyera_1_1_wireframe_component.html">shkyera::WireframeComponent</a></div><div class="ttdef"><b>Definition</b> WireframeComponent.hpp:9</div></div>
+<div class="ttc" id="astructshkyera_1_1_wireframe_component_html_a13f736920c6ee5f6af1f47fca53dfa16"><div class="ttname"><a href="structshkyera_1_1_wireframe_component.html#a13f736920c6ee5f6af1f47fca53dfa16">shkyera::WireframeComponent::updateImpl</a></div><div class="ttdeci">void updateImpl() const</div><div class="ttdef"><b>Definition</b> WireframeComponent.hpp:12</div></div>
+<div class="ttc" id="astructshkyera_1_1_wireframe_component_html_a497e9104da1ba89e87a187b4402c89f6"><div class="ttname"><a href="structshkyera_1_1_wireframe_component.html#a497e9104da1ba89e87a187b4402c89f6">shkyera::WireframeComponent::wireframe</a></div><div class="ttdeci">HandleAndAsset&lt; Wireframe &gt; wireframe</div><div class="ttdef"><b>Definition</b> WireframeComponent.hpp:10</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.9.6-->

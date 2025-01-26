@@ -121,20 +121,22 @@ $(document).ready(function(){initNavTree('_asset_8hpp.html',''); initResizable()
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#namespaces">Namespaces</a>  </div>
+<a href="#namespaces">Namespaces</a> &#124;
+<a href="#typedef-members">Typedefs</a>  </div>
   <div class="headertitle"><div class="title">Asset.hpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &lt;filesystem&gt;</code><br />
+<code>#include &lt;<a class="el" href="_registry_8hpp_source.html">ECS/Registry.hpp</a>&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for Asset.hpp:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="_asset_8hpp__incl.svg" width="218" height="110"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="_asset_8hpp__incl.svg" width="970" height="403"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div><div class="textblock"><div class="dynheader">
 This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="_asset_8hpp__dep__incl.svg" width="6076" height="447"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="_asset_8hpp__dep__incl.svg" width="5274" height="535"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
 <p><a href="_asset_8hpp_source.html">Go to the source code of this file.</a></p>
@@ -148,6 +150,19 @@ Classes</h2></td></tr>
 Namespaces</h2></td></tr>
 <tr class="memitem:namespaceshkyera" id="r_namespaceshkyera"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceshkyera.html">shkyera</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:a197e209cf7ed41d8ed7bea616e140f84" id="r_a197e209cf7ed41d8ed7bea616e140f84"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceshkyera.html#a197e209cf7ed41d8ed7bea616e140f84">shkyera::AssetHandle</a> = <a class="el" href="namespaceshkyera.html#a043bdd87686e0bd1bce19a1fd86298cd">Entity</a></td></tr>
+<tr class="separator:a197e209cf7ed41d8ed7bea616e140f84"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab7963f0ea662e169a19c3d3919822716" id="r_ab7963f0ea662e169a19c3d3919822716"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceshkyera.html#ab7963f0ea662e169a19c3d3919822716">shkyera::OptionalAssetHandle</a> = std::optional&lt; <a class="el" href="namespaceshkyera.html#a197e209cf7ed41d8ed7bea616e140f84">AssetHandle</a> &gt;</td></tr>
+<tr class="separator:ab7963f0ea662e169a19c3d3919822716"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a840dff224dd7033c335fa902c14ed17c" id="r_a840dff224dd7033c335fa902c14ed17c"><td class="memTemplParams" colspan="2">template&lt;typename AssetType &gt; </td></tr>
+<tr class="memitem:a840dff224dd7033c335fa902c14ed17c"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceshkyera.html#a840dff224dd7033c335fa902c14ed17c">shkyera::AssetRef</a> = std::shared_ptr&lt; AssetType &gt;</td></tr>
+<tr class="separator:a840dff224dd7033c335fa902c14ed17c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af88b8951608a991d076ce45e31c20caf" id="r_af88b8951608a991d076ce45e31c20caf"><td class="memTemplParams" colspan="2">template&lt;typename AssetType &gt; </td></tr>
+<tr class="memitem:af88b8951608a991d076ce45e31c20caf"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceshkyera.html#af88b8951608a991d076ce45e31c20caf">shkyera::HandleAndAsset</a> = std::pair&lt; <a class="el" href="namespaceshkyera.html#ab7963f0ea662e169a19c3d3919822716">OptionalAssetHandle</a>, <a class="el" href="namespaceshkyera.html#a840dff224dd7033c335fa902c14ed17c">AssetRef</a>&lt; AssetType &gt; &gt;</td></tr>
+<tr class="separator:af88b8951608a991d076ce45e31c20caf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->

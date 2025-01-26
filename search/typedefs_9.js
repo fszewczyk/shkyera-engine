@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['textureasset_0',['TextureAsset',['../namespaceshkyera.html#aa96ae6f5cd4b22f69428d8f4be5298da',1,'shkyera']]]
+  ['optionalassethandle_0',['OptionalAssetHandle',['../namespaceshkyera.html#ab7963f0ea662e169a19c3d3919822716',1,'shkyera']]]
 ];
