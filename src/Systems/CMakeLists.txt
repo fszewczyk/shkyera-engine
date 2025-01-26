@@ -24,4 +24,5 @@ target_link_libraries(
     InputManager
     Rendering
     ECS
+    Utils
 )

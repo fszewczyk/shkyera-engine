@@ -1,8 +1,8 @@
+#include <Utils/AssetUtils.hpp>
 #include <Systems/GizmoSystem.hpp>
 #include <Common/Logger.hpp>
 #include <Common/Profiler.hpp>
 
-#include <AssetManager/AssetManager.hpp>
 #include <AssetManager/Mesh.hpp>
 #include <InputManager/InputManager.hpp>
 #include <Components/NameComponent.hpp>
@@ -40,21 +40,21 @@ GizmoSystem::GizmoSystem(std::shared_ptr<Registry> registry)
         _translationGizmo = _registry->addEntity();
         _registry->addComponent<TransformComponent>(_translationGizmo);
 
-        auto xPlusLine = addOverlayModel(_registry, {GizmoLineLength, 0, 0}, Red, std::shared_ptr<Mesh>(Mesh::Factory::createCube()));
+        auto xPlusLine = addOverlayModel(_registry, {GizmoLineLength, 0, 0}, Red, utils::assets::fromFactory<Mesh, &Mesh::Factory::createCube>(_registry.get()));
         _registry->getComponent<TransformComponent>(xPlusLine).setScale({GizmoLineLength, GizmoLineWidth, GizmoLineWidth});
-        auto yPlusLine = addOverlayModel(_registry, {0, GizmoLineLength, 0},  Green, std::shared_ptr<Mesh>(Mesh::Factory::createCube()));
+        auto yPlusLine = addOverlayModel(_registry, {0, GizmoLineLength, 0}, Green, utils::assets::fromFactory<Mesh, &Mesh::Factory::createCube>(_registry.get()));
         _registry->getComponent<TransformComponent>(yPlusLine).setScale({GizmoLineWidth, GizmoLineLength, GizmoLineWidth});
-        auto zPlusLine = addOverlayModel(_registry, {0, 0, GizmoLineLength}, Blue, std::shared_ptr<Mesh>(Mesh::Factory::createCube()));
+        auto zPlusLine = addOverlayModel(_registry, {0, 0, GizmoLineLength}, Blue, utils::assets::fromFactory<Mesh, &Mesh::Factory::createCube>(_registry.get()));
         _registry->getComponent<TransformComponent>(zPlusLine).setScale({GizmoLineWidth, GizmoLineWidth, GizmoLineLength});
 
-        auto xPlusHandle = addOverlayModel(_registry, {2 * GizmoLineLength, 0, 0}, Red, std::shared_ptr<Mesh>(Mesh::Factory::createCone()));
+        auto xPlusHandle = addOverlayModel(_registry, {2 * GizmoLineLength, 0, 0}, Red, utils::assets::fromFactory<Mesh, &Mesh::Factory::createCone>(_registry.get()));
         _registry->getComponent<TransformComponent>(xPlusHandle).setScale({1.5 * GizmoHandleSize, 1.5 * GizmoHandleSize, 1.5 * GizmoHandleSize});
         _registry->getComponent<TransformComponent>(xPlusHandle).setOrientation({0, 0, -M_PI_2});
         _registry->addComponent<GizmoHandleComponent>(xPlusHandle);
-        auto yPlusHandle = addOverlayModel(_registry, {0, 2 * GizmoLineLength, 0}, Green, std::shared_ptr<Mesh>(Mesh::Factory::createCone()));
+        auto yPlusHandle = addOverlayModel(_registry, {0, 2 * GizmoLineLength, 0}, Green, utils::assets::fromFactory<Mesh, &Mesh::Factory::createCone>(_registry.get()));
         _registry->getComponent<TransformComponent>(yPlusHandle).setScale({1.5 * GizmoHandleSize, 1.5 * GizmoHandleSize, 1.5 * GizmoHandleSize});
         _registry->addComponent<GizmoHandleComponent>(yPlusHandle);
-        auto zPlusHandle = addOverlayModel(_registry, {0, 0, 2 * GizmoLineLength}, Blue, std::shared_ptr<Mesh>(Mesh::Factory::createCone()));
+        auto zPlusHandle = addOverlayModel(_registry, {0, 0, 2 * GizmoLineLength}, Blue, utils::assets::fromFactory<Mesh, &Mesh::Factory::createCone>(_registry.get()));
         _registry->getComponent<TransformComponent>(zPlusHandle).setScale({1.5 * GizmoHandleSize, 1.5 * GizmoHandleSize, 1.5 * GizmoHandleSize});
         _registry->getComponent<TransformComponent>(zPlusHandle).setOrientation({M_PI_2, 0, 0});
         _registry->addComponent<GizmoHandleComponent>(zPlusHandle);
@@ -71,25 +71,25 @@ GizmoSystem::GizmoSystem(std::shared_ptr<Registry> registry)
         _scaleGizmo = _registry->addEntity();
         _registry->addComponent<TransformComponent>(_scaleGizmo);
 
-        _scaleGizmoLineX = addOverlayModel(_registry, {GizmoLineLength, 0, 0}, Red, std::shared_ptr<Mesh>(Mesh::Factory::createCube()));
+        _scaleGizmoLineX = addOverlayModel(_registry, {GizmoLineLength, 0, 0}, Red, utils::assets::fromFactory<Mesh, &Mesh::Factory::createCube>(_registry.get()));
         _registry->getComponent<TransformComponent>(_scaleGizmoLineX).setScale({GizmoLineLength, GizmoLineWidth, GizmoLineWidth});
-        _scaleGizmoLineY = addOverlayModel(_registry, {0, GizmoLineLength, 0},  Green, std::shared_ptr<Mesh>(Mesh::Factory::createCube()));
+        _scaleGizmoLineY = addOverlayModel(_registry, {0, GizmoLineLength, 0}, Green, utils::assets::fromFactory<Mesh, &Mesh::Factory::createCube>(_registry.get()));
         _registry->getComponent<TransformComponent>(_scaleGizmoLineY).setScale({GizmoLineWidth, GizmoLineLength, GizmoLineWidth});
-        _scaleGizmoLineZ = addOverlayModel(_registry, {0, 0, GizmoLineLength}, Blue, std::shared_ptr<Mesh>(Mesh::Factory::createCube()));
+        _scaleGizmoLineZ = addOverlayModel(_registry, {0, 0, GizmoLineLength}, Blue, utils::assets::fromFactory<Mesh, &Mesh::Factory::createCube>(_registry.get()));
         _registry->getComponent<TransformComponent>(_scaleGizmoLineZ).setScale({GizmoLineWidth, GizmoLineWidth, GizmoLineLength});
 
-        auto xPlusHandle = addOverlayModel(_registry, {2 * GizmoLineLength, 0, 0}, Red, std::shared_ptr<Mesh>(Mesh::Factory::createCube()));
+        auto xPlusHandle = addOverlayModel(_registry, {2 * GizmoLineLength, 0, 0}, Red, utils::assets::fromFactory<Mesh, &Mesh::Factory::createCube>(_registry.get()));
         _registry->getComponent<TransformComponent>(xPlusHandle).setScale({GizmoHandleSize, GizmoHandleSize, GizmoHandleSize});
         _registry->getComponent<TransformComponent>(xPlusHandle).setOrientation({0, 0, -M_PI_2});
         _registry->addComponent<GizmoHandleComponent>(xPlusHandle, GizmoHandleComponent::Direction::X);
-        auto yPlusHandle = addOverlayModel(_registry, {0, 2 * GizmoLineLength, 0}, Green, std::shared_ptr<Mesh>(Mesh::Factory::createCube()));
+        auto yPlusHandle = addOverlayModel(_registry, {0, 2 * GizmoLineLength, 0}, Green, utils::assets::fromFactory<Mesh, &Mesh::Factory::createCube>(_registry.get()));
         _registry->getComponent<TransformComponent>(yPlusHandle).setScale({GizmoHandleSize, GizmoHandleSize, GizmoHandleSize});
         _registry->addComponent<GizmoHandleComponent>(yPlusHandle, GizmoHandleComponent::Direction::Y);
-        auto zPlusHandle = addOverlayModel(_registry, {0, 0, 2 * GizmoLineLength}, Blue, std::shared_ptr<Mesh>(Mesh::Factory::createCube()));
+        auto zPlusHandle = addOverlayModel(_registry, {0, 0, 2 * GizmoLineLength}, Blue, utils::assets::fromFactory<Mesh, &Mesh::Factory::createCube>(_registry.get()));
         _registry->getComponent<TransformComponent>(zPlusHandle).setScale({GizmoHandleSize, GizmoHandleSize, GizmoHandleSize});
         _registry->getComponent<TransformComponent>(zPlusHandle).setOrientation({M_PI_2, 0, 0});
         _registry->addComponent<GizmoHandleComponent>(zPlusHandle, GizmoHandleComponent::Direction::Z);
-        _scaleUniformHandle = addOverlayModel(_registry, {0, 0, 0}, Grey, std::shared_ptr<Mesh>(Mesh::Factory::createCube()));
+        _scaleUniformHandle = addOverlayModel(_registry, {0, 0, 0}, Grey, utils::assets::fromFactory<Mesh, &Mesh::Factory::createCube>(_registry.get()));
         _registry->getComponent<TransformComponent>(_scaleUniformHandle).setScale({1.5 * GizmoHandleSize, 1.5 * GizmoHandleSize, 1.5 * GizmoHandleSize});
         _registry->getComponent<TransformComponent>(_scaleUniformHandle).setOrientation({0, 0, 0});
         _registry->addComponent<GizmoHandleComponent>(_scaleUniformHandle, GizmoHandleComponent::Direction::ANY);
@@ -107,15 +107,15 @@ GizmoSystem::GizmoSystem(std::shared_ptr<Registry> registry)
         _rotationGizmo = _registry->addEntity();
         _registry->addComponent<TransformComponent>(_rotationGizmo);
 
-        auto xHandle = addOverlayModel(_registry, {0, 0, 0}, Red, std::shared_ptr<Mesh>(Mesh::Factory::createTorus(1.7, 1.65, 32, 32)));
+        auto xHandle = addOverlayModel(_registry, {0, 0, 0}, Red, std::make_shared<Mesh>(Mesh::Factory::createTorus(1.7, 1.65, 32, 32)));
         _registry->getComponent<TransformComponent>(xHandle).setScale({GizmoLineLength, GizmoLineLength, GizmoLineLength});
         _registry->getComponent<TransformComponent>(xHandle).setOrientation({0, M_PI_2, 0});
         _registry->addComponent<GizmoHandleComponent>(xHandle, GizmoHandleComponent::Direction::X);
-        auto yHandle = addOverlayModel(_registry, {0, 0, 0}, Green, std::shared_ptr<Mesh>(Mesh::Factory::createTorus(1.7, 1.65, 32, 32)));
+        auto yHandle = addOverlayModel(_registry, {0, 0, 0}, Green, std::make_shared<Mesh>(Mesh::Factory::createTorus(1.7, 1.65, 32, 32)));
         _registry->getComponent<TransformComponent>(yHandle).setScale({GizmoLineLength, GizmoLineLength, GizmoLineLength});
         _registry->getComponent<TransformComponent>(yHandle).setOrientation({M_PI_2, 0, 0});
         _registry->addComponent<GizmoHandleComponent>(yHandle, GizmoHandleComponent::Direction::Y);
-        auto zHandle = addOverlayModel(_registry, {0, 0, 0}, Blue, std::shared_ptr<Mesh>(Mesh::Factory::createTorus(1.7, 1.65, 32, 32)));
+        auto zHandle = addOverlayModel(_registry, {0, 0, 0}, Blue, std::make_shared<Mesh>(Mesh::Factory::createTorus(1.7, 1.65, 32, 32)));
         _registry->getComponent<TransformComponent>(zHandle).setScale({GizmoLineLength, GizmoLineLength, GizmoLineLength});
         _registry->getComponent<TransformComponent>(zHandle).setOrientation({0, 0, 0});
         _registry->addComponent<GizmoHandleComponent>(zHandle, GizmoHandleComponent::Direction::Z);

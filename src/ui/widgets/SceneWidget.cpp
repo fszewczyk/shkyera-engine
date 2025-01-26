@@ -6,7 +6,6 @@
 #include <iostream>
 #include <AssetManager/Image.hpp>
 #include <InputManager/InputManager.hpp>
-#include <AssetManager/AssetManager.hpp>
 #include <AssetManager/Shader.hpp>
 #include <Components/NameComponent.hpp>
 #include <Components/CameraComponent.hpp>

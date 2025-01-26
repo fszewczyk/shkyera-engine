@@ -2,11 +2,11 @@
 
 #include <glad/glad.h>
 
-#include <AssetManager/Asset.hpp>
+#include <AssetManager/PathConstructibleAsset.hpp>
 
 namespace shkyera {
 
-class Shader : public Asset {
+class Shader : public PathConstructibleAsset<Shader> {
 public:
     enum class Type {
         Vertex,
@@ -14,9 +14,11 @@ public:
         Fragment,
     };
 
-    Shader(const std::string& filepath, Type type);
+    Shader(const std::filesystem::path& filepath, Type type);
     Shader(const Shader& other) = delete;
     Shader& operator=(const Shader& other) = delete;
+    Shader(Shader&& other) noexcept;
+    Shader& operator=(Shader&& other) noexcept;
     
     ~Shader();
 

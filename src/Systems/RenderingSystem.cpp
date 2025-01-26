@@ -1,9 +1,9 @@
 #include <chrono>
 
 #include <Systems/RenderingSystem.hpp>
+#include <Utils/AssetUtils.hpp>
 #include <Common/Logger.hpp>
 #include <Common/Profiler.hpp>
-#include <AssetManager/AssetManager.hpp>
 #include <Rendering/Utils.hpp>
 #include <Components/TransformComponent.hpp>
 #include <Components/ModelComponent.hpp>
@@ -21,40 +21,40 @@ namespace shkyera {
 
 RenderingSystem::RenderingSystem(std::shared_ptr<Registry> registry)
     : _registry(registry) {
-    const auto& positionAndNormalVertexShader = AssetManager::getInstance().getAsset<Shader>("resources/shaders/vertex/position_and_normal.glsl", Shader::Type::Vertex);
-    const auto& modelFragmentShader = AssetManager::getInstance().getAsset<Shader>("resources/shaders/fragment/uber.glsl", Shader::Type::Fragment);
+    const auto& positionAndNormalVertexShader = utils::assets::addAndRead<Shader>(_registry.get(), []() { return Shader("resources/shaders/vertex/position_and_normal.glsl", Shader::Type::Vertex); });
+    const auto& modelFragmentShader =  utils::assets::addAndRead<Shader>(_registry.get(), []() { return Shader("resources/shaders/fragment/uber.glsl", Shader::Type::Fragment); });
     _modelShaderProgram.attachShader(positionAndNormalVertexShader);
     _modelShaderProgram.attachShader(modelFragmentShader);
     _modelShaderProgram.link();
 
-    const auto& texCoordsVertexShader = AssetManager::getInstance().getAsset<Shader>("resources/shaders/vertex/texcoords.glsl", Shader::Type::Vertex);
-    const auto& toneMappingFragmentShader = AssetManager::getInstance().getAsset<Shader>("resources/shaders/fragment/tonemapping_aces.glsl", Shader::Type::Fragment);
+    const auto& texCoordsVertexShader = utils::assets::addAndRead<Shader>(_registry.get(), []() { return Shader("resources/shaders/vertex/texcoords.glsl", Shader::Type::Vertex); });
+    const auto& toneMappingFragmentShader = utils::assets::addAndRead<Shader>(_registry.get(), []() { return Shader("resources/shaders/fragment/tonemapping_aces.glsl", Shader::Type::Fragment); });
     _toneMappingShaderProgram.attachShader(texCoordsVertexShader);
     _toneMappingShaderProgram.attachShader(toneMappingFragmentShader);
     _toneMappingShaderProgram.link();
 
-    const auto& luminosityThresholdFragmentShader = AssetManager::getInstance().getAsset<Shader>("resources/shaders/fragment/luminosity_threshold.glsl", Shader::Type::Fragment);
+    const auto& luminosityThresholdFragmentShader = utils::assets::addAndRead<Shader>(_registry.get(), []() { return Shader("resources/shaders/fragment/luminosity_threshold.glsl", Shader::Type::Fragment); });
     _thresholdShaderProgram.attachShader(texCoordsVertexShader);
     _thresholdShaderProgram.attachShader(luminosityThresholdFragmentShader);
     _thresholdShaderProgram.link();
 
-    const auto& horizontalGaussianBlur5FragmentShader = AssetManager::getInstance().getAsset<Shader>("resources/shaders/fragment/horizontal_gaussianblur_5.glsl", Shader::Type::Fragment);
+    const auto& horizontalGaussianBlur5FragmentShader = utils::assets::addAndRead<Shader>(_registry.get(), []() { return Shader("resources/shaders/fragment/horizontal_gaussianblur_5.glsl", Shader::Type::Fragment); });
     _horizontalBlurShaderProgram.attachShader(texCoordsVertexShader);
     _horizontalBlurShaderProgram.attachShader(horizontalGaussianBlur5FragmentShader);
     _horizontalBlurShaderProgram.link();
 
-    const auto& verticallGaussianBlur5FragmentShader = AssetManager::getInstance().getAsset<Shader>("resources/shaders/fragment/vertical_gaussianblur_5.glsl", Shader::Type::Fragment);
+    const auto& verticalGaussianBlur5FragmentShader = utils::assets::addAndRead<Shader>(_registry.get(), []() { return Shader("resources/shaders/fragment/vertical_gaussianblur_5.glsl", Shader::Type::Fragment); });
     _verticalBlurShaderProgram.attachShader(texCoordsVertexShader);
-    _verticalBlurShaderProgram.attachShader(verticallGaussianBlur5FragmentShader);
+    _verticalBlurShaderProgram.attachShader(verticalGaussianBlur5FragmentShader);
     _verticalBlurShaderProgram.link();
 
-    const auto& weightedAdditionFragmentShader = AssetManager::getInstance().getAsset<Shader>("resources/shaders/fragment/weighted_addition.glsl", Shader::Type::Fragment);
+    const auto& weightedAdditionFragmentShader = utils::assets::addAndRead<Shader>(_registry.get(), []() { return Shader("resources/shaders/fragment/weighted_addition.glsl", Shader::Type::Fragment); });
     _weightedAdditionShaderProgram.attachShader(texCoordsVertexShader);
     _weightedAdditionShaderProgram.attachShader(weightedAdditionFragmentShader);
     _weightedAdditionShaderProgram.link();
 
-    const auto& positionVertexShader = AssetManager::getInstance().getAsset<Shader>("resources/shaders/vertex/position.glsl", Shader::Type::Vertex);
-    const auto& fixedColorFragmentShader = AssetManager::getInstance().getAsset<Shader>("resources/shaders/fragment/color.glsl", Shader::Type::Fragment);
+    const auto& positionVertexShader = utils::assets::addAndRead<Shader>(_registry.get(), []() { return Shader("resources/shaders/vertex/position.glsl", Shader::Type::Vertex); });
+    const auto& fixedColorFragmentShader = utils::assets::addAndRead<Shader>(_registry.get(), []() { return Shader("resources/shaders/fragment/color.glsl", Shader::Type::Fragment); });
     _wireframeShaderProgram.attachShader(positionVertexShader);
     _wireframeShaderProgram.attachShader(fixedColorFragmentShader);
     _wireframeShaderProgram.link();
@@ -63,40 +63,40 @@ RenderingSystem::RenderingSystem(std::shared_ptr<Registry> registry)
     _silhouetteShaderProgram.attachShader(fixedColorFragmentShader);
     _silhouetteShaderProgram.link();
 
-    const auto& dilateFragmentShader = AssetManager::getInstance().getAsset<Shader>("resources/shaders/fragment/dilate.glsl", Shader::Type::Fragment);
+    const auto& dilateFragmentShader = utils::assets::addAndRead<Shader>(_registry.get(), []() { return Shader("resources/shaders/fragment/dilate.glsl", Shader::Type::Fragment); });
     _dilateShaderProgram.attachShader(texCoordsVertexShader);
     _dilateShaderProgram.attachShader(dilateFragmentShader);
     _dilateShaderProgram.link();
 
-    const auto& subtractFragmentShader = AssetManager::getInstance().getAsset<Shader>("resources/shaders/fragment/subtract.glsl", Shader::Type::Fragment);
+    const auto& subtractFragmentShader = utils::assets::addAndRead<Shader>(_registry.get(), []() { return Shader("resources/shaders/fragment/subtract.glsl", Shader::Type::Fragment); });
     _subtractShaderProgram.attachShader(texCoordsVertexShader);
     _subtractShaderProgram.attachShader(subtractFragmentShader);
     _subtractShaderProgram.link();
 
-    const auto& overlayFragmentShader = AssetManager::getInstance().getAsset<Shader>("resources/shaders/fragment/overlay.glsl", Shader::Type::Fragment);
+    const auto& overlayFragmentShader = utils::assets::addAndRead<Shader>(_registry.get(), []() { return Shader("resources/shaders/fragment/overlay.glsl", Shader::Type::Fragment); });
     _overlayShaderProgram.attachShader(texCoordsVertexShader);
     _overlayShaderProgram.attachShader(overlayFragmentShader);
     _overlayShaderProgram.link();
 
-    const auto& fxaaFragmentShader = AssetManager::getInstance().getAsset<Shader>("resources/shaders/fragment/fxaa.glsl", Shader::Type::Fragment);
+    const auto& fxaaFragmentShader = utils::assets::addAndRead<Shader>(_registry.get(), []() { return Shader("resources/shaders/fragment/fxaa.glsl", Shader::Type::Fragment); });
     _antiAliasingShaderProgram.attachShader(texCoordsVertexShader);
     _antiAliasingShaderProgram.attachShader(fxaaFragmentShader);
     _antiAliasingShaderProgram.link();
 
-    const auto& skyboxVertexShader = AssetManager::getInstance().getAsset<Shader>("resources/shaders/vertex/skybox.glsl", Shader::Type::Vertex);
-    const auto& cubeMapFragmentShader = AssetManager::getInstance().getAsset<Shader>("resources/shaders/fragment/cubemap.glsl", Shader::Type::Fragment);
+    const auto& skyboxVertexShader = utils::assets::addAndRead<Shader>(_registry.get(), []() { return Shader("resources/shaders/vertex/skybox.glsl", Shader::Type::Vertex); });
+    const auto& cubeMapFragmentShader = utils::assets::addAndRead<Shader>(_registry.get(), []() { return Shader("resources/shaders/fragment/cubemap.glsl", Shader::Type::Fragment); });
     _skyboxShaderProgram.attachShader(skyboxVertexShader);
     _skyboxShaderProgram.attachShader(cubeMapFragmentShader);
     _skyboxShaderProgram.link();
 
-    const auto& shadowMapVertexShader = AssetManager::getInstance().getAsset<Shader>("resources/shaders/vertex/shadowmap.glsl", Shader::Type::Vertex);
-    const auto& depthFragmentShader = AssetManager::getInstance().getAsset<Shader>("resources/shaders/fragment/depth.glsl", Shader::Type::Fragment);
+    const auto& shadowMapVertexShader = utils::assets::addAndRead<Shader>(_registry.get(), []() { return Shader("resources/shaders/vertex/shadowmap.glsl", Shader::Type::Vertex); });
+    const auto& depthFragmentShader = utils::assets::addAndRead<Shader>(_registry.get(), []() { return Shader("resources/shaders/fragment/depth.glsl", Shader::Type::Fragment); });
     _shadowMapShaderProgram.attachShader(shadowMapVertexShader);
     _shadowMapShaderProgram.attachShader(depthFragmentShader);
     _shadowMapShaderProgram.link();
 
-    const auto& distanceVertexShader = AssetManager::getInstance().getAsset<Shader>("resources/shaders/vertex/distance.glsl", Shader::Type::Vertex);
-    const auto& distanceFragmentShader = AssetManager::getInstance().getAsset<Shader>("resources/shaders/fragment/distance.glsl", Shader::Type::Fragment);
+    const auto& distanceVertexShader = utils::assets::addAndRead<Shader>(_registry.get(), []() { return Shader("resources/shaders/vertex/distance.glsl", Shader::Type::Vertex); });
+    const auto& distanceFragmentShader = utils::assets::addAndRead<Shader>(_registry.get(), []() { return Shader("resources/shaders/fragment/distance.glsl", Shader::Type::Fragment); });
     _shadowMapDistanceShaderProgram.attachShader(distanceVertexShader);
     _shadowMapDistanceShaderProgram.attachShader(distanceFragmentShader);
     _shadowMapDistanceShaderProgram.link();
@@ -581,7 +581,7 @@ void RenderingSystem::renderModels()
         const auto& transformMatrix = TransformComponent::getGlobalTransformMatrix(entity, _registry);
         _modelShaderProgram.setUniform("modelMatrix", transformMatrix);
 
-        const Material* material = modelComponent.getMaterial();
+        const auto& material = std::get<AssetRef<Material>>(modelComponent.material);
         if (material) {
             _modelShaderProgram.setUniform("material.color", material->getDiffuseColor());
             _modelShaderProgram.setUniform("material.shininess", material->getShininess());
@@ -607,7 +607,7 @@ void RenderingSystem::renderBloom()
         {
             { "sceneTexture", &_mostRecentFrameBufferPtr->getTexture() }
         },
-        utils::Uniform("threshold", 1.0f)
+        utils::Uniform("threshold", 3.0f)
     );
     for(size_t i = 1; i < BloomSteps; ++i)
     {
@@ -739,7 +739,7 @@ void RenderingSystem::renderSkybox()
     const auto& cameraTransform = _registry->getComponent<TransformComponent>(_registry->getCamera());
     const glm::mat4& viewMatrix = _registry->getComponent<CameraComponent>(_registry->getCamera()).getViewMatrix(cameraTransform);
     const glm::mat4& projectionMatrix = _registry->getComponent<CameraComponent>(_registry->getCamera()).getProjectionMatrix();
-    static auto* cubemap = Mesh::Factory::createCubeMap();
+    static auto cubemap = utils::assets::fromFactory<Mesh, &Mesh::Factory::createCubeMap>(_registry.get());
 
     glDepthFunc(GL_LEQUAL);
 

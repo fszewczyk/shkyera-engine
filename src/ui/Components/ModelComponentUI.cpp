@@ -2,39 +2,44 @@
 
 #include <UI/Components/ModelComponentUI.hpp>
 #include <Components/BoxColliderComponent.hpp>
-#include <AssetManager/AssetManager.hpp>
-#include <AssetManager/Filesystem.hpp>
-#include <AssetManager/Image.hpp>
 
 namespace shkyera {
 
-ModelComponentUI::ModelComponentUI(ModelComponent* modelComponent) :
-  _meshSelector("Mesh"), _materialSelector("Material"), _modelComponent(modelComponent) {
-  const auto& defaultMeshFilePath = AssetManager::getInstance().getFilePath(modelComponent->getMesh());
-  if(defaultMeshFilePath) {
-    _meshSelector.setFile(File(std::filesystem::path(*defaultMeshFilePath)));
-  }
-  _meshSelector.setUpdateCallback([this](const auto& file) {
-    const auto& mesh = AssetManager::getInstance().getAsset<Mesh>(file.getPath());
-    _modelComponent->setMesh(mesh);
-    if(_onMeshUpdate) {
-      _onMeshUpdate(mesh);
+ModelComponentUI::ModelComponentUI(std::shared_ptr<Registry> registry, ModelComponent* modelComponent) :
+  _modelComponent(modelComponent), 
+  _registry(registry), 
+  _meshSelector("Mesh", registry, std::get<OptionalAssetHandle>(modelComponent->mesh)), 
+  _materialSelector("Material", registry, std::get<OptionalAssetHandle>(modelComponent->mesh))
+{  
+  _meshSelector.setUpdateCallback([this](const auto& assetHandle) {
+    if(_registry->hasComponent<AssetComponent<Mesh>>(assetHandle))
+    {
+      auto& meshAsset =_registry->getComponent<AssetComponent<Mesh>>(assetHandle);
+      _modelComponent->mesh = HandleAndAsset<Mesh>{assetHandle, utils::assets::read(meshAsset)};
+      if(_onMeshUpdate) {
+        _onMeshUpdate();
+      }
     }
   });
+  
   _meshSelector.setClearCallback([this]() {
-    _modelComponent->setMesh(nullptr);
+    _modelComponent->mesh = HandleAndAsset<Mesh>{std::nullopt, nullptr};
   });
-
-  const auto& defaultMaterialFilePath = AssetManager::getInstance().getFilePath(modelComponent->getMaterial());
-  if(defaultMaterialFilePath) {
-    _materialSelector.setFile(File(std::filesystem::path(*defaultMaterialFilePath)));
-  }
+  
+  _materialSelector.setUpdateCallback([this](const auto& assetHandle) {
+    if(_registry->hasComponent<AssetComponent<Material>>(assetHandle))
+    {
+      auto& materialAsset =_registry->getComponent<AssetComponent<Material>>(assetHandle);
+      _modelComponent->material = HandleAndAsset<Material>{assetHandle, utils::assets::read(materialAsset)};
+    }
+  });
+  
   _materialSelector.setClearCallback([this]() {
-    _modelComponent->setMaterial(nullptr);
+    _modelComponent->mesh = HandleAndAsset<Mesh>{std::nullopt, nullptr};
   });
 }
 
-void ModelComponentUI::setOnMeshUpdate(std::function<void(std::shared_ptr<Mesh>)> callback) {
+void ModelComponentUI::setOnMeshUpdate(std::function<void()> callback) {
   _onMeshUpdate = callback;
 }
 

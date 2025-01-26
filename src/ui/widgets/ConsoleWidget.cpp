@@ -3,7 +3,7 @@
 #include <imgui_internal.h>
 #include "imgui.h"
 
-#include <AssetManager/AssetManager.hpp>
+#include <Utils/AssetUtils.hpp>
 #include <AssetManager/Image.hpp>
 #include <Common/Logger.hpp>
 #include <UI/Widgets/ConsoleWidget.hpp>
@@ -25,31 +25,31 @@ void* Log::getIconId() const {
 
 LogVerbose::LogVerbose(const std::string& content) : Log(content)
 {
-  _icon = AssetManager::getInstance().getAsset<Texture>(Image::ICON_CONSOLE_VERBOSE);
+  _icon = utils::assets::readPermanent<Texture>(Image::ICON_CONSOLE_VERBOSE);
 }
 
 LogInfo::LogInfo(const std::string& content) : Log(content)
 {
-  _icon = AssetManager::getInstance().getAsset<Texture>(Image::ICON_CONSOLE_INFO);
+  _icon = utils::assets::readPermanent<Texture>(Image::ICON_CONSOLE_INFO);
 }
 
 LogSuccess::LogSuccess(const std::string& content) : Log(content)
 {
-  _icon = AssetManager::getInstance().getAsset<Texture>(Image::ICON_CONSOLE_SUCCESS);
+  _icon = utils::assets::readPermanent<Texture>(Image::ICON_CONSOLE_SUCCESS);
 }
 
 LogError::LogError(const std::string& content) : Log(content)
 {
-  _icon = AssetManager::getInstance().getAsset<Texture>(Image::ICON_CONSOLE_ERROR);
+  _icon = utils::assets::readPermanent<Texture>(Image::ICON_CONSOLE_ERROR);
 }
 
 ConsoleWidget::ConsoleWidget(const std::string& name) : Widget(name)
 {
-  _verboseIcon = AssetManager::getInstance().getAsset<Texture>(Image::ICON_CONSOLE_VERBOSE);
-  _infoIcon = AssetManager::getInstance().getAsset<Texture>(Image::ICON_CONSOLE_INFO);
-  _successIcon = AssetManager::getInstance().getAsset<Texture>(Image::ICON_CONSOLE_SUCCESS);
-  _errorIcon = AssetManager::getInstance().getAsset<Texture>(Image::ICON_CONSOLE_ERROR);
-  _totalIcon = AssetManager::getInstance().getAsset<Texture>(Image::ICON_CONSOLE_TOTAL);
+  _verboseIcon = utils::assets::readPermanent<Texture>(Image::ICON_CONSOLE_VERBOSE);
+  _infoIcon = utils::assets::readPermanent<Texture>(Image::ICON_CONSOLE_INFO);
+  _successIcon = utils::assets::readPermanent<Texture>(Image::ICON_CONSOLE_SUCCESS);
+  _errorIcon = utils::assets::readPermanent<Texture>(Image::ICON_CONSOLE_ERROR);
+  _totalIcon = utils::assets::readPermanent<Texture>(Image::ICON_CONSOLE_TOTAL);
 
   Logger::subscribe(this, [](const auto& messageType, const auto& message) {
     switch(messageType) {

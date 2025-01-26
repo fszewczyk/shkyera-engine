@@ -13,7 +13,7 @@ class OverlayModelComponent : public BaseComponent<OverlayModelComponent> {
 public:
     OverlayModelComponent() = default;
 
-    void setMesh(std::shared_ptr<Mesh> mesh) {
+    void setMesh(AssetRef<Mesh> mesh) {
         _mesh = mesh;
     }
 
@@ -38,7 +38,7 @@ public:
     }
 
 private:
-    std::shared_ptr<Mesh> _mesh;
+    AssetRef<Mesh> _mesh;
     std::shared_ptr<Material> _material;
 };
 

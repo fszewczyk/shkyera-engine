@@ -9,9 +9,11 @@
 
 #include <functional>
 
-#include <AssetManager/Filesystem.hpp>
-#include <Rendering/Texture.hpp>
+#include <Components/NameComponent.hpp>
+#include <AssetManager/Texture.hpp>
 #include <UI/Widget.hpp>
+#include <Utils/AssetUtils.hpp>
+#include <ECS/Registry.hpp>
 
 namespace shkyera {
 
@@ -23,19 +25,12 @@ namespace shkyera {
  */
 class FilesystemWidget : public Widget {
   public:
-    FilesystemWidget(std::string name);
+    FilesystemWidget(std::string name, std::shared_ptr<Registry> registry, AssetHandle rootDirectoryHandle);
 
     /**
      * @brief Implementation of the abstract `draw` method to render the filesystem widget.
      */
     virtual void draw() override;
-
-    /**
-     * @brief Set the current working directory to display its contents.
-     *
-     * @param path The path to the directory to set as the current working directory.
-     */
-    void setDirectory(std::filesystem::path path);
 
   private:
     /**
@@ -43,77 +38,84 @@ class FilesystemWidget : public Widget {
      *
      * @param directory The root directory to draw.
      */
-    void drawDirectoryTree(const std::shared_ptr<Directory> directory);
+    void drawDirectoryTree(AssetHandle directoryHandle);
 
     /**
      * @brief Draw the contents of the specified directory.
      *
      * @param directory The directory whose contents to draw.
      */
-    void drawDirectoryContents(const std::shared_ptr<Directory> directory);
+    void drawDirectoryContents();
 
     /**
      * @brief Draw a directory icon and name.
      *
-     * @param directory The directory to draw.
+     * @param directoryHandle Handle of the directory to draw.
      */
-    void drawDirectory(const std::shared_ptr<Directory> directory);
+    void drawDirectory(AssetHandle directoryHandle);
 
     /**
-     * @brief Draw a file icon and name.
+     * @brief Draw an asset icon and name.
      *
-     * @param file The file to draw.
+     * @param assetHandle Handle of the asset to draw.
+     * @param icon Icon of the asset
      */
-    void drawFile(const std::shared_ptr<File> file);
+    template<typename AssetType>
+    void drawAsset(AssetHandle handle)
+    {
+      const auto& fileName = _registry->getComponent<NameComponent>(handle).getName();
+
+      ImGui::BeginGroup();
+      ImGui::PushID(fileName.c_str());
+
+      ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
+
+      drawAssetIcon<AssetType>(handle);
+
+      const auto assetTypeName = std::string(typeid(AssetType).name());
+      if(ImGui::BeginDragDropSource(ImGuiDragDropFlags_None))
+      {
+        ImGui::TextUnformatted(fileName.c_str());
+        ImGui::SetDragDropPayload(("ASSET_" + assetTypeName).c_str(), reinterpret_cast<void *>(&handle), sizeof(AssetHandle));
+        ImGui::EndDragDropSource();
+      }
+      _hoveredIcon |= ImGui::IsItemHovered();
+
+      ImGui::PopStyleColor();
+
+      drawIconName(fileName);
+
+      ImGui::PopID();
+      ImGui::EndGroup();
+    }
+
+    /**
+     * Draws the icon of an asset and allows for its drag-and-drop behavior.
+     * @tparam Type of the asset
+     * @param hande Asset Handle of the drawn asset
+     */
+    template<typename AssetType>
+    void drawAssetIcon(AssetHandle handle);
 
     /**
      * @brief Draw an icon and name within the UI.
      *
      * @param name The name to display.
      */
-    void drawIconName(const std::string name) const;
+    void drawIconName(const std::string& name) const;
 
-    /**
-     * @brief Handle a right mouse click within the UI.
-     */
-    void handleRightMouseClick();
-
-    /**
-     * @brief Draw a context menu for creating new files or directories.
-     */
-    void drawCreateMenu() const;
-
-    /**
-     * @brief Get the texture ID associated with a specific file for rendering an icon.
-     *
-     * @param file The file for which to retrieve the texture ID.
-     * @return The texture ID for rendering the file's icon.
-     */
-    ImTextureID getTextureOfFile(const std::shared_ptr<File> file) const;
-
-    /**
-     * @brief Get a displayable name for rendering within the UI, ensuring it doesn't exceed a maximum line length.
-     *
-     * @param name The original name.
-     * @param maxCharactersInLine The maximum number of characters in a line.
-     * @return The displayable name.
-     */
-    static std::string getDisplayableName(std::string name, size_t maxCharactersInLine = 12);
-
-    std::shared_ptr<Directory> _currentDirectory;                  ///< The current working directory to display.
-    std::vector<std::shared_ptr<Directory>> _directoriesToDisplay; ///< Directories to display in the UI.
-    std::vector<std::shared_ptr<File>> _filesToDisplay;            ///< Files to display in the UI.
+    std::shared_ptr<Registry> _registry;
+    AssetHandle _rootDirectoryHandle;
+    AssetHandle _currentDirectoryHandle;
 
     bool _hoveredIcon; ///< A flag indicating whether an icon is currently hovered.
 
     static constexpr float CONTENTS_ICON_SIZE = 64; ///< The size of icons representing directory contents.
-    static std::string DEFAULT_FOLDER_NAME;         ///< The default folder name.
-    static std::string DEFAULT_FILE_NAME;           ///< The default file name.
 
-    TextureAsset _folderIcon;
-    TextureAsset _pythonIcon;
-    TextureAsset _imageIcon;
-    TextureAsset _textIcon;
+    AssetRef<Texture> _folderIcon;
+    AssetRef<Texture> _pythonIcon;
+    AssetRef<Texture> _imageIcon;
+    AssetRef<Texture> _textIcon;
 };
 
 } // namespace shkyera

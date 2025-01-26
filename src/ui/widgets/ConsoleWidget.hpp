@@ -11,7 +11,7 @@
 #include <vector>
 
 #include <UI/Widget.hpp>
-#include <Rendering/Texture.hpp>
+#include <AssetManager/Texture.hpp>
 
 namespace shkyera {
 
@@ -40,7 +40,7 @@ class Log {
     void* getIconId() const;
 
     std::string _content; ///< The text content of the log.
-    TextureAsset _icon;
+    AssetRef<Texture> _icon;
 };
 
 /**
@@ -160,11 +160,11 @@ class ConsoleWidget : public Widget {
     static std::vector<std::shared_ptr<Log>> _logs; ///< A collection of logs in the console.
     static bool _verbose;                           ///< A flag indicating verbose logging mode.
 
-    TextureAsset _totalIcon;
-    TextureAsset _errorIcon;
-    TextureAsset _successIcon;
-    TextureAsset _infoIcon;
-    TextureAsset _verboseIcon;
+    AssetRef<Texture> _totalIcon;
+    AssetRef<Texture> _errorIcon;
+    AssetRef<Texture> _successIcon;
+    AssetRef<Texture> _infoIcon;
+    AssetRef<Texture> _verboseIcon;
 };
 
 } // namespace shkyera

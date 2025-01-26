@@ -1,15 +1,14 @@
 #pragma once
 
-#include <AssetManager/AssetManager.hpp>
-#include <AssetManager/Image.hpp>
-#include <Rendering/Texture.hpp>
+#include <Utils/AssetUtils.hpp>
+#include <AssetManager/Texture.hpp>
 
 namespace shkyera {
 
 class ComponentUI {
     public:
         ComponentUI() {
-            _icon = AssetManager::getInstance().getAsset<Texture>(Image::ICON_COMPONENT_TRANSFORM);
+            _icon = utils::assets::readPermanent<Texture>(Image::ICON_COMPONENT_TRANSFORM);
         }
 
         virtual ~ComponentUI() = default;
@@ -17,7 +16,7 @@ class ComponentUI {
         virtual void draw() = 0;
 
     protected:
-        TextureAsset _icon;
+        AssetRef<Texture> _icon;
 };
 
 }

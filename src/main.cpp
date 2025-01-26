@@ -4,9 +4,9 @@
 #include <iostream>
 #include <thread>
 
+#include <Utils/AssetUtils.hpp>
 #include <AssetManager/Mesh.hpp>
 #include <AssetManager/Image.hpp>
-#include <AssetManager/AssetManager.hpp>
 #include <Rendering/CubeMap.hpp>
 #include <Common/Types.hpp>
 #include <Components/TransformComponent.hpp>
@@ -24,7 +24,7 @@
 #include <ECS/Registry.hpp>
 #include <UI/UI.hpp>
 
-static shkyera::Entity addModel(std::shared_ptr<shkyera::Registry> registry, 
+static shkyera::Entity addModel(std::shared_ptr<shkyera::Registry> registry,
               const glm::vec3& position, 
               const std::string& name, 
               std::shared_ptr<shkyera::Mesh> mesh) {
@@ -36,8 +36,8 @@ static shkyera::Entity addModel(std::shared_ptr<shkyera::Registry> registry,
     registry->addComponent<NameComponent>(entity);
     registry->getComponent<NameComponent>(entity).setName(name);
     registry->addComponent<ModelComponent>(entity);
-    registry->getComponent<ModelComponent>(entity).setMesh(mesh);
-    registry->getComponent<ModelComponent>(entity).setMaterial(std::make_shared<Material>());
+    registry->getComponent<ModelComponent>(entity).mesh = HandleAndAsset<Mesh>{entity, mesh};
+    registry->getComponent<ModelComponent>(entity).material = HandleAndAsset<Material>{std::nullopt, std::make_shared<Material>()};
     registry->addComponent<BoxColliderComponent<RuntimeMode::DEVELOPMENT>>(entity);
     registry->getComponent<BoxColliderComponent<RuntimeMode::DEVELOPMENT>>(entity).box = mesh->getBoundingBox();
 
@@ -56,7 +56,7 @@ shkyera::Entity addWireframe(std::shared_ptr<shkyera::Registry> registry,
     registry->addComponent<NameComponent>(entity);
     registry->getComponent<NameComponent>(entity).setName(name);
     registry->addComponent<WireframeComponent>(entity);
-    registry->getComponent<WireframeComponent>(entity).setWireframe(wireframe);
+    registry->getComponent<WireframeComponent>(entity).wireframe = HandleAndAsset<Wireframe>{entity, wireframe};
 
     return entity;
 }
@@ -77,21 +77,21 @@ void loadScene(std::shared_ptr<shkyera::Registry> registry) {
     registry->getComponent<TransformComponent>(cylinderParent).setPosition({3, 0, -3});
     registry->addComponent<NameComponent>(cylinderParent);
     registry->getComponent<NameComponent>(cylinderParent).setName("Cylinder");
-    auto cylinderModel = addModel(registry, {0, 0, 0}, "Cylinder Model", std::shared_ptr<Mesh>(Mesh::Factory::createCylinder()));
-    auto cylinderWireframe = addWireframe(registry, {0, 3, 0}, "Cylinder Wireframe", std::shared_ptr<Wireframe>(Wireframe::Factory::createCylinder()));
+    auto cylinderModel = addModel(registry, {0, 0, 0}, "Cylinder Model", utils::assets::fromFactory<Mesh, &Mesh::Factory::createCylinder>(registry.get()));
+    auto cylinderWireframe = addWireframe(registry, {0, 3, 0}, "Cylinder Wireframe", utils::assets::fromFactory<Wireframe, &Wireframe::Factory::createCylinder>(registry.get()));
     registry->getHierarchy().attributeChild(cylinderParent, cylinderModel);
     registry->getHierarchy().attributeChild(cylinderParent, cylinderWireframe);
 
     // Add Cube and its wireframe
-    addModel(registry, {3, 0, 0}, "Cube", std::shared_ptr<Mesh>(Mesh::Factory::createCube()));
-    addWireframe(registry, {3, 3, 0}, "Cube Wireframe", std::shared_ptr<Wireframe>(Wireframe::Factory::createCube()));
+    addModel(registry, {3, 0, 0}, "Cube", utils::assets::fromFactory<Mesh, &Mesh::Factory::createCube>(registry.get()));
+    addWireframe(registry, {3, 3, 0}, "Cube Wireframe", utils::assets::fromFactory<Wireframe, &Wireframe::Factory::createCube>(registry.get()));
 
     // Add Sphere and its wireframe
-    addModel(registry, {3, 6, 3}, "Sphere", std::shared_ptr<Mesh>(Mesh::Factory::createSphere()));
-    addWireframe(registry, {3, 9, 3}, "Sphere Wireframe", std::shared_ptr<Wireframe>(Wireframe::Factory::createSphere()));
+    addModel(registry, {3, 6, 3}, "Sphere", utils::assets::fromFactory<Mesh, &Mesh::Factory::createSphere>(registry.get()));
+    addWireframe(registry, {3, 9, 3}, "Sphere Wireframe", utils::assets::fromFactory<Wireframe, &Wireframe::Factory::createSphere>(registry.get()));
 
     // Add World Plane
-    auto worldPlane = addModel(registry, {0, -2, 0}, "Plane", std::shared_ptr<Mesh>(Mesh::Factory::createPlane()));
+    auto worldPlane = addModel(registry, {0, -2, 0}, "Plane", utils::assets::fromFactory<Mesh, &Mesh::Factory::createPlane>(registry.get()));
     registry->getComponent<TransformComponent>(worldPlane).setScale({15, 1, 15});
 
     // Add Point Light
@@ -141,12 +141,12 @@ void loadScene(std::shared_ptr<shkyera::Registry> registry) {
     registry->getComponent<SpotLightComponent>(blueSpotLight).innerCutoff = glm::radians(10.0);
     registry->getComponent<SpotLightComponent>(blueSpotLight).outerCutoff = glm::radians(15.0);
 
-    const auto skyboxUp = AssetManager::getInstance().getAsset<Image>("resources/skyboxes/day/py.png");
-    const auto skyboxDown = AssetManager::getInstance().getAsset<Image>("resources/skyboxes/day/ny.png");
-    const auto skyboxLeft = AssetManager::getInstance().getAsset<Image>("resources/skyboxes/day/nx.png");
-    const auto skyboxRight = AssetManager::getInstance().getAsset<Image>("resources/skyboxes/day/px.png");
-    const auto skyboxFront = AssetManager::getInstance().getAsset<Image>("resources/skyboxes/day/pz.png");
-    const auto skyboxBack = AssetManager::getInstance().getAsset<Image>("resources/skyboxes/day/nz.png");
+    const auto skyboxUp = utils::assets::addAndRead<Image>(registry.get(), []() { return Image("resources/skyboxes/day/py.png"); });
+    const auto skyboxDown = utils::assets::addAndRead<Image>(registry.get(), []() { return Image("resources/skyboxes/day/ny.png"); });
+    const auto skyboxLeft = utils::assets::addAndRead<Image>(registry.get(), []() { return Image("resources/skyboxes/day/nx.png"); });
+    const auto skyboxRight = utils::assets::addAndRead<Image>(registry.get(), []() { return Image("resources/skyboxes/day/px.png"); });
+    const auto skyboxFront = utils::assets::addAndRead<Image>(registry.get(), []() { return Image("resources/skyboxes/day/pz.png"); });
+    const auto skyboxBack = utils::assets::addAndRead<Image>(registry.get(), []() { return Image("resources/skyboxes/day/nz.png"); });
     registry->addComponent<SkyboxComponent>(registry->getEnvironment());
     registry->getComponent<SkyboxComponent>(registry->getEnvironment()).skyboxCubeMap.loadFaces(skyboxUp, skyboxDown, skyboxLeft, skyboxRight, skyboxFront, skyboxBack);
 }

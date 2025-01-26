@@ -6,7 +6,6 @@ add_library(
     ${CMAKE_CURRENT_LIST_DIR}/Widget.cpp
 
     ${CMAKE_CURRENT_LIST_DIR}/Common/Style.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/Common/FileSelector.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Common/ColorSelector.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Common/FloatSlider.cpp
 
@@ -47,6 +46,7 @@ target_link_libraries(
     AssetManager
     InputManager
     Systems
+    Utils
 
     imgui
     glfw 

@@ -8,10 +8,12 @@
 
 #include <unordered_set>
 
+#include <Common/Logger.hpp>
 #include <ECS/Entity.hpp>
 #include <ECS/EntityHierarchy.hpp>
 #include <ECS/EntityProvider.hpp>
 #include <ECS/SparseSet.hpp>
+#include <ECS/SingletonComponent.hpp>
 
 namespace shkyera {
 
@@ -57,10 +59,21 @@ public:
      * 
      * @tparam Component Type of the component to add.
      * @param entity The entity to which the component is added.
+     * @return Refence to the constructed component
      */
     template <typename Component, typename... Args>
-    void addComponent(Entity entity, Args&&... args) {
-        getOrCreateComponentSet<Component>().add(entity, Component(std::forward<Args>(args)...));
+    Component& addComponent(Entity entity, Args&&... args) {
+        auto& componentSet = getOrCreateComponentSet<Component>();
+        if constexpr (std::is_base_of_v<SingletonComponent, Component>)
+        {
+            if(componentSet.contains(entity))
+            {
+                Logger::ERROR(std::string("Cannot add a Singleton Component (") + typeid(Component).name() + "), because another entity already has it.");
+                return;
+            }
+        }
+        componentSet.add(entity, Component(std::forward<Args>(args)...));
+        return componentSet.get(entity);
     }
 
     /**
@@ -95,7 +108,7 @@ public:
      */
     template <typename... Components>
     bool hasComponents(Entity entity) const {
-        return true && (hasComponent<Components>(entity) && ...);
+        return (... && (hasComponent<Components>(entity)));
     }
 
     /**
@@ -159,6 +172,8 @@ public:
     Entity getEnvironment() const;
 
     EntityHierarchy& getHierarchy();
+
+    const EntityHierarchy& getHierarchy() const;
 
 private:
     using ParentAndChild = std::pair<Entity, Entity>;

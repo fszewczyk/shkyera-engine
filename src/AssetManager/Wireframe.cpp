@@ -5,7 +5,7 @@
 
 namespace shkyera {
 
-Wireframe::Wireframe(const std::string& filepath) {
+Wireframe::Wireframe(const std::filesystem::path& filepath) : PathConstructibleAsset(filepath) {
     loadFromFile(filepath);
 }
 
@@ -13,19 +13,45 @@ Wireframe::Wireframe(const std::vector<Edge>& edges) {
     uploadToGPU(edges);
 }
 
+Wireframe::Wireframe(Wireframe&& other) noexcept
+    : PathConstructibleAsset(std::move(other)),
+      _vao(std::exchange(other._vao, 0)),
+      _vbo(std::exchange(other._vbo, 0)),
+      _edgeCount(std::exchange(other._edgeCount, 0)) {}
+
+Wireframe& Wireframe::operator=(Wireframe&& other) noexcept {
+    if (this != &other) {
+        PathConstructibleAsset::operator=(std::move(other));
+
+        if(_vao != 0)
+        {
+            glDeleteVertexArrays(1, &_vao);
+        }
+        if(_vbo != 0)
+        {
+            glDeleteBuffers(1, &_vbo);
+        }
+
+        _vao = std::exchange(other._vao, 0);
+        _vbo = std::exchange(other._vbo, 0);
+        _edgeCount = std::exchange(other._edgeCount, 0);
+    }
+    return *this;
+}
+
 Wireframe::~Wireframe() {
     glDeleteVertexArrays(1, &_vao);
     glDeleteBuffers(1, &_vbo);
 }
 
-void Wireframe::loadFromFile(const std::string& filepath) {
+void Wireframe::loadFromFile(const std::filesystem::path& filepath) {
     tinyobj::attrib_t attrib;
     std::vector<tinyobj::shape_t> shapes;
     std::vector<tinyobj::material_t> materials;
     std::string warn, err;
 
     if (!tinyobj::LoadObj(&attrib, &shapes, &materials, &warn, &err, filepath.c_str())) {
-        Logger::ERROR("Failed to load OBJ file: " + filepath);
+        Logger::ERROR(std::string("Failed to load OBJ file: ") + filepath.c_str());
         return;
     }
 
@@ -44,7 +70,6 @@ void Wireframe::loadFromFile(const std::string& filepath) {
                 );
             }
 
-            // Add edges between each vertex pair in the triangle
             edges.emplace_back(positions[0], positions[1]);
             edges.emplace_back(positions[1], positions[2]);
             edges.emplace_back(positions[2], positions[0]);
@@ -64,7 +89,6 @@ void Wireframe::uploadToGPU(const std::vector<Edge>& edges) {
         edgeVertices.push_back(edge.end);
     }
 
-    // Generate and bind VAO and VBO
     glGenVertexArrays(1, &_vao);
     glBindVertexArray(_vao);
 
@@ -72,16 +96,13 @@ void Wireframe::uploadToGPU(const std::vector<Edge>& edges) {
     glBindBuffer(GL_ARRAY_BUFFER, _vbo);
     glBufferData(GL_ARRAY_BUFFER, edgeVertices.size() * sizeof(glm::vec3), edgeVertices.data(), GL_STATIC_DRAW);
 
-    // Set vertex attribute pointers
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), (void*)0); // Position
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), (void*)0);
     glEnableVertexAttribArray(0);
 
-    // Unbind the VAO
     glBindVertexArray(0);
 }
 
-// Factory methods for creating primitive shapes (cube, cylinder, sphere)
-Wireframe* Wireframe::Factory::createCube() {
+Wireframe Wireframe::Factory::createCube() {
     std::vector<Edge> edges = {
         // Front face
         { { -1.0f, -1.0f, -1.0f }, {  1.0f, -1.0f, -1.0f } },
@@ -102,10 +123,10 @@ Wireframe* Wireframe::Factory::createCube() {
         { { -1.0f,  1.0f, -1.0f }, { -1.0f,  1.0f,  1.0f } },
     };
 
-    return new Wireframe(edges);
+    return Wireframe(edges);
 }
 
-Wireframe* Wireframe::Factory::createCylinder() {
+Wireframe Wireframe::Factory::createCylinder() {
     const int sectors = 36;
     const float radius = 1.0f;
     const float height = 2.0f;
@@ -135,10 +156,10 @@ Wireframe* Wireframe::Factory::createCylinder() {
         edges.emplace_back(bottomCurrent, topCurrent);
     }
 
-    return new Wireframe(edges);
+    return Wireframe(edges);
 }
 
-Wireframe* Wireframe::Factory::createSphere() {
+Wireframe Wireframe::Factory::createSphere() {
     const int stacks = 18;
     const int sectors = 36;
     const float radius = 1.0f;
@@ -174,7 +195,7 @@ Wireframe* Wireframe::Factory::createSphere() {
         }
     }
 
-    return new Wireframe(edges);
+    return Wireframe(edges);
 }
 
 } // namespace shkyera

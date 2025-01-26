@@ -72,7 +72,9 @@ void PropertiesWidget::draw() {
 
 void PropertiesWidget::drawExistingComponents() {
   for (const auto& component : _componentsUi)
+  {
     component->draw();
+  }
 }
 
 void PropertiesWidget::setupComponentsUI() {
@@ -89,12 +91,13 @@ void PropertiesWidget::setupComponentsUI() {
 
   if(_registry->hasComponent<ModelComponent>(*_selectedEntity)) {    
     auto &component = _registry->getComponent<ModelComponent>(*_selectedEntity);
-    auto componentUi = std::make_unique<ModelComponentUI>(&component);
+    auto componentUi = std::make_unique<ModelComponentUI>(_registry, &component);
 
-    componentUi->setOnMeshUpdate([this](const auto mesh) {
+    componentUi->setOnMeshUpdate([this]() {
       if(!_registry->hasComponent<BoxColliderComponent<RuntimeMode::DEVELOPMENT>>(*_selectedEntity)) {
         _registry->addComponent<BoxColliderComponent<RuntimeMode::DEVELOPMENT>>(*_selectedEntity);
       }
+      const auto mesh = std::get<AssetRef<Mesh>>(_registry->getComponent<ModelComponent>(*_selectedEntity).mesh);
       auto& colliderComponent = _registry->getComponent<BoxColliderComponent<RuntimeMode::DEVELOPMENT>>(*_selectedEntity);
       colliderComponent.box = mesh->getBoundingBox();
     });
@@ -104,7 +107,7 @@ void PropertiesWidget::setupComponentsUI() {
 
   if(_registry->hasComponent<WireframeComponent>(*_selectedEntity)) {    
     auto &component = _registry->getComponent<WireframeComponent>(*_selectedEntity);
-    auto componentUi = std::make_unique<WireframeComponentUI>(&component);
+    auto componentUi = std::make_unique<WireframeComponentUI>(_registry, &component);
 
     _componentsUi.emplace_back(std::move(componentUi));
   }

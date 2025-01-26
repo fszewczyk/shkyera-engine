@@ -184,6 +184,8 @@ vec3 calculatePointLights() {
     float relativeIntensity = 1.0 - (distanceToLight / pointLights[i].range);
 
     if (relativeIntensity > 0.0) {
+      relativeIntensity *= relativeIntensity;
+      
       // Calculate light direction
       vec3 lightDir = normalize(-lightToFrag);
 

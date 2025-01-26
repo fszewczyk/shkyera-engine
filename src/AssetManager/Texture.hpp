@@ -5,13 +5,12 @@
 
 namespace shkyera {
 
-class Texture : public Asset {
+class Texture : public PathConstructibleAsset<Texture> {
 public:
-    // Constructor with configurable filter and wrap modes
-    Texture(GLenum minFilter = GL_LINEAR, GLenum magFilter = GL_LINEAR,
-            GLenum wrapS = GL_CLAMP_TO_EDGE, GLenum wrapT = GL_CLAMP_TO_EDGE);
+    Texture(GLenum minFilter = GL_LINEAR, GLenum magFilter = GL_LINEAR, GLenum wrapS = GL_CLAMP_TO_EDGE, GLenum wrapT = GL_CLAMP_TO_EDGE);
 
-    Texture(const std::string& path);
+    Texture(const std::filesystem::path& path);
+    Texture(std::shared_ptr<Image> image);
 
     ~Texture();
 
@@ -38,9 +37,9 @@ public:
     void* getImguiTextureID() const { return reinterpret_cast<void *>(_textureID); }
 
 private:
+    void generateTexture(GLenum minFilter = GL_LINEAR, GLenum magFilter = GL_LINEAR, GLenum wrapS = GL_CLAMP_TO_EDGE, GLenum wrapT = GL_CLAMP_TO_EDGE);
+
     GLuint _textureID;
 };
-
-using TextureAsset = std::shared_ptr<Texture>;
 
 }

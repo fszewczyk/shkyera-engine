@@ -3,7 +3,7 @@
 #include <memory>
 #include <glad/glad.h>
 
-#include <Rendering/Texture.hpp>
+#include <AssetManager/Texture.hpp>
 
 namespace shkyera {
 

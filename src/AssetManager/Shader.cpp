@@ -7,13 +7,40 @@
 
 namespace shkyera {
 
-Shader::Shader(const std::string& filepath, Type type) : _type(type) {
+Shader::Shader(const std::filesystem::path& filepath, Type type) : 
+PathConstructibleAsset(filepath),
+_type(type) {
     std::string source = loadFromFile(filepath);
     compile(source);
 }
 
 Shader::~Shader() {
-    glDeleteShader(_id);
+    if(_id != 0)
+    {
+        glDeleteShader(_id);
+    }
+}
+
+Shader::Shader(Shader&& other) noexcept :
+PathConstructibleAsset(std::move(other)),
+_id(std::exchange(other._id, 0)), 
+_type(other._type) 
+{}
+
+Shader& Shader::operator=(Shader&& other) noexcept {
+    if (this != &other) {
+        PathConstructibleAsset::operator=(std::move(other));
+
+        if (_id != 0) 
+        {
+            glDeleteShader(_id);
+        }
+
+        _id = std::exchange(other._id, 0);
+        _type = other._type;
+    }
+
+    return *this;
 }
 
 std::string Shader::loadFromFile(const std::string& filepath) {

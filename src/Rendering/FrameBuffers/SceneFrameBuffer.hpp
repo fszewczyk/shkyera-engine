@@ -4,7 +4,7 @@
 #include <glad/glad.h>
 #include <glm/glm.hpp>
 
-#include <Rendering/Texture.hpp>
+#include <AssetManager/Texture.hpp>
 
 namespace shkyera {
 

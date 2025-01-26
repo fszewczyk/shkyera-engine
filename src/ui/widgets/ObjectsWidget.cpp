@@ -23,7 +23,7 @@ void ObjectsWidget::draw() {
   ImGui::Separator();
   const auto& hierarchy = _registry->getHierarchy();
   for (const auto& [entity, nameComponent] : _registry->getComponentSet<NameComponent>()) {
-    if(!hierarchy.getParent(entity))
+    if(_registry->hasComponent<TransformComponent>(entity) && !hierarchy.getParent(entity))
     {
       drawObjectHierarchy(entity, hierarchy, 0);
     }

@@ -2,9 +2,12 @@
 #include "imgui.h"
 
 #include <iostream>
+#include <algorithm>
 
-#include <AssetManager/AssetManager.hpp>
-#include <AssetManager/Image.hpp>
+#include <AssetManager/Texture.hpp>
+#include <AssetManager/Shader.hpp>
+#include <AssetManager/Mesh.hpp>
+#include <Components/AssetComponents/DirectoryComponent.hpp>
 #include <UI/Common/Style.hpp>
 #include <UI/UI.hpp>
 #include <UI/Widgets/ConsoleWidget.hpp>
@@ -12,22 +15,22 @@
 
 namespace shkyera {
 
-FilesystemWidget::FilesystemWidget(std::string name) : Widget(name)
+FilesystemWidget::FilesystemWidget(std::string name, std::shared_ptr<Registry> registry, AssetHandle rootDirectoryHandle) : Widget(name), _registry(registry), _rootDirectoryHandle(rootDirectoryHandle), _currentDirectoryHandle(rootDirectoryHandle)
 {
-  _folderIcon = AssetManager::getInstance().getAsset<Texture>(Image::ICON_FILES_FOLDER);
-  _pythonIcon = AssetManager::getInstance().getAsset<Texture>(Image::ICON_FILES_PYTHON);
-  _imageIcon = AssetManager::getInstance().getAsset<Texture>(Image::ICON_FILES_IMAGE);
-  _textIcon = AssetManager::getInstance().getAsset<Texture>(Image::ICON_FILES_TEXT);
+  _folderIcon = utils::assets::readPermanent<Texture>(Image::ICON_FILES_FOLDER);
+  _pythonIcon = utils::assets::readPermanent<Texture>(Image::ICON_FILES_PYTHON);
+  _imageIcon = utils::assets::readPermanent<Texture>(Image::ICON_FILES_IMAGE);
+  _textIcon = utils::assets::readPermanent<Texture>(Image::ICON_FILES_TEXT);
 }
 
 void FilesystemWidget::draw() {
   ImGui::Begin(_name.c_str());
 
-  if (_currentDirectory == nullptr) {
-    ImGui::TextUnformatted("No directory specified.");
+  if (!_registry->hasComponent<DirectoryComponent>(_rootDirectoryHandle)) {
+    ImGui::TextUnformatted("Root project directory is not registered as an Asset.");
   } else {
     ImGui::BeginChild("Directories", ImVec2(180, 0));
-    drawDirectoryTree(Directory::getRoot());
+    drawDirectoryTree(_rootDirectoryHandle);
     ImGui::EndChild();
 
     ImGui::SameLine();
@@ -38,11 +41,9 @@ void FilesystemWidget::draw() {
 
     ImGui::SameLine();
 
-    ImGui::BeginChild("Contents", ImVec2(0, 0), false,
-                      ImGuiWindowFlags_NoScrollWithMouse);
+    ImGui::BeginChild("Contents", ImVec2(0, 0), false);
 
-    drawDirectoryContents(_currentDirectory);
-    handleRightMouseClick();
+    drawDirectoryContents();
 
     ImGui::EndChild();
   }
@@ -50,36 +51,38 @@ void FilesystemWidget::draw() {
   ImGui::End();
 }
 
-void FilesystemWidget::setDirectory(std::filesystem::path path) {
-  _currentDirectory = std::make_shared<Directory>(path);
-  Directory::setRoot(_currentDirectory);
-}
-
-void FilesystemWidget::drawDirectoryTree(
-    const std::shared_ptr<Directory> directory) {
-  const std::vector<std::shared_ptr<Directory>> subDirectories =
-      directory->getSubDirectories();
+void FilesystemWidget::drawDirectoryTree(AssetHandle directoryHandle) {
+  std::vector<AssetHandle> subDirectories = utils::assets::getSubdirectories(directoryHandle, _registry.get());
 
   static bool initiallyOpenedTree = false;
-
-  ImGui::Image(_folderIcon->getImguiTextureID(),
-               ImVec2(16, 16));
+  ImGui::Image(_folderIcon->getImguiTextureID(), ImVec2(16, 16));
   ImGui::SameLine();
 
-  ImGuiTreeNodeFlags flags =
-      ImGuiTreeNodeFlags_OpenOnDoubleClick | ImGuiTreeNodeFlags_OpenOnArrow;
+  ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_OpenOnDoubleClick | ImGuiTreeNodeFlags_OpenOnArrow;
   if (subDirectories.empty())
+  {
     flags |= ImGuiTreeNodeFlags_Leaf;
+  }
 
   if (!initiallyOpenedTree)
+  {
     ImGui::SetNextItemOpen(initiallyOpenedTree == false);
+  }
 
-  if (ImGui::TreeNodeEx((directory->getName()).c_str(), flags)) {
+  const auto directoryComponent = _registry->getComponent<DirectoryComponent>(directoryHandle);
+  if (ImGui::TreeNodeEx(utils::assets::getName(directoryComponent).c_str(), flags)) 
+  {
     if (ImGui::IsItemClicked())
-      _currentDirectory = directory;
+    {
+      _currentDirectoryHandle = directoryHandle;
+    }
 
-    for (const auto& subDir : subDirectories) {
-      drawDirectoryTree(subDir);
+    for (const auto& subDir : subDirectories)
+    {
+      if(_registry->hasComponent<DirectoryComponent>(subDir))
+      {
+        drawDirectoryTree(subDir);
+      }
     }
 
     ImGui::TreePop();
@@ -88,10 +91,11 @@ void FilesystemWidget::drawDirectoryTree(
   initiallyOpenedTree = true;
 }
 
-void FilesystemWidget::drawDirectoryContents(
-    const std::shared_ptr<Directory> directory) {
+void FilesystemWidget::drawDirectoryContents() {
+  const auto directoryComponent = _registry->getComponent<DirectoryComponent>(_currentDirectoryHandle);
+
   ImGui::PushFont(style::BIG_FONT);
-  ImGui::TextUnformatted(directory->getPath().string().c_str());
+  ImGui::TextUnformatted(utils::assets::getName(directoryComponent).c_str());
   ImGui::PopFont();
   ImGui::Separator();
   ImGui::Dummy(ImVec2(0, 3));
@@ -100,183 +104,125 @@ void FilesystemWidget::drawDirectoryContents(
 
   float totalWidth = ImGui::GetWindowContentRegionMax()[0];
 
-  int iconsToFit = std::max(1, (int)(totalWidth / (CONTENTS_ICON_SIZE + 15)));
+  int iconsToFit = std::max(1, (int)(totalWidth / (CONTENTS_ICON_SIZE + 15) - 1));
   int iconsDrawn = 0;
 
-  const std::vector<std::shared_ptr<Directory>> subDirectories =
-      directory->getSubDirectories();
-  const std::vector<std::shared_ptr<File>> files = directory->getFiles();
-
-  for (const auto& subDir : subDirectories) {
+  for (const auto& subDir : utils::assets::getSubdirectories(_currentDirectoryHandle, _registry.get())) {
     if (iconsDrawn % iconsToFit != 0)
+    {
       ImGui::SameLine();
+    }
 
     drawDirectory(subDir);
-    iconsDrawn += 1;
+    iconsDrawn++;
   }
 
-  for (const auto& file : files) {
+  for(const auto& file : _registry->getHierarchy().getChildren(_currentDirectoryHandle))
+  {
+    if(!_registry->hasComponent<NameComponent>(file))
+    {
+      return;
+    }
     if (iconsDrawn % iconsToFit != 0)
+    {
       ImGui::SameLine();
+    }
 
-    drawFile(file);
-    iconsDrawn += 1;
+    bool drawn = false;
+    if(_registry->hasComponent<AssetComponent<Texture>>(file))
+    {
+      drawn = true;
+      drawAsset<Texture>(file);
+    }
+    else if(_registry->hasComponent<AssetComponent<Mesh>>(file))
+    {
+      drawn = true;
+      drawAsset<Mesh>(file);
+    }
+    else if(_registry->hasComponent<AssetComponent<Shader>>(file))
+    {
+      drawn = true;
+      drawAsset<Shader>(file);
+    }
+
+    if(drawn)
+    {
+      iconsDrawn++;
+    }
   }
 }
 
-void FilesystemWidget::drawDirectory(
-    const std::shared_ptr<Directory> directory) {
+void FilesystemWidget::drawDirectory(AssetHandle directoryHandle) {
+  const auto& directoryName = _registry->getComponent<NameComponent>(directoryHandle).getName();
+
   ImGui::BeginGroup();
-  ImGui::PushID(directory->getName().c_str());
+  ImGui::PushID(directoryName.c_str());
 
   ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
   if (ImGui::ImageButton(_folderIcon->getImguiTextureID(),
                          ImVec2(CONTENTS_ICON_SIZE, CONTENTS_ICON_SIZE))) {
-    _currentDirectory = directory;
+    _currentDirectoryHandle = directoryHandle;
   }
 
   _hoveredIcon |= ImGui::IsItemHovered();
 
   ImGui::PopStyleColor();
 
-  std::string nameToDisplay = getDisplayableName(directory->getName());
-  drawIconName(nameToDisplay);
+  drawIconName(directoryName);
 
   ImGui::PopID();
   ImGui::EndGroup();
 }
 
-void FilesystemWidget::drawFile(const std::shared_ptr<File> file) {
-  ImGui::BeginGroup();
-  ImGui::PushID(file->getName().c_str());
+template<>
+void FilesystemWidget::drawAssetIcon<Texture>(AssetHandle handle)
+{
+  if(ImGui::ImageButton(_imageIcon->getImguiTextureID(), ImVec2(CONTENTS_ICON_SIZE, CONTENTS_ICON_SIZE))) 
+  {
 
-  ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
-  if (ImGui::ImageButton(getTextureOfFile(file),
-                         ImVec2(CONTENTS_ICON_SIZE, CONTENTS_ICON_SIZE))) {}
-
-  if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_None)) {
-    std::string fileName = file->getName();
-    std::string filePath = file->getPath().string();
-
-    ImGui::TextUnformatted(filePath.c_str());
-    ImGui::SetDragDropPayload("DRAG_AND_DROP_FILE", filePath.c_str(),
-                              filePath.length() * sizeof(char));
-
-    ImGui::EndDragDropSource();
   }
-
-  _hoveredIcon |= ImGui::IsItemHovered();
-
-  ImGui::PopStyleColor();
-
-  std::string nameToDisplay = getDisplayableName(file->getName());
-  drawIconName(nameToDisplay);
-
-  ImGui::PopID();
-  ImGui::EndGroup();
 }
 
-void FilesystemWidget::drawIconName(const std::string name) const {
+template<>
+void FilesystemWidget::drawAssetIcon<Mesh>(AssetHandle handle)
+{
+  if(ImGui::ImageButton(_textIcon->getImguiTextureID(), ImVec2(CONTENTS_ICON_SIZE, CONTENTS_ICON_SIZE))) 
+  {
+                              
+  }
+}
+
+template<>
+void FilesystemWidget::drawAssetIcon<Shader>(AssetHandle handle)
+{
+  if(ImGui::ImageButton(_textIcon->getImguiTextureID(), ImVec2(CONTENTS_ICON_SIZE, CONTENTS_ICON_SIZE)))
+  {
+
+  }
+}
+
+void FilesystemWidget::drawIconName(const std::string& name) const {
   ImGui::PushFont(style::SMALL_FONT);
 
-  auto textWidth = ImGui::CalcTextSize(name.c_str()).x;
-  ImGui::SetCursorPosX(ImGui::GetCursorPosX() +
-                       (CONTENTS_ICON_SIZE + 10 - textWidth) * 0.5f);
+  constexpr int MAX_CHAR_PER_LINE = 15;
+  std::vector<std::string> lines;
+  for (size_t i = 0; i < name.length(); i += MAX_CHAR_PER_LINE) 
+  {
+    lines.push_back(name.substr(i, MAX_CHAR_PER_LINE));
+  }
 
-  ImGui::TextUnformatted(name.c_str());
+  float totalHeight = lines.size() * ImGui::GetTextLineHeightWithSpacing();
+  float iconCenterOffset = (CONTENTS_ICON_SIZE + 10 - totalHeight) * 0.5f;
+
+  for (const auto& line : lines) 
+  {
+    auto textWidth = ImGui::CalcTextSize(line.c_str()).x;
+    ImGui::SetCursorPosX(ImGui::GetCursorPosX() +
+                         (CONTENTS_ICON_SIZE + 10 - textWidth) * 0.5f);
+    ImGui::TextUnformatted(line.c_str());
+  }
 
   ImGui::PopFont();
 }
-
-void FilesystemWidget::handleRightMouseClick() {
-  if (!_hoveredIcon && ImGui::IsWindowHovered() && ImGui::IsMouseClicked(1)) {
-    drawCreateMenu();
-  }
-
-  if (ImGui::BeginPopup("New")) {
-    if (ImGui::BeginMenu("New File")) {
-      static char fileName[64] = "object.py";
-      ImGui::InputText("##", fileName, 64);
-
-      ImGui::SameLine();
-
-      if (ImGui::Button("Create")) {
-        try {
-          _currentDirectory->createFile(std::string(fileName));
-
-          memset(fileName, 0, sizeof(fileName));
-          std::copy(DEFAULT_FILE_NAME.begin(), DEFAULT_FILE_NAME.end(),
-                    fileName);
-          ImGui::CloseCurrentPopup();
-        } catch (std::invalid_argument error) {
-          ConsoleWidget::logError(std::string(error.what()));
-
-          ImGui::CloseCurrentPopup();
-          ImGui::SetWindowFocus("Console");
-        }
-      }
-
-      ImGui::EndMenu();
-    }
-    if (ImGui::BeginMenu("New Folder")) {
-      static char folderName[64] = "New Folder";
-      ImGui::InputText("##", folderName, 64);
-
-      ImGui::SameLine();
-
-      if (ImGui::Button("Create")) {
-        try {
-          _currentDirectory->createDirectory(std::string(folderName));
-
-          memset(folderName, 0, sizeof(folderName));
-          std::copy(DEFAULT_FOLDER_NAME.begin(), DEFAULT_FOLDER_NAME.end(),
-                    folderName);
-          ImGui::CloseCurrentPopup();
-        } catch (std::invalid_argument error) {
-          ConsoleWidget::logError(std::string(error.what()));
-
-          ImGui::CloseCurrentPopup();
-          ImGui::SetWindowFocus("Console");
-        }
-      }
-
-      ImGui::EndMenu();
-    }
-
-    ImGui::EndPopup();
-  }
-}
-
-void FilesystemWidget::drawCreateMenu() const {
-  ImGui::OpenPopup("New");
-}
-
-ImTextureID FilesystemWidget::getTextureOfFile(
-    const std::shared_ptr<File> file) const {
-  switch (file->getType()) {
-    case PYTHON:
-      return _pythonIcon->getImguiTextureID();
-      break;
-    case IMAGE:
-      return _imageIcon->getImguiTextureID();
-      break;
-    default:
-      return _textIcon->getImguiTextureID();
-      break;
-  }
-}
-
-std::string FilesystemWidget::getDisplayableName(std::string name,
-                                                 size_t maxCharactersInLine) {
-  for (size_t pos = maxCharactersInLine; pos < name.length();
-       pos += maxCharactersInLine + 1) {
-    name.insert(pos, "\n");
-  }
-
-  return name;
-}
-
-std::string FilesystemWidget::DEFAULT_FOLDER_NAME = "New Folder";
-std::string FilesystemWidget::DEFAULT_FILE_NAME = "object.py";
 
 }  // namespace shkyera

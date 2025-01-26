@@ -6,28 +6,18 @@
 
 namespace shkyera {
 
-class WireframeComponent : public BaseComponent<WireframeComponent> {
-public:
-    WireframeComponent() = default;
-
-    void setWireframe(std::shared_ptr<Wireframe> wireframe) {
-        _wireframe = wireframe;
-    }
-
-    Wireframe const* getWireframe() const {
-        return _wireframe.get();
-    }
+struct WireframeComponent : public BaseComponent<WireframeComponent> {
+    HandleAndAsset<Wireframe> wireframe{};
 
     void updateImpl() const {
-        if (_wireframe) {
-            _wireframe->bind();
-            glDrawArrays(GL_LINES, 0, _wireframe->getEdgeCount());
-            _wireframe->unbind();
+        const auto& wireframeAsset = std::get<AssetRef<Wireframe>>(wireframe);
+        if (wireframeAsset) {
+            wireframeAsset->bind();
+            glDrawArrays(GL_LINES, 0, wireframeAsset->getEdgeCount());
+            wireframeAsset->unbind();
         }
     }
 
-private:
-    std::shared_ptr<Wireframe> _wireframe;
 };
 
 } // namespace shkyera

@@ -5,11 +5,11 @@
 #include <vector>
 #include <string>
 
-#include <AssetManager/Asset.hpp>
+#include <AssetManager/PathConstructibleAsset.hpp>
 
 namespace shkyera {
 
-class Wireframe : public Asset {
+class Wireframe : public PathConstructibleAsset<Wireframe> {
 public:
     struct Edge {
         glm::vec3 start;
@@ -18,11 +18,14 @@ public:
         Edge(const glm::vec3& s, const glm::vec3& e) : start(s), end(e) {}
     };
 
-    Wireframe(const std::string& filepath);
+    Wireframe(const std::filesystem::path& filepath);
     Wireframe(const std::vector<Edge>& edges);
 
     Wireframe(const Wireframe& other) = delete;
     Wireframe& operator=(const Wireframe& other) = delete;
+
+    Wireframe(Wireframe&& other) noexcept;
+    Wireframe& operator=(Wireframe&& other) noexcept;
 
     ~Wireframe();
 
@@ -35,13 +38,13 @@ public:
 
     class Factory {
     public:
-        static Wireframe* createCube();
-        static Wireframe* createCylinder();
-        static Wireframe* createSphere();
+        static Wireframe createCube();
+        static Wireframe createCylinder();
+        static Wireframe createSphere();
     };
 
 private:
-    void loadFromFile(const std::string& filepath);
+    void loadFromFile(const std::filesystem::path& filepath);
     void uploadToGPU(const std::vector<Edge>& edges);
 
     GLuint _vao, _vbo;

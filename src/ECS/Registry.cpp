@@ -48,4 +48,8 @@ EntityHierarchy& Registry::getHierarchy() {
   return _entityHierarchy;
 }
 
+const EntityHierarchy& Registry::getHierarchy() const {
+  return _entityHierarchy;
+}
+
 }  // namespace shkyera

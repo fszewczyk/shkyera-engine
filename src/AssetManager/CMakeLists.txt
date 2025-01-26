@@ -2,12 +2,11 @@ add_library(
     AssetManager
     STATIC
 
-    ${CMAKE_CURRENT_LIST_DIR}/Filesystem.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Image.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/AssetManager.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Shader.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Mesh.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Wireframe.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/Texture.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Material.cpp
 )
 
@@ -25,6 +24,7 @@ target_link_libraries(
     PUBLIC
 
     Math
+    Utils
     stb_image
     glfw 
     glm

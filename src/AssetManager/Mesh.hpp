@@ -5,12 +5,12 @@
 #include <vector>
 #include <string>
 
-#include <AssetManager/Asset.hpp>
+#include <AssetManager/PathConstructibleAsset.hpp>
 #include <Math/AABB.hpp>
 
 namespace shkyera {
 
-class Mesh : public Asset {
+class Mesh : public PathConstructibleAsset<Mesh> {
 public:
     struct Vertex {
         glm::vec3 position;
@@ -23,11 +23,14 @@ public:
             : position(pos), normal(norm), texcoord(tex) {}
     };
 
-    Mesh(const std::string& filepath);
+    Mesh(const std::filesystem::path& path);
     Mesh(std::vector<Vertex> vertices, std::vector<uint32_t> indices);
 
     Mesh(const Mesh& other) = delete;
     Mesh& operator=(const Mesh& other) = delete;
+
+    Mesh(Mesh&& other) noexcept;
+    Mesh& operator=(Mesh&& other) noexcept;
 
     ~Mesh();
 
@@ -44,17 +47,17 @@ public:
 
     class Factory {
         public:
-            static Mesh* createPlane();
-            static Mesh* createCube();
-            static Mesh* createCubeMap();
-            static Mesh* createCylinder();
-            static Mesh* createCone();
-            static Mesh* createTorus(float innerRadius, float outerRadius, int radialSegments, int tubularSegments);
-            static Mesh* createSphere();
+            static Mesh createPlane();
+            static Mesh createCube();
+            static Mesh createCubeMap();
+            static Mesh createCylinder();
+            static Mesh createCone();
+            static Mesh createTorus(float innerRadius, float outerRadius, int radialSegments, int tubularSegments);
+            static Mesh createSphere();
     };
 
 private:
-    void loadFromFile(const std::string& filepath);
+    void loadFromFile(const std::filesystem::path& filepath);
     void uploadToGPU();
 
     std::vector<Vertex> _vertices;

@@ -105,8 +105,8 @@ void UI::initializeWidgets() {
   objectsWidget->setRegistry(_registry);
   _widgets.emplace_back(std::move(objectsWidget));
 
-  auto assetsWidget = std::make_unique<FilesystemWidget>("Assets");
-  assetsWidget->setDirectory("resources");
+  auto rootHandle = *utils::assets::registerAll("resources", _registry.get());
+  auto assetsWidget = std::make_unique<FilesystemWidget>("Assets", _registry, rootHandle);
   _widgets.emplace_back(std::move(assetsWidget));
 }
 

@@ -24,12 +24,42 @@ namespace std {
 
 namespace shkyera {
 
-Mesh::Mesh(const std::string& filepath) {
-    loadFromFile(filepath);
+Mesh::Mesh(const std::filesystem::path& path) : PathConstructibleAsset(path) {
+    loadFromFile(path);
 }
 
 Mesh::Mesh(std::vector<Vertex> vertices, std::vector<uint32_t> indices) : _vertices(std::move(vertices)), _indices(std::move(indices)) {
     uploadToGPU();
+}
+
+Mesh::Mesh(Mesh&& other) noexcept
+    : PathConstructibleAsset(std::move(other)),
+      _vertices(std::move(other._vertices)),
+      _indices(std::move(other._indices)),
+      _vao(std::exchange(other._vao, 0)),
+      _vbo(std::exchange(other._vbo, 0)),
+      _ebo(std::exchange(other._ebo, 0)),
+      _meshSize(std::exchange(other._meshSize, 0))
+{}
+
+Mesh& Mesh::operator=(Mesh&& other) noexcept 
+{
+    if (this != &other) 
+    {
+        PathConstructibleAsset::operator=(std::move(other));
+
+        glDeleteVertexArrays(1, &_vao);
+        glDeleteBuffers(1, &_vbo);
+        glDeleteBuffers(1, &_ebo);
+
+        _vertices = std::move(other._vertices);
+        _indices = std::move(other._indices);
+        _vao = std::exchange(other._vao, 0);
+        _vbo = std::exchange(other._vbo, 0);
+        _ebo = std::exchange(other._ebo, 0);
+        _meshSize = std::exchange(other._meshSize, 0);
+    }
+    return *this;
 }
 
 void Mesh::draw() const {
@@ -108,14 +138,14 @@ static std::vector<glm::vec3> calculateNormals(const std::vector<Mesh::Vertex>& 
     return vertexToNormal;
 }
 
-void Mesh::loadFromFile(const std::string& filepath) {
+void Mesh::loadFromFile(const std::filesystem::path& filepath) {
     tinyobj::attrib_t attrib;
     std::vector<tinyobj::shape_t> shapes;
     std::vector<tinyobj::material_t> materials;
     std::string warn, err;
 
     if (!tinyobj::LoadObj(&attrib, &shapes, &materials, &warn, &err, filepath.c_str())) {
-        Logger::ERROR("Failed to load OBJ file: " + filepath);
+        Logger::ERROR(std::string("Failed to load OBJ file: ") + filepath.c_str());
         return;
     }
 
@@ -202,7 +232,7 @@ void Mesh::uploadToGPU() {
 }
 
 
-Mesh* Mesh::Factory::createPlane() {
+Mesh Mesh::Factory::createPlane() {
     std::vector<Vertex> vertices = {
         { { -1.0f, 0.0f, -1.0f }, { 0.0f, 1.0f, 0.0f }, { 0.0f, 0.0f } },  // 0
         { {  1.0f, 0.0f, -1.0f }, { 0.0f, 1.0f, 0.0f }, { 1.0f, 0.0f } },  // 1
@@ -215,10 +245,10 @@ Mesh* Mesh::Factory::createPlane() {
         2, 3, 0
     };
 
-    return new Mesh(vertices, indices);
+    return Mesh(vertices, indices);
 }
 
-Mesh* Mesh::Factory::createCube() {
+Mesh Mesh::Factory::createCube() {
       std::vector<Vertex> vertices = {
         // Front face
         { { -1.0f, -1.0f, -1.0f }, { 0.0f,  0.0f, -1.0f }, { 0.0f, 0.0f } },  // 0
@@ -272,10 +302,10 @@ Mesh* Mesh::Factory::createCube() {
         20, 23, 22, 22, 21, 20,
     };
 
-    return new Mesh(vertices, indices);
+    return Mesh(vertices, indices);
 }
 
-Mesh* Mesh::Factory::createCubeMap() {
+Mesh Mesh::Factory::createCubeMap() {
     std::vector<Mesh::Vertex> vertices = {
         {{-1.0f,  1.0f, -1.0f}},
         {{-1.0f, -1.0f, -1.0f}},
@@ -318,10 +348,10 @@ Mesh* Mesh::Factory::createCubeMap() {
     std::vector<unsigned int> indices(36);
     std::iota(indices.begin(), indices.end(), 0);
 
-    return new Mesh(vertices, indices);
+    return Mesh(vertices, indices);
 }
 
-Mesh* Mesh::Factory::createCylinder() {
+Mesh Mesh::Factory::createCylinder() {
     constexpr int sectors = 36;
     constexpr float radius = 1.0f;
     constexpr float height = 1.0f;
@@ -350,10 +380,10 @@ Mesh* Mesh::Factory::createCylinder() {
         indices.push_back((i * 2 + 2) % (sectors * 2));
     }
 
-    return new Mesh(vertices, indices);
+    return Mesh(vertices, indices);
 }
 
-Mesh* Mesh::Factory::createCone() {
+Mesh Mesh::Factory::createCone() {
     constexpr int sectors = 36;
     constexpr float radius = 1.0f;
     constexpr float height = 2.0f;
@@ -382,10 +412,10 @@ Mesh* Mesh::Factory::createCone() {
         indices.push_back((i * 2 + 2) % (sectors * 2));
     }
 
-    return new Mesh(vertices, indices);
+    return Mesh(vertices, indices);
 }
 
-Mesh* Mesh::Factory::createTorus(float innerRadius, float outerRadius, int radialSegments, int tubularSegments) {
+Mesh Mesh::Factory::createTorus(float innerRadius, float outerRadius, int radialSegments, int tubularSegments) {
     std::vector<Vertex> vertices;
     std::vector<unsigned int> indices;
 
@@ -432,10 +462,10 @@ Mesh* Mesh::Factory::createTorus(float innerRadius, float outerRadius, int radia
         }
     }
 
-    return new Mesh(vertices, indices);
+    return Mesh(vertices, indices);
 }
 
-Mesh* Mesh::Factory::createSphere() {
+Mesh Mesh::Factory::createSphere() {
     const int stacks = 24;
     const int sectors = 48;
     const float radius = 1.0f;
@@ -472,7 +502,7 @@ Mesh* Mesh::Factory::createSphere() {
         }
     }
 
-    return new Mesh(vertices, indices);
+    return Mesh(vertices, indices);
 }
 
 }
