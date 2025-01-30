@@ -19,7 +19,6 @@ class FloatSlider {
 
     private:
         std::string _title;
-        std::string _imguiIdentifier;
         float _value;
         float _minimum, _maximum;
         std::function<void(float value)> _updateCallback;

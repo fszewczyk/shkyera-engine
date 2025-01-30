@@ -5,9 +5,9 @@
 
 namespace shkyera {
 
-FloatSlider::FloatSlider(const std::string& title, float min, float max) : _title(title), _imguiIdentifier("##" + _title + "Slider"), _value((min + max) / 2), _minimum(min), _maximum(max) {}
+FloatSlider::FloatSlider(const std::string& title, float min, float max) : _title(title), _value((min + max) / 2), _minimum(min), _maximum(max) {}
 
-FloatSlider::FloatSlider(const std::string& title, float value, float min, float max) : _title(title), _imguiIdentifier("##" + _title + "Slider"), _value(value), _minimum(min), _maximum(max) {}
+FloatSlider::FloatSlider(const std::string& title, float value, float min, float max) : _title(title), _value(value), _minimum(min), _maximum(max) {}
 
 void FloatSlider::setUpdateCallback(std::function<void(float value)> callback) {
     _updateCallback = callback;
@@ -22,7 +22,7 @@ void FloatSlider::draw() {
 
     ImGui::SameLine(120);
     ImGui::PushItemWidth(190);
-    ImGui::SliderFloat(_imguiIdentifier.c_str(), &_value, _minimum, _maximum, "%.3f");
+    ImGui::SliderFloat((std::string("##") + _title + "Slider").c_str(), &_value, _minimum, _maximum, "%.3f");
     ImGui::PopItemWidth();
 
     if(oldValue != _value)

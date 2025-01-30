@@ -16,6 +16,7 @@
 #include <UI/Components/TransformComponentUI.hpp>
 #include <UI/Components/ModelComponentUI.hpp>
 #include <UI/Components/WireframeComponentUI.hpp>
+#include <UI/Components/CameraComponentUI.hpp>
 #include <UI/Components/AmbientLightComponentUI.hpp>
 #include <UI/Components/PointLightComponentUI.hpp>
 #include <UI/Components/SpotLightComponentUI.hpp>
@@ -86,6 +87,13 @@ void PropertiesWidget::setupComponentsUI() {
     componentUi->setPositionGetter([&]() -> glm::vec3& { return component.getPosition(); });
     componentUi->setOrientationGetter([&]() -> glm::vec3& { return component.getOrientation(); });
     componentUi->setScaleGetter([&]() -> glm::vec3& { return component.getScale(); });
+    _componentsUi.emplace_back(std::move(componentUi));
+  }
+
+  if(_registry->hasComponent<CameraComponent>(*_selectedEntity)) {    
+    auto &component = _registry->getComponent<CameraComponent>(*_selectedEntity);
+    auto componentUi = std::make_unique<CameraComponentUI>(&component);
+
     _componentsUi.emplace_back(std::move(componentUi));
   }
 

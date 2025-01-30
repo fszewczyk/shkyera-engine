@@ -40,7 +40,7 @@ public:
     }
 
     glm::mat4 getProjectionMatrix() const {
-        return getProjectionMatrix(nearPlane, farPlane);
+        return getProjectionMatrix(projectionType, nearPlane, farPlane);
     }
 
     Ray getRayAt(const TransformComponent& transformComponent, float x, float y) const {
@@ -67,7 +67,7 @@ public:
     }
 
     std::vector<glm::vec3> getFrustumCornersWorldSpace(float localNearPlane, float localFarPlane, const TransformComponent& transformComponent) const {
-        glm::mat4 invViewProj = glm::inverse(getProjectionMatrix(localNearPlane, localFarPlane) * getViewMatrix(transformComponent));
+        glm::mat4 invViewProj = glm::inverse(getProjectionMatrix(ProjectionType::Perspective, localNearPlane, localFarPlane) * getViewMatrix(transformComponent));
 
         std::vector<glm::vec3> frustumCorners;
         for (int x = -1; x <= 1; x += 2) {
@@ -83,11 +83,11 @@ public:
     }
 
     private:
-        glm::mat4 getProjectionMatrix(float localNearPlane, float localFarPlane) const {
+        glm::mat4 getProjectionMatrix(ProjectionType projection, float localNearPlane, float localFarPlane) const {
             if (projectionType == ProjectionType::Perspective) {
                 return glm::perspective(glm::radians(fov), aspectRatio, localNearPlane, localFarPlane);
             } else {
-                float orthoSize = 10.0f;  // Can be configurable
+                float orthoSize = fov;  // Can be configurable
                 float halfWidth = orthoSize * aspectRatio * 0.5f;
                 float halfHeight = orthoSize * 0.5f;
                 return glm::ortho(-halfWidth, halfWidth, -halfHeight, halfHeight, localNearPlane, localFarPlane);
