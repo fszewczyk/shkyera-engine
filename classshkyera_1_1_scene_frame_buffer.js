@@ -5,7 +5,7 @@ var classshkyera_1_1_scene_frame_buffer =
     [ "SceneFrameBuffer", "classshkyera_1_1_scene_frame_buffer.html#abe74ea2125f0ebcc6cd2fa0a27996253", null ],
     [ "SceneFrameBuffer", "classshkyera_1_1_scene_frame_buffer.html#a3a137c255572bf4aca22ccaf2d39de56", null ],
     [ "bind", "classshkyera_1_1_scene_frame_buffer.html#a8d57c64ffcb60851f37fa21f5ba31fde", null ],
-    [ "clear", "classshkyera_1_1_scene_frame_buffer.html#a8826698536bf668c25797248a3453833", null ],
+    [ "clear", "classshkyera_1_1_scene_frame_buffer.html#a2a8a63fff4b667b80832b23a2d435cb8", null ],
     [ "getSize", "classshkyera_1_1_scene_frame_buffer.html#a875967c96d40f2eeccc14d5b7fbd8d97", null ],
     [ "getTexture", "classshkyera_1_1_scene_frame_buffer.html#a3aea33f5e0c610a26c3f00c178ca7477", null ],
     [ "operator=", "classshkyera_1_1_scene_frame_buffer.html#a1b706669176bbb8ae65011c263081231", null ],

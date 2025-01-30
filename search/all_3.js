@@ -1,7 +1,7 @@
 var searchData=
 [
   ['callback_0',['Callback',['../namespaceshkyera_1_1_logger.html#af4af34a7612521a5918c337df455a4a2',1,'shkyera::Logger']]],
-  ['cameracomponent_1',['cameracomponent',['../classshkyera_1_1_camera_component.html',1,'shkyera::CameraComponent'],['../classshkyera_1_1_camera_component.html#af1ae869691b5431f706b88a1d869beda',1,'shkyera::CameraComponent::CameraComponent()']]],
+  ['cameracomponent_1',['cameracomponent',['../classshkyera_1_1_camera_component.html',1,'shkyera::CameraComponent'],['../classshkyera_1_1_camera_component.html#a105aa9e26cb33e807d40be688a769ae8',1,'shkyera::CameraComponent::CameraComponent()']]],
   ['cameracomponent_2ehpp_2',['CameraComponent.hpp',['../_camera_component_8hpp.html',1,'']]],
   ['cameracomponentui_3',['cameracomponentui',['../classshkyera_1_1_camera_component_u_i.html',1,'shkyera::CameraComponentUI'],['../classshkyera_1_1_camera_component_u_i.html#af2ff0bfbe627cfb58915490387f73398',1,'shkyera::CameraComponentUI::CameraComponentUI()']]],
   ['cameracomponentui_2ecpp_4',['CameraComponentUI.cpp',['../_camera_component_u_i_8cpp.html',1,'']]],
@@ -15,7 +15,7 @@ var searchData=
   ['cheatsheet_12',['Cheatsheet',['../md_docs_2tutorials_2cheatsheet.html',1,'']]],
   ['cheatsheet_2emd_13',['cheatsheet.md',['../cheatsheet_8md.html',1,'']]],
   ['children_14',['Children',['../classshkyera_1_1_entity_hierarchy.html#a8fadc98d79657b6d1ef1637a3d3e11a3',1,'shkyera::EntityHierarchy']]],
-  ['clear_15',['clear',['../classshkyera_1_1_depth_cube_map_frame_buffer.html#a1b2e42a44d543176f77c831601a38b1f',1,'shkyera::DepthCubeMapFrameBuffer::clear()'],['../classshkyera_1_1_depth_atlas_frame_buffer.html#a5b849eb6e76c9e7eb2100d02e00c3989',1,'shkyera::DepthAtlasFrameBuffer::clear()'],['../classshkyera_1_1_profiler.html#a7f1726c694dd832fb1f438dc9903f0d7',1,'shkyera::Profiler::clear()'],['../classshkyera_1_1_scene_frame_buffer.html#a8826698536bf668c25797248a3453833',1,'shkyera::SceneFrameBuffer::clear()'],['../classshkyera_1_1_console_widget.html#ac80eb6fe1d70f43f959c5d1d47714779',1,'shkyera::ConsoleWidget::clear()']]],
+  ['clear_15',['clear',['../classshkyera_1_1_depth_cube_map_frame_buffer.html#a1b2e42a44d543176f77c831601a38b1f',1,'shkyera::DepthCubeMapFrameBuffer::clear()'],['../classshkyera_1_1_depth_atlas_frame_buffer.html#a5b849eb6e76c9e7eb2100d02e00c3989',1,'shkyera::DepthAtlasFrameBuffer::clear()'],['../classshkyera_1_1_profiler.html#a7f1726c694dd832fb1f438dc9903f0d7',1,'shkyera::Profiler::clear()'],['../classshkyera_1_1_scene_frame_buffer.html#a2a8a63fff4b667b80832b23a2d435cb8',1,'shkyera::SceneFrameBuffer::clear()'],['../classshkyera_1_1_console_widget.html#ac80eb6fe1d70f43f959c5d1d47714779',1,'shkyera::ConsoleWidget::clear()']]],
   ['clearframebuffers_16',['clearFrameBuffers',['../classshkyera_1_1_rendering_system.html#a90502fb8fa02a7edd300c5eb539e8528',1,'shkyera::RenderingSystem']]],
   ['clearselectedentities_17',['clearSelectedEntities',['../classshkyera_1_1_registry.html#ade3839d7405f7d0dab933b16a60241d5',1,'shkyera::Registry']]],
   ['close_18',['close',['../classshkyera_1_1_u_i.html#ae00719d98a1030e0d0d3b95485003ee1',1,'shkyera::UI']]],
