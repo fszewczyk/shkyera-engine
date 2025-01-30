@@ -22,7 +22,7 @@ public:
 
     void bind();
     void unbind();
-    void clear();
+    void clear(glm::vec3 color = {0, 0, 0});
 
     void setSize(uint32_t width, uint32_t height);
     glm::vec2 getSize() const;

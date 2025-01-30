@@ -5,10 +5,10 @@ layout(location = 0) in vec3 aPos;  // Vertex position
 uniform mat4 projectionViewMatrix;  // Model matrix
 uniform mat4 modelMatrix;       // Projection matrix
 
-out vec3 FragPos;  // Output the depth value to the fragment shader
+out float VertexDepth;  // Output the depth value to the fragment shader
 
 void main() {
   vec4 viewSpacePosition = projectionViewMatrix * modelMatrix * vec4(aPos, 1.0);
   gl_Position = viewSpacePosition;
-  FragPos = viewSpacePosition.xyz;
+  VertexDepth = viewSpacePosition.z;
 }

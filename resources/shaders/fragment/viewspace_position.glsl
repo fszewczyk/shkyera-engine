@@ -1,9 +1,8 @@
 #version 330 core
-
 in vec3 FragPos;
 
-out float FragValue;
+out vec3 OutFragPos;
 
 void main() {
-  FragValue = length(FragPos);
+    OutFragPos = FragPos;
 }

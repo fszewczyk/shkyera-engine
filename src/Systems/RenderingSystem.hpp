@@ -23,8 +23,11 @@ public:
 private:
     void clearFrameBuffers();
 
+    void renderCameraDepth();
+    void renderNormals();
+    void renderSSAO();
     void renderModels();
-    void renderBloom();
+    void bloom();
     void toneMapping();
     void renderWireframes();
     void renderOutline(const std::unordered_set<Entity>& entities);
@@ -49,6 +52,14 @@ private:
     // Anti-Aliasing
     SceneFrameBuffer _antiAliasedFrameBuffer;
     ShaderProgram _antiAliasingShaderProgram;
+
+    // Screen-Space Ambient Occlusion
+    SceneFrameBuffer _viewSpacePositionFrameBuffer;
+    SceneFrameBuffer _viewSpaceNormalFrameBuffer;
+    SceneFrameBuffer _ssaoFrameBuffer;
+    ShaderProgram _viewSpaceNormalShaderProgram;
+    ShaderProgram _viewSpacePositionShaderProgram;
+    ShaderProgram _ssaoShaderProgram;
 
     // Tone Mapping
     SceneFrameBuffer _toneMappedFrameBuffer;
@@ -82,10 +93,10 @@ private:
 
     // Light rendering
     std::unordered_map<Entity, DepthAtlasFrameBuffer> _directionalLightToShadowMap;
-    ShaderProgram _shadowMapShaderProgram;
+    ShaderProgram _depthShaderProgram;
 
     std::unordered_map<Entity, DepthAtlasFrameBuffer> _pointLightToShadowMap;
-    ShaderProgram _shadowMapDistanceShaderProgram;
+    ShaderProgram _distanceShaderProgram;
 
     std::unordered_map<Entity, DepthAtlasFrameBuffer> _spotLightToShadowMap;
 };

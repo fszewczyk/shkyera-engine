@@ -6,6 +6,7 @@ out vec4 FragColor;
 in vec3 FragPos; 
 in vec3 Normal;  
 
+uniform vec2 viewportSize;
 uniform vec3 viewPos;  // Camera position
 
 // ******** LIGHT DATA ********
@@ -47,6 +48,7 @@ uniform SpotLight spotLights[SPOT_LIGHT_MAX_NUM];
 uniform sampler2D spotLightsShadowMap[SPOT_LIGHT_MAX_NUM];
 
 uniform vec3 ambientLight;
+uniform sampler2D ssao;
 
 // ******** MATERIAL DATA ********
 struct Material {
@@ -106,6 +108,12 @@ vec3 calculateAmbient() {
   return ambientLight * material.color;
 }
 
+float getAmbientOcclusion()
+{
+  vec2 texCoords = gl_FragCoord.xy / viewportSize;
+  return texture(ssao, texCoords).r;
+}
+
 float calculateSpotFalloff(vec3 lightDir, vec3 spotlightDir, float innerCutoffCosine, float outerCutoffCosine) {
   float theta = dot(lightDir, normalize(-spotlightDir));
   float epsilon = innerCutoffCosine - outerCutoffCosine;
@@ -121,6 +129,7 @@ vec3 calculateSpotLights() {
     float distanceToLight = length(lightToFrag);
 
     float attenuation = 1.0 - (distanceToLight / spotLights[i].range);
+    attenuation = attenuation * attenuation;
 
     if (attenuation > 0.0) {
       vec3 lightDir = normalize(-lightToFrag);
@@ -305,7 +314,7 @@ vec3 calculateDirectionalLights() {
 
 void main() {
   // Lighting
-  vec3 color = calculateAmbient();
+  vec3 color = calculateAmbient() * getAmbientOcclusion();
   color += calculatePointLights();
   color += calculateDirectionalLights();
   color += calculateSpotLights();

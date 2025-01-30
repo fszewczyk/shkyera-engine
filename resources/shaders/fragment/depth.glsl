@@ -1,9 +1,9 @@
 #version 330 core
 
-in float FragDepth;
+in float VertexDepth;
 
 out float FragValue;
 
 void main() {
-  FragValue = FragDepth;
+  FragValue = VertexDepth;
 }
