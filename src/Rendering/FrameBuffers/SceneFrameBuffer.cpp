@@ -67,9 +67,9 @@ void SceneFrameBuffer::unbind() {
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
-void SceneFrameBuffer::clear() {
+void SceneFrameBuffer::clear(glm::vec3 color) {
     bind();
-    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+    glClearColor(color.x, color.y, color.z, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     unbind();
 }

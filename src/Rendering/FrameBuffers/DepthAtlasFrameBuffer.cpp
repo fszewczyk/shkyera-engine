@@ -83,8 +83,10 @@ void DepthAtlasFrameBuffer::unbind() {
 }
 
 void DepthAtlasFrameBuffer::clear() {
+    bind();
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    unbind();
 }
 
 void DepthAtlasFrameBuffer::setSize(uint32_t width, uint32_t height) {

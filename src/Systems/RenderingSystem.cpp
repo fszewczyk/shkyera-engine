@@ -1,4 +1,5 @@
 #include <chrono>
+#include <random>
 
 #include <Systems/RenderingSystem.hpp>
 #include <Utils/AssetUtils.hpp>
@@ -27,7 +28,30 @@ RenderingSystem::RenderingSystem(std::shared_ptr<Registry> registry)
     _modelShaderProgram.attachShader(modelFragmentShader);
     _modelShaderProgram.link();
 
+    const auto& distanceVertexShader = utils::assets::addAndRead<Shader>(_registry.get(), []() { return Shader("resources/shaders/vertex/distance.glsl", Shader::Type::Vertex); });
+    const auto& distanceFragmentShader = utils::assets::addAndRead<Shader>(_registry.get(), []() { return Shader("resources/shaders/fragment/distance.glsl", Shader::Type::Fragment); });
+    _distanceShaderProgram.attachShader(distanceVertexShader);
+    _distanceShaderProgram.attachShader(distanceFragmentShader);
+    _distanceShaderProgram.link();
+
+    const auto& viewSpaceNormalVertexShader = utils::assets::addAndRead<Shader>(_registry.get(), []() { return Shader("resources/shaders/vertex/viewspace_normal.glsl", Shader::Type::Vertex); });
+    const auto& viewSpaceNormalFragmentShader = utils::assets::addAndRead<Shader>(_registry.get(), []() { return Shader("resources/shaders/fragment/viewspace_normal.glsl", Shader::Type::Fragment); });
+    _viewSpaceNormalShaderProgram.attachShader(viewSpaceNormalVertexShader);
+    _viewSpaceNormalShaderProgram.attachShader(viewSpaceNormalFragmentShader);
+    _viewSpaceNormalShaderProgram.link();
+
+    const auto& viewSpaceDepthVertexShader = utils::assets::addAndRead<Shader>(_registry.get(), []() { return Shader("resources/shaders/vertex/viewspace_position.glsl", Shader::Type::Vertex); });
+    const auto& viewSpaceDepthFragmentShader = utils::assets::addAndRead<Shader>(_registry.get(), []() { return Shader("resources/shaders/fragment/viewspace_position.glsl", Shader::Type::Fragment); });
+    _viewSpacePositionShaderProgram.attachShader(viewSpaceDepthVertexShader);
+    _viewSpacePositionShaderProgram.attachShader(viewSpaceDepthFragmentShader);
+    _viewSpacePositionShaderProgram.link();
+
     const auto& texCoordsVertexShader = utils::assets::addAndRead<Shader>(_registry.get(), []() { return Shader("resources/shaders/vertex/texcoords.glsl", Shader::Type::Vertex); });
+    const auto& ssaoFragmentShader = utils::assets::addAndRead<Shader>(_registry.get(), []() { return Shader("resources/shaders/fragment/ssao.glsl", Shader::Type::Fragment); });
+    _ssaoShaderProgram.attachShader(texCoordsVertexShader);
+    _ssaoShaderProgram.attachShader(ssaoFragmentShader);
+    _ssaoShaderProgram.link();
+
     const auto& toneMappingFragmentShader = utils::assets::addAndRead<Shader>(_registry.get(), []() { return Shader("resources/shaders/fragment/tonemapping_aces.glsl", Shader::Type::Fragment); });
     _toneMappingShaderProgram.attachShader(texCoordsVertexShader);
     _toneMappingShaderProgram.attachShader(toneMappingFragmentShader);
@@ -89,17 +113,11 @@ RenderingSystem::RenderingSystem(std::shared_ptr<Registry> registry)
     _skyboxShaderProgram.attachShader(cubeMapFragmentShader);
     _skyboxShaderProgram.link();
 
-    const auto& shadowMapVertexShader = utils::assets::addAndRead<Shader>(_registry.get(), []() { return Shader("resources/shaders/vertex/shadowmap.glsl", Shader::Type::Vertex); });
+    const auto& depthVertexShader = utils::assets::addAndRead<Shader>(_registry.get(), []() { return Shader("resources/shaders/vertex/depth.glsl", Shader::Type::Vertex); });
     const auto& depthFragmentShader = utils::assets::addAndRead<Shader>(_registry.get(), []() { return Shader("resources/shaders/fragment/depth.glsl", Shader::Type::Fragment); });
-    _shadowMapShaderProgram.attachShader(shadowMapVertexShader);
-    _shadowMapShaderProgram.attachShader(depthFragmentShader);
-    _shadowMapShaderProgram.link();
-
-    const auto& distanceVertexShader = utils::assets::addAndRead<Shader>(_registry.get(), []() { return Shader("resources/shaders/vertex/distance.glsl", Shader::Type::Vertex); });
-    const auto& distanceFragmentShader = utils::assets::addAndRead<Shader>(_registry.get(), []() { return Shader("resources/shaders/fragment/distance.glsl", Shader::Type::Fragment); });
-    _shadowMapDistanceShaderProgram.attachShader(distanceVertexShader);
-    _shadowMapDistanceShaderProgram.attachShader(distanceFragmentShader);
-    _shadowMapDistanceShaderProgram.link();
+    _depthShaderProgram.attachShader(depthVertexShader);
+    _depthShaderProgram.attachShader(depthFragmentShader);
+    _depthShaderProgram.link();
 }
 
 void RenderingSystem::setSize(uint32_t width, uint32_t height)
@@ -115,6 +133,9 @@ void RenderingSystem::setSize(uint32_t width, uint32_t height)
     _bloomedFrameBuffer.setSize(width, height);
     _antiAliasedFrameBuffer.setSize(width, height);
     _outlinedObjectsFrameBuffer.setSize(width, height);
+    _viewSpaceNormalFrameBuffer.setSize(width, height);
+    _viewSpacePositionFrameBuffer.setSize(width, height);
+    _ssaoFrameBuffer.setSize(width, height);
 
     size_t downscaleFactor = 2;
     for(size_t i = 0; i < BloomSteps; ++i)
@@ -144,6 +165,10 @@ void RenderingSystem::clearFrameBuffers()
     _horizontallyDilatedFrameBuffer.clear();
     _fullyDilatedFrameBuffer.clear();
     _differenceFrameBuffer.clear();
+    _viewSpaceNormalFrameBuffer.clear();
+    _viewSpacePositionFrameBuffer.clear();
+    _ssaoFrameBuffer.clear(glm::vec3{1.0, 1.0, 1.0});
+
     for(auto& buffer : _downscaledFrameBuffers)
     {
         buffer.clear();
@@ -167,6 +192,13 @@ void RenderingSystem::render()
     // Rendering Preparation
     clearFrameBuffers();
 
+    // Rendering Supporting Textures
+    renderCameraDepth();
+    renderNormals();
+
+    // Ambient Occlusion
+    renderSSAO();
+
     // Main Rendering Pass
     renderSkybox();
     renderModels();
@@ -176,11 +208,120 @@ void RenderingSystem::render()
     renderOutline(_registry->getSelectedEntities());
 
     // Post-Processing
-    renderBloom();
+    bloom();
     toneMapping();
     antiAliasing();
 
     renderOverlayModels();
+}
+
+void RenderingSystem::renderCameraDepth()
+{
+    SHKYERA_PROFILE("RenderingSystem::renderCameraDepth");
+
+    _viewSpacePositionShaderProgram.use();
+    _viewSpacePositionFrameBuffer.bind();
+
+    const auto& cameraTransform = _registry->getComponent<TransformComponent>(_registry->getCamera());
+    const auto& cameraComponent = _registry->getComponent<CameraComponent>(_registry->getCamera());
+
+    const glm::mat4& viewMatrix = _registry->getComponent<CameraComponent>(_registry->getCamera()).getViewMatrix(cameraTransform);
+    const glm::mat4& projectionMatrix = _registry->getComponent<CameraComponent>(_registry->getCamera()).getProjectionMatrix();
+
+    _viewSpacePositionShaderProgram.setUniform("projection", projectionMatrix);
+    _viewSpacePositionShaderProgram.setUniform("view", viewMatrix);
+
+    for (const auto& [entity, modelComponent] : _registry->getComponentSet<ModelComponent>()) {
+        const auto& transformMatrix = TransformComponent::getGlobalTransformMatrix(entity, _registry);
+        _viewSpacePositionShaderProgram.setUniform("model", transformMatrix);
+
+        modelComponent.updateImpl();
+    }
+
+    _viewSpacePositionFrameBuffer.unbind();
+    _viewSpacePositionShaderProgram.stopUsing();
+}
+
+void RenderingSystem::renderNormals()
+{
+    SHKYERA_PROFILE("RenderingSystem::renderNormals");
+
+    _viewSpaceNormalShaderProgram.use();
+    _viewSpaceNormalFrameBuffer.bind();
+
+    const auto& cameraTransform = _registry->getComponent<TransformComponent>(_registry->getCamera());
+    const auto& cameraComponent = _registry->getComponent<CameraComponent>(_registry->getCamera());
+
+    const glm::mat4& viewMatrix = _registry->getComponent<CameraComponent>(_registry->getCamera()).getViewMatrix(cameraTransform);
+    const glm::mat4& projectionMatrix = _registry->getComponent<CameraComponent>(_registry->getCamera()).getProjectionMatrix();
+
+    _viewSpaceNormalShaderProgram.setUniform("projection", projectionMatrix);
+    _viewSpaceNormalShaderProgram.setUniform("view", viewMatrix);
+
+    for (const auto& [entity, modelComponent] : _registry->getComponentSet<ModelComponent>()) {
+        const auto& transformMatrix = TransformComponent::getGlobalTransformMatrix(entity, _registry);
+        _viewSpaceNormalShaderProgram.setUniform("model", transformMatrix);
+
+        modelComponent.updateImpl();
+    }
+
+    _viewSpaceNormalFrameBuffer.unbind();
+    _viewSpaceNormalShaderProgram.stopUsing();
+}
+
+void RenderingSystem::renderSSAO()
+{
+    SHKYERA_PROFILE("RenderingSystem::renderSSAO");
+
+    static std::vector<glm::vec3> ssaoKernel;
+
+    if(ssaoKernel.empty())
+    {
+        std::default_random_engine generator;
+        std::uniform_real_distribution<float> randomFloats(0.0f, 1.0f);
+        for (int i = 0; i < 128; ++i) {
+            glm::vec3 sample(
+                randomFloats(generator) * 2.0 - 1.0,
+                randomFloats(generator) * 2.0 - 1.0,
+                randomFloats(generator) * 0.95 + 0.05
+            );
+            sample = glm::normalize(sample);
+            sample *= randomFloats(generator);
+
+            float scale = (float)i / 128.0;
+            scale = glm::mix(0.1f, 1.0f, scale * scale);
+            sample *= scale;
+
+            ssaoKernel.push_back(sample);
+        }
+    }
+
+    const glm::mat4& projectionMatrix = _registry->getComponent<CameraComponent>(_registry->getCamera()).getProjectionMatrix();
+    
+    // Bind framebuffer and activate shader program
+    _ssaoFrameBuffer.bind();
+    _ssaoShaderProgram.use();
+
+    // Bind textures to their corresponding texture units
+    _viewSpacePositionFrameBuffer.getTexture().activate(GL_TEXTURE0);
+    _ssaoShaderProgram.setUniform("depthTexture", 0);
+    _viewSpaceNormalFrameBuffer.getTexture().activate(GL_TEXTURE1);
+    _ssaoShaderProgram.setUniform("normalTexture", 1);
+
+    for(int i = 0; i < 128; i++)
+    {
+        _ssaoShaderProgram.setUniform("samples[" + std::to_string(i) + "]", ssaoKernel[i]);
+    }
+    
+    // Set uniforms using the parameter pack
+    _ssaoShaderProgram.setUniform("projection", projectionMatrix);
+
+    // Draw fullscreen quad
+    utils::drawFullscreenQuad();
+
+    // Stop using the shader program and unbind framebuffer
+    _ssaoShaderProgram.stopUsing();
+    _ssaoFrameBuffer.unbind();
 }
 
 void RenderingSystem::renderOutline(const std::unordered_set<Entity>& entities)
@@ -312,19 +453,24 @@ void RenderingSystem::renderDirectionalLightShadowMaps()
         for(uint8_t levelOfDetail = 0; levelOfDetail < DirectionalLightComponent::LevelsOfDetail; ++levelOfDetail)
         {
             shadowMapAtlas.bind(levelOfDetail);
-            _shadowMapShaderProgram.use();
+            _depthShaderProgram.use();
+
+            const auto nearPlane = _registry->getComponent<CameraComponent>(_registry->getCamera()).nearPlane;
+            const auto farPlane = _registry->getComponent<CameraComponent>(_registry->getCamera()).farPlane;
+            _depthShaderProgram.setUniform("near", nearPlane);
+            _depthShaderProgram.setUniform("far", farPlane);
 
             const glm::mat4& lightSpaceMatrix = directionalLightComponent.getLightSpaceMatrix(lightTransformMatrix, cameraTransform, cameraComponent, levelOfDetail);
 
-            _shadowMapShaderProgram.setUniform("lightSpaceMatrix", lightSpaceMatrix);
+            _depthShaderProgram.setUniform("projectionViewMatrix", lightSpaceMatrix);
             for (const auto& [modelEntity, modelComponent] : _registry->getComponentSet<ModelComponent>()) {
                 const auto& transformMatrix = TransformComponent::getGlobalTransformMatrix(modelEntity, _registry);
-                _shadowMapShaderProgram.setUniform("modelMatrix", transformMatrix);
+                _depthShaderProgram.setUniform("modelMatrix", transformMatrix);
 
                 modelComponent.updateImpl();
             }
 
-            _shadowMapShaderProgram.stopUsing();
+            _depthShaderProgram.stopUsing();
             shadowMapAtlas.unbind();
         }
     }
@@ -388,18 +534,18 @@ void RenderingSystem::renderPointLightShadowMaps()
             projection * glm::lookAt(lightPosition, lightPosition + glm::vec3( 0.0f,  0.0f, -1.0f), glm::vec3( 0.0f, -1.0f,  0.0f))   // -Z
         };
 
-        _shadowMapDistanceShaderProgram.use();
+        _distanceShaderProgram.use();
 
         for(uint8_t face = 0; face < 6; ++face)
         {
             shadowMapCubeAtlas.bind(face);
 
             const glm::mat4& lightSpaceMatrix = captureViews[face];
-            _shadowMapDistanceShaderProgram.setUniform("lightSpaceMatrix", lightSpaceMatrix);
+            _distanceShaderProgram.setUniform("projectionViewMatrix", lightSpaceMatrix);
 
             for (const auto& [modelEntity, modelComponent] : _registry->getComponentSet<ModelComponent>()) {
                 const auto& transformMatrix = TransformComponent::getGlobalTransformMatrix(modelEntity, _registry);
-                _shadowMapDistanceShaderProgram.setUniform("modelMatrix", transformMatrix);
+                _distanceShaderProgram.setUniform("modelMatrix", transformMatrix);
 
                 modelComponent.updateImpl();
             }
@@ -407,7 +553,7 @@ void RenderingSystem::renderPointLightShadowMaps()
             shadowMapCubeAtlas.unbind();
         }
 
-        _shadowMapDistanceShaderProgram.stopUsing();
+        _distanceShaderProgram.stopUsing();
     }
 }
 
@@ -461,18 +607,18 @@ void RenderingSystem::renderSpotLightShadowMaps()
         const auto& lightOuterCutoff = _registry->getComponent<SpotLightComponent>(lightEntity).outerCutoff;
         const auto lightSpaceMatrix = _registry->getComponent<SpotLightComponent>(lightEntity).getLightSpaceMatrix(lightTransformMatrix);
 
-        _shadowMapDistanceShaderProgram.use();
+        _distanceShaderProgram.use();
 
         shadowMap.bind(0);
-        _shadowMapDistanceShaderProgram.setUniform("lightSpaceMatrix", lightSpaceMatrix);
+        _distanceShaderProgram.setUniform("projectionViewMatrix", lightSpaceMatrix);
         for (const auto& [modelEntity, modelComponent] : _registry->getComponentSet<ModelComponent>()) {
             const auto& transformMatrix = TransformComponent::getGlobalTransformMatrix(modelEntity, _registry);
-            _shadowMapDistanceShaderProgram.setUniform("modelMatrix", transformMatrix);
+            _distanceShaderProgram.setUniform("modelMatrix", transformMatrix);
             modelComponent.updateImpl();
         }
         shadowMap.unbind();
 
-        _shadowMapDistanceShaderProgram.stopUsing();
+        _distanceShaderProgram.stopUsing();
     }
 }
 
@@ -577,6 +723,14 @@ void RenderingSystem::renderModels()
     }
     _modelShaderProgram.setUniform("numSpotLights", spotLightIndex);
 
+    { // SSAO
+        _ssaoFrameBuffer.getTexture().activate(GL_TEXTURE0 + textureIndex);
+        _modelShaderProgram.setUniform("ssao", textureIndex);
+        ++textureIndex;
+
+        _modelShaderProgram.setUniform("viewportSize", _mostRecentFrameBufferPtr->getSize());
+    }
+
     for (const auto& [entity, modelComponent] : _registry->getComponentSet<ModelComponent>()) {
         const auto& transformMatrix = TransformComponent::getGlobalTransformMatrix(entity, _registry);
         _modelShaderProgram.setUniform("modelMatrix", transformMatrix);
@@ -594,7 +748,7 @@ void RenderingSystem::renderModels()
     _mostRecentFrameBufferPtr->unbind();
 }
 
-void RenderingSystem::renderBloom()
+void RenderingSystem::bloom()
 {
     SHKYERA_PROFILE("RenderingSystem::renderBloom");
 
