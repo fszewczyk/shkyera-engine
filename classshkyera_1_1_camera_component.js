@@ -7,7 +7,7 @@ var classshkyera_1_1_camera_component =
     [ "CameraComponent", "classshkyera_1_1_camera_component.html#af1ae869691b5431f706b88a1d869beda", null ],
     [ "getFrustumCornersWorldSpace", "classshkyera_1_1_camera_component.html#ac2c65cc11b052833e405bce83feac5d0", null ],
     [ "getProjectionMatrix", "classshkyera_1_1_camera_component.html#ae574591598b0ef8e4bf98b438bee9440", null ],
-    [ "getProjectionMatrix", "classshkyera_1_1_camera_component.html#a7cc4c321d6799c43affe6018228e8949", null ],
+    [ "getProjectionMatrix", "classshkyera_1_1_camera_component.html#ae2ad89b0f341bb6586ac12c46be3a67c", null ],
     [ "getRayAt", "classshkyera_1_1_camera_component.html#a2703c4471a5c63218ac5a0f4f7a13e4a", null ],
     [ "getViewMatrix", "classshkyera_1_1_camera_component.html#a7fab985572ddf873de560deb15cb5b39", null ],
     [ "aspectRatio", "classshkyera_1_1_camera_component.html#affee4df373d15e8a6137f0351f967470", null ],

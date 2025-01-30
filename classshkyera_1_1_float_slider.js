@@ -4,7 +4,6 @@ var classshkyera_1_1_float_slider =
     [ "FloatSlider", "classshkyera_1_1_float_slider.html#a1f0a57df44604a6a7dfe236efff9484b", null ],
     [ "draw", "classshkyera_1_1_float_slider.html#a830e0a2ec136279ddee740400abc4345", null ],
     [ "setUpdateCallback", "classshkyera_1_1_float_slider.html#a01154cfafab74fc83738addf93f95a56", null ],
-    [ "_imguiIdentifier", "classshkyera_1_1_float_slider.html#abcf3b99bf64cdbc0ae1937323d6f4a70", null ],
     [ "_maximum", "classshkyera_1_1_float_slider.html#a7f5bb206e20007adbfd600e77fec1d12", null ],
     [ "_minimum", "classshkyera_1_1_float_slider.html#a24b377d2f5bf8d4eccf06d4634498ef9", null ],
     [ "_title", "classshkyera_1_1_float_slider.html#a65969783b5818fd699aaa833df032d07", null ],

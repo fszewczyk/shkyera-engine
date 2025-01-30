@@ -10,12 +10,15 @@ var searchData=
   ['entityhierarchy_7',['entityhierarchy',['../classshkyera_1_1_entity_hierarchy.html',1,'shkyera::EntityHierarchy'],['../classshkyera_1_1_entity_hierarchy.html#afdf8fcc9be70aa5f07bd3014b695c4ea',1,'shkyera::EntityHierarchy::EntityHierarchy()']]],
   ['entityhierarchy_2ecpp_8',['EntityHierarchy.cpp',['../_entity_hierarchy_8cpp.html',1,'']]],
   ['entityhierarchy_2ehpp_9',['EntityHierarchy.hpp',['../_entity_hierarchy_8hpp.html',1,'']]],
-  ['entityprovider_10',['entityprovider',['../classshkyera_1_1_entity_provider.html#a8881c647fe763abe305b9b7114d816af',1,'shkyera::EntityProvider::EntityProvider()'],['../classshkyera_1_1_entity_provider.html',1,'shkyera::EntityProvider']]],
+  ['entityprovider_10',['entityprovider',['../classshkyera_1_1_entity_provider.html',1,'shkyera::EntityProvider'],['../classshkyera_1_1_entity_provider.html#a8881c647fe763abe305b9b7114d816af',1,'shkyera::EntityProvider::EntityProvider()']]],
   ['entityprovider_2ecpp_11',['EntityProvider.cpp',['../_entity_provider_8cpp.html',1,'']]],
   ['entityprovider_2ehpp_12',['EntityProvider.hpp',['../_entity_provider_8hpp.html',1,'']]],
-  ['environmentpropertieswidget_13',['environmentpropertieswidget',['../classshkyera_1_1_environment_properties_widget.html#a521bb8dab3adff06d23cc3e346ded419',1,'shkyera::EnvironmentPropertiesWidget::EnvironmentPropertiesWidget()'],['../classshkyera_1_1_environment_properties_widget.html',1,'shkyera::EnvironmentPropertiesWidget']]],
-  ['error_14',['error',['../namespaceshkyera_1_1_logger.html#a1350dcbacb65ae0861aa6660f5566ee4',1,'shkyera::Logger::ERROR(const std::string &amp;message)'],['../namespaceshkyera_1_1_logger.html#a084332fcbe48f0afc6144c58a5b2ae05abb1ca97ec761fc37101737ba0aa2e7c5',1,'shkyera::Logger::ERROR']]],
-  ['euleranglesfromrotationmatrix_15',['eulerAnglesFromRotationMatrix',['../namespaceshkyera.html#a13d863b6aab1ba393c22173a23b4f533',1,'shkyera']]],
-  ['examples_16',['Examples',['../md_docs_2tutorials_2cheatsheet.html#autotoc_md5',1,'']]],
-  ['extents_17',['extents',['../structshkyera_1_1_a_a_b_b.html#acbb928cbddb5dee3227b2ece59e06411',1,'shkyera::AABB']]]
+  ['enumselector_13',['enumselector',['../classshkyera_1_1_enum_selector.html#a5dc79533c9ce4284b93d95c54cb86f43',1,'shkyera::EnumSelector::EnumSelector()'],['../classshkyera_1_1_enum_selector.html',1,'shkyera::EnumSelector&lt; EnumType &gt;']]],
+  ['enumselector_2ehpp_14',['EnumSelector.hpp',['../_enum_selector_8hpp.html',1,'']]],
+  ['enumselector_3c_20cameracomponent_3a_3aprojectiontype_20_3e_15',['EnumSelector&lt; CameraComponent::ProjectionType &gt;',['../classshkyera_1_1_enum_selector.html',1,'shkyera']]],
+  ['environmentpropertieswidget_16',['environmentpropertieswidget',['../classshkyera_1_1_environment_properties_widget.html#a521bb8dab3adff06d23cc3e346ded419',1,'shkyera::EnvironmentPropertiesWidget::EnvironmentPropertiesWidget()'],['../classshkyera_1_1_environment_properties_widget.html',1,'shkyera::EnvironmentPropertiesWidget']]],
+  ['error_17',['error',['../namespaceshkyera_1_1_logger.html#a1350dcbacb65ae0861aa6660f5566ee4',1,'shkyera::Logger::ERROR(const std::string &amp;message)'],['../namespaceshkyera_1_1_logger.html#a084332fcbe48f0afc6144c58a5b2ae05abb1ca97ec761fc37101737ba0aa2e7c5',1,'shkyera::Logger::ERROR']]],
+  ['euleranglesfromrotationmatrix_18',['eulerAnglesFromRotationMatrix',['../namespaceshkyera.html#a13d863b6aab1ba393c22173a23b4f533',1,'shkyera']]],
+  ['examples_19',['Examples',['../md_docs_2tutorials_2cheatsheet.html#autotoc_md5',1,'']]],
+  ['extents_20',['extents',['../structshkyera_1_1_a_a_b_b.html#acbb928cbddb5dee3227b2ece59e06411',1,'shkyera::AABB']]]
 ];

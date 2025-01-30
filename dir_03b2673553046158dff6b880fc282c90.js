@@ -2,6 +2,8 @@ var dir_03b2673553046158dff6b880fc282c90 =
 [
     [ "AmbientLightComponentUI.cpp", "_ambient_light_component_u_i_8cpp.html", null ],
     [ "AmbientLightComponentUI.hpp", "_ambient_light_component_u_i_8hpp.html", "_ambient_light_component_u_i_8hpp" ],
+    [ "CameraComponentUI.cpp", "_camera_component_u_i_8cpp.html", null ],
+    [ "CameraComponentUI.hpp", "_camera_component_u_i_8hpp.html", "_camera_component_u_i_8hpp" ],
     [ "DirectionalLightComponentUI.cpp", "_directional_light_component_u_i_8cpp.html", null ],
     [ "DirectionalLightComponentUI.hpp", "_directional_light_component_u_i_8hpp.html", "_directional_light_component_u_i_8hpp" ],
     [ "ModelComponentUI.cpp", "_model_component_u_i_8cpp.html", null ],
