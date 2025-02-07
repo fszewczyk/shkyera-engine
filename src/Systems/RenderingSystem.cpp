@@ -193,8 +193,8 @@ void RenderingSystem::render()
     clearFrameBuffers();
 
     // Rendering Supporting Textures
-    renderCameraDepth();
-    renderNormals();
+    renderViewPosition();
+    renderViewNormals();
 
     // Ambient Occlusion
     renderSSAO();
@@ -215,9 +215,9 @@ void RenderingSystem::render()
     renderOverlayModels();
 }
 
-void RenderingSystem::renderCameraDepth()
+void RenderingSystem::renderViewPosition()
 {
-    SHKYERA_PROFILE("RenderingSystem::renderCameraDepth");
+    SHKYERA_PROFILE("RenderingSystem::renderViewPosition");
 
     _viewSpacePositionShaderProgram.use();
     _viewSpacePositionFrameBuffer.bind();
@@ -242,9 +242,9 @@ void RenderingSystem::renderCameraDepth()
     _viewSpacePositionShaderProgram.stopUsing();
 }
 
-void RenderingSystem::renderNormals()
+void RenderingSystem::renderViewNormals()
 {
-    SHKYERA_PROFILE("RenderingSystem::renderNormals");
+    SHKYERA_PROFILE("RenderingSystem::renderViewNormals");
 
     _viewSpaceNormalShaderProgram.use();
     _viewSpaceNormalFrameBuffer.bind();
@@ -454,11 +454,6 @@ void RenderingSystem::renderDirectionalLightShadowMaps()
         {
             shadowMapAtlas.bind(levelOfDetail);
             _depthShaderProgram.use();
-
-            const auto nearPlane = _registry->getComponent<CameraComponent>(_registry->getCamera()).nearPlane;
-            const auto farPlane = _registry->getComponent<CameraComponent>(_registry->getCamera()).farPlane;
-            _depthShaderProgram.setUniform("near", nearPlane);
-            _depthShaderProgram.setUniform("far", farPlane);
 
             const glm::mat4& lightSpaceMatrix = directionalLightComponent.getLightSpaceMatrix(lightTransformMatrix, cameraTransform, cameraComponent, levelOfDetail);
 
@@ -731,14 +726,38 @@ void RenderingSystem::renderModels()
         _modelShaderProgram.setUniform("viewportSize", _mostRecentFrameBufferPtr->getSize());
     }
 
+    const auto setTexture = [this, &textureIndex](AssetRef<Material> material, const std::string& textureName, auto textureMember) {
+        if(const auto& textureAsset = std::get<AssetRef<Texture>>((*material).*textureMember))
+        {
+            _modelShaderProgram.setUniform("material." + textureName + "TextureLoaded", true);
+
+            textureAsset->activate(GL_TEXTURE0 + textureIndex);
+            _modelShaderProgram.setUniform("material." + textureName + "Texture", textureIndex);
+            ++textureIndex;
+        }
+        else
+        {
+            _modelShaderProgram.setUniform("material." + textureName + "TextureLoaded", false);
+        }
+    };
+
     for (const auto& [entity, modelComponent] : _registry->getComponentSet<ModelComponent>()) {
         const auto& transformMatrix = TransformComponent::getGlobalTransformMatrix(entity, _registry);
         _modelShaderProgram.setUniform("modelMatrix", transformMatrix);
 
         const auto& material = std::get<AssetRef<Material>>(modelComponent.material);
         if (material) {
-            _modelShaderProgram.setUniform("material.color", material->getDiffuseColor());
-            _modelShaderProgram.setUniform("material.shininess", material->getShininess());
+            _modelShaderProgram.setUniform("material.albedoColor", material->albedo);
+            _modelShaderProgram.setUniform("material.emissive", material->emissive * material->emissiveStrength);
+            _modelShaderProgram.setUniform("material.roughness", material->roughness);
+            _modelShaderProgram.setUniform("material.metallic", material->metallic);
+            _modelShaderProgram.setUniform("material.normalMapStrength", material->normalMapStrength);
+
+            setTexture(material, "roughness", &Material::roughnessTexture);
+            setTexture(material, "albedo", &Material::albedoTexture);
+            setTexture(material, "normal", &Material::normalTexture);
+            setTexture(material, "metallic", &Material::metallicTexture);
+            setTexture(material, "emissive", &Material::emissiveTexture);
         }
 
         modelComponent.updateImpl();
@@ -935,7 +954,7 @@ void RenderingSystem::renderOverlayModels()
     for (const auto& [entity, overlayModelComponent] : _registry->getComponentSet<OverlayModelComponent>()) {
         const auto& transformMatrix = TransformComponent::getGlobalTransformMatrix(entity, _registry);
         _wireframeShaderProgram.setUniform("projectionViewModelMatrix", projectionViewMatrix * transformMatrix);
-        _wireframeShaderProgram.setUniform("fixedColor", overlayModelComponent.getMaterial()->getDiffuseColor());
+        _wireframeShaderProgram.setUniform("fixedColor", overlayModelComponent.getMaterial()->albedo);
         overlayModelComponent.updateImpl();
     }
 

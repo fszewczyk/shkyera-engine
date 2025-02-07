@@ -10,8 +10,9 @@
 #include <mutex>
 #include <vector>
 
-#include <UI/Widget.hpp>
+#include <AssetManager/Asset.hpp>
 #include <AssetManager/Texture.hpp>
+#include <UI/Widget.hpp>
 
 namespace shkyera {
 

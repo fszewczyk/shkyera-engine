@@ -38,11 +38,12 @@ Image& Image::operator=(Image&& other) noexcept {
 }
 
 void Image::load(const std::filesystem::path& path) {
-  _data = stbi_load(path.c_str(), &_width, &_height, &_components,
-                    STBI_rgb_alpha);
+  _data = stbi_load(path.c_str(), &_width, &_height, &_components, 0);
 
   if (_data == nullptr)
+  {
     throw std::invalid_argument(std::string("Could not load image at: ") + path.c_str());
+  }
 }
 
 void Image::save(const std::filesystem::path& path) const {

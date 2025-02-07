@@ -25,7 +25,7 @@ static shkyera::Entity addOverlayModel(std::shared_ptr<shkyera::Registry> regist
     registry->getComponent<OverlayModelComponent>(entity).setMesh(mesh);
 
     auto material = std::make_shared<Material>();
-    material->setDiffuseColor(color);
+    material->albedo = color;
     registry->getComponent<OverlayModelComponent>(entity).setMaterial(material);
     registry->addComponent<BoxColliderComponent<RuntimeMode::DEVELOPMENT>>(entity);
     registry->getComponent<BoxColliderComponent<RuntimeMode::DEVELOPMENT>>(entity).box = mesh->getBoundingBox();
@@ -149,7 +149,7 @@ GizmoSystem::GizmoSystem(std::shared_ptr<Registry> registry)
     InputManager::getInstance().registerMouseButtonUpCallback(GLFW_MOUSE_BUTTON_LEFT, [this]() {
         if(_selectedHandle)
         {
-            auto mat = std::make_shared<Material>(_originalColor, 1);
+            auto mat = std::make_shared<Material>(_originalColor);
             _registry->getComponent<OverlayModelComponent>(*_selectedHandle).setMaterial(mat);
             _registry->getComponent<TransformComponent>(*_selectedHandle).setPosition(_originalHandlePosition);
             _registry->getComponent<TransformComponent>(*_selectedHandle).setPosition(_originalHandlePosition);
@@ -220,7 +220,7 @@ void GizmoSystem::styleOnHover()
 
     if(hoverMoved && _hoveredHandle)
     {
-        auto mat = std::make_shared<Material>(_originalColor, 1);
+        auto mat = std::make_shared<Material>(_originalColor);
         _registry->getComponent<OverlayModelComponent>(*_hoveredHandle).setMaterial(mat);
     }
 
@@ -228,9 +228,9 @@ void GizmoSystem::styleOnHover()
     if(hoverMoved && _hoveredHandle)
     {
         const auto& hoveredHandle = *_hoveredHandle;
-        _originalColor = _registry->getComponent<OverlayModelComponent>(hoveredHandle).getMaterial()->getDiffuseColor();
+        _originalColor = _registry->getComponent<OverlayModelComponent>(hoveredHandle).getMaterial()->albedo;
         
-        auto mat = std::make_shared<Material>(_originalColor * 0.55f, 1);
+        auto mat = std::make_shared<Material>(_originalColor * 0.55f);
         _registry->getComponent<OverlayModelComponent>(hoveredHandle).setMaterial(mat);
     }
 }

@@ -21,6 +21,7 @@ add_library(
     ${CMAKE_CURRENT_LIST_DIR}/Widgets/ObjectsWidget.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Widgets/ConsoleWidget.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Widgets/PropertiesWidget.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/Widgets/InspectorWidget.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Widgets/ProfilerWidget.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Widgets/FilesystemWidget.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Widgets/SceneWidget.cpp

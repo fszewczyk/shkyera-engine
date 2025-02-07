@@ -2,18 +2,13 @@
 
 #include <filesystem>
 
+#include <AssetManager/Asset.hpp>
 #include <Common/Types.hpp>
 #include <ECS/Registry.hpp>
 #include <Components/AssetComponents/DirectoryComponent.hpp>
 #include <Components/AssetComponents/AssetComponent.hpp>
 
 namespace shkyera::utils::assets {
-
-template<typename T>
-concept DerivedAsset = std::is_base_of_v<Asset, T>;
-
-template<typename T>
-concept PathConstructibleAsset = PathConstructible<T> && DerivedAsset<T>;
 
 /**
  * Registers the asset at the specified path in the registry. Asset type will be deduced.
@@ -61,16 +56,16 @@ std::string getName(const DirectoryComponent& directoryComponent);
  * @param assetComponent Reference to the AssetComponent holding the asset data
  * @return A shared pointer to the asset of type AssetType
  */
-template<DerivedAsset AssetType>
+template<typename AssetType>
 AssetRef<AssetType> read(AssetComponent<AssetType>& assetComponent)
 {
-    if(auto asset = assetComponent.shaderPtr.lock())
+    if(auto asset = assetComponent.assetPtr.lock())
     {
         return asset;
     }
 
     auto asset = std::make_shared<AssetType>(assetComponent.constructionFunction());
-    assetComponent.shaderPtr = asset;
+    assetComponent.assetPtr = asset;
     return asset;
 }
 
@@ -84,7 +79,7 @@ AssetRef<AssetType> read(AssetComponent<AssetType>& assetComponent)
  * @param args Constructor parameters
  * @return A shared pointer to the asset of type AssetType
  */
-template<PathConstructibleAsset AssetType, typename... Args>
+template<PathConstructible AssetType, typename... Args>
 AssetRef<AssetType> read(const std::filesystem::path& path, Args&&... args)
 {
     return std::make_shared<AssetType>(path, std::forward<Args>(args)...);
@@ -100,7 +95,7 @@ AssetRef<AssetType> read(const std::filesystem::path& path, Args&&... args)
  * @param args Arguments to be forwarded to the constructor of AssetComponent
  * @return A pair containing the handle of the new asset and a reference to its AssetComponent
  */
-template<DerivedAsset AssetType, typename... Args>
+template<typename AssetType, typename... Args>
 std::pair<AssetHandle, AssetComponent<AssetType>&> add(Registry *registry, Args&&... args)
 {
     auto assetHandle = registry->addEntity();
@@ -118,7 +113,7 @@ std::pair<AssetHandle, AssetComponent<AssetType>&> add(Registry *registry, Args&
  * @param args Arguments to be forwarded to the constructor of AssetComponent
  * @return A shared pointer to the asset of type AssetType
  */
-template<DerivedAsset AssetType, typename... Args>
+template<typename AssetType, typename... Args>
 AssetRef<AssetType> addAndRead(Registry *registry, Args&&... args)
 {
     auto&& [_entity, component] = add<AssetType>(registry, std::forward<Args>(args)...);
@@ -136,7 +131,7 @@ AssetRef<AssetType> addAndRead(Registry *registry, Args&&... args)
  * @param args Arguments to be forwarded to the constructor of AssetComponent
  * @return A shared pointer to the asset of type AssetType
  */
-template<PathConstructibleAsset AssetType, typename... Args>
+template<typename AssetType, typename... Args>
 AssetRef<AssetType> readPermanent(const std::filesystem::path& path, Args&&... args)
 {
     namespace fs = std::filesystem;
@@ -159,7 +154,7 @@ AssetRef<AssetType> readPermanent(const std::filesystem::path& path, Args&&... a
  * @param registry Pointer to the ECS registry
  * @return A shared pointer to the asset of type AssetType
  */
-template<DerivedAsset AssetType, AssetType(*FactoryMethod)(), typename... Args>
+template<typename AssetType, AssetType(*FactoryMethod)(), typename... Args>
 AssetRef<AssetType> fromFactory(Registry *registry, Args&&... args)
 {
     static auto mesh = addAndRead<AssetType>(registry, [](){ return FactoryMethod(); }, std::forward<Args>(args)...);

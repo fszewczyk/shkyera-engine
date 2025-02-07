@@ -1,8 +1,7 @@
 #pragma once
 
-#include <glad/glad.h>
-
 #include <AssetManager/PathConstructibleAsset.hpp>
+#include <glad/glad.h>
 
 namespace shkyera {
 

@@ -105,7 +105,7 @@ void loadScene(std::shared_ptr<shkyera::Registry> registry) {
     registry->getComponent<NameComponent>(pointLight).setName("Point Light");
     registry->addComponent<PointLightComponent>(pointLight);
     registry->getComponent<PointLightComponent>(pointLight).range = 15;
-    registry->getComponent<PointLightComponent>(pointLight).intensity = 0;//1; 
+    registry->getComponent<PointLightComponent>(pointLight).intensity = 1; 
 
     // Add Skybox
     auto sky = registry->addEntity();
@@ -115,7 +115,7 @@ void loadScene(std::shared_ptr<shkyera::Registry> registry) {
     registry->getComponent<NameComponent>(sky).setName("Sun");
     registry->addComponent<DirectionalLightComponent>(sky);
     registry->getComponent<DirectionalLightComponent>(sky).color = glm::vec3{0.95, 0.95, 0.95};
-    registry->getComponent<DirectionalLightComponent>(sky).intensity = 0;//0.3;
+    registry->getComponent<DirectionalLightComponent>(sky).intensity = 0.5;
     registry->addComponent<AmbientLightComponent>(sky);
 
     auto redSpotLight = registry->addEntity();
@@ -126,7 +126,7 @@ void loadScene(std::shared_ptr<shkyera::Registry> registry) {
     registry->getComponent<NameComponent>(redSpotLight).setName("Red Spot Light");
     registry->addComponent<SpotLightComponent>(redSpotLight);
     registry->getComponent<SpotLightComponent>(redSpotLight).color = glm::vec3{0.95, 0.55, 0.15};
-    registry->getComponent<SpotLightComponent>(redSpotLight).intensity = 0;//2.0;
+    registry->getComponent<SpotLightComponent>(redSpotLight).intensity = 2.0;
     registry->getComponent<SpotLightComponent>(redSpotLight).range = 50.0;
     registry->getComponent<SpotLightComponent>(redSpotLight).innerCutoff = glm::radians(10.0);
     registry->getComponent<SpotLightComponent>(redSpotLight).outerCutoff = glm::radians(15.0);
@@ -139,7 +139,7 @@ void loadScene(std::shared_ptr<shkyera::Registry> registry) {
     registry->getComponent<NameComponent>(blueSpotLight).setName("Blue Spot Light");
     registry->addComponent<SpotLightComponent>(blueSpotLight);
     registry->getComponent<SpotLightComponent>(blueSpotLight).color = glm::vec3{0.15, 0.35, 0.95};
-    registry->getComponent<SpotLightComponent>(blueSpotLight).intensity = 0;//2.0;
+    registry->getComponent<SpotLightComponent>(blueSpotLight).intensity = 2.0;
     registry->getComponent<SpotLightComponent>(blueSpotLight).range = 50.0;
     registry->getComponent<SpotLightComponent>(blueSpotLight).innerCutoff = glm::radians(10.0);
     registry->getComponent<SpotLightComponent>(blueSpotLight).outerCutoff = glm::radians(15.0);

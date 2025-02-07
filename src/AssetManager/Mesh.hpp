@@ -15,12 +15,28 @@ public:
     struct Vertex {
         glm::vec3 position;
         glm::vec3 normal;
+        glm::vec3 tangent;
         glm::vec2 texcoord;
 
-        Vertex(const glm::vec3& pos)
-            : position(pos), normal(0), texcoord(0) {}
         Vertex(const glm::vec3& pos, const glm::vec3& norm, const glm::vec2& tex)
-            : position(pos), normal(norm), texcoord(tex) {}
+            : position(pos), normal(norm), texcoord(tex) 
+            {
+                calculateTangent();
+            }
+        Vertex(const glm::vec3& pos) : Vertex(pos, glm::vec3{0, 1, 0}, glm::vec2{0}) 
+        { }
+
+        void calculateTangent()
+        {
+            if (std::abs(normal.x) > std::abs(normal.z)) 
+            {
+                tangent = glm::normalize(glm::cross(normal, glm::vec3(0, 0, 1)));
+            }
+            else 
+            {
+                tangent = glm::normalize(glm::cross(normal, glm::vec3(1, 0, 0)));
+            }
+        }
     };
 
     Mesh(const std::filesystem::path& path);

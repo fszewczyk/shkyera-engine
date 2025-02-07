@@ -23,7 +23,8 @@ Texture::Texture(std::shared_ptr<Image> image) : PathConstructibleAsset<Texture>
 
 Texture::Texture(Texture&& other) noexcept :
     PathConstructibleAsset(std::move(other)),
-    _textureID(std::exchange(other._textureID, 0))
+    _textureID(std::exchange(other._textureID, 0)),
+    _size(std::exchange(other._size, glm::vec2{0}))
 {}
 
 Texture& Texture::operator=(Texture&& other) noexcept
@@ -38,13 +39,14 @@ Texture& Texture::operator=(Texture&& other) noexcept
         }
         
         _textureID = std::exchange(other._textureID, 0);
+        _size = std::exchange(other._size, glm::vec2{0});
     }
 
     return *this;
 }
 
-Texture::~Texture() {
-
+Texture::~Texture() 
+{
     if (_textureID) 
     {
         glDeleteTextures(1, &_textureID);
@@ -77,6 +79,8 @@ bool Texture::loadImage(std::shared_ptr<Image> imageAsset)
     {
         auto width = imageAsset->getWidth();
         auto height = imageAsset->getHeight();
+        _size = {width, height};
+
         auto channels = imageAsset->getChannels();
 
         bind();
@@ -100,6 +104,12 @@ bool Texture::loadImage(std::shared_ptr<Image> imageAsset)
 
     return true;
 }
+
+glm::vec2 Texture::getSize() const
+{
+    return _size;
+}
+
 
 void Texture::setData(GLenum internalFormat, uint32_t width, uint32_t height, GLenum format, GLenum type, const void* data) {
     bind();
