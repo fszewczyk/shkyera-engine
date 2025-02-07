@@ -104,18 +104,18 @@ class FilesystemWidget : public Widget {
      */
     void drawIconName(const std::string& name) const;
 
-    std::shared_ptr<Registry> _registry;
-    AssetHandle _rootDirectoryHandle;
-    AssetHandle _currentDirectoryHandle;
-
-    bool _hoveredIcon; ///< A flag indicating whether an icon is currently hovered.
+    void handleRightMouseClick();
 
     static constexpr float CONTENTS_ICON_SIZE = 64; ///< The size of icons representing directory contents.
 
+    std::shared_ptr<Registry> _registry;
+    AssetHandle _rootDirectoryHandle;
+    AssetHandle _currentDirectoryHandle;
     AssetRef<Texture> _folderIcon;
     AssetRef<Texture> _pythonIcon;
     AssetRef<Texture> _imageIcon;
     AssetRef<Texture> _textIcon;
+    bool _hoveredIcon;
 };
 
 } // namespace shkyera

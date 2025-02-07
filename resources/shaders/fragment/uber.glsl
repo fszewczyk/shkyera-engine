@@ -5,6 +5,8 @@ out vec4 FragColor;
 
 in vec3 FragPos; 
 in vec3 Normal;  
+in vec2 UV;
+in vec3 Tangent;
 
 uniform vec2 viewportSize;
 uniform vec3 viewPos;  // Camera position
@@ -22,7 +24,7 @@ uniform PointLight pointLights[POINT_LIGHT_MAX_NUM];
 uniform sampler2D pointLightsDepthCubeMap[POINT_LIGHT_MAX_NUM];
 
 #define DIRECTIONAL_LIGHT_LODS 4
-#define DIRECTIONAL_LIGHT_MAX_NUM 4
+#define DIRECTIONAL_LIGHT_MAX_NUM 2
 struct DirectionalLight {
   mat4 lightSpaceMatrix[DIRECTIONAL_LIGHT_LODS];
   vec3 direction; 
@@ -52,10 +54,115 @@ uniform sampler2D ssao;
 
 // ******** MATERIAL DATA ********
 struct Material {
-  vec3 color;     
-  float shininess;  
+  vec3 albedoColor;     
+  vec3 emissive;
+  float roughness;
+  float metallic;
+
+  bool albedoTextureLoaded;
+  sampler2D albedoTexture;
+
+  bool roughnessTextureLoaded;
+  sampler2D roughnessTexture;
+
+  float normalMapStrength;
+  bool normalTextureLoaded;
+  sampler2D normalTexture;
+
+  bool metallicTextureLoaded;
+  sampler2D metallicTexture;
+
+  bool emissiveTextureLoaded;
+  sampler2D emissiveTexture;
 };
 uniform Material material;
+
+// ******** MATERIAL FUNCTIONS ********
+vec3 getAlbedo()
+{
+  if(material.albedoTextureLoaded)
+  {
+    return material.albedoColor * texture(material.albedoTexture, UV).rgb;
+  }
+  else
+  {
+    return material.albedoColor;
+  }
+}
+
+float getRoughness()
+{
+  if(material.roughnessTextureLoaded)
+  {
+    return material.roughness * texture(material.albedoTexture, UV).r;
+  }
+  else
+  {
+    return material.roughness;
+  }
+}
+
+// ******** COOK-TORRANCE BRDF FUNCTIONS ********
+float DistributionGGX(vec3 N, vec3 H, float roughness) {
+  float a = roughness * roughness;
+  float a2 = a * a;
+  float NdotH = max(dot(N, H), 0.0);
+  float NdotH2 = NdotH * NdotH;
+
+  float num = a2;
+  float denom = (NdotH2 * (a2 - 1.0) + 1.0);
+  denom = 3.14159265359 * denom * denom;
+  
+  return num / denom;
+}
+
+float GeometrySchlickGGX(float NdotV, float roughness) {
+  float r = (roughness + 1.0);
+  float k = (r * r) / 8.0;
+  
+  return NdotV / (NdotV * (1.0 - k) + k);
+}
+
+float GeometrySmith(vec3 N, vec3 V, vec3 L, float roughness) {
+  float NdotV = max(dot(N, V), 0.0);
+  float NdotL = max(dot(N, L), 0.0);
+  float ggx1 = GeometrySchlickGGX(NdotV, roughness);
+  float ggx2 = GeometrySchlickGGX(NdotL, roughness);
+  return ggx1 * ggx2;
+}
+
+vec3 FresnelSchlick(float cosTheta, vec3 F0) {
+  return F0 + (1.0 - F0) * pow(1.0 - cosTheta, 5.0);
+}
+
+float getMetallic() {
+  return material.metallicTextureLoaded ? material.metallic * texture(material.metallicTexture, UV).r : material.metallic;
+}
+
+vec3 calculateCookTorrance(vec3 L, vec3 lightColor, vec3 normal) {
+  float metallic = getMetallic();
+
+  vec3 V = normalize(viewPos - FragPos);
+  vec3 H = normalize(V + L);
+  float NdotL = max(dot(normal, L), 0.0);
+  float NdotV = max(dot(normal, V), 0.0);
+
+  vec3 F0 = mix(vec3(0.04), getAlbedo(), metallic);
+  vec3 F = FresnelSchlick(max(dot(H, V), 0.0), F0);
+  float roughness = getRoughness();
+  float D = DistributionGGX(normal, H, roughness);
+  float G = GeometrySmith(normal, V, L, roughness);
+
+  vec3 numerator = D * G * F;
+  float denominator = 4.0 * NdotV * NdotL + 0.0001;
+  vec3 specular = numerator / denominator;
+
+  vec3 kS = F;
+  vec3 kD = vec3(1.0) - kS;
+  kD *= 1.0 - metallic;
+
+  return (kD * getAlbedo() / 3.14159265359 + specular) * lightColor * NdotL;
+}
 
 // ******** FUNCTIONS ********
 float sampleAtlas(sampler2D map, int cols, int index, vec2 xy)
@@ -105,7 +212,7 @@ float sampleCubeMap(sampler2D map, vec3 direction)
 }
 
 vec3 calculateAmbient() {
-  return ambientLight * material.color;
+  return ambientLight * getAlbedo();
 }
 
 float getAmbientOcclusion()
@@ -120,8 +227,7 @@ float calculateSpotFalloff(vec3 lightDir, vec3 spotlightDir, float innerCutoffCo
   return clamp((theta - outerCutoffCosine) / epsilon, 0.0, 1.0);
 }
 
-vec3 calculateSpotLights() {
-  vec3 normal = normalize(Normal);
+vec3 calculateSpotLights(vec3 nrm) {
   vec3 result = vec3(0.0);
 
   for (int i = 0; i < numSpotLights; ++i) {
@@ -165,17 +271,8 @@ vec3 calculateSpotLights() {
         int totalSamples = (2 * pcfKernelSize + 1) * (2 * pcfKernelSize + 1);
         shadow /= float(totalSamples);
 
-        // Diffuse lighting
-        float diff = max(dot(normal, lightDir), 0.0);
-        vec3 diffuse = spotLights[i].color * diff * material.color;
-
-        // Specular lighting
-        vec3 viewDir = normalize(viewPos - FragPos);
-        vec3 reflectDir = reflect(-lightDir, normal);
-        float spec = pow(max(dot(viewDir, reflectDir), 0.0), material.shininess);
-        vec3 specular = spotLights[i].color * spec * material.color;
-
-        result += attenuation * falloff * (diffuse + specular) * shadow;
+        vec3 color = calculateCookTorrance(lightDir, spotLights[i].color, nrm);
+        result += attenuation * falloff * color * shadow;
       }
     }
   }
@@ -183,8 +280,7 @@ vec3 calculateSpotLights() {
   return result;
 }
 
-vec3 calculatePointLights() {
-  vec3 normal = normalize(Normal);
+vec3 calculatePointLights(vec3 nrm) {
   vec3 result = vec3(0.0);
 
   for (int i = 0; i < numPointLights; ++i) {
@@ -219,20 +315,9 @@ vec3 calculatePointLights() {
       // Normalize shadow value
       int totalSamples = (2 * pcfSamples + 1) * (2 * pcfSamples + 1) * (2 * pcfSamples + 1);
       shadow /= float(totalSamples);
-
-      // Diffuse lighting
-      vec3 lightDirNormalized = normalize(lightDir);
-      float diff = max(dot(normal, lightDirNormalized), 0.0);
-      vec3 diffuse = pointLights[i].color * diff * material.color;
-
-      // Specular lighting
-      vec3 viewDir = normalize(viewPos - FragPos);
-      vec3 reflectDir = reflect(-lightDirNormalized, normal);
-      float spec = pow(max(dot(viewDir, reflectDir), 0.0), material.shininess);
-      vec3 specular = pointLights[i].color * spec * material.color;
-
-      // Apply lighting with shadows
-      result += shadow * relativeIntensity * (diffuse + specular);
+      
+      vec3 color = calculateCookTorrance(lightDir, pointLights[i].color, nrm);
+      result += shadow * relativeIntensity * color;
     }
   }
 
@@ -285,21 +370,10 @@ int chooseLightCascade(mat4 lightSpaceMatrix[DIRECTIONAL_LIGHT_LODS], vec3 fragP
   return -1;
 }
 
-vec3 calculateDirectionalLights() {
-  vec3 normal = normalize(Normal);
+vec3 calculateDirectionalLights(vec3 nrm) {
   vec3 result = vec3(0.0);
   for (int i = 0; i < numDirectionalLights; ++i) {
     vec3 lightDir = normalize(directionalLights[i].direction);
-
-    // Diffuse lighting
-    float diff = max(dot(normal, lightDir), 0.0);
-    vec3 diffuse = directionalLights[i].color * diff * material.color;
-
-    // Specular lighting
-    vec3 viewDir = normalize(viewPos - FragPos);
-    vec3 reflectDir = reflect(-lightDir, normal);
-    float spec = pow(max(dot(viewDir, reflectDir), 0.0), material.shininess);
-    vec3 specular = directionalLights[i].color * spec * material.color;
 
     // Calculate shadow factor
     int cascadeIndex = chooseLightCascade(directionalLights[i].lightSpaceMatrix, FragPos);
@@ -307,16 +381,41 @@ vec3 calculateDirectionalLights() {
     if (cascadeIndex != -1) {
       shadow = calculateShadowFactor(i, cascadeIndex);
     }
-    result += (diffuse + specular) * shadow;
+
+    vec3 color = calculateCookTorrance(lightDir, directionalLights[i].color, nrm);
+    result += color * shadow;
   }
   return result;
 }
 
+vec3 calculateNormal() {
+  vec3 nrm = normalize(Normal);
+  if(material.normalTextureLoaded) {
+    vec3 T = normalize(Tangent - dot(Tangent, nrm) * nrm);
+    vec3 B = cross(nrm, T);
+    mat3 TBN = mat3(T, B, nrm);
+    
+    vec3 sampledNormal = texture(material.normalTexture, UV).rgb * 2.0 - 1.0;
+    sampledNormal.xy *= -1;
+    vec3 perturbedNormal = normalize(TBN * sampledNormal);
+    
+    nrm = normalize(mix(nrm, perturbedNormal, material.normalMapStrength));
+  }
+  return nrm;
+}
+
+vec3 getEmissive()
+{
+  return material.emissiveTextureLoaded ? material.emissive * texture(material.emissiveTexture, UV).rgb : material.emissive;
+}
+
 void main() {
   // Lighting
+  vec3 nrm = calculateNormal();
   vec3 color = calculateAmbient() * getAmbientOcclusion();
-  color += calculatePointLights();
-  color += calculateDirectionalLights();
-  color += calculateSpotLights();
+  color += calculatePointLights(nrm);
+  color += calculateDirectionalLights(nrm);
+  color += calculateSpotLights(nrm);
+  color += getEmissive();
   FragColor = vec4(color, 1.0);
 }

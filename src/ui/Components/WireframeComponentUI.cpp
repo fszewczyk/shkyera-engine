@@ -7,7 +7,7 @@ namespace shkyera {
 
 WireframeComponentUI::WireframeComponentUI(std::shared_ptr<Registry> registry, WireframeComponent* wireframeComponent) :
   _registry(registry),
-  _wireframeSelector("Mesh", registry, std::get<OptionalAssetHandle>(wireframeComponent->wireframe)), 
+  _wireframeSelector("Mesh", registry.get(), std::get<OptionalAssetHandle>(wireframeComponent->wireframe)), 
   _wireframeComponent(wireframeComponent) 
 {
   _wireframeSelector.setUpdateCallback([this](const auto& assetHandle) {

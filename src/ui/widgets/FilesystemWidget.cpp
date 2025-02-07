@@ -1,17 +1,18 @@
-#include <imgui_internal.h>
 #include "imgui.h"
 
 #include <iostream>
 #include <algorithm>
 
-#include <AssetManager/Texture.hpp>
 #include <AssetManager/Shader.hpp>
+#include <AssetManager/Material.hpp>
 #include <AssetManager/Mesh.hpp>
 #include <Components/AssetComponents/DirectoryComponent.hpp>
+#include <Components/AssetComponents/SelectedAssetComponent.hpp>
 #include <UI/Common/Style.hpp>
 #include <UI/UI.hpp>
 #include <UI/Widgets/ConsoleWidget.hpp>
 #include <UI/Widgets/FilesystemWidget.hpp>
+#include <InputManager/InputManager.hpp>
 
 namespace shkyera {
 
@@ -24,6 +25,8 @@ FilesystemWidget::FilesystemWidget(std::string name, std::shared_ptr<Registry> r
 }
 
 void FilesystemWidget::draw() {
+  _hoveredIcon = false;
+
   ImGui::Begin(_name.c_str());
 
   if (!_registry->hasComponent<DirectoryComponent>(_rootDirectoryHandle)) {
@@ -44,6 +47,7 @@ void FilesystemWidget::draw() {
     ImGui::BeginChild("Contents", ImVec2(0, 0), false);
 
     drawDirectoryContents();
+    handleRightMouseClick();
 
     ImGui::EndChild();
   }
@@ -100,8 +104,6 @@ void FilesystemWidget::drawDirectoryContents() {
   ImGui::Separator();
   ImGui::Dummy(ImVec2(0, 3));
 
-  _hoveredIcon = false;
-
   float totalWidth = ImGui::GetWindowContentRegionMax()[0];
 
   int iconsToFit = std::max(1, (int)(totalWidth / (CONTENTS_ICON_SIZE + 15) - 1));
@@ -117,9 +119,9 @@ void FilesystemWidget::drawDirectoryContents() {
     iconsDrawn++;
   }
 
-  for(const auto& file : _registry->getHierarchy().getChildren(_currentDirectoryHandle))
+  for(const auto& asset : _registry->getHierarchy().getChildren(_currentDirectoryHandle))
   {
-    if(!_registry->hasComponent<NameComponent>(file))
+    if(!_registry->hasComponent<NameComponent>(asset))
     {
       return;
     }
@@ -128,27 +130,61 @@ void FilesystemWidget::drawDirectoryContents() {
       ImGui::SameLine();
     }
 
-    bool drawn = false;
-    if(_registry->hasComponent<AssetComponent<Texture>>(file))
+    const auto tryDraw = [&](auto typeTag) -> bool {
+        using T = typename decltype(typeTag)::type;
+        if (_registry->hasComponent<AssetComponent<T>>(asset))
+        {
+            drawAsset<T>(asset);
+            return true;
+        }
+        return false;
+    };
+
+    if (tryDraw(std::type_identity<Texture>{}) ||
+        tryDraw(std::type_identity<Mesh>{}) ||
+        tryDraw(std::type_identity<Shader>{}) ||
+        tryDraw(std::type_identity<Material>{})) 
     {
-      drawn = true;
-      drawAsset<Texture>(file);
+        iconsDrawn++;
     }
-    else if(_registry->hasComponent<AssetComponent<Mesh>>(file))
+  }
+}
+
+void FilesystemWidget::handleRightMouseClick()
+{
+  if(!_hoveredIcon && ImGui::IsWindowHovered() && InputManager::getInstance().isMouseButtonDown(GLFW_MOUSE_BUTTON_RIGHT))
+  {
+    ImGui::OpenPopup("New Asset");
+  }
+
+  static bool createdAsset = false;
+  if(!createdAsset)
+  {
+    const auto newAsset = _registry->addEntity();
+    _registry->addComponent<AssetComponent<Material>>(newAsset, []() { return Material{glm::vec3{1.0, 1.0, 1.0}}; });
+    _registry->addComponent<NameComponent>(newAsset, std::string("Test Material"));
+    _registry->getHierarchy().attributeChild(_currentDirectoryHandle, newAsset);
+
+    createdAsset = true;
+  }
+
+  if(ImGui::BeginPopup("New Asset"))
+  {
+    if(ImGui::BeginMenu("Material"))
     {
-      drawn = true;
-      drawAsset<Mesh>(file);
-    }
-    else if(_registry->hasComponent<AssetComponent<Shader>>(file))
-    {
-      drawn = true;
-      drawAsset<Shader>(file);
+      static char fileName[64] = "New Material";
+      ImGui::InputText("##", fileName, 64);
+      ImGui::SameLine();
+      if (ImGui::Button("Create")) {
+        const auto newAsset = _registry->addEntity();
+        _registry->addComponent<AssetComponent<Material>>(newAsset, []() { return Material{}; });
+        _registry->addComponent<NameComponent>(newAsset, std::string(fileName));
+        _registry->getHierarchy().attributeChild(_currentDirectoryHandle, newAsset);
+      }
+      ImGui::EndMenu();
     }
 
-    if(drawn)
-    {
-      iconsDrawn++;
-    }
+    ImGui::EndPopup();
   }
 }
 
@@ -179,7 +215,8 @@ void FilesystemWidget::drawAssetIcon<Texture>(AssetHandle handle)
 {
   if(ImGui::ImageButton(_imageIcon->getImguiTextureID(), ImVec2(CONTENTS_ICON_SIZE, CONTENTS_ICON_SIZE))) 
   {
-
+    ImGui::SetWindowFocus("Inspector");
+    _registry->assignComponent<SelectedAssetComponent>(handle);
   }
 }
 
@@ -189,6 +226,16 @@ void FilesystemWidget::drawAssetIcon<Mesh>(AssetHandle handle)
   if(ImGui::ImageButton(_textIcon->getImguiTextureID(), ImVec2(CONTENTS_ICON_SIZE, CONTENTS_ICON_SIZE))) 
   {
                               
+  }
+}
+
+template<>
+void FilesystemWidget::drawAssetIcon<Material>(AssetHandle handle)
+{
+  if(ImGui::ImageButton(_textIcon->getImguiTextureID(), ImVec2(CONTENTS_ICON_SIZE, CONTENTS_ICON_SIZE))) 
+  {
+      ImGui::SetWindowFocus("Inspector");
+      _registry->assignComponent<SelectedAssetComponent>(handle);
   }
 }
 

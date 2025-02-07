@@ -1,7 +1,10 @@
 #pragma once
 
+#include <AssetManager/Asset.hpp>
 #include <AssetManager/Mesh.hpp>
 #include <AssetManager/Wireframe.hpp>
+#include <AssetManager/Texture.hpp>
+#include <Utils/AssetUtils.hpp>
 #include <Common/Types.hpp>
 #include <Components/NameComponent.hpp>
 #include <Components/AssetComponents/AssetComponent.hpp>
@@ -13,7 +16,10 @@ namespace shkyera {
 template<typename AssetType>
 class AssetSelector {
     public:
-        AssetSelector(const std::string& title, std::shared_ptr<Registry> registry, std::optional<AssetHandle> asset) : _title(title), _registry(registry), _asset(asset) {}
+        AssetSelector() = default;
+        AssetSelector(const std::string& title) : _title(title) {}
+        AssetSelector(const std::string& title, Registry* registry, std::optional<AssetHandle> asset) : _title(title), _registry(registry), _asset(asset) {}
+        virtual ~AssetSelector() = default;
 
         void setUpdateCallback(std::function<void(AssetHandle file)> callback)
         {
@@ -30,15 +36,16 @@ class AssetSelector {
             ImGui::TextUnformatted(_title.c_str());
 
             ImGui::SameLine();
-            ImGui::SetCursorPosX(85);
+            ImGui::SetCursorPosX(117);
 
             ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(7.0f, 5.0f));
             ImGui::PushStyleColor(ImGuiCol_ChildBg, style::DARK_ACCENT);
+            ImGui::PushFont(style::SMALL_FONT);
 
             const std::string childName = _title + "Child";
             ImGui::BeginChild(childName.c_str(), ImVec2(-60, 24), true, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
 
-            if (_asset.has_value()) 
+            if (_asset.has_value() && _registry) 
             {
                 std::string displayName = "Unknown Name and Path";
 
@@ -51,7 +58,7 @@ class AssetSelector {
                     if(_registry->hasComponent<AssetComponent<AssetType>>(*_asset))
                     {
                         const auto& assetComponent = _registry->getComponent<AssetComponent<AssetType>>(*_asset);
-                        if(const auto assetPtr = assetComponent.shaderPtr.lock())
+                        if(const auto assetPtr = assetComponent.assetPtr.lock())
                         {
                             if(const auto assetPath = assetPtr->getPath())
                             {
@@ -62,6 +69,9 @@ class AssetSelector {
                 }
 
                 ImGui::TextUnformatted(displayName.c_str());
+
+                ImGui::SameLine();
+                drawAsset(_registry, *_asset);
             } 
             else
             {
@@ -89,25 +99,62 @@ class AssetSelector {
 
             ImGui::EndChild();
 
+            ImGui::PopFont();
             ImGui::PopStyleColor();
             ImGui::PopStyleVar();
 
             ImGui::SameLine();
-            if(ImGui::Button("Clear", ImVec2(50, 22))) {
-                _asset = std::nullopt;
+            if(ImGui::Button(std::string("Clear##" + childName).c_str(), ImVec2(50, 22))) {
+                _asset.reset();
+                clearAsset();
                 if(_clearCallback) {
                     _clearCallback();
                 }
             }
         }
-
+        
+    protected:
+        virtual void drawAsset(Registry* registry, AssetHandle handle) {}
+        virtual void clearAsset() {}
+    
     private:
-        std::string _title;
-        std::shared_ptr<Registry> _registry;
+        std::string _title{};
+        Registry* _registry;
         std::optional<AssetHandle> _asset;
 
         std::function<void(AssetHandle)> _updateCallback;
         std::function<void()> _clearCallback;
+};
+
+class TextureAssetSelector : public AssetSelector<Texture>
+{
+    public:
+        using AssetSelector<Texture>::AssetSelector;
+        ~TextureAssetSelector() 
+        {
+            clearAsset();
+        }
+
+    private:
+        void drawAsset(Registry* registry, AssetHandle handle) override
+        {
+            if(registry->hasComponent<AssetComponent<Texture>>(handle))
+            {
+                auto& textureAsset = registry->getComponent<AssetComponent<Texture>>(handle);
+                _texture = utils::assets::read(textureAsset);
+                const auto imageSize = _texture->getSize();
+                const auto aspectRatio = imageSize.x / imageSize.y;
+
+                ImGui::Image(_texture->getImguiTextureID(), {aspectRatio * 16, 16});
+            }
+        }
+
+        void clearAsset() override 
+        {
+            _texture.reset();
+        }
+
+        AssetRef<Texture> _texture{}; //< Keeps the Texture Asset alive
 };
 
 }

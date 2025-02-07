@@ -1,6 +1,7 @@
 #pragma once
 
 #include <glad/glad.h>
+#include <glm/glm.hpp>
 #include <AssetManager/Image.hpp>
 
 namespace shkyera {
@@ -36,10 +37,13 @@ public:
 
     void* getImguiTextureID() const { return reinterpret_cast<void *>(_textureID); }
 
+    glm::vec2 getSize() const;
+
 private:
     void generateTexture(GLenum minFilter = GL_LINEAR, GLenum magFilter = GL_LINEAR, GLenum wrapS = GL_CLAMP_TO_EDGE, GLenum wrapT = GL_CLAMP_TO_EDGE);
 
     GLuint _textureID;
+    glm::vec2 _size{};
 };
 
 }

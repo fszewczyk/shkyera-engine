@@ -42,11 +42,15 @@ void ProfilerWidget::draw()
     }
   }
 
+  const auto averageNsPerFrame = static_cast<float>(timeSinceLastResetNanoseconds) / mFramesSinceLastReset;
+  const auto avergeSecPerFrame = averageNsPerFrame / 1e9;
+  const auto averageFramesPerSecond = static_cast<int>(1.0f / avergeSecPerFrame);
+  ImGui::TextUnformatted(std::string("Frames Per Second: " + std::to_string(averageFramesPerSecond)).c_str());
+
   for(const auto& [threadId, blocks] : profileBlocks)
   {
     if (ImGui::BeginTable("Timing Profiles", 4, ImGuiTableFlags_Resizable | ImGuiTableFlags_Borders))
     {
-      
       ImGui::TableSetupColumn("Name", ImGuiTableColumnFlags_None, 0.0f, 0);
       ImGui::TableSetupColumn("Mean [ms]", ImGuiTableColumnFlags_None, 0.0f, 1);
       ImGui::TableSetupColumn("Calls", ImGuiTableColumnFlags_None, 0.0f, 2);

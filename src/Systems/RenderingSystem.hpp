@@ -23,8 +23,8 @@ public:
 private:
     void clearFrameBuffers();
 
-    void renderCameraDepth();
-    void renderNormals();
+    void renderViewPosition();
+    void renderViewNormals();
     void renderSSAO();
     void renderModels();
     void bloom();

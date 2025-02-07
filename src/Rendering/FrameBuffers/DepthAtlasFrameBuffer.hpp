@@ -9,7 +9,7 @@ namespace shkyera {
 
 class DepthAtlasFrameBuffer {
 public:
-    DepthAtlasFrameBuffer(int texturesInAtlas, GLenum minFilter = GL_LINEAR, GLenum magFilter = GL_LINEAR,
+    DepthAtlasFrameBuffer(int texturesInAtlas, GLenum minFilter = GL_NEAREST, GLenum magFilter = GL_NEAREST,
                 GLenum wrapS = GL_CLAMP_TO_EDGE, GLenum wrapT = GL_CLAMP_TO_EDGE);
     ~DepthAtlasFrameBuffer();
 

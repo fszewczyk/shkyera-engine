@@ -70,6 +70,12 @@ public:
         return true;
     }
 
+    void clear() {
+        _entities.clear();
+        _entityToComponent.clear();
+        _components.clear();
+    }
+
     /**
      * Checks if the specified entity has an associated component.
      * 

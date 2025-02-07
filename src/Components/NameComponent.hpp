@@ -9,6 +9,7 @@ namespace shkyera {
 class NameComponent : public BaseComponent<NameComponent> {
 public:
     NameComponent() : _name("Entity") {}
+    NameComponent(std::string name) : _name(std::move(name)) {}
 
     void setName(const std::string &name) 
     {

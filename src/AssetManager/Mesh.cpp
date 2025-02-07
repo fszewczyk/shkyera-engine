@@ -32,6 +32,12 @@ Mesh::Mesh(std::vector<Vertex> vertices, std::vector<uint32_t> indices) : _verti
     uploadToGPU();
 }
 
+Mesh::~Mesh() {
+    glDeleteVertexArrays(1, &_vao);
+    glDeleteBuffers(1, &_vbo);
+    glDeleteBuffers(1, &_ebo);
+}
+
 Mesh::Mesh(Mesh&& other) noexcept
     : PathConstructibleAsset(std::move(other)),
       _vertices(std::move(other._vertices)),
@@ -66,13 +72,6 @@ void Mesh::draw() const {
     bind();
     glDrawArrays(GL_TRIANGLES, 0, getMeshSize());
     unbind();
-}
-
-// Destructor to clean up OpenGL resources
-Mesh::~Mesh() {
-    glDeleteVertexArrays(1, &_vao);
-    glDeleteBuffers(1, &_vbo);
-    glDeleteBuffers(1, &_ebo);
 }
 
 AABB Mesh::getBoundingBox() const {
@@ -194,6 +193,7 @@ void Mesh::loadFromFile(const std::filesystem::path& filepath) {
 
         for (size_t i = 0; i < _vertices.size(); ++i) {
             _vertices[i].normal = calculatedNormals[i];
+            _vertices[i].calculateTangent();
         }
     }
 
@@ -218,14 +218,17 @@ void Mesh::uploadToGPU() {
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, _indices.size() * sizeof(unsigned int), _indices.data(), GL_STATIC_DRAW);
 
     // Define vertex attributes
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, position)); // Position
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, position));
     glEnableVertexAttribArray(0);
 
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, normal));   // Normal
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, normal));
     glEnableVertexAttribArray(1);
 
-    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, texcoord));  // UV
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, texcoord));
     glEnableVertexAttribArray(2);
+
+    glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, tangent));
+    glEnableVertexAttribArray(3);
 
     // Unbind VAO
     glBindVertexArray(0);

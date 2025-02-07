@@ -2,12 +2,10 @@
 
 #include <filesystem>
 
-#include <AssetManager/Asset.hpp>
-
 namespace shkyera {
 
 template<typename AssetType>
-class PathConstructibleAsset : public Asset {
+class PathConstructibleAsset {
     public:
         PathConstructibleAsset() = default;
         
@@ -19,7 +17,7 @@ class PathConstructibleAsset : public Asset {
             }
         }
 
-        PathConstructibleAsset(PathConstructibleAsset&& other) noexcept : Asset(std::move(other))
+        PathConstructibleAsset(PathConstructibleAsset&& other) noexcept
         {
             auto it = assetToPath.find(static_cast<AssetType const*>(&other));
             if (it != assetToPath.end()) {
@@ -32,7 +30,6 @@ class PathConstructibleAsset : public Asset {
         {
             if (this != &other) 
             {
-                Asset::operator=(std::move(other));
                 assetToPath.erase(static_cast<AssetType const*>(this));
 
                 auto it = assetToPath.find(static_cast<AssetType const*>(&other));

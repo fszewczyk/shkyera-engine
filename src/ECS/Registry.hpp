@@ -69,11 +69,20 @@ public:
             if(componentSet.contains(entity))
             {
                 Logger::ERROR(std::string("Cannot add a Singleton Component (") + typeid(Component).name() + "), because another entity already has it.");
-                return;
+                return componentSet.get(entity);
             }
         }
         componentSet.add(entity, Component(std::forward<Args>(args)...));
         return componentSet.get(entity);
+    }
+
+    template<typename Component, typename... Args>
+    Component& assignComponent(Entity entity, Args&&... args) {
+        static_assert(std::is_base_of_v<SingletonComponent, Component>, "Component assignment is only possible for Singleton Components.");
+
+        auto& componentSet = getOrCreateComponentSet<Component>();
+        componentSet.clear();
+        return addComponent<Component>(entity, std::forward<Args>(args)...);
     }
 
     /**

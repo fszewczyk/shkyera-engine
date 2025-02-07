@@ -18,6 +18,7 @@
 #include <UI/Widgets/ProfilerWidget.hpp>
 #include <UI/Widgets/ObjectsWidget.hpp>
 #include <UI/Widgets/PropertiesWidget.hpp>
+#include <UI/Widgets/InspectorWidget.hpp>
 #include <UI/Widgets/SceneWidget.hpp>
 #include <UI/UI.hpp>
 
@@ -95,6 +96,7 @@ void UI::initializeSystems() {
 void UI::initializeWidgets() {
   _widgets.emplace_back(std::make_unique<ConsoleWidget>("Console"));  
   _widgets.emplace_back(std::make_unique<PropertiesWidget>(_registry));
+  _widgets.emplace_back(std::make_unique<InspectorWidget>("Inspector", _registry));
   _widgets.emplace_back(std::make_unique<CameraPropertiesWidget>(_registry));
   _widgets.emplace_back(std::make_unique<EnvironmentPropertiesWidget>(_registry));
   _widgets.emplace_back(std::make_unique<ProfilerWidget>("Profiler"));
@@ -106,8 +108,7 @@ void UI::initializeWidgets() {
   _widgets.emplace_back(std::move(objectsWidget));
 
   auto rootHandle = *utils::assets::registerAll("resources", _registry.get());
-  auto assetsWidget = std::make_unique<FilesystemWidget>("Assets", _registry, rootHandle);
-  _widgets.emplace_back(std::move(assetsWidget));
+  _widgets.emplace_back(std::make_unique<FilesystemWidget>("Assets", _registry, rootHandle));
 }
 
 void UI::initializeInterpreter() {}
@@ -242,6 +243,7 @@ void UI::beginFrame() {
     ImGui::DockBuilderDockWindow("Objects", dock_id_left_up_left);
     ImGui::DockBuilderDockWindow("Scene", dock_id_left_up_right);
     ImGui::DockBuilderDockWindow("Properties", dock_id_right);
+    ImGui::DockBuilderDockWindow("Inspector", dock_id_right);
     ImGui::DockBuilderDockWindow("Scene Camera", dock_id_right);
     ImGui::DockBuilderDockWindow("Profiler", dock_id_right);
     ImGui::DockBuilderDockWindow("Environment", dock_id_right);
@@ -289,19 +291,21 @@ void UI::renderFrame() {
 }
 
 void UI::endFrame() {
-  SHKYERA_PROFILE("UI::endFrame");
+  {
+    SHKYERA_PROFILE("UI::endFrame");
+    ImGui::Render();
 
-  ImGui::Render();
+    int display_w, display_h;
 
-  int display_w, display_h;
+    glfwGetFramebufferSize(_window, &display_w, &display_h);
+    glViewport(0, 0, display_w, display_h);
+    glClearColor(0.1, 0.1, 0.1, 0.1);
+    glClear(GL_COLOR_BUFFER_BIT);
+    ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
-  glfwGetFramebufferSize(_window, &display_w, &display_h);
-  glViewport(0, 0, display_w, display_h);
-  glClearColor(0.1, 0.1, 0.1, 0.1);
-  glClear(GL_COLOR_BUFFER_BIT);
-  ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+    glfwSwapBuffers(_window);
+  }
 
-  glfwSwapBuffers(_window);
 }
 
 void UI::draw() {

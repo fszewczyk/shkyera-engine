@@ -8,8 +8,8 @@ namespace shkyera {
 ModelComponentUI::ModelComponentUI(std::shared_ptr<Registry> registry, ModelComponent* modelComponent) :
   _modelComponent(modelComponent), 
   _registry(registry), 
-  _meshSelector("Mesh", registry, std::get<OptionalAssetHandle>(modelComponent->mesh)), 
-  _materialSelector("Material", registry, std::get<OptionalAssetHandle>(modelComponent->mesh))
+  _meshSelector("Mesh", registry.get(), std::get<OptionalAssetHandle>(modelComponent->mesh)), 
+  _materialSelector("Material", registry.get(), std::get<OptionalAssetHandle>(modelComponent->mesh))
 {  
   _meshSelector.setUpdateCallback([this](const auto& assetHandle) {
     if(_registry->hasComponent<AssetComponent<Mesh>>(assetHandle))
