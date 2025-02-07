@@ -77,93 +77,6 @@ struct Material {
 };
 uniform Material material;
 
-// ******** MATERIAL FUNCTIONS ********
-vec3 getAlbedo()
-{
-  if(material.albedoTextureLoaded)
-  {
-    return material.albedoColor * texture(material.albedoTexture, UV).rgb;
-  }
-  else
-  {
-    return material.albedoColor;
-  }
-}
-
-float getRoughness()
-{
-  if(material.roughnessTextureLoaded)
-  {
-    return material.roughness * texture(material.albedoTexture, UV).r;
-  }
-  else
-  {
-    return material.roughness;
-  }
-}
-
-// ******** COOK-TORRANCE BRDF FUNCTIONS ********
-float DistributionGGX(vec3 N, vec3 H, float roughness) {
-  float a = roughness * roughness;
-  float a2 = a * a;
-  float NdotH = max(dot(N, H), 0.0);
-  float NdotH2 = NdotH * NdotH;
-
-  float num = a2;
-  float denom = (NdotH2 * (a2 - 1.0) + 1.0);
-  denom = 3.14159265359 * denom * denom;
-  
-  return num / denom;
-}
-
-float GeometrySchlickGGX(float NdotV, float roughness) {
-  float r = (roughness + 1.0);
-  float k = (r * r) / 8.0;
-  
-  return NdotV / (NdotV * (1.0 - k) + k);
-}
-
-float GeometrySmith(vec3 N, vec3 V, vec3 L, float roughness) {
-  float NdotV = max(dot(N, V), 0.0);
-  float NdotL = max(dot(N, L), 0.0);
-  float ggx1 = GeometrySchlickGGX(NdotV, roughness);
-  float ggx2 = GeometrySchlickGGX(NdotL, roughness);
-  return ggx1 * ggx2;
-}
-
-vec3 FresnelSchlick(float cosTheta, vec3 F0) {
-  return F0 + (1.0 - F0) * pow(1.0 - cosTheta, 5.0);
-}
-
-float getMetallic() {
-  return material.metallicTextureLoaded ? material.metallic * texture(material.metallicTexture, UV).r : material.metallic;
-}
-
-vec3 calculateCookTorrance(vec3 L, vec3 lightColor, vec3 normal) {
-  float metallic = getMetallic();
-
-  vec3 V = normalize(viewPos - FragPos);
-  vec3 H = normalize(V + L);
-  float NdotL = max(dot(normal, L), 0.0);
-  float NdotV = max(dot(normal, V), 0.0);
-
-  vec3 F0 = mix(vec3(0.04), getAlbedo(), metallic);
-  vec3 F = FresnelSchlick(max(dot(H, V), 0.0), F0);
-  float roughness = getRoughness();
-  float D = DistributionGGX(normal, H, roughness);
-  float G = GeometrySmith(normal, V, L, roughness);
-
-  vec3 numerator = D * G * F;
-  float denominator = 4.0 * NdotV * NdotL + 0.0001;
-  vec3 specular = numerator / denominator;
-
-  vec3 kS = F;
-  vec3 kD = vec3(1.0) - kS;
-  kD *= 1.0 - metallic;
-
-  return (kD * getAlbedo() / 3.14159265359 + specular) * lightColor * NdotL;
-}
-
 // ******** FUNCTIONS ********
 float sampleAtlas(sampler2D map, int cols, int index, vec2 xy)
 {
@@ -211,14 +124,106 @@ float sampleCubeMap(sampler2D map, vec3 direction)
   return sampleAtlas(map, 6, faceIndex, uv);
 }
 
-vec3 calculateAmbient() {
-  return ambientLight * getAlbedo();
-}
-
 float getAmbientOcclusion()
 {
   vec2 texCoords = gl_FragCoord.xy / viewportSize;
   return texture(ssao, texCoords).r;
+}
+
+vec3 getAlbedo()
+{
+  if(material.albedoTextureLoaded)
+  {
+    return material.albedoColor * texture(material.albedoTexture, UV).rgb;
+  }
+  else
+  {
+    return material.albedoColor;
+  }
+}
+
+vec3 calculateAmbient() {
+  return ambientLight * getAlbedo();
+}
+
+vec3 getEmissive()
+{
+  return material.emissiveTextureLoaded ? material.emissive * texture(material.emissiveTexture, UV).rgb : material.emissive;
+}
+
+float getRoughness()
+{
+  if(material.roughnessTextureLoaded)
+  {
+    return material.roughness * texture(material.albedoTexture, UV).r;
+  }
+  else
+  {
+    return material.roughness;
+  }
+}
+
+float getMetallic() 
+{
+  return material.metallicTextureLoaded ? material.metallic * texture(material.metallicTexture, UV).r : material.metallic;
+}
+
+// ******** COOK-TORRANCE BRDF FUNCTIONS ********
+float DistributionGGX(vec3 N, vec3 H, float roughness) {
+  float a = roughness * roughness;
+  float a2 = a * a;
+  float NdotH = max(dot(N, H), 0.0);
+  float NdotH2 = NdotH * NdotH;
+
+  float num = a2;
+  float denom = (NdotH2 * (a2 - 1.0) + 1.0);
+  denom = 3.14159265359 * denom * denom;
+  
+  return num / denom;
+}
+
+float GeometrySchlickGGX(float NdotV, float roughness) {
+  float r = (roughness + 1.0);
+  float k = (r * r) / 8.0;
+  
+  return NdotV / (NdotV * (1.0 - k) + k);
+}
+
+float GeometrySmith(vec3 N, vec3 V, vec3 L, float roughness) {
+  float NdotV = max(dot(N, V), 0.0);
+  float NdotL = max(dot(N, L), 0.0);
+  float ggx1 = GeometrySchlickGGX(NdotV, roughness);
+  float ggx2 = GeometrySchlickGGX(NdotL, roughness);
+  return ggx1 * ggx2;
+}
+
+vec3 FresnelSchlick(float cosTheta, vec3 F0) {
+  return F0 + (1.0 - F0) * pow(1.0 - cosTheta, 5.0);
+}
+
+vec3 calculateCookTorrance(vec3 L, vec3 lightColor, vec3 normal) {
+  float metallic = getMetallic();
+
+  vec3 V = normalize(viewPos - FragPos);
+  vec3 H = normalize(V + L);
+  float NdotL = max(dot(normal, L), 0.0);
+  float NdotV = max(dot(normal, V), 0.0);
+
+  vec3 F0 = mix(vec3(0.04), getAlbedo(), metallic);
+  vec3 F = FresnelSchlick(max(dot(H, V), 0.0), F0);
+  float roughness = getRoughness();
+  float D = DistributionGGX(normal, H, roughness);
+  float G = GeometrySmith(normal, V, L, roughness);
+
+  vec3 numerator = D * G * F;
+  float denominator = 4.0 * NdotV * NdotL + 0.0001;
+  vec3 specular = numerator / denominator;
+
+  vec3 kS = F;
+  vec3 kD = vec3(1.0) - kS;
+  kD *= 1.0 - metallic;
+
+  return (kD * getAlbedo() / 3.14159265359 + specular) * lightColor * NdotL;
 }
 
 float calculateSpotFalloff(vec3 lightDir, vec3 spotlightDir, float innerCutoffCosine, float outerCutoffCosine) {
@@ -402,11 +407,6 @@ vec3 calculateNormal() {
     nrm = normalize(mix(nrm, perturbedNormal, material.normalMapStrength));
   }
   return nrm;
-}
-
-vec3 getEmissive()
-{
-  return material.emissiveTextureLoaded ? material.emissive * texture(material.emissiveTexture, UV).rgb : material.emissive;
 }
 
 void main() {
