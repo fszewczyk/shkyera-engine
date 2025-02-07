@@ -5,6 +5,7 @@ var classshkyera_1_1_registry =
     [ "~Registry", "classshkyera_1_1_registry.html#af9e3a8e70a882a373963883cfcd3cbd1", null ],
     [ "addComponent", "classshkyera_1_1_registry.html#a382b72f0f4d47f449303c6a15c756e7a", null ],
     [ "addEntity", "classshkyera_1_1_registry.html#adade4f4df213e42f8c71b843193efe52", null ],
+    [ "assignComponent", "classshkyera_1_1_registry.html#af80c60ac4aca84444d1b1b08ac2b1cba", null ],
     [ "clearSelectedEntities", "classshkyera_1_1_registry.html#ade3839d7405f7d0dab933b16a60241d5", null ],
     [ "getCamera", "classshkyera_1_1_registry.html#a316522ca2139247366dd91d2317ebee3", null ],
     [ "getComponent", "classshkyera_1_1_registry.html#adaae43f952eb3e1c91a0f0c3358805b7", null ],

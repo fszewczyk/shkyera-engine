@@ -9,10 +9,11 @@ var searchData=
   ['initializesystems_6',['initializeSystems',['../classshkyera_1_1_u_i.html#adf2b92fdf53ed8334f8ce2958e0297d5',1,'shkyera::UI']]],
   ['initializewidgets_7',['initializeWidgets',['../classshkyera_1_1_u_i.html#ac0f3e85639d8a3280708b2fe8690cf48',1,'shkyera::UI']]],
   ['inputmanager_8',['InputManager',['../classshkyera_1_1_input_manager.html#a0fb94b3dccdb08f6680d07bc41002583',1,'shkyera::InputManager']]],
-  ['intersect_9',['intersect',['../structshkyera_1_1_a_a_b_b.html#a6263b1743de50ff2b57fef3afcccc654',1,'shkyera::AABB']]],
-  ['isancestor_10',['isAncestor',['../classshkyera_1_1_entity_hierarchy.html#ac5c2a1e29550aa88663cc6c31e9427b0',1,'shkyera::EntityHierarchy']]],
-  ['ishovermoved_11',['isHoverMoved',['../classshkyera_1_1_gizmo_system.html#a8716e9fd617f0812c20c5c7908ae2184',1,'shkyera::GizmoSystem']]],
-  ['ismousebuttondown_12',['isMouseButtonDown',['../classshkyera_1_1_input_manager.html#ae5a7067d64868aa10812ef3e1f04f610',1,'shkyera::InputManager']]],
-  ['ismouseinside_13',['isMouseInside',['../classshkyera_1_1_input_manager.html#a8938f21879abfce5e9a869b2f13cac0d',1,'shkyera::InputManager']]],
-  ['iterator_14',['Iterator',['../classshkyera_1_1_sparse_set_1_1_iterator.html#a70d7c05e3a9974bffafa2503f83e19a1',1,'shkyera::SparseSet::Iterator']]]
+  ['inspectorwidget_9',['InspectorWidget',['../classshkyera_1_1_inspector_widget.html#abaed65c7a2e4f81887f9c95219a81e86',1,'shkyera::InspectorWidget']]],
+  ['intersect_10',['intersect',['../structshkyera_1_1_a_a_b_b.html#a6263b1743de50ff2b57fef3afcccc654',1,'shkyera::AABB']]],
+  ['isancestor_11',['isAncestor',['../classshkyera_1_1_entity_hierarchy.html#ac5c2a1e29550aa88663cc6c31e9427b0',1,'shkyera::EntityHierarchy']]],
+  ['ishovermoved_12',['isHoverMoved',['../classshkyera_1_1_gizmo_system.html#a8716e9fd617f0812c20c5c7908ae2184',1,'shkyera::GizmoSystem']]],
+  ['ismousebuttondown_13',['isMouseButtonDown',['../classshkyera_1_1_input_manager.html#ae5a7067d64868aa10812ef3e1f04f610',1,'shkyera::InputManager']]],
+  ['ismouseinside_14',['isMouseInside',['../classshkyera_1_1_input_manager.html#a8938f21879abfce5e9a869b2f13cac0d',1,'shkyera::InputManager']]],
+  ['iterator_15',['Iterator',['../classshkyera_1_1_sparse_set_1_1_iterator.html#a70d7c05e3a9974bffafa2503f83e19a1',1,'shkyera::SparseSet::Iterator']]]
 ];

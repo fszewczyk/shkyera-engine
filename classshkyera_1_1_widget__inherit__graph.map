@@ -1,19 +1,21 @@
 <map id="shkyera::Widget" name="shkyera::Widget">
-<area shape="rect" id="Node000001" title="An abstract base class representing a GUI widget." alt="" coords="5,129,132,155"/>
+<area shape="rect" id="Node000001" title="An abstract base class representing a GUI widget." alt="" coords="5,153,132,179"/>
 <area shape="rect" id="Node000002" href="$classshkyera_1_1_console_widget.html" title="A user interface widget for the console, used for logging and displaying messages." alt="" coords="190,5,369,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="87,117,127,77,152,57,179,40,206,28,208,33,181,44,155,61,130,81,91,121"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="83,140,122,89,148,62,179,40,203,28,205,33,181,44,152,66,126,93,87,144"/>
 <area shape="rect" id="Node000003" href="$classshkyera_1_1_filesystem_widget.html" title="A user interface widget for interacting with the filesystem." alt="" coords="180,55,379,80"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="106,121,179,89,217,78,219,83,181,94,108,125"/>
-<area shape="rect" id="Node000004" href="$classshkyera_1_1_objects_widget.html" title="A user interface widget for managing game objects." alt="" coords="191,104,367,129"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="145,130,191,125,191,130,146,135"/>
-<area shape="rect" id="Node000005" href="$classshkyera_1_1_profiler_widget.html" title=" " alt="" coords="193,153,366,179"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="146,148,193,153,192,159,146,153"/>
-<area shape="rect" id="Node000006" href="$classshkyera_1_1_properties_widget.html" title="A user interface widget for managing game object properties." alt="" coords="183,203,376,228"/>
-<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="109,158,181,187,223,200,222,205,179,193,107,163"/>
-<area shape="rect" id="Node000009" href="$classshkyera_1_1_scene_widget.html" title="A user interface widget for rendering scenes." alt="" coords="196,252,363,277"/>
-<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="91,163,130,202,155,222,181,238,209,250,207,254,179,243,152,226,127,206,87,167"/>
-<area shape="rect" id="Node000007" href="$classshkyera_1_1_camera_properties_widget.html" title=" " alt="" coords="443,163,641,203"/>
-<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="389,199,442,193,443,198,390,205"/>
-<area shape="rect" id="Node000008" href="$classshkyera_1_1_environment_properties_widget.html" title=" " alt="" coords="427,227,657,267"/>
-<area shape="poly" id="edge7_Node000006_Node000008" title=" " alt="" coords="390,226,427,231,426,236,389,231"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="94,142,133,115,179,89,211,78,213,83,181,94,136,119,97,147"/>
+<area shape="rect" id="Node000004" href="$classshkyera_1_1_inspector_widget.html" title=" " alt="" coords="186,104,373,129"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="136,148,224,127,225,132,137,153"/>
+<area shape="rect" id="Node000005" href="$classshkyera_1_1_objects_widget.html" title="A user interface widget for managing game objects." alt="" coords="191,153,367,179"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="146,163,191,163,191,169,146,169"/>
+<area shape="rect" id="Node000006" href="$classshkyera_1_1_profiler_widget.html" title=" " alt="" coords="193,203,366,228"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="137,179,225,200,224,205,136,184"/>
+<area shape="rect" id="Node000007" href="$classshkyera_1_1_properties_widget.html" title="A user interface widget for managing game object properties." alt="" coords="183,252,376,277"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="98,185,136,212,181,237,217,249,215,254,179,242,133,216,95,189"/>
+<area shape="rect" id="Node000010" href="$classshkyera_1_1_scene_widget.html" title="A user interface widget for rendering scenes." alt="" coords="196,301,363,327"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="87,188,126,239,152,266,181,288,205,299,203,304,179,292,148,270,122,243,83,192"/>
+<area shape="rect" id="Node000008" href="$classshkyera_1_1_camera_properties_widget.html" title=" " alt="" coords="443,213,641,253"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="389,249,442,242,443,247,390,254"/>
+<area shape="rect" id="Node000009" href="$classshkyera_1_1_environment_properties_widget.html" title=" " alt="" coords="427,277,657,317"/>
+<area shape="poly" id="edge8_Node000007_Node000009" title=" " alt="" coords="390,275,427,280,426,285,389,281"/>
 </map>

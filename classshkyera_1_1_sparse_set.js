@@ -8,6 +8,7 @@ var classshkyera_1_1_sparse_set =
     [ "add", "classshkyera_1_1_sparse_set.html#af5c853d4ef11e204fe2c8c83871ccb71", null ],
     [ "begin", "classshkyera_1_1_sparse_set.html#a19a2d026debdc573bc8604a7fb88fe0d", null ],
     [ "begin", "classshkyera_1_1_sparse_set.html#a4d86383e6c4929ab8284939243227ffe", null ],
+    [ "clear", "classshkyera_1_1_sparse_set.html#a45b0b0b2fbc8ac2aad9fee6f2db36d5f", null ],
     [ "contains", "classshkyera_1_1_sparse_set.html#ab86646e9fe67b11f5bb7d7ff919d6361", null ],
     [ "end", "classshkyera_1_1_sparse_set.html#ac6f974dcf641ec6c2c2891dcfd0f25e2", null ],
     [ "end", "classshkyera_1_1_sparse_set.html#a71ec643c313c668f02db69088c821589", null ],

@@ -1,6 +1,7 @@
 var classshkyera_1_1_name_component =
 [
     [ "NameComponent", "classshkyera_1_1_name_component.html#a093387d2bc1024344e188a2526090f8a", null ],
+    [ "NameComponent", "classshkyera_1_1_name_component.html#a962a4efd2c989476f40fe85bb434a61b", null ],
     [ "getName", "classshkyera_1_1_name_component.html#a81c09b8d39995524d9f200878e6524df", null ],
     [ "getName", "classshkyera_1_1_name_component.html#ad7fab9b1d70aee073e222c48fc7ce31a", null ],
     [ "setName", "classshkyera_1_1_name_component.html#a066864f3b1a624ebf9347160be0cab43", null ],

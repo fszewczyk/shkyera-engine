@@ -4,6 +4,8 @@ var dir_f3911b9629b0e27ea480d06d47573cbf =
     [ "ConsoleWidget.hpp", "_console_widget_8hpp.html", "_console_widget_8hpp" ],
     [ "FilesystemWidget.cpp", "_filesystem_widget_8cpp.html", null ],
     [ "FilesystemWidget.hpp", "_filesystem_widget_8hpp.html", "_filesystem_widget_8hpp" ],
+    [ "InspectorWidget.cpp", "_inspector_widget_8cpp.html", null ],
+    [ "InspectorWidget.hpp", "_inspector_widget_8hpp.html", "_inspector_widget_8hpp" ],
     [ "ObjectsWidget.cpp", "_objects_widget_8cpp.html", null ],
     [ "ObjectsWidget.hpp", "_objects_widget_8hpp.html", "_objects_widget_8hpp" ],
     [ "ProfilerWidget.cpp", "_profiler_widget_8cpp.html", null ],

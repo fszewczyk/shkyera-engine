@@ -121,12 +121,12 @@ $(document).ready(function(){initNavTree('_asset_utils_8hpp.html',''); initResiz
 <div class="header">
   <div class="summary">
 <a href="#namespaces">Namespaces</a> &#124;
-<a href="#concepts">Concepts</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">AssetUtils.hpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &lt;filesystem&gt;</code><br />
+<code>#include &lt;<a class="el" href="_asset_8hpp_source.html">AssetManager/Asset.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="_types_8hpp_source.html">Common/Types.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="_registry_8hpp_source.html">ECS/Registry.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="_directory_component_8hpp_source.html">Components/AssetComponents/DirectoryComponent.hpp</a>&gt;</code><br />
@@ -134,12 +134,12 @@ $(document).ready(function(){initNavTree('_asset_utils_8hpp.html',''); initResiz
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for AssetUtils.hpp:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="_asset_utils_8hpp__incl.svg" width="1215" height="740"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="_asset_utils_8hpp__incl.svg" width="1734" height="506"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div><div class="textblock"><div class="dynheader">
 This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="_asset_utils_8hpp__dep__incl.svg" width="1752" height="124"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="_asset_utils_8hpp__dep__incl.svg" width="2216" height="124"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
 <p><a href="_asset_utils_8hpp_source.html">Go to the source code of this file.</a></p>
@@ -153,13 +153,6 @@ Namespaces</h2></td></tr>
 <tr class="memitem:namespaceshkyera_1_1utils_1_1assets" id="r_namespaceshkyera_1_1utils_1_1assets"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceshkyera_1_1utils_1_1assets.html">shkyera::utils::assets</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="concepts" name="concepts"></a>
-Concepts</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">concept &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="conceptshkyera_1_1utils_1_1assets_1_1_derived_asset.html">shkyera::utils::assets::DerivedAsset</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">concept &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="conceptshkyera_1_1utils_1_1assets_1_1_path_constructible_asset.html">shkyera::utils::assets::PathConstructibleAsset</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a7454d2aa930441fad21c0e57dbbfa42e" id="r_a7454d2aa930441fad21c0e57dbbfa42e"><td class="memItemLeft" align="right" valign="top">std::optional&lt; <a class="el" href="namespaceshkyera.html#a197e209cf7ed41d8ed7bea616e140f84">AssetHandle</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceshkyera_1_1utils_1_1assets.html#a7454d2aa930441fad21c0e57dbbfa42e">shkyera::utils::assets::registerSingle</a> (std::filesystem::path path, <a class="el" href="classshkyera_1_1_registry.html">Registry</a> *registry)</td></tr>
@@ -170,22 +163,22 @@ Functions</h2></td></tr>
 <tr class="separator:a8a559ef2e6f689b70a481de86f3208cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a70eec7f767d6f70981d1fb5fa9b010a7" id="r_a70eec7f767d6f70981d1fb5fa9b010a7"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceshkyera_1_1utils_1_1assets.html#a70eec7f767d6f70981d1fb5fa9b010a7">shkyera::utils::assets::getName</a> (const <a class="el" href="structshkyera_1_1_directory_component.html">DirectoryComponent</a> &amp;directoryComponent)</td></tr>
 <tr class="separator:a70eec7f767d6f70981d1fb5fa9b010a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9f78951467e0db5c59810f81c67d4d87" id="r_a9f78951467e0db5c59810f81c67d4d87"><td class="memTemplParams" colspan="2">template&lt;DerivedAsset AssetType&gt; </td></tr>
+<tr class="memitem:a9f78951467e0db5c59810f81c67d4d87" id="r_a9f78951467e0db5c59810f81c67d4d87"><td class="memTemplParams" colspan="2">template&lt;typename AssetType &gt; </td></tr>
 <tr class="memitem:a9f78951467e0db5c59810f81c67d4d87"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceshkyera.html#a840dff224dd7033c335fa902c14ed17c">AssetRef</a>&lt; AssetType &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceshkyera_1_1utils_1_1assets.html#a9f78951467e0db5c59810f81c67d4d87">shkyera::utils::assets::read</a> (<a class="el" href="structshkyera_1_1_asset_component.html">AssetComponent</a>&lt; AssetType &gt; &amp;assetComponent)</td></tr>
 <tr class="separator:a9f78951467e0db5c59810f81c67d4d87"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a40ef0bdf12e3eefdcf28af6b7eecb784" id="r_a40ef0bdf12e3eefdcf28af6b7eecb784"><td class="memTemplParams" colspan="2">template&lt;<a class="el" href="classshkyera_1_1_path_constructible_asset.html">PathConstructibleAsset</a> AssetType, typename... Args&gt; </td></tr>
+<tr class="memitem:a40ef0bdf12e3eefdcf28af6b7eecb784" id="r_a40ef0bdf12e3eefdcf28af6b7eecb784"><td class="memTemplParams" colspan="2">template&lt;PathConstructible AssetType, typename... Args&gt; </td></tr>
 <tr class="memitem:a40ef0bdf12e3eefdcf28af6b7eecb784"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceshkyera.html#a840dff224dd7033c335fa902c14ed17c">AssetRef</a>&lt; AssetType &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceshkyera_1_1utils_1_1assets.html#a40ef0bdf12e3eefdcf28af6b7eecb784">shkyera::utils::assets::read</a> (const std::filesystem::path &amp;path, Args &amp;&amp;... args)</td></tr>
 <tr class="separator:a40ef0bdf12e3eefdcf28af6b7eecb784"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac1a47b0d21dcd725ccef93a22b1fc18c" id="r_ac1a47b0d21dcd725ccef93a22b1fc18c"><td class="memTemplParams" colspan="2">template&lt;DerivedAsset AssetType, typename... Args&gt; </td></tr>
+<tr class="memitem:ac1a47b0d21dcd725ccef93a22b1fc18c" id="r_ac1a47b0d21dcd725ccef93a22b1fc18c"><td class="memTemplParams" colspan="2">template&lt;typename AssetType , typename... Args&gt; </td></tr>
 <tr class="memitem:ac1a47b0d21dcd725ccef93a22b1fc18c"><td class="memTemplItemLeft" align="right" valign="top">std::pair&lt; <a class="el" href="namespaceshkyera.html#a197e209cf7ed41d8ed7bea616e140f84">AssetHandle</a>, <a class="el" href="structshkyera_1_1_asset_component.html">AssetComponent</a>&lt; AssetType &gt; &amp; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceshkyera_1_1utils_1_1assets.html#ac1a47b0d21dcd725ccef93a22b1fc18c">shkyera::utils::assets::add</a> (<a class="el" href="classshkyera_1_1_registry.html">Registry</a> *registry, Args &amp;&amp;... args)</td></tr>
 <tr class="separator:ac1a47b0d21dcd725ccef93a22b1fc18c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8c5092126bbc1dec0401c7b9af8df03a" id="r_a8c5092126bbc1dec0401c7b9af8df03a"><td class="memTemplParams" colspan="2">template&lt;DerivedAsset AssetType, typename... Args&gt; </td></tr>
+<tr class="memitem:a8c5092126bbc1dec0401c7b9af8df03a" id="r_a8c5092126bbc1dec0401c7b9af8df03a"><td class="memTemplParams" colspan="2">template&lt;typename AssetType , typename... Args&gt; </td></tr>
 <tr class="memitem:a8c5092126bbc1dec0401c7b9af8df03a"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceshkyera.html#a840dff224dd7033c335fa902c14ed17c">AssetRef</a>&lt; AssetType &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceshkyera_1_1utils_1_1assets.html#a8c5092126bbc1dec0401c7b9af8df03a">shkyera::utils::assets::addAndRead</a> (<a class="el" href="classshkyera_1_1_registry.html">Registry</a> *registry, Args &amp;&amp;... args)</td></tr>
 <tr class="separator:a8c5092126bbc1dec0401c7b9af8df03a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af2208358a2ddf1230619955d5d780177" id="r_af2208358a2ddf1230619955d5d780177"><td class="memTemplParams" colspan="2">template&lt;<a class="el" href="classshkyera_1_1_path_constructible_asset.html">PathConstructibleAsset</a> AssetType, typename... Args&gt; </td></tr>
+<tr class="memitem:af2208358a2ddf1230619955d5d780177" id="r_af2208358a2ddf1230619955d5d780177"><td class="memTemplParams" colspan="2">template&lt;typename AssetType , typename... Args&gt; </td></tr>
 <tr class="memitem:af2208358a2ddf1230619955d5d780177"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceshkyera.html#a840dff224dd7033c335fa902c14ed17c">AssetRef</a>&lt; AssetType &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceshkyera_1_1utils_1_1assets.html#af2208358a2ddf1230619955d5d780177">shkyera::utils::assets::readPermanent</a> (const std::filesystem::path &amp;path, Args &amp;&amp;... args)</td></tr>
 <tr class="separator:af2208358a2ddf1230619955d5d780177"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a26ef5e62c78e25998ba568b70fd9a96c" id="r_a26ef5e62c78e25998ba568b70fd9a96c"><td class="memTemplParams" colspan="2">template&lt;DerivedAsset AssetType, AssetType(*)() FactoryMethod, typename... Args&gt; </td></tr>
+<tr class="memitem:a26ef5e62c78e25998ba568b70fd9a96c" id="r_a26ef5e62c78e25998ba568b70fd9a96c"><td class="memTemplParams" colspan="2">template&lt;typename AssetType , AssetType(*)() FactoryMethod, typename... Args&gt; </td></tr>
 <tr class="memitem:a26ef5e62c78e25998ba568b70fd9a96c"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceshkyera.html#a840dff224dd7033c335fa902c14ed17c">AssetRef</a>&lt; AssetType &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceshkyera_1_1utils_1_1assets.html#a26ef5e62c78e25998ba568b70fd9a96c">shkyera::utils::assets::fromFactory</a> (<a class="el" href="classshkyera_1_1_registry.html">Registry</a> *registry, Args &amp;&amp;... args)</td></tr>
 <tr class="separator:a26ef5e62c78e25998ba568b70fd9a96c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>

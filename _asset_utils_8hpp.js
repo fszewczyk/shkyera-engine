@@ -1,7 +1,5 @@
 var _asset_utils_8hpp =
 [
-    [ "shkyera::utils::assets::DerivedAsset", "conceptshkyera_1_1utils_1_1assets_1_1_derived_asset.html", null ],
-    [ "shkyera::utils::assets::PathConstructibleAsset", "conceptshkyera_1_1utils_1_1assets_1_1_path_constructible_asset.html", null ],
     [ "add", "_asset_utils_8hpp.html#ac1a47b0d21dcd725ccef93a22b1fc18c", null ],
     [ "addAndRead", "_asset_utils_8hpp.html#a8c5092126bbc1dec0401c7b9af8df03a", null ],
     [ "fromFactory", "_asset_utils_8hpp.html#a26ef5e62c78e25998ba568b70fd9a96c", null ],
