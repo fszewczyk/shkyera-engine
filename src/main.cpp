@@ -72,12 +72,6 @@ void loadScene(std::shared_ptr<shkyera::Registry> registry) {
     registry->getComponent<TransformComponent>(camera).setOrientation({-M_PI_2 + 0.01, 0, 0});
     registry->addComponent<CameraComponent>(camera);
 
-    auto billboard = registry->addEntity();
-    auto& nameComponent = registry->addComponent<NameComponent>(billboard);
-    registry->getComponent<NameComponent>(billboard).setName("Billboard");
-    registry->addComponent<BillboardComponent<>>(billboard);
-    registry->addComponent<TransformComponent>(billboard);
-
     // Add Cylinder and its wireframe
     auto cylinderParent = registry->addEntity();
     registry->addComponent<TransformComponent>(cylinderParent);
@@ -123,7 +117,11 @@ void loadScene(std::shared_ptr<shkyera::Registry> registry) {
     registry->addComponent<DirectionalLightComponent>(sky);
     registry->getComponent<DirectionalLightComponent>(sky).color = glm::vec3{0.95, 0.95, 0.95};
     registry->getComponent<DirectionalLightComponent>(sky).intensity = 0.5;
-    registry->addComponent<AmbientLightComponent>(sky);
+    
+    auto ambientLight = registry->addEntity();
+    registry->addComponent<AmbientLightComponent>(ambientLight);
+    registry->addComponent<NameComponent>(ambientLight).setName("Ambient Light");
+    registry->addComponent<TransformComponent>(ambientLight).setPosition({1, 0, 0});
 
     auto redSpotLight = registry->addEntity();
     registry->addComponent<TransformComponent>(redSpotLight);
