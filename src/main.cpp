@@ -13,6 +13,7 @@
 #include <Components/WireframeComponent.hpp>
 #include <Components/NameComponent.hpp>
 #include <Components/ModelComponent.hpp>
+#include <Components/BillboardComponent.hpp>
 #include <Components/OverlayModelComponent.hpp>
 #include <Components/SkyboxComponent.hpp>
 #include <Components/BoxColliderComponent.hpp>
@@ -70,6 +71,12 @@ void loadScene(std::shared_ptr<shkyera::Registry> registry) {
     registry->getComponent<TransformComponent>(camera).setPosition({0, 15, 0});
     registry->getComponent<TransformComponent>(camera).setOrientation({-M_PI_2 + 0.01, 0, 0});
     registry->addComponent<CameraComponent>(camera);
+
+    auto billboard = registry->addEntity();
+    auto& nameComponent = registry->addComponent<NameComponent>(billboard);
+    registry->getComponent<NameComponent>(billboard).setName("Billboard");
+    registry->addComponent<BillboardComponent<>>(billboard);
+    registry->addComponent<TransformComponent>(billboard);
 
     // Add Cylinder and its wireframe
     auto cylinderParent = registry->addEntity();

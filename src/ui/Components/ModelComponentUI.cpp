@@ -9,7 +9,7 @@ ModelComponentUI::ModelComponentUI(std::shared_ptr<Registry> registry, ModelComp
   _modelComponent(modelComponent), 
   _registry(registry), 
   _meshSelector("Mesh", registry.get(), std::get<OptionalAssetHandle>(modelComponent->mesh)), 
-  _materialSelector("Material", registry.get(), std::get<OptionalAssetHandle>(modelComponent->mesh))
+  _materialSelector("Material", registry.get(), std::get<OptionalAssetHandle>(modelComponent->material))
 {  
   _meshSelector.setUpdateCallback([this](const auto& assetHandle) {
     if(_registry->hasComponent<AssetComponent<Mesh>>(assetHandle))
@@ -35,7 +35,7 @@ ModelComponentUI::ModelComponentUI(std::shared_ptr<Registry> registry, ModelComp
   });
   
   _materialSelector.setClearCallback([this]() {
-    _modelComponent->mesh = HandleAndAsset<Mesh>{std::nullopt, nullptr};
+    _modelComponent->material = HandleAndAsset<Material>{std::nullopt, nullptr};
   });
 }
 
