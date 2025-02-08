@@ -7,6 +7,7 @@ var structshkyera_1_1_material =
     [ "emissive", "structshkyera_1_1_material.html#ab0d586986fa580c79e42712089e228ed", null ],
     [ "emissiveStrength", "structshkyera_1_1_material.html#a6b9dc35d81887affa5cd084217aa406c", null ],
     [ "emissiveTexture", "structshkyera_1_1_material.html#ab9b788b7291f7ee18bd6326e48f7bd07", null ],
+    [ "lit", "structshkyera_1_1_material.html#a28b6ab1d6ba0a26a465fdf7150786645", null ],
     [ "metallic", "structshkyera_1_1_material.html#a06062363e6623ae77a5227cb4cf5e4da", null ],
     [ "metallicTexture", "structshkyera_1_1_material.html#a4781ba7a0cf23d61eb8d15b170dac4b2", null ],
     [ "normalMapStrength", "structshkyera_1_1_material.html#ae3e4269fbd5a0158d043358bacc4ceb7", null ],

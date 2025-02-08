@@ -152,8 +152,8 @@ Private Member Functions</h2></td></tr>
 <tr class="separator:a21503dc99de6d6a4695f67f3f71e63b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa36404a567ce4774eadffb578e558770" id="r_aa36404a567ce4774eadffb578e558770"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_rendering_system.html#aa36404a567ce4774eadffb578e558770">renderSSAO</a> ()</td></tr>
 <tr class="separator:aa36404a567ce4774eadffb578e558770"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5da446c75fab9264fd4ff7b970a77944" id="r_a5da446c75fab9264fd4ff7b970a77944"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_rendering_system.html#a5da446c75fab9264fd4ff7b970a77944">renderModels</a> ()</td></tr>
-<tr class="separator:a5da446c75fab9264fd4ff7b970a77944"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a681aef1c76634d43c0b172bc3fb45a47" id="r_a681aef1c76634d43c0b172bc3fb45a47"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_rendering_system.html#a681aef1c76634d43c0b172bc3fb45a47">renderWorldObjects</a> ()</td></tr>
+<tr class="separator:a681aef1c76634d43c0b172bc3fb45a47"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab050bb4206cc4fa8146e36ab41ab31ee" id="r_ab050bb4206cc4fa8146e36ab41ab31ee"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_rendering_system.html#ab050bb4206cc4fa8146e36ab41ab31ee">bloom</a> ()</td></tr>
 <tr class="separator:ab050bb4206cc4fa8146e36ab41ab31ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3d950bfcd84d3c6b74d1f9b42090e7e6" id="r_a3d950bfcd84d3c6b74d1f9b42090e7e6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_rendering_system.html#a3d950bfcd84d3c6b74d1f9b42090e7e6">toneMapping</a> ()</td></tr>
@@ -255,6 +255,16 @@ Private Attributes</h2></td></tr>
 <tr class="separator:ad30648a855a496853088da4851888065"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae15c3cf38a6c3729190a923ac522ac14" id="r_ae15c3cf38a6c3729190a923ac522ac14"><td class="memItemLeft" align="right" valign="top">std::unordered_map&lt; <a class="el" href="namespaceshkyera.html#a043bdd87686e0bd1bce19a1fd86298cd">Entity</a>, <a class="el" href="classshkyera_1_1_depth_atlas_frame_buffer.html">DepthAtlasFrameBuffer</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_rendering_system.html#ae15c3cf38a6c3729190a923ac522ac14">_spotLightToShadowMap</a></td></tr>
 <tr class="separator:ae15c3cf38a6c3729190a923ac522ac14"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0dad874e31ceed3f0d1f7f8abae72c6b" id="r_a0dad874e31ceed3f0d1f7f8abae72c6b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structshkyera_1_1_material.html">Material</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_rendering_system.html#a0dad874e31ceed3f0d1f7f8abae72c6b">_defaultMaterial</a></td></tr>
+<tr class="separator:a0dad874e31ceed3f0d1f7f8abae72c6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a77a410a45fdfb6d9bc1820fb8a8092a1" id="r_a77a410a45fdfb6d9bc1820fb8a8092a1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structshkyera_1_1_material.html">Material</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_rendering_system.html#a77a410a45fdfb6d9bc1820fb8a8092a1">_directionalLightDebugMaterial</a></td></tr>
+<tr class="separator:a77a410a45fdfb6d9bc1820fb8a8092a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae55ebaee7ad808d040f067a59d8ef546" id="r_ae55ebaee7ad808d040f067a59d8ef546"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structshkyera_1_1_material.html">Material</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_rendering_system.html#ae55ebaee7ad808d040f067a59d8ef546">_spotLightDebugMaterial</a></td></tr>
+<tr class="separator:ae55ebaee7ad808d040f067a59d8ef546"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a20e0ca7dc65e665d7965548a2023bddb" id="r_a20e0ca7dc65e665d7965548a2023bddb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structshkyera_1_1_material.html">Material</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_rendering_system.html#a20e0ca7dc65e665d7965548a2023bddb">_pointLightDebugMaterial</a></td></tr>
+<tr class="separator:a20e0ca7dc65e665d7965548a2023bddb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aac07ef726b47ef613429ab6134f4f44c" id="r_aac07ef726b47ef613429ab6134f4f44c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structshkyera_1_1_material.html">Material</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_rendering_system.html#aac07ef726b47ef613429ab6134f4f44c">_ambientLightDebugMaterial</a></td></tr>
+<tr class="separator:aac07ef726b47ef613429ab6134f4f44c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-static-attribs" name="pri-static-attribs"></a>
 Static Private Attributes</h2></td></tr>
@@ -401,31 +411,6 @@ Static Private Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">void shkyera::RenderingSystem::renderDirectionalLightShadowMaps </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a5da446c75fab9264fd4ff7b970a77944" name="a5da446c75fab9264fd4ff7b970a77944"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5da446c75fab9264fd4ff7b970a77944">&#9670;&#160;</a></span>renderModels()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void shkyera::RenderingSystem::renderModels </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -666,6 +651,31 @@ Static Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a681aef1c76634d43c0b172bc3fb45a47" name="a681aef1c76634d43c0b172bc3fb45a47"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a681aef1c76634d43c0b172bc3fb45a47">&#9670;&#160;</a></span>renderWorldObjects()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void shkyera::RenderingSystem::renderWorldObjects </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a9a5f646789f0ca1b21a7d04fa1e5bcb0" name="a9a5f646789f0ca1b21a7d04fa1e5bcb0"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9a5f646789f0ca1b21a7d04fa1e5bcb0">&#9670;&#160;</a></span>setSize()</h2>
 
@@ -720,6 +730,28 @@ Static Private Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
+<a id="aac07ef726b47ef613429ab6134f4f44c" name="aac07ef726b47ef613429ab6134f4f44c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aac07ef726b47ef613429ab6134f4f44c">&#9670;&#160;</a></span>_ambientLightDebugMaterial</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structshkyera_1_1_material.html">Material</a> shkyera::RenderingSystem::_ambientLightDebugMaterial</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a0f0bbd5effa6aafc741c623b828cc857" name="a0f0bbd5effa6aafc741c623b828cc857"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0f0bbd5effa6aafc741c623b828cc857">&#9670;&#160;</a></span>_antiAliasedFrameBuffer</h2>
 
@@ -786,6 +818,28 @@ Static Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a0dad874e31ceed3f0d1f7f8abae72c6b" name="a0dad874e31ceed3f0d1f7f8abae72c6b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0dad874e31ceed3f0d1f7f8abae72c6b">&#9670;&#160;</a></span>_defaultMaterial</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structshkyera_1_1_material.html">Material</a> shkyera::RenderingSystem::_defaultMaterial</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a972f4c8546ed19fe1ffa4dba45586b2c" name="a972f4c8546ed19fe1ffa4dba45586b2c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a972f4c8546ed19fe1ffa4dba45586b2c">&#9670;&#160;</a></span>_depthShaderProgram</h2>
 
@@ -841,6 +895,28 @@ Static Private Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="classshkyera_1_1_shader_program.html">ShaderProgram</a> shkyera::RenderingSystem::_dilateShaderProgram</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a77a410a45fdfb6d9bc1820fb8a8092a1" name="a77a410a45fdfb6d9bc1820fb8a8092a1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a77a410a45fdfb6d9bc1820fb8a8092a1">&#9670;&#160;</a></span>_directionalLightDebugMaterial</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structshkyera_1_1_material.html">Material</a> shkyera::RenderingSystem::_directionalLightDebugMaterial</td>
         </tr>
       </table>
   </td>
@@ -1138,6 +1214,28 @@ Static Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a20e0ca7dc65e665d7965548a2023bddb" name="a20e0ca7dc65e665d7965548a2023bddb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a20e0ca7dc65e665d7965548a2023bddb">&#9670;&#160;</a></span>_pointLightDebugMaterial</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structshkyera_1_1_material.html">Material</a> shkyera::RenderingSystem::_pointLightDebugMaterial</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a73c67053f75b1ba86c298675264db8c2" name="a73c67053f75b1ba86c298675264db8c2"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a73c67053f75b1ba86c298675264db8c2">&#9670;&#160;</a></span>_pointLightToShadowMap</h2>
 
@@ -1259,6 +1357,28 @@ Static Private Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="classshkyera_1_1_shader_program.html">ShaderProgram</a> shkyera::RenderingSystem::_skyboxShaderProgram</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae55ebaee7ad808d040f067a59d8ef546" name="ae55ebaee7ad808d040f067a59d8ef546"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae55ebaee7ad808d040f067a59d8ef546">&#9670;&#160;</a></span>_spotLightDebugMaterial</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structshkyera_1_1_material.html">Material</a> shkyera::RenderingSystem::_spotLightDebugMaterial</td>
         </tr>
       </table>
   </td>

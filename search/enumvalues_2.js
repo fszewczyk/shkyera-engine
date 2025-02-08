@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['error_0',['ERROR',['../namespaceshkyera_1_1_logger.html#a084332fcbe48f0afc6144c58a5b2ae05abb1ca97ec761fc37101737ba0aa2e7c5',1,'shkyera::Logger']]]
+  ['development_0',['DEVELOPMENT',['../namespaceshkyera.html#a1fa85003a0e458be0cf85cccc54d3d55afcee1a292eac6108bef8021e1c3d4c83',1,'shkyera']]]
 ];

@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['material_0',['material',['../classshkyera_1_1_model_component.html#ae7e74b5da8d8046d49d1ef6578c1fa09',1,'shkyera::ModelComponent']]],
+  ['material_0',['material',['../structshkyera_1_1_billboard_component.html#a048e6e1a5051cae139f5e9eb0dff9b1a',1,'shkyera::BillboardComponent::material'],['../classshkyera_1_1_model_component.html#ae7e74b5da8d8046d49d1ef6578c1fa09',1,'shkyera::ModelComponent::material']]],
   ['max_5flogs_1',['MAX_LOGS',['../classshkyera_1_1_console_widget.html#a96980063cc0b392e9b79c1bd4c600e05',1,'shkyera::ConsoleWidget']]],
   ['mesh_2',['mesh',['../classshkyera_1_1_model_component.html#a5f56b9453b8a9ff2a1796e6f979270d6',1,'shkyera::ModelComponent']]],
   ['metallic_3',['metallic',['../structshkyera_1_1_material.html#a06062363e6623ae77a5227cb4cf5e4da',1,'shkyera::Material']]],

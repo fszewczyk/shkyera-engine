@@ -19,9 +19,12 @@ var searchData=
   ['enumselector_16',['enumselector',['../classshkyera_1_1_enum_selector.html#a5dc79533c9ce4284b93d95c54cb86f43',1,'shkyera::EnumSelector::EnumSelector()'],['../classshkyera_1_1_enum_selector.html',1,'shkyera::EnumSelector&lt; EnumType &gt;']]],
   ['enumselector_2ehpp_17',['EnumSelector.hpp',['../_enum_selector_8hpp.html',1,'']]],
   ['enumselector_3c_20cameracomponent_3a_3aprojectiontype_20_3e_18',['EnumSelector&lt; CameraComponent::ProjectionType &gt;',['../classshkyera_1_1_enum_selector.html',1,'shkyera']]],
-  ['environmentpropertieswidget_19',['environmentpropertieswidget',['../classshkyera_1_1_environment_properties_widget.html#a521bb8dab3adff06d23cc3e346ded419',1,'shkyera::EnvironmentPropertiesWidget::EnvironmentPropertiesWidget()'],['../classshkyera_1_1_environment_properties_widget.html',1,'shkyera::EnvironmentPropertiesWidget']]],
-  ['error_20',['error',['../namespaceshkyera_1_1_logger.html#a1350dcbacb65ae0861aa6660f5566ee4',1,'shkyera::Logger::ERROR(const std::string &amp;message)'],['../namespaceshkyera_1_1_logger.html#a084332fcbe48f0afc6144c58a5b2ae05abb1ca97ec761fc37101737ba0aa2e7c5',1,'shkyera::Logger::ERROR']]],
-  ['euleranglesfromrotationmatrix_21',['eulerAnglesFromRotationMatrix',['../namespaceshkyera.html#a13d863b6aab1ba393c22173a23b4f533',1,'shkyera']]],
-  ['examples_22',['Examples',['../md_docs_2tutorials_2cheatsheet.html#autotoc_md5',1,'']]],
-  ['extents_23',['extents',['../structshkyera_1_1_a_a_b_b.html#acbb928cbddb5dee3227b2ece59e06411',1,'shkyera::AABB']]]
+  ['enumselector_3c_20shkyera_3a_3abillboardcomponent_3c_3e_3a_3aocclusion_20_3e_19',['EnumSelector&lt; shkyera::BillboardComponent&lt;&gt;::Occlusion &gt;',['../classshkyera_1_1_enum_selector.html',1,'shkyera']]],
+  ['enumselector_3c_20shkyera_3a_3abillboardcomponent_3c_3e_3a_3aorientation_20_3e_20',['EnumSelector&lt; shkyera::BillboardComponent&lt;&gt;::Orientation &gt;',['../classshkyera_1_1_enum_selector.html',1,'shkyera']]],
+  ['enumselector_3c_20shkyera_3a_3abillboardcomponent_3c_3e_3a_3ascale_20_3e_21',['EnumSelector&lt; shkyera::BillboardComponent&lt;&gt;::Scale &gt;',['../classshkyera_1_1_enum_selector.html',1,'shkyera']]],
+  ['environmentpropertieswidget_22',['environmentpropertieswidget',['../classshkyera_1_1_environment_properties_widget.html',1,'shkyera::EnvironmentPropertiesWidget'],['../classshkyera_1_1_environment_properties_widget.html#a521bb8dab3adff06d23cc3e346ded419',1,'shkyera::EnvironmentPropertiesWidget::EnvironmentPropertiesWidget()']]],
+  ['error_23',['error',['../namespaceshkyera_1_1_logger.html#a1350dcbacb65ae0861aa6660f5566ee4',1,'shkyera::Logger::ERROR(const std::string &amp;message)'],['../namespaceshkyera_1_1_logger.html#a084332fcbe48f0afc6144c58a5b2ae05abb1ca97ec761fc37101737ba0aa2e7c5',1,'shkyera::Logger::ERROR']]],
+  ['euleranglesfromrotationmatrix_24',['eulerAnglesFromRotationMatrix',['../namespaceshkyera.html#a13d863b6aab1ba393c22173a23b4f533',1,'shkyera']]],
+  ['examples_25',['Examples',['../md_docs_2tutorials_2cheatsheet.html#autotoc_md5',1,'']]],
+  ['extents_26',['extents',['../structshkyera_1_1_a_a_b_b.html#acbb928cbddb5dee3227b2ece59e06411',1,'shkyera::AABB']]]
 ];

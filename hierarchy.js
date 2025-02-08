@@ -50,11 +50,14 @@ var hierarchy =
     [ "shkyera::BaseComponent< WireframeComponent >", "classshkyera_1_1_base_component.html", [
       [ "shkyera::WireframeComponent", "structshkyera_1_1_wireframe_component.html", null ]
     ] ],
+    [ "shkyera::BillboardComponent< Mode >", "structshkyera_1_1_billboard_component.html", null ],
+    [ "shkyera::BooleanSelector", "classshkyera_1_1_boolean_selector.html", null ],
     [ "shkyera::CameraComponent", "classshkyera_1_1_camera_component.html", null ],
     [ "shkyera::CameraMovementSystem", "classshkyera_1_1_camera_movement_system.html", null ],
     [ "shkyera::ColorSelector", "classshkyera_1_1_color_selector.html", null ],
     [ "shkyera::ComponentUI", "classshkyera_1_1_component_u_i.html", [
       [ "shkyera::AmbientLightComponentUI", "classshkyera_1_1_ambient_light_component_u_i.html", null ],
+      [ "shkyera::BillboardComponentUI", "classshkyera_1_1_billboard_component_u_i.html", null ],
       [ "shkyera::CameraComponentUI", "classshkyera_1_1_camera_component_u_i.html", null ],
       [ "shkyera::DirectionalLightComponentUI", "classshkyera_1_1_directional_light_component_u_i.html", null ],
       [ "shkyera::ModelComponentUI", "classshkyera_1_1_model_component_u_i.html", null ],
@@ -72,6 +75,9 @@ var hierarchy =
     [ "shkyera::EntityProvider", "classshkyera_1_1_entity_provider.html", null ],
     [ "shkyera::EnumSelector< EnumType >", "classshkyera_1_1_enum_selector.html", null ],
     [ "shkyera::EnumSelector< CameraComponent::ProjectionType >", "classshkyera_1_1_enum_selector.html", null ],
+    [ "shkyera::EnumSelector< shkyera::BillboardComponent<>::Occlusion >", "classshkyera_1_1_enum_selector.html", null ],
+    [ "shkyera::EnumSelector< shkyera::BillboardComponent<>::Orientation >", "classshkyera_1_1_enum_selector.html", null ],
+    [ "shkyera::EnumSelector< shkyera::BillboardComponent<>::Scale >", "classshkyera_1_1_enum_selector.html", null ],
     [ "shkyera::Mesh::Factory", "classshkyera_1_1_mesh_1_1_factory.html", null ],
     [ "shkyera::Wireframe::Factory", "classshkyera_1_1_wireframe_1_1_factory.html", null ],
     [ "shkyera::FloatSlider", "classshkyera_1_1_float_slider.html", null ],

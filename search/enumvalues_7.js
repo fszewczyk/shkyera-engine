@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['perspective_0',['Perspective',['../classshkyera_1_1_camera_component.html#a187a07d57febe7c8f3c02d24fe88b406aa80420eef88d11f77532f1b9cb467fa3',1,'shkyera::CameraComponent']]],
-  ['production_1',['PRODUCTION',['../namespaceshkyera.html#a1fa85003a0e458be0cf85cccc54d3d55a86601675138015edb458866e7d879118',1,'shkyera']]]
+  ['notoccludable_0',['NotOccludable',['../structshkyera_1_1_billboard_component.html#a6ec2d5c0f14cdddc6079914fb2e68a14a1c8eb3cd9f638d5d4609aa2ac30845bc',1,'shkyera::BillboardComponent']]]
 ];

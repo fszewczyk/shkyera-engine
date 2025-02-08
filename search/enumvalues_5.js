@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['info_0',['INFO',['../namespaceshkyera_1_1_logger.html#a084332fcbe48f0afc6144c58a5b2ae05a551b723eafd6a31d444fcb2f5920fbd3',1,'shkyera::Logger']]]
+  ['geometry_0',['Geometry',['../classshkyera_1_1_shader.html#a8609b223b8cb0e0e71038b5a5208acc7ad9c6333623e6357515fcbf17be806273',1,'shkyera::Shader']]]
 ];
