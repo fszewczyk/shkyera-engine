@@ -2,6 +2,7 @@
 
 #include <memory>
 
+#include <AssetManager/Material.hpp>
 #include <Common/Types.hpp>
 #include <ECS/Registry.hpp>
 #include <Components/DirectionalLightComponent.hpp>
@@ -26,7 +27,7 @@ private:
     void renderViewPosition();
     void renderViewNormals();
     void renderSSAO();
-    void renderModels();
+    void renderWorldObjects();
     void bloom();
     void toneMapping();
     void renderWireframes();
@@ -40,7 +41,7 @@ private:
     void renderSpotLightShadowMaps();
 
     std::shared_ptr<Registry> _registry;
-    
+
     // Rendering Pipeline
     SceneFrameBuffer* _mostRecentFrameBufferPtr;
 
@@ -99,6 +100,14 @@ private:
     ShaderProgram _distanceShaderProgram;
 
     std::unordered_map<Entity, DepthAtlasFrameBuffer> _spotLightToShadowMap;
+
+    // Debug Rendering
+    Material _defaultMaterial;
+
+    Material _directionalLightDebugMaterial;
+    Material _spotLightDebugMaterial;
+    Material _pointLightDebugMaterial;
+    Material _ambientLightDebugMaterial;
 };
 
 }

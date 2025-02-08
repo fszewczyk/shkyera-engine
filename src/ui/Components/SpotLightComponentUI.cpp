@@ -6,6 +6,7 @@
 namespace shkyera {
 
 SpotLightComponentUI::SpotLightComponentUI(SpotLightComponent* pointLightComponent) :
+    ComponentUI("resources/icons/components/spot_light.png"),
     _spotLightComponent(pointLightComponent),
     _colorSelector("Color", pointLightComponent->color), 
     _intensitySlider("Intensity", pointLightComponent->intensity, 0.0f, 20.0f), 

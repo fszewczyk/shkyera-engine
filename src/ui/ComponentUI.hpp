@@ -11,6 +11,10 @@ class ComponentUI {
             _icon = utils::assets::readPermanent<Texture>(Image::ICON_COMPONENT_TRANSFORM);
         }
 
+        ComponentUI(const std::filesystem::path& texturePath) {
+            _icon = utils::assets::readPermanent<Texture>(texturePath);
+        }
+
         virtual ~ComponentUI() = default;
 
         virtual void draw() = 0;

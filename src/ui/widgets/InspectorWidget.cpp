@@ -68,6 +68,7 @@ InspectorWidget::MaterialInspector::MaterialInspector(Registry* registry, AssetH
   _albedoColorSelector("Color"),
   _emissiveColorSelector("Color"),
   _roughnessSlider("Roughness", 0.05f, 1.0f),
+  _litMaterialCheckbox("Lit", false),
   _metallicSlider("Metallic", 0.05f, 1.0f),
   _emissiveStrengthSlider("Strength", 0.0f, 50.0f),
   _normalMapStrengthSlider("Multiplier", 0.0f, 2.0f)
@@ -78,6 +79,7 @@ InspectorWidget::MaterialInspector::MaterialInspector(Registry* registry, AssetH
     const auto materialRef = utils::assets::read(materialAsset);
     _albedoColorSelector = ColorSelector("Albedo Color", materialRef->albedo);
     _emissiveColorSelector = ColorSelector("Emissive Color", materialRef->emissive);
+    _litMaterialCheckbox = BooleanSelector("Lit", materialRef->lit);
     _roughnessSlider = FloatSlider("Roughness", materialRef->roughness, 0.1f, 1.0f);
     _metallicSlider = FloatSlider("Metallic", materialRef->metallic, 0.1f, 1.0f);
     _emissiveStrengthSlider = FloatSlider("Strength", materialRef->emissiveStrength, 0.0f, 50.0f);
@@ -94,7 +96,7 @@ InspectorWidget::MaterialInspector::MaterialInspector(Registry* registry, AssetH
         auto& materialAsset = registry->getComponent<AssetComponent<Material>>(handle);
 
         // Making sure that construction function does not lengthen the lifetime of the assets
-        auto matCopy =  *materialRef;
+        auto matCopy = *materialRef;
         std::get<AssetRef<Texture>>(matCopy.albedoTexture).reset();
         std::get<AssetRef<Texture>>(matCopy.normalTexture).reset();
         std::get<AssetRef<Texture>>(matCopy.roughnessTexture).reset();
@@ -170,6 +172,11 @@ InspectorWidget::MaterialInspector::MaterialInspector(Registry* registry, AssetH
     setTextureUpdateCallback(_roughnessTextureSelector, &Material::roughnessTexture);
     setTextureUpdateCallback(_metallicTextureSelector, &Material::metallicTexture);
     setTextureUpdateCallback(_emissiveTextureSelector, &Material::emissiveTexture);
+
+    _litMaterialCheckbox.setUpdateCallback([updateConstructionFunction, materialRef](bool lit) {
+      materialRef->lit = lit;
+      updateConstructionFunction();
+    });
   }
   else
   {
@@ -192,6 +199,7 @@ static void drawSectionTitle(std::string_view text)
 void InspectorWidget::MaterialInspector::draw()
 {
   drawSectionTitle("Albedo");
+  _litMaterialCheckbox.draw();
   _albedoColorSelector.draw();
   _albedoTextureSelector.draw();
 

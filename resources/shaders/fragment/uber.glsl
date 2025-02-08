@@ -54,6 +54,7 @@ uniform sampler2D ssao;
 
 // ******** MATERIAL DATA ********
 struct Material {
+  bool lit;
   vec3 albedoColor;     
   vec3 emissive;
   float roughness;
@@ -169,7 +170,7 @@ float getMetallic()
 }
 
 // ******** COOK-TORRANCE BRDF FUNCTIONS ********
-float DistributionGGX(vec3 N, vec3 H, float roughness) {
+float distributionGGX(vec3 N, vec3 H, float roughness) {
   float a = roughness * roughness;
   float a2 = a * a;
   float NdotH = max(dot(N, H), 0.0);
@@ -182,7 +183,7 @@ float DistributionGGX(vec3 N, vec3 H, float roughness) {
   return num / denom;
 }
 
-float GeometrySchlickGGX(float NdotV, float roughness) {
+float geometrySchlickGGX(float NdotV, float roughness) {
   float r = (roughness + 1.0);
   float k = (r * r) / 8.0;
   
@@ -192,12 +193,12 @@ float GeometrySchlickGGX(float NdotV, float roughness) {
 float GeometrySmith(vec3 N, vec3 V, vec3 L, float roughness) {
   float NdotV = max(dot(N, V), 0.0);
   float NdotL = max(dot(N, L), 0.0);
-  float ggx1 = GeometrySchlickGGX(NdotV, roughness);
-  float ggx2 = GeometrySchlickGGX(NdotL, roughness);
+  float ggx1 = geometrySchlickGGX(NdotV, roughness);
+  float ggx2 = geometrySchlickGGX(NdotL, roughness);
   return ggx1 * ggx2;
 }
 
-vec3 FresnelSchlick(float cosTheta, vec3 F0) {
+vec3 fresnelSchlick(float cosTheta, vec3 F0) {
   return F0 + (1.0 - F0) * pow(1.0 - cosTheta, 5.0);
 }
 
@@ -210,9 +211,9 @@ vec3 calculateCookTorrance(vec3 L, vec3 lightColor, vec3 normal) {
   float NdotV = max(dot(normal, V), 0.0);
 
   vec3 F0 = mix(vec3(0.04), getAlbedo(), metallic);
-  vec3 F = FresnelSchlick(max(dot(H, V), 0.0), F0);
+  vec3 F = fresnelSchlick(max(dot(H, V), 0.0), F0);
   float roughness = getRoughness();
-  float D = DistributionGGX(normal, H, roughness);
+  float D = distributionGGX(normal, H, roughness);
   float G = GeometrySmith(normal, V, L, roughness);
 
   vec3 numerator = D * G * F;
@@ -411,11 +412,21 @@ vec3 calculateNormal() {
 
 void main() {
   // Lighting
-  vec3 nrm = calculateNormal();
-  vec3 color = calculateAmbient() * getAmbientOcclusion();
-  color += calculatePointLights(nrm);
-  color += calculateDirectionalLights(nrm);
-  color += calculateSpotLights(nrm);
-  color += getEmissive();
-  FragColor = vec4(color, 1.0);
+  vec3 color;
+  if(material.lit)
+  {
+    vec3 nrm = calculateNormal();
+    color = calculateAmbient() * getAmbientOcclusion();
+    color += calculatePointLights(nrm);
+    color += calculateDirectionalLights(nrm);
+    color += calculateSpotLights(nrm);
+    color += getEmissive();
+  }
+  else
+  {
+    color = getAlbedo();
+  }
+
+  float transparency = material.albedoTextureLoaded ? texture(material.albedoTexture, UV).a : 1.0;
+  FragColor = vec4(color, transparency);
 }

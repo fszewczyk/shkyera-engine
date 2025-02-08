@@ -4,6 +4,7 @@
 #include <AssetManager/Texture.hpp>
 #include <Components/AssetComponents/AssetComponent.hpp>
 #include <UI/Widget.hpp>
+#include <UI/Common/BooleanSelector.hpp>
 #include <UI/Common/ColorSelector.hpp>
 #include <UI/Common/FloatSlider.hpp>
 #include <UI/Common/AssetSelector.hpp>
@@ -57,6 +58,7 @@ class InspectorWidget : public Widget {
       private:
         ColorSelector _albedoColorSelector;
         ColorSelector _emissiveColorSelector;
+        BooleanSelector _litMaterialCheckbox;
         FloatSlider _roughnessSlider;
         FloatSlider _metallicSlider;
         FloatSlider _emissiveStrengthSlider;

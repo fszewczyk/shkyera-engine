@@ -5,6 +5,7 @@
 #include <Components/NameComponent.hpp>
 #include <Components/TransformComponent.hpp>
 #include <Components/ModelComponent.hpp>
+#include <Components/BillboardComponent.hpp>
 #include <Components/WireframeComponent.hpp>
 #include <Components/BoxColliderComponent.hpp>
 #include <Components/SkyboxComponent.hpp>
@@ -15,6 +16,7 @@
 #include <UI/Common/Style.hpp>
 #include <UI/Components/TransformComponentUI.hpp>
 #include <UI/Components/ModelComponentUI.hpp>
+#include <UI/Components/BillboardComponentUI.hpp>
 #include <UI/Components/WireframeComponentUI.hpp>
 #include <UI/Components/CameraComponentUI.hpp>
 #include <UI/Components/AmbientLightComponentUI.hpp>
@@ -113,6 +115,13 @@ void PropertiesWidget::setupComponentsUI() {
     _componentsUi.emplace_back(std::move(componentUi));
   }
 
+  if(_registry->hasComponent<BillboardComponent<RuntimeMode::PRODUCTION>>(*_selectedEntity)) {    
+    auto &component = _registry->getComponent<BillboardComponent<RuntimeMode::PRODUCTION>>(*_selectedEntity);
+    auto componentUi = std::make_unique<BillboardComponentUI>(_registry, &component);
+
+    _componentsUi.emplace_back(std::move(componentUi));
+  }
+
   if(_registry->hasComponent<WireframeComponent>(*_selectedEntity)) {    
     auto &component = _registry->getComponent<WireframeComponent>(*_selectedEntity);
     auto componentUi = std::make_unique<WireframeComponentUI>(_registry, &component);
@@ -154,43 +163,23 @@ void PropertiesWidget::drawNewComponentMenu() {
     ImGui::OpenPopup("Add Component");
   }
   if (ImGui::BeginPopup("Add Component")) {
-    if (ImGui::Selectable("Transform")) {
-      _registry->addComponent<TransformComponent>(*_selectedEntity);
-      setupComponentsUI();
-      ImGui::CloseCurrentPopup();
-    }
+    auto addComponentIfSelected = [this]<typename ComponentType>(const std::string& label) {
+      if (ImGui::Selectable(label.c_str())) {
+        _registry->addComponent<ComponentType>(*_selectedEntity);
+        setupComponentsUI();
+        ImGui::CloseCurrentPopup();
+      }
+    };
 
-    if (ImGui::Selectable("Model")) {
-      _registry->addComponent<ModelComponent>(*_selectedEntity);
-
-      setupComponentsUI();
-      ImGui::CloseCurrentPopup();
-    }
-
-    if (ImGui::Selectable("Wireframe")) {
-      _registry->addComponent<WireframeComponent>(*_selectedEntity);
-
-      setupComponentsUI();
-      ImGui::CloseCurrentPopup();
-    }
-
-    if (ImGui::Selectable("Ambient Light")) {
-      _registry->addComponent<AmbientLightComponent>(*_selectedEntity);
-      setupComponentsUI();
-      ImGui::CloseCurrentPopup();
-    }
-
-    if (ImGui::Selectable("Point Light")) {
-      _registry->addComponent<PointLightComponent>(*_selectedEntity);
-      setupComponentsUI();
-      ImGui::CloseCurrentPopup();
-    }
-
-    if (ImGui::Selectable("Directional Light")) {
-      _registry->addComponent<DirectionalLightComponent>(*_selectedEntity);
-      setupComponentsUI();
-      ImGui::CloseCurrentPopup();
-    }
+    addComponentIfSelected.template operator()<TransformComponent>("Transform");
+    addComponentIfSelected.template operator()<CameraComponent>("Camera");
+    addComponentIfSelected.template operator()<ModelComponent>("Model");
+    addComponentIfSelected.template operator()<BillboardComponent<RuntimeMode::PRODUCTION>>("Billboard");
+    addComponentIfSelected.template operator()<WireframeComponent>("Wireframe");
+    addComponentIfSelected.template operator()<AmbientLightComponent>("Ambient Light");
+    addComponentIfSelected.template operator()<PointLightComponent>("Point Light");
+    addComponentIfSelected.template operator()<SpotLightComponent>("Spot Light");
+    addComponentIfSelected.template operator()<DirectionalLightComponent>("Directional Light");
 
     ImGui::EndPopup();
   }

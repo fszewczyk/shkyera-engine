@@ -6,6 +6,7 @@
 namespace shkyera {
 
 DirectionalLightComponentUI::DirectionalLightComponentUI(DirectionalLightComponent* directionalLightComponent) :
+    ComponentUI("resources/icons/components/directional_light.png"),
     _directionalLightComponent(directionalLightComponent),
     _colorSelector("Color", directionalLightComponent->color),
     _intensitySlider("Intensity", directionalLightComponent->intensity, 0.0f, 5.0f)

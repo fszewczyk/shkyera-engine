@@ -6,6 +6,7 @@
 namespace shkyera {
 
 AmbientLightComponentUI::AmbientLightComponentUI(AmbientLightComponent* ambientLightComponent) :
+    ComponentUI("resources/icons/components/ambient_light.png"),
     _colorSelector("Color", ambientLightComponent->color), 
     _intensitySlider("Intensity", ambientLightComponent->intensity, 0.0f, 5.0f), 
     _ambientLightComponent(ambientLightComponent) 

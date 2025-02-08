@@ -13,6 +13,7 @@
 #include <Components/WireframeComponent.hpp>
 #include <Components/NameComponent.hpp>
 #include <Components/ModelComponent.hpp>
+#include <Components/BillboardComponent.hpp>
 #include <Components/OverlayModelComponent.hpp>
 #include <Components/SkyboxComponent.hpp>
 #include <Components/BoxColliderComponent.hpp>
@@ -116,7 +117,11 @@ void loadScene(std::shared_ptr<shkyera::Registry> registry) {
     registry->addComponent<DirectionalLightComponent>(sky);
     registry->getComponent<DirectionalLightComponent>(sky).color = glm::vec3{0.95, 0.95, 0.95};
     registry->getComponent<DirectionalLightComponent>(sky).intensity = 0.5;
-    registry->addComponent<AmbientLightComponent>(sky);
+    
+    auto ambientLight = registry->addEntity();
+    registry->addComponent<AmbientLightComponent>(ambientLight);
+    registry->addComponent<NameComponent>(ambientLight).setName("Ambient Light");
+    registry->addComponent<TransformComponent>(ambientLight).setPosition({1, 0, 0});
 
     auto redSpotLight = registry->addEntity();
     registry->addComponent<TransformComponent>(redSpotLight);

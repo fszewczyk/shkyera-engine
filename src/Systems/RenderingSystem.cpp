@@ -8,6 +8,7 @@
 #include <Rendering/Utils.hpp>
 #include <Components/TransformComponent.hpp>
 #include <Components/ModelComponent.hpp>
+#include <Components/BillboardComponent.hpp>
 #include <Components/OverlayModelComponent.hpp>
 #include <Components/WireframeComponent.hpp>
 #include <Components/CameraComponent.hpp>
@@ -118,6 +119,18 @@ RenderingSystem::RenderingSystem(std::shared_ptr<Registry> registry)
     _depthShaderProgram.attachShader(depthVertexShader);
     _depthShaderProgram.attachShader(depthFragmentShader);
     _depthShaderProgram.link();
+
+    _defaultMaterial.lit = false;
+    _defaultMaterial.albedo = glm::vec3{1, 0, 1};
+
+    Material debugBillboardMaterial;
+    debugBillboardMaterial.lit = false;
+    _directionalLightDebugMaterial = _spotLightDebugMaterial = _pointLightDebugMaterial = _ambientLightDebugMaterial = debugBillboardMaterial;
+
+    std::get<AssetRef<Texture>>(_pointLightDebugMaterial.albedoTexture) = utils::assets::readPermanent<Texture>("resources/icons/components/point_light.png");
+    std::get<AssetRef<Texture>>(_spotLightDebugMaterial.albedoTexture) = utils::assets::readPermanent<Texture>("resources/icons/components/spot_light.png");
+    std::get<AssetRef<Texture>>(_directionalLightDebugMaterial.albedoTexture) = utils::assets::readPermanent<Texture>("resources/icons/components/directional_light.png");
+    std::get<AssetRef<Texture>>(_ambientLightDebugMaterial.albedoTexture) = utils::assets::readPermanent<Texture>("resources/icons/components/ambient_light.png");
 }
 
 void RenderingSystem::setSize(uint32_t width, uint32_t height)
@@ -201,7 +214,7 @@ void RenderingSystem::render()
 
     // Main Rendering Pass
     renderSkybox();
-    renderModels();
+    renderWorldObjects();
 
     // Debug Info
     renderWireframes();
@@ -617,12 +630,12 @@ void RenderingSystem::renderSpotLightShadowMaps()
     }
 }
 
-void RenderingSystem::renderModels()
+void RenderingSystem::renderWorldObjects()
 {
-    SHKYERA_PROFILE("RenderingSystem::renderModels");
+    SHKYERA_PROFILE("RenderingSystem::renderWorldObjects");
 
     glEnable(GL_DEPTH_TEST);
-
+    
     // ********* Rendering the shadow maps *********
     renderDirectionalLightShadowMaps();
     renderPointLightShadowMaps();
@@ -726,7 +739,7 @@ void RenderingSystem::renderModels()
         _modelShaderProgram.setUniform("viewportSize", _mostRecentFrameBufferPtr->getSize());
     }
 
-    const auto setTexture = [this, &textureIndex](AssetRef<Material> material, const std::string& textureName, auto textureMember) {
+    const auto setTexture = [this, &textureIndex](Material const* material, const std::string& textureName, auto textureMember) {
         if(const auto& textureAsset = std::get<AssetRef<Texture>>((*material).*textureMember))
         {
             _modelShaderProgram.setUniform("material." + textureName + "TextureLoaded", true);
@@ -741,27 +754,97 @@ void RenderingSystem::renderModels()
         }
     };
 
+    const auto setMaterial = [this, &setTexture](Material const* material) {
+        if(material == nullptr)
+        {
+            material = &_defaultMaterial;
+        }
+        
+        _modelShaderProgram.setUniform("material.lit", material->lit);
+        _modelShaderProgram.setUniform("material.albedoColor", material->albedo);
+        _modelShaderProgram.setUniform("material.emissive", material->emissive * material->emissiveStrength);
+        _modelShaderProgram.setUniform("material.roughness", material->roughness);
+        _modelShaderProgram.setUniform("material.metallic", material->metallic);
+        _modelShaderProgram.setUniform("material.normalMapStrength", material->normalMapStrength);
+
+        setTexture(material, "roughness", &Material::roughnessTexture);
+        setTexture(material, "albedo", &Material::albedoTexture);
+        setTexture(material, "normal", &Material::normalTexture);
+        setTexture(material, "metallic", &Material::metallicTexture);
+        setTexture(material, "emissive", &Material::emissiveTexture);
+    };
+
     for (const auto& [entity, modelComponent] : _registry->getComponentSet<ModelComponent>()) {
         const auto& transformMatrix = TransformComponent::getGlobalTransformMatrix(entity, _registry);
         _modelShaderProgram.setUniform("modelMatrix", transformMatrix);
 
         const auto& material = std::get<AssetRef<Material>>(modelComponent.material);
-        if (material) {
-            _modelShaderProgram.setUniform("material.albedoColor", material->albedo);
-            _modelShaderProgram.setUniform("material.emissive", material->emissive * material->emissiveStrength);
-            _modelShaderProgram.setUniform("material.roughness", material->roughness);
-            _modelShaderProgram.setUniform("material.metallic", material->metallic);
-            _modelShaderProgram.setUniform("material.normalMapStrength", material->normalMapStrength);
-
-            setTexture(material, "roughness", &Material::roughnessTexture);
-            setTexture(material, "albedo", &Material::albedoTexture);
-            setTexture(material, "normal", &Material::normalTexture);
-            setTexture(material, "metallic", &Material::metallicTexture);
-            setTexture(material, "emissive", &Material::emissiveTexture);
-        }
+        setMaterial(material.get());
 
         modelComponent.updateImpl();
     }
+
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+    // Get a billboard mesh (a simple quad/plane) to render all billboards.
+    static const auto billboardPlane = utils::assets::fromFactory<Mesh, &Mesh::Factory::createPlane>(_registry.get());
+
+    // Iterate over all billboard components.
+    for (const auto& [entity, billboardComponent] : _registry->getComponentSet<BillboardComponent<RuntimeMode::PRODUCTION>>())
+    {
+        if(billboardComponent.occlusion == BillboardComponent<RuntimeMode::PRODUCTION>::Occlusion::Occludable)
+        {
+            glEnable(GL_DEPTH_TEST);
+        }
+        else
+        {
+            glDisable(GL_DEPTH_TEST);
+        }
+
+        const auto& baseTransform = TransformComponent::getGlobalTransformMatrix(entity, _registry);
+        glm::mat4 modelMatrix = billboardComponent.getModelMatrix(baseTransform, cameraTransform.getPosition(), viewMatrix);
+        _modelShaderProgram.setUniform("modelMatrix", modelMatrix);
+
+        // If a material is assigned to the billboard, set material uniforms.
+        const auto& material = std::get<AssetRef<Material>>(billboardComponent.material);
+        setMaterial(material.get());
+
+        // Draw the billboard quad.
+        billboardPlane->bind();
+        glDrawElements(GL_TRIANGLES, billboardPlane->getMeshSize(), GL_UNSIGNED_INT, nullptr);
+        billboardPlane->unbind();
+    }
+
+    glDisable(GL_DEPTH_TEST);
+    const auto drawLightDebugBillboard = [this, &setMaterial, &cameraTransform, &viewMatrix](const auto& componentSet, Material const* material) {
+        static auto lightDebugBillboard = BillboardComponent<>{
+            .orientation = BillboardComponent<>::Orientation::CameraFacing,
+            .scale = BillboardComponent<>::Scale::Camera,
+            .occlusion = BillboardComponent<>::Occlusion::NotOccludable
+        };
+        
+        for (const auto& [entity, _] : componentSet)
+        {
+            const auto& baseTransform = TransformComponent::getGlobalTransformMatrix(entity, _registry);
+            glm::mat4 modelMatrix = lightDebugBillboard.getModelMatrix(baseTransform, cameraTransform.getPosition(), viewMatrix);
+            _modelShaderProgram.setUniform("modelMatrix", modelMatrix);
+
+            setMaterial(material);
+
+            // Draw the billboard quad.
+            billboardPlane->bind();
+            glDrawElements(GL_TRIANGLES, billboardPlane->getMeshSize(), GL_UNSIGNED_INT, nullptr);
+            billboardPlane->unbind();
+        }
+    };
+
+    drawLightDebugBillboard(_registry->getComponentSet<PointLightComponent>(), &_pointLightDebugMaterial); 
+    drawLightDebugBillboard(_registry->getComponentSet<DirectionalLightComponent>(), &_directionalLightDebugMaterial); 
+    drawLightDebugBillboard(_registry->getComponentSet<SpotLightComponent>(), &_spotLightDebugMaterial); 
+    drawLightDebugBillboard(_registry->getComponentSet<AmbientLightComponent>(), &_ambientLightDebugMaterial); 
+
+    glDisable(GL_BLEND);
 
     _modelShaderProgram.stopUsing();
     _mostRecentFrameBufferPtr->unbind();
