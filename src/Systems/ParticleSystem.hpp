@@ -18,6 +18,7 @@ private:
     void ensureSufficientStateContainerSize(ParticleEmitterComponent& emitter);
     void spawnParticles(ParticleEmitterComponent& emitter, const glm::mat4& transformMatrix);
     void updateLifetimes(ParticleEmitterComponent& emitter);
+    void updateEndToStartProgress(ParticleEmitterComponent& emitter);
     void updateVelocities(ParticleEmitterComponent& emitter);
     void updatePositions(ParticleEmitterComponent& emitter);
     void updateSizes(ParticleEmitterComponent& emitter);

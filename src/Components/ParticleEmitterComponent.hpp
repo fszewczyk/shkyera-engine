@@ -41,6 +41,7 @@ struct ParticleEmitterComponent
         size_t nextFreeIndex{0}; //< Used for ring-buffer behavior
 
         std::vector<float> lifetimes{};
+        std::vector<float> endToStartProgress{};
         std::vector<float> initialLifetimes{};
         
         std::vector<float> sizes{};
