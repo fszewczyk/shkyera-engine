@@ -2,6 +2,7 @@
 
 #include <Components/TransformComponent.hpp>
 
+#include <Common/SIMD.hpp>
 #include <Common/Random.hpp>
 #include <Common/Clock.hpp>
 #include <Common/Profiler.hpp>
@@ -12,9 +13,9 @@ ParticleSystem::ParticleSystem(std::shared_ptr<Registry> registry) : _registry(s
 {}
 
 void ParticleSystem::update()
-{
+{    
     SHKYERA_PROFILE("ParticleSystem::update");
-    
+
     for (const auto& [entity, constEmitter] : _registry->getComponentSet<ParticleEmitterComponent>())
     {
         if(constEmitter.enabled)
@@ -30,6 +31,7 @@ void ParticleSystem::update()
 void ParticleSystem::updateParticles(ParticleEmitterComponent& emitter, const glm::mat4& transformMatrix)
 {
     updateLifetimes(emitter);
+    updateEndToStartProgress(emitter);
     updateVelocities(emitter);
     updatePositions(emitter);
     updateSizes(emitter);
@@ -47,10 +49,9 @@ void ParticleSystem::ensureSufficientStateContainerSize(ParticleEmitterComponent
 
     if (currentAvailableSlots < maxAliveParticles) //< We need to reserve more slots
     {
-        SHKYERA_PROFILE("ParticleSystem - Expand State");
-
         emitter.state.lifetimes.resize(maxAliveParticles, -1);
         emitter.state.initialLifetimes.resize(maxAliveParticles);
+        emitter.state.endToStartProgress.resize(maxAliveParticles);
         emitter.state.sizes.resize(maxAliveParticles);
         emitter.state.initialSizes.resize(maxAliveParticles);
         emitter.state.endSizes.resize(maxAliveParticles);
@@ -62,8 +63,6 @@ void ParticleSystem::ensureSufficientStateContainerSize(ParticleEmitterComponent
     }
     else if (maxAliveParticles * 6 < currentAvailableSlots) //< We will save memory of unused slots
     {
-        SHKYERA_PROFILE("ParticleSystem - Shrink State");
-
         std::vector<size_t> validIndices;
         validIndices.reserve(maxAliveParticles);
         for (size_t i = 0; i < currentAvailableSlots && validIndices.size() < maxAliveParticles; ++i)
@@ -87,7 +86,8 @@ void ParticleSystem::ensureSufficientStateContainerSize(ParticleEmitterComponent
         };
 
         shrinkVector(emitter.state.lifetimes, -1.0f);
-        shrinkVector(emitter.state.initialLifetimes, float{}); // default is 0.0f
+        shrinkVector(emitter.state.endToStartProgress, float{});
+        shrinkVector(emitter.state.initialLifetimes, float{});
         shrinkVector(emitter.state.sizes, float{});
         shrinkVector(emitter.state.initialSizes, float{});
         shrinkVector(emitter.state.endSizes, float{});
@@ -196,10 +196,12 @@ void ParticleSystem::spawnParticles(ParticleEmitterComponent& emitter, const glm
 
 void ParticleSystem::updateLifetimes(ParticleEmitterComponent& emitter)
 {
-    for(auto& lifetime : emitter.state.lifetimes)
-    {
-        lifetime -= clock::Game.deltaTime;
-    }
+    simd::add(emitter.state.lifetimes, emitter.state.lifetimes, -clock::Game.deltaTime);
+}
+
+void ParticleSystem::updateEndToStartProgress(ParticleEmitterComponent& emitter)
+{
+    simd::divide(emitter.state.lifetimes, emitter.state.initialLifetimes, emitter.state.endToStartProgress);
 }
 
 void ParticleSystem::updateVelocities(ParticleEmitterComponent& emitter)
@@ -220,20 +222,12 @@ void ParticleSystem::updatePositions(ParticleEmitterComponent& emitter)
 
 void ParticleSystem::updateSizes(ParticleEmitterComponent& emitter)
 {
-    for(size_t i = 0; i < emitter.state.sizes.size(); ++i)
-    {
-        float t = (1.0f - (emitter.state.lifetimes[i] / emitter.state.initialLifetimes[i]));
-        emitter.state.sizes[i] = glm::mix(emitter.state.initialSizes[i], emitter.state.endSizes[i], t);
-    }
+    simd::mix(emitter.state.endSizes, emitter.state.initialSizes, emitter.state.endToStartProgress, emitter.state.sizes);
 }
 
 void ParticleSystem::updateTransparencies(ParticleEmitterComponent& emitter)
 {
-    for(size_t i = 0; i < emitter.state.transparencies.size(); ++i)
-    {
-        float t = (1.0f - (emitter.state.lifetimes[i] / emitter.state.initialLifetimes[i]));
-        emitter.state.transparencies[i] = glm::mix(emitter.state.initialTransparencies[i], emitter.state.endTransparencies[i], t);
-    }
+    simd::mix(emitter.state.endTransparencies, emitter.state.initialTransparencies, emitter.state.endToStartProgress, emitter.state.transparencies);
 }
 
 }
