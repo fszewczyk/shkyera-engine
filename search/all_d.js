@@ -4,7 +4,7 @@ var searchData=
   ['namecomponent_2ehpp_1',['NameComponent.hpp',['../_name_component_8hpp.html',1,'']]],
   ['nearplane_2',['nearPlane',['../classshkyera_1_1_camera_component.html#a7d0abbbd37021ee352808d124b12b076',1,'shkyera::CameraComponent']]],
   ['nextfreeindex_3',['nextFreeIndex',['../structshkyera_1_1_particle_emitter_component_1_1state.html#a8988324fba28049a18ea6d4c4e00bf29',1,'shkyera::ParticleEmitterComponent::state']]],
-  ['normal_4',['normal',['../classshkyera_1_1random_1_1_normal.html',1,'shkyera::random::Normal&lt; SampledType &gt;'],['../classshkyera_1_1random_1_1_normal.html#acbb4f94f8ad5a64c82df8509ef196099',1,'shkyera::random::Normal::Normal()'],['../structshkyera_1_1_mesh_1_1_vertex.html#aa3663893f7d73aa9dc99cdd91e0033b0',1,'shkyera::Mesh::Vertex::normal']]],
+  ['normal_4',['normal',['../classshkyera_1_1random_1_1_normal.html',1,'shkyera::random::Normal&lt; SampledType &gt;'],['../structshkyera_1_1_mesh_1_1_vertex.html#aa3663893f7d73aa9dc99cdd91e0033b0',1,'shkyera::Mesh::Vertex::normal'],['../classshkyera_1_1random_1_1_normal.html#acbb4f94f8ad5a64c82df8509ef196099',1,'shkyera::random::Normal::Normal()']]],
   ['normal_5ffont_5',['NORMAL_FONT',['../namespaceshkyera_1_1style.html#a5c9a333680a17ab6d4ea3ae597c88fd5',1,'shkyera::style']]],
   ['normalmapstrength_6',['normalMapStrength',['../structshkyera_1_1_material.html#ae3e4269fbd5a0158d043358bacc4ceb7',1,'shkyera::Material']]],
   ['normaltexture_7',['normalTexture',['../structshkyera_1_1_material.html#a21fc00d85483ef2b785c377fa75df4a8',1,'shkyera::Material']]],

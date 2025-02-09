@@ -8,5 +8,7 @@ var dir_ba210d1fa67db7bee1bb22e0a3c11d9f =
     [ "Profiler.hpp", "_profiler_8hpp.html", "_profiler_8hpp" ],
     [ "Random.cpp", "_random_8cpp.html", null ],
     [ "Random.hpp", "_random_8hpp.html", "_random_8hpp" ],
+    [ "SIMD.hpp", "_s_i_m_d_8hpp.html", "_s_i_m_d_8hpp" ],
+    [ "SIMDArm.cpp", "_s_i_m_d_arm_8cpp.html", "_s_i_m_d_arm_8cpp" ],
     [ "Types.hpp", "_types_8hpp.html", "_types_8hpp" ]
 ];

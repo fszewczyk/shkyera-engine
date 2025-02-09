@@ -1,7 +1,7 @@
 var searchData=
 [
   ['activate_0',['activate',['../classshkyera_1_1_cube_map.html#a41111136300a4238daa4fdb034b60a2f',1,'shkyera::CubeMap::activate()'],['../classshkyera_1_1_depth_cube_map_frame_buffer.html#aec70645b76f1e727fa49dbf812437ae1',1,'shkyera::DepthCubeMapFrameBuffer::activate()'],['../classshkyera_1_1_texture.html#a5b9be56506c2633c3ee4fd88b10d4d71',1,'shkyera::Texture::activate()']]],
-  ['add_1',['add',['../namespaceshkyera_1_1utils_1_1assets.html#ac1a47b0d21dcd725ccef93a22b1fc18c',1,'shkyera::utils::assets::add()'],['../classshkyera_1_1_sparse_set.html#af5c853d4ef11e204fe2c8c83871ccb71',1,'shkyera::SparseSet::add()']]],
+  ['add_1',['add',['../namespaceshkyera_1_1simd.html#a5ccaad7647569575906e46f72378b56c',1,'shkyera::simd::add()'],['../namespaceshkyera_1_1utils_1_1assets.html#ac1a47b0d21dcd725ccef93a22b1fc18c',1,'shkyera::utils::assets::add()'],['../classshkyera_1_1_sparse_set.html#af5c853d4ef11e204fe2c8c83871ccb71',1,'shkyera::SparseSet::add()']]],
   ['addandread_2',['addAndRead',['../namespaceshkyera_1_1utils_1_1assets.html#a8c5092126bbc1dec0401c7b9af8df03a',1,'shkyera::utils::assets']]],
   ['addblock_3',['addBlock',['../classshkyera_1_1_profiler.html#a0333e55e337c4267eaa920a29eb2ab24',1,'shkyera::Profiler']]],
   ['addcomponent_4',['addComponent',['../classshkyera_1_1_registry.html#a382b72f0f4d47f449303c6a15c756e7a',1,'shkyera::Registry']]],

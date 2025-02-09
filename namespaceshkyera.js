@@ -19,6 +19,14 @@ var namespaceshkyera =
       [ "VERBOSE", "namespaceshkyera_1_1_logger.html#a1262a50515784a57572d87afda264183", null ]
     ] ],
     [ "random", "namespaceshkyera_1_1random.html", "namespaceshkyera_1_1random" ],
+    [ "simd", "namespaceshkyera_1_1simd.html", [
+      [ "FloatVec", "namespaceshkyera_1_1simd.html#ab5f1b74eff48918c45c480939ccbfc3a", null ],
+      [ "add", "namespaceshkyera_1_1simd.html#a5ccaad7647569575906e46f72378b56c", null ],
+      [ "divide", "namespaceshkyera_1_1simd.html#a8af4bda0b4ba87b34167559146a0a6fe", null ],
+      [ "mix", "namespaceshkyera_1_1simd.html#aa798b0a3745133a4425174be0e866ce4", null ],
+      [ "multiplyAccumulate", "namespaceshkyera_1_1simd.html#acc62f1fc44941ae57a5dcbaf51cc571d", null ],
+      [ "multiplyAccumulate", "namespaceshkyera_1_1simd.html#ac128c892ebea1ed9529a6f91e16837c1", null ]
+    ] ],
     [ "style", "namespaceshkyera_1_1style.html", [
       [ "loadFonts", "namespaceshkyera_1_1style.html#ae759fa06750cfd1facdf1d0367d10da4", null ],
       [ "ACCENT_COLOR", "namespaceshkyera_1_1style.html#ad6db8eb73d57b8001b5400bd237c53d4", null ],

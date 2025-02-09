@@ -2,6 +2,7 @@ var structshkyera_1_1_particle_emitter_component_1_1state =
 [
     [ "accumulatedEmittedParticles", "structshkyera_1_1_particle_emitter_component_1_1state.html#aafcb291ed38f78e9663d0c9ce70c39ea", null ],
     [ "endSizes", "structshkyera_1_1_particle_emitter_component_1_1state.html#a8924191f71267c46101e03b74d14e01d", null ],
+    [ "endToStartProgress", "structshkyera_1_1_particle_emitter_component_1_1state.html#aa0683699ae098355be419c56252aa9d1", null ],
     [ "endTransparencies", "structshkyera_1_1_particle_emitter_component_1_1state.html#a413b4d18dba1b321ed04c7d004d0dbdd", null ],
     [ "initialLifetimes", "structshkyera_1_1_particle_emitter_component_1_1state.html#a0c09df04091e5ba3a2e848cf6bdacbcc", null ],
     [ "initialSizes", "structshkyera_1_1_particle_emitter_component_1_1state.html#a2adc04ef18ad1e2de0b362d31baa3163", null ],
