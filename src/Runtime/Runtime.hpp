@@ -3,8 +3,10 @@
 #include <memory>
 #include <ECS/Registry.hpp>
 #include <Common/Types.hpp>
+#include <Common/Clock.hpp>
 
 #include <Systems/CameraMovementSystem.hpp>
+#include <Systems/ParticleSystem.hpp>
 #include <Systems/RenderingSystem.hpp>
 #include <Rendering/FrameBuffers/SceneFrameBuffer.hpp>
 
@@ -16,10 +18,14 @@ public:
     Runtime(std::shared_ptr<Registry> registry)
       : _registry(registry),
         _cameraMovementSystem(registry),
+        _particleSystem(registry),
         _renderingSystem(registry) {}
 
     void update() {
+        clock::Game.reset();
+
         _cameraMovementSystem.update();
+        _particleSystem.update();
         _renderingSystem.render();
     }
 
@@ -36,6 +42,7 @@ private:
     std::shared_ptr<Registry> _registry;
 
     CameraMovementSystem _cameraMovementSystem;
+    ParticleSystem _particleSystem;
     RenderingSystem _renderingSystem;
 };
 

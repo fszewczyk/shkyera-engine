@@ -17,6 +17,7 @@ add_library(
     ${CMAKE_CURRENT_LIST_DIR}/Components/PointLightComponentUI.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Components/SpotLightComponentUI.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Components/DirectionalLightComponentUI.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/Components/ParticleEmitterComponentUI.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Components/AmbientLightComponentUI.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Components/WireframeComponentUI.cpp
 

@@ -13,6 +13,7 @@
 #include <Components/WireframeComponent.hpp>
 #include <Components/NameComponent.hpp>
 #include <Components/ModelComponent.hpp>
+#include <Components/ParticleEmitterComponent.hpp>
 #include <Components/BillboardComponent.hpp>
 #include <Components/OverlayModelComponent.hpp>
 #include <Components/SkyboxComponent.hpp>
@@ -71,6 +72,17 @@ void loadScene(std::shared_ptr<shkyera::Registry> registry) {
     registry->getComponent<TransformComponent>(camera).setPosition({0, 15, 0});
     registry->getComponent<TransformComponent>(camera).setOrientation({-M_PI_2 + 0.01, 0, 0});
     registry->addComponent<CameraComponent>(camera);
+
+    auto fireplace = registry->addEntity();
+    registry->addComponent<NameComponent>(fireplace).setName("Fireplace");
+    registry->addComponent<TransformComponent>(fireplace).setPosition(glm::vec3{3, 0, 3});
+    auto& fireParticleSystem = registry->addComponent<ParticleEmitterComponent>(fireplace);
+    fireParticleSystem.emittedAtRadius = 1.0f;
+    fireParticleSystem.emittedPerSecond = 30.0f;
+    fireParticleSystem.gravity = 0.1f;
+    fireParticleSystem.endTransparency = 0.1f;
+    fireParticleSystem.endParticleSize = 0.0f;
+    fireParticleSystem.initialVelocityDispersion = -0.5f;
 
     // Add Cylinder and its wireframe
     auto cylinderParent = registry->addEntity();

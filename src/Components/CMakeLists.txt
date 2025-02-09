@@ -2,11 +2,15 @@ add_library(
     Components
     INTERFACE
 
+    ${CMAKE_CURRENT_LIST_DIR}/AssetComponents/AssetComponent.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/AssetComponents/DirectoryComponent.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/AssetComponents/SelectedAssetComponent.hpp
     ${CMAKE_CURRENT_LIST_DIR}/BaseComponent.hpp
     ${CMAKE_CURRENT_LIST_DIR}/CameraComponent.hpp
     ${CMAKE_CURRENT_LIST_DIR}/NameComponent.hpp
     ${CMAKE_CURRENT_LIST_DIR}/TransformComponent.hpp
     ${CMAKE_CURRENT_LIST_DIR}/GizmoHandleComponent.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/ParticleEmitterComponent.hpp
     ${CMAKE_CURRENT_LIST_DIR}/ModelComponent.hpp
     ${CMAKE_CURRENT_LIST_DIR}/WireframeComponent.hpp
     ${CMAKE_CURRENT_LIST_DIR}/SpotLightComponent.hpp

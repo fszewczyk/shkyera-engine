@@ -11,6 +11,7 @@ struct Material {
     Material(const glm::vec3& albedo, float roughness = 1.0f, float metallic = 0.0f);
 
     bool lit{true};
+    float alphaMultiplier{1.0f};
     glm::vec3 albedo{1.0f, 1.0f, 1.0f};
     glm::vec3 emissive{1.0f, 1.0f, 1.0f};
     float emissiveStrength{0.0f};

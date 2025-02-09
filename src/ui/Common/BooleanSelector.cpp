@@ -18,7 +18,7 @@ void BooleanSelector::draw() {
     ImGui::TextUnformatted(_title.c_str());
     ImGui::PopItemWidth();
 
-    ImGui::SameLine(120);
+    ImGui::SameLine(130);
     ImGui::Checkbox(_imguiIdentifier.c_str(), &newValue);
 
     if(newValue != _value)

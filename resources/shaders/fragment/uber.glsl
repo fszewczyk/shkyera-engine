@@ -55,6 +55,7 @@ uniform sampler2D ssao;
 // ******** MATERIAL DATA ********
 struct Material {
   bool lit;
+  float alphaMultiplier;
   vec3 albedoColor;     
   vec3 emissive;
   float roughness;
@@ -427,6 +428,6 @@ void main() {
     color = getAlbedo();
   }
 
-  float transparency = material.albedoTextureLoaded ? texture(material.albedoTexture, UV).a : 1.0;
+  float transparency = material.alphaMultiplier * (material.albedoTextureLoaded ? texture(material.albedoTexture, UV).a : 1.0);
   FragColor = vec4(color, transparency);
 }

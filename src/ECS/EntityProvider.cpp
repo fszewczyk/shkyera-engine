@@ -7,6 +7,8 @@ EntityProvider::EntityProvider(Entity numEntities) : _numEntities(0) {
 }
 
 Entity EntityProvider::requestEntity() {
+  return ++_numEntities;
+  
   if (_entities.size() == 0) {
     allocateEntities(_numEntities);
   }

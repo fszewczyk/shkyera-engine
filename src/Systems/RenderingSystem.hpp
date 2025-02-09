@@ -108,6 +108,7 @@ private:
     Material _spotLightDebugMaterial;
     Material _pointLightDebugMaterial;
     Material _ambientLightDebugMaterial;
+    Material _particleEmitterDebugMaterial;
 };
 
 }
