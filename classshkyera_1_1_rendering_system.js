@@ -41,6 +41,7 @@ var classshkyera_1_1_rendering_system =
     [ "_mostRecentFrameBufferPtr", "classshkyera_1_1_rendering_system.html#a63e4073226ace93ced555c014e5f8c68", null ],
     [ "_outlinedObjectsFrameBuffer", "classshkyera_1_1_rendering_system.html#a0bc8f990e3d21d01300fb3b2e880512c", null ],
     [ "_overlayShaderProgram", "classshkyera_1_1_rendering_system.html#a73ef0a6478146143ef319d12289e7b21", null ],
+    [ "_particleEmitterDebugMaterial", "classshkyera_1_1_rendering_system.html#a41f5710127cedc96155b815fe39ee7d9", null ],
     [ "_pointLightDebugMaterial", "classshkyera_1_1_rendering_system.html#a20e0ca7dc65e665d7965548a2023bddb", null ],
     [ "_pointLightToShadowMap", "classshkyera_1_1_rendering_system.html#a73c67053f75b1ba86c298675264db8c2", null ],
     [ "_registry", "classshkyera_1_1_rendering_system.html#ab7d1c1ac483ce7a525962b45db08dabd", null ],

@@ -149,7 +149,7 @@ $(document).ready(function(){initNavTree('_u_i_8hpp_source.html',''); initResiza
 <div class="foldopen" id="foldopen00030" data-start="{" data-end="};">
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="classshkyera_1_1_u_i.html">   30</a></span><span class="keyword">class </span><a class="code hl_class" href="classshkyera_1_1_u_i.html">UI</a> {</div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>  <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <a class="code hl_class" href="classshkyera_1_1_u_i.html">UI</a>(std::shared_ptr&lt;Registry&gt; registry);</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <a class="code hl_class" href="classshkyera_1_1_u_i.html">UI</a>(std::shared_ptr&lt;Registry&gt; <a class="code hl_struct" href="structshkyera_1_1_clock.html">registry</a>);</div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classshkyera_1_1_u_i.html#aabdd8bbe75209eb00777de87725a28f7">initialize</a>();</div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
@@ -182,7 +182,7 @@ $(document).ready(function(){initNavTree('_u_i_8hpp_source.html',''); initResiza
 <div class="line"><a id="l00108" name="l00108"></a><span class="lineno"><a class="line" href="classshkyera_1_1_u_i.html#a0120d31597ceed451e17e099e9712df4">  108</a></span>    std::vector&lt;std::unique_ptr&lt;Widget&gt;&gt; <a class="code hl_variable" href="classshkyera_1_1_u_i.html#a0120d31597ceed451e17e099e9712df4">_widgets</a>; </div>
 <div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span> </div>
 <div class="line"><a id="l00110" name="l00110"></a><span class="lineno"><a class="line" href="classshkyera_1_1_u_i.html#a2d853f19c050f4d040b4460e5d1b4a44">  110</a></span>    <span class="keywordtype">bool</span> <a class="code hl_variable" href="classshkyera_1_1_u_i.html#a2d853f19c050f4d040b4460e5d1b4a44">_open</a>;          </div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno"><a class="line" href="classshkyera_1_1_u_i.html#aa485f5ffb2e7af6fa7e93dedffde3373">  111</a></span>    GLFWwindow *<a class="code hl_variable" href="classshkyera_1_1_u_i.html#aa485f5ffb2e7af6fa7e93dedffde3373">_window</a>; </div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno"><a class="line" href="classshkyera_1_1_u_i.html#aa485f5ffb2e7af6fa7e93dedffde3373">  111</a></span>    <a class="code hl_struct" href="structshkyera_1_1_clock.html">GLFWwindow</a> *<a class="code hl_variable" href="classshkyera_1_1_u_i.html#aa485f5ffb2e7af6fa7e93dedffde3373">_window</a>; </div>
 <div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span> </div>
 <div class="line"><a id="l00113" name="l00113"></a><span class="lineno"><a class="line" href="classshkyera_1_1_u_i.html#a8b3d15162653292ec33a23b77e50ae1a">  113</a></span>    std::unique_ptr&lt;ObjectSelectionSystem&gt; <a class="code hl_variable" href="classshkyera_1_1_u_i.html#a8b3d15162653292ec33a23b77e50ae1a">_objectSelectionSystem</a>;</div>
 <div class="line"><a id="l00114" name="l00114"></a><span class="lineno"><a class="line" href="classshkyera_1_1_u_i.html#a28ebc83f143239ced7456ff28eb84384">  114</a></span>    std::unique_ptr&lt;GizmoSystem&gt; <a class="code hl_variable" href="classshkyera_1_1_u_i.html#a28ebc83f143239ced7456ff28eb84384">_gizmoSystem</a>;</div>
@@ -214,6 +214,7 @@ $(document).ready(function(){initNavTree('_u_i_8hpp_source.html',''); initResiza
 <div class="ttc" id="aclassshkyera_1_1_u_i_html_ae2aa98fa5f649655b6401a9eecc93b06"><div class="ttname"><a href="classshkyera_1_1_u_i.html#ae2aa98fa5f649655b6401a9eecc93b06">shkyera::UI::initializeAssets</a></div><div class="ttdeci">void initializeAssets()</div><div class="ttdoc">Initialize UI assets.</div></div>
 <div class="ttc" id="aclassshkyera_1_1_u_i_html_afb20965276da7fadbbd995d5f167782c"><div class="ttname"><a href="classshkyera_1_1_u_i.html#afb20965276da7fadbbd995d5f167782c">shkyera::UI::_registry</a></div><div class="ttdeci">std::shared_ptr&lt; Registry &gt; _registry</div><div class="ttdoc">A shared pointer to the associated game.</div><div class="ttdef"><b>Definition</b> UI.hpp:107</div></div>
 <div class="ttc" id="anamespaceshkyera_html"><div class="ttname"><a href="namespaceshkyera.html">shkyera</a></div><div class="ttdef"><b>Definition</b> Asset.hpp:6</div></div>
+<div class="ttc" id="astructshkyera_1_1_clock_html"><div class="ttname"><a href="structshkyera_1_1_clock.html">shkyera::Clock</a></div><div class="ttdef"><b>Definition</b> Clock.hpp:11</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.9.6-->

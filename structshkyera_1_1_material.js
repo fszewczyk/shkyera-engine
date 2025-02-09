@@ -4,6 +4,7 @@ var structshkyera_1_1_material =
     [ "Material", "structshkyera_1_1_material.html#a6c3081dab97e7ac1589c09135f8f3a3b", null ],
     [ "albedo", "structshkyera_1_1_material.html#ad2b37f464c78db553d03a7a50a6ea133", null ],
     [ "albedoTexture", "structshkyera_1_1_material.html#a62c6682c835e4946b57348432134d4a7", null ],
+    [ "alphaMultiplier", "structshkyera_1_1_material.html#aa212bae8c584d6deb075ac396fa07d99", null ],
     [ "emissive", "structshkyera_1_1_material.html#ab0d586986fa580c79e42712089e228ed", null ],
     [ "emissiveStrength", "structshkyera_1_1_material.html#a6b9dc35d81887affa5cd084217aa406c", null ],
     [ "emissiveTexture", "structshkyera_1_1_material.html#ab9b788b7291f7ee18bd6326e48f7bd07", null ],

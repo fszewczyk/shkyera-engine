@@ -1,6 +1,11 @@
 var annotated_dup =
 [
     [ "shkyera", "namespaceshkyera.html", [
+      [ "random", "namespaceshkyera_1_1random.html", [
+        [ "Normal", "classshkyera_1_1random_1_1_normal.html", "classshkyera_1_1random_1_1_normal" ],
+        [ "Sphere", "classshkyera_1_1random_1_1_sphere.html", "classshkyera_1_1random_1_1_sphere" ],
+        [ "Uniform", "classshkyera_1_1random_1_1_uniform.html", "classshkyera_1_1random_1_1_uniform" ]
+      ] ],
       [ "AABB", "structshkyera_1_1_a_a_b_b.html", "structshkyera_1_1_a_a_b_b" ],
       [ "AmbientLightComponent", "classshkyera_1_1_ambient_light_component.html", "classshkyera_1_1_ambient_light_component" ],
       [ "AmbientLightComponentUI", "classshkyera_1_1_ambient_light_component_u_i.html", "classshkyera_1_1_ambient_light_component_u_i" ],
@@ -15,6 +20,7 @@ var annotated_dup =
       [ "CameraComponentUI", "classshkyera_1_1_camera_component_u_i.html", "classshkyera_1_1_camera_component_u_i" ],
       [ "CameraMovementSystem", "classshkyera_1_1_camera_movement_system.html", "classshkyera_1_1_camera_movement_system" ],
       [ "CameraPropertiesWidget", "classshkyera_1_1_camera_properties_widget.html", "classshkyera_1_1_camera_properties_widget" ],
+      [ "Clock", "structshkyera_1_1_clock.html", "structshkyera_1_1_clock" ],
       [ "ColorSelector", "classshkyera_1_1_color_selector.html", "classshkyera_1_1_color_selector" ],
       [ "ComponentUI", "classshkyera_1_1_component_u_i.html", "classshkyera_1_1_component_u_i" ],
       [ "ConsoleWidget", "classshkyera_1_1_console_widget.html", "classshkyera_1_1_console_widget" ],
@@ -50,6 +56,9 @@ var annotated_dup =
       [ "ObjectSelectionSystem", "classshkyera_1_1_object_selection_system.html", "classshkyera_1_1_object_selection_system" ],
       [ "ObjectsWidget", "classshkyera_1_1_objects_widget.html", "classshkyera_1_1_objects_widget" ],
       [ "OverlayModelComponent", "classshkyera_1_1_overlay_model_component.html", "classshkyera_1_1_overlay_model_component" ],
+      [ "ParticleEmitterComponent", "structshkyera_1_1_particle_emitter_component.html", "structshkyera_1_1_particle_emitter_component" ],
+      [ "ParticleEmitterComponentUI", "classshkyera_1_1_particle_emitter_component_u_i.html", "classshkyera_1_1_particle_emitter_component_u_i" ],
+      [ "ParticleSystem", "classshkyera_1_1_particle_system.html", "classshkyera_1_1_particle_system" ],
       [ "PathConstructibleAsset", "classshkyera_1_1_path_constructible_asset.html", "classshkyera_1_1_path_constructible_asset" ],
       [ "PointLightComponent", "classshkyera_1_1_point_light_component.html", "classshkyera_1_1_point_light_component" ],
       [ "PointLightComponentUI", "classshkyera_1_1_point_light_component_u_i.html", "classshkyera_1_1_point_light_component_u_i" ],

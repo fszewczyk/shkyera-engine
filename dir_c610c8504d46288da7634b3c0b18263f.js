@@ -11,6 +11,7 @@ var dir_c610c8504d46288da7634b3c0b18263f =
     [ "ModelComponent.hpp", "_model_component_8hpp.html", "_model_component_8hpp" ],
     [ "NameComponent.hpp", "_name_component_8hpp.html", "_name_component_8hpp" ],
     [ "OverlayModelComponent.hpp", "_overlay_model_component_8hpp.html", "_overlay_model_component_8hpp" ],
+    [ "ParticleEmitterComponent.hpp", "_particle_emitter_component_8hpp.html", "_particle_emitter_component_8hpp" ],
     [ "PointLightComponent.hpp", "_point_light_component_8hpp.html", "_point_light_component_8hpp" ],
     [ "SkyboxComponent.hpp", "_skybox_component_8hpp.html", "_skybox_component_8hpp" ],
     [ "SpotLightComponent.hpp", "_spot_light_component_8hpp.html", "_spot_light_component_8hpp" ],

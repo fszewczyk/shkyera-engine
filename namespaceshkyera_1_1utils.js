@@ -12,6 +12,9 @@ var namespaceshkyera_1_1utils =
       [ "registerAll", "namespaceshkyera_1_1utils_1_1assets.html#a47f5187eee2d89cc32c211dfa47a7df8", null ],
       [ "registerSingle", "namespaceshkyera_1_1utils_1_1assets.html#a7454d2aa930441fad21c0e57dbbfa42e", null ]
     ] ],
+    [ "transform", "namespaceshkyera_1_1utils_1_1transform.html", [
+      [ "getCameraFacingModelMatrix", "namespaceshkyera_1_1utils_1_1transform.html#a9f4b0ef69cae133ed6e53aaa24d4ce19", null ]
+    ] ],
     [ "applyShaderToFrameBuffer", "namespaceshkyera_1_1utils.html#a9be987a2f8488eb286fcd5deeaf9d234", null ],
     [ "applyShaderToFrameBuffer", "namespaceshkyera_1_1utils.html#aea3daf2c96ec2e3cb4073ac47e430d9b", null ],
     [ "drawFullscreenQuad", "namespaceshkyera_1_1utils.html#acbddaf0a75d9f16775156bd752f84827", null ],

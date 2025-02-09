@@ -1,5 +1,8 @@
 var namespaceshkyera =
 [
+    [ "clock", "namespaceshkyera_1_1clock.html", [
+      [ "Game", "namespaceshkyera_1_1clock.html#ae41d907cf88636840ccc441353bb040f", null ]
+    ] ],
     [ "Logger", "namespaceshkyera_1_1_logger.html", [
       [ "Callback", "namespaceshkyera_1_1_logger.html#af4af34a7612521a5918c337df455a4a2", null ],
       [ "MessageType", "namespaceshkyera_1_1_logger.html#a084332fcbe48f0afc6144c58a5b2ae05", [
@@ -15,6 +18,7 @@ var namespaceshkyera =
       [ "unsubscribe", "namespaceshkyera_1_1_logger.html#aa06a696adc9ee969826285d910d82e11", null ],
       [ "VERBOSE", "namespaceshkyera_1_1_logger.html#a1262a50515784a57572d87afda264183", null ]
     ] ],
+    [ "random", "namespaceshkyera_1_1random.html", "namespaceshkyera_1_1random" ],
     [ "style", "namespaceshkyera_1_1style.html", [
       [ "loadFonts", "namespaceshkyera_1_1style.html#ae759fa06750cfd1facdf1d0367d10da4", null ],
       [ "ACCENT_COLOR", "namespaceshkyera_1_1style.html#ad6db8eb73d57b8001b5400bd237c53d4", null ],
@@ -46,6 +50,7 @@ var namespaceshkyera =
     [ "CameraComponentUI", "classshkyera_1_1_camera_component_u_i.html", "classshkyera_1_1_camera_component_u_i" ],
     [ "CameraMovementSystem", "classshkyera_1_1_camera_movement_system.html", "classshkyera_1_1_camera_movement_system" ],
     [ "CameraPropertiesWidget", "classshkyera_1_1_camera_properties_widget.html", "classshkyera_1_1_camera_properties_widget" ],
+    [ "Clock", "structshkyera_1_1_clock.html", "structshkyera_1_1_clock" ],
     [ "ColorSelector", "classshkyera_1_1_color_selector.html", "classshkyera_1_1_color_selector" ],
     [ "ComponentUI", "classshkyera_1_1_component_u_i.html", "classshkyera_1_1_component_u_i" ],
     [ "ConsoleWidget", "classshkyera_1_1_console_widget.html", "classshkyera_1_1_console_widget" ],
@@ -81,6 +86,9 @@ var namespaceshkyera =
     [ "ObjectSelectionSystem", "classshkyera_1_1_object_selection_system.html", "classshkyera_1_1_object_selection_system" ],
     [ "ObjectsWidget", "classshkyera_1_1_objects_widget.html", "classshkyera_1_1_objects_widget" ],
     [ "OverlayModelComponent", "classshkyera_1_1_overlay_model_component.html", "classshkyera_1_1_overlay_model_component" ],
+    [ "ParticleEmitterComponent", "structshkyera_1_1_particle_emitter_component.html", "structshkyera_1_1_particle_emitter_component" ],
+    [ "ParticleEmitterComponentUI", "classshkyera_1_1_particle_emitter_component_u_i.html", "classshkyera_1_1_particle_emitter_component_u_i" ],
+    [ "ParticleSystem", "classshkyera_1_1_particle_system.html", "classshkyera_1_1_particle_system" ],
     [ "PathConstructibleAsset", "classshkyera_1_1_path_constructible_asset.html", "classshkyera_1_1_path_constructible_asset" ],
     [ "PointLightComponent", "classshkyera_1_1_point_light_component.html", "classshkyera_1_1_point_light_component" ],
     [ "PointLightComponentUI", "classshkyera_1_1_point_light_component_u_i.html", "classshkyera_1_1_point_light_component_u_i" ],

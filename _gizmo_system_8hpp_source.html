@@ -138,7 +138,7 @@ $(document).ready(function(){initNavTree('_gizmo_system_8hpp_source.html',''); i
 <div class="foldopen" id="foldopen00009" data-start="{" data-end="};">
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="classshkyera_1_1_gizmo_system.html">    9</a></span><span class="keyword">class </span><a class="code hl_class" href="classshkyera_1_1_gizmo_system.html">GizmoSystem</a> {</div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>        <a class="code hl_class" href="classshkyera_1_1_gizmo_system.html">GizmoSystem</a>(std::shared_ptr&lt;Registry&gt; registry);</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>        <a class="code hl_class" href="classshkyera_1_1_gizmo_system.html">GizmoSystem</a>(std::shared_ptr&lt;Registry&gt; <a class="code hl_struct" href="structshkyera_1_1_clock.html">registry</a>);</div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>        <a class="code hl_function" href="classshkyera_1_1_gizmo_system.html#ad1d746fe68862cf4d1818d7f9c9c77b3">~GizmoSystem</a>();</div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="classshkyera_1_1_gizmo_system.html#ad949900c9483fc05181e40bcca0cc1b9">update</a>();</div>
@@ -168,7 +168,7 @@ $(document).ready(function(){initNavTree('_gizmo_system_8hpp_source.html',''); i
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="classshkyera_1_1_gizmo_system.html#ad67ae8764ef0c2c7f01e99a84874c842">styleOnHover</a>();</div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="classshkyera_1_1_gizmo_system.html#af891ef2b8e2de6fd215140f38e3d889b">adjustGizmoTransform</a>();</div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        <span class="keywordtype">bool</span> <a class="code hl_function" href="classshkyera_1_1_gizmo_system.html#a8716e9fd617f0812c20c5c7908ae2184">isHoverMoved</a>(std::optional&lt;Entity&gt; currentHover) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        <span class="keywordtype">bool</span> <a class="code hl_function" href="classshkyera_1_1_gizmo_system.html#a8716e9fd617f0812c20c5c7908ae2184">isHoverMoved</a>(std::optional&lt;Entity&gt; <a class="code hl_struct" href="structshkyera_1_1_clock.html">currentHover</a>) <span class="keyword">const</span>;</div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        glm::vec3 <a class="code hl_function" href="classshkyera_1_1_gizmo_system.html#a46deb961c660171ada6b66f3afff06d2">getSelectedHandleDisplacement</a>() <span class="keyword">const</span>;</div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        std::optional&lt;glm::vec3&gt; <a class="code hl_function" href="classshkyera_1_1_gizmo_system.html#a4dbb5b52ee898d5d218a87770b007882">getMouseIntersectionWithHandle</a>() <span class="keyword">const</span>;</div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
@@ -241,6 +241,7 @@ $(document).ready(function(){initNavTree('_gizmo_system_8hpp_source.html',''); i
 <div class="ttc" id="aclassshkyera_1_1_gizmo_system_html_af891ef2b8e2de6fd215140f38e3d889b"><div class="ttname"><a href="classshkyera_1_1_gizmo_system.html#af891ef2b8e2de6fd215140f38e3d889b">shkyera::GizmoSystem::adjustGizmoTransform</a></div><div class="ttdeci">void adjustGizmoTransform()</div><div class="ttdef"><b>Definition</b> GizmoSystem.cpp:365</div></div>
 <div class="ttc" id="anamespaceshkyera_html"><div class="ttname"><a href="namespaceshkyera.html">shkyera</a></div><div class="ttdef"><b>Definition</b> Asset.hpp:6</div></div>
 <div class="ttc" id="anamespaceshkyera_html_a043bdd87686e0bd1bce19a1fd86298cd"><div class="ttname"><a href="namespaceshkyera.html#a043bdd87686e0bd1bce19a1fd86298cd">shkyera::Entity</a></div><div class="ttdeci">uint32_t Entity</div><div class="ttdef"><b>Definition</b> Entity.hpp:7</div></div>
+<div class="ttc" id="astructshkyera_1_1_clock_html"><div class="ttname"><a href="structshkyera_1_1_clock.html">shkyera::Clock</a></div><div class="ttdef"><b>Definition</b> Clock.hpp:11</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.9.6-->

@@ -10,6 +10,8 @@ var dir_03b2673553046158dff6b880fc282c90 =
     [ "DirectionalLightComponentUI.hpp", "_directional_light_component_u_i_8hpp.html", "_directional_light_component_u_i_8hpp" ],
     [ "ModelComponentUI.cpp", "_model_component_u_i_8cpp.html", null ],
     [ "ModelComponentUI.hpp", "_model_component_u_i_8hpp.html", "_model_component_u_i_8hpp" ],
+    [ "ParticleEmitterComponentUI.cpp", "_particle_emitter_component_u_i_8cpp.html", null ],
+    [ "ParticleEmitterComponentUI.hpp", "_particle_emitter_component_u_i_8hpp.html", "_particle_emitter_component_u_i_8hpp" ],
     [ "PointLightComponentUI.cpp", "_point_light_component_u_i_8cpp.html", null ],
     [ "PointLightComponentUI.hpp", "_point_light_component_u_i_8hpp.html", "_point_light_component_u_i_8hpp" ],
     [ "SpotLightComponentUI.cpp", "_spot_light_component_u_i_8cpp.html", null ],

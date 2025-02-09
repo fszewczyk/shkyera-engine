@@ -28,6 +28,6 @@ var searchData=
   ['renderwireframes_25',['renderWireframes',['../classshkyera_1_1_rendering_system.html#a6619403cffc08fc4338f96a5d1296778',1,'shkyera::RenderingSystem']]],
   ['renderworldobjects_26',['renderWorldObjects',['../classshkyera_1_1_rendering_system.html#a681aef1c76634d43c0b172bc3fb45a47',1,'shkyera::RenderingSystem']]],
   ['requestentity_27',['requestEntity',['../classshkyera_1_1_entity_provider.html#a97a788880da8b7116c8a697fb4a57f6b',1,'shkyera::EntityProvider']]],
-  ['reset_28',['reset',['../classshkyera_1_1_profiler_widget.html#af4659365b8553fd2119cbe0a4c30c099',1,'shkyera::ProfilerWidget']]],
+  ['reset_28',['reset',['../structshkyera_1_1_clock.html#a995fc824ceae7569953a00fe1ce9c892',1,'shkyera::Clock::reset()'],['../classshkyera_1_1_profiler_widget.html#af4659365b8553fd2119cbe0a4c30c099',1,'shkyera::ProfilerWidget::reset()']]],
   ['runtime_29',['Runtime',['../classshkyera_1_1_runtime.html#a21d9898d6816674a2da24f139fa6dd1f',1,'shkyera::Runtime']]]
 ];

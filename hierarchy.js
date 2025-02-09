@@ -54,6 +54,7 @@ var hierarchy =
     [ "shkyera::BooleanSelector", "classshkyera_1_1_boolean_selector.html", null ],
     [ "shkyera::CameraComponent", "classshkyera_1_1_camera_component.html", null ],
     [ "shkyera::CameraMovementSystem", "classshkyera_1_1_camera_movement_system.html", null ],
+    [ "shkyera::Clock< MaxNanosecondCount >", "structshkyera_1_1_clock.html", null ],
     [ "shkyera::ColorSelector", "classshkyera_1_1_color_selector.html", null ],
     [ "shkyera::ComponentUI", "classshkyera_1_1_component_u_i.html", [
       [ "shkyera::AmbientLightComponentUI", "classshkyera_1_1_ambient_light_component_u_i.html", null ],
@@ -61,6 +62,7 @@ var hierarchy =
       [ "shkyera::CameraComponentUI", "classshkyera_1_1_camera_component_u_i.html", null ],
       [ "shkyera::DirectionalLightComponentUI", "classshkyera_1_1_directional_light_component_u_i.html", null ],
       [ "shkyera::ModelComponentUI", "classshkyera_1_1_model_component_u_i.html", null ],
+      [ "shkyera::ParticleEmitterComponentUI", "classshkyera_1_1_particle_emitter_component_u_i.html", null ],
       [ "shkyera::PointLightComponentUI", "classshkyera_1_1_point_light_component_u_i.html", null ],
       [ "shkyera::SpotLightComponentUI", "classshkyera_1_1_spot_light_component_u_i.html", null ],
       [ "shkyera::TransformComponentUI", "classshkyera_1_1_transform_component_u_i.html", null ],
@@ -94,7 +96,10 @@ var hierarchy =
       [ "shkyera::LogVerbose", "classshkyera_1_1_log_verbose.html", null ]
     ] ],
     [ "shkyera::Material", "structshkyera_1_1_material.html", null ],
+    [ "shkyera::random::Normal< SampledType >", "classshkyera_1_1random_1_1_normal.html", null ],
     [ "shkyera::ObjectSelectionSystem", "classshkyera_1_1_object_selection_system.html", null ],
+    [ "shkyera::ParticleEmitterComponent", "structshkyera_1_1_particle_emitter_component.html", null ],
+    [ "shkyera::ParticleSystem", "classshkyera_1_1_particle_system.html", null ],
     [ "shkyera::PathConstructibleAsset< AssetType >", "classshkyera_1_1_path_constructible_asset.html", null ],
     [ "shkyera::PathConstructibleAsset< Image >", "classshkyera_1_1_path_constructible_asset.html", [
       [ "shkyera::Image", "classshkyera_1_1_image.html", null ]
@@ -127,7 +132,11 @@ var hierarchy =
     [ "shkyera::SparseSetBase", "classshkyera_1_1_sparse_set_base.html", [
       [ "shkyera::SparseSet< Component >", "classshkyera_1_1_sparse_set.html", null ]
     ] ],
+    [ "shkyera::random::Sphere", "classshkyera_1_1random_1_1_sphere.html", null ],
+    [ "shkyera::ParticleEmitterComponent::state", "structshkyera_1_1_particle_emitter_component_1_1state.html", null ],
     [ "shkyera::UI", "classshkyera_1_1_u_i.html", null ],
+    [ "shkyera::random::Uniform< SampledType >", "classshkyera_1_1random_1_1_uniform.html", null ],
+    [ "shkyera::random::Uniform< float >", "classshkyera_1_1random_1_1_uniform.html", null ],
     [ "shkyera::Mesh::Vertex", "structshkyera_1_1_mesh_1_1_vertex.html", null ],
     [ "shkyera::Widget", "classshkyera_1_1_widget.html", [
       [ "shkyera::ConsoleWidget", "classshkyera_1_1_console_widget.html", null ],

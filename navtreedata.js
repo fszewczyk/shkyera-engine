@@ -69,14 +69,15 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "_a_a_b_b_8cpp.html",
-"_style_8cpp.html#ae759fa06750cfd1facdf1d0367d10da4",
-"classshkyera_1_1_cube_map.html#a276055cacf764d441d4c8f0f84960ed9",
-"classshkyera_1_1_gizmo_handle_component.html#a5f60b262fe2d034a48c8d88bdbd036ab",
-"classshkyera_1_1_log_error.html#a6562ddf165dbfb0f1927835ca2f7633e",
-"classshkyera_1_1_properties_widget.html#a59bfc9eae459ca199754f3dd95c6210e",
-"classshkyera_1_1_scene_frame_buffer.html#abe74ea2125f0ebcc6cd2fa0a27996253",
-"classshkyera_1_1_transform_component.html",
-"namespaceshkyera_1_1utils_1_1assets.html#a47f5187eee2d89cc32c211dfa47a7df8"
+"_spot_light_component_u_i_8hpp.html",
+"classshkyera_1_1_console_widget.html#a625170beadc0b185e4dd5f864ab89dd7",
+"classshkyera_1_1_float_slider.html#a01198858a75b2ae63e34b61676a34811",
+"classshkyera_1_1_inspector_widget_1_1_material_inspector.html#afd1bd16c045fdd5aa21bfc927c16f130",
+"classshkyera_1_1_particle_system.html#ae695d1f490c0530c0d8d482fd8a7ac83",
+"classshkyera_1_1_rendering_system.html#aa36404a567ce4774eadffb578e558770",
+"classshkyera_1_1_sparse_set_1_1_iterator.html#a90637d342786fb1f7a42275b421bb7e7",
+"classshkyera_1_1random_1_1_normal.html",
+"structshkyera_1_1_mesh_1_1_vertex.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
