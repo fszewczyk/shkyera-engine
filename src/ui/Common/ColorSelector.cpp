@@ -20,7 +20,7 @@ void ColorSelector::draw() {
     ImGui::TextUnformatted(_title.c_str());
     ImGui::PopItemWidth();
 
-    ImGui::SameLine(120);
+    ImGui::SameLine(130);
     ImGui::PushItemWidth(190);
     ImGui::ColorEdit3(_imguiIdentifier.c_str(), newColor.data(), ImGuiColorEditFlags_PickerHueBar);
     ImGui::PopItemWidth();

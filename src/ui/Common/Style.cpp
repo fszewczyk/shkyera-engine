@@ -4,7 +4,7 @@ namespace shkyera::style {
 
 void loadFonts(const std::string& path) {
   SMALL_FONT = ImGui::GetIO().Fonts->AddFontFromFileTTF(
-      path.c_str(), 14);  ///< A smaller font used in the UI.
+      path.c_str(), 13);  ///< A smaller font used in the UI.
   NORMAL_FONT = ImGui::GetIO().Fonts->AddFontFromFileTTF(
       path.c_str(), 16);  ///< The normal font used in the UI.
   BIG_FONT = ImGui::GetIO().Fonts->AddFontFromFileTTF(

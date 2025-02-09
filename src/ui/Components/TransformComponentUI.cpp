@@ -28,7 +28,7 @@ void TransformComponentUI::draw() {
     ImGui::PushItemWidth(50);
 
     ImGui::Text("Position");
-    ImGui::SameLine(120);
+    ImGui::SameLine(130);
     ImGui::DragFloat("X##Position", &position[0], 0.1f, 0.0f, 0.0f);
     ImGui::SameLine();
     ImGui::DragFloat("Y##Position", &position[1], 0.1f, 0.0f, 0.0f);
@@ -36,7 +36,7 @@ void TransformComponentUI::draw() {
     ImGui::DragFloat("Z##Position", &position[2], 0.1f, 0.0f, 0.0f);
 
     ImGui::Text("Orientation");
-    ImGui::SameLine(120);
+    ImGui::SameLine(130);
     ImGui::DragFloat("X##Orientation", &orientationInDegrees[0], 1.0f, -360.0f, 360.0f, "%.2f");
     ImGui::SameLine();
     ImGui::DragFloat("Y##Orientation", &orientationInDegrees[1], 1.0f, -360.0f, 360.0f, "%.2f");
@@ -44,7 +44,7 @@ void TransformComponentUI::draw() {
     ImGui::DragFloat("Z##Orientation", &orientationInDegrees[2], 1.0f, -360.0f, 360.0f, "%.2f");
 
     ImGui::Text("Scale");
-    ImGui::SameLine(120);
+    ImGui::SameLine(130);
     ImGui::DragFloat("X##Scale", &scale[0], 0.01f, 0.0f, 1000.0f);
     ImGui::SameLine();
     ImGui::DragFloat("Y##Scale", &scale[1], 0.01f, 0.0f, 1000.0f);

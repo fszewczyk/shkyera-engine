@@ -1,6 +1,7 @@
 #include <imgui_internal.h>
 #include "imgui.h"
 
+#include <Common/Clock.hpp>
 #include <Common/Profiler.hpp>
 #include <UI/Widgets/ProfilerWidget.hpp>
 #include <UI/Common/Style.hpp>

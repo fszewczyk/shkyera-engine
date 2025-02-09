@@ -30,7 +30,7 @@ class EnumSelector {
             ImGui::TextUnformatted(_title.c_str());
             ImGui::PopItemWidth();
 
-            ImGui::SameLine(120);
+            ImGui::SameLine(130);
             ImGui::PushItemWidth(190);
 
             if(ImGui::BeginCombo((std::string("##" + _title + "EnumSelectorCombo").c_str()), _options.at(_value).c_str()))

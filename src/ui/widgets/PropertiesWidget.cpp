@@ -9,6 +9,7 @@
 #include <Components/WireframeComponent.hpp>
 #include <Components/BoxColliderComponent.hpp>
 #include <Components/SkyboxComponent.hpp>
+#include <Components/ParticleEmitterComponent.hpp>
 #include <Components/PointLightComponent.hpp>
 #include <Components/SpotLightComponent.hpp>
 #include <Components/DirectionalLightComponent.hpp>
@@ -21,6 +22,7 @@
 #include <UI/Components/CameraComponentUI.hpp>
 #include <UI/Components/AmbientLightComponentUI.hpp>
 #include <UI/Components/PointLightComponentUI.hpp>
+#include <UI/Components/ParticleEmitterComponentUI.hpp>
 #include <UI/Components/SpotLightComponentUI.hpp>
 #include <UI/Components/DirectionalLightComponentUI.hpp>
 #include <UI/Widgets/PropertiesWidget.hpp>
@@ -156,6 +158,13 @@ void PropertiesWidget::setupComponentsUI() {
     
     _componentsUi.emplace_back(std::move(componentUi));
   }
+
+  if(_registry->hasComponent<ParticleEmitterComponent>(*_selectedEntity)) {    
+    auto &component = _registry->getComponent<ParticleEmitterComponent>(*_selectedEntity);
+    auto componentUi = std::make_unique<ParticleEmitterComponentUI>(_registry, &component);
+    
+    _componentsUi.emplace_back(std::move(componentUi));
+  }
 }
 
 void PropertiesWidget::drawNewComponentMenu() {
@@ -180,6 +189,7 @@ void PropertiesWidget::drawNewComponentMenu() {
     addComponentIfSelected.template operator()<PointLightComponent>("Point Light");
     addComponentIfSelected.template operator()<SpotLightComponent>("Spot Light");
     addComponentIfSelected.template operator()<DirectionalLightComponent>("Directional Light");
+    addComponentIfSelected.template operator()<ParticleEmitterComponent>("Particle Emitter");
 
     ImGui::EndPopup();
   }

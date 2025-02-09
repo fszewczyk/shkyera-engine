@@ -9,6 +9,10 @@ FloatSlider::FloatSlider(const std::string& title, float min, float max) : _titl
 
 FloatSlider::FloatSlider(const std::string& title, float value, float min, float max) : _title(title), _value(value), _minimum(min), _maximum(max) {}
 
+FloatSlider::FloatSlider(const std::string& title, float value, float min, float max, std::function<float(float)> transform) : FloatSlider(title, value, min, max) {
+    _transform = transform;
+}
+
 void FloatSlider::setUpdateCallback(std::function<void(float value)> callback) {
     _updateCallback = callback;
 }
@@ -20,16 +24,17 @@ void FloatSlider::draw() {
     ImGui::TextUnformatted(_title.c_str());
     ImGui::PopItemWidth();
 
-    ImGui::SameLine(120);
+    ImGui::SameLine(130);
     ImGui::PushItemWidth(190);
     ImGui::SliderFloat((std::string("##") + _title + "Slider").c_str(), &_value, _minimum, _maximum, "%.3f");
     ImGui::PopItemWidth();
 
     if(oldValue != _value)
     {
+        float transformedValue = _transform ? _transform(_value) : _value;
         if(_updateCallback)
         {
-            _updateCallback(_value);
+            _updateCallback(transformedValue);
         }
     }
 }

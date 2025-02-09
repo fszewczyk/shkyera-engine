@@ -3,6 +3,7 @@
 
 #include <Systems/RenderingSystem.hpp>
 #include <Utils/AssetUtils.hpp>
+#include <Utils/TransformUtils.hpp>
 #include <Common/Logger.hpp>
 #include <Common/Profiler.hpp>
 #include <Rendering/Utils.hpp>
@@ -10,6 +11,7 @@
 #include <Components/ModelComponent.hpp>
 #include <Components/BillboardComponent.hpp>
 #include <Components/OverlayModelComponent.hpp>
+#include <Components/ParticleEmitterComponent.hpp>
 #include <Components/WireframeComponent.hpp>
 #include <Components/CameraComponent.hpp>
 #include <Components/SkyboxComponent.hpp>
@@ -125,12 +127,18 @@ RenderingSystem::RenderingSystem(std::shared_ptr<Registry> registry)
 
     Material debugBillboardMaterial;
     debugBillboardMaterial.lit = false;
-    _directionalLightDebugMaterial = _spotLightDebugMaterial = _pointLightDebugMaterial = _ambientLightDebugMaterial = debugBillboardMaterial;
+    _particleEmitterDebugMaterial 
+        = _directionalLightDebugMaterial
+        = _spotLightDebugMaterial 
+        = _pointLightDebugMaterial 
+        = _ambientLightDebugMaterial 
+        = debugBillboardMaterial;
 
     std::get<AssetRef<Texture>>(_pointLightDebugMaterial.albedoTexture) = utils::assets::readPermanent<Texture>("resources/icons/components/point_light.png");
     std::get<AssetRef<Texture>>(_spotLightDebugMaterial.albedoTexture) = utils::assets::readPermanent<Texture>("resources/icons/components/spot_light.png");
     std::get<AssetRef<Texture>>(_directionalLightDebugMaterial.albedoTexture) = utils::assets::readPermanent<Texture>("resources/icons/components/directional_light.png");
     std::get<AssetRef<Texture>>(_ambientLightDebugMaterial.albedoTexture) = utils::assets::readPermanent<Texture>("resources/icons/components/ambient_light.png");
+    std::get<AssetRef<Texture>>(_particleEmitterDebugMaterial.albedoTexture) = utils::assets::readPermanent<Texture>("resources/icons/components/particles_gray.png");
 }
 
 void RenderingSystem::setSize(uint32_t width, uint32_t height)
@@ -642,6 +650,8 @@ void RenderingSystem::renderWorldObjects()
     renderSpotLightShadowMaps();
 
     const auto& cameraTransform = _registry->getComponent<TransformComponent>(_registry->getCamera());
+    const auto& cameraTransformMatrix = TransformComponent::getGlobalTransformMatrix(_registry->getCamera(), _registry);
+    const auto& cameraPosition = glm::vec3{cameraTransformMatrix[3]};
     const auto& cameraComponent = _registry->getComponent<CameraComponent>(_registry->getCamera());
 
     // ********* Rendering the world *********
@@ -652,7 +662,7 @@ void RenderingSystem::renderWorldObjects()
 
     _modelShaderProgram.use();
     _modelShaderProgram.setUniform("projectionViewMatrix", projectionMatrix * viewMatrix);
-    _modelShaderProgram.setUniform("viewPos", cameraTransform.getPosition());
+    _modelShaderProgram.setUniform("viewPos", cameraPosition);
 
     glm::vec3 ambientColor{0, 0, 0};
     for(const auto& ambientLightComponent : _registry->getComponents<AmbientLightComponent>())
@@ -761,6 +771,7 @@ void RenderingSystem::renderWorldObjects()
         }
         
         _modelShaderProgram.setUniform("material.lit", material->lit);
+        _modelShaderProgram.setUniform("material.alphaMultiplier", material->alphaMultiplier);
         _modelShaderProgram.setUniform("material.albedoColor", material->albedo);
         _modelShaderProgram.setUniform("material.emissive", material->emissive * material->emissiveStrength);
         _modelShaderProgram.setUniform("material.roughness", material->roughness);
@@ -774,23 +785,25 @@ void RenderingSystem::renderWorldObjects()
         setTexture(material, "emissive", &Material::emissiveTexture);
     };
 
-    for (const auto& [entity, modelComponent] : _registry->getComponentSet<ModelComponent>()) {
-        const auto& transformMatrix = TransformComponent::getGlobalTransformMatrix(entity, _registry);
-        _modelShaderProgram.setUniform("modelMatrix", transformMatrix);
+    {
+        SHKYERA_PROFILE("RenderingSystem::renderWorldObjects - Models");
+        for (const auto& [entity, modelComponent] : _registry->getComponentSet<ModelComponent>()) {
+            const auto& transformMatrix = TransformComponent::getGlobalTransformMatrix(entity, _registry);
+            _modelShaderProgram.setUniform("modelMatrix", transformMatrix);
 
-        const auto& material = std::get<AssetRef<Material>>(modelComponent.material);
-        setMaterial(material.get());
+            const auto& material = std::get<AssetRef<Material>>(modelComponent.material);
+            setMaterial(material.get());
 
-        modelComponent.updateImpl();
+            modelComponent.updateImpl();
+        }
     }
 
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glDepthMask(GL_FALSE);
 
-    // Get a billboard mesh (a simple quad/plane) to render all billboards.
     static const auto billboardPlane = utils::assets::fromFactory<Mesh, &Mesh::Factory::createPlane>(_registry.get());
 
-    // Iterate over all billboard components.
     for (const auto& [entity, billboardComponent] : _registry->getComponentSet<BillboardComponent<RuntimeMode::PRODUCTION>>())
     {
         if(billboardComponent.occlusion == BillboardComponent<RuntimeMode::PRODUCTION>::Occlusion::Occludable)
@@ -803,21 +816,55 @@ void RenderingSystem::renderWorldObjects()
         }
 
         const auto& baseTransform = TransformComponent::getGlobalTransformMatrix(entity, _registry);
-        glm::mat4 modelMatrix = billboardComponent.getModelMatrix(baseTransform, cameraTransform.getPosition(), viewMatrix);
+        glm::mat4 modelMatrix = billboardComponent.getModelMatrix(baseTransform, cameraPosition, viewMatrix);
         _modelShaderProgram.setUniform("modelMatrix", modelMatrix);
 
-        // If a material is assigned to the billboard, set material uniforms.
         const auto& material = std::get<AssetRef<Material>>(billboardComponent.material);
         setMaterial(material.get());
 
-        // Draw the billboard quad.
         billboardPlane->bind();
         glDrawElements(GL_TRIANGLES, billboardPlane->getMeshSize(), GL_UNSIGNED_INT, nullptr);
         billboardPlane->unbind();
     }
 
+    {
+        SHKYERA_PROFILE("RenderingSystem::renderWorldObjects - Particles");
+        for(const auto& [entity, emitter] : _registry->getComponentSet<ParticleEmitterComponent>())
+        {
+            if(!emitter.enabled)
+            {
+                continue;
+            }
+
+            const auto& material = std::get<AssetRef<Material>>(emitter.material);
+            setMaterial(material.get());
+
+            const auto& state = emitter.state;
+
+            for(size_t i = 0; i < state.lifetimes.size(); ++i)
+            {
+                if(state.lifetimes[i] < 0)
+                {
+                    continue;
+                }
+
+
+                const auto particleScale = state.sizes[i];
+                auto cameraFacingTransform = glm::scale(glm::vec3{particleScale});
+                cameraFacingTransform[3] = glm::vec4{state.positions.at(i), 1.0f};
+                cameraFacingTransform = utils::transform::getCameraFacingModelMatrix(cameraFacingTransform, cameraPosition, viewMatrix);
+                _modelShaderProgram.setUniform("modelMatrix", cameraFacingTransform);
+                _modelShaderProgram.setUniform("material.alphaMultiplier", state.transparencies[i]);
+
+                billboardPlane->bind();
+                glDrawElements(GL_TRIANGLES, billboardPlane->getMeshSize(), GL_UNSIGNED_INT, nullptr);
+                billboardPlane->unbind();   
+            }
+        }
+    }
+
     glDisable(GL_DEPTH_TEST);
-    const auto drawLightDebugBillboard = [this, &setMaterial, &cameraTransform, &viewMatrix](const auto& componentSet, Material const* material) {
+    const auto drawDebugBillboard = [this, &setMaterial, &cameraPosition, &viewMatrix](const auto& componentSet, Material const* material) {
         static auto lightDebugBillboard = BillboardComponent<>{
             .orientation = BillboardComponent<>::Orientation::CameraFacing,
             .scale = BillboardComponent<>::Scale::Camera,
@@ -827,7 +874,7 @@ void RenderingSystem::renderWorldObjects()
         for (const auto& [entity, _] : componentSet)
         {
             const auto& baseTransform = TransformComponent::getGlobalTransformMatrix(entity, _registry);
-            glm::mat4 modelMatrix = lightDebugBillboard.getModelMatrix(baseTransform, cameraTransform.getPosition(), viewMatrix);
+            glm::mat4 modelMatrix = lightDebugBillboard.getModelMatrix(baseTransform, cameraPosition, viewMatrix);
             _modelShaderProgram.setUniform("modelMatrix", modelMatrix);
 
             setMaterial(material);
@@ -839,12 +886,16 @@ void RenderingSystem::renderWorldObjects()
         }
     };
 
-    drawLightDebugBillboard(_registry->getComponentSet<PointLightComponent>(), &_pointLightDebugMaterial); 
-    drawLightDebugBillboard(_registry->getComponentSet<DirectionalLightComponent>(), &_directionalLightDebugMaterial); 
-    drawLightDebugBillboard(_registry->getComponentSet<SpotLightComponent>(), &_spotLightDebugMaterial); 
-    drawLightDebugBillboard(_registry->getComponentSet<AmbientLightComponent>(), &_ambientLightDebugMaterial); 
-
+    {
+        SHKYERA_PROFILE("RenderingSystem::renderWorldObjects - Debug Billboards");
+        drawDebugBillboard(_registry->getComponentSet<PointLightComponent>(), &_pointLightDebugMaterial); 
+        drawDebugBillboard(_registry->getComponentSet<DirectionalLightComponent>(), &_directionalLightDebugMaterial); 
+        drawDebugBillboard(_registry->getComponentSet<SpotLightComponent>(), &_spotLightDebugMaterial); 
+        drawDebugBillboard(_registry->getComponentSet<AmbientLightComponent>(), &_ambientLightDebugMaterial); 
+        drawDebugBillboard(_registry->getComponentSet<ParticleEmitterComponent>(), &_particleEmitterDebugMaterial); 
+    }
     glDisable(GL_BLEND);
+    glDepthMask(GL_TRUE);
 
     _modelShaderProgram.stopUsing();
     _mostRecentFrameBufferPtr->unbind();
