@@ -829,6 +829,7 @@ void RenderingSystem::renderWorldObjects()
 
     {
         SHKYERA_PROFILE("RenderingSystem::renderWorldObjects - Particles");
+
         for(const auto& [entity, emitter] : _registry->getComponentSet<ParticleEmitterComponent>())
         {
             if(!emitter.enabled)
@@ -836,11 +837,15 @@ void RenderingSystem::renderWorldObjects()
                 continue;
             }
 
+            auto cameraFacingTransform = glm::mat4{1.0};
+            cameraFacingTransform = utils::transform::getCameraFacingModelMatrix(cameraFacingTransform, cameraPosition, viewMatrix);
+
             const auto& material = std::get<AssetRef<Material>>(emitter.material);
             setMaterial(material.get());
 
             const auto& state = emitter.state;
 
+            billboardPlane->bind();
             for(size_t i = 0; i < state.lifetimes.size(); ++i)
             {
                 if(state.lifetimes[i] < 0)
@@ -850,16 +855,14 @@ void RenderingSystem::renderWorldObjects()
 
 
                 const auto particleScale = state.sizes[i];
-                auto cameraFacingTransform = glm::scale(glm::vec3{particleScale});
-                cameraFacingTransform[3] = glm::vec4{state.positions.at(i), 1.0f};
-                cameraFacingTransform = utils::transform::getCameraFacingModelMatrix(cameraFacingTransform, cameraPosition, viewMatrix);
-                _modelShaderProgram.setUniform("modelMatrix", cameraFacingTransform);
+                auto cameraFacingTransformOfParticle = glm::scale(cameraFacingTransform, glm::vec3{state.sizes[i]});
+                cameraFacingTransformOfParticle[3] = glm::vec4{state.positions[i], 1.0f};
+                _modelShaderProgram.setUniform("modelMatrix", cameraFacingTransformOfParticle);
                 _modelShaderProgram.setUniform("material.alphaMultiplier", state.transparencies[i]);
 
-                billboardPlane->bind();
                 glDrawElements(GL_TRIANGLES, billboardPlane->getMeshSize(), GL_UNSIGNED_INT, nullptr);
-                billboardPlane->unbind();   
             }
+            billboardPlane->unbind();   
         }
     }
 
