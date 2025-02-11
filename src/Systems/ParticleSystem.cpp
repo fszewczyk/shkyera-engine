@@ -16,15 +16,20 @@ void ParticleSystem::update()
 {    
     SHKYERA_PROFILE("ParticleSystem::update");
 
+    std::vector<std::thread> updateThreads;
     for (const auto& [entity, constEmitter] : _registry->getComponentSet<ParticleEmitterComponent>())
     {
         if(constEmitter.enabled)
         {
-            // TODO: implement thread workers/parallelization abstractions
             const auto transformMatrix = TransformComponent::getGlobalTransformMatrix(entity, _registry);
             auto& emitter = _registry->getComponent<ParticleEmitterComponent>(entity);
-            updateParticles(emitter, transformMatrix);
+            updateThreads.emplace_back(std::thread([&]() { updateParticles(emitter, transformMatrix); }));
         }
+    }
+
+    for(auto& t : updateThreads)
+    {
+        t.join();
     }
 }
 
