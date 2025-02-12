@@ -14,6 +14,8 @@ var dir_03b2673553046158dff6b880fc282c90 =
     [ "ParticleEmitterComponentUI.hpp", "_particle_emitter_component_u_i_8hpp.html", "_particle_emitter_component_u_i_8hpp" ],
     [ "PointLightComponentUI.cpp", "_point_light_component_u_i_8cpp.html", null ],
     [ "PointLightComponentUI.hpp", "_point_light_component_u_i_8hpp.html", "_point_light_component_u_i_8hpp" ],
+    [ "PostProcessingVolumeComponentUI.cpp", "_post_processing_volume_component_u_i_8cpp.html", null ],
+    [ "PostProcessingVolumeComponentUI.hpp", "_post_processing_volume_component_u_i_8hpp.html", "_post_processing_volume_component_u_i_8hpp" ],
     [ "SpotLightComponentUI.cpp", "_spot_light_component_u_i_8cpp.html", null ],
     [ "SpotLightComponentUI.hpp", "_spot_light_component_u_i_8hpp.html", "_spot_light_component_u_i_8hpp" ],
     [ "TransformComponentUI.cpp", "_transform_component_u_i_8cpp.html", null ],

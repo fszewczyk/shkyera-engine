@@ -69,15 +69,15 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "_a_a_b_b_8cpp.html",
-"_shader_8hpp.html",
-"classshkyera_1_1_component_u_i.html#a047d1e0823ea270d60b64100ca515d93",
-"classshkyera_1_1_filesystem_widget.html#acb117e4b08987182cafe8b6a95c6b598",
-"classshkyera_1_1_inspector_widget_1_1_material_inspector.html#a8bfbdaf42784f8be8e25686ee46e720b",
-"classshkyera_1_1_particle_system.html#a19ac2bc366998d19943d5d37bedc9954",
-"classshkyera_1_1_rendering_system.html#a80522eefc6949f43990cf1b8e4d47a3b",
-"classshkyera_1_1_sparse_set_1_1_iterator.html#a0f6b80c6eb1e27384f7c754c4785e8f3",
-"classshkyera_1_1_wireframe.html#ae24d86416fd60f147d21bcc6288f3674",
-"structshkyera_1_1_material.html#a28b6ab1d6ba0a26a465fdf7150786645"
+"_scene_widget_8hpp.html",
+"classshkyera_1_1_color_selector.html#aea56112af107da95354a1a7b4a90f093",
+"classshkyera_1_1_filesystem_widget.html#abb77c2b94a96c1b99c95b68504dea340",
+"classshkyera_1_1_inspector_widget_1_1_material_inspector.html#a60ca4c147417977ba94b80e8a4b4a085",
+"classshkyera_1_1_particle_system.html",
+"classshkyera_1_1_rendering_system.html#a54d8525ccbc409b0572a4b499357c37d",
+"classshkyera_1_1_skybox_component.html#afb16699e36e7a48e1e73358819456a0e",
+"classshkyera_1_1_use_shader.html",
+"structshkyera_1_1_billboard_component.html#a6b76e6c8caf85f3449d6faa0e7e66bcd"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

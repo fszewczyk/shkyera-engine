@@ -22,6 +22,7 @@ var searchData=
   ['_7esparsesetbase_19',['~SparseSetBase',['../classshkyera_1_1_sparse_set_base.html#acddf178e782a12f4953c6dc8ad02c55d',1,'shkyera::SparseSetBase']]],
   ['_7etexture_20',['~Texture',['../classshkyera_1_1_texture.html#ae6e7dbd861cadb72d9dd7ee9fbc19cf8',1,'shkyera::Texture']]],
   ['_7etextureassetselector_21',['~TextureAssetSelector',['../classshkyera_1_1_texture_asset_selector.html#a437804b4bc014787983ef1663b3c095a',1,'shkyera::TextureAssetSelector']]],
-  ['_7ewidget_22',['~Widget',['../classshkyera_1_1_widget.html#aff0e6c9ec0918578614e54a695f675c8',1,'shkyera::Widget']]],
-  ['_7ewireframe_23',['~Wireframe',['../classshkyera_1_1_wireframe.html#a5736cc5678e52d9f633a8ec7ff82d856',1,'shkyera::Wireframe']]]
+  ['_7euseshader_22',['~UseShader',['../classshkyera_1_1_use_shader.html#a359def7b2fcf73108313cd9f4c93b590',1,'shkyera::UseShader']]],
+  ['_7ewidget_23',['~Widget',['../classshkyera_1_1_widget.html#aff0e6c9ec0918578614e54a695f675c8',1,'shkyera::Widget']]],
+  ['_7ewireframe_24',['~Wireframe',['../classshkyera_1_1_wireframe.html#a5736cc5678e52d9f633a8ec7ff82d856',1,'shkyera::Wireframe']]]
 ];

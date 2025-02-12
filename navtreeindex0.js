@@ -189,6 +189,11 @@ var NAVTREEINDEX0 =
 "_point_light_component_u_i_8cpp.html":[6,0,1,9,1,12],
 "_point_light_component_u_i_8hpp.html":[6,0,1,9,1,13],
 "_point_light_component_u_i_8hpp_source.html":[6,0,1,9,1,13],
+"_post_processing_volume_component_8hpp.html":[6,0,1,2,13],
+"_post_processing_volume_component_8hpp_source.html":[6,0,1,2,13],
+"_post_processing_volume_component_u_i_8cpp.html":[6,0,1,9,1,14],
+"_post_processing_volume_component_u_i_8hpp.html":[6,0,1,9,1,15],
+"_post_processing_volume_component_u_i_8hpp_source.html":[6,0,1,9,1,15],
 "_profiler_8cpp.html":[6,0,1,1,4],
 "_profiler_8hpp.html":[6,0,1,1,5],
 "_profiler_8hpp.html#a073233a6eef99e2795300816966820c3":[6,0,1,1,5,8],
@@ -244,10 +249,5 @@ var NAVTREEINDEX0 =
 "_scene_frame_buffer_8cpp.html":[6,0,1,6,0,4],
 "_scene_frame_buffer_8hpp.html":[6,0,1,6,0,5],
 "_scene_frame_buffer_8hpp_source.html":[6,0,1,6,0,5],
-"_scene_widget_8cpp.html":[6,0,1,9,2,12],
-"_scene_widget_8hpp.html":[6,0,1,9,2,13],
-"_scene_widget_8hpp_source.html":[6,0,1,9,2,13],
-"_selected_asset_component_8hpp.html":[6,0,1,2,0,2],
-"_selected_asset_component_8hpp_source.html":[6,0,1,2,0,2],
-"_shader_8cpp.html":[6,0,1,0,8]
+"_scene_widget_8cpp.html":[6,0,1,9,2,12]
 };

@@ -64,6 +64,7 @@ var hierarchy =
       [ "shkyera::ModelComponentUI", "classshkyera_1_1_model_component_u_i.html", null ],
       [ "shkyera::ParticleEmitterComponentUI", "classshkyera_1_1_particle_emitter_component_u_i.html", null ],
       [ "shkyera::PointLightComponentUI", "classshkyera_1_1_point_light_component_u_i.html", null ],
+      [ "shkyera::PostProcessingVolumeComponentUI", "classshkyera_1_1_post_processing_volume_component_u_i.html", null ],
       [ "shkyera::SpotLightComponentUI", "classshkyera_1_1_spot_light_component_u_i.html", null ],
       [ "shkyera::TransformComponentUI", "classshkyera_1_1_transform_component_u_i.html", null ],
       [ "shkyera::WireframeComponentUI", "classshkyera_1_1_wireframe_component_u_i.html", null ]
@@ -116,6 +117,7 @@ var hierarchy =
     [ "shkyera::PathConstructibleAsset< Wireframe >", "classshkyera_1_1_path_constructible_asset.html", [
       [ "shkyera::Wireframe", "classshkyera_1_1_wireframe.html", null ]
     ] ],
+    [ "shkyera::PostProcessingVolumeComponent", "structshkyera_1_1_post_processing_volume_component.html", null ],
     [ "shkyera::ProfileBlock", "structshkyera_1_1_profile_block.html", null ],
     [ "shkyera::ProfileGuard", "classshkyera_1_1_profile_guard.html", null ],
     [ "shkyera::Profiler", "classshkyera_1_1_profiler.html", null ],
@@ -137,6 +139,7 @@ var hierarchy =
     [ "shkyera::UI", "classshkyera_1_1_u_i.html", null ],
     [ "shkyera::random::Uniform< SampledType >", "classshkyera_1_1random_1_1_uniform.html", null ],
     [ "shkyera::random::Uniform< float >", "classshkyera_1_1random_1_1_uniform.html", null ],
+    [ "shkyera::UseShader", "classshkyera_1_1_use_shader.html", null ],
     [ "shkyera::Mesh::Vertex", "structshkyera_1_1_mesh_1_1_vertex.html", null ],
     [ "shkyera::Widget", "classshkyera_1_1_widget.html", [
       [ "shkyera::ConsoleWidget", "classshkyera_1_1_console_widget.html", null ],
