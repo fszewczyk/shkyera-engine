@@ -5,6 +5,7 @@
 
 #include <memory>
 #include <string>
+#include <stack>
 #include <unordered_map>
 
 #include <AssetManager/Shader.hpp>
@@ -30,12 +31,23 @@ public:
     void setUniform(const std::string& name, const glm::mat4& value);
 
 private:
+    bool isInUse();
     GLint getUniformLocation(const std::string& name);
 
-    bool _inUse;
     GLuint _id;   // OpenGL shader program ID
     std::unordered_map<std::string, GLint> _uniformLocationCache;
 
+    inline static std::stack<GLuint> _shadersInUse{};
+};
+
+class UseShader
+{
+public:
+    UseShader(ShaderProgram& shaderProgram);
+    ~UseShader();
+
+private:
+    ShaderProgram& mShaderProgram;
 };
 
 }

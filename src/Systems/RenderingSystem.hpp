@@ -6,6 +6,7 @@
 #include <Common/Types.hpp>
 #include <ECS/Registry.hpp>
 #include <Components/DirectionalLightComponent.hpp>
+#include <Components/PostProcessingVolumeComponent.hpp>
 #include <Rendering/ShaderProgram.hpp>
 #include <Rendering/FrameBuffers/SceneFrameBuffer.hpp>
 #include <Rendering/FrameBuffers/DepthAtlasFrameBuffer.hpp>
@@ -24,22 +25,37 @@ public:
 private:
     void clearFrameBuffers();
 
+    // Supporting Textures
     void renderViewPosition();
     void renderViewNormals();
     void renderSSAO();
-    void renderWorldObjects();
-    void bloom();
-    void toneMapping();
-    void renderWireframes();
-    void renderOutline(const std::unordered_set<Entity>& entities);
-    void renderSkybox();
-    void renderOverlayModels();
-    void antiAliasing();
-
     void renderDirectionalLightShadowMaps();
     void renderPointLightShadowMaps();
     void renderSpotLightShadowMaps();
 
+    // Main Rendering
+    void renderWorldObjects();
+    void renderParticles();
+    void renderBillboards();
+    void renderPostProcessingVolumes();
+    void renderWireframes();
+    void renderOutline(const std::unordered_set<Entity>& entities);
+    void renderSkybox();
+    void renderOverlayModels();
+
+    // Post-Processing
+    void bloom();
+    void toneMapping();
+    void gammaCorrection(float gamma);
+    void antiAliasing();
+
+    // Helper methods
+    void setMaterial(Material const* material);
+    void setTexture(Material const* material, const std::string& textureName, auto textureMember);
+    PostProcessingVolumeComponent getPostProcessingSettings();
+    int _textureIndex;
+
+    // Data
     std::shared_ptr<Registry> _registry;
 
     // Rendering Pipeline
@@ -63,8 +79,12 @@ private:
     ShaderProgram _ssaoShaderProgram;
 
     // Tone Mapping
-    SceneFrameBuffer _toneMappedFrameBuffer;
     ShaderProgram _toneMappingShaderProgram;
+    SceneFrameBuffer _toneMappedFrameBuffer;
+
+    // Gamma Correction
+    ShaderProgram _gammaCorrectionShaderProgram;
+    SceneFrameBuffer _gammaCorrectedFrameBuffer;
 
     // Bloom
     inline static constexpr size_t BloomSteps = 4;
@@ -109,6 +129,7 @@ private:
     Material _pointLightDebugMaterial;
     Material _ambientLightDebugMaterial;
     Material _particleEmitterDebugMaterial;
+    Material _postProcessingVolumeDebugMaterial;
 };
 
 }

@@ -50,4 +50,16 @@ std::optional<float> AABB::intersect(const Ray& ray, const glm::mat4& transform)
     return tMin;
 }
 
+bool AABB::isInside(const glm::mat4& aabbTransformMatrix, const glm::vec3& point) const {
+    glm::mat4 invTransform = glm::inverse(aabbTransformMatrix);
+    glm::vec3 localPoint = glm::vec3(invTransform * glm::vec4(point, 1.0f));
+
+    glm::vec3 minBound = center - extents;
+    glm::vec3 maxBound = center + extents;
+
+    return (localPoint.x >= minBound.x && localPoint.x <= maxBound.x) &&
+           (localPoint.y >= minBound.y && localPoint.y <= maxBound.y) &&
+           (localPoint.z >= minBound.z && localPoint.z <= maxBound.z);
+}
+
 } // namespace shkyera

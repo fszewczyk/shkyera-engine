@@ -3,7 +3,7 @@
 
 namespace shkyera {
 
-ShaderProgram::ShaderProgram() : _inUse(false) {
+ShaderProgram::ShaderProgram() {
     _id = glCreateProgram();
 }
 
@@ -28,18 +28,23 @@ void ShaderProgram::link() {
     }
 }
 
+bool ShaderProgram::isInUse()
+{
+    return !_shadersInUse.empty() && _id == _shadersInUse.top();
+}
+
 void ShaderProgram::use() {
+    _shadersInUse.push(_id);
     glUseProgram(_id);
-    _inUse = true;
 }
 
 void ShaderProgram::stopUsing() {
-    glUseProgram(0);
-    _inUse = false;
+    _shadersInUse.pop();
+    glUseProgram(_shadersInUse.empty() ? 0 : _shadersInUse.top());
 }
 
 void ShaderProgram::setUniform(const std::string& name, int value) {
-    if(!_inUse) {
+    if(!isInUse()) {
         Logger::ERROR("Trying to set a uniform (" + name + ") while the shader program is not in use.");
     }
 
@@ -52,7 +57,7 @@ void ShaderProgram::setUniform(const std::string& name, int value) {
 }
 
 void ShaderProgram::setUniform(const std::string& name, float value) {
-    if(!_inUse) {
+    if(!isInUse()) {
         Logger::ERROR("Trying to set a uniform (" + name + ") while the shader program is not in use.");
     }
 
@@ -65,7 +70,7 @@ void ShaderProgram::setUniform(const std::string& name, float value) {
 }
 
 void ShaderProgram::setUniform(const std::string& name, const glm::vec2& value) {
-    if(!_inUse) {
+    if(!isInUse()) {
         Logger::ERROR("Trying to set a uniform (" + name + ") while the shader program is not in use.");
     }
 
@@ -78,7 +83,7 @@ void ShaderProgram::setUniform(const std::string& name, const glm::vec2& value) 
 }
 
 void ShaderProgram::setUniform(const std::string& name, const glm::vec3& value) {
-    if(!_inUse) {
+    if(!isInUse()) {
         Logger::ERROR("Trying to set a uniform (" + name + ") while the shader program is not in use.");
     }
 
@@ -91,7 +96,7 @@ void ShaderProgram::setUniform(const std::string& name, const glm::vec3& value) 
 }
 
 void ShaderProgram::setUniform(const std::string& name, const glm::mat4& value) {
-    if(!_inUse) {
+    if(!isInUse()) {
         Logger::ERROR("Trying to set a uniform (" + name + ") while the shader program is not in use.");
     }
 
@@ -117,5 +122,19 @@ GLint ShaderProgram::getUniformLocation(const std::string& name) {
     _uniformLocationCache[name] = location;
     return location;
 }
+
+UseShader::UseShader(ShaderProgram& shaderProgram) : mShaderProgram(shaderProgram)
+{
+    Logger::INFO("Using!");
+    mShaderProgram.use();
+}
+
+
+UseShader::~UseShader()
+{
+    Logger::INFO("STOP Using!");
+    mShaderProgram.stopUsing();
+}
+
 
 }

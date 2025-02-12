@@ -16,6 +16,7 @@ add_library(
     ${CMAKE_CURRENT_LIST_DIR}/SpotLightComponent.hpp
     ${CMAKE_CURRENT_LIST_DIR}/PointLightComponent.hpp
     ${CMAKE_CURRENT_LIST_DIR}/DirectionalLightComponent.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/PostProcessingVolumeComponent.hpp
     ${CMAKE_CURRENT_LIST_DIR}/AmbientLightComponent.hpp
     ${CMAKE_CURRENT_LIST_DIR}/BoxColliderComponent.hpp
     ${CMAKE_CURRENT_LIST_DIR}/SkyboxComponent.hpp

@@ -24,7 +24,7 @@ void applyShaderToFrameBuffer(
 {
     // Bind framebuffer and activate shader program
     frameBuffer.bind();
-    shaderProgram.use();
+    UseShader shaderUsage(shaderProgram);
 
     // Bind textures to their corresponding texture units
     int textureIndex = 0;
@@ -40,7 +40,6 @@ void applyShaderToFrameBuffer(
     utils::drawFullscreenQuad();
 
     // Stop using the shader program and unbind framebuffer
-    shaderProgram.stopUsing();
     frameBuffer.unbind();
 }
 
