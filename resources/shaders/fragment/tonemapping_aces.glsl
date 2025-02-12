@@ -16,14 +16,8 @@ vec3 toneMappingACES(vec3 color) {
     return (color * (a * color + b)) / (color * (c * color + d) + e);
 }
 
-vec3 gammaCorrection(vec3 color)
-{
-  return pow(color, vec3(1.0 / 1.2));
-}
-
 void main() {
   // Lighting
   vec3 color = toneMappingACES(texture(original, TexCoords).rgb);
-  color = gammaCorrection(color);
   FragColor = vec4(color, 1.0);
 }

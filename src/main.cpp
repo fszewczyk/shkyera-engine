@@ -13,6 +13,7 @@
 #include <Components/WireframeComponent.hpp>
 #include <Components/NameComponent.hpp>
 #include <Components/ModelComponent.hpp>
+#include <Components/PostProcessingVolumeComponent.hpp>
 #include <Components/ParticleEmitterComponent.hpp>
 #include <Components/BillboardComponent.hpp>
 #include <Components/OverlayModelComponent.hpp>
@@ -83,6 +84,12 @@ void loadScene(std::shared_ptr<shkyera::Registry> registry) {
     fireParticleSystem.endTransparency = 0.1f;
     fireParticleSystem.endParticleSize = 0.0f;
     fireParticleSystem.initialVelocityDispersion = -0.5f;
+
+    auto postProcessingVol = registry->addEntity();
+    registry->addComponent<NameComponent>(postProcessingVol).setName("Post-Processing");
+    registry->addComponent<TransformComponent>(postProcessingVol).setPosition(glm::vec3{-3, 0, -3});
+    registry->addComponent<TransformComponent>(postProcessingVol).setScale(glm::vec3{3, 1, 2});
+    registry->addComponent<PostProcessingVolumeComponent>(postProcessingVol);
 
     // Add Cylinder and its wireframe
     auto cylinderParent = registry->addEntity();

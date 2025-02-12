@@ -4,6 +4,7 @@
 #include <Systems/RenderingSystem.hpp>
 #include <Utils/AssetUtils.hpp>
 #include <Utils/TransformUtils.hpp>
+#include <Math/AABB.hpp>
 #include <Common/Logger.hpp>
 #include <Common/Profiler.hpp>
 #include <Rendering/Utils.hpp>
@@ -11,6 +12,7 @@
 #include <Components/ModelComponent.hpp>
 #include <Components/BillboardComponent.hpp>
 #include <Components/OverlayModelComponent.hpp>
+#include <Components/PostProcessingVolumeComponent.hpp>
 #include <Components/ParticleEmitterComponent.hpp>
 #include <Components/WireframeComponent.hpp>
 #include <Components/CameraComponent.hpp>
@@ -59,6 +61,11 @@ RenderingSystem::RenderingSystem(std::shared_ptr<Registry> registry)
     _toneMappingShaderProgram.attachShader(texCoordsVertexShader);
     _toneMappingShaderProgram.attachShader(toneMappingFragmentShader);
     _toneMappingShaderProgram.link();
+
+    const auto& gammaCorrectionFragmentShader = utils::assets::addAndRead<Shader>(_registry.get(), []() { return Shader("resources/shaders/fragment/gamma_correction.glsl", Shader::Type::Fragment); });
+    _gammaCorrectionShaderProgram.attachShader(texCoordsVertexShader);
+    _gammaCorrectionShaderProgram.attachShader(gammaCorrectionFragmentShader);
+    _gammaCorrectionShaderProgram.link();
 
     const auto& luminosityThresholdFragmentShader = utils::assets::addAndRead<Shader>(_registry.get(), []() { return Shader("resources/shaders/fragment/luminosity_threshold.glsl", Shader::Type::Fragment); });
     _thresholdShaderProgram.attachShader(texCoordsVertexShader);
@@ -132,6 +139,7 @@ RenderingSystem::RenderingSystem(std::shared_ptr<Registry> registry)
         = _spotLightDebugMaterial 
         = _pointLightDebugMaterial 
         = _ambientLightDebugMaterial 
+        = _postProcessingVolumeDebugMaterial 
         = debugBillboardMaterial;
 
     std::get<AssetRef<Texture>>(_pointLightDebugMaterial.albedoTexture) = utils::assets::readPermanent<Texture>("resources/icons/components/point_light.png");
@@ -139,6 +147,7 @@ RenderingSystem::RenderingSystem(std::shared_ptr<Registry> registry)
     std::get<AssetRef<Texture>>(_directionalLightDebugMaterial.albedoTexture) = utils::assets::readPermanent<Texture>("resources/icons/components/directional_light.png");
     std::get<AssetRef<Texture>>(_ambientLightDebugMaterial.albedoTexture) = utils::assets::readPermanent<Texture>("resources/icons/components/ambient_light.png");
     std::get<AssetRef<Texture>>(_particleEmitterDebugMaterial.albedoTexture) = utils::assets::readPermanent<Texture>("resources/icons/components/particles_gray.png");
+    std::get<AssetRef<Texture>>(_postProcessingVolumeDebugMaterial.albedoTexture) = utils::assets::readPermanent<Texture>("resources/icons/components/post_processing_gray.png");
 }
 
 void RenderingSystem::setSize(uint32_t width, uint32_t height)
@@ -146,10 +155,11 @@ void RenderingSystem::setSize(uint32_t width, uint32_t height)
     SHKYERA_PROFILE("RenderingSystem::setSize");
 
     _litModelsFrameBuffer.setSize(width, height);
-    _toneMappedFrameBuffer.setSize(width, height);
     _silhouetteFrameBuffer.setSize(width, height);
     _horizontallyDilatedFrameBuffer.setSize(width, height);
     _fullyDilatedFrameBuffer.setSize(width, height);
+    _toneMappedFrameBuffer.setSize(width, height);
+    _gammaCorrectedFrameBuffer.setSize(width, height);
     _differenceFrameBuffer.setSize(width, height);
     _bloomedFrameBuffer.setSize(width, height);
     _antiAliasedFrameBuffer.setSize(width, height);
@@ -178,7 +188,6 @@ void RenderingSystem::clearFrameBuffers()
     SHKYERA_PROFILE("RenderingSystem::clearFrameBuffers");
 
     _litModelsFrameBuffer.clear();
-    _toneMappedFrameBuffer.clear();
     _bloomedFrameBuffer.clear();
     _antiAliasedFrameBuffer.clear();
     _outlinedObjectsFrameBuffer.clear();
@@ -186,6 +195,8 @@ void RenderingSystem::clearFrameBuffers()
     _horizontallyDilatedFrameBuffer.clear();
     _fullyDilatedFrameBuffer.clear();
     _differenceFrameBuffer.clear();
+    _toneMappedFrameBuffer.clear();
+    _gammaCorrectedFrameBuffer.clear();
     _viewSpaceNormalFrameBuffer.clear();
     _viewSpacePositionFrameBuffer.clear();
     _ssaoFrameBuffer.clear(glm::vec3{1.0, 1.0, 1.0});
@@ -206,6 +217,7 @@ void RenderingSystem::clearFrameBuffers()
 
 void RenderingSystem::render() 
 {   
+    _textureIndex = 0;
     SHKYERA_PROFILE("RenderingSystem::render");
 
     _mostRecentFrameBufferPtr = &_litModelsFrameBuffer;
@@ -216,22 +228,23 @@ void RenderingSystem::render()
     // Rendering Supporting Textures
     renderViewPosition();
     renderViewNormals();
-
-    // Ambient Occlusion
     renderSSAO();
 
     // Main Rendering Pass
     renderSkybox();
     renderWorldObjects();
-
-    // Debug Info
+    renderParticles();
+    renderBillboards();
+    renderPostProcessingVolumes();
     renderWireframes();
     renderOutline(_registry->getSelectedEntities());
 
     // Post-Processing
-    bloom();
-    toneMapping();
-    antiAliasing();
+    const auto postProcessing = getPostProcessingSettings();
+    if(postProcessing.bloom) bloom();
+    if(postProcessing.toneMapping) toneMapping();
+    gammaCorrection(postProcessing.gamma);
+    if(postProcessing.antiAliasing) antiAliasing();
 
     renderOverlayModels();
 }
@@ -655,12 +668,12 @@ void RenderingSystem::renderWorldObjects()
     const auto& cameraComponent = _registry->getComponent<CameraComponent>(_registry->getCamera());
 
     // ********* Rendering the world *********
+    UseShader modelShaderUsage(_modelShaderProgram);
     _mostRecentFrameBufferPtr->bind();
 
     const glm::mat4& viewMatrix = _registry->getComponent<CameraComponent>(_registry->getCamera()).getViewMatrix(cameraTransform);
     const glm::mat4& projectionMatrix = _registry->getComponent<CameraComponent>(_registry->getCamera()).getProjectionMatrix();
 
-    _modelShaderProgram.use();
     _modelShaderProgram.setUniform("projectionViewMatrix", projectionMatrix * viewMatrix);
     _modelShaderProgram.setUniform("viewPos", cameraPosition);
 
@@ -671,13 +684,12 @@ void RenderingSystem::renderWorldObjects()
     }
     _modelShaderProgram.setUniform("ambientLight", ambientColor);
 
-    int textureIndex = 0;
     int pointLightIndex = 0;
     for(const auto& [entity, pointLightComponent] : _registry->getComponentSet<PointLightComponent>()) {
         auto& depthCubeMap = _pointLightToShadowMap.at(entity);
-        depthCubeMap.getTexture().activate(GL_TEXTURE0 + textureIndex);
-        _modelShaderProgram.setUniform("pointLightsDepthCubeMap[" + std::to_string(pointLightIndex) + "]", textureIndex);
-        ++textureIndex;
+        depthCubeMap.getTexture().activate(GL_TEXTURE0 + _textureIndex);
+        _modelShaderProgram.setUniform("pointLightsDepthCubeMap[" + std::to_string(pointLightIndex) + "]", _textureIndex);
+        ++_textureIndex;
 
         const auto& transformComponent = _registry->getComponent<TransformComponent>(entity);
         _modelShaderProgram.setUniform("pointLights[" + std::to_string(pointLightIndex) + "].position", transformComponent.getPosition());
@@ -700,9 +712,9 @@ void RenderingSystem::renderWorldObjects()
             _modelShaderProgram.setUniform("directionalLights[" + std::to_string(directionalLightIndex) + "].lightSpaceMatrix[" + std::to_string(levelOfDetail) + "]", lightSpaceMatrix);
         }
 
-        depthAtlasFrameBuffer.getTexture().activate(GL_TEXTURE0 + textureIndex);
-        _modelShaderProgram.setUniform("directionalLightsDepthMap[" + std::to_string(directionalLightIndex) + "]", textureIndex);
-        ++textureIndex;
+        depthAtlasFrameBuffer.getTexture().activate(GL_TEXTURE0 + _textureIndex);
+        _modelShaderProgram.setUniform("directionalLightsDepthMap[" + std::to_string(directionalLightIndex) + "]", _textureIndex);
+        ++_textureIndex;
 
         glm::vec3 lightDirection = DirectionalLightComponent::getDirection(lightTransformMatrix);
         _modelShaderProgram.setUniform("directionalLights[" + std::to_string(directionalLightIndex) + "].direction", lightDirection);
@@ -732,9 +744,9 @@ void RenderingSystem::renderWorldObjects()
 
         {
             const auto& depthBuffer = _spotLightToShadowMap.at(entity);
-            depthBuffer.getTexture().activate(GL_TEXTURE0 + textureIndex);
-            _modelShaderProgram.setUniform("spotLightsShadowMap[" + std::to_string(spotLightIndex) + "]", textureIndex);
-            ++textureIndex;
+            depthBuffer.getTexture().activate(GL_TEXTURE0 + _textureIndex);
+            _modelShaderProgram.setUniform("spotLightsShadowMap[" + std::to_string(spotLightIndex) + "]", _textureIndex);
+            ++_textureIndex;
         }
 
         ++spotLightIndex;
@@ -742,48 +754,12 @@ void RenderingSystem::renderWorldObjects()
     _modelShaderProgram.setUniform("numSpotLights", spotLightIndex);
 
     { // SSAO
-        _ssaoFrameBuffer.getTexture().activate(GL_TEXTURE0 + textureIndex);
-        _modelShaderProgram.setUniform("ssao", textureIndex);
-        ++textureIndex;
+        _ssaoFrameBuffer.getTexture().activate(GL_TEXTURE0 + _textureIndex);
+        _modelShaderProgram.setUniform("ssao", _textureIndex);
+        ++_textureIndex;
 
         _modelShaderProgram.setUniform("viewportSize", _mostRecentFrameBufferPtr->getSize());
     }
-
-    const auto setTexture = [this, &textureIndex](Material const* material, const std::string& textureName, auto textureMember) {
-        if(const auto& textureAsset = std::get<AssetRef<Texture>>((*material).*textureMember))
-        {
-            _modelShaderProgram.setUniform("material." + textureName + "TextureLoaded", true);
-
-            textureAsset->activate(GL_TEXTURE0 + textureIndex);
-            _modelShaderProgram.setUniform("material." + textureName + "Texture", textureIndex);
-            ++textureIndex;
-        }
-        else
-        {
-            _modelShaderProgram.setUniform("material." + textureName + "TextureLoaded", false);
-        }
-    };
-
-    const auto setMaterial = [this, &setTexture](Material const* material) {
-        if(material == nullptr)
-        {
-            material = &_defaultMaterial;
-        }
-        
-        _modelShaderProgram.setUniform("material.lit", material->lit);
-        _modelShaderProgram.setUniform("material.alphaMultiplier", material->alphaMultiplier);
-        _modelShaderProgram.setUniform("material.albedoColor", material->albedo);
-        _modelShaderProgram.setUniform("material.emissive", material->emissive * material->emissiveStrength);
-        _modelShaderProgram.setUniform("material.roughness", material->roughness);
-        _modelShaderProgram.setUniform("material.metallic", material->metallic);
-        _modelShaderProgram.setUniform("material.normalMapStrength", material->normalMapStrength);
-
-        setTexture(material, "roughness", &Material::roughnessTexture);
-        setTexture(material, "albedo", &Material::albedoTexture);
-        setTexture(material, "normal", &Material::normalTexture);
-        setTexture(material, "metallic", &Material::metallicTexture);
-        setTexture(material, "emissive", &Material::emissiveTexture);
-    };
 
     {
         SHKYERA_PROFILE("RenderingSystem::renderWorldObjects - Models");
@@ -797,13 +773,84 @@ void RenderingSystem::renderWorldObjects()
             modelComponent.updateImpl();
         }
     }
+}
 
+void RenderingSystem::renderParticles()
+{
+    SHKYERA_PROFILE("RenderingSystem::renderParticles");
+    
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glDepthMask(GL_FALSE);
 
+    UseShader modelShaderUsage(_modelShaderProgram);
+
+    const auto& cameraTransform = _registry->getComponent<TransformComponent>(_registry->getCamera());
+    const auto& cameraTransformMatrix = TransformComponent::getGlobalTransformMatrix(_registry->getCamera(), _registry);
+    const auto& cameraPosition = glm::vec3{cameraTransformMatrix[3]};
+    const glm::mat4& viewMatrix = _registry->getComponent<CameraComponent>(_registry->getCamera()).getViewMatrix(cameraTransform);
+
+    static const auto billboardPlane = utils::assets::fromFactory<Mesh, &Mesh::Factory::createPlane>(_registry.get());
+    billboardPlane->bind();
+
+    for (const auto& [entity, emitter] : _registry->getComponentSet<ParticleEmitterComponent>())
+    {
+        if(!emitter.enabled)
+        {
+            continue;
+        }
+
+        auto cameraFacingTransform = glm::mat4{1.0};
+        cameraFacingTransform = utils::transform::getCameraFacingModelMatrix(cameraFacingTransform, cameraPosition, viewMatrix);
+
+        const auto& material = std::get<AssetRef<Material>>(emitter.material);
+        setMaterial(material.get());
+
+        const auto& state = emitter.state;
+
+        for(size_t i = 0; i < state.lifetimes.size(); ++i)
+        {
+            if(state.lifetimes[i] < 0)
+            {
+                continue;
+            }
+
+            const auto particleScale = state.sizes[i];
+            auto cameraFacingTransformOfParticle = glm::scale(cameraFacingTransform, glm::vec3{state.sizes[i]});
+            cameraFacingTransformOfParticle[3] = glm::vec4{state.positions[i], 1.0f};
+            _modelShaderProgram.setUniform("modelMatrix", cameraFacingTransformOfParticle);
+            _modelShaderProgram.setUniform("material.alphaMultiplier", state.transparencies[i]);
+
+            glDrawElements(GL_TRIANGLES, billboardPlane->getMeshSize(), GL_UNSIGNED_INT, nullptr);
+        }
+    }
+
+    billboardPlane->unbind();   
+
+    glDisable(GL_BLEND);
+    glDepthMask(GL_TRUE);
+}
+
+void RenderingSystem::renderBillboards()
+{
+    SHKYERA_PROFILE("RenderingSystem::renderBillboards");
+
+    UseShader modelShaderUsage(_modelShaderProgram);
+    _mostRecentFrameBufferPtr->bind();
+
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glDepthMask(GL_FALSE);
+    glDisable(GL_DEPTH_TEST);
+
+    const auto& cameraTransform = _registry->getComponent<TransformComponent>(_registry->getCamera());
+    const auto& cameraTransformMatrix = TransformComponent::getGlobalTransformMatrix(_registry->getCamera(), _registry);
+    const auto& cameraPosition = glm::vec3{cameraTransformMatrix[3]};
+    const glm::mat4& viewMatrix = _registry->getComponent<CameraComponent>(_registry->getCamera()).getViewMatrix(cameraTransform);
+
     static const auto billboardPlane = utils::assets::fromFactory<Mesh, &Mesh::Factory::createPlane>(_registry.get());
 
+    billboardPlane->bind();
     for (const auto& [entity, billboardComponent] : _registry->getComponentSet<BillboardComponent<RuntimeMode::PRODUCTION>>())
     {
         if(billboardComponent.occlusion == BillboardComponent<RuntimeMode::PRODUCTION>::Occlusion::Occludable)
@@ -822,53 +869,11 @@ void RenderingSystem::renderWorldObjects()
         const auto& material = std::get<AssetRef<Material>>(billboardComponent.material);
         setMaterial(material.get());
 
-        billboardPlane->bind();
         glDrawElements(GL_TRIANGLES, billboardPlane->getMeshSize(), GL_UNSIGNED_INT, nullptr);
-        billboardPlane->unbind();
     }
 
-    {
-        SHKYERA_PROFILE("RenderingSystem::renderWorldObjects - Particles");
-
-        for(const auto& [entity, emitter] : _registry->getComponentSet<ParticleEmitterComponent>())
-        {
-            if(!emitter.enabled)
-            {
-                continue;
-            }
-
-            auto cameraFacingTransform = glm::mat4{1.0};
-            cameraFacingTransform = utils::transform::getCameraFacingModelMatrix(cameraFacingTransform, cameraPosition, viewMatrix);
-
-            const auto& material = std::get<AssetRef<Material>>(emitter.material);
-            setMaterial(material.get());
-
-            const auto& state = emitter.state;
-
-            billboardPlane->bind();
-            for(size_t i = 0; i < state.lifetimes.size(); ++i)
-            {
-                if(state.lifetimes[i] < 0)
-                {
-                    continue;
-                }
-
-
-                const auto particleScale = state.sizes[i];
-                auto cameraFacingTransformOfParticle = glm::scale(cameraFacingTransform, glm::vec3{state.sizes[i]});
-                cameraFacingTransformOfParticle[3] = glm::vec4{state.positions[i], 1.0f};
-                _modelShaderProgram.setUniform("modelMatrix", cameraFacingTransformOfParticle);
-                _modelShaderProgram.setUniform("material.alphaMultiplier", state.transparencies[i]);
-
-                glDrawElements(GL_TRIANGLES, billboardPlane->getMeshSize(), GL_UNSIGNED_INT, nullptr);
-            }
-            billboardPlane->unbind();   
-        }
-    }
-
-    glDisable(GL_DEPTH_TEST);
-    const auto drawDebugBillboard = [this, &setMaterial, &cameraPosition, &viewMatrix](const auto& componentSet, Material const* material) {
-        static auto lightDebugBillboard = BillboardComponent<>{
+    const auto drawDebugBillboard = [this, &cameraPosition, &viewMatrix](const auto& componentSet, Material const* material) {
+        static auto debugBillboard = BillboardComponent<>{
             .orientation = BillboardComponent<>::Orientation::CameraFacing,
             .scale = BillboardComponent<>::Scale::Camera,
             .occlusion = BillboardComponent<>::Occlusion::NotOccludable
@@ -876,31 +881,72 @@ void RenderingSystem::renderWorldObjects()
         
         for (const auto& [entity, _] : componentSet)
         {
-            const auto& baseTransform = TransformComponent::getGlobalTransformMatrix(entity, _registry);
-            glm::mat4 modelMatrix = lightDebugBillboard.getModelMatrix(baseTransform, cameraPosition, viewMatrix);
+            auto baseTransform = TransformComponent::getGlobalTransformMatrix(entity, _registry);
+
+            glm::vec3 translation = glm::vec3(baseTransform[3]); // Extract translation
+            glm::vec3 right   = glm::normalize(glm::vec3(baseTransform[0])); // X-axis
+            glm::vec3 up      = glm::normalize(glm::vec3(baseTransform[1])); // Y-axis
+            glm::vec3 forward = glm::normalize(glm::vec3(baseTransform[2])); // Z-axis
+
+            baseTransform = glm::mat4(1.0f);
+            baseTransform[0] = glm::vec4(right, 0.0f);
+            baseTransform[1] = glm::vec4(up, 0.0f);
+            baseTransform[2] = glm::vec4(forward, 0.0f);
+            baseTransform[3] = glm::vec4(translation, 1.0f);
+
+            glm::mat4 modelMatrix = debugBillboard.getModelMatrix(baseTransform, cameraPosition, viewMatrix);
+            
             _modelShaderProgram.setUniform("modelMatrix", modelMatrix);
 
             setMaterial(material);
 
             // Draw the billboard quad.
-            billboardPlane->bind();
             glDrawElements(GL_TRIANGLES, billboardPlane->getMeshSize(), GL_UNSIGNED_INT, nullptr);
-            billboardPlane->unbind();
         }
     };
 
     {
-        SHKYERA_PROFILE("RenderingSystem::renderWorldObjects - Debug Billboards");
         drawDebugBillboard(_registry->getComponentSet<PointLightComponent>(), &_pointLightDebugMaterial); 
         drawDebugBillboard(_registry->getComponentSet<DirectionalLightComponent>(), &_directionalLightDebugMaterial); 
         drawDebugBillboard(_registry->getComponentSet<SpotLightComponent>(), &_spotLightDebugMaterial); 
         drawDebugBillboard(_registry->getComponentSet<AmbientLightComponent>(), &_ambientLightDebugMaterial); 
         drawDebugBillboard(_registry->getComponentSet<ParticleEmitterComponent>(), &_particleEmitterDebugMaterial); 
+        drawDebugBillboard(_registry->getComponentSet<PostProcessingVolumeComponent>(), &_postProcessingVolumeDebugMaterial); 
     }
+    billboardPlane->unbind();
+
     glDisable(GL_BLEND);
     glDepthMask(GL_TRUE);
 
-    _modelShaderProgram.stopUsing();
+    _mostRecentFrameBufferPtr->unbind();
+}
+
+
+void RenderingSystem::renderPostProcessingVolumes()
+{
+    glEnable(GL_DEPTH_TEST);
+
+    UseShader modelShaderUsage(_wireframeShaderProgram);
+    _mostRecentFrameBufferPtr->bind();
+
+    static const glm::vec3 volumeWireframeColor{0.8, 0.8, 0.8};
+    _wireframeShaderProgram.setUniform("fixedColor", volumeWireframeColor);
+
+    const auto& cameraTransform = _registry->getComponent<TransformComponent>(_registry->getCamera());
+    const glm::mat4& viewMatrix = _registry->getComponent<CameraComponent>(_registry->getCamera()).getViewMatrix(cameraTransform);
+    const glm::mat4& projectionMatrix = _registry->getComponent<CameraComponent>(_registry->getCamera()).getProjectionMatrix();
+    const auto& projectionViewMatrix = projectionMatrix * viewMatrix;
+
+    static const auto volumeCube = utils::assets::fromFactory<Wireframe, &Wireframe::Factory::createCube>(_registry.get());
+
+    volumeCube->bind();
+    for (const auto& [entity, _volumeComponent] : _registry->getComponentSet<PostProcessingVolumeComponent>()) {
+        const auto& transformMatrix = TransformComponent::getGlobalTransformMatrix(entity, _registry);
+        _wireframeShaderProgram.setUniform("projectionViewModelMatrix", projectionViewMatrix * transformMatrix);
+        glDrawArrays(GL_LINES, 0, volumeCube->getEdgeCount());
+    }
+    volumeCube->unbind();
+
     _mostRecentFrameBufferPtr->unbind();
 }
 
@@ -1013,6 +1059,24 @@ void RenderingSystem::toneMapping()
     _mostRecentFrameBufferPtr = &_toneMappedFrameBuffer;
 }
 
+void RenderingSystem::gammaCorrection(float gamma)
+{
+    SHKYERA_PROFILE("RenderingSystem::gammaCorrection");
+
+    glDisable(GL_DEPTH_TEST);
+
+    utils::applyShaderToFrameBuffer(
+        _gammaCorrectedFrameBuffer,
+        _gammaCorrectionShaderProgram,
+        {
+            { "original", &_mostRecentFrameBufferPtr->getTexture() }
+        },
+        utils::Uniform("gamma", gamma)
+    );
+
+    _mostRecentFrameBufferPtr = &_gammaCorrectedFrameBuffer;
+}
+
 void RenderingSystem::renderWireframes()
 {
     SHKYERA_PROFILE("RenderingSystem::renderWireframes");
@@ -1069,7 +1133,6 @@ void RenderingSystem::renderSkybox()
     _mostRecentFrameBufferPtr->unbind();
 
     glDepthFunc(GL_LESS);
-
 }
 
 void RenderingSystem::renderOverlayModels()
@@ -1114,6 +1177,78 @@ void RenderingSystem::antiAliasing()
     );
 
     _mostRecentFrameBufferPtr = &_antiAliasedFrameBuffer;
+}
+
+void RenderingSystem::setTexture(Material const* material, const std::string& textureName, auto textureMember)
+{
+    UseShader modelShaderUsage(_modelShaderProgram);
+    if(const auto& textureAsset = std::get<AssetRef<Texture>>((*material).*textureMember))
+    {
+        _modelShaderProgram.setUniform("material." + textureName + "TextureLoaded", true);
+
+        textureAsset->activate(GL_TEXTURE0 + _textureIndex);
+        _modelShaderProgram.setUniform("material." + textureName + "Texture", _textureIndex);
+        ++_textureIndex;
+    }
+    else
+    {
+        _modelShaderProgram.setUniform("material." + textureName + "TextureLoaded", false);
+    }
+}
+
+
+void RenderingSystem::setMaterial(Material const* material)
+{
+    UseShader modelShaderUsage(_modelShaderProgram);
+    if(material == nullptr)
+    {
+        material = &_defaultMaterial;
+    }
+    
+    _modelShaderProgram.setUniform("material.lit", material->lit);
+    _modelShaderProgram.setUniform("material.alphaMultiplier", material->alphaMultiplier);
+    _modelShaderProgram.setUniform("material.albedoColor", material->albedo);
+    _modelShaderProgram.setUniform("material.emissive", material->emissive * material->emissiveStrength);
+    _modelShaderProgram.setUniform("material.roughness", material->roughness);
+    _modelShaderProgram.setUniform("material.metallic", material->metallic);
+    _modelShaderProgram.setUniform("material.normalMapStrength", material->normalMapStrength);
+
+    setTexture(material, "roughness", &Material::roughnessTexture);
+    setTexture(material, "albedo", &Material::albedoTexture);
+    setTexture(material, "normal", &Material::normalTexture);
+    setTexture(material, "metallic", &Material::metallicTexture);
+    setTexture(material, "emissive", &Material::emissiveTexture);
+}
+
+PostProcessingVolumeComponent RenderingSystem::getPostProcessingSettings()
+{
+    static const auto volume = AABB{
+        .center = {0, 0, 0},
+        .extents = {1.0, 1.0, 1.0}
+    };
+
+    const auto& cameraTransform = _registry->getComponent<TransformComponent>(_registry->getCamera());
+    const auto& cameraTransformMatrix = TransformComponent::getGlobalTransformMatrix(_registry->getCamera(), _registry);
+    const auto& cameraPosition = glm::vec3{cameraTransformMatrix[3]};
+
+    for(const auto& [entity, postProcessingVolume] : _registry->getComponentSet<PostProcessingVolumeComponent>())
+    {
+        const auto& transformMatrix = TransformComponent::getGlobalTransformMatrix(entity, _registry);
+        if(volume.isInside(transformMatrix, cameraPosition))
+        {
+            return postProcessingVolume;
+        }
+    }
+
+    for(const auto& postProcessingVolume : _registry->getComponents<PostProcessingVolumeComponent>())
+    {
+        if(postProcessingVolume.global)
+        {
+            return postProcessingVolume;
+        }
+    }
+
+    return PostProcessingVolumeComponent{};
 }
 
 }

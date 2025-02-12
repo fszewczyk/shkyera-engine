@@ -7,6 +7,7 @@
 #include <Components/ModelComponent.hpp>
 #include <Components/BillboardComponent.hpp>
 #include <Components/WireframeComponent.hpp>
+#include <Components/PostProcessingVolumeComponent.hpp>
 #include <Components/BoxColliderComponent.hpp>
 #include <Components/SkyboxComponent.hpp>
 #include <Components/ParticleEmitterComponent.hpp>
@@ -18,6 +19,7 @@
 #include <UI/Components/TransformComponentUI.hpp>
 #include <UI/Components/ModelComponentUI.hpp>
 #include <UI/Components/BillboardComponentUI.hpp>
+#include <UI/Components/PostProcessingVolumeComponentUI.hpp>
 #include <UI/Components/WireframeComponentUI.hpp>
 #include <UI/Components/CameraComponentUI.hpp>
 #include <UI/Components/AmbientLightComponentUI.hpp>
@@ -159,6 +161,13 @@ void PropertiesWidget::setupComponentsUI() {
     _componentsUi.emplace_back(std::move(componentUi));
   }
 
+  if(_registry->hasComponent<PostProcessingVolumeComponent>(*_selectedEntity)) {    
+    auto &component = _registry->getComponent<PostProcessingVolumeComponent>(*_selectedEntity);
+    auto componentUi = std::make_unique<PostProcessingVolumeComponentUI>(&component);
+    
+    _componentsUi.emplace_back(std::move(componentUi));
+  }
+
   if(_registry->hasComponent<ParticleEmitterComponent>(*_selectedEntity)) {    
     auto &component = _registry->getComponent<ParticleEmitterComponent>(*_selectedEntity);
     auto componentUi = std::make_unique<ParticleEmitterComponentUI>(_registry, &component);
@@ -189,6 +198,7 @@ void PropertiesWidget::drawNewComponentMenu() {
     addComponentIfSelected.template operator()<PointLightComponent>("Point Light");
     addComponentIfSelected.template operator()<SpotLightComponent>("Spot Light");
     addComponentIfSelected.template operator()<DirectionalLightComponent>("Directional Light");
+    addComponentIfSelected.template operator()<PostProcessingVolumeComponent>("Post-Processing Volume");
     addComponentIfSelected.template operator()<ParticleEmitterComponent>("Particle Emitter");
 
     ImGui::EndPopup();
