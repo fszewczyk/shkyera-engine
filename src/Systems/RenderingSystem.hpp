@@ -28,13 +28,13 @@ private:
     // Supporting Textures
     void renderViewPosition();
     void renderViewNormals();
-    void renderSSAO();
+    void renderSSAO(float strength, float radius);
     void renderDirectionalLightShadowMaps();
     void renderPointLightShadowMaps();
     void renderSpotLightShadowMaps();
 
     // Main Rendering
-    void renderWorldObjects();
+    void renderWorldObjects(const PostProcessingVolumeComponent& postProcessing);
     void renderParticles();
     void renderBillboards();
     void renderPostProcessingVolumes();
@@ -44,7 +44,7 @@ private:
     void renderOverlayModels();
 
     // Post-Processing
-    void bloom();
+    void bloom(float threshold, float weight);
     void toneMapping();
     void gammaCorrection(float gamma);
     void antiAliasing();

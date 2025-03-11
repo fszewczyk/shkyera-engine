@@ -6,6 +6,7 @@ uniform sampler2D normalTexture;   // View-space normal texture
 
 uniform mat4 projection;
 uniform vec3 samples[128];          // SSAO Kernel
+uniform float strength;
 
 out float SSAO;
 
@@ -43,5 +44,5 @@ void main() {
     }
 
     occlusion = 1.0 - (occlusion / 128.0); // Normalize occlusion value
-    SSAO = occlusion;
+    SSAO = clamp(pow(occlusion, strength), 0, 1);
 }

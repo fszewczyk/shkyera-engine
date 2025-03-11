@@ -17,8 +17,13 @@ class PostProcessingVolumeComponentUI : public ComponentUI {
         BooleanSelector _globalSelector;
         BooleanSelector _toneMappingSelector;
         BooleanSelector _antiAliasingSelector;
-        BooleanSelector _bloomSelector;
         FloatSlider _gammaSlider;
+
+        FloatSlider _bloomThresholdSlider;
+        FloatSlider _bloomWeightSlider;
+
+        FloatSlider _ssaoStrengthSlider;
+        FloatSlider _ssaoRadiusSlider;
         
         PostProcessingVolumeComponent* _postProcessingVolumeComponent;
 };
