@@ -8,6 +8,7 @@ add_library(
     ${CMAKE_CURRENT_LIST_DIR}/Common/Style.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Common/ColorSelector.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Common/BooleanSelector.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/Common/Utils.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Common/FloatSlider.cpp
 
     ${CMAKE_CURRENT_LIST_DIR}/Components/TransformComponentUI.cpp

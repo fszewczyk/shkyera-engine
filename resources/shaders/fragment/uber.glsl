@@ -51,6 +51,7 @@ uniform sampler2D spotLightsShadowMap[SPOT_LIGHT_MAX_NUM];
 
 uniform vec3 ambientLight;
 uniform sampler2D ssao;
+uniform float ssaoStrength;
 
 // ******** MATERIAL DATA ********
 struct Material {

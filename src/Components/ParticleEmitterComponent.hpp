@@ -11,28 +11,28 @@ struct ParticleEmitterComponent
 {
     bool enabled{true};
 
-    float gravity{9.81f};
+    float gravity{0.1f};
 
-    float emittedAtRadius{0.1f};
-    float emittedPerSecond{10.0f};
+    float emittedAtRadius{1.0f};
+    float emittedPerSecond{30.0f};
     float emittedPerSecondVariance{0.1f};
 
     float initialVelocity{1.0f};
     float initialVelocityVariance{0.1f};
-    float initialVelocityDispersion{0.0f};
+    float initialVelocityDispersion{-0.5f};
 
     float lifetime{1.0f};
     float lifetimeVariance{0.1f};
 
     float initialParticleSize{0.1f};
     float initialParticleSizeVariance{0.1f};
-    float endParticleSize{0.1f};
+    float endParticleSize{0.0f};
     float endParticleSizeVariance{0.1f};
 
     HandleAndAsset<Material> material{};
     float initialTransparency{1.0f};
     float initialTransparencyVariance{0.1f};
-    float endTransparency{1.0f};
+    float endTransparency{0.1f};
     float endTransparencyVariance{0.1f};
 
     struct state

@@ -77,13 +77,13 @@ void loadScene(std::shared_ptr<shkyera::Registry> registry) {
     auto fireplace = registry->addEntity();
     registry->addComponent<NameComponent>(fireplace).setName("Fireplace");
     registry->addComponent<TransformComponent>(fireplace).setPosition(glm::vec3{3, 0, 3});
-    auto& fireParticleSystem = registry->addComponent<ParticleEmitterComponent>(fireplace);
-    fireParticleSystem.emittedAtRadius = 1.0f;
-    fireParticleSystem.emittedPerSecond = 30.0f;
-    fireParticleSystem.gravity = 0.1f;
-    fireParticleSystem.endTransparency = 0.1f;
-    fireParticleSystem.endParticleSize = 0.0f;
-    fireParticleSystem.initialVelocityDispersion = -0.5f;
+    registry->addComponent<ParticleEmitterComponent>(fireplace);
+
+    auto postProcessingVol = registry->addEntity();
+    registry->addComponent<NameComponent>(postProcessingVol).setName("Post-Processing");
+    registry->addComponent<TransformComponent>(postProcessingVol).setPosition(glm::vec3{-3, 0, -3});
+    registry->addComponent<TransformComponent>(postProcessingVol).setScale(glm::vec3{3, 1, 2});
+    registry->addComponent<PostProcessingVolumeComponent>(postProcessingVol);
 
     auto postProcessingVol = registry->addEntity();
     registry->addComponent<NameComponent>(postProcessingVol).setName("Post-Processing");

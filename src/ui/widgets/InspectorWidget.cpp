@@ -7,6 +7,7 @@
 #include <ECS/Registry.hpp>
 #include <UI/Widgets/InspectorWidget.hpp>
 #include <UI/Common/Style.hpp>
+#include <UI/Common/Utils.hpp>
 #include <Utils/AssetUtils.hpp>
 #include <Components/NameComponent.hpp>
 #include <Components/AssetComponents/SelectedAssetComponent.hpp>
@@ -184,46 +185,34 @@ InspectorWidget::MaterialInspector::MaterialInspector(Registry* registry, AssetH
   }
 }
 
-static void drawSectionTitle(std::string_view text)
-{
-  auto windowWidth = ImGui::GetWindowSize().x;
-  auto textWidth   = ImGui::CalcTextSize(text.data()).x;
-
-  ImGui::Spacing();
-  ImGui::SetCursorPosX((windowWidth - textWidth) * 0.5f);
-  ImGui::PushFont(style::BIG_FONT);
-  ImGui::TextUnformatted(text.data());
-  ImGui::PopFont();
-}
-
 void InspectorWidget::MaterialInspector::draw()
 {
-  drawSectionTitle("Albedo");
+  utils::ui::drawCenteredTitle("Albedo");
   _litMaterialCheckbox.draw();
   _albedoColorSelector.draw();
   _albedoTextureSelector.draw();
 
   ImGui::Separator();
 
-  drawSectionTitle("Normal");
+  utils::ui::drawCenteredTitle("Normal");
   _normalMapStrengthSlider.draw();
   _normalTextureSelector.draw();
 
   ImGui::Separator();
 
-  drawSectionTitle("Roughness");
+  utils::ui::drawCenteredTitle("Roughness");
   _roughnessSlider.draw();
   _roughnessTextureSelector.draw();
 
   ImGui::Separator();
 
-  drawSectionTitle("Metallic");
+  utils::ui::drawCenteredTitle("Metallic");
   _metallicSlider.draw();
   _metallicTextureSelector.draw();
 
   ImGui::Separator();
 
-  drawSectionTitle("Emissive");
+  utils::ui::drawCenteredTitle("Emissive");
   _emissiveColorSelector.draw();
   _emissiveStrengthSlider.draw();
   _emissiveTextureSelector.draw();
