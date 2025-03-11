@@ -1171,7 +1171,6 @@ void RenderingSystem::renderOverlayModels()
 void RenderingSystem::antiAliasing()
 {
     SHKYERA_PROFILE("RenderingSystem::antiAliasing");
-
     utils::applyShaderToFrameBuffer(
         _antiAliasedFrameBuffer,
         _antiAliasingShaderProgram,

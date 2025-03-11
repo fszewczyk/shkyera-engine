@@ -85,12 +85,6 @@ void loadScene(std::shared_ptr<shkyera::Registry> registry) {
     registry->addComponent<TransformComponent>(postProcessingVol).setScale(glm::vec3{3, 1, 2});
     registry->addComponent<PostProcessingVolumeComponent>(postProcessingVol);
 
-    auto postProcessingVol = registry->addEntity();
-    registry->addComponent<NameComponent>(postProcessingVol).setName("Post-Processing");
-    registry->addComponent<TransformComponent>(postProcessingVol).setPosition(glm::vec3{-3, 0, -3});
-    registry->addComponent<TransformComponent>(postProcessingVol).setScale(glm::vec3{3, 1, 2});
-    registry->addComponent<PostProcessingVolumeComponent>(postProcessingVol);
-
     // Add Cylinder and its wireframe
     auto cylinderParent = registry->addEntity();
     registry->addComponent<TransformComponent>(cylinderParent);

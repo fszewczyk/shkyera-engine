@@ -125,14 +125,12 @@ GLint ShaderProgram::getUniformLocation(const std::string& name) {
 
 UseShader::UseShader(ShaderProgram& shaderProgram) : mShaderProgram(shaderProgram)
 {
-    Logger::INFO("Using!");
     mShaderProgram.use();
 }
 
 
 UseShader::~UseShader()
 {
-    Logger::INFO("STOP Using!");
     mShaderProgram.stopUsing();
 }
 
