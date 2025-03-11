@@ -9,5 +9,6 @@ var searchData=
   ['shkyera_3a_3autils_6',['utils',['../namespaceshkyera_1_1utils.html',1,'shkyera']]],
   ['shkyera_3a_3autils_3a_3aassets_7',['assets',['../namespaceshkyera_1_1utils_1_1assets.html',1,'shkyera::utils']]],
   ['shkyera_3a_3autils_3a_3atransform_8',['transform',['../namespaceshkyera_1_1utils_1_1transform.html',1,'shkyera::utils']]],
-  ['std_9',['std',['../namespacestd.html',1,'']]]
+  ['shkyera_3a_3autils_3a_3aui_9',['ui',['../namespaceshkyera_1_1utils_1_1ui.html',1,'shkyera::utils']]],
+  ['std_10',['std',['../namespacestd.html',1,'']]]
 ];
