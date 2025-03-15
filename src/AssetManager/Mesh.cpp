@@ -90,8 +90,6 @@ AABB Mesh::getBoundingBox() const {
     glm::vec3 center = (minBounds + maxBounds) * 0.5f;
     glm::vec3 extents = (maxBounds - minBounds) * 0.5f;
 
-    Logger::INFO(glm::to_string(center) + " " + glm::to_string(extents));
-
     return shkyera::AABB{.center = center, .extents = extents};
 }
 
