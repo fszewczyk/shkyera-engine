@@ -28,6 +28,7 @@ class ProfileGuard {
 class Profiler {
     public:
         using BlocksPerThread = std::map<std::thread::id, std::map<std::string, ProfileBlock>>;
+
         static Profiler& getInstance();
 
         void clear();

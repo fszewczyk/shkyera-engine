@@ -1,10 +1,17 @@
 #include <imgui_internal.h>
 #include "imgui.h"
 
+#include <AssetManager/Shader.hpp>
+#include <AssetManager/Wireframe.hpp>
+#include <AssetManager/Material.hpp>
+#include <AssetManager/Mesh.hpp>
 #include <Common/Clock.hpp>
 #include <Common/Profiler.hpp>
+#include <Common/InstanceCounter.hpp>
 #include <UI/Widgets/ProfilerWidget.hpp>
 #include <UI/Common/Style.hpp>
+#include <string_view>
+#include <type_traits>
 
 namespace shkyera {
 
@@ -16,6 +23,41 @@ ProfilerWidget::ProfilerWidget(std::string name) : Widget(std::move(name))
 void ProfilerWidget::draw()
 {
   ImGui::Begin(_name.c_str());
+
+  ImGui::PushFont(style::HUGE_FONT);
+  ImGui::TextUnformatted("Instance Counters");
+  ImGui::PopFont();
+
+  if (ImGui::BeginTable("Instance Counters", 4, ImGuiTableFlags_Resizable | ImGuiTableFlags_Borders))
+    {
+      ImGui::TableSetupColumn("Name", ImGuiTableColumnFlags_None, 0.0f, 0);
+      ImGui::TableSetupColumn("Instantiated", ImGuiTableColumnFlags_None, 0.0f, 1);
+      ImGui::TableSetupColumn("Alive", ImGuiTableColumnFlags_None, 0.0f, 2);
+      ImGui::TableSetupColumn("Moved", ImGuiTableColumnFlags_None, 0.0f, 2);
+      ImGui::TableSetupScrollFreeze(0, 1);
+      ImGui::TableHeadersRow();
+    
+      const auto drawConstructionStats = [](const char* label, auto typeTag) {
+        using T = typename decltype(typeTag)::type;
+
+        ImGui::TableNextColumn();
+        ImGui::TextUnformatted(label);
+        ImGui::TableNextColumn();
+        ImGui::Text("%zu", InstanceCounter<T>::Instantiated.load());
+        ImGui::TableNextColumn();
+        ImGui::Text("%zu", InstanceCounter<T>::Alive.load());
+        ImGui::TableNextColumn();
+        ImGui::Text("%zu", InstanceCounter<T>::Moved.load());
+      };
+ 
+      drawConstructionStats("Materials", std::type_identity<Material>{});
+      drawConstructionStats("Mesh", std::type_identity<Mesh>{});
+      drawConstructionStats("Wireframe", std::type_identity<Wireframe>{});
+      drawConstructionStats("Shader", std::type_identity<Shader>{});
+      drawConstructionStats("Image", std::type_identity<Image>{});
+
+      ImGui::EndTable();
+    } 
 
   ImGui::PushFont(style::HUGE_FONT);
   ImGui::TextUnformatted("Timing profiles");

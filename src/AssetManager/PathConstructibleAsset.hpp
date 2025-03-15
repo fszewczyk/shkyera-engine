@@ -2,10 +2,12 @@
 
 #include <filesystem>
 
+#include <Common/InstanceCounter.hpp>
+
 namespace shkyera {
 
 template<typename AssetType>
-class PathConstructibleAsset {
+    class PathConstructibleAsset : InstanceCounter<AssetType> {
     public:
         PathConstructibleAsset() = default;
         
@@ -17,7 +19,7 @@ class PathConstructibleAsset {
             }
         }
 
-        PathConstructibleAsset(PathConstructibleAsset&& other) noexcept
+        PathConstructibleAsset(PathConstructibleAsset&& other) noexcept : InstanceCounter<AssetType>(std::move(other))
         {
             auto it = assetToPath.find(static_cast<AssetType const*>(&other));
             if (it != assetToPath.end()) {
@@ -30,6 +32,8 @@ class PathConstructibleAsset {
         {
             if (this != &other) 
             {
+                InstanceCounter<AssetType>::operator=(std::move(other));
+
                 assetToPath.erase(static_cast<AssetType const*>(this));
 
                 auto it = assetToPath.find(static_cast<AssetType const*>(&other));

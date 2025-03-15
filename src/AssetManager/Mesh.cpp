@@ -90,8 +90,6 @@ AABB Mesh::getBoundingBox() const {
     glm::vec3 center = (minBounds + maxBounds) * 0.5f;
     glm::vec3 extents = (maxBounds - minBounds) * 0.5f;
 
-    Logger::INFO(glm::to_string(center) + " " + glm::to_string(extents));
-
     return shkyera::AABB{.center = center, .extents = extents};
 }
 
@@ -142,6 +140,8 @@ void Mesh::loadFromFile(const std::filesystem::path& filepath) {
     std::vector<tinyobj::shape_t> shapes;
     std::vector<tinyobj::material_t> materials;
     std::string warn, err;
+
+    Logger::INFO("Loading from path: " + filepath.string());
 
     if (!tinyobj::LoadObj(&attrib, &shapes, &materials, &warn, &err, filepath.c_str())) {
         Logger::ERROR(std::string("Failed to load OBJ file: ") + filepath.c_str());
