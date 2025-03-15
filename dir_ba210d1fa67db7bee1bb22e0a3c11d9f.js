@@ -2,6 +2,7 @@ var dir_ba210d1fa67db7bee1bb22e0a3c11d9f =
 [
     [ "Clock.cpp", "_clock_8cpp.html", "_clock_8cpp" ],
     [ "Clock.hpp", "_clock_8hpp.html", "_clock_8hpp" ],
+    [ "InstanceCounter.hpp", "_instance_counter_8hpp.html", "_instance_counter_8hpp" ],
     [ "Logger.cpp", "_logger_8cpp.html", "_logger_8cpp" ],
     [ "Logger.hpp", "_logger_8hpp.html", "_logger_8hpp" ],
     [ "Profiler.cpp", "_profiler_8cpp.html", null ],

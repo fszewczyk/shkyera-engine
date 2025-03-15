@@ -89,6 +89,34 @@ var hierarchy =
     [ "shkyera::GlobalPathHash", "structshkyera_1_1_global_path_hash.html", null ],
     [ "std::std::hash< glm::vec3 >", "structstd_1_1std_1_1hash_3_01glm_1_1vec3_01_4.html", null ],
     [ "shkyera::InputManager", "classshkyera_1_1_input_manager.html", null ],
+    [ "shkyera::InstanceCounter< ObjectType >", "structshkyera_1_1_instance_counter.html", [
+      [ "shkyera::PathConstructibleAsset< Image >", "classshkyera_1_1_path_constructible_asset.html", [
+        [ "shkyera::Image", "classshkyera_1_1_image.html", null ]
+      ] ],
+      [ "shkyera::PathConstructibleAsset< Mesh >", "classshkyera_1_1_path_constructible_asset.html", [
+        [ "shkyera::Mesh", "classshkyera_1_1_mesh.html", null ]
+      ] ],
+      [ "shkyera::PathConstructibleAsset< Shader >", "classshkyera_1_1_path_constructible_asset.html", [
+        [ "shkyera::Shader", "classshkyera_1_1_shader.html", null ]
+      ] ],
+      [ "shkyera::PathConstructibleAsset< Texture >", "classshkyera_1_1_path_constructible_asset.html", [
+        [ "shkyera::Texture", "classshkyera_1_1_texture.html", null ]
+      ] ],
+      [ "shkyera::PathConstructibleAsset< Wireframe >", "classshkyera_1_1_path_constructible_asset.html", [
+        [ "shkyera::Wireframe", "classshkyera_1_1_wireframe.html", null ]
+      ] ]
+    ] ],
+    [ "shkyera::InstanceCounter< AssetType >", "structshkyera_1_1_instance_counter.html", [
+      [ "shkyera::PathConstructibleAsset< AssetType >", "classshkyera_1_1_path_constructible_asset.html", null ]
+    ] ],
+    [ "shkyera::InstanceCounter< Image >", "structshkyera_1_1_instance_counter.html", null ],
+    [ "shkyera::InstanceCounter< Material >", "structshkyera_1_1_instance_counter.html", [
+      [ "shkyera::Material", "structshkyera_1_1_material.html", null ]
+    ] ],
+    [ "shkyera::InstanceCounter< Mesh >", "structshkyera_1_1_instance_counter.html", null ],
+    [ "shkyera::InstanceCounter< Shader >", "structshkyera_1_1_instance_counter.html", null ],
+    [ "shkyera::InstanceCounter< Texture >", "structshkyera_1_1_instance_counter.html", null ],
+    [ "shkyera::InstanceCounter< Wireframe >", "structshkyera_1_1_instance_counter.html", null ],
     [ "shkyera::SparseSet< Component >::Iterator< IsConst >", "classshkyera_1_1_sparse_set_1_1_iterator.html", null ],
     [ "shkyera::Log", "classshkyera_1_1_log.html", [
       [ "shkyera::LogError", "classshkyera_1_1_log_error.html", null ],
@@ -96,27 +124,10 @@ var hierarchy =
       [ "shkyera::LogSuccess", "classshkyera_1_1_log_success.html", null ],
       [ "shkyera::LogVerbose", "classshkyera_1_1_log_verbose.html", null ]
     ] ],
-    [ "shkyera::Material", "structshkyera_1_1_material.html", null ],
     [ "shkyera::random::Normal< SampledType >", "classshkyera_1_1random_1_1_normal.html", null ],
     [ "shkyera::ObjectSelectionSystem", "classshkyera_1_1_object_selection_system.html", null ],
     [ "shkyera::ParticleEmitterComponent", "structshkyera_1_1_particle_emitter_component.html", null ],
     [ "shkyera::ParticleSystem", "classshkyera_1_1_particle_system.html", null ],
-    [ "shkyera::PathConstructibleAsset< AssetType >", "classshkyera_1_1_path_constructible_asset.html", null ],
-    [ "shkyera::PathConstructibleAsset< Image >", "classshkyera_1_1_path_constructible_asset.html", [
-      [ "shkyera::Image", "classshkyera_1_1_image.html", null ]
-    ] ],
-    [ "shkyera::PathConstructibleAsset< Mesh >", "classshkyera_1_1_path_constructible_asset.html", [
-      [ "shkyera::Mesh", "classshkyera_1_1_mesh.html", null ]
-    ] ],
-    [ "shkyera::PathConstructibleAsset< Shader >", "classshkyera_1_1_path_constructible_asset.html", [
-      [ "shkyera::Shader", "classshkyera_1_1_shader.html", null ]
-    ] ],
-    [ "shkyera::PathConstructibleAsset< Texture >", "classshkyera_1_1_path_constructible_asset.html", [
-      [ "shkyera::Texture", "classshkyera_1_1_texture.html", null ]
-    ] ],
-    [ "shkyera::PathConstructibleAsset< Wireframe >", "classshkyera_1_1_path_constructible_asset.html", [
-      [ "shkyera::Wireframe", "classshkyera_1_1_wireframe.html", null ]
-    ] ],
     [ "shkyera::PostProcessingVolumeComponent", "structshkyera_1_1_post_processing_volume_component.html", null ],
     [ "shkyera::ProfileBlock", "structshkyera_1_1_profile_block.html", null ],
     [ "shkyera::ProfileGuard", "classshkyera_1_1_profile_guard.html", null ],

@@ -3,7 +3,7 @@ var searchData=
   ['sample_20project_0',['Sample Project',['../md_docs_2tutorials_2sample__project.html',1,'']]],
   ['sample_5fproject_2emd_1',['sample_project.md',['../sample__project_8md.html',1,'']]],
   ['save_2',['save',['../classshkyera_1_1_image.html#aaf2e53d164186b2df82b066d77dab932',1,'shkyera::Image']]],
-  ['scale_3',['scale',['../structshkyera_1_1_billboard_component.html#a56ec7746e115bec1121615f2c3b427af',1,'shkyera::BillboardComponent::scale'],['../structshkyera_1_1_billboard_component.html#afc26a6faf4419ebfa3fa1d7a92973d62',1,'shkyera::BillboardComponent::Scale'],['../classshkyera_1_1_gizmo_system.html#a63727ecf275348fe911d450f1ecb3505a127ea1d20becc4dba06d9d152db0c2e5',1,'shkyera::GizmoSystem::SCALE']]],
+  ['scale_3',['scale',['../structshkyera_1_1_billboard_component.html#afc26a6faf4419ebfa3fa1d7a92973d62',1,'shkyera::BillboardComponent::Scale'],['../structshkyera_1_1_billboard_component.html#a56ec7746e115bec1121615f2c3b427af',1,'shkyera::BillboardComponent::scale'],['../classshkyera_1_1_gizmo_system.html#a63727ecf275348fe911d450f1ecb3505a127ea1d20becc4dba06d9d152db0c2e5',1,'shkyera::GizmoSystem::SCALE']]],
   ['scaleentity_4',['scaleEntity',['../classshkyera_1_1_gizmo_system.html#abf141550ffacac16f9f8a4fef8078554',1,'shkyera::GizmoSystem']]],
   ['scaletime_5',['scaleTime',['../structshkyera_1_1_clock.html#a18522f9fcf698899e93363c83316f6cd',1,'shkyera::Clock']]],
   ['scene_6',['SCENE',['../classshkyera_1_1_input_manager.html#a19d17fbbb411ba4f2ebe8b5f882e93daaf151a543099185593a5a87339c552698',1,'shkyera::InputManager']]],

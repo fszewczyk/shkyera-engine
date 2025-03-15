@@ -43,6 +43,7 @@ var annotated_dup =
       [ "Image", "classshkyera_1_1_image.html", "classshkyera_1_1_image" ],
       [ "InputManager", "classshkyera_1_1_input_manager.html", "classshkyera_1_1_input_manager" ],
       [ "InspectorWidget", "classshkyera_1_1_inspector_widget.html", "classshkyera_1_1_inspector_widget" ],
+      [ "InstanceCounter", "structshkyera_1_1_instance_counter.html", "structshkyera_1_1_instance_counter" ],
       [ "Log", "classshkyera_1_1_log.html", "classshkyera_1_1_log" ],
       [ "LogError", "classshkyera_1_1_log_error.html", "classshkyera_1_1_log_error" ],
       [ "LogInfo", "classshkyera_1_1_log_info.html", "classshkyera_1_1_log_info" ],
