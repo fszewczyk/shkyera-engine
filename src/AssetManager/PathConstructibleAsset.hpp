@@ -7,7 +7,7 @@
 namespace shkyera {
 
 template<typename AssetType>
-    class PathConstructibleAsset : InstanceCounter<AssetType> {
+class PathConstructibleAsset : InstanceCounter<AssetType> {
     public:
         PathConstructibleAsset() = default;
         

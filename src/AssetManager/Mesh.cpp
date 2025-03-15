@@ -141,8 +141,6 @@ void Mesh::loadFromFile(const std::filesystem::path& filepath) {
     std::vector<tinyobj::material_t> materials;
     std::string warn, err;
 
-    Logger::INFO("Loading from path: " + filepath.string());
-
     if (!tinyobj::LoadObj(&attrib, &shapes, &materials, &warn, &err, filepath.c_str())) {
         Logger::ERROR(std::string("Failed to load OBJ file: ") + filepath.c_str());
         return;
