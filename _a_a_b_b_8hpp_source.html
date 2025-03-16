@@ -129,14 +129,14 @@ $(document).ready(function(){initNavTree('_a_a_b_b_8hpp_source.html',''); initRe
 <div class="contents">
 <a href="_a_a_b_b_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;glm/glm.hpp&gt;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="_ray_8hpp.html">Math/Ray.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;<a class="code" href="_ray_8hpp.html">Math/Ray.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;glm/glm.hpp&gt;</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespaceshkyera.html">shkyera</a> {</div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
 <div class="foldopen" id="foldopen00008" data-start="{" data-end="};">
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno"><a class="line" href="structshkyera_1_1_a_a_b_b.html">    8</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structshkyera_1_1_a_a_b_b.html">AABB</a> {</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="structshkyera_1_1_a_a_b_b.html#ae0588ec8eec9329da2320483909a36cd">    9</a></span>    glm::vec3 <a class="code hl_variable" href="structshkyera_1_1_a_a_b_b.html#ae0588ec8eec9329da2320483909a36cd">center</a>; </div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="structshkyera_1_1_a_a_b_b.html#ae0588ec8eec9329da2320483909a36cd">    9</a></span>    glm::vec3 <a class="code hl_variable" href="structshkyera_1_1_a_a_b_b.html#ae0588ec8eec9329da2320483909a36cd">center</a>;</div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno"><a class="line" href="structshkyera_1_1_a_a_b_b.html#acbb928cbddb5dee3227b2ece59e06411">   10</a></span>    glm::vec3 <a class="code hl_variable" href="structshkyera_1_1_a_a_b_b.html#acbb928cbddb5dee3227b2ece59e06411">extents</a>;</div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    std::optional&lt;float&gt; <a class="code hl_function" href="structshkyera_1_1_a_a_b_b.html#a6263b1743de50ff2b57fef3afcccc654">intersect</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structshkyera_1_1_ray.html">Ray</a>&amp; <a class="code hl_struct" href="structshkyera_1_1_clock.html">ray</a>, <span class="keyword">const</span> glm::mat4&amp; transform) <span class="keyword">const</span>;</div>
@@ -144,15 +144,15 @@ $(document).ready(function(){initNavTree('_a_a_b_b_8hpp_source.html',''); initRe
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>};</div>
 </div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>} <span class="comment">// namespace shkyera</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>}  <span class="comment">// namespace shkyera</span></div>
 <div class="ttc" id="a_ray_8hpp_html"><div class="ttname"><a href="_ray_8hpp.html">Ray.hpp</a></div></div>
 <div class="ttc" id="anamespaceshkyera_html"><div class="ttname"><a href="namespaceshkyera.html">shkyera</a></div><div class="ttdef"><b>Definition</b> Asset.hpp:6</div></div>
 <div class="ttc" id="astructshkyera_1_1_a_a_b_b_html"><div class="ttname"><a href="structshkyera_1_1_a_a_b_b.html">shkyera::AABB</a></div><div class="ttdef"><b>Definition</b> AABB.hpp:8</div></div>
 <div class="ttc" id="astructshkyera_1_1_a_a_b_b_html_a6263b1743de50ff2b57fef3afcccc654"><div class="ttname"><a href="structshkyera_1_1_a_a_b_b.html#a6263b1743de50ff2b57fef3afcccc654">shkyera::AABB::intersect</a></div><div class="ttdeci">std::optional&lt; float &gt; intersect(const Ray &amp;ray, const glm::mat4 &amp;transform) const</div><div class="ttdef"><b>Definition</b> AABB.cpp:9</div></div>
 <div class="ttc" id="astructshkyera_1_1_a_a_b_b_html_acbb928cbddb5dee3227b2ece59e06411"><div class="ttname"><a href="structshkyera_1_1_a_a_b_b.html#acbb928cbddb5dee3227b2ece59e06411">shkyera::AABB::extents</a></div><div class="ttdeci">glm::vec3 extents</div><div class="ttdef"><b>Definition</b> AABB.hpp:10</div></div>
 <div class="ttc" id="astructshkyera_1_1_a_a_b_b_html_ae0588ec8eec9329da2320483909a36cd"><div class="ttname"><a href="structshkyera_1_1_a_a_b_b.html#ae0588ec8eec9329da2320483909a36cd">shkyera::AABB::center</a></div><div class="ttdeci">glm::vec3 center</div><div class="ttdef"><b>Definition</b> AABB.hpp:9</div></div>
-<div class="ttc" id="astructshkyera_1_1_a_a_b_b_html_aeb9290fd0a5896ef69cbf0588f5d971a"><div class="ttname"><a href="structshkyera_1_1_a_a_b_b.html#aeb9290fd0a5896ef69cbf0588f5d971a">shkyera::AABB::isInside</a></div><div class="ttdeci">bool isInside(const glm::mat4 &amp;aabbTransformMatrix, const glm::vec3 &amp;point) const</div><div class="ttdef"><b>Definition</b> AABB.cpp:53</div></div>
-<div class="ttc" id="astructshkyera_1_1_clock_html"><div class="ttname"><a href="structshkyera_1_1_clock.html">shkyera::Clock</a></div><div class="ttdef"><b>Definition</b> Clock.hpp:11</div></div>
+<div class="ttc" id="astructshkyera_1_1_a_a_b_b_html_aeb9290fd0a5896ef69cbf0588f5d971a"><div class="ttname"><a href="structshkyera_1_1_a_a_b_b.html#aeb9290fd0a5896ef69cbf0588f5d971a">shkyera::AABB::isInside</a></div><div class="ttdeci">bool isInside(const glm::mat4 &amp;aabbTransformMatrix, const glm::vec3 &amp;point) const</div><div class="ttdef"><b>Definition</b> AABB.cpp:47</div></div>
+<div class="ttc" id="astructshkyera_1_1_clock_html"><div class="ttname"><a href="structshkyera_1_1_clock.html">shkyera::Clock</a></div><div class="ttdef"><b>Definition</b> Clock.hpp:9</div></div>
 <div class="ttc" id="astructshkyera_1_1_ray_html"><div class="ttname"><a href="structshkyera_1_1_ray.html">shkyera::Ray</a></div><div class="ttdef"><b>Definition</b> Ray.hpp:7</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
