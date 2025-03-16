@@ -41,6 +41,7 @@ target_link_libraries(
 
     glad
     glm
+    cereal
 )
 
 set_target_properties(Components PROPERTIES LINKER_LANGUAGE CXX)

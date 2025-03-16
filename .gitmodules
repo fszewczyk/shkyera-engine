@@ -19,3 +19,6 @@
 [submodule "extern/tinyobjloader"]
 	path = extern/tinyobjloader
 	url = git@github.com:tinyobjloader/tinyobjloader.git
+[submodule "extern/cereal"]
+	path = extern/cereal
+	url = git@github.com:USCiLab/cereal.git

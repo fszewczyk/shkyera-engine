@@ -1,8 +1,5 @@
 #pragma once
 
-#include <string>
-#include <iostream>
-
 #include <glm/glm.hpp>
 #include <Components/BaseComponent.hpp>
 
