@@ -51,4 +51,5 @@ target_link_libraries(
 
     UI
     Runtime
+    cereal
 )

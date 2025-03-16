@@ -6,9 +6,11 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
+#include <Common/Serialization.hpp>
 #include <AssetManager/Mesh.hpp>
 #include <AssetManager/Material.hpp>
 #include <Components/BaseComponent.hpp>
+#include "cereal/cereal.hpp"
 
 namespace shkyera {
 
@@ -39,6 +41,15 @@ public:
     Scale scale{Scale::Camera};
     Occlusion occlusion{Occlusion::NotOccludable};
     HandleAndAsset<Material> material{};
+
+    template<typename Archive>
+    void serialize(Archive& archive)
+    {
+        archive(CEREAL_NVP(orientation));
+        archive(CEREAL_NVP(scale));
+        archive(CEREAL_NVP(occlusion));
+        archive(CEREAL_NVP(material));
+    }
 
     glm::mat4 getModelMatrix(const glm::mat4 &baseMatrix, const glm::vec3 &cameraPosition, const glm::mat4 &viewMatrix) const 
     {

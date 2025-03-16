@@ -6,6 +6,7 @@ add_library(
     ${CMAKE_CURRENT_LIST_DIR}/Logger.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Profiler.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Random.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/Serialization.hpp
 )
 
 if(CMAKE_SYSTEM_PROCESSOR STREQUAL "arm64" OR CMAKE_SYSTEM_PROCESSOR MATCHES "^aarch64")
@@ -31,6 +32,7 @@ target_link_libraries(
     Common 
     PUBLIC
     glm
+    cereal
 )
 
 # Ensure C++ is used

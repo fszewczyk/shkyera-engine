@@ -1,9 +1,6 @@
 #include <stdio.h>
 
-#include <chrono>
-#include <iostream>
-#include <thread>
-
+#include <cereal/archives/json.hpp>
 #include <Utils/AssetUtils.hpp>
 #include <AssetManager/Mesh.hpp>
 #include <AssetManager/Image.hpp>
@@ -26,6 +23,7 @@
 #include <Components/DirectionalLightComponent.hpp>
 #include <ECS/Registry.hpp>
 #include <UI/UI.hpp>
+#include <sstream>
 
 static shkyera::Entity addModel(std::shared_ptr<shkyera::Registry> registry,
               const glm::vec3& position, 
@@ -174,6 +172,15 @@ void loadScene(std::shared_ptr<shkyera::Registry> registry) {
 
 int main() {
   using namespace shkyera;
+
+  const auto comp = BillboardComponent{};
+
+  {
+    std::stringstream ss;
+    cereal::JSONOutputArchive oa(ss);
+    oa(comp);
+    std::cout << ss.str() << std::endl;
+  }
 
   auto registry = std::make_shared<Registry>();
   auto ui = UI(registry);
