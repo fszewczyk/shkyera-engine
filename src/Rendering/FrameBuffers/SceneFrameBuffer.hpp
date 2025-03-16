@@ -1,17 +1,17 @@
 #pragma once
 
-#include <memory>
 #include <glad/glad.h>
 #include <glm/glm.hpp>
+#include <memory>
 
 #include <AssetManager/Texture.hpp>
 
 namespace shkyera {
 
 class SceneFrameBuffer {
-public:
+   public:
     SceneFrameBuffer(GLenum minFilter = GL_LINEAR, GLenum magFilter = GL_LINEAR,
-                GLenum wrapS = GL_CLAMP_TO_EDGE, GLenum wrapT = GL_CLAMP_TO_EDGE);
+                     GLenum wrapS = GL_CLAMP_TO_EDGE, GLenum wrapT = GL_CLAMP_TO_EDGE);
     ~SceneFrameBuffer();
 
     SceneFrameBuffer(const SceneFrameBuffer& other) = delete;
@@ -28,7 +28,7 @@ public:
     glm::vec2 getSize() const;
     const Texture& getTexture() const { return _textureColorBuffer; }
 
-private:
+   private:
     void setupFramebuffer();
 
     int _width, _height;
@@ -36,5 +36,4 @@ private:
     Texture _textureColorBuffer;
 };
 
-
-}
+}  // namespace shkyera

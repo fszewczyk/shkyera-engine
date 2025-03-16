@@ -9,11 +9,11 @@
 
 #include <functional>
 
-#include <Components/NameComponent.hpp>
 #include <AssetManager/Texture.hpp>
+#include <Components/NameComponent.hpp>
+#include <ECS/Registry.hpp>
 #include <UI/Widget.hpp>
 #include <Utils/AssetUtils.hpp>
-#include <ECS/Registry.hpp>
 
 namespace shkyera {
 
@@ -24,7 +24,7 @@ namespace shkyera {
  * displaying directories, files, and enabling file-related actions.
  */
 class FilesystemWidget : public Widget {
-  public:
+   public:
     FilesystemWidget(std::string name, std::shared_ptr<Registry> registry, AssetHandle rootDirectoryHandle);
 
     /**
@@ -32,7 +32,7 @@ class FilesystemWidget : public Widget {
      */
     virtual void draw() override;
 
-  private:
+   private:
     /**
      * @brief Draw the directory tree, starting from the specified directory.
      *
@@ -60,33 +60,31 @@ class FilesystemWidget : public Widget {
      * @param assetHandle Handle of the asset to draw.
      * @param icon Icon of the asset
      */
-    template<typename AssetType>
-    void drawAsset(AssetHandle handle)
-    {
-      const auto& fileName = _registry->getComponent<NameComponent>(handle).getName();
+    template <typename AssetType>
+    void drawAsset(AssetHandle handle) {
+        const auto& fileName = _registry->getComponent<NameComponent>(handle).getName();
 
-      ImGui::BeginGroup();
-      ImGui::PushID(fileName.c_str());
+        ImGui::BeginGroup();
+        ImGui::PushID(fileName.c_str());
 
-      ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
+        ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
 
-      drawAssetIcon<AssetType>(handle);
+        drawAssetIcon<AssetType>(handle);
 
-      const auto assetTypeName = std::string(typeid(AssetType).name());
-      if(ImGui::BeginDragDropSource(ImGuiDragDropFlags_None))
-      {
-        ImGui::TextUnformatted(fileName.c_str());
-        ImGui::SetDragDropPayload(("ASSET_" + assetTypeName).c_str(), reinterpret_cast<void *>(&handle), sizeof(AssetHandle));
-        ImGui::EndDragDropSource();
-      }
-      _hoveredIcon |= ImGui::IsItemHovered();
+        const auto assetTypeName = std::string(typeid(AssetType).name());
+        if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_None)) {
+            ImGui::TextUnformatted(fileName.c_str());
+            ImGui::SetDragDropPayload(("ASSET_" + assetTypeName).c_str(), reinterpret_cast<void*>(&handle), sizeof(AssetHandle));
+            ImGui::EndDragDropSource();
+        }
+        _hoveredIcon |= ImGui::IsItemHovered();
 
-      ImGui::PopStyleColor();
+        ImGui::PopStyleColor();
 
-      drawIconName(fileName);
+        drawIconName(fileName);
 
-      ImGui::PopID();
-      ImGui::EndGroup();
+        ImGui::PopID();
+        ImGui::EndGroup();
     }
 
     /**
@@ -94,7 +92,7 @@ class FilesystemWidget : public Widget {
      * @tparam Type of the asset
      * @param hande Asset Handle of the drawn asset
      */
-    template<typename AssetType>
+    template <typename AssetType>
     void drawAssetIcon(AssetHandle handle);
 
     /**
@@ -106,7 +104,7 @@ class FilesystemWidget : public Widget {
 
     void handleRightMouseClick();
 
-    static constexpr float CONTENTS_ICON_SIZE = 64; ///< The size of icons representing directory contents.
+    static constexpr float CONTENTS_ICON_SIZE = 64;  ///< The size of icons representing directory contents.
 
     std::shared_ptr<Registry> _registry;
     AssetHandle _rootDirectoryHandle;
@@ -118,4 +116,4 @@ class FilesystemWidget : public Widget {
     bool _hoveredIcon;
 };
 
-} // namespace shkyera
+}  // namespace shkyera

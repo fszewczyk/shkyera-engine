@@ -1,8 +1,8 @@
 #define GLM_ENABLE_EXPERIMENTAL
-#include <glm/gtx/string_cast.hpp>
-#include <Math/AABB.hpp>
 #include <Common/Logger.hpp>
+#include <Math/AABB.hpp>
 #include <algorithm>
+#include <glm/gtx/string_cast.hpp>
 
 namespace shkyera {
 
@@ -20,28 +20,22 @@ std::optional<float> AABB::intersect(const Ray& ray, const glm::mat4& transform)
     float tMax = std::numeric_limits<float>::max();
 
     for (int i = 0; i < 3; ++i) {
-        if (std::abs(ray.direction[i]) < std::numeric_limits<float>::epsilon()) 
-        {
-            if (ray.origin[i] < worldMin[i] || ray.origin[i] > worldMax[i]) 
-            {
+        if (std::abs(ray.direction[i]) < std::numeric_limits<float>::epsilon()) {
+            if (ray.origin[i] < worldMin[i] || ray.origin[i] > worldMax[i]) {
                 return std::nullopt;
             }
-        } 
-        else
-        {
+        } else {
             float t1 = (worldMin[i] - ray.origin[i]) / ray.direction[i];
             float t2 = (worldMax[i] - ray.origin[i]) / ray.direction[i];
 
-            if (t1 > t2) 
-            {
+            if (t1 > t2) {
                 std::swap(t1, t2);
             }
 
             tMin = std::max(tMin, t1);
             tMax = std::min(tMax, t2);
 
-            if (tMin > tMax) 
-            {
+            if (tMin > tMax) {
                 return std::nullopt;
             }
         }
@@ -62,4 +56,4 @@ bool AABB::isInside(const glm::mat4& aabbTransformMatrix, const glm::vec3& point
            (localPoint.z >= minBound.z && localPoint.z <= maxBound.z);
 }
 
-} // namespace shkyera
+}  // namespace shkyera

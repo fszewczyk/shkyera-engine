@@ -1,38 +1,32 @@
 #pragma once
 
-#include <string>
 #include <iostream>
+#include <string>
 
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-
-#include <Common/Serialization.hpp>
-#include <AssetManager/Mesh.hpp>
 #include <AssetManager/Material.hpp>
+#include <AssetManager/Mesh.hpp>
+#include <Common/Serialization.hpp>
 #include <Components/BaseComponent.hpp>
-#include "cereal/cereal.hpp"
+
+#include <glm/gtc/matrix_transform.hpp>
 
 namespace shkyera {
 
-template<RuntimeMode Mode = RuntimeMode::PRODUCTION>
-struct BillboardComponent 
-{
-public:
-    enum class Orientation
-    {
+template <RuntimeMode Mode = RuntimeMode::PRODUCTION>
+struct BillboardComponent {
+   public:
+    enum class Orientation {
         CameraFacing,
         AxisAligned,
         WorldFixed
     };
 
-    enum class Scale
-    {
+    enum class Scale {
         World,
         Camera
     };
 
-    enum class Occlusion
-    {
+    enum class Occlusion {
         Occludable,
         NotOccludable
     };
@@ -42,27 +36,23 @@ public:
     Occlusion occlusion{Occlusion::NotOccludable};
     HandleAndAsset<Material> material{};
 
-    template<typename Archive>
-    void serialize(Archive& archive)
-    {
+    template <typename Archive>
+    void serialize(Archive& archive) {
         archive(CEREAL_NVP(orientation));
         archive(CEREAL_NVP(scale));
         archive(CEREAL_NVP(occlusion));
         archive(CEREAL_NVP(material));
     }
 
-    glm::mat4 getModelMatrix(const glm::mat4 &baseMatrix, const glm::vec3 &cameraPosition, const glm::mat4 &viewMatrix) const 
-    {
+    glm::mat4 getModelMatrix(const glm::mat4& baseMatrix, const glm::vec3& cameraPosition, const glm::mat4& viewMatrix) const {
         glm::vec3 position = glm::vec3(baseMatrix[3]);
 
         glm::vec3 scaleVec(
             glm::length(glm::vec3(baseMatrix[0])),
             glm::length(glm::vec3(baseMatrix[1])),
-            glm::length(glm::vec3(baseMatrix[2]))
-        );
+            glm::length(glm::vec3(baseMatrix[2])));
 
-        if (scale == Scale::Camera) 
-        {
+        if (scale == Scale::Camera) {
             float distance = glm::distance(cameraPosition, position);
             scaleVec *= distance / 30.0f;
         }
@@ -75,19 +65,17 @@ public:
             camRot = glm::transpose(camRot);
             rotation = glm::mat4(camRot);
             rotation = glm::rotate(rotation, glm::radians(180.0f), glm::vec3(0, 0, 1));
-        }
-        else if (orientation == Orientation::AxisAligned) {
+        } else if (orientation == Orientation::AxisAligned) {
             glm::vec3 dir = cameraPosition - position;
-            dir.y = 0.0f; // ignore vertical component
+            dir.y = 0.0f;  // ignore vertical component
             if (glm::length(dir) > 0.0001f) {
                 dir = glm::normalize(dir);
             }
             float angle = std::atan2(dir.x, dir.z);
             rotation = glm::rotate(glm::mat4(1.0f), angle, glm::vec3(0, 1, 0));
-        }
-        else if (orientation == Orientation::WorldFixed) {
-            glm::vec3 right   = glm::normalize(glm::vec3(baseMatrix[0]));
-            glm::vec3 up      = glm::normalize(glm::vec3(baseMatrix[1]));
+        } else if (orientation == Orientation::WorldFixed) {
+            glm::vec3 right = glm::normalize(glm::vec3(baseMatrix[0]));
+            glm::vec3 up = glm::normalize(glm::vec3(baseMatrix[1]));
             glm::vec3 forward = glm::normalize(glm::vec3(baseMatrix[2]));
             glm::mat3 R_base;
             R_base[0] = right;
@@ -107,4 +95,4 @@ public:
     }
 };
 
-} // namespace shkyera
+}  // namespace shkyera

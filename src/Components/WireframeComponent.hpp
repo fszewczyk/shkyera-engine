@@ -1,6 +1,6 @@
 #pragma once
 
-#include <memory>
+#include <AssetManager/Asset.hpp>
 #include <AssetManager/Wireframe.hpp>
 #include <Components/BaseComponent.hpp>
 
@@ -17,7 +17,6 @@ struct WireframeComponent : public BaseComponent<WireframeComponent> {
             wireframeAsset->unbind();
         }
     }
-
 };
 
-} // namespace shkyera
+}  // namespace shkyera

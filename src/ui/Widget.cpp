@@ -2,6 +2,7 @@
 
 namespace shkyera {
 
-Widget::Widget(std::string name) : _name(name) {}
+Widget::Widget(std::string name)
+    : _name(name) {}
 
 }  // namespace shkyera

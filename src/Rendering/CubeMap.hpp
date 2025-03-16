@@ -9,7 +9,7 @@
 namespace shkyera {
 
 class CubeMap {
-public:
+   public:
     // Constructor with configurable filter and wrap modes for cube maps
     CubeMap(GLenum minFilter = GL_LINEAR, GLenum magFilter = GL_LINEAR,
             GLenum wrapS = GL_CLAMP_TO_EDGE, GLenum wrapT = GL_CLAMP_TO_EDGE, GLenum wrapR = GL_CLAMP_TO_EDGE);
@@ -22,7 +22,7 @@ public:
     CubeMap& operator=(CubeMap&& other) noexcept;
 
     void initialize(GLenum minFilter = GL_LINEAR, GLenum magFilter = GL_LINEAR,
-        GLenum wrapS = GL_CLAMP_TO_EDGE, GLenum wrapT = GL_CLAMP_TO_EDGE, GLenum wrapR = GL_CLAMP_TO_EDGE);
+                    GLenum wrapS = GL_CLAMP_TO_EDGE, GLenum wrapT = GL_CLAMP_TO_EDGE, GLenum wrapR = GL_CLAMP_TO_EDGE);
 
     // Bind and unbind the cube map
     void bind() const;
@@ -40,8 +40,8 @@ public:
     // Get OpenGL texture ID
     GLuint getID() const { return _textureID; }
 
-private:
+   private:
     GLuint _textureID;
 };
 
-}
+}  // namespace shkyera

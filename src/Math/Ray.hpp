@@ -33,4 +33,4 @@ struct Ray {
     float project(const glm::vec3& point) const;
 };
 
-}
+}  // namespace shkyera

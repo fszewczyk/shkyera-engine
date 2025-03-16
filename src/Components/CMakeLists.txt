@@ -31,6 +31,12 @@ target_include_directories(
     ${CMAKE_SOURCE_DIR}/extern/glm/include
 )
 
+target_compile_definitions(
+    Components
+    INTERFACE
+    GLFW_INCLUDE_NONE
+)
+
 target_link_libraries(
     Components 
     INTERFACE

@@ -2,17 +2,17 @@
 
 #include <memory>
 
-#include <ECS/Registry.hpp>
 #include <Components/ParticleEmitterComponent.hpp>
+#include <ECS/Registry.hpp>
 
 namespace shkyera {
 
 class ParticleSystem {
-public:
+   public:
     ParticleSystem(std::shared_ptr<Registry> registry);
     void update();
 
-private:
+   private:
     void updateParticles(ParticleEmitterComponent& emitter, const glm::mat4& transformMatrix);
 
     void ensureSufficientStateContainerSize(ParticleEmitterComponent& emitter);
@@ -27,4 +27,4 @@ private:
     std::shared_ptr<Registry> _registry;
 };
 
-}
+}  // namespace shkyera

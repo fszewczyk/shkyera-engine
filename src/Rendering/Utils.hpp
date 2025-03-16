@@ -1,17 +1,15 @@
 #pragma once
 
 #include <glad/glad.h>
-#include <Rendering/ShaderProgram.hpp>
 #include <Rendering/FrameBuffers/SceneFrameBuffer.hpp>
+#include <Rendering/ShaderProgram.hpp>
 
-namespace shkyera::utils
-{
+namespace shkyera::utils {
 
 void drawFullscreenQuad();
 
-template<typename ValueType>
-std::pair<std::string, ValueType> Uniform(const std::string& name, const ValueType& value)
-{
+template <typename ValueType>
+std::pair<std::string, ValueType> Uniform(const std::string& name, const ValueType& value) {
     return std::make_pair(name, value);
 }
 
@@ -19,8 +17,8 @@ template <typename... Uniforms>
 void applyShaderToFrameBuffer(
     SceneFrameBuffer& frameBuffer,
     ShaderProgram& shaderProgram,
-    std::vector<std::pair<const char *, const Texture *>> textures, // List of texture bindings with texture unit indices
-    Uniforms... uniforms) // Parameter pack for uniform values
+    std::vector<std::pair<const char*, const Texture*>> textures,  // List of texture bindings with texture unit indices
+    Uniforms... uniforms)                                          // Parameter pack for uniform values
 {
     // Bind framebuffer and activate shader program
     frameBuffer.bind();
@@ -47,9 +45,9 @@ template <typename ArrayType, typename... Uniforms>
 void applyShaderToFrameBuffer(
     SceneFrameBuffer& frameBuffer,
     ShaderProgram& shaderProgram,
-    std::vector<std::pair<const char *, const Texture *>> textures, // List of texture bindings with texture unit indices
-    std::pair<const char *, std::vector<ArrayType>> array,
-    Uniforms... uniforms) // Parameter pack for uniform values
+    std::vector<std::pair<const char*, const Texture*>> textures,  // List of texture bindings with texture unit indices
+    std::pair<const char*, std::vector<ArrayType>> array,
+    Uniforms... uniforms)  // Parameter pack for uniform values
 {
     // Bind framebuffer and activate shader program
     frameBuffer.bind();
@@ -63,8 +61,7 @@ void applyShaderToFrameBuffer(
     }
 
     int index = 0;
-    for(const auto& val : array.second)
-    {
+    for (const auto& val : array.second) {
         shaderProgram.setUniform(std::string(array.first) + "[" + std::to_string(index++) + "]", val);
     }
 
@@ -79,4 +76,4 @@ void applyShaderToFrameBuffer(
     frameBuffer.unbind();
 }
 
-}
+}  // namespace shkyera::utils

@@ -1,26 +1,23 @@
 #include <Utils/AssetUtils.hpp>
 
-#include <Common/Logger.hpp>
-#include <Components/NameComponent.hpp>
-#include <Components/AssetComponents/DirectoryComponent.hpp>
 #include <AssetManager/Mesh.hpp>
-#include <AssetManager/Texture.hpp>
 #include <AssetManager/Shader.hpp>
+#include <AssetManager/Texture.hpp>
+#include <Common/Logger.hpp>
+#include <Components/AssetComponents/DirectoryComponent.hpp>
+#include <Components/NameComponent.hpp>
 
 namespace shkyera::utils::assets {
 
-template<typename... Args>
-static bool oneOf(const std::string& target, Args&&... args)
-{
+template <typename... Args>
+static bool oneOf(const std::string& target, Args&&... args) {
     return (... || (target == args));
 }
 
-std::optional<AssetHandle> registerSingle(std::filesystem::path path, Registry* registry)
-{
+std::optional<AssetHandle> registerSingle(std::filesystem::path path, Registry* registry) {
     const auto handle = registry->addEntity();
     auto& nameComponent = registry->addComponent<NameComponent>(handle);
-    if(std::filesystem::is_directory(path))
-    {
+    if (std::filesystem::is_directory(path)) {
         nameComponent.setName(path.stem());
         registry->addComponent<DirectoryComponent>(handle, path);
         return handle;
@@ -28,20 +25,13 @@ std::optional<AssetHandle> registerSingle(std::filesystem::path path, Registry* 
 
     nameComponent.setName(path.filename());
     const std::string fileExtension = path.extension();
-    if(oneOf(fileExtension, ".jpg", ".jpeg", ".png"))
-    {
-        registry->addComponent<AssetComponent<Texture>>(handle, [path]() { return Texture(path); } );
-    }
-    else if(oneOf(fileExtension, ".obj"))
-    {
+    if (oneOf(fileExtension, ".jpg", ".jpeg", ".png")) {
+        registry->addComponent<AssetComponent<Texture>>(handle, [path]() { return Texture(path); });
+    } else if (oneOf(fileExtension, ".obj")) {
         registry->addComponent<AssetComponent<Mesh>>(handle, [path]() { return Mesh(path); });
-    }
-    else if(oneOf(fileExtension, ".glsl"))
-    {
+    } else if (oneOf(fileExtension, ".glsl")) {
         registry->addComponent<AssetComponent<Shader>>(handle, [path]() { return Shader(path, Shader::Type::Fragment); });
-    }
-    else
-    {
+    } else {
         registry->removeEntity(handle);
         Logger::VERBOSE(std::string("Unrecognized asset type: ") + path.c_str());
         return std::nullopt;
@@ -50,42 +40,34 @@ std::optional<AssetHandle> registerSingle(std::filesystem::path path, Registry* 
     return handle;
 }
 
-std::optional<AssetHandle> registerAll(std::filesystem::path path, Registry* registry)
-{
-    if(!std::filesystem::is_directory(path))
-    {
+std::optional<AssetHandle> registerAll(std::filesystem::path path, Registry* registry) {
+    if (!std::filesystem::is_directory(path)) {
         return registerSingle(path, registry);
     }
 
-    if(const auto rootHandleOpt = registerSingle(path, registry))
-    {
-        for(const auto& subPath : std::filesystem::directory_iterator(path))
-        {
-            if(const auto childHandleOpt = registerAll(subPath, registry))
-            {
+    if (const auto rootHandleOpt = registerSingle(path, registry)) {
+        for (const auto& subPath : std::filesystem::directory_iterator(path)) {
+            if (const auto childHandleOpt = registerAll(subPath, registry)) {
                 registry->getHierarchy().attributeChild(*rootHandleOpt, *childHandleOpt);
             }
         }
 
         return rootHandleOpt;
     }
-    
+
     return std::nullopt;
 }
 
-std::vector<AssetHandle> getSubdirectories(AssetHandle directory, Registry const* registry)
-{
+std::vector<AssetHandle> getSubdirectories(AssetHandle directory, Registry const* registry) {
     const auto& directoryContents = registry->getHierarchy().getChildren(directory);
     std::vector<AssetHandle> subDirectories;
     std::ranges::copy_if(directoryContents, std::back_inserter(subDirectories), [registry](AssetHandle asset) { return registry->hasComponent<DirectoryComponent>(asset); });
     return subDirectories;
 }
 
-std::string getName(const DirectoryComponent& directoryComponent)
-{
+std::string getName(const DirectoryComponent& directoryComponent) {
     const auto& path = directoryComponent.path;
     return path.stem();
-
 }
 
-}
+}  // namespace shkyera::utils::assets

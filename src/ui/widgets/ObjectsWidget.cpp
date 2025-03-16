@@ -11,106 +11,102 @@
 
 namespace shkyera {
 
-ObjectsWidget::ObjectsWidget(std::string name) : Widget(name) {}
+ObjectsWidget::ObjectsWidget(std::string name)
+    : Widget(name) {}
 
 void ObjectsWidget::setRegistry(std::shared_ptr<Registry> registry) {
-  _registry = registry;
+    _registry = registry;
 }
 
 void ObjectsWidget::draw() {
-  ImGui::Begin(_name.c_str());
-  drawCreate();
-  ImGui::Separator();
-  const auto& hierarchy = _registry->getHierarchy();
-  for (const auto& [entity, nameComponent] : _registry->getComponentSet<NameComponent>()) {
-    if(_registry->hasComponent<TransformComponent>(entity) && !hierarchy.getParent(entity))
-    {
-      drawObjectHierarchy(entity, hierarchy, 0);
+    ImGui::Begin(_name.c_str());
+    drawCreate();
+    ImGui::Separator();
+    const auto& hierarchy = _registry->getHierarchy();
+    for (const auto& [entity, nameComponent] : _registry->getComponentSet<NameComponent>()) {
+        if (_registry->hasComponent<TransformComponent>(entity) && !hierarchy.getParent(entity)) {
+            drawObjectHierarchy(entity, hierarchy, 0);
+        }
     }
-  }
-  ImGui::End();
+    ImGui::End();
 }
 
 void ObjectsWidget::drawCreate() {
-  if (ImGui::Button("Create"))
-    ImGui::OpenPopup("Create Popup");
-  if (ImGui::BeginPopup("Create Popup")) {
-    if (ImGui::Selectable("Empty Object")) {
-      const auto newEntity = _registry->addEntity();
-      _registry->addComponent<NameComponent>(newEntity);
-      _registry->addComponent<TransformComponent>(newEntity);
+    if (ImGui::Button("Create"))
+        ImGui::OpenPopup("Create Popup");
+    if (ImGui::BeginPopup("Create Popup")) {
+        if (ImGui::Selectable("Empty Object")) {
+            const auto newEntity = _registry->addEntity();
+            _registry->addComponent<NameComponent>(newEntity);
+            _registry->addComponent<TransformComponent>(newEntity);
 
-      for (const auto& callback : _onNewEntityCallbacks) {
-        callback(newEntity);
-      }
+            for (const auto& callback : _onNewEntityCallbacks) {
+                callback(newEntity);
+            }
 
-      ConsoleWidget::logSuccess("Created Empty Object");
+            ConsoleWidget::logSuccess("Created Empty Object");
+        }
+
+        ImGui::EndPopup();
     }
-
-    ImGui::EndPopup();
-  }
 }
 
 void ObjectsWidget::drawObjectHierarchy(Entity parent, const EntityHierarchy& hierarchy, size_t depth) {
-  constexpr size_t MaximumDepth = 6;
-  if(depth > MaximumDepth)
-  {
-    ImGui::Text("** Maximum Hierarchy Depth Reached **");
-    return;
-  }
+    constexpr size_t MaximumDepth = 6;
+    if (depth > MaximumDepth) {
+        ImGui::Text("** Maximum Hierarchy Depth Reached **");
+        return;
+    }
 
-  if(!_registry->hasComponent<NameComponent>(parent))
-  {
-    return;
-  }
+    if (!_registry->hasComponent<NameComponent>(parent)) {
+        return;
+    }
 
-  ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_OpenOnDoubleClick | ImGuiTreeNodeFlags_OpenOnArrow;
-  const auto& children = hierarchy.getChildren(parent);
-  if(std::ranges::none_of(children, [this](const Entity entity) { return _registry->hasComponent<NameComponent>(entity); }))
-  {
-    flags |= ImGuiTreeNodeFlags_Leaf;
-  }
-  if(_registry->getSelectedEntities().contains(parent))
-  {
-    flags |= ImGuiTreeNodeFlags_Selected;
-  }
-  
-  static bool initiallyOpenedTree = false;
-  if (!initiallyOpenedTree)
-    ImGui::SetNextItemOpen(initiallyOpenedTree == false);
+    ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_OpenOnDoubleClick | ImGuiTreeNodeFlags_OpenOnArrow;
+    const auto& children = hierarchy.getChildren(parent);
+    if (std::ranges::none_of(children, [this](const Entity entity) { return _registry->hasComponent<NameComponent>(entity); })) {
+        flags |= ImGuiTreeNodeFlags_Leaf;
+    }
+    if (_registry->getSelectedEntities().contains(parent)) {
+        flags |= ImGuiTreeNodeFlags_Selected;
+    }
 
-  const auto& name = _registry->getComponent<NameComponent>(parent).getName();
-  const auto& uniqueName = name + "##" + std::to_string(parent);
-  if (ImGui::TreeNodeEx(uniqueName.c_str(), flags)) {
-    if (ImGui::BeginDragDropTarget()) {
-        if (ImGui::AcceptDragDropPayload("DRAG_AND_DROP_ENTITY")) {
-          _registry->getHierarchy().attributeChild(parent, _draggedEntity);
+    static bool initiallyOpenedTree = false;
+    if (!initiallyOpenedTree)
+        ImGui::SetNextItemOpen(initiallyOpenedTree == false);
+
+    const auto& name = _registry->getComponent<NameComponent>(parent).getName();
+    const auto& uniqueName = name + "##" + std::to_string(parent);
+    if (ImGui::TreeNodeEx(uniqueName.c_str(), flags)) {
+        if (ImGui::BeginDragDropTarget()) {
+            if (ImGui::AcceptDragDropPayload("DRAG_AND_DROP_ENTITY")) {
+                _registry->getHierarchy().attributeChild(parent, _draggedEntity);
+            }
+
+            ImGui::EndDragDropTarget();
         }
 
-        ImGui::EndDragDropTarget();
+        if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_None)) {
+            ImGui::SameLine();
+            ImGui::TextUnformatted(name.c_str());
+            _draggedEntity = parent;
+            ImGui::SetDragDropPayload("DRAG_AND_DROP_ENTITY", nullptr, 0);
+            ImGui::EndDragDropSource();
+        }
+
+        if (ImGui::IsItemClicked() && !_registry->getSelectedEntities().contains(parent)) {
+            _registry->clearSelectedEntities();
+            _registry->selectEntity(parent);
+        }
+
+        for (const auto& child : children) {
+            drawObjectHierarchy(child, hierarchy, depth + 1);
+        }
+
+        ImGui::TreePop();
     }
 
-    if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_None)) {
-      ImGui::SameLine();
-      ImGui::TextUnformatted(name.c_str());
-      _draggedEntity = parent;
-      ImGui::SetDragDropPayload("DRAG_AND_DROP_ENTITY", nullptr, 0);
-      ImGui::EndDragDropSource();
-    }
-
-    if (ImGui::IsItemClicked() && !_registry->getSelectedEntities().contains(parent)) {
-      _registry->clearSelectedEntities();
-      _registry->selectEntity(parent);
-    }
-
-    for (const auto& child : children) {
-      drawObjectHierarchy(child, hierarchy, depth + 1);
-    }
-
-    ImGui::TreePop();
-  }
-
-  initiallyOpenedTree = true;
+    initiallyOpenedTree = true;
 }
 
 }  // namespace shkyera

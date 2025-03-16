@@ -3,24 +3,24 @@
 
 #include <glad/glad.h>
 
-#include <iostream>
 #include <AssetManager/Image.hpp>
-#include <InputManager/InputManager.hpp>
 #include <AssetManager/Shader.hpp>
-#include <Components/NameComponent.hpp>
 #include <Components/CameraComponent.hpp>
+#include <Components/NameComponent.hpp>
+#include <InputManager/InputManager.hpp>
 #include <UI/Widgets/ConsoleWidget.hpp>
 #include <UI/Widgets/SceneWidget.hpp>
-
+#include <iostream>
 
 namespace shkyera {
 
-SceneWidget::SceneWidget(std::shared_ptr<Registry> registry) : Widget("Scene"), _registry(registry), _runtime(std::move(registry)) {}
+SceneWidget::SceneWidget(std::shared_ptr<Registry> registry)
+    : Widget("Scene"), _registry(registry), _runtime(std::move(registry)) {}
 
 void SceneWidget::draw() {
     ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
     ImGui::Begin(_name.c_str(), nullptr, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
-    
+
     auto renderSize = ImGui::GetContentRegionAvail();
     updateWindowCoordinateSystem();
     _runtime.getRenderingSystem().setSize(renderSize.x * 2.0f, renderSize.y * 2.0f);
@@ -30,7 +30,7 @@ void SceneWidget::draw() {
     _runtime.update();
 
     ImGui::Image((void*)(intptr_t)_runtime.getRenderingSystem().getRenderFrameBuffer(), renderSize);
-    
+
     ImGui::End();
     ImGui::PopStyleVar();
 }
@@ -49,6 +49,5 @@ void SceneWidget::updateWindowCoordinateSystem() {
 
     InputManager::getInstance().setCoordinateSystem(InputManager::CoordinateSystem::SCENE, topLeftVec, bottomRightVec);
 }
-
 
 }  // namespace shkyera

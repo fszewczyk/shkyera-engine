@@ -1,24 +1,24 @@
 #pragma once
 
-#include <string>
 #include <iostream>
+#include <string>
 
 #include <glm/glm.hpp>
-#include <glm/gtc/quaternion.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/quaternion.hpp>
 
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/matrix_decompose.hpp>
 #include <glm/gtx/string_cast.hpp>
 
-#include <Math/Utils.hpp>
-#include <ECS/Registry.hpp>
 #include <Components/BaseComponent.hpp>
+#include <ECS/Registry.hpp>
+#include <Math/Utils.hpp>
 
 namespace shkyera {
 
 class TransformComponent : public BaseComponent<TransformComponent> {
-public:
+   public:
     TransformComponent() = default;
 
     glm::vec3& getPosition() { return _position; }
@@ -54,53 +54,46 @@ public:
         transforms.emplace_back(std::move(localTransform));
 
         const auto& hierarchy = registry->getHierarchy();
-        while(const auto& parentOpt = hierarchy.getParent(entity))
-        {
+        while (const auto& parentOpt = hierarchy.getParent(entity)) {
             entity = *parentOpt;
-            if(registry->hasComponent<TransformComponent>(entity))
-            {
+            if (registry->hasComponent<TransformComponent>(entity)) {
                 auto localParentTransform = registry->getComponent<TransformComponent>(entity).getRotationMatrix();
                 transforms.emplace_back(std::move(localParentTransform));
             }
         }
 
         auto result = glm::mat4(1.0);
-        for(auto it = transforms.rbegin(); it != transforms.rend(); ++it)
-        {
+        for (auto it = transforms.rbegin(); it != transforms.rend(); ++it) {
             result = result * (*it);
         }
         return result;
     }
 
-    static glm::mat4 getGlobalTransformMatrix(Entity entity, std::shared_ptr<Registry> registry)
-    {
+    static glm::mat4 getGlobalTransformMatrix(Entity entity, std::shared_ptr<Registry> registry) {
         std::vector<glm::mat4> transforms;
         auto localTransform = registry->getComponent<TransformComponent>(entity).getTransformMatrix();
         transforms.emplace_back(std::move(localTransform));
 
         const auto& hierarchy = registry->getHierarchy();
-        while(const auto& parentOpt = hierarchy.getParent(entity))
-        {
+        while (const auto& parentOpt = hierarchy.getParent(entity)) {
             entity = *parentOpt;
-            if(registry->hasComponent<TransformComponent>(entity))
-            {
+            if (registry->hasComponent<TransformComponent>(entity)) {
                 auto localParentTransform = registry->getComponent<TransformComponent>(entity).getTransformMatrix();
                 transforms.emplace_back(std::move(localParentTransform));
             }
         }
 
         auto result = glm::mat4(1.0);
-        for(auto it = transforms.rbegin(); it != transforms.rend(); ++it)
-        {
+        for (auto it = transforms.rbegin(); it != transforms.rend(); ++it) {
             result = result * (*it);
         }
         return result;
     }
 
-private:
-    glm::vec3 _position {0.0, 0.0, 0.0};
-    glm::vec3 _orientation {0.0, 0.0, 0.0};
-    glm::vec3 _scale {1.0, 1.0, 1.0};
+   private:
+    glm::vec3 _position{0.0, 0.0, 0.0};
+    glm::vec3 _orientation{0.0, 0.0, 0.0};
+    glm::vec3 _scale{1.0, 1.0, 1.0};
 };
 
-} // namespace shkyera
+}  // namespace shkyera

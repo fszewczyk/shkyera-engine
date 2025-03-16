@@ -32,8 +32,7 @@ float Ray::project(const Ray& other) const {
     return t1;
 }
 
-float Ray::project(const glm::vec3& point) const
-{
+float Ray::project(const glm::vec3& point) const {
     // Normalize the direction vector of the ray
     glm::vec3 dirNormalized = glm::normalize(direction);
 
@@ -46,5 +45,4 @@ float Ray::project(const glm::vec3& point) const
     return t;
 }
 
-
-} // namespace shkyera
+}  // namespace shkyera

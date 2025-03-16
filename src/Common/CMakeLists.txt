@@ -27,6 +27,12 @@ target_include_directories(
     ${CMAKE_SOURCE_DIR}/extern/glm/include
 )
 
+target_compile_definitions(
+    Common
+    PUBLIC
+    GLFW_INCLUDE_NONE
+)
+
 # Link libraries
 target_link_libraries(
     Common 

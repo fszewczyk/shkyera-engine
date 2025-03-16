@@ -6,14 +6,12 @@
 namespace shkyera {
 
 DepthAtlasFrameBuffer::DepthAtlasFrameBuffer(int texturesInAtlas, GLenum minFilter, GLenum magFilter,
-                         GLenum wrapS, GLenum wrapT)
-    : _texturesInAtlas(texturesInAtlas), _width(2048), _height(2048),
-      _textureDepthBuffer(minFilter, magFilter, wrapS, wrapT) {
+                                             GLenum wrapS, GLenum wrapT)
+    : _texturesInAtlas(texturesInAtlas), _width(2048), _height(2048), _textureDepthBuffer(minFilter, magFilter, wrapS, wrapT) {
     setupFramebuffer();
 }
 
-DepthAtlasFrameBuffer::DepthAtlasFrameBuffer(DepthAtlasFrameBuffer&& other) noexcept
-{
+DepthAtlasFrameBuffer::DepthAtlasFrameBuffer(DepthAtlasFrameBuffer&& other) noexcept {
     _texturesInAtlas = other._texturesInAtlas;
     _width = other._width;
     _height = other._height;
@@ -25,16 +23,12 @@ DepthAtlasFrameBuffer::DepthAtlasFrameBuffer(DepthAtlasFrameBuffer&& other) noex
     other._rbo = 0;
 }
 
-DepthAtlasFrameBuffer& DepthAtlasFrameBuffer::operator=(DepthAtlasFrameBuffer&& other) noexcept
-{
-    if(this != &other)
-    {
-        if(_fbo != 0)
-        {
+DepthAtlasFrameBuffer& DepthAtlasFrameBuffer::operator=(DepthAtlasFrameBuffer&& other) noexcept {
+    if (this != &other) {
+        if (_fbo != 0) {
             glDeleteFramebuffers(1, &_fbo);
         }
-        if(_rbo != 0)
-        {
+        if (_rbo != 0) {
             glDeleteRenderbuffers(1, &_rbo);
         }
 
@@ -53,12 +47,10 @@ DepthAtlasFrameBuffer& DepthAtlasFrameBuffer::operator=(DepthAtlasFrameBuffer&& 
 }
 
 DepthAtlasFrameBuffer::~DepthAtlasFrameBuffer() {
-    if(_fbo != 0)
-    {
+    if (_fbo != 0) {
         glDeleteFramebuffers(1, &_fbo);
     }
-    if(_rbo != 0)
-    {
+    if (_rbo != 0) {
         glDeleteRenderbuffers(1, &_rbo);
     }
 }
@@ -66,7 +58,6 @@ DepthAtlasFrameBuffer::~DepthAtlasFrameBuffer() {
 int DepthAtlasFrameBuffer::getNumberOfTextures() const {
     return _texturesInAtlas;
 }
-
 
 void DepthAtlasFrameBuffer::bind(int index) {
     glBindFramebuffer(GL_FRAMEBUFFER, _fbo);
@@ -90,7 +81,8 @@ void DepthAtlasFrameBuffer::clear() {
 }
 
 void DepthAtlasFrameBuffer::setSize(uint32_t width, uint32_t height) {
-    if (width == _width && height == _height) return;
+    if (width == _width && height == _height)
+        return;
 
     _width = width;
     _height = height;
@@ -115,7 +107,7 @@ void DepthAtlasFrameBuffer::setupFramebuffer() {
     glBindTexture(GL_TEXTURE_2D, _textureDepthBuffer.getID());
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-    
+
     if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
         Logger::INFO("Depth Frame Buffer is not complete!");
     }
@@ -123,4 +115,4 @@ void DepthAtlasFrameBuffer::setupFramebuffer() {
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
-}
+}  // namespace shkyera

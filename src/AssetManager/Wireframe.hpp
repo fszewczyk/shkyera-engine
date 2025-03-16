@@ -1,21 +1,22 @@
 #pragma once
 
-#include <glm/glm.hpp>
 #include <glad/glad.h>
-#include <vector>
+#include <glm/glm.hpp>
 #include <string>
+#include <vector>
 
 #include <AssetManager/PathConstructibleAsset.hpp>
 
 namespace shkyera {
 
 class Wireframe : public PathConstructibleAsset<Wireframe> {
-public:
+   public:
     struct Edge {
         glm::vec3 start;
         glm::vec3 end;
 
-        Edge(const glm::vec3& s, const glm::vec3& e) : start(s), end(e) {}
+        Edge(const glm::vec3& s, const glm::vec3& e)
+            : start(s), end(e) {}
     };
 
     Wireframe(const std::filesystem::path& filepath);
@@ -37,13 +38,13 @@ public:
     GLsizei getEdgeCount() const { return _edgeCount; }
 
     class Factory {
-    public:
+       public:
         static Wireframe createCube();
         static Wireframe createCylinder();
         static Wireframe createSphere();
     };
 
-private:
+   private:
     void loadFromFile(const std::filesystem::path& filepath);
     void uploadToGPU(const std::vector<Edge>& edges);
 
@@ -51,4 +52,4 @@ private:
     GLsizei _edgeCount;
 };
 
-} // namespace shkyera
+}  // namespace shkyera
