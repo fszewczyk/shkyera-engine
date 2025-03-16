@@ -45,7 +45,8 @@ void DepthCubeMapFrameBuffer::activate(GLuint texId) const {
 }
 
 void DepthCubeMapFrameBuffer::setSize(int width, int height) {
-    if (width == _width && height == _height) return;
+    if (width == _width && height == _height)
+        return;
 
     _width = width;
     _height = height;
@@ -105,4 +106,4 @@ void DepthCubeMapFrameBuffer::setupFramebuffer() {
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
-}
+}  // namespace shkyera

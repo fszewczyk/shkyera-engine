@@ -16,4 +16,4 @@ void multiplyAccumulate(const FloatVec& a, float b, FloatVec& dst);
 
 void multiplyAccumulate(const FloatVec& a, const FloatVec& b, FloatVec& dst);
 
-}
+}  // namespace shkyera::simd

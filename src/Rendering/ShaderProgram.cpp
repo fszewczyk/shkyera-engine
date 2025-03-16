@@ -1,5 +1,5 @@
-#include <Rendering/ShaderProgram.hpp>
 #include <Common/Logger.hpp>
+#include <Rendering/ShaderProgram.hpp>
 
 namespace shkyera {
 
@@ -28,8 +28,7 @@ void ShaderProgram::link() {
     }
 }
 
-bool ShaderProgram::isInUse()
-{
+bool ShaderProgram::isInUse() {
     return !_shadersInUse.empty() && _id == _shadersInUse.top();
 }
 
@@ -44,12 +43,12 @@ void ShaderProgram::stopUsing() {
 }
 
 void ShaderProgram::setUniform(const std::string& name, int value) {
-    if(!isInUse()) {
+    if (!isInUse()) {
         Logger::ERROR("Trying to set a uniform (" + name + ") while the shader program is not in use.");
     }
 
     GLint location = getUniformLocation(name);
-    if (location != -1) { // Only set uniform if the location is valid
+    if (location != -1) {  // Only set uniform if the location is valid
         glUniform1i(location, value);
     } else {
         Logger::ERROR("Shader uniform cannot be set due to invalid location '" + name);
@@ -57,12 +56,12 @@ void ShaderProgram::setUniform(const std::string& name, int value) {
 }
 
 void ShaderProgram::setUniform(const std::string& name, float value) {
-    if(!isInUse()) {
+    if (!isInUse()) {
         Logger::ERROR("Trying to set a uniform (" + name + ") while the shader program is not in use.");
     }
 
     GLint location = getUniformLocation(name);
-    if (location != -1) { // Only set uniform if the location is valid
+    if (location != -1) {  // Only set uniform if the location is valid
         glUniform1f(location, value);
     } else {
         Logger::ERROR("Shader uniform cannot be set due to invalid location '" + name);
@@ -70,12 +69,12 @@ void ShaderProgram::setUniform(const std::string& name, float value) {
 }
 
 void ShaderProgram::setUniform(const std::string& name, const glm::vec2& value) {
-    if(!isInUse()) {
+    if (!isInUse()) {
         Logger::ERROR("Trying to set a uniform (" + name + ") while the shader program is not in use.");
     }
 
     GLint location = getUniformLocation(name);
-    if (location != -1) { // Only set uniform if the location is valid
+    if (location != -1) {  // Only set uniform if the location is valid
         glUniform2fv(location, 1, &value[0]);
     } else {
         Logger::ERROR("Shader uniform cannot be set due to invalid location '" + name);
@@ -83,12 +82,12 @@ void ShaderProgram::setUniform(const std::string& name, const glm::vec2& value) 
 }
 
 void ShaderProgram::setUniform(const std::string& name, const glm::vec3& value) {
-    if(!isInUse()) {
+    if (!isInUse()) {
         Logger::ERROR("Trying to set a uniform (" + name + ") while the shader program is not in use.");
     }
 
     GLint location = getUniformLocation(name);
-    if (location != -1) { // Only set uniform if the location is valid
+    if (location != -1) {  // Only set uniform if the location is valid
         glUniform3fv(location, 1, &value[0]);
     } else {
         Logger::ERROR("Shader uniform cannot be set due to invalid location '" + name);
@@ -96,12 +95,12 @@ void ShaderProgram::setUniform(const std::string& name, const glm::vec3& value) 
 }
 
 void ShaderProgram::setUniform(const std::string& name, const glm::mat4& value) {
-    if(!isInUse()) {
+    if (!isInUse()) {
         Logger::ERROR("Trying to set a uniform (" + name + ") while the shader program is not in use.");
     }
 
     GLint location = getUniformLocation(name);
-    if (location != -1) { // Only set uniform if the location is valid
+    if (location != -1) {  // Only set uniform if the location is valid
         glUniformMatrix4fv(location, 1, GL_FALSE, &value[0][0]);
     } else {
         Logger::ERROR("Shader uniform cannot be set due to invalid location '" + name);
@@ -123,16 +122,13 @@ GLint ShaderProgram::getUniformLocation(const std::string& name) {
     return location;
 }
 
-UseShader::UseShader(ShaderProgram& shaderProgram) : mShaderProgram(shaderProgram)
-{
+UseShader::UseShader(ShaderProgram& shaderProgram)
+    : mShaderProgram(shaderProgram) {
     mShaderProgram.use();
 }
 
-
-UseShader::~UseShader()
-{
+UseShader::~UseShader() {
     mShaderProgram.stopUsing();
 }
 
-
-}
+}  // namespace shkyera

@@ -3,16 +3,16 @@
 #include <AssetManager/Asset.hpp>
 #include <AssetManager/Texture.hpp>
 #include <Components/AssetComponents/AssetComponent.hpp>
-#include <UI/Widget.hpp>
+#include <UI/Common/AssetSelector.hpp>
 #include <UI/Common/BooleanSelector.hpp>
 #include <UI/Common/ColorSelector.hpp>
 #include <UI/Common/FloatSlider.hpp>
-#include <UI/Common/AssetSelector.hpp>
+#include <UI/Widget.hpp>
 
 namespace shkyera {
 
 class InspectorWidget : public Widget {
-  public:
+   public:
     using Widget::Widget;
 
     InspectorWidget(std::string name, std::shared_ptr<Registry> registry);
@@ -22,40 +22,36 @@ class InspectorWidget : public Widget {
      */
     virtual void draw() override;
 
-  private:
+   private:
     bool updateAssetSelection();
-    
-    template<typename AssetType, typename InspectorType>
-    bool tryResetInspector()
-    {
-      if(!_selectedAsset)
-      {
-        _assetInspector.reset();
+
+    template <typename AssetType, typename InspectorType>
+    bool tryResetInspector() {
+        if (!_selectedAsset) {
+            _assetInspector.reset();
+            return false;
+        }
+
+        if (_registry->hasComponent<AssetComponent<AssetType>>(*_selectedAsset)) {
+            _assetInspector = std::make_unique<InspectorType>(_registry.get(), *_selectedAsset);
+            return true;
+        }
+
         return false;
-      }
-
-      if(_registry->hasComponent<AssetComponent<AssetType>>(*_selectedAsset))
-      {
-        _assetInspector = std::make_unique<InspectorType>(_registry.get(), *_selectedAsset);
-        return true;
-      }
-
-      return false;
     }
 
-    class AssetInspector
-    {
-      public:
+    class AssetInspector {
+       public:
         virtual ~AssetInspector() = default;
         virtual void draw() = 0;
     };
 
-    class MaterialInspector : public AssetInspector
-    {
-      public:
+    class MaterialInspector : public AssetInspector {
+       public:
         MaterialInspector(Registry* registry, AssetHandle assetHandle);
         void draw();
-      private:
+
+       private:
         ColorSelector _albedoColorSelector;
         ColorSelector _emissiveColorSelector;
         BooleanSelector _litMaterialCheckbox;
@@ -70,14 +66,13 @@ class InspectorWidget : public Widget {
         TextureAssetSelector _emissiveTextureSelector;
     };
 
-    class TextureInspector : public AssetInspector
-    {
-      public:
+    class TextureInspector : public AssetInspector {
+       public:
         TextureInspector(Registry* registry, AssetHandle assetHandle);
 
         void draw();
 
-      private:
+       private:
         AssetRef<Texture> _texture;
     };
 
@@ -86,4 +81,4 @@ class InspectorWidget : public Widget {
     std::unique_ptr<AssetInspector> _assetInspector;
 };
 
-} // namespace shkyera
+}  // namespace shkyera

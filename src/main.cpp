@@ -4,33 +4,33 @@
 #include <iostream>
 #include <thread>
 
-#include <Utils/AssetUtils.hpp>
-#include <AssetManager/Mesh.hpp>
 #include <AssetManager/Image.hpp>
-#include <Rendering/CubeMap.hpp>
+#include <AssetManager/Mesh.hpp>
 #include <Common/Types.hpp>
-#include <Components/TransformComponent.hpp>
-#include <Components/WireframeComponent.hpp>
-#include <Components/NameComponent.hpp>
-#include <Components/ModelComponent.hpp>
-#include <Components/PostProcessingVolumeComponent.hpp>
-#include <Components/ParticleEmitterComponent.hpp>
+#include <Components/AmbientLightComponent.hpp>
 #include <Components/BillboardComponent.hpp>
-#include <Components/OverlayModelComponent.hpp>
-#include <Components/SkyboxComponent.hpp>
 #include <Components/BoxColliderComponent.hpp>
 #include <Components/CameraComponent.hpp>
-#include <Components/AmbientLightComponent.hpp>
-#include <Components/SpotLightComponent.hpp>
-#include <Components/PointLightComponent.hpp>
 #include <Components/DirectionalLightComponent.hpp>
+#include <Components/ModelComponent.hpp>
+#include <Components/NameComponent.hpp>
+#include <Components/OverlayModelComponent.hpp>
+#include <Components/ParticleEmitterComponent.hpp>
+#include <Components/PointLightComponent.hpp>
+#include <Components/PostProcessingVolumeComponent.hpp>
+#include <Components/SkyboxComponent.hpp>
+#include <Components/SpotLightComponent.hpp>
+#include <Components/TransformComponent.hpp>
+#include <Components/WireframeComponent.hpp>
 #include <ECS/Registry.hpp>
+#include <Rendering/CubeMap.hpp>
 #include <UI/UI.hpp>
+#include <Utils/AssetUtils.hpp>
 
 static shkyera::Entity addModel(std::shared_ptr<shkyera::Registry> registry,
-              const glm::vec3& position, 
-              const std::string& name, 
-              std::shared_ptr<shkyera::Mesh> mesh) {
+                                const glm::vec3& position,
+                                const std::string& name,
+                                std::shared_ptr<shkyera::Mesh> mesh) {
     using namespace shkyera;
 
     auto entity = registry->addEntity();
@@ -47,10 +47,10 @@ static shkyera::Entity addModel(std::shared_ptr<shkyera::Registry> registry,
     return entity;
 }
 
-shkyera::Entity addWireframe(std::shared_ptr<shkyera::Registry> registry, 
-                  const glm::vec3& position, 
-                  const std::string& name, 
-                  std::shared_ptr<shkyera::Wireframe> wireframe) {
+shkyera::Entity addWireframe(std::shared_ptr<shkyera::Registry> registry,
+                             const glm::vec3& position,
+                             const std::string& name,
+                             std::shared_ptr<shkyera::Wireframe> wireframe) {
     using namespace shkyera;
 
     auto entity = registry->addEntity();
@@ -119,7 +119,7 @@ void loadScene(std::shared_ptr<shkyera::Registry> registry) {
     registry->getComponent<NameComponent>(pointLight).setName("Point Light");
     registry->addComponent<PointLightComponent>(pointLight);
     registry->getComponent<PointLightComponent>(pointLight).range = 15;
-    registry->getComponent<PointLightComponent>(pointLight).intensity = 1; 
+    registry->getComponent<PointLightComponent>(pointLight).intensity = 1;
 
     // Add Skybox
     auto sky = registry->addEntity();
@@ -130,7 +130,7 @@ void loadScene(std::shared_ptr<shkyera::Registry> registry) {
     registry->addComponent<DirectionalLightComponent>(sky);
     registry->getComponent<DirectionalLightComponent>(sky).color = glm::vec3{0.95, 0.95, 0.95};
     registry->getComponent<DirectionalLightComponent>(sky).intensity = 0.5;
-    
+
     auto ambientLight = registry->addEntity();
     registry->addComponent<AmbientLightComponent>(ambientLight);
     registry->addComponent<NameComponent>(ambientLight).setName("Ambient Light");
@@ -173,16 +173,16 @@ void loadScene(std::shared_ptr<shkyera::Registry> registry) {
 }
 
 int main() {
-  using namespace shkyera;
+    using namespace shkyera;
 
-  auto registry = std::make_shared<Registry>();
-  auto ui = UI(registry);
-  
-  loadScene(registry);
+    auto registry = std::make_shared<Registry>();
+    auto ui = UI(registry);
 
-  while (!ui.shouldClose()) {
-    ui.draw();
-  }
+    loadScene(registry);
 
-  return 0;
+    while (!ui.shouldClose()) {
+        ui.draw();
+    }
+
+    return 0;
 }

@@ -1,16 +1,16 @@
 #pragma once
 
-#include <memory>
 #include <glad/glad.h>
+#include <memory>
 
 #include <AssetManager/Texture.hpp>
 
 namespace shkyera {
 
 class DepthAtlasFrameBuffer {
-public:
+   public:
     DepthAtlasFrameBuffer(int texturesInAtlas, GLenum minFilter = GL_NEAREST, GLenum magFilter = GL_NEAREST,
-                GLenum wrapS = GL_CLAMP_TO_EDGE, GLenum wrapT = GL_CLAMP_TO_EDGE);
+                          GLenum wrapS = GL_CLAMP_TO_EDGE, GLenum wrapT = GL_CLAMP_TO_EDGE);
     ~DepthAtlasFrameBuffer();
 
     DepthAtlasFrameBuffer(const DepthAtlasFrameBuffer& other) = delete;
@@ -29,7 +29,7 @@ public:
 
     int getNumberOfTextures() const;
 
-private:
+   private:
     void setupFramebuffer();
 
     int _texturesInAtlas;
@@ -38,5 +38,4 @@ private:
     Texture _textureDepthBuffer;
 };
 
-
-}
+}  // namespace shkyera

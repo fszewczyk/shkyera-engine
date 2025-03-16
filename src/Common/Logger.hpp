@@ -22,4 +22,4 @@ void SUCCESS(const std::string& message);
 void subscribe(void* subscriberAddress, const Callback& callback);
 void unsubscribe(void* subscriberAddress);
 
-}
+}  // namespace shkyera::Logger

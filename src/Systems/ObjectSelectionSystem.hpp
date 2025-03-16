@@ -1,19 +1,19 @@
 #pragma once
 
-#include <memory>
 #include <ECS/Registry.hpp>
+#include <memory>
 
 namespace shkyera {
 
 class ObjectSelectionSystem {
-public:
+   public:
     ObjectSelectionSystem(std::shared_ptr<Registry> registry);
 
-private:
+   private:
     std::optional<Entity> getHoveredObject();
 
     std::optional<Entity> _objectSelectedOnMouseDown;
     std::shared_ptr<Registry> _registry;
 };
 
-}
+}  // namespace shkyera

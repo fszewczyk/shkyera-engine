@@ -1,38 +1,35 @@
 #include <fstream>
 #include <sstream>
 
-#include <iostream>
 #include <AssetManager/Shader.hpp>
 #include <Common/Logger.hpp>
+#include <iostream>
 
 namespace shkyera {
 
-Shader::Shader(const std::filesystem::path& filepath, Type type) : 
-PathConstructibleAsset(filepath),
-_type(type) {
+Shader::Shader(const std::filesystem::path& filepath, Type type)
+    : PathConstructibleAsset(filepath),
+      _type(type) {
     std::string source = loadFromFile(filepath);
     compile(source);
 }
 
 Shader::~Shader() {
-    if(_id != 0)
-    {
+    if (_id != 0) {
         glDeleteShader(_id);
     }
 }
 
-Shader::Shader(Shader&& other) noexcept :
-PathConstructibleAsset(std::move(other)),
-_id(std::exchange(other._id, 0)), 
-_type(other._type) 
-{}
+Shader::Shader(Shader&& other) noexcept
+    : PathConstructibleAsset(std::move(other)),
+      _id(std::exchange(other._id, 0)),
+      _type(other._type) {}
 
 Shader& Shader::operator=(Shader&& other) noexcept {
     if (this != &other) {
         PathConstructibleAsset::operator=(std::move(other));
 
-        if (_id != 0) 
-        {
+        if (_id != 0) {
             glDeleteShader(_id);
         }
 
@@ -84,5 +81,5 @@ GLenum Shader::shaderTypeToGLenum(Type type) {
             return 0;
     }
 }
-    
-}
+
+}  // namespace shkyera

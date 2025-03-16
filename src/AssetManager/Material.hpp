@@ -1,9 +1,9 @@
 #pragma once
 
-#include <glm/glm.hpp>
 #include <AssetManager/Asset.hpp>
 #include <AssetManager/Texture.hpp>
 #include <Common/InstanceCounter.hpp>
+#include <glm/glm.hpp>
 
 namespace shkyera {
 
@@ -26,4 +26,4 @@ struct Material : InstanceCounter<Material> {
     HandleAndAsset<Texture> emissiveTexture;
 };
 
-}
+}  // namespace shkyera

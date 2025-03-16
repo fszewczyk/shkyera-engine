@@ -4,15 +4,13 @@
 namespace shkyera {
 
 SceneFrameBuffer::SceneFrameBuffer(GLenum minFilter, GLenum magFilter,
-                         GLenum wrapS, GLenum wrapT)
-    : _width(0), _height(0),
-      _textureColorBuffer(minFilter, magFilter, wrapS, wrapT) {
+                                   GLenum wrapS, GLenum wrapT)
+    : _width(0), _height(0), _textureColorBuffer(minFilter, magFilter, wrapS, wrapT) {
     setupFramebuffer();
     setSize(256, 256);
 }
 
-SceneFrameBuffer::SceneFrameBuffer(SceneFrameBuffer&& other) noexcept
-{
+SceneFrameBuffer::SceneFrameBuffer(SceneFrameBuffer&& other) noexcept {
     _fbo = other._fbo;
     _rbo = other._rbo;
     _textureColorBuffer = std::move(other._textureColorBuffer);
@@ -22,16 +20,12 @@ SceneFrameBuffer::SceneFrameBuffer(SceneFrameBuffer&& other) noexcept
     other._textureColorBuffer = Texture{};
 }
 
-SceneFrameBuffer& SceneFrameBuffer::operator=(SceneFrameBuffer&& other) noexcept
-{
-    if(this != &other)
-    {
-        if(_fbo != 0)
-        {
+SceneFrameBuffer& SceneFrameBuffer::operator=(SceneFrameBuffer&& other) noexcept {
+    if (this != &other) {
+        if (_fbo != 0) {
             glDeleteFramebuffers(1, &_fbo);
         }
-        if(_rbo != 0)
-        {
+        if (_rbo != 0) {
             glDeleteRenderbuffers(1, &_rbo);
         }
 
@@ -48,12 +42,10 @@ SceneFrameBuffer& SceneFrameBuffer::operator=(SceneFrameBuffer&& other) noexcept
 }
 
 SceneFrameBuffer::~SceneFrameBuffer() {
-    if(_fbo != 0)
-    {
+    if (_fbo != 0) {
         glDeleteFramebuffers(1, &_fbo);
     }
-    if(_rbo != 0)
-    {
+    if (_rbo != 0) {
         glDeleteRenderbuffers(1, &_rbo);
     }
 }
@@ -75,7 +67,8 @@ void SceneFrameBuffer::clear(glm::vec3 color) {
 }
 
 void SceneFrameBuffer::setSize(uint32_t width, uint32_t height) {
-    if (width == _width && height == _height) return;
+    if (width == _width && height == _height)
+        return;
 
     _width = width;
     _height = height;
@@ -86,8 +79,7 @@ void SceneFrameBuffer::setSize(uint32_t width, uint32_t height) {
     glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, _width, _height);
 }
 
-glm::vec2 SceneFrameBuffer::getSize() const
-{
+glm::vec2 SceneFrameBuffer::getSize() const {
     return {_width, _height};
 }
 
@@ -111,4 +103,4 @@ void SceneFrameBuffer::setupFramebuffer() {
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
-}
+}  // namespace shkyera

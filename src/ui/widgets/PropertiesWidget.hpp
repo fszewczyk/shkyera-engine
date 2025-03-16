@@ -7,9 +7,9 @@
 
 #pragma once
 
-#include <UI/Widget.hpp>
-#include <UI/ComponentUI.hpp>
 #include <ECS/Registry.hpp>
+#include <UI/ComponentUI.hpp>
+#include <UI/Widget.hpp>
 
 namespace shkyera {
 
@@ -20,7 +20,7 @@ namespace shkyera {
  * components of a selected game object.
  */
 class PropertiesWidget : public Widget {
-  public:
+   public:
     using Widget::Widget;
 
     PropertiesWidget(std::shared_ptr<Registry> registry);
@@ -31,7 +31,7 @@ class PropertiesWidget : public Widget {
      */
     void draw() override;
 
-  protected:
+   protected:
     virtual void updateComponents();
     virtual void drawNewComponentMenu();
     void setupComponentsUI();
@@ -39,28 +39,28 @@ class PropertiesWidget : public Widget {
     std::shared_ptr<Registry> _registry;
     std::optional<Entity> _selectedEntity;
 
-  private:
+   private:
     void drawExistingComponents();
 
     std::vector<std::unique_ptr<ComponentUI>> _componentsUi;
 };
 
 class CameraPropertiesWidget : public PropertiesWidget {
-  public:
+   public:
     CameraPropertiesWidget(std::shared_ptr<Registry> registry);
 
-  protected:
+   protected:
     void updateComponents() override;
     void drawNewComponentMenu() override;
 };
 
 class EnvironmentPropertiesWidget : public PropertiesWidget {
-  public:
+   public:
     EnvironmentPropertiesWidget(std::shared_ptr<Registry> registry);
 
-  protected:
+   protected:
     void updateComponents() override;
     void drawNewComponentMenu() override;
 };
 
-} // namespace shkyera
+}  // namespace shkyera

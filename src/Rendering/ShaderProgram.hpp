@@ -4,8 +4,8 @@
 #include <glm/glm.hpp>
 
 #include <memory>
-#include <string>
 #include <stack>
+#include <string>
 #include <unordered_map>
 
 #include <AssetManager/Shader.hpp>
@@ -13,7 +13,7 @@
 namespace shkyera {
 
 class ShaderProgram {
-public:
+   public:
     ShaderProgram();
     ~ShaderProgram();
 
@@ -30,24 +30,23 @@ public:
     void setUniform(const std::string& name, const glm::vec3& value);
     void setUniform(const std::string& name, const glm::mat4& value);
 
-private:
+   private:
     bool isInUse();
     GLint getUniformLocation(const std::string& name);
 
-    GLuint _id;   // OpenGL shader program ID
+    GLuint _id;  // OpenGL shader program ID
     std::unordered_map<std::string, GLint> _uniformLocationCache;
 
     inline static std::stack<GLuint> _shadersInUse{};
 };
 
-class UseShader
-{
-public:
+class UseShader {
+   public:
     UseShader(ShaderProgram& shaderProgram);
     ~UseShader();
 
-private:
+   private:
     ShaderProgram& mShaderProgram;
 };
 
-}
+}  // namespace shkyera
