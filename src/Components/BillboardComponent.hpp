@@ -1,8 +1,5 @@
 #pragma once
 
-#include <iostream>
-#include <string>
-
 #include <AssetManager/Material.hpp>
 #include <AssetManager/Mesh.hpp>
 #include <Common/Serialization.hpp>

@@ -19,4 +19,5 @@ target_link_libraries(
     PUBLIC 
 
     glm::glm
+    cereal
 )

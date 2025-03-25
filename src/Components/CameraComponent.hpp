@@ -2,8 +2,10 @@
 
 #include <glm/glm.hpp>
 
+#include <Common/Serialization.hpp>
 #include <Components/TransformComponent.hpp>
 #include <Math/Ray.hpp>
+#include "cereal/cereal.hpp"
 
 namespace shkyera {
 
@@ -21,6 +23,15 @@ class CameraComponent {
     float aspectRatio;
     float nearPlane, farPlane;
     ProjectionType projectionType;
+
+    template <typename Archive>
+    void serialize(Archive& archive) {
+        archive(CEREAL_NVP(fov));
+        archive(CEREAL_NVP(aspectRatio));
+        archive(CEREAL_NVP(nearPlane));
+        archive(CEREAL_NVP(farPlane));
+        archive(CEREAL_NVP(projectionType));
+    }
 
     glm::mat4 getViewMatrix(const TransformComponent& transformComponent) const {
         glm::vec3 position = transformComponent.getPosition();

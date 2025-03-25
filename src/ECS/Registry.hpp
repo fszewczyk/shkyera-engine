@@ -14,6 +14,7 @@
 #include <ECS/EntityProvider.hpp>
 #include <ECS/SingletonComponent.hpp>
 #include <ECS/SparseSet.hpp>
+#include "cereal/cereal.hpp"
 
 namespace shkyera {
 
@@ -181,6 +182,15 @@ class Registry {
     EntityHierarchy& getHierarchy();
 
     const EntityHierarchy& getHierarchy() const;
+
+    template <typename Archive>
+    void serialize(Archive& archive) {
+        archive(CEREAL_NVP(_entityProvider));
+        archive(CEREAL_NVP(_entityHierarchy));
+        archive(CEREAL_NVP(_selectedEntities));
+        archive(CEREAL_NVP(_camera));
+        archive(CEREAL_NVP(_environment));
+    }
 
    private:
     using ParentAndChild = std::pair<Entity, Entity>;

@@ -4,6 +4,8 @@
 
 #include <AssetManager/Asset.hpp>
 #include <AssetManager/Material.hpp>
+#include <Common/Serialization.hpp>
+#include <cereal/cereal.hpp>
 
 namespace shkyera {
 
@@ -53,6 +55,29 @@ struct ParticleEmitterComponent {
         std::vector<glm::vec3> positions{};   //< World CS
         std::vector<glm::vec3> velocities{};  //< World CS
     } state;
+
+    template <typename Archive>
+    void serialize(Archive& archive) {
+        archive(CEREAL_NVP(enabled));
+        archive(CEREAL_NVP(gravity));
+        archive(CEREAL_NVP(emittedAtRadius));
+        archive(CEREAL_NVP(emittedPerSecond));
+        archive(CEREAL_NVP(emittedPerSecondVariance));
+        archive(CEREAL_NVP(initialVelocity));
+        archive(CEREAL_NVP(initialVelocityVariance));
+        archive(CEREAL_NVP(initialVelocityDispersion));
+        archive(CEREAL_NVP(lifetime));
+        archive(CEREAL_NVP(lifetimeVariance));
+        archive(CEREAL_NVP(initialParticleSize));
+        archive(CEREAL_NVP(initialParticleSizeVariance));
+        archive(CEREAL_NVP(endParticleSize));
+        archive(CEREAL_NVP(endParticleSizeVariance));
+        archive(CEREAL_NVP(material));
+        archive(CEREAL_NVP(initialTransparency));
+        archive(CEREAL_NVP(initialTransparencyVariance));
+        archive(CEREAL_NVP(endTransparency));
+        archive(CEREAL_NVP(endTransparencyVariance));
+    }
 };
 
 }  // namespace shkyera

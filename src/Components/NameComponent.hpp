@@ -2,6 +2,7 @@
 
 #include <string>
 
+#include <Common/Serialization.hpp>
 #include <Components/BaseComponent.hpp>
 
 namespace shkyera {
@@ -23,6 +24,11 @@ class NameComponent : public BaseComponent<NameComponent> {
 
     const std::string& getName() const {
         return _name;
+    }
+
+    template <typename Archive>
+    void serialize(Archive& archive) {
+        archive(CEREAL_NVP(_name));
     }
 
    private:

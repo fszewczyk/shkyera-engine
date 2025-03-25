@@ -2,6 +2,7 @@
 
 #include <glm/glm.hpp>
 
+#include <Common/Serialization.hpp>
 #include <Components/BaseComponent.hpp>
 #include <Rendering/CubeMap.hpp>
 
@@ -21,6 +22,11 @@ class GizmoHandleComponent : public BaseComponent<GizmoHandleComponent> {
         : direction(dir) {}
 
     Direction direction = Direction::ANY;
+
+    template <typename Archive>
+    void serialize(Archive& archive) {
+        archive(CEREAL_NVP(direction));
+    }
 };
 
 }  // namespace shkyera

@@ -3,7 +3,7 @@ set -e
 
 mkdir -p build 
 cd build
-cmake .. -DPYTHON_EXECUTABLE=$(which python3)
+cmake .. -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
 make
 cd ..
 

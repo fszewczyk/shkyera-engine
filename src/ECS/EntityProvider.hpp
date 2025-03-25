@@ -6,9 +6,9 @@
 #pragma once
 
 #include <stdlib.h>
-#include <queue>
-
+#include <Common/Serialization.hpp>
 #include <ECS/Entity.hpp>
+#include <queue>
 
 namespace shkyera {
 
@@ -44,6 +44,12 @@ class EntityProvider {
          * @param entity The entity ID to return.
          */
     void removeEntity(Entity entity);
+
+    template <typename Archive>
+    void serialize(Archive& archive) {
+        archive(_numEntities);
+        archive(_entities);
+    }
 
    private:
     /**

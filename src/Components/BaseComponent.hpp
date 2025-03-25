@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Common/Types.hpp>
+#include <ECS/SparseSet.hpp>
 
 namespace shkyera {
 

@@ -5,6 +5,7 @@
 #include <unordered_set>
 
 #include <ECS/Entity.hpp>
+#include <cereal/cereal.hpp>
 
 namespace shkyera {
 
@@ -67,6 +68,12 @@ class EntityHierarchy {
          * @return A constant reference to a set of child entities.
          */
     const Children& getChildren(Entity parent) const;
+
+    template <typename Archive>
+    void serialize(Archive& archive) {
+        archive(CEREAL_NVP(_parentToChildren));
+        archive(CEREAL_NVP(_childToParent));
+    }
 
    private:
     /**

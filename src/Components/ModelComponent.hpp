@@ -1,11 +1,10 @@
 #pragma once
 
-#include <iostream>
-#include <string>
-
 #include <AssetManager/Material.hpp>
 #include <AssetManager/Mesh.hpp>
+#include <Common/Serialization.hpp>
 #include <Components/BaseComponent.hpp>
+#include "cereal/cereal.hpp"
 
 namespace shkyera {
 
@@ -13,6 +12,12 @@ class ModelComponent : public BaseComponent<ModelComponent> {
    public:
     HandleAndAsset<Mesh> mesh{};
     HandleAndAsset<Material> material{};
+
+    template <typename Archive>
+    void serialize(Archive& archive) {
+        archive(CEREAL_NVP(mesh));
+        archive(CEREAL_NVP(material));
+    }
 
     void updateImpl() const {
         const auto& meshAsset = std::get<AssetRef<Mesh>>(mesh);

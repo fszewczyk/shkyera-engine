@@ -1,5 +1,6 @@
 #pragma once
 
+#include <Common/Serialization.hpp>
 #include <ECS/EntityProvider.hpp>
 
 namespace shkyera {
@@ -190,6 +191,13 @@ class SparseSet : public SparseSetBase {
 
     const_iterator end() const {
         return const_iterator(&_entities, &_components, _entities.size());
+    }
+
+    template <typename Archive>
+    void serialize(Archive& archive) {
+        archive(CEREAL_NVP(_entities));
+        archive(CEREAL_NVP(_entityToComponent));
+        archive(CEREAL_NVP(_components));
     }
 
    private:

@@ -1,5 +1,8 @@
 #pragma once
 
+#include <Common/Serialization.hpp>
+#include "cereal/cereal.hpp"
+
 namespace shkyera {
 
 struct PostProcessingVolumeComponent {
@@ -14,6 +17,18 @@ struct PostProcessingVolumeComponent {
 
     float ssaoStrength{1.0};
     float ssaoRadius{1.0};
+
+    template <typename Archive>
+    void serialize(Archive& archive) {
+        archive(CEREAL_NVP(global));
+        archive(CEREAL_NVP(gamma));
+        archive(CEREAL_NVP(toneMapping));
+        archive(CEREAL_NVP(antiAliasing));
+        archive(CEREAL_NVP(bloomThreshold));
+        archive(CEREAL_NVP(bloomWeight));
+        archive(CEREAL_NVP(ssaoStrength));
+        archive(CEREAL_NVP(ssaoRadius));
+    }
 };
 
 }  // namespace shkyera

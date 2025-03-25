@@ -3,6 +3,7 @@
 #include <iostream>
 #include <string>
 
+#include <Common/Serialization.hpp>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/quaternion.hpp>
@@ -88,6 +89,13 @@ class TransformComponent : public BaseComponent<TransformComponent> {
             result = result * (*it);
         }
         return result;
+    }
+
+    template <typename Archive>
+    void serialize(Archive& archive) {
+        archive(CEREAL_NVP(_position));
+        archive(CEREAL_NVP(_scale));
+        archive(CEREAL_NVP(_orientation));
     }
 
    private:
