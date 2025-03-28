@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package shkyeraProto;
+
+message Vec3 {
+  float x = 1;
+  float y = 2;
+  float z = 3;
+}
+
+message TransformComponent {
+  uint32 entity = 1;
+  Vec3 position = 2;
+  Vec3 orientation = 3;
+  Vec3 scale = 4;
+}
+
+message NameComponent {
+  uint32 entity = 1;
+  string name = 2;
+}
+
+message Registry {
+  repeated TransformComponent transforms = 1;
+  repeated NameComponent names = 2;
+}

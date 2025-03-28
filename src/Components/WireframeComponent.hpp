@@ -1,5 +1,6 @@
 #pragma once
 
+#include <AssetManager/Asset.hpp>
 #include <AssetManager/Wireframe.hpp>
 #include <Components/BaseComponent.hpp>
 #include <memory>

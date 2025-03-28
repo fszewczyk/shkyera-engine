@@ -25,3 +25,9 @@ target_link_libraries(
     glm::glm
     AssetManager
 )
+
+target_compile_definitions(
+    Rendering
+    PUBLIC
+    GLFW_INCLUDE_NONE
+)

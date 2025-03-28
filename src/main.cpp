@@ -2,6 +2,7 @@
 
 #include <chrono>
 #include <iostream>
+#include <sstream>
 #include <thread>
 
 #include <AssetManager/Image.hpp>
@@ -24,6 +25,7 @@
 #include <Components/WireframeComponent.hpp>
 #include <ECS/Registry.hpp>
 #include <Rendering/CubeMap.hpp>
+#include <Serialization/Builders.hpp>
 #include <UI/UI.hpp>
 #include <Utils/AssetUtils.hpp>
 
@@ -176,9 +178,15 @@ int main() {
     using namespace shkyera;
 
     auto registry = std::make_shared<Registry>();
-    auto ui = UI(registry);
 
     loadScene(registry);
+
+    // std::stringstream out;
+    // serialization::toBinary(out, registry.get());
+
+    // std::shared_ptr<Registry> deserializedRegistry = serialization::fromBinary(out);
+
+    auto ui = UI(registry);
 
     while (!ui.shouldClose()) {
         ui.draw();

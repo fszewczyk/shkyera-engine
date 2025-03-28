@@ -30,6 +30,7 @@ add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/src/ECS)
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/src/Rendering)
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/src/Runtime)
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/src/UI)
+add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/src/Serialization)
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/src/InputManager)
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/src/Math)
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/src/Systems)
@@ -51,4 +52,5 @@ target_link_libraries(
 
     UI
     Runtime
+    Serialization
 )
