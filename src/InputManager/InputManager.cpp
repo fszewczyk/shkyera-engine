@@ -1,5 +1,5 @@
-#include <Common/Profiler.hpp>
 #include <InputManager/InputManager.hpp>
+#include <Common/Profiler.hpp>
 
 namespace shkyera {
 
@@ -13,7 +13,8 @@ void InputManager::setCoordinateSystem(CoordinateSystem system, glm::vec2 topLef
 }
 
 glm::vec2 InputManager::getRelativeMousePosition(CoordinateSystem system) {
-    if (_coordinateSystems.count(system) != 0) {
+    if(_coordinateSystems.count(system) != 0)
+    {
         const auto& [topLeft, bottomRight] = _coordinateSystems.at(system);
         return (_latestMousePosition - topLeft) / (bottomRight - topLeft);
     }
@@ -21,7 +22,8 @@ glm::vec2 InputManager::getRelativeMousePosition(CoordinateSystem system) {
 }
 
 glm::vec2 InputManager::getMousePosition(CoordinateSystem system) {
-    if (_coordinateSystems.count(system) != 0) {
+    if(_coordinateSystems.count(system) != 0)
+    {
         const auto& [topLeft, _bottomRight] = _coordinateSystems.at(system);
         return _latestMousePosition - topLeft;
     }
@@ -33,7 +35,8 @@ bool InputManager::isMouseInside(CoordinateSystem system) {
     return 0.0f < mousePosition.x && 0.0f < mousePosition.y && mousePosition.x < 1.0f && mousePosition.y < 1.0f;
 }
 
-bool InputManager::isMouseButtonDown(MouseButton mouseButton) const {
+bool InputManager::isMouseButtonDown(MouseButton mouseButton) const
+{
     return mouseButton >= 0 && mouseButton <= GLFW_MOUSE_BUTTON_8 && _previousMouseButtonStates[mouseButton];
 }
 
@@ -94,8 +97,8 @@ void InputManager::processInput(GLFWwindow* window) {
 
 void InputManager::processMouseButton(GLFWwindow* window, MouseButton button) {
     int mouseButtonState = glfwGetMouseButton(window, button);
-    if (mouseButtonState != _previousMouseButtonStates[button]) {
-        if (mouseButtonState == GLFW_RELEASE) {
+    if(mouseButtonState != _previousMouseButtonStates[button]) {
+        if(mouseButtonState == GLFW_RELEASE) {
             onMouseButtonUp(button);
         } else {
             onMouseButtonDown(button);
@@ -104,16 +107,17 @@ void InputManager::processMouseButton(GLFWwindow* window, MouseButton button) {
     }
 }
 
+
 void InputManager::onMouseButtonDown(MouseButton button) {
-    for (const auto& callback : _mouseButtonDownCallbacks[button]) {
+    for(const auto& callback : _mouseButtonDownCallbacks[button]) {
         callback();
     }
 }
 
 void InputManager::onMouseButtonUp(MouseButton button) {
-    for (const auto& callback : _mouseButtonUpCallbacks[button]) {
+    for(const auto& callback : _mouseButtonUpCallbacks[button]) {
         callback();
     }
 }
 
-}  // namespace shkyera
+}

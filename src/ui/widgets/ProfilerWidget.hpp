@@ -1,13 +1,13 @@
 #pragma once
 
-#include <GLFW/glfw3.h>
 #include <Common/Profiler.hpp>
 #include <UI/Widget.hpp>
+#include <GLFW/glfw3.h>
 
 namespace shkyera {
 
 class ProfilerWidget : public Widget {
-   public:
+  public:
     using Widget::Widget;
 
     ProfilerWidget(std::string name);
@@ -17,7 +17,7 @@ class ProfilerWidget : public Widget {
      */
     virtual void draw() override;
 
-   private:
+  private:
     void reset();
 
     bool mResetOnEachFrame = false;
@@ -25,4 +25,4 @@ class ProfilerWidget : public Widget {
     std::chrono::high_resolution_clock::time_point mTimeOfLastReset = std::chrono::high_resolution_clock::now();
 };
 
-}  // namespace shkyera
+} // namespace shkyera

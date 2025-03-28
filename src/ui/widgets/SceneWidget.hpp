@@ -8,11 +8,11 @@
 
 #include <memory>
 
-#include <GLFW/glfw3.h>
 #include <Common/Types.hpp>
 #include <Rendering/ShaderProgram.hpp>
 #include <Runtime/Runtime.hpp>
 #include <UI/Widget.hpp>
+#include <GLFW/glfw3.h>
 
 namespace shkyera {
 
@@ -22,7 +22,7 @@ namespace shkyera {
  * The `SceneWidget` class provides a graphical user interface widget for rendering and contrlling the runtime
  */
 class SceneWidget : public Widget {
-   public:
+  public:
     using Widget::Widget;
 
     SceneWidget(std::shared_ptr<Registry> registry);
@@ -32,11 +32,11 @@ class SceneWidget : public Widget {
      */
     virtual void draw() override;
 
-   private:
+  private:
     void updateWindowCoordinateSystem();
 
     std::shared_ptr<Registry> _registry;
     Runtime<RuntimeMode::DEVELOPMENT> _runtime;
 };
 
-}  // namespace shkyera
+} // namespace shkyera

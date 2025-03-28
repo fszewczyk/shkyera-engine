@@ -15,9 +15,10 @@
 #include <GLFW/glfw3.h>
 
 #include <ECS/Registry.hpp>
-#include <Systems/GizmoSystem.hpp>
-#include <Systems/ObjectSelectionSystem.hpp>
 #include <UI/Widget.hpp>
+#include <Systems/ObjectSelectionSystem.hpp>
+#include <Systems/GizmoSystem.hpp>
+
 
 namespace shkyera {
 
@@ -27,7 +28,7 @@ namespace shkyera {
  * The `UI` class is responsible for initializing and rendering the UI elements, including widgets, using ImGui.
  */
 class UI {
-   public:
+  public:
     /**
      * @brief Constructor to create a UI manager for the specified game.
      *
@@ -57,7 +58,7 @@ class UI {
      */
     bool shouldClose() const;
 
-   private:
+  private:
     /**
      * @brief Initialize ImGui and other UI elements.
      */
@@ -103,14 +104,14 @@ class UI {
      */
     void endFrame();
 
-    std::shared_ptr<Registry> _registry;            ///< A shared pointer to the associated game.
-    std::vector<std::unique_ptr<Widget>> _widgets;  ///< A collection of UI widgets.
+    std::shared_ptr<Registry> _registry;         ///< A shared pointer to the associated game.
+    std::vector<std::unique_ptr<Widget>> _widgets; ///< A collection of UI widgets.
 
-    bool _open;           ///< Flag indicating if the UI is open.
-    GLFWwindow* _window;  ///< The UI window.
+    bool _open;          ///< Flag indicating if the UI is open.
+    GLFWwindow *_window; ///< The UI window.
 
     std::unique_ptr<ObjectSelectionSystem> _objectSelectionSystem;
     std::unique_ptr<GizmoSystem> _gizmoSystem;
 };
 
-}  // namespace shkyera
+} // namespace shkyera

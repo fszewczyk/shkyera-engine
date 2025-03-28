@@ -178,19 +178,12 @@ int main() {
     using namespace shkyera;
 
     auto registry = std::make_shared<Registry>();
+    auto ui = UI(registry);
 
     loadScene(registry);
-
-    // std::stringstream out;
-    // serialization::toBinary(out, registry.get());
-
-    // std::shared_ptr<Registry> deserializedRegistry = serialization::fromBinary(out);
-
-    auto ui = UI(registry);
 
     while (!ui.shouldClose()) {
         ui.draw();
     }
-
     return 0;
 }

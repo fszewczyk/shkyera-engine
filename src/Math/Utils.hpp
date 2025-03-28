@@ -14,4 +14,4 @@ glm::vec3 angleAxisRotation(const glm::vec3& eulerAngles, const glm::vec3& axis,
 
 glm::vec3 eulerAnglesFromRotationMatrix(const glm::mat3& rotationMat);
 
-}  // namespace shkyera
+} // namespace shkyera

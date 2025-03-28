@@ -1,12 +1,12 @@
 #pragma once
 
-#include <glad/glad.h>
 #include <AssetManager/PathConstructibleAsset.hpp>
+#include <glad/glad.h>
 
 namespace shkyera {
 
 class Shader : public PathConstructibleAsset<Shader> {
-   public:
+public:
     enum class Type {
         Vertex,
         Geometry,
@@ -18,12 +18,12 @@ class Shader : public PathConstructibleAsset<Shader> {
     Shader& operator=(const Shader& other) = delete;
     Shader(Shader&& other) noexcept;
     Shader& operator=(Shader&& other) noexcept;
-
+    
     ~Shader();
 
     GLuint getID() const { return _id; }
 
-   private:
+private:
     GLuint _id;
     Type _type;
 
@@ -34,4 +34,4 @@ class Shader : public PathConstructibleAsset<Shader> {
     GLenum shaderTypeToGLenum(Type type);
 };
 
-}  // namespace shkyera
+}

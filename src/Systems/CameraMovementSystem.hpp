@@ -7,15 +7,15 @@
 namespace shkyera {
 
 class CameraMovementSystem {
-   public:
+public:
     CameraMovementSystem(std::shared_ptr<Registry> registry);
     void update();
 
-   private:
+private:
     void setupCameraMovement();
 
     bool _cameraControl;
     std::shared_ptr<Registry> _registry;
 };
 
-}  // namespace shkyera
+}

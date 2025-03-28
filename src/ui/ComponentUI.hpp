@@ -1,26 +1,26 @@
 #pragma once
 
-#include <AssetManager/Texture.hpp>
 #include <Utils/AssetUtils.hpp>
+#include <AssetManager/Texture.hpp>
 
 namespace shkyera {
 
 class ComponentUI {
-   public:
-    ComponentUI() {
-        _icon = utils::assets::readPermanent<Texture>(Image::ICON_COMPONENT_TRANSFORM);
-    }
+    public:
+        ComponentUI() {
+            _icon = utils::assets::readPermanent<Texture>(Image::ICON_COMPONENT_TRANSFORM);
+        }
 
-    ComponentUI(const std::filesystem::path& texturePath) {
-        _icon = utils::assets::readPermanent<Texture>(texturePath);
-    }
+        ComponentUI(const std::filesystem::path& texturePath) {
+            _icon = utils::assets::readPermanent<Texture>(texturePath);
+        }
 
-    virtual ~ComponentUI() = default;
+        virtual ~ComponentUI() = default;
 
-    virtual void draw() = 0;
+        virtual void draw() = 0;
 
-   protected:
-    AssetRef<Texture> _icon;
+    protected:
+        AssetRef<Texture> _icon;
 };
 
-}  // namespace shkyera
+}

@@ -5,9 +5,9 @@
 namespace shkyera {
 
 class SparseSetBase {
-   public:
+public:
     virtual ~SparseSetBase() = default;
-    virtual bool remove(Entity entity) = 0;
+    virtual bool remove(Entity entity) = 0; 
 };
 
 /**
@@ -16,7 +16,7 @@ class SparseSetBase {
  */
 template <typename Component>
 class SparseSet : public SparseSetBase {
-   public:
+public:
     /**
      * Default constructor.
      */
@@ -34,13 +34,13 @@ class SparseSet : public SparseSetBase {
      * @param component The component to add.
      */
     bool add(Entity entity, Component component) {
-        if (contains(entity)) {
+        if(contains(entity)) {
             return false;
         }
         _entityToComponent[entity] = _entities.size();
         _entities.emplace_back(entity);
         _components.push_back(std::move(component));
-
+        
         return true;
     }
 
@@ -102,7 +102,7 @@ class SparseSet : public SparseSetBase {
      * @param entity The entity whose component is to be retrieved.
      * @return Const reference to the associated component.
      */
-    const Component& get(Entity entity) const {
+    const Component &get(Entity entity) const {
         return _components[_entityToComponent.at(entity)];
     }
 
@@ -111,7 +111,7 @@ class SparseSet : public SparseSetBase {
      * 
      * @return Reference to the vector of components.
      */
-    std::vector<Component>& getComponents() {
+    std::vector<Component> &getComponents() {
         return _components;
     }
 
@@ -120,13 +120,13 @@ class SparseSet : public SparseSetBase {
      * 
      * @return Const reference to the vector of components.
      */
-    const std::vector<Component>& getComponents() const {
+    const std::vector<Component> &getComponents() const {
         return _components;
     }
 
     template <bool IsConst>
     class Iterator {
-       public:
+    public:
         using iterator_category = std::forward_iterator_tag;
         using value_type = std::pair<Entity, std::conditional_t<IsConst, const Component, Component>>;
         using difference_type = std::ptrdiff_t;
@@ -141,7 +141,7 @@ class SparseSet : public SparseSetBase {
 
         // Dereference operator
         value_type operator*() const {
-            return {(*_entities)[_index], (*_components)[_index]};
+            return { (*_entities)[_index], (*_components)[_index] };
         }
 
         // Pre-increment operator
@@ -167,7 +167,7 @@ class SparseSet : public SparseSetBase {
             return _index != other._index;
         }
 
-       private:
+    private:
         typename std::conditional_t<IsConst, const std::vector<Entity>*, std::vector<Entity>*> _entities;
         typename std::conditional_t<IsConst, const std::vector<Component>*, std::vector<Component>*> _components;
         size_t _index;
@@ -192,10 +192,10 @@ class SparseSet : public SparseSetBase {
         return const_iterator(&_entities, &_components, _entities.size());
     }
 
-   private:
-    std::vector<Entity> _entities;                         /**< Stores entities associated with components. */
+private:
+    std::vector<Entity> _entities; /**< Stores entities associated with components. */
     std::unordered_map<Entity, size_t> _entityToComponent; /**< Maps entities to their component indices. */
-    std::vector<Component> _components;                    /**< Stores components associated with entities. */
+    std::vector<Component> _components; /**< Stores components associated with entities. */
 };
 
-}  // namespace shkyera
+} // namespace shkyera

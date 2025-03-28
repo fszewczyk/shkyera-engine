@@ -5,10 +5,9 @@
 namespace shkyera {
 
 struct DirectoryComponent {
-    explicit DirectoryComponent(std::filesystem::path pPath)
-        : path(std::move(pPath)) {}
+    explicit DirectoryComponent(std::filesystem::path pPath) : path(std::move(pPath)) {}
 
     std::filesystem::path path;
 };
 
-}  // namespace shkyera
+} // namespace shkyera

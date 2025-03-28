@@ -1,12 +1,11 @@
-#include <tiny_obj_loader.h>
 #include <AssetManager/Wireframe.hpp>
 #include <Common/Logger.hpp>
+#include <tiny_obj_loader.h>
 #include <iostream>
 
 namespace shkyera {
 
-Wireframe::Wireframe(const std::filesystem::path& filepath)
-    : PathConstructibleAsset(filepath) {
+Wireframe::Wireframe(const std::filesystem::path& filepath) : PathConstructibleAsset(filepath) {
     loadFromFile(filepath);
 }
 
@@ -24,10 +23,12 @@ Wireframe& Wireframe::operator=(Wireframe&& other) noexcept {
     if (this != &other) {
         PathConstructibleAsset::operator=(std::move(other));
 
-        if (_vao != 0) {
+        if(_vao != 0)
+        {
             glDeleteVertexArrays(1, &_vao);
         }
-        if (_vbo != 0) {
+        if(_vbo != 0)
+        {
             glDeleteBuffers(1, &_vbo);
         }
 
@@ -65,7 +66,8 @@ void Wireframe::loadFromFile(const std::filesystem::path& filepath) {
                 positions[i] = glm::vec3(
                     attrib.vertices[3 * idx + 0],
                     attrib.vertices[3 * idx + 1],
-                    attrib.vertices[3 * idx + 2]);
+                    attrib.vertices[3 * idx + 2]
+                );
             }
 
             edges.emplace_back(positions[0], positions[1]);
@@ -78,7 +80,7 @@ void Wireframe::loadFromFile(const std::filesystem::path& filepath) {
 }
 
 void Wireframe::uploadToGPU(const std::vector<Edge>& edges) {
-    _edgeCount = static_cast<GLsizei>(edges.size() * 2);  // Two vertices per edge
+    _edgeCount = static_cast<GLsizei>(edges.size() * 2); // Two vertices per edge
 
     std::vector<glm::vec3> edgeVertices;
     edgeVertices.reserve(_edgeCount);
@@ -103,22 +105,22 @@ void Wireframe::uploadToGPU(const std::vector<Edge>& edges) {
 Wireframe Wireframe::Factory::createCube() {
     std::vector<Edge> edges = {
         // Front face
-        {{-1.0f, -1.0f, -1.0f}, {1.0f, -1.0f, -1.0f}},
-        {{1.0f, -1.0f, -1.0f}, {1.0f, 1.0f, -1.0f}},
-        {{1.0f, 1.0f, -1.0f}, {-1.0f, 1.0f, -1.0f}},
-        {{-1.0f, 1.0f, -1.0f}, {-1.0f, -1.0f, -1.0f}},
+        { { -1.0f, -1.0f, -1.0f }, {  1.0f, -1.0f, -1.0f } },
+        { {  1.0f, -1.0f, -1.0f }, {  1.0f,  1.0f, -1.0f } },
+        { {  1.0f,  1.0f, -1.0f }, { -1.0f,  1.0f, -1.0f } },
+        { { -1.0f,  1.0f, -1.0f }, { -1.0f, -1.0f, -1.0f } },
 
         // Back face
-        {{-1.0f, -1.0f, 1.0f}, {1.0f, -1.0f, 1.0f}},
-        {{1.0f, -1.0f, 1.0f}, {1.0f, 1.0f, 1.0f}},
-        {{1.0f, 1.0f, 1.0f}, {-1.0f, 1.0f, 1.0f}},
-        {{-1.0f, 1.0f, 1.0f}, {-1.0f, -1.0f, 1.0f}},
+        { { -1.0f, -1.0f,  1.0f }, {  1.0f, -1.0f,  1.0f } },
+        { {  1.0f, -1.0f,  1.0f }, {  1.0f,  1.0f,  1.0f } },
+        { {  1.0f,  1.0f,  1.0f }, { -1.0f,  1.0f,  1.0f } },
+        { { -1.0f,  1.0f,  1.0f }, { -1.0f, -1.0f,  1.0f } },
 
         // Connect front and back faces
-        {{-1.0f, -1.0f, -1.0f}, {-1.0f, -1.0f, 1.0f}},
-        {{1.0f, -1.0f, -1.0f}, {1.0f, -1.0f, 1.0f}},
-        {{1.0f, 1.0f, -1.0f}, {1.0f, 1.0f, 1.0f}},
-        {{-1.0f, 1.0f, -1.0f}, {-1.0f, 1.0f, 1.0f}},
+        { { -1.0f, -1.0f, -1.0f }, { -1.0f, -1.0f,  1.0f } },
+        { {  1.0f, -1.0f, -1.0f }, {  1.0f, -1.0f,  1.0f } },
+        { {  1.0f,  1.0f, -1.0f }, {  1.0f,  1.0f,  1.0f } },
+        { { -1.0f,  1.0f, -1.0f }, { -1.0f,  1.0f,  1.0f } },
     };
 
     return Wireframe(edges);
@@ -141,10 +143,10 @@ Wireframe Wireframe::Factory::createCylinder() {
         float nextX = radius * cos(nextTheta);
         float nextZ = radius * sin(nextTheta);
 
-        glm::vec3 bottomCurrent = {x, -height / 2, z};
-        glm::vec3 bottomNext = {nextX, -height / 2, nextZ};
-        glm::vec3 topCurrent = {x, height / 2, z};
-        glm::vec3 topNext = {nextX, height / 2, nextZ};
+        glm::vec3 bottomCurrent = { x, -height / 2, z };
+        glm::vec3 bottomNext = { nextX, -height / 2, nextZ };
+        glm::vec3 topCurrent = { x, height / 2, z };
+        glm::vec3 topNext = { nextX, height / 2, nextZ };
 
         // Edges on bottom and top circles
         edges.emplace_back(bottomCurrent, bottomNext);
@@ -181,9 +183,9 @@ Wireframe Wireframe::Factory::createSphere() {
             float nextX = xy * cosf(nextSectorAngle);
             float nextY = xy * sinf(nextSectorAngle);
 
-            glm::vec3 current = {x, y, z};
-            glm::vec3 next = {nextX, nextY, z};
-            glm::vec3 nextStackCurrent = {x * nextXY / xy, y * nextXY / xy, nextZ};
+            glm::vec3 current = { x, y, z };
+            glm::vec3 next = { nextX, nextY, z };
+            glm::vec3 nextStackCurrent = { x * nextXY / xy, y * nextXY / xy, nextZ };
 
             // Horizontal edge
             edges.emplace_back(current, next);
@@ -196,4 +198,4 @@ Wireframe Wireframe::Factory::createSphere() {
     return Wireframe(edges);
 }
 
-}  // namespace shkyera
+} // namespace shkyera

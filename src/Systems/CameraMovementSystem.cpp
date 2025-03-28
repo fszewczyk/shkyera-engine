@@ -1,6 +1,6 @@
-#include <Components/TransformComponent.hpp>
-#include <InputManager/InputManager.hpp>
 #include <Systems/CameraMovementSystem.hpp>
+#include <InputManager/InputManager.hpp>
+#include <Components/TransformComponent.hpp>
 #include <iostream>
 
 namespace shkyera {
@@ -17,13 +17,14 @@ void CameraMovementSystem::update() {}
 
 void CameraMovementSystem::setupCameraMovement() {
     auto& inputManager = InputManager::getInstance();
-
+    
     inputManager.registerMouseButtonDownCallback(GLFW_MOUSE_BUTTON_RIGHT, [this, &inputManager]() {
-        if (inputManager.isMouseInside(InputManager::CoordinateSystem::SCENE)) {
+        if(inputManager.isMouseInside(InputManager::CoordinateSystem::SCENE))
+        {
             _cameraControl = true;
         }
     });
-
+    
     inputManager.registerMouseButtonUpCallback(GLFW_MOUSE_BUTTON_RIGHT, [this]() {
         _cameraControl = false;
     });
@@ -31,7 +32,7 @@ void CameraMovementSystem::setupCameraMovement() {
     inputManager.registerKeyCallback(GLFW_KEY_W, [this]() {
         auto& cameraTransform = _registry->getComponent<TransformComponent>(_registry->getCamera());
 
-        if (_cameraControl) {
+        if(_cameraControl) {
             glm::vec3 forward;
             float yaw = cameraTransform.getOrientation().y;
             float pitch = cameraTransform.getOrientation().x;
@@ -48,7 +49,7 @@ void CameraMovementSystem::setupCameraMovement() {
     inputManager.registerKeyCallback(GLFW_KEY_S, [this]() {
         auto& cameraTransform = _registry->getComponent<TransformComponent>(_registry->getCamera());
 
-        if (_cameraControl) {
+        if(_cameraControl) {
             glm::vec3 backward;
             float yaw = cameraTransform.getOrientation().y;
             float pitch = cameraTransform.getOrientation().x;
@@ -65,7 +66,7 @@ void CameraMovementSystem::setupCameraMovement() {
     inputManager.registerKeyCallback(GLFW_KEY_A, [this]() {
         auto& cameraTransform = _registry->getComponent<TransformComponent>(_registry->getCamera());
 
-        if (_cameraControl) {
+        if(_cameraControl) {
             glm::vec3 left;
             float yaw = cameraTransform.getOrientation().y;
 
@@ -81,7 +82,7 @@ void CameraMovementSystem::setupCameraMovement() {
     inputManager.registerKeyCallback(GLFW_KEY_D, [this]() {
         auto& cameraTransform = _registry->getComponent<TransformComponent>(_registry->getCamera());
 
-        if (_cameraControl) {
+        if(_cameraControl) {
             glm::vec3 right;
             float yaw = cameraTransform.getOrientation().y;
 
@@ -94,10 +95,11 @@ void CameraMovementSystem::setupCameraMovement() {
         }
     });
 
+
     inputManager.registerKeyCallback(GLFW_KEY_Q, [this]() {
         auto& cameraTransform = _registry->getComponent<TransformComponent>(_registry->getCamera());
 
-        if (_cameraControl) {
+        if(_cameraControl) {
             glm::vec3 down = glm::vec3(0.0f, -1.0f, 0.0f);  // Down direction in world space
             cameraTransform.setPosition(cameraTransform.getPosition() + down * MOVEMENT_SPEED);
         }
@@ -106,7 +108,7 @@ void CameraMovementSystem::setupCameraMovement() {
     inputManager.registerKeyCallback(GLFW_KEY_E, [this]() {
         auto& cameraTransform = _registry->getComponent<TransformComponent>(_registry->getCamera());
 
-        if (_cameraControl) {
+        if(_cameraControl) {
             glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f);  // Up direction in world space
             cameraTransform.setPosition(cameraTransform.getPosition() + up * MOVEMENT_SPEED);
         }
@@ -123,7 +125,7 @@ void CameraMovementSystem::setupCameraMovement() {
         lastX = xPos;
         lastY = yPos;
 
-        if (_cameraControl) {
+        if(_cameraControl) {
             glm::vec3 orientation = cameraTransform.getOrientation();
             orientation.y -= glm::radians(xOffset);
             orientation.x += glm::radians(yOffset);
@@ -138,4 +140,4 @@ void CameraMovementSystem::setupCameraMovement() {
     });
 }
 
-}  // namespace shkyera
+}

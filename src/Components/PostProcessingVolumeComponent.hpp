@@ -2,7 +2,8 @@
 
 namespace shkyera {
 
-struct PostProcessingVolumeComponent {
+struct PostProcessingVolumeComponent
+{
     bool global{false};
 
     float gamma{1.2};
@@ -16,4 +17,4 @@ struct PostProcessingVolumeComponent {
     float ssaoRadius{1.0};
 };
 
-}  // namespace shkyera
+}

@@ -6,4 +6,4 @@ namespace shkyera {
 
 struct SelectedAssetComponent : public SingletonComponent {};
 
-}  // namespace shkyera
+}

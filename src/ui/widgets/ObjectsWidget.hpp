@@ -20,7 +20,7 @@ namespace shkyera {
  * The `ObjectsWidget` class provides a graphical user interface for creating, listing, and selecting game objects.
  */
 class ObjectsWidget : public Widget {
-   public:
+  public:
     using Widget::Widget;
 
     ObjectsWidget(std::string name);
@@ -37,7 +37,7 @@ class ObjectsWidget : public Widget {
      */
     virtual void draw() override;
 
-   private:
+  private:
     /**
      * @brief Draw the creation panel for new game objects.
      */
@@ -53,4 +53,4 @@ class ObjectsWidget : public Widget {
     Entity _draggedEntity;
 };
 
-}  // namespace shkyera
+} // namespace shkyera

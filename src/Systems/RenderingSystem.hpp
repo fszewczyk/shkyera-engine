@@ -4,25 +4,25 @@
 
 #include <AssetManager/Material.hpp>
 #include <Common/Types.hpp>
+#include <ECS/Registry.hpp>
 #include <Components/DirectionalLightComponent.hpp>
 #include <Components/PostProcessingVolumeComponent.hpp>
-#include <ECS/Registry.hpp>
-#include <Rendering/CubeMap.hpp>
-#include <Rendering/FrameBuffers/DepthAtlasFrameBuffer.hpp>
-#include <Rendering/FrameBuffers/SceneFrameBuffer.hpp>
 #include <Rendering/ShaderProgram.hpp>
+#include <Rendering/FrameBuffers/SceneFrameBuffer.hpp>
+#include <Rendering/FrameBuffers/DepthAtlasFrameBuffer.hpp>
+#include <Rendering/CubeMap.hpp>
 
 namespace shkyera {
 
 class RenderingSystem {
-   public:
+public:
     RenderingSystem(std::shared_ptr<Registry> registry);
     void render();
 
     void setSize(uint32_t width, uint32_t height);
     GLuint getRenderFrameBuffer();
 
-   private:
+private:
     void clearFrameBuffers();
 
     // Supporting Textures
@@ -132,4 +132,4 @@ class RenderingSystem {
     Material _postProcessingVolumeDebugMaterial;
 };
 
-}  // namespace shkyera
+}

@@ -1,18 +1,18 @@
 #pragma once
 
-#include <iostream>
 #include <string>
+#include <iostream>
 
 #include <glm/glm.hpp>
 
 #include <Components/BaseComponent.hpp>
-#include <Components/CameraComponent.hpp>
 #include <Components/TransformComponent.hpp>
+#include <Components/CameraComponent.hpp>
 
 namespace shkyera {
 
 class DirectionalLightComponent : public BaseComponent<DirectionalLightComponent> {
-   public:
+public:
     float intensity = 0.5;
     glm::vec3 color = {1.0f, 1.0f, 1.0f};
 
@@ -23,7 +23,8 @@ class DirectionalLightComponent : public BaseComponent<DirectionalLightComponent
         const glm::mat4& lightTransformMatrix,
         const TransformComponent& cameraTransformComponent,
         const CameraComponent& cameraComponent,
-        uint8_t levelOfDetail) const {
+        uint8_t levelOfDetail) const
+    {
         auto frustumCorners = cameraComponent.getFrustumCornersWorldSpace(CascadePlanes[levelOfDetail], CascadePlanes[levelOfDetail + 1], cameraTransformComponent);
 
         glm::vec3 front = getDirection(lightTransformMatrix);
@@ -48,10 +49,11 @@ class DirectionalLightComponent : public BaseComponent<DirectionalLightComponent
         return lightProjection * lightView;
     }
 
-    static glm::vec3 getDirection(const glm::mat4& lightTransformMatrix) {
+    static glm::vec3 getDirection(const glm::mat4& lightTransformMatrix)
+    {
         auto front = glm::normalize(glm::vec3{1, 0, 0} * glm::inverse(glm::mat3{lightTransformMatrix}));
         return -front;
     }
 };
 
-}  // namespace shkyera
+} // namespace shkyera

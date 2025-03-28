@@ -8,8 +8,8 @@
 namespace shkyera {
 
 class SkyboxComponent : public BaseComponent<SkyboxComponent> {
-   public:
+public:
     CubeMap skyboxCubeMap;
 };
 
-}  // namespace shkyera
+} // namespace shkyera

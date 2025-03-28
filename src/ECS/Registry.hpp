@@ -12,8 +12,8 @@
 #include <ECS/Entity.hpp>
 #include <ECS/EntityHierarchy.hpp>
 #include <ECS/EntityProvider.hpp>
-#include <ECS/SingletonComponent.hpp>
 #include <ECS/SparseSet.hpp>
+#include <ECS/SingletonComponent.hpp>
 
 namespace shkyera {
 
@@ -22,7 +22,7 @@ namespace shkyera {
  * Provides methods to add, remove, and query entities and components.
  */
 class Registry {
-   public:
+public:
     /**
      * Default constructor. Initializes the registry for managing entities and components.
      */
@@ -64,8 +64,10 @@ class Registry {
     template <typename Component, typename... Args>
     Component& addComponent(Entity entity, Args&&... args) {
         auto& componentSet = getOrCreateComponentSet<Component>();
-        if constexpr (std::is_base_of_v<SingletonComponent, Component>) {
-            if (componentSet.contains(entity)) {
+        if constexpr (std::is_base_of_v<SingletonComponent, Component>)
+        {
+            if(componentSet.contains(entity))
+            {
                 Logger::ERROR(std::string("Cannot add a Singleton Component (") + typeid(Component).name() + "), because another entity already has it.");
                 return componentSet.get(entity);
             }
@@ -74,7 +76,7 @@ class Registry {
         return componentSet.get(entity);
     }
 
-    template <typename Component, typename... Args>
+    template<typename Component, typename... Args>
     Component& assignComponent(Entity entity, Args&&... args) {
         static_assert(std::is_base_of_v<SingletonComponent, Component>, "Component assignment is only possible for Singleton Components.");
 
@@ -175,14 +177,14 @@ class Registry {
     }
 
     Entity getCamera() const;
-
+    
     Entity getEnvironment() const;
 
     EntityHierarchy& getHierarchy();
 
     const EntityHierarchy& getHierarchy() const;
 
-   private:
+private:
     using ParentAndChild = std::pair<Entity, Entity>;
 
     /**
@@ -215,13 +217,13 @@ class Registry {
         return *static_cast<SparseSet<Component>*>(_componentSets.at(typeId).get());
     }
 
-    mutable std::unordered_map<size_t, std::unique_ptr<SparseSetBase>> _componentSets;  //< Map of component sets by type ID.
-    EntityProvider _entityProvider;                                                     //< Manages the creation and management of entities.
-    EntityHierarchy _entityHierarchy;                                                   //< Maintains the parent-child relationships between the entities
+    mutable std::unordered_map<size_t, std::unique_ptr<SparseSetBase>> _componentSets; //< Map of component sets by type ID.
+    EntityProvider _entityProvider; //< Manages the creation and management of entities.
+    EntityHierarchy _entityHierarchy; //< Maintains the parent-child relationships between the entities
 
     Entity _camera;
     Entity _environment;
     std::unordered_set<Entity> _selectedEntities;
 };
 
-}  // namespace shkyera
+} // namespace shkyera

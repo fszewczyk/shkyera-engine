@@ -20,7 +20,7 @@ namespace shkyera {
  * @brief A base class for logs that contain textual content.
  */
 class Log {
-   public:
+  public:
     /**
      * @brief Constructor to create a log with the specified content.
      *
@@ -40,7 +40,7 @@ class Log {
      */
     void* getIconId() const;
 
-    std::string _content;  ///< The text content of the log.
+    std::string _content; ///< The text content of the log.
     AssetRef<Texture> _icon;
 };
 
@@ -48,7 +48,7 @@ class Log {
  * @brief A log representing verbose messages.
  */
 class LogVerbose : public Log {
-   public:
+  public:
     using Log::Log;
 
     LogVerbose(const std::string& content);
@@ -58,7 +58,7 @@ class LogVerbose : public Log {
  * @brief A log representing informational messages.
  */
 class LogInfo : public Log {
-   public:
+  public:
     using Log::Log;
 
     LogInfo(const std::string& content);
@@ -68,7 +68,7 @@ class LogInfo : public Log {
  * @brief A log representing success messages.
  */
 class LogSuccess : public Log {
-   public:
+  public:
     using Log::Log;
 
     LogSuccess(const std::string& content);
@@ -78,7 +78,7 @@ class LogSuccess : public Log {
  * @brief A log representing error messages.
  */
 class LogError : public Log {
-   public:
+  public:
     using Log::Log;
 
     LogError(const std::string& content);
@@ -88,7 +88,7 @@ class LogError : public Log {
  * @brief A user interface widget for the console, used for logging and displaying messages.
  */
 class ConsoleWidget : public Widget {
-   public:
+  public:
     using Widget::Widget;
 
     ConsoleWidget(const std::string& name);
@@ -147,19 +147,19 @@ class ConsoleWidget : public Widget {
      */
     static constexpr size_t MAX_LOGS = 50;
 
-   private:
+  private:
     /**
      * @brief Draw the information bar of the console widget.
      */
     void drawInfoBar() const;
 
-    static size_t _totalVerbose;  ///< The total number of verbose logs.
-    static size_t _totalInfo;     ///< The total number of informational logs.
-    static size_t _totalSuccess;  ///< The total number of success logs.
-    static size_t _totalError;    ///< The total number of error logs.
+    static size_t _totalVerbose; ///< The total number of verbose logs.
+    static size_t _totalInfo;    ///< The total number of informational logs.
+    static size_t _totalSuccess; ///< The total number of success logs.
+    static size_t _totalError;   ///< The total number of error logs.
 
-    static std::vector<std::shared_ptr<Log>> _logs;  ///< A collection of logs in the console.
-    static bool _verbose;                            ///< A flag indicating verbose logging mode.
+    static std::vector<std::shared_ptr<Log>> _logs; ///< A collection of logs in the console.
+    static bool _verbose;                           ///< A flag indicating verbose logging mode.
 
     AssetRef<Texture> _totalIcon;
     AssetRef<Texture> _errorIcon;
@@ -168,4 +168,4 @@ class ConsoleWidget : public Widget {
     AssetRef<Texture> _verboseIcon;
 };
 
-}  // namespace shkyera
+} // namespace shkyera

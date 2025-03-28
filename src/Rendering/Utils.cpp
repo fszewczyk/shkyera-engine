@@ -1,6 +1,7 @@
 #include <Rendering/Utils.hpp>
 
-namespace shkyera::utils {
+namespace shkyera::utils
+{
 
 void drawFullscreenQuad() {
     static unsigned int quadVAO = 0;
@@ -10,13 +11,14 @@ void drawFullscreenQuad() {
         // Define the vertices for a full-screen quad
         float quadVertices[] = {
             // Positions   // Texture Coords
-            -1.0f, 1.0f, 0.0f, 1.0f,
-            -1.0f, -1.0f, 0.0f, 0.0f,
-            1.0f, -1.0f, 1.0f, 0.0f,
+            -1.0f,  1.0f,  0.0f, 1.0f,
+            -1.0f, -1.0f,  0.0f, 0.0f,
+             1.0f, -1.0f,  1.0f, 0.0f,
 
-            -1.0f, 1.0f, 0.0f, 1.0f,
-            1.0f, -1.0f, 1.0f, 0.0f,
-            1.0f, 1.0f, 1.0f, 1.0f};
+            -1.0f,  1.0f,  0.0f, 1.0f,
+             1.0f, -1.0f,  1.0f, 0.0f,
+             1.0f,  1.0f,  1.0f, 1.0f
+        };
 
         // Generate and bind the VAO and VBO for the quad
         glGenVertexArrays(1, &quadVAO);
@@ -42,4 +44,4 @@ void drawFullscreenQuad() {
     glBindVertexArray(0);
 }
 
-}  // namespace shkyera::utils
+}

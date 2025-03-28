@@ -1,18 +1,18 @@
 #pragma once
 
-#include <iostream>
 #include <string>
+#include <iostream>
 
-#include <Components/BaseComponent.hpp>
 #include <glm/glm.hpp>
+#include <Components/BaseComponent.hpp>
 
 namespace shkyera {
 
 class PointLightComponent : public BaseComponent<PointLightComponent> {
-   public:
+public:
     float intensity = 1;
     float range = 5;
     glm::vec3 color = {1, 1, 1};
 };
 
-}  // namespace shkyera
+} // namespace shkyera
