@@ -1,7 +1,7 @@
 var classshkyera_1_1_wireframe =
 [
     [ "Edge", "structshkyera_1_1_wireframe_1_1_edge.html", "structshkyera_1_1_wireframe_1_1_edge" ],
-    [ "Factory", "classshkyera_1_1_wireframe_1_1_factory.html", null ],
+    [ "Factory", "classshkyera_1_1_wireframe_1_1_factory.html", "classshkyera_1_1_wireframe_1_1_factory" ],
     [ "Wireframe", "classshkyera_1_1_wireframe.html#a7fbb34c0543699450364c9884cf03873", null ],
     [ "Wireframe", "classshkyera_1_1_wireframe.html#ae11a6d4b8e2544ed8cd85e4629754b74", null ],
     [ "Wireframe", "classshkyera_1_1_wireframe.html#ad7caed631cefa7164b5ab4feae4eded8", null ],

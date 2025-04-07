@@ -129,17 +129,17 @@ $(document).ready(function(){initNavTree('_object_selection_system_8hpp_source.h
 <div class="contents">
 <a href="_object_selection_system_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;<a class="code" href="_registry_8hpp.html">ECS/Registry.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;memory&gt;</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;memory&gt;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="_registry_8hpp.html">ECS/Registry.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespaceshkyera.html">shkyera</a> {</div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
 <div class="foldopen" id="foldopen00008" data-start="{" data-end="};">
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno"><a class="line" href="classshkyera_1_1_object_selection_system.html">    8</a></span><span class="keyword">class </span><a class="code hl_class" href="classshkyera_1_1_object_selection_system.html">ObjectSelectionSystem</a> {</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>   <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">public</span>:</div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    <a class="code hl_class" href="classshkyera_1_1_object_selection_system.html">ObjectSelectionSystem</a>(std::shared_ptr&lt;Registry&gt; <a class="code hl_struct" href="structshkyera_1_1_clock.html">registry</a>);</div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>   <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">private</span>:</div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno"><a class="line" href="classshkyera_1_1_object_selection_system.html#a3ea32b3bb72618ea7a5759746eb5ff2e">   13</a></span>    std::optional&lt;Entity&gt; <a class="code hl_function" href="classshkyera_1_1_object_selection_system.html#a3ea32b3bb72618ea7a5759746eb5ff2e">getHoveredObject</a>();</div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="classshkyera_1_1_object_selection_system.html#a50b675361beec5dc10607e43456f3718">   15</a></span>    std::optional&lt;Entity&gt; <a class="code hl_variable" href="classshkyera_1_1_object_selection_system.html#a50b675361beec5dc10607e43456f3718">_objectSelectedOnMouseDown</a>;</div>
@@ -147,14 +147,14 @@ $(document).ready(function(){initNavTree('_object_selection_system_8hpp_source.h
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>};</div>
 </div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>}  <span class="comment">// namespace shkyera</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>}</div>
 <div class="ttc" id="a_registry_8hpp_html"><div class="ttname"><a href="_registry_8hpp.html">Registry.hpp</a></div></div>
 <div class="ttc" id="aclassshkyera_1_1_object_selection_system_html"><div class="ttname"><a href="classshkyera_1_1_object_selection_system.html">shkyera::ObjectSelectionSystem</a></div><div class="ttdef"><b>Definition</b> ObjectSelectionSystem.hpp:8</div></div>
 <div class="ttc" id="aclassshkyera_1_1_object_selection_system_html_a3ea32b3bb72618ea7a5759746eb5ff2e"><div class="ttname"><a href="classshkyera_1_1_object_selection_system.html#a3ea32b3bb72618ea7a5759746eb5ff2e">shkyera::ObjectSelectionSystem::getHoveredObject</a></div><div class="ttdeci">std::optional&lt; Entity &gt; getHoveredObject()</div></div>
 <div class="ttc" id="aclassshkyera_1_1_object_selection_system_html_a50b675361beec5dc10607e43456f3718"><div class="ttname"><a href="classshkyera_1_1_object_selection_system.html#a50b675361beec5dc10607e43456f3718">shkyera::ObjectSelectionSystem::_objectSelectedOnMouseDown</a></div><div class="ttdeci">std::optional&lt; Entity &gt; _objectSelectedOnMouseDown</div><div class="ttdef"><b>Definition</b> ObjectSelectionSystem.hpp:15</div></div>
 <div class="ttc" id="aclassshkyera_1_1_object_selection_system_html_a7f76f820901b3f39cf3a1677a172b0ff"><div class="ttname"><a href="classshkyera_1_1_object_selection_system.html#a7f76f820901b3f39cf3a1677a172b0ff">shkyera::ObjectSelectionSystem::_registry</a></div><div class="ttdeci">std::shared_ptr&lt; Registry &gt; _registry</div><div class="ttdef"><b>Definition</b> ObjectSelectionSystem.hpp:16</div></div>
 <div class="ttc" id="anamespaceshkyera_html"><div class="ttname"><a href="namespaceshkyera.html">shkyera</a></div><div class="ttdef"><b>Definition</b> Asset.hpp:6</div></div>
-<div class="ttc" id="astructshkyera_1_1_clock_html"><div class="ttname"><a href="structshkyera_1_1_clock.html">shkyera::Clock</a></div><div class="ttdef"><b>Definition</b> Clock.hpp:9</div></div>
+<div class="ttc" id="astructshkyera_1_1_clock_html"><div class="ttname"><a href="structshkyera_1_1_clock.html">shkyera::Clock</a></div><div class="ttdef"><b>Definition</b> Clock.hpp:11</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.9.6-->

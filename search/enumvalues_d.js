@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['world_0',['World',['../structshkyera_1_1_billboard_component.html#afc26a6faf4419ebfa3fa1d7a92973d62af5a7924e621e84c9280a9a27e1bcb7f6',1,'shkyera::BillboardComponent']]],
-  ['worldfixed_1',['WorldFixed',['../structshkyera_1_1_billboard_component.html#a8215d0935c131c065cc4cd41014db96eaec26a4139ebde0e8d2057869d9d291fe',1,'shkyera::BillboardComponent']]]
+  ['verbose_0',['VERBOSE',['../namespaceshkyera_1_1_logger.html#a084332fcbe48f0afc6144c58a5b2ae05aec1f06e9fb39c4ef0729b3c7c9c8e8cc',1,'shkyera::Logger']]],
+  ['vertex_1',['Vertex',['../classshkyera_1_1_shader.html#a8609b223b8cb0e0e71038b5a5208acc7ab22b929ba52471a02d18bb3a4e4472e6',1,'shkyera::Shader']]]
 ];

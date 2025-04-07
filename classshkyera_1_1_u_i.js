@@ -1,14 +1,13 @@
 var classshkyera_1_1_u_i =
 [
-    [ "UI", "classshkyera_1_1_u_i.html#a6080c02cc3d9d73ba7d9e1443e7763a6", null ],
+    [ "UI", "classshkyera_1_1_u_i.html#af0663ad8d99b4a6451674e7bc547f454", null ],
     [ "beginFrame", "classshkyera_1_1_u_i.html#a8f9ebb24a890e81d28214fb1a562e638", null ],
     [ "close", "classshkyera_1_1_u_i.html#ae00719d98a1030e0d0d3b95485003ee1", null ],
     [ "draw", "classshkyera_1_1_u_i.html#a1dd1274f50378273ca7ac7fdaa395093", null ],
     [ "endFrame", "classshkyera_1_1_u_i.html#ac5a54e75fce5cf580da2b6e00c2ea3dc", null ],
-    [ "initialize", "classshkyera_1_1_u_i.html#aabdd8bbe75209eb00777de87725a28f7", null ],
+    [ "initialize", "classshkyera_1_1_u_i.html#a99a53046ba54a77ce4e8958d1879b833", null ],
     [ "initializeAssets", "classshkyera_1_1_u_i.html#ae2aa98fa5f649655b6401a9eecc93b06", null ],
     [ "initializeImgui", "classshkyera_1_1_u_i.html#a341889907d6fb872337cf8be2f3f57f0", null ],
-    [ "initializeInterpreter", "classshkyera_1_1_u_i.html#a81bd9c29b3f8c1bbf27acd8145d7ab07", null ],
     [ "initializeSystems", "classshkyera_1_1_u_i.html#adf2b92fdf53ed8334f8ce2958e0297d5", null ],
     [ "initializeWidgets", "classshkyera_1_1_u_i.html#ac0f3e85639d8a3280708b2fe8690cf48", null ],
     [ "renderFrame", "classshkyera_1_1_u_i.html#ab2b53958f2098d78ddf8f735d07af945", null ],

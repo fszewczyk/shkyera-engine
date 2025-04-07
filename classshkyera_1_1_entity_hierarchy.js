@@ -6,6 +6,7 @@ var classshkyera_1_1_entity_hierarchy =
     [ "attributeChild", "classshkyera_1_1_entity_hierarchy.html#aaaa77335f827dc1f3b386163620a3c21", null ],
     [ "getChildren", "classshkyera_1_1_entity_hierarchy.html#a69deb95ef4dd3527cff5d222dc25ccaa", null ],
     [ "getParent", "classshkyera_1_1_entity_hierarchy.html#a315e887d5de3906fc1108c154ef453f9", null ],
+    [ "getParentToChild", "classshkyera_1_1_entity_hierarchy.html#af19c21d0f94314d34394a8ee58e41174", null ],
     [ "isAncestor", "classshkyera_1_1_entity_hierarchy.html#ac5c2a1e29550aa88663cc6c31e9427b0", null ],
     [ "removeFromParent", "classshkyera_1_1_entity_hierarchy.html#afbce7abb16044ba581b5a389c3ccf2fb", null ],
     [ "_childToParent", "classshkyera_1_1_entity_hierarchy.html#a83ac7afc68e3747a46ac076996290ddf", null ],

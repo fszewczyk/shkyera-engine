@@ -133,15 +133,14 @@ $(document).ready(function(){initNavTree('classshkyera_1_1_camera_component.html
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a187a07d57febe7c8f3c02d24fe88b406" id="r_a187a07d57febe7c8f3c02d24fe88b406"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_camera_component.html#a187a07d57febe7c8f3c02d24fe88b406">ProjectionType</a> { <a class="el" href="classshkyera_1_1_camera_component.html#a187a07d57febe7c8f3c02d24fe88b406aa80420eef88d11f77532f1b9cb467fa3">Perspective</a>
-, <a class="el" href="classshkyera_1_1_camera_component.html#a187a07d57febe7c8f3c02d24fe88b406a03424250432f2aa71de95579d2c0eaeb">Orthographic</a>
+<tr class="memitem:a187a07d57febe7c8f3c02d24fe88b406" id="r_a187a07d57febe7c8f3c02d24fe88b406"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_camera_component.html#a187a07d57febe7c8f3c02d24fe88b406">ProjectionType</a> { <a class="el" href="classshkyera_1_1_camera_component.html#a187a07d57febe7c8f3c02d24fe88b406a4bbb8f967da6d1a610596d7257179c2b">Invalid</a> = 0
+, <a class="el" href="classshkyera_1_1_camera_component.html#a187a07d57febe7c8f3c02d24fe88b406aa80420eef88d11f77532f1b9cb467fa3">Perspective</a> = 1
+, <a class="el" href="classshkyera_1_1_camera_component.html#a187a07d57febe7c8f3c02d24fe88b406a03424250432f2aa71de95579d2c0eaeb">Orthographic</a> = 2
  }</td></tr>
 <tr class="separator:a187a07d57febe7c8f3c02d24fe88b406"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a105aa9e26cb33e807d40be688a769ae8" id="r_a105aa9e26cb33e807d40be688a769ae8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_camera_component.html#a105aa9e26cb33e807d40be688a769ae8">CameraComponent</a> (<a class="el" href="structshkyera_1_1_clock.html">float</a> <a class="el" href="classshkyera_1_1_camera_component.html#a15e2b579ba489bfdcd90012c109315fc">fov</a>=40.0f, <a class="el" href="structshkyera_1_1_clock.html">float</a> <a class="el" href="classshkyera_1_1_camera_component.html#affee4df373d15e8a6137f0351f967470">aspectRatio</a>=16.0f/9.0f, <a class="el" href="structshkyera_1_1_clock.html">float</a> <a class="el" href="classshkyera_1_1_camera_component.html#a7d0abbbd37021ee352808d124b12b076">nearPlane</a>=0.1<a class="el" href="structshkyera_1_1_clock.html">f</a>, <a class="el" href="structshkyera_1_1_clock.html">float</a> <a class="el" href="classshkyera_1_1_camera_component.html#a194638d226e8c6d77918e90bd9b04e54">farPlane</a>=1000.0f, <a class="el" href="classshkyera_1_1_camera_component.html#a187a07d57febe7c8f3c02d24fe88b406">ProjectionType</a> <a class="el" href="classshkyera_1_1_camera_component.html#a610249b4b8b85eb245f09de4e31dcff5">projectionType</a>=<a class="el" href="classshkyera_1_1_camera_component.html#a187a07d57febe7c8f3c02d24fe88b406aa80420eef88d11f77532f1b9cb467fa3">ProjectionType::Perspective</a>)</td></tr>
-<tr class="separator:a105aa9e26cb33e807d40be688a769ae8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7fab985572ddf873de560deb15cb5b39" id="r_a7fab985572ddf873de560deb15cb5b39"><td class="memItemLeft" align="right" valign="top">glm::mat4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_camera_component.html#a7fab985572ddf873de560deb15cb5b39">getViewMatrix</a> (<a class="el" href="structshkyera_1_1_clock.html">const</a> <a class="el" href="classshkyera_1_1_transform_component.html">TransformComponent</a> &amp;<a class="el" href="structshkyera_1_1_clock.html">transformComponent</a>) <a class="el" href="structshkyera_1_1_clock.html">const</a></td></tr>
 <tr class="separator:a7fab985572ddf873de560deb15cb5b39"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae574591598b0ef8e4bf98b438bee9440" id="r_ae574591598b0ef8e4bf98b438bee9440"><td class="memItemLeft" align="right" valign="top">glm::mat4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_camera_component.html#ae574591598b0ef8e4bf98b438bee9440">getProjectionMatrix</a> () <a class="el" href="structshkyera_1_1_clock.html">const</a></td></tr>
@@ -153,15 +152,15 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a15e2b579ba489bfdcd90012c109315fc" id="r_a15e2b579ba489bfdcd90012c109315fc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structshkyera_1_1_clock.html">float</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_camera_component.html#a15e2b579ba489bfdcd90012c109315fc">fov</a></td></tr>
+<tr class="memitem:a15e2b579ba489bfdcd90012c109315fc" id="r_a15e2b579ba489bfdcd90012c109315fc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structshkyera_1_1_clock.html">float</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_camera_component.html#a15e2b579ba489bfdcd90012c109315fc">fov</a> {40.0f}</td></tr>
 <tr class="separator:a15e2b579ba489bfdcd90012c109315fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:affee4df373d15e8a6137f0351f967470" id="r_affee4df373d15e8a6137f0351f967470"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structshkyera_1_1_clock.html">float</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_camera_component.html#affee4df373d15e8a6137f0351f967470">aspectRatio</a></td></tr>
+<tr class="memitem:affee4df373d15e8a6137f0351f967470" id="r_affee4df373d15e8a6137f0351f967470"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structshkyera_1_1_clock.html">float</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_camera_component.html#affee4df373d15e8a6137f0351f967470">aspectRatio</a> {16.0f / 9.0f}</td></tr>
 <tr class="separator:affee4df373d15e8a6137f0351f967470"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7d0abbbd37021ee352808d124b12b076" id="r_a7d0abbbd37021ee352808d124b12b076"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structshkyera_1_1_clock.html">float</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_camera_component.html#a7d0abbbd37021ee352808d124b12b076">nearPlane</a></td></tr>
+<tr class="memitem:a7d0abbbd37021ee352808d124b12b076" id="r_a7d0abbbd37021ee352808d124b12b076"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structshkyera_1_1_clock.html">float</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_camera_component.html#a7d0abbbd37021ee352808d124b12b076">nearPlane</a> {0.1<a class="el" href="structshkyera_1_1_clock.html">f</a>}</td></tr>
 <tr class="separator:a7d0abbbd37021ee352808d124b12b076"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a194638d226e8c6d77918e90bd9b04e54" id="r_a194638d226e8c6d77918e90bd9b04e54"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structshkyera_1_1_clock.html">float</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_camera_component.html#a194638d226e8c6d77918e90bd9b04e54">farPlane</a></td></tr>
+<tr class="memitem:a194638d226e8c6d77918e90bd9b04e54" id="r_a194638d226e8c6d77918e90bd9b04e54"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structshkyera_1_1_clock.html">float</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_camera_component.html#a194638d226e8c6d77918e90bd9b04e54">farPlane</a> {1000.0f}</td></tr>
 <tr class="separator:a194638d226e8c6d77918e90bd9b04e54"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a610249b4b8b85eb245f09de4e31dcff5" id="r_a610249b4b8b85eb245f09de4e31dcff5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classshkyera_1_1_camera_component.html#a187a07d57febe7c8f3c02d24fe88b406">ProjectionType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_camera_component.html#a610249b4b8b85eb245f09de4e31dcff5">projectionType</a></td></tr>
+<tr class="memitem:a610249b4b8b85eb245f09de4e31dcff5" id="r_a610249b4b8b85eb245f09de4e31dcff5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classshkyera_1_1_camera_component.html#a187a07d57febe7c8f3c02d24fe88b406">ProjectionType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_camera_component.html#a610249b4b8b85eb245f09de4e31dcff5">projectionType</a> {<a class="el" href="classshkyera_1_1_camera_component.html#a187a07d57febe7c8f3c02d24fe88b406aa80420eef88d11f77532f1b9cb467fa3">ProjectionType::Perspective</a>}</td></tr>
 <tr class="separator:a610249b4b8b85eb245f09de4e31dcff5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-methods" name="pri-methods"></a>
@@ -190,64 +189,10 @@ Private Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a187a07d57febe7c8f3c02d24fe88b406aa80420eef88d11f77532f1b9cb467fa3" name="a187a07d57febe7c8f3c02d24fe88b406aa80420eef88d11f77532f1b9cb467fa3"></a>Perspective&#160;</td><td class="fielddoc"></td></tr>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a187a07d57febe7c8f3c02d24fe88b406a4bbb8f967da6d1a610596d7257179c2b" name="a187a07d57febe7c8f3c02d24fe88b406a4bbb8f967da6d1a610596d7257179c2b"></a>Invalid&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a187a07d57febe7c8f3c02d24fe88b406aa80420eef88d11f77532f1b9cb467fa3" name="a187a07d57febe7c8f3c02d24fe88b406aa80420eef88d11f77532f1b9cb467fa3"></a>Perspective&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a187a07d57febe7c8f3c02d24fe88b406a03424250432f2aa71de95579d2c0eaeb" name="a187a07d57febe7c8f3c02d24fe88b406a03424250432f2aa71de95579d2c0eaeb"></a>Orthographic&#160;</td><td class="fielddoc"></td></tr>
 </table>
-
-</div>
-</div>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a105aa9e26cb33e807d40be688a769ae8" name="a105aa9e26cb33e807d40be688a769ae8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a105aa9e26cb33e807d40be688a769ae8">&#9670;&#160;</a></span>CameraComponent()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">shkyera::CameraComponent::CameraComponent </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structshkyera_1_1_clock.html">float</a>&#160;</td>
-          <td class="paramname"><em>fov</em> = <code>40.0f</code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="structshkyera_1_1_clock.html">float</a>&#160;</td>
-          <td class="paramname"><em>aspectRatio</em> = <code>16.0f&#160;/&#160;9.0f</code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="structshkyera_1_1_clock.html">float</a>&#160;</td>
-          <td class="paramname"><em>nearPlane</em> = <code>0.1<a class="el" href="structshkyera_1_1_clock.html">f</a></code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="structshkyera_1_1_clock.html">float</a>&#160;</td>
-          <td class="paramname"><em>farPlane</em> = <code>1000.0f</code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classshkyera_1_1_camera_component.html#a187a07d57febe7c8f3c02d24fe88b406">ProjectionType</a>&#160;</td>
-          <td class="paramname"><em>projectionType</em> = <code><a class="el" href="classshkyera_1_1_camera_component.html#a187a07d57febe7c8f3c02d24fe88b406aa80420eef88d11f77532f1b9cb467fa3">ProjectionType::Perspective</a></code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
 
 </div>
 </div>
@@ -437,7 +382,7 @@ Private Member Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structshkyera_1_1_clock.html">float</a> shkyera::CameraComponent::aspectRatio</td>
+          <td class="memname"><a class="el" href="structshkyera_1_1_clock.html">float</a> shkyera::CameraComponent::aspectRatio {16.0f / 9.0f}</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -451,7 +396,7 @@ Private Member Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structshkyera_1_1_clock.html">float</a> shkyera::CameraComponent::farPlane</td>
+          <td class="memname"><a class="el" href="structshkyera_1_1_clock.html">float</a> shkyera::CameraComponent::farPlane {1000.0f}</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -465,7 +410,7 @@ Private Member Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structshkyera_1_1_clock.html">float</a> shkyera::CameraComponent::fov</td>
+          <td class="memname"><a class="el" href="structshkyera_1_1_clock.html">float</a> shkyera::CameraComponent::fov {40.0f}</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -479,7 +424,7 @@ Private Member Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structshkyera_1_1_clock.html">float</a> shkyera::CameraComponent::nearPlane</td>
+          <td class="memname"><a class="el" href="structshkyera_1_1_clock.html">float</a> shkyera::CameraComponent::nearPlane {0.1<a class="el" href="structshkyera_1_1_clock.html">f</a>}</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -493,7 +438,7 @@ Private Member Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classshkyera_1_1_camera_component.html#a187a07d57febe7c8f3c02d24fe88b406">ProjectionType</a> shkyera::CameraComponent::projectionType</td>
+          <td class="memname"><a class="el" href="classshkyera_1_1_camera_component.html#a187a07d57febe7c8f3c02d24fe88b406">ProjectionType</a> shkyera::CameraComponent::projectionType {<a class="el" href="classshkyera_1_1_camera_component.html#a187a07d57febe7c8f3c02d24fe88b406aa80420eef88d11f77532f1b9cb467fa3">ProjectionType::Perspective</a>}</td>
         </tr>
       </table>
 </div><div class="memdoc">

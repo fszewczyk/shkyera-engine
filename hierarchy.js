@@ -1,10 +1,24 @@
 var hierarchy =
 [
     [ "shkyera::AABB", "structshkyera_1_1_a_a_b_b.html", null ],
+    [ "shkyera::AmbientLightComponent", "structshkyera_1_1_ambient_light_component.html", null ],
     [ "shkyera::AssetComponent< AssetType >", "structshkyera_1_1_asset_component.html", null ],
     [ "shkyera::InspectorWidget::AssetInspector", "classshkyera_1_1_inspector_widget_1_1_asset_inspector.html", [
       [ "shkyera::InspectorWidget::MaterialInspector", "classshkyera_1_1_inspector_widget_1_1_material_inspector.html", null ],
       [ "shkyera::InspectorWidget::TextureInspector", "classshkyera_1_1_inspector_widget_1_1_texture_inspector.html", null ]
+    ] ],
+    [ "shkyera::AssetLoader< AssetType >", "classshkyera_1_1_asset_loader.html", [
+      [ "shkyera::utils::assets::FactoryAssetLoader< AssetType >", "classshkyera_1_1utils_1_1assets_1_1_factory_asset_loader.html", null ],
+      [ "shkyera::utils::assets::PathAssetLoader< AssetType >", "classshkyera_1_1utils_1_1assets_1_1_path_asset_loader.html", null ]
+    ] ],
+    [ "shkyera::AssetLoader< CubeMap >", "classshkyera_1_1_asset_loader.html", [
+      [ "shkyera::utils::assets::CubeMapLoader", "classshkyera_1_1utils_1_1assets_1_1_cube_map_loader.html", null ]
+    ] ],
+    [ "shkyera::AssetLoader< Material >", "classshkyera_1_1_asset_loader.html", [
+      [ "shkyera::utils::assets::MaterialLoader", "classshkyera_1_1utils_1_1assets_1_1_material_loader.html", null ]
+    ] ],
+    [ "shkyera::AssetLoader< Shader >", "classshkyera_1_1_asset_loader.html", [
+      [ "shkyera::utils::assets::ShaderLoader", "classshkyera_1_1utils_1_1assets_1_1_shader_loader.html", null ]
     ] ],
     [ "shkyera::AssetSelector< AssetType >", "classshkyera_1_1_asset_selector.html", null ],
     [ "shkyera::AssetSelector< shkyera::Material >", "classshkyera_1_1_asset_selector.html", null ],
@@ -13,16 +27,7 @@ var hierarchy =
     [ "shkyera::AssetSelector< Texture >", "classshkyera_1_1_asset_selector.html", [
       [ "shkyera::TextureAssetSelector", "classshkyera_1_1_texture_asset_selector.html", null ]
     ] ],
-    [ "shkyera::BaseComponent< Derived, Mode >", "classshkyera_1_1_base_component.html", [
-      [ "shkyera::BoxColliderComponent< Mode >", "classshkyera_1_1_box_collider_component.html", null ]
-    ] ],
-    [ "shkyera::BaseComponent< AmbientLightComponent >", "classshkyera_1_1_base_component.html", [
-      [ "shkyera::AmbientLightComponent", "classshkyera_1_1_ambient_light_component.html", null ]
-    ] ],
-    [ "shkyera::BaseComponent< BoxColliderComponent< RuntimeMode::PRODUCTION >, RuntimeMode::PRODUCTION >", "classshkyera_1_1_base_component.html", null ],
-    [ "shkyera::BaseComponent< DirectionalLightComponent >", "classshkyera_1_1_base_component.html", [
-      [ "shkyera::DirectionalLightComponent", "classshkyera_1_1_directional_light_component.html", null ]
-    ] ],
+    [ "shkyera::BaseComponent< Derived, Mode >", "classshkyera_1_1_base_component.html", null ],
     [ "shkyera::BaseComponent< GizmoHandleComponent >", "classshkyera_1_1_base_component.html", [
       [ "shkyera::GizmoHandleComponent", "classshkyera_1_1_gizmo_handle_component.html", null ]
     ] ],
@@ -35,25 +40,16 @@ var hierarchy =
     [ "shkyera::BaseComponent< OverlayModelComponent >", "classshkyera_1_1_base_component.html", [
       [ "shkyera::OverlayModelComponent", "classshkyera_1_1_overlay_model_component.html", null ]
     ] ],
-    [ "shkyera::BaseComponent< PointLightComponent >", "classshkyera_1_1_base_component.html", [
-      [ "shkyera::PointLightComponent", "classshkyera_1_1_point_light_component.html", null ]
-    ] ],
-    [ "shkyera::BaseComponent< SkyboxComponent >", "classshkyera_1_1_base_component.html", [
-      [ "shkyera::SkyboxComponent", "classshkyera_1_1_skybox_component.html", null ]
-    ] ],
-    [ "shkyera::BaseComponent< SpotLightComponent >", "classshkyera_1_1_base_component.html", [
-      [ "shkyera::SpotLightComponent", "classshkyera_1_1_spot_light_component.html", null ]
-    ] ],
     [ "shkyera::BaseComponent< TransformComponent >", "classshkyera_1_1_base_component.html", [
       [ "shkyera::TransformComponent", "classshkyera_1_1_transform_component.html", null ]
     ] ],
-    [ "shkyera::BaseComponent< WireframeComponent >", "classshkyera_1_1_base_component.html", [
-      [ "shkyera::WireframeComponent", "structshkyera_1_1_wireframe_component.html", null ]
-    ] ],
     [ "shkyera::BillboardComponent< Mode >", "structshkyera_1_1_billboard_component.html", null ],
+    [ "shkyera::common::BiMap< First, Second, Impl >", "classshkyera_1_1common_1_1_bi_map.html", null ],
     [ "shkyera::BooleanSelector", "classshkyera_1_1_boolean_selector.html", null ],
+    [ "shkyera::BoxColliderComponent< Mode >", "structshkyera_1_1_box_collider_component.html", null ],
     [ "shkyera::CameraComponent", "classshkyera_1_1_camera_component.html", null ],
-    [ "shkyera::CameraMovementSystem", "classshkyera_1_1_camera_movement_system.html", null ],
+    [ "shkyera::CameraMovementSystem< MainCameraTag >", "classshkyera_1_1_camera_movement_system.html", null ],
+    [ "shkyera::CameraMovementSystem< shkyera::SceneCamera >", "classshkyera_1_1_camera_movement_system.html", null ],
     [ "shkyera::Clock< MaxNanosecondCount >", "structshkyera_1_1_clock.html", null ],
     [ "shkyera::ColorSelector", "classshkyera_1_1_color_selector.html", null ],
     [ "shkyera::ComponentUI", "classshkyera_1_1_component_u_i.html", [
@@ -72,6 +68,7 @@ var hierarchy =
     [ "shkyera::CubeMap", "classshkyera_1_1_cube_map.html", null ],
     [ "shkyera::DepthAtlasFrameBuffer", "classshkyera_1_1_depth_atlas_frame_buffer.html", null ],
     [ "shkyera::DepthCubeMapFrameBuffer", "classshkyera_1_1_depth_cube_map_frame_buffer.html", null ],
+    [ "shkyera::DirectionalLightComponent", "structshkyera_1_1_directional_light_component.html", null ],
     [ "shkyera::DirectoryComponent", "structshkyera_1_1_directory_component.html", null ],
     [ "shkyera::Wireframe::Edge", "structshkyera_1_1_wireframe_1_1_edge.html", null ],
     [ "shkyera::EntityHierarchy", "classshkyera_1_1_entity_hierarchy.html", null ],
@@ -88,35 +85,12 @@ var hierarchy =
     [ "shkyera::GlobalPathEqual", "structshkyera_1_1_global_path_equal.html", null ],
     [ "shkyera::GlobalPathHash", "structshkyera_1_1_global_path_hash.html", null ],
     [ "std::std::hash< glm::vec3 >", "structstd_1_1std_1_1hash_3_01glm_1_1vec3_01_4.html", null ],
+    [ "shkyera::Image", "classshkyera_1_1_image.html", null ],
     [ "shkyera::InputManager", "classshkyera_1_1_input_manager.html", null ],
-    [ "shkyera::InstanceCounter< ObjectType >", "structshkyera_1_1_instance_counter.html", [
-      [ "shkyera::PathConstructibleAsset< Image >", "classshkyera_1_1_path_constructible_asset.html", [
-        [ "shkyera::Image", "classshkyera_1_1_image.html", null ]
-      ] ],
-      [ "shkyera::PathConstructibleAsset< Mesh >", "classshkyera_1_1_path_constructible_asset.html", [
-        [ "shkyera::Mesh", "classshkyera_1_1_mesh.html", null ]
-      ] ],
-      [ "shkyera::PathConstructibleAsset< Shader >", "classshkyera_1_1_path_constructible_asset.html", [
-        [ "shkyera::Shader", "classshkyera_1_1_shader.html", null ]
-      ] ],
-      [ "shkyera::PathConstructibleAsset< Texture >", "classshkyera_1_1_path_constructible_asset.html", [
-        [ "shkyera::Texture", "classshkyera_1_1_texture.html", null ]
-      ] ],
-      [ "shkyera::PathConstructibleAsset< Wireframe >", "classshkyera_1_1_path_constructible_asset.html", [
-        [ "shkyera::Wireframe", "classshkyera_1_1_wireframe.html", null ]
-      ] ]
-    ] ],
-    [ "shkyera::InstanceCounter< AssetType >", "structshkyera_1_1_instance_counter.html", [
-      [ "shkyera::PathConstructibleAsset< AssetType >", "classshkyera_1_1_path_constructible_asset.html", null ]
-    ] ],
-    [ "shkyera::InstanceCounter< Image >", "structshkyera_1_1_instance_counter.html", null ],
+    [ "shkyera::InstanceCounter< ObjectType >", "structshkyera_1_1_instance_counter.html", null ],
     [ "shkyera::InstanceCounter< Material >", "structshkyera_1_1_instance_counter.html", [
       [ "shkyera::Material", "structshkyera_1_1_material.html", null ]
     ] ],
-    [ "shkyera::InstanceCounter< Mesh >", "structshkyera_1_1_instance_counter.html", null ],
-    [ "shkyera::InstanceCounter< Shader >", "structshkyera_1_1_instance_counter.html", null ],
-    [ "shkyera::InstanceCounter< Texture >", "structshkyera_1_1_instance_counter.html", null ],
-    [ "shkyera::InstanceCounter< Wireframe >", "structshkyera_1_1_instance_counter.html", null ],
     [ "shkyera::SparseSet< Component >::Iterator< IsConst >", "classshkyera_1_1_sparse_set_1_1_iterator.html", null ],
     [ "shkyera::Log", "classshkyera_1_1_log.html", [
       [ "shkyera::LogError", "classshkyera_1_1_log_error.html", null ],
@@ -124,29 +98,39 @@ var hierarchy =
       [ "shkyera::LogSuccess", "classshkyera_1_1_log_success.html", null ],
       [ "shkyera::LogVerbose", "classshkyera_1_1_log_verbose.html", null ]
     ] ],
+    [ "shkyera::Mesh", "classshkyera_1_1_mesh.html", null ],
     [ "shkyera::random::Normal< SampledType >", "classshkyera_1_1random_1_1_normal.html", null ],
     [ "shkyera::ObjectSelectionSystem", "classshkyera_1_1_object_selection_system.html", null ],
     [ "shkyera::ParticleEmitterComponent", "structshkyera_1_1_particle_emitter_component.html", null ],
     [ "shkyera::ParticleSystem", "classshkyera_1_1_particle_system.html", null ],
+    [ "shkyera::PointLightComponent", "structshkyera_1_1_point_light_component.html", null ],
     [ "shkyera::PostProcessingVolumeComponent", "structshkyera_1_1_post_processing_volume_component.html", null ],
     [ "shkyera::ProfileBlock", "structshkyera_1_1_profile_block.html", null ],
     [ "shkyera::ProfileGuard", "classshkyera_1_1_profile_guard.html", null ],
     [ "shkyera::Profiler", "classshkyera_1_1_profiler.html", null ],
     [ "shkyera::Ray", "structshkyera_1_1_ray.html", null ],
     [ "shkyera::Registry", "classshkyera_1_1_registry.html", null ],
-    [ "shkyera::RenderingSystem", "classshkyera_1_1_rendering_system.html", null ],
-    [ "shkyera::Runtime< Mode >", "classshkyera_1_1_runtime.html", null ],
-    [ "shkyera::Runtime< RuntimeMode::DEVELOPMENT >", "classshkyera_1_1_runtime.html", null ],
+    [ "shkyera::RenderingSystem< MainCameraTag >", "classshkyera_1_1_rendering_system.html", null ],
+    [ "shkyera::RenderingSystem< shkyera::SceneCamera >", "classshkyera_1_1_rendering_system.html", null ],
+    [ "shkyera::Runtime< MainCameraTag >", "classshkyera_1_1_runtime.html", null ],
+    [ "shkyera::Runtime< shkyera::SceneCamera >", "classshkyera_1_1_runtime.html", null ],
     [ "shkyera::SceneFrameBuffer", "classshkyera_1_1_scene_frame_buffer.html", null ],
+    [ "shkyera::Shader", "classshkyera_1_1_shader.html", null ],
     [ "shkyera::ShaderProgram", "classshkyera_1_1_shader_program.html", null ],
     [ "shkyera::SingletonComponent", "structshkyera_1_1_singleton_component.html", [
+      [ "shkyera::AssetRoot", "structshkyera_1_1_asset_root.html", null ],
+      [ "shkyera::Environment", "structshkyera_1_1_environment.html", null ],
+      [ "shkyera::SceneCamera", "structshkyera_1_1_scene_camera.html", null ],
       [ "shkyera::SelectedAssetComponent", "structshkyera_1_1_selected_asset_component.html", null ]
     ] ],
+    [ "shkyera::SkyboxComponent", "structshkyera_1_1_skybox_component.html", null ],
     [ "shkyera::SparseSetBase", "classshkyera_1_1_sparse_set_base.html", [
       [ "shkyera::SparseSet< Component >", "classshkyera_1_1_sparse_set.html", null ]
     ] ],
     [ "shkyera::random::Sphere", "classshkyera_1_1random_1_1_sphere.html", null ],
+    [ "shkyera::SpotLightComponent", "structshkyera_1_1_spot_light_component.html", null ],
     [ "shkyera::ParticleEmitterComponent::state", "structshkyera_1_1_particle_emitter_component_1_1state.html", null ],
+    [ "shkyera::Texture", "classshkyera_1_1_texture.html", null ],
     [ "shkyera::UI", "classshkyera_1_1_u_i.html", null ],
     [ "shkyera::random::Uniform< SampledType >", "classshkyera_1_1random_1_1_uniform.html", null ],
     [ "shkyera::random::Uniform< float >", "classshkyera_1_1random_1_1_uniform.html", null ],
@@ -163,5 +147,7 @@ var hierarchy =
         [ "shkyera::EnvironmentPropertiesWidget", "classshkyera_1_1_environment_properties_widget.html", null ]
       ] ],
       [ "shkyera::SceneWidget", "classshkyera_1_1_scene_widget.html", null ]
-    ] ]
+    ] ],
+    [ "shkyera::Wireframe", "classshkyera_1_1_wireframe.html", null ],
+    [ "shkyera::WireframeComponent", "structshkyera_1_1_wireframe_component.html", null ]
 ];

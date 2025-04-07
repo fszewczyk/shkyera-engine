@@ -129,33 +129,34 @@ $(document).ready(function(){initNavTree('_asset_component_8hpp_source.html','')
 <div class="contents">
 <a href="_asset_component_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;filesystem&gt;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="_shader_8hpp.html">AssetManager/Shader.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespaceshkyera.html">shkyera</a> {</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> AssetType&gt;</div>
-<div class="foldopen" id="foldopen00010" data-start="{" data-end="};">
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno"><a class="line" href="structshkyera_1_1_asset_component.html">   10</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structshkyera_1_1_asset_component.html">AssetComponent</a> {</div>
-<div class="foldopen" id="foldopen00011" data-start="{" data-end="}">
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="structshkyera_1_1_asset_component.html#a2a4fc66a3cd02408fde12292d08f5fd2">   11</a></span>    <a class="code hl_function" href="structshkyera_1_1_asset_component.html#a2a4fc66a3cd02408fde12292d08f5fd2">AssetComponent</a>(std::function&lt;<a class="code hl_struct" href="structshkyera_1_1_clock.html">AssetType</a>()&gt; <a class="code hl_struct" href="structshkyera_1_1_clock.html">constructor</a>)</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>        : <a class="code hl_variable" href="structshkyera_1_1_asset_component.html#a98613181a631368909ca35fa510fb497">constructionFunction</a>(<a class="code hl_struct" href="structshkyera_1_1_clock.html">constructor</a>) {}</div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;<a class="code" href="_asset_8hpp.html">AssetManager/Asset.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="_asset_loader_8hpp.html">Components/AssetComponents/AssetLoader.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespaceshkyera.html">shkyera</a> {</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> AssetType&gt;</div>
+<div class="foldopen" id="foldopen00009" data-start="{" data-end="};">
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="structshkyera_1_1_asset_component.html">    9</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structshkyera_1_1_asset_component.html">AssetComponent</a> {</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno"><a class="line" href="structshkyera_1_1_asset_component.html#a3381c9a7cb41292a8eab104c106c7957">   10</a></span>    std::weak_ptr&lt;AssetType&gt; <a class="code hl_variable" href="structshkyera_1_1_asset_component.html#a3381c9a7cb41292a8eab104c106c7957">assetPtr</a>{};</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="structshkyera_1_1_asset_component.html#aa292e2cc6141452e353fb250459bdb22">   11</a></span>    std::unique_ptr&lt;AssetLoader&lt;AssetType&gt;&gt; <a class="code hl_variable" href="structshkyera_1_1_asset_component.html#aa292e2cc6141452e353fb250459bdb22">constructionFunction</a>;</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="foldopen" id="foldopen00013" data-start="{" data-end="}">
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno"><a class="line" href="structshkyera_1_1_asset_component.html#aad261658f3a1d44275857264094c5d0f">   13</a></span>    <a class="code hl_function" href="structshkyera_1_1_asset_component.html#aad261658f3a1d44275857264094c5d0f">AssetComponent</a>(std::unique_ptr&lt;<a class="code hl_struct" href="structshkyera_1_1_clock.html">AssetLoader&lt;AssetType&gt;</a>&gt; <a class="code hl_struct" href="structshkyera_1_1_clock.html">constructor</a>)</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>        : <a class="code hl_variable" href="structshkyera_1_1_asset_component.html#aa292e2cc6141452e353fb250459bdb22">constructionFunction</a>(<a class="code hl_namespace" href="namespacestd.html">std</a>::<a class="code hl_struct" href="structshkyera_1_1_clock.html">move</a>(<a class="code hl_struct" href="structshkyera_1_1_clock.html">constructor</a>)) {}</div>
 </div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="structshkyera_1_1_asset_component.html#a3381c9a7cb41292a8eab104c106c7957">   14</a></span>    std::weak_ptr&lt;AssetType&gt; <a class="code hl_variable" href="structshkyera_1_1_asset_component.html#a3381c9a7cb41292a8eab104c106c7957">assetPtr</a>{};</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="structshkyera_1_1_asset_component.html#a98613181a631368909ca35fa510fb497">   15</a></span>    std::function&lt;<a class="code hl_struct" href="structshkyera_1_1_clock.html">AssetType</a>()&gt; <a class="code hl_variable" href="structshkyera_1_1_asset_component.html#a98613181a631368909ca35fa510fb497">constructionFunction</a>;</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>};</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>};</div>
 </div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>}  <span class="comment">// namespace shkyera</span></div>
-<div class="ttc" id="a_shader_8hpp_html"><div class="ttname"><a href="_shader_8hpp.html">Shader.hpp</a></div></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>}  <span class="comment">// namespace shkyera</span></div>
+<div class="ttc" id="a_asset_8hpp_html"><div class="ttname"><a href="_asset_8hpp.html">Asset.hpp</a></div></div>
+<div class="ttc" id="a_asset_loader_8hpp_html"><div class="ttname"><a href="_asset_loader_8hpp.html">AssetLoader.hpp</a></div></div>
 <div class="ttc" id="anamespaceshkyera_html"><div class="ttname"><a href="namespaceshkyera.html">shkyera</a></div><div class="ttdef"><b>Definition</b> Asset.hpp:6</div></div>
-<div class="ttc" id="astructshkyera_1_1_asset_component_html"><div class="ttname"><a href="structshkyera_1_1_asset_component.html">shkyera::AssetComponent</a></div><div class="ttdef"><b>Definition</b> AssetComponent.hpp:10</div></div>
-<div class="ttc" id="astructshkyera_1_1_asset_component_html_a2a4fc66a3cd02408fde12292d08f5fd2"><div class="ttname"><a href="structshkyera_1_1_asset_component.html#a2a4fc66a3cd02408fde12292d08f5fd2">shkyera::AssetComponent::AssetComponent</a></div><div class="ttdeci">AssetComponent(std::function&lt; AssetType()&gt; constructor)</div><div class="ttdef"><b>Definition</b> AssetComponent.hpp:11</div></div>
-<div class="ttc" id="astructshkyera_1_1_asset_component_html_a3381c9a7cb41292a8eab104c106c7957"><div class="ttname"><a href="structshkyera_1_1_asset_component.html#a3381c9a7cb41292a8eab104c106c7957">shkyera::AssetComponent::assetPtr</a></div><div class="ttdeci">std::weak_ptr&lt; AssetType &gt; assetPtr</div><div class="ttdef"><b>Definition</b> AssetComponent.hpp:14</div></div>
-<div class="ttc" id="astructshkyera_1_1_asset_component_html_a98613181a631368909ca35fa510fb497"><div class="ttname"><a href="structshkyera_1_1_asset_component.html#a98613181a631368909ca35fa510fb497">shkyera::AssetComponent::constructionFunction</a></div><div class="ttdeci">std::function&lt; AssetType()&gt; constructionFunction</div><div class="ttdef"><b>Definition</b> AssetComponent.hpp:15</div></div>
-<div class="ttc" id="astructshkyera_1_1_clock_html"><div class="ttname"><a href="structshkyera_1_1_clock.html">shkyera::Clock</a></div><div class="ttdef"><b>Definition</b> Clock.hpp:9</div></div>
+<div class="ttc" id="anamespacestd_html"><div class="ttname"><a href="namespacestd.html">std</a></div><div class="ttdef"><b>Definition</b> Mesh.cpp:16</div></div>
+<div class="ttc" id="astructshkyera_1_1_asset_component_html"><div class="ttname"><a href="structshkyera_1_1_asset_component.html">shkyera::AssetComponent</a></div><div class="ttdef"><b>Definition</b> AssetComponent.hpp:9</div></div>
+<div class="ttc" id="astructshkyera_1_1_asset_component_html_a3381c9a7cb41292a8eab104c106c7957"><div class="ttname"><a href="structshkyera_1_1_asset_component.html#a3381c9a7cb41292a8eab104c106c7957">shkyera::AssetComponent::assetPtr</a></div><div class="ttdeci">std::weak_ptr&lt; AssetType &gt; assetPtr</div><div class="ttdef"><b>Definition</b> AssetComponent.hpp:10</div></div>
+<div class="ttc" id="astructshkyera_1_1_asset_component_html_aa292e2cc6141452e353fb250459bdb22"><div class="ttname"><a href="structshkyera_1_1_asset_component.html#aa292e2cc6141452e353fb250459bdb22">shkyera::AssetComponent::constructionFunction</a></div><div class="ttdeci">std::unique_ptr&lt; AssetLoader&lt; AssetType &gt; &gt; constructionFunction</div><div class="ttdef"><b>Definition</b> AssetComponent.hpp:11</div></div>
+<div class="ttc" id="astructshkyera_1_1_asset_component_html_aad261658f3a1d44275857264094c5d0f"><div class="ttname"><a href="structshkyera_1_1_asset_component.html#aad261658f3a1d44275857264094c5d0f">shkyera::AssetComponent::AssetComponent</a></div><div class="ttdeci">AssetComponent(std::unique_ptr&lt; AssetLoader&lt; AssetType &gt; &gt; constructor)</div><div class="ttdef"><b>Definition</b> AssetComponent.hpp:13</div></div>
+<div class="ttc" id="astructshkyera_1_1_clock_html"><div class="ttname"><a href="structshkyera_1_1_clock.html">shkyera::Clock</a></div><div class="ttdef"><b>Definition</b> Clock.hpp:11</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.9.6-->

@@ -1,10 +1,10 @@
 var classshkyera_1_1_camera_component =
 [
     [ "ProjectionType", "classshkyera_1_1_camera_component.html#a187a07d57febe7c8f3c02d24fe88b406", [
+      [ "Invalid", "classshkyera_1_1_camera_component.html#a187a07d57febe7c8f3c02d24fe88b406a4bbb8f967da6d1a610596d7257179c2b", null ],
       [ "Perspective", "classshkyera_1_1_camera_component.html#a187a07d57febe7c8f3c02d24fe88b406aa80420eef88d11f77532f1b9cb467fa3", null ],
       [ "Orthographic", "classshkyera_1_1_camera_component.html#a187a07d57febe7c8f3c02d24fe88b406a03424250432f2aa71de95579d2c0eaeb", null ]
     ] ],
-    [ "CameraComponent", "classshkyera_1_1_camera_component.html#a105aa9e26cb33e807d40be688a769ae8", null ],
     [ "getFrustumCornersWorldSpace", "classshkyera_1_1_camera_component.html#ac2c65cc11b052833e405bce83feac5d0", null ],
     [ "getProjectionMatrix", "classshkyera_1_1_camera_component.html#ae574591598b0ef8e4bf98b438bee9440", null ],
     [ "getProjectionMatrix", "classshkyera_1_1_camera_component.html#ae2ad89b0f341bb6586ac12c46be3a67c", null ],

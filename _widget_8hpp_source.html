@@ -133,31 +133,30 @@ $(document).ready(function(){initNavTree('_widget_8hpp_source.html',''); initRes
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;cmath&gt;</span></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;string&gt;</span></div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;GLFW/glfw3.h&gt;</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;glad/glad.h&gt;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;glad/glad.h&gt;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;GLFW/glfw3.h&gt;</span></div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespaceshkyera.html">shkyera</a> {</div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
 <div class="foldopen" id="foldopen00023" data-start="{" data-end="};">
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="classshkyera_1_1_widget.html">   23</a></span><span class="keyword">class </span><a class="code hl_class" href="classshkyera_1_1_widget.html">Widget</a> {</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>   <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <a class="code hl_class" href="classshkyera_1_1_widget.html">Widget</a>(std::string <a class="code hl_struct" href="structshkyera_1_1_clock.html">name</a>);</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>  <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <a class="code hl_class" href="classshkyera_1_1_widget.html">Widget</a>(std::string name);</div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="classshkyera_1_1_widget.html#aff0e6c9ec0918578614e54a695f675c8">   35</a></span>    <span class="keyword">virtual</span> <a class="code hl_function" href="classshkyera_1_1_widget.html#aff0e6c9ec0918578614e54a695f675c8">~Widget</a>() = <span class="keywordflow">default</span>;</div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="classshkyera_1_1_widget.html#ade9a1dcffc2dc76b9c15a004228911dd">   42</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classshkyera_1_1_widget.html#ade9a1dcffc2dc76b9c15a004228911dd">draw</a>() = 0;</div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="classshkyera_1_1_widget.html#a4e8040722a6df21a679dba91225dcb01">   44</a></span>    std::string <a class="code hl_variable" href="classshkyera_1_1_widget.html#a4e8040722a6df21a679dba91225dcb01">_name</a>;  </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="classshkyera_1_1_widget.html#a4e8040722a6df21a679dba91225dcb01">   44</a></span>    std::string <a class="code hl_variable" href="classshkyera_1_1_widget.html#a4e8040722a6df21a679dba91225dcb01">_name</a>; </div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>};</div>
 </div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>}  <span class="comment">// namespace shkyera</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>} <span class="comment">// namespace shkyera</span></div>
 <div class="ttc" id="aclassshkyera_1_1_widget_html"><div class="ttname"><a href="classshkyera_1_1_widget.html">shkyera::Widget</a></div><div class="ttdoc">An abstract base class representing a GUI widget.</div><div class="ttdef"><b>Definition</b> Widget.hpp:23</div></div>
 <div class="ttc" id="aclassshkyera_1_1_widget_html_a4e8040722a6df21a679dba91225dcb01"><div class="ttname"><a href="classshkyera_1_1_widget.html#a4e8040722a6df21a679dba91225dcb01">shkyera::Widget::_name</a></div><div class="ttdeci">std::string _name</div><div class="ttdoc">The name of the widget.</div><div class="ttdef"><b>Definition</b> Widget.hpp:44</div></div>
 <div class="ttc" id="aclassshkyera_1_1_widget_html_ade9a1dcffc2dc76b9c15a004228911dd"><div class="ttname"><a href="classshkyera_1_1_widget.html#ade9a1dcffc2dc76b9c15a004228911dd">shkyera::Widget::draw</a></div><div class="ttdeci">virtual void draw()=0</div><div class="ttdoc">Abstract method to draw the widget.</div></div>
 <div class="ttc" id="aclassshkyera_1_1_widget_html_aff0e6c9ec0918578614e54a695f675c8"><div class="ttname"><a href="classshkyera_1_1_widget.html#aff0e6c9ec0918578614e54a695f675c8">shkyera::Widget::~Widget</a></div><div class="ttdeci">virtual ~Widget()=default</div><div class="ttdoc">Default virtual destructor.</div></div>
 <div class="ttc" id="anamespaceshkyera_html"><div class="ttname"><a href="namespaceshkyera.html">shkyera</a></div><div class="ttdef"><b>Definition</b> Asset.hpp:6</div></div>
-<div class="ttc" id="astructshkyera_1_1_clock_html"><div class="ttname"><a href="structshkyera_1_1_clock.html">shkyera::Clock</a></div><div class="ttdef"><b>Definition</b> Clock.hpp:9</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.9.6-->

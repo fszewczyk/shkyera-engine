@@ -1,6 +1,6 @@
 var classshkyera_1_1_mesh =
 [
-    [ "Factory", "classshkyera_1_1_mesh_1_1_factory.html", null ],
+    [ "Factory", "classshkyera_1_1_mesh_1_1_factory.html", "classshkyera_1_1_mesh_1_1_factory" ],
     [ "Vertex", "structshkyera_1_1_mesh_1_1_vertex.html", "structshkyera_1_1_mesh_1_1_vertex" ],
     [ "Mesh", "classshkyera_1_1_mesh.html#a4dff0e1605d4814fe5696b27ea600982", null ],
     [ "Mesh", "classshkyera_1_1_mesh.html#a70dc682e465f00185806971c4824d555", null ],

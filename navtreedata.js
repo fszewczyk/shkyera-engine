@@ -69,15 +69,16 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "_a_a_b_b_8cpp.html",
-"_scene_frame_buffer_8hpp_source.html",
-"classshkyera_1_1_color_selector.html#ad8bb56cba8f12017f90777f143ff9e16",
-"classshkyera_1_1_filesystem_widget.html#ab74a9bc446cd2e5780a501a716a37eec",
-"classshkyera_1_1_inspector_widget_1_1_material_inspector.html#a36dc627860305a4e74af97a36ca22906",
-"classshkyera_1_1_particle_emitter_component_u_i.html#afdd0dd9a31c4e490c5c72e531b7354ef",
-"classshkyera_1_1_rendering_system.html#a41f5710127cedc96155b815fe39ee7d9",
-"classshkyera_1_1_shader_program.html#adc2b0a07246d56a481911c4a82b57b91",
-"classshkyera_1_1_u_i.html#adf2b92fdf53ed8334f8ce2958e0297d5",
-"structshkyera_1_1_billboard_component.html"
+"_rendering_2_utils_8hpp.html",
+"classshkyera_1_1_camera_properties_widget.html#a09d169b2132a0ab2de8a8c0905c6bd17",
+"classshkyera_1_1_filesystem_widget.html#a6ee02d45538c0da98597a1327fbef28e",
+"classshkyera_1_1_inspector_widget_1_1_material_inspector.html",
+"classshkyera_1_1_particle_emitter_component_u_i.html#a4c4325cd124b2420a62a75dded98b1e7",
+"classshkyera_1_1_rendering_system.html#a3918e0d0da7f6efe5624cdcd59e26cb1",
+"classshkyera_1_1_shader_program.html#af626ff3c8d569440eb46812b4b76d400",
+"classshkyera_1_1_wireframe.html#a04baa0db24942790408f60ac916c9572",
+"namespaceshkyera_1_1clock.html#ae41d907cf88636840ccc441353bb040f",
+"structshkyera_1_1_particle_emitter_component.html#aaaca138e49bdee1fc7b74660e434f6bd"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

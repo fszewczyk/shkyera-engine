@@ -1,5 +1,7 @@
 var dir_ba210d1fa67db7bee1bb22e0a3c11d9f =
 [
+    [ "Assert.hpp", "_assert_8hpp.html", "_assert_8hpp" ],
+    [ "BiMap.hpp", "_bi_map_8hpp.html", "_bi_map_8hpp" ],
     [ "Clock.cpp", "_clock_8cpp.html", "_clock_8cpp" ],
     [ "Clock.hpp", "_clock_8hpp.html", "_clock_8hpp" ],
     [ "InstanceCounter.hpp", "_instance_counter_8hpp.html", "_instance_counter_8hpp" ],

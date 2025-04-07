@@ -1,20 +1,19 @@
 var classshkyera_1_1_registry =
 [
     [ "ParentAndChild", "classshkyera_1_1_registry.html#a8213f36e4ee81deed5b2373dff3ec2c7", null ],
-    [ "Registry", "classshkyera_1_1_registry.html#aa796150becc2521c83b61f4887b5242e", null ],
+    [ "Registry", "classshkyera_1_1_registry.html#a25a035c3de26271ef8fa475bdff62456", null ],
     [ "~Registry", "classshkyera_1_1_registry.html#af9e3a8e70a882a373963883cfcd3cbd1", null ],
     [ "addComponent", "classshkyera_1_1_registry.html#a382b72f0f4d47f449303c6a15c756e7a", null ],
     [ "addEntity", "classshkyera_1_1_registry.html#adade4f4df213e42f8c71b843193efe52", null ],
     [ "assignComponent", "classshkyera_1_1_registry.html#af80c60ac4aca84444d1b1b08ac2b1cba", null ],
     [ "clearSelectedEntities", "classshkyera_1_1_registry.html#ade3839d7405f7d0dab933b16a60241d5", null ],
-    [ "getCamera", "classshkyera_1_1_registry.html#a316522ca2139247366dd91d2317ebee3", null ],
     [ "getComponent", "classshkyera_1_1_registry.html#adaae43f952eb3e1c91a0f0c3358805b7", null ],
     [ "getComponent", "classshkyera_1_1_registry.html#a2fc527e210573023f7b1ab31d34db914", null ],
     [ "getComponents", "classshkyera_1_1_registry.html#a20bb93b13e5dbee42c629e218b35922e", null ],
     [ "getComponents", "classshkyera_1_1_registry.html#ab9484ac153903bdac40e0a693617fca8", null ],
     [ "getComponentSet", "classshkyera_1_1_registry.html#a6a6c06e9834063fbdfd0aaaf56650a71", null ],
     [ "getComponentSet", "classshkyera_1_1_registry.html#a88a686e68181d0723827eab92fe0c567", null ],
-    [ "getEnvironment", "classshkyera_1_1_registry.html#a594625347984ddd359ce363563cf7704", null ],
+    [ "getEntity", "classshkyera_1_1_registry.html#a0eb23e24a9cb72bd6252d4f7cad95d6a", null ],
     [ "getHierarchy", "classshkyera_1_1_registry.html#a7ca67965e9d18cd6eddeb05de7c49152", null ],
     [ "getHierarchy", "classshkyera_1_1_registry.html#ab11244547fe993e8cad738f17e1293cb", null ],
     [ "getOrCreateComponentSet", "classshkyera_1_1_registry.html#a3909161770cdb81e107640e87d3e980b", null ],
@@ -25,10 +24,8 @@ var classshkyera_1_1_registry =
     [ "removeComponent", "classshkyera_1_1_registry.html#a609cea17b4980073157c4eefb1f0c6fa", null ],
     [ "removeEntity", "classshkyera_1_1_registry.html#a392b890c70ac45a4709319914bd72d48", null ],
     [ "selectEntity", "classshkyera_1_1_registry.html#a5c3b25ab9ae87027aa7bb337f51cf0eb", null ],
-    [ "_camera", "classshkyera_1_1_registry.html#add302f4e12fd9a4304918bba4ecce4f1", null ],
     [ "_componentSets", "classshkyera_1_1_registry.html#ac7294f22186f34c86456a3e2d21c4c70", null ],
     [ "_entityHierarchy", "classshkyera_1_1_registry.html#acbe11d70c55ad4e32494ac573b86cb3d", null ],
     [ "_entityProvider", "classshkyera_1_1_registry.html#a24b4fa61858f7fd5121ed0be7319db5f", null ],
-    [ "_environment", "classshkyera_1_1_registry.html#a0db04552d018363876288f956741891c", null ],
     [ "_selectedEntities", "classshkyera_1_1_registry.html#a3264ce557ad456773a8c84345f1504b9", null ]
 ];

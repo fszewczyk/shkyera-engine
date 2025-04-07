@@ -125,17 +125,21 @@ $(document).ready(function(){initNavTree('_asset_utils_8cpp.html',''); initResiz
   <div class="headertitle"><div class="title">AssetUtils.cpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="_asset_utils_8hpp_source.html">Utils/AssetUtils.hpp</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;filesystem&gt;</code><br />
+<code>#include &lt;memory&gt;</code><br />
 <code>#include &lt;<a class="el" href="_mesh_8hpp_source.html">AssetManager/Mesh.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="_shader_8hpp_source.html">AssetManager/Shader.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="_texture_8hpp_source.html">AssetManager/Texture.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="_logger_8hpp_source.html">Common/Logger.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="_asset_root_8hpp_source.html">Components/AssetComponents/AssetRoot.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="_directory_component_8hpp_source.html">Components/AssetComponents/DirectoryComponent.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="_name_component_8hpp_source.html">Components/NameComponent.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="_asset_loaders_8hpp_source.html">Utils/AssetLoaders.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="_asset_utils_8hpp_source.html">Utils/AssetUtils.hpp</a>&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for AssetUtils.cpp:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="_asset_utils_8cpp__incl.svg" width="2188" height="579"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="_asset_utils_8cpp__incl.svg" width="3159" height="726"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
@@ -155,8 +159,6 @@ Functions</h2></td></tr>
 <tr class="separator:a47f5187eee2d89cc32c211dfa47a7df8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8a559ef2e6f689b70a481de86f3208cb" id="r_a8a559ef2e6f689b70a481de86f3208cb"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="namespaceshkyera.html#a197e209cf7ed41d8ed7bea616e140f84">AssetHandle</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceshkyera_1_1utils_1_1assets.html#a8a559ef2e6f689b70a481de86f3208cb">shkyera::utils::assets::getSubdirectories</a> (<a class="el" href="namespaceshkyera.html#a197e209cf7ed41d8ed7bea616e140f84">AssetHandle</a> <a class="el" href="structshkyera_1_1_clock.html">directory</a>, <a class="el" href="classshkyera_1_1_registry.html">Registry</a> <a class="el" href="structshkyera_1_1_clock.html">const</a> *<a class="el" href="structshkyera_1_1_clock.html">registry</a>)</td></tr>
 <tr class="separator:a8a559ef2e6f689b70a481de86f3208cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a70eec7f767d6f70981d1fb5fa9b010a7" id="r_a70eec7f767d6f70981d1fb5fa9b010a7"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceshkyera_1_1utils_1_1assets.html#a70eec7f767d6f70981d1fb5fa9b010a7">shkyera::utils::assets::getName</a> (<a class="el" href="structshkyera_1_1_clock.html">const</a> <a class="el" href="structshkyera_1_1_directory_component.html">DirectoryComponent</a> &amp;<a class="el" href="structshkyera_1_1_clock.html">directoryComponent</a>)</td></tr>
-<tr class="separator:a70eec7f767d6f70981d1fb5fa9b010a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->

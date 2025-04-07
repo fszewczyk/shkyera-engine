@@ -1,4 +1,4 @@
 var _box_collider_component_8hpp =
 [
-    [ "shkyera::BoxColliderComponent< Mode >", "classshkyera_1_1_box_collider_component.html", "classshkyera_1_1_box_collider_component" ]
+    [ "shkyera::BoxColliderComponent< Mode >", "structshkyera_1_1_box_collider_component.html", "structshkyera_1_1_box_collider_component" ]
 ];
