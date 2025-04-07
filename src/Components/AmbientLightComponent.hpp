@@ -6,8 +6,8 @@
 namespace shkyera {
 
 struct AmbientLightComponent {
-    float intensity = 1;
-    glm::vec3 color = {0.1, 0.1, 0.1};
+  float intensity = 1;
+  glm::vec3 color = {0.1, 0.1, 0.1};
 };
 
 }  // namespace shkyera

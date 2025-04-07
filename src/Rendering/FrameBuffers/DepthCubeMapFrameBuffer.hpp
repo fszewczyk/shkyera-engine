@@ -1,30 +1,30 @@
 #pragma once
 
-#include <memory>
 #include <glad/glad.h>
+#include <memory>
 
 #include <AssetManager/Texture.hpp>
 
 namespace shkyera {
 
 class DepthCubeMapFrameBuffer {
-public:
-    DepthCubeMapFrameBuffer();
-    ~DepthCubeMapFrameBuffer();
+ public:
+  DepthCubeMapFrameBuffer();
+  ~DepthCubeMapFrameBuffer();
 
-    void bind();
-    void unbind();
-    void clear();
-    void activate(GLuint texId) const;
-    void setSize(int width, int height);
+  void bind();
+  void unbind();
+  void clear();
+  void activate(GLuint texId) const;
+  void setSize(int width, int height);
 
-    GLuint getID() const { return _cubemapTexture; }
+  GLuint getID() const { return _cubemapTexture; }
 
-private:
-    GLuint _fbo, _rbo, _cubemapTexture;
-    uint32_t _width, _height;
+ private:
+  GLuint _fbo, _rbo, _cubemapTexture;
+  uint32_t _width, _height;
 
-    void setupFramebuffer();
+  void setupFramebuffer();
 };
 
-} // namespace shkyera
+}  // namespace shkyera

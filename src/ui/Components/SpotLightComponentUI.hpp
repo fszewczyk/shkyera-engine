@@ -1,25 +1,25 @@
 #pragma once
 
-#include <UI/ComponentUI.hpp>
+#include <Components/SpotLightComponent.hpp>
 #include <UI/Common/ColorSelector.hpp>
 #include <UI/Common/FloatSlider.hpp>
-#include <Components/SpotLightComponent.hpp>
+#include <UI/ComponentUI.hpp>
 
 namespace shkyera {
 
 class SpotLightComponentUI : public ComponentUI {
-    public:
-        SpotLightComponentUI(SpotLightComponent* pointLightComponent);
+ public:
+  SpotLightComponentUI(SpotLightComponent* pointLightComponent);
 
-        void draw() override;
+  void draw() override;
 
-    private:
-        ColorSelector _colorSelector;
-        FloatSlider _intensitySlider;
-        FloatSlider _rangeSlider;
-        FloatSlider _innerCutoffSlider;
-        FloatSlider _outerCutoffSlider;
-        SpotLightComponent* _spotLightComponent;
+ private:
+  ColorSelector _colorSelector;
+  FloatSlider _intensitySlider;
+  FloatSlider _rangeSlider;
+  FloatSlider _innerCutoffSlider;
+  FloatSlider _outerCutoffSlider;
+  SpotLightComponent* _spotLightComponent;
 };
 
-}
+}  // namespace shkyera

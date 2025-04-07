@@ -9,8 +9,8 @@
 #include <cmath>
 #include <string>
 
-#include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <glad/glad.h>
 
 namespace shkyera {
 
@@ -21,27 +21,27 @@ namespace shkyera {
  * and defines a common interface for drawing them.
  */
 class Widget {
-  public:
-    /**
+ public:
+  /**
      * @brief Constructor to create a widget with a specified name.
      *
      * @param name The name of the widget.
      */
-    Widget(std::string name);
+  Widget(std::string name);
 
-    /**
+  /**
      * @brief Default virtual destructor
      */
-    virtual ~Widget() = default;
+  virtual ~Widget() = default;
 
-    /**
+  /**
      * @brief Abstract method to draw the widget.
      *
      * This method must be implemented by derived classes to render the widget on the screen.
      */
-    virtual void draw() = 0;
+  virtual void draw() = 0;
 
-    std::string _name; ///< The name of the widget.
+  std::string _name;  ///< The name of the widget.
 };
 
-} // namespace shkyera
+}  // namespace shkyera

@@ -8,13 +8,11 @@
 namespace shkyera {
 
 struct DirectoryComponent {
-    explicit DirectoryComponent(std::filesystem::path path)
-        : name(path.stem()) {}
+  explicit DirectoryComponent(std::filesystem::path path) : name(path.stem()) {}
 
-    explicit DirectoryComponent(std::string name_)
-        : name(std::move(name_)) {}
+  explicit DirectoryComponent(std::string name_) : name(std::move(name_)) {}
 
-    std::string name;
+  std::string name;
 };
 
 }  // namespace shkyera

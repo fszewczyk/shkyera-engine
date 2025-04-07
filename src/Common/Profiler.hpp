@@ -1,48 +1,48 @@
 #pragma once
 
 #include <chrono>
-#include <thread>
-#include <mutex>
 #include <map>
+#include <mutex>
 #include <string>
+#include <thread>
 
 namespace shkyera {
 
 struct ProfileBlock {
-    double totalLengthInNanoSeconds = 0;
-    size_t numberOfCalls = 0;
+  double totalLengthInNanoSeconds = 0;
+  size_t numberOfCalls = 0;
 
-    ProfileBlock& operator+=(const ProfileBlock& other);
+  ProfileBlock& operator+=(const ProfileBlock& other);
 };
 
 class ProfileGuard {
-    public:
-        ProfileGuard(std::string&& name);
-        ~ProfileGuard();
+ public:
+  ProfileGuard(std::string&& name);
+  ~ProfileGuard();
 
-    private:
-        std::string mProfileName;
-        std::chrono::high_resolution_clock::time_point mStartTime;
+ private:
+  std::string mProfileName;
+  std::chrono::high_resolution_clock::time_point mStartTime;
 };
 
 class Profiler {
-    public:
-        using BlocksPerThread = std::map<std::thread::id, std::map<std::string, ProfileBlock>>;
+ public:
+  using BlocksPerThread = std::map<std::thread::id, std::map<std::string, ProfileBlock>>;
 
-        static Profiler& getInstance();
+  static Profiler& getInstance();
 
-        void clear();
-        void addBlock(std::string&& name, std::chrono::nanoseconds time);
-        BlocksPerThread getProfiles();
+  void clear();
+  void addBlock(std::string&& name, std::chrono::nanoseconds time);
+  BlocksPerThread getProfiles();
 
-    private:
-        Profiler() = default;
+ private:
+  Profiler() = default;
 
-        std::mutex mMutex;
-        BlocksPerThread mProfileBlocks;
+  std::mutex mMutex;
+  BlocksPerThread mProfileBlocks;
 };
 
-#define SHKYERA_PROFILE(name) ProfileGuard __SHKYERA_UNIQUE_NAME(__LINE__) (name)
+#define SHKYERA_PROFILE(name) ProfileGuard __SHKYERA_UNIQUE_NAME(__LINE__)(name)
 #define SHKYERA_READ_PROFILE Profiler::getInstance().getProfiles()
 #define SHKYERA_CLEAR_PROFILE Profiler::getInstance().clear()
 
@@ -50,4 +50,4 @@ class Profiler {
 #define __SHKYERA_CONCAT(X, Y) __SHKYERA_CONCAT_IMPL(X, Y)
 #define __SHKYERA_CONCAT_IMPL(X, Y) X##Y
 
-}
+}  // namespace shkyera

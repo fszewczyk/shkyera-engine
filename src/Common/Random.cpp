@@ -1,5 +1,3 @@
 #include <Common/Random.hpp>
 
-namespace shkyera::random {
-
-}
+namespace shkyera::random {}

@@ -18,40 +18,41 @@ namespace shkyera {
 
 SceneWidget::SceneWidget(std::shared_ptr<Registry> registry)
     : Widget("Scene"), _registry(registry), _runtime(std::move(registry)) {
-    SHKYERA_ASSERT(_registry->getEntity<SceneCamera>().has_value(), "SceneCamera is not registered. Cannot construct SceneWidget");
+  SHKYERA_ASSERT(_registry->getEntity<SceneCamera>().has_value(),
+                 "SceneCamera is not registered. Cannot construct SceneWidget");
 }
 
 void SceneWidget::draw() {
-    ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
-    ImGui::Begin(_name.c_str(), nullptr, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
+  ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
+  ImGui::Begin(_name.c_str(), nullptr, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
 
-    auto renderSize = ImGui::GetContentRegionAvail();
-    updateWindowCoordinateSystem();
-    _runtime.getRenderingSystem().setSize(renderSize.x * 2.0f, renderSize.y * 2.0f);
-    const auto aspectRatio = static_cast<float>(renderSize.x) / renderSize.y;
-    _registry->getComponent<CameraComponent>(*_registry->getEntity<SceneCamera>()).aspectRatio = aspectRatio;
+  auto renderSize = ImGui::GetContentRegionAvail();
+  updateWindowCoordinateSystem();
+  _runtime.getRenderingSystem().setSize(renderSize.x * 2.0f, renderSize.y * 2.0f);
+  const auto aspectRatio = static_cast<float>(renderSize.x) / renderSize.y;
+  _registry->getComponent<CameraComponent>(*_registry->getEntity<SceneCamera>()).aspectRatio = aspectRatio;
 
-    _runtime.update();
+  _runtime.update();
 
-    ImGui::Image((void*)(intptr_t)_runtime.getRenderingSystem().getRenderFrameBuffer(), renderSize);
+  ImGui::Image((void*)(intptr_t)_runtime.getRenderingSystem().getRenderFrameBuffer(), renderSize);
 
-    ImGui::End();
-    ImGui::PopStyleVar();
+  ImGui::End();
+  ImGui::PopStyleVar();
 }
 
 void SceneWidget::updateWindowCoordinateSystem() {
-    ImVec2 topLeft = ImGui::GetWindowContentRegionMin();
-    ImVec2 topRight = ImGui::GetWindowContentRegionMax();
+  ImVec2 topLeft = ImGui::GetWindowContentRegionMin();
+  ImVec2 topRight = ImGui::GetWindowContentRegionMax();
 
-    topLeft.x += ImGui::GetWindowPos().x;
-    topLeft.y += ImGui::GetWindowPos().y;
-    topRight.x += ImGui::GetWindowPos().x;
-    topRight.y += ImGui::GetWindowPos().y;
+  topLeft.x += ImGui::GetWindowPos().x;
+  topLeft.y += ImGui::GetWindowPos().y;
+  topRight.x += ImGui::GetWindowPos().x;
+  topRight.y += ImGui::GetWindowPos().y;
 
-    const glm::vec2 topLeftVec = {topLeft.x, topLeft.y};
-    const glm::vec2 bottomRightVec = {topRight.x, topRight.y};
+  const glm::vec2 topLeftVec = {topLeft.x, topLeft.y};
+  const glm::vec2 bottomRightVec = {topRight.x, topRight.y};
 
-    InputManager::getInstance().setCoordinateSystem(InputManager::CoordinateSystem::SCENE, topLeftVec, bottomRightVec);
+  InputManager::getInstance().setCoordinateSystem(InputManager::CoordinateSystem::SCENE, topLeftVec, bottomRightVec);
 }
 
 }  // namespace shkyera

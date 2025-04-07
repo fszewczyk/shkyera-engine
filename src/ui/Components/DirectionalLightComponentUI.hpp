@@ -1,22 +1,22 @@
 #pragma once
 
-#include <UI/ComponentUI.hpp>
+#include <Components/DirectionalLightComponent.hpp>
 #include <UI/Common/ColorSelector.hpp>
 #include <UI/Common/FloatSlider.hpp>
-#include <Components/DirectionalLightComponent.hpp>
+#include <UI/ComponentUI.hpp>
 
 namespace shkyera {
 
 class DirectionalLightComponentUI : public ComponentUI {
-    public:
-        DirectionalLightComponentUI(DirectionalLightComponent* directionalLightComponent);
+ public:
+  DirectionalLightComponentUI(DirectionalLightComponent* directionalLightComponent);
 
-        void draw() override;
+  void draw() override;
 
-    private:
-        ColorSelector _colorSelector;
-        FloatSlider _intensitySlider;
-        DirectionalLightComponent* _directionalLightComponent;
+ private:
+  ColorSelector _colorSelector;
+  FloatSlider _intensitySlider;
+  DirectionalLightComponent* _directionalLightComponent;
 };
 
-}
+}  // namespace shkyera

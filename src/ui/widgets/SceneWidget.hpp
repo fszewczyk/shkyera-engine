@@ -23,21 +23,21 @@ namespace shkyera {
  * The `SceneWidget` class provides a graphical user interface widget for rendering and contrlling the runtime
  */
 class SceneWidget : public Widget {
-   public:
-    using Widget::Widget;
+ public:
+  using Widget::Widget;
 
-    SceneWidget(std::shared_ptr<Registry> registry);
+  SceneWidget(std::shared_ptr<Registry> registry);
 
-    /**
+  /**
      * @brief Implementation of the abstract `draw` method to render the scene widget.
      */
-    virtual void draw() override;
+  virtual void draw() override;
 
-   private:
-    void updateWindowCoordinateSystem();
+ private:
+  void updateWindowCoordinateSystem();
 
-    std::shared_ptr<Registry> _registry;
-    Runtime<SceneCamera> _runtime;
+  std::shared_ptr<Registry> _registry;
+  Runtime<SceneCamera> _runtime;
 };
 
 }  // namespace shkyera

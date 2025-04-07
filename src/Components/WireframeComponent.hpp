@@ -8,16 +8,16 @@
 namespace shkyera {
 
 struct WireframeComponent {
-    HandleAndAsset<Wireframe> wireframe{};
+  HandleAndAsset<Wireframe> wireframe{};
 
-    void updateImpl() const {
-        const auto& wireframeAsset = std::get<AssetRef<Wireframe>>(wireframe);
-        if (wireframeAsset) {
-            wireframeAsset->bind();
-            glDrawArrays(GL_LINES, 0, wireframeAsset->getEdgeCount());
-            wireframeAsset->unbind();
-        }
+  void updateImpl() const {
+    const auto& wireframeAsset = std::get<AssetRef<Wireframe>>(wireframe);
+    if (wireframeAsset) {
+      wireframeAsset->bind();
+      glDrawArrays(GL_LINES, 0, wireframeAsset->getEdgeCount());
+      wireframeAsset->unbind();
     }
+  }
 };
 
 }  // namespace shkyera

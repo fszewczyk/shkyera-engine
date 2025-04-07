@@ -15,35 +15,28 @@ namespace shkyera {
 
 template <typename MainCameraTag>
 class Runtime {
-   public:
-    Runtime(std::shared_ptr<Registry> registry)
-        : _registry(registry),
-          _cameraMovementSystem(registry),
-          _particleSystem(registry),
-          _renderingSystem(registry) {}
+ public:
+  Runtime(std::shared_ptr<Registry> registry)
+      : _registry(registry), _cameraMovementSystem(registry), _particleSystem(registry), _renderingSystem(registry) {}
 
-    void update() {
-        clock::Game.reset();
+  void update() {
+    clock::Game.reset();
 
-        _cameraMovementSystem.update();
-        _particleSystem.update();
-        _renderingSystem.render();
-    }
+    _cameraMovementSystem.update();
+    _particleSystem.update();
+    _renderingSystem.render();
+  }
 
-    auto& getRenderingSystem() {
-        return _renderingSystem;
-    }
+  auto& getRenderingSystem() { return _renderingSystem; }
 
-    const auto& getRenderingSystem() const {
-        return _renderingSystem;
-    }
+  const auto& getRenderingSystem() const { return _renderingSystem; }
 
-   private:
-    std::shared_ptr<Registry> _registry;
+ private:
+  std::shared_ptr<Registry> _registry;
 
-    CameraMovementSystem<MainCameraTag> _cameraMovementSystem;
-    ParticleSystem _particleSystem;
-    RenderingSystem<MainCameraTag> _renderingSystem;
+  CameraMovementSystem<MainCameraTag> _cameraMovementSystem;
+  ParticleSystem _particleSystem;
+  RenderingSystem<MainCameraTag> _renderingSystem;
 };
 
 }  // namespace shkyera

@@ -1,23 +1,21 @@
 #include "imgui.h"
 
-#include <UI/Components/WireframeComponentUI.hpp>
 #include <AssetManager/Image.hpp>
+#include <UI/Components/WireframeComponentUI.hpp>
 
 namespace shkyera {
 
-WireframeComponentUI::WireframeComponentUI(std::shared_ptr<Registry> registry, WireframeComponent* wireframeComponent) :
-  _registry(registry),
-  _wireframeSelector("Mesh", registry.get(), std::get<OptionalAssetHandle>(wireframeComponent->wireframe)), 
-  _wireframeComponent(wireframeComponent) 
-{
+WireframeComponentUI::WireframeComponentUI(std::shared_ptr<Registry> registry, WireframeComponent* wireframeComponent)
+    : _registry(registry),
+      _wireframeSelector("Mesh", registry.get(), std::get<OptionalAssetHandle>(wireframeComponent->wireframe)),
+      _wireframeComponent(wireframeComponent) {
   _wireframeSelector.setUpdateCallback([this](const auto& assetHandle) {
-    auto& meshAsset =_registry->getComponent<AssetComponent<Wireframe>>(assetHandle);
+    auto& meshAsset = _registry->getComponent<AssetComponent<Wireframe>>(assetHandle);
     _wireframeComponent->wireframe = HandleAndAsset<Wireframe>{assetHandle, utils::assets::read(meshAsset)};
   });
-  
-  _wireframeSelector.setClearCallback([this]() {
-    _wireframeComponent->wireframe = HandleAndAsset<Wireframe>{std::nullopt, nullptr};
-  });
+
+  _wireframeSelector.setClearCallback(
+      [this]() { _wireframeComponent->wireframe = HandleAndAsset<Wireframe>{std::nullopt, nullptr}; });
 }
 
 void WireframeComponentUI::draw() {

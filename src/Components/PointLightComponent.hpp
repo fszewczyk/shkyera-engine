@@ -9,10 +9,10 @@
 namespace shkyera {
 
 struct PointLightComponent {
-   public:
-    float intensity = 1;
-    float range = 5;
-    glm::vec3 color = {1, 1, 1};
+ public:
+  float intensity = 1;
+  float range = 5;
+  glm::vec3 color = {1, 1, 1};
 };
 
 }  // namespace shkyera

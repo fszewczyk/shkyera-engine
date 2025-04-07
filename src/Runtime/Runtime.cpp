@@ -1,5 +1,3 @@
 #include <Runtime/Runtime.hpp>
 
-namespace shkyera {
-
-}
+namespace shkyera {}

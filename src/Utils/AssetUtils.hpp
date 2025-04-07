@@ -15,34 +15,28 @@ namespace shkyera::utils::assets {
 
 template <typename AssetType>
 class PathAssetLoader : public AssetLoader<AssetType> {
-   public:
-    PathAssetLoader(std::filesystem::path path_)
-        : path(std::move(path_)) {}
+ public:
+  PathAssetLoader(std::filesystem::path path_) : path(std::move(path_)) {}
 
-    ~PathAssetLoader() = default;
+  ~PathAssetLoader() = default;
 
-    AssetType operator()() override {
-        return AssetType(path);
-    }
+  AssetType operator()() override { return AssetType(path); }
 
-    std::filesystem::path path;
+  std::filesystem::path path;
 };
 
 template <typename AssetType>
 class FactoryAssetLoader : public AssetLoader<AssetType> {
-   public:
-    using Factory = typename AssetType::Factory;
+ public:
+  using Factory = typename AssetType::Factory;
 
-    FactoryAssetLoader(Factory::Type type_)
-        : type(type_) {}
+  FactoryAssetLoader(Factory::Type type_) : type(type_) {}
 
-    ~FactoryAssetLoader() = default;
+  ~FactoryAssetLoader() = default;
 
-    AssetType operator()() override {
-        return Factory::create(type);
-    }
+  AssetType operator()() override { return Factory::create(type); }
 
-    Factory::Type type;
+  Factory::Type type;
 };
 
 /**
@@ -85,27 +79,28 @@ std::vector<AssetHandle> getSubdirectories(AssetHandle directory, Registry const
  */
 template <typename AssetType>
 AssetRef<AssetType> read(AssetComponent<AssetType>& assetComponent) {
-    if (auto asset = assetComponent.assetPtr.lock()) {
-        return asset;
-    }
-
-    auto asset = std::make_shared<AssetType>((*assetComponent.constructionFunction)());
-    assetComponent.assetPtr = asset;
+  if (auto asset = assetComponent.assetPtr.lock()) {
     return asset;
+  }
+
+  auto asset = std::make_shared<AssetType>((*assetComponent.constructionFunction)());
+  assetComponent.assetPtr = asset;
+  return asset;
 }
 
 template <typename AssetType>
 AssetRef<AssetType> read(Registry* registry, HandleAndAsset<AssetType>& handleAndAsset) {
-    if (const auto assetRef = std::get<AssetRef<AssetType>>(handleAndAsset)) {
-        return assetRef;
-    }
+  if (const auto assetRef = std::get<AssetRef<AssetType>>(handleAndAsset)) {
+    return assetRef;
+  }
 
-    if (const auto assetHandleOpt = std::get<OptionalAssetHandle>(handleAndAsset)) {
-        SHKYERA_ASSERT(registry->hasComponent<AssetComponent<AssetType>>(*assetHandleOpt), "{} does not have an associated Asset Component for {}", *assetHandleOpt, typeid(AssetType).name());
-        return read<AssetType>(registry->getComponent<AssetComponent<AssetType>>(*assetHandleOpt));
-    }
+  if (const auto assetHandleOpt = std::get<OptionalAssetHandle>(handleAndAsset)) {
+    SHKYERA_ASSERT(registry->hasComponent<AssetComponent<AssetType>>(*assetHandleOpt),
+                   "{} does not have an associated Asset Component for {}", *assetHandleOpt, typeid(AssetType).name());
+    return read<AssetType>(registry->getComponent<AssetComponent<AssetType>>(*assetHandleOpt));
+  }
 
-    return nullptr;
+  return nullptr;
 }
 
 /**
@@ -119,13 +114,13 @@ AssetRef<AssetType> read(Registry* registry, HandleAndAsset<AssetType>& handleAn
  */
 template <PathConstructible AssetType>
 AssetRef<AssetType> read(const std::filesystem::path& path) {
-    return std::make_shared<AssetType>(path);
+  return std::make_shared<AssetType>(path);
 }
 
 template <typename AssetType>
 AssetRef<AssetType> read(typename AssetType::Factory::Type type) {
-    auto component = std::make_shared<AssetType>(AssetType::Factory::create(type));
-    return component;
+  auto component = std::make_shared<AssetType>(AssetType::Factory::create(type));
+  return component;
 }
 
 /**
@@ -140,9 +135,9 @@ AssetRef<AssetType> read(typename AssetType::Factory::Type type) {
  */
 template <typename AssetType>
 HandleAndAsset<AssetType> add(Registry* registry, std::unique_ptr<AssetLoader<AssetType>> loader) {
-    auto assetHandle = registry->addEntity();
-    auto& assetComponent = registry->addComponent<AssetComponent<AssetType>>(assetHandle, std::move(loader));
-    return {assetHandle, read(assetComponent)};
+  auto assetHandle = registry->addEntity();
+  auto& assetComponent = registry->addComponent<AssetComponent<AssetType>>(assetHandle, std::move(loader));
+  return {assetHandle, read(assetComponent)};
 }
 
 /**
@@ -157,7 +152,7 @@ HandleAndAsset<AssetType> add(Registry* registry, std::unique_ptr<AssetLoader<As
  */
 template <typename AssetType>
 HandleAndAsset<AssetType> add(Registry* registry, std::filesystem::path&& path) {
-    return add<AssetType>(registry, std::make_unique<PathAssetLoader<AssetType>>(path));
+  return add<AssetType>(registry, std::make_unique<PathAssetLoader<AssetType>>(path));
 }
 
 /**
@@ -168,7 +163,7 @@ HandleAndAsset<AssetType> add(Registry* registry, std::filesystem::path&& path) 
  */
 template <typename AssetType>
 HandleAndAsset<AssetType> add(Registry* registry, typename AssetType::Factory::Type type) {
-    return add<AssetType>(registry, std::make_unique<FactoryAssetLoader<AssetType>>(type));
+  return add<AssetType>(registry, std::make_unique<FactoryAssetLoader<AssetType>>(type));
 }
 
 /**
@@ -185,30 +180,30 @@ HandleAndAsset<AssetType> add(Registry* registry, typename AssetType::Factory::T
  */
 template <typename AssetType, typename... Args>
 AssetRef<AssetType> readPermanent(const std::filesystem::path& path, Args&&... args) {
-    namespace fs = std::filesystem;
-    static std::unordered_map<fs::path, AssetRef<AssetType>, GlobalPathHash, GlobalPathEqual> permanentAssets;
+  namespace fs = std::filesystem;
+  static std::unordered_map<fs::path, AssetRef<AssetType>, GlobalPathHash, GlobalPathEqual> permanentAssets;
 
-    if (!permanentAssets.contains(path)) {
-        const auto assetPtr = std::make_shared<AssetType>(path, args...);
-        permanentAssets[path] = assetPtr;
-        return assetPtr;
-    }
+  if (!permanentAssets.contains(path)) {
+    const auto assetPtr = std::make_shared<AssetType>(path, args...);
+    permanentAssets[path] = assetPtr;
+    return assetPtr;
+  }
 
-    return permanentAssets.at(path);
+  return permanentAssets.at(path);
 }
 
 template <typename AssetType>
 AssetRef<AssetType> readPermanent(typename AssetType::Factory::Type type) {
-    static std::unordered_map<int, AssetRef<AssetType>> permanentAssets;
+  static std::unordered_map<int, AssetRef<AssetType>> permanentAssets;
 
-    const auto typeInt = static_cast<int>(type);
-    if (!permanentAssets.contains(typeInt)) {
-        const auto assetPtr = std::make_shared<AssetType>(AssetType::Factory::create(type));
-        permanentAssets[typeInt] = assetPtr;
-        return assetPtr;
-    }
+  const auto typeInt = static_cast<int>(type);
+  if (!permanentAssets.contains(typeInt)) {
+    const auto assetPtr = std::make_shared<AssetType>(AssetType::Factory::create(type));
+    permanentAssets[typeInt] = assetPtr;
+    return assetPtr;
+  }
 
-    return permanentAssets.at(typeInt);
+  return permanentAssets.at(typeInt);
 }
 
 }  // namespace shkyera::utils::assets
