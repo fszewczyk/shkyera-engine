@@ -171,14 +171,11 @@ Macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">    <span class="keywordflow">if</span> (!(predicate)) {                                     \</div>
-<div class="line">        std::cerr &lt;&lt; <span class="stringliteral">&quot;Assert Failed: &quot;</span>                      \</div>
-<div class="line">                  &lt;&lt; __FILE__ &lt;&lt; <span class="stringliteral">&quot;:&quot;</span> &lt;&lt; __LINE__            \</div>
-<div class="line">                  &lt;&lt; <span class="stringliteral">&quot; due to: &quot;</span> &lt;&lt; #predicate              \</div>
-<div class="line">                  &lt;&lt; <span class="stringliteral">&quot;, with message: &quot;</span>                     \</div>
-<div class="line">                  &lt;&lt; fmt::format(__VA_ARGS__) &lt;&lt; std::endl; \</div>
-<div class="line">        std::terminate();                                   \</div>
-<div class="line">    }</div>
+<b>Value:</b><div class="fragment"><div class="line">  <span class="keywordflow">if</span> (!(predicate)) {                                                                          \</div>
+<div class="line">    std::cerr &lt;&lt; <span class="stringliteral">&quot;Assert Failed: &quot;</span> &lt;&lt; __FILE__ &lt;&lt; <span class="stringliteral">&quot;:&quot;</span> &lt;&lt; __LINE__ &lt;&lt; <span class="stringliteral">&quot; due to: &quot;</span> &lt;&lt; #predicate \</div>
+<div class="line">              &lt;&lt; <span class="stringliteral">&quot;, with message: &quot;</span> &lt;&lt; fmt::format(__VA_ARGS__) &lt;&lt; std::endl;                  \</div>
+<div class="line">    std::terminate();                                                                          \</div>
+<div class="line">  }</div>
 </div><!-- fragment -->
 </div>
 </div>

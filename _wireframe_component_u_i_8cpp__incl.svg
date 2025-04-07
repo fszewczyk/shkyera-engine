@@ -12,9 +12,9 @@
 <g id="Node000001" class="node">
 <title>Node1</title>
 <g id="a_Node000001"><a xlink:title=" ">
-<polygon fill="#999999" stroke="#666666" points="253.5,-151 91.5,-151 91.5,-121 253.5,-121 253.5,-151"/>
-<text text-anchor="start" x="99.5" y="-139" font-family="Helvetica,sans-Serif" font-size="10.00">src/ui/Components/Wireframe</text>
-<text text-anchor="middle" x="172.5" y="-128" font-family="Helvetica,sans-Serif" font-size="10.00">ComponentUI.cpp</text>
+<polygon fill="#999999" stroke="#666666" points="222.5,-151 60.5,-151 60.5,-121 222.5,-121 222.5,-151"/>
+<text text-anchor="start" x="68.5" y="-139" font-family="Helvetica,sans-Serif" font-size="10.00">src/ui/Components/Wireframe</text>
+<text text-anchor="middle" x="141.5" y="-128" font-family="Helvetica,sans-Serif" font-size="10.00">ComponentUI.cpp</text>
 </a>
 </g>
 </g>
@@ -31,18 +31,17 @@
 <g id="edge1_Node000001_Node000002" class="edge">
 <title>Node1&#45;&gt;Node2</title>
 <g id="a_edge1_Node000001_Node000002"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M140.46,-120.95C115.08,-109.83 79.94,-94.42 55.41,-83.67"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="56.49,-80.33 45.93,-79.52 53.68,-86.74 56.49,-80.33"/>
+<path fill="none" stroke="#63b8ff" d="M116.26,-120.95C96.72,-110.08 69.82,-95.11 50.57,-84.4"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="52.24,-81.32 41.8,-79.52 48.84,-87.44 52.24,-81.32"/>
 </a>
 </g>
 </g>
 <!-- Node3 -->
 <g id="Node000003" class="node">
 <title>Node3</title>
-<g id="a_Node000003"><a xlink:title=" ">
-<polygon fill="#e0e0e0" stroke="#999999" points="274,-85 71,-85 71,-55 274,-55 274,-85"/>
-<text text-anchor="start" x="79" y="-73" font-family="Helvetica,sans-Serif" font-size="10.00">UI/Components/WireframeComponent</text>
-<text text-anchor="middle" x="172.5" y="-62" font-family="Helvetica,sans-Serif" font-size="10.00">UI.hpp</text>
+<g id="a_Node000003"><a xlink:href="_image_8hpp.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="#666666" points="212,-79.5 71,-79.5 71,-60.5 212,-60.5 212,-79.5"/>
+<text text-anchor="middle" x="141.5" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">AssetManager/Image.hpp</text>
 </a>
 </g>
 </g>
@@ -50,26 +49,8 @@
 <g id="edge2_Node000001_Node000003" class="edge">
 <title>Node1&#45;&gt;Node3</title>
 <g id="a_edge2_Node000001_Node000003"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M172.5,-120.8C172.5,-113.34 172.5,-103.99 172.5,-95.41"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="176,-95.16 172.5,-85.16 169,-95.16 176,-95.16"/>
-</a>
-</g>
-</g>
-<!-- Node4 -->
-<g id="Node000004" class="node">
-<title>Node4</title>
-<g id="a_Node000004"><a xlink:href="_image_8hpp.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="433,-79.5 292,-79.5 292,-60.5 433,-60.5 433,-79.5"/>
-<text text-anchor="middle" x="362.5" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">AssetManager/Image.hpp</text>
-</a>
-</g>
-</g>
-<!-- Node1&#45;&gt;Node4 -->
-<g id="edge3_Node000001_Node000004" class="edge">
-<title>Node1&#45;&gt;Node4</title>
-<g id="a_edge3_Node000001_Node000004"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M214.2,-120.95C248.1,-109.53 295.41,-93.6 327.4,-82.82"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="328.85,-86.03 337.21,-79.52 326.62,-79.39 328.85,-86.03"/>
+<path fill="none" stroke="#63b8ff" d="M141.5,-120.8C141.5,-111.7 141.5,-99.79 141.5,-89.9"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="145,-89.84 141.5,-79.84 138,-89.84 145,-89.84"/>
 </a>
 </g>
 </g>
@@ -77,17 +58,36 @@
 <g id="Node000005" class="node">
 <title>Node5</title>
 <g id="a_Node000005"><a xlink:title=" ">
-<polygon fill="#e0e0e0" stroke="#999999" points="396.5,-19 328.5,-19 328.5,0 396.5,0 396.5,-19"/>
-<text text-anchor="middle" x="362.5" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">filesystem</text>
+<polygon fill="#e0e0e0" stroke="#999999" points="433,-85 230,-85 230,-55 433,-55 433,-85"/>
+<text text-anchor="start" x="238" y="-73" font-family="Helvetica,sans-Serif" font-size="10.00">UI/Components/WireframeComponent</text>
+<text text-anchor="middle" x="331.5" y="-62" font-family="Helvetica,sans-Serif" font-size="10.00">UI.hpp</text>
 </a>
 </g>
 </g>
-<!-- Node4&#45;&gt;Node5 -->
-<g id="edge4_Node000004_Node000005" class="edge">
-<title>Node4&#45;&gt;Node5</title>
-<g id="a_edge4_Node000004_Node000005"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M362.5,-60.37C362.5,-52.25 362.5,-39.81 362.5,-29.39"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="366,-29.17 362.5,-19.17 359,-29.17 366,-29.17"/>
+<!-- Node1&#45;&gt;Node5 -->
+<g id="edge4_Node000001_Node000005" class="edge">
+<title>Node1&#45;&gt;Node5</title>
+<g id="a_edge4_Node000001_Node000005"><a xlink:title=" ">
+<path fill="none" stroke="#63b8ff" d="M183.2,-120.95C211.78,-111.33 249.89,-98.49 280.31,-88.24"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="281.54,-91.52 289.9,-85.01 279.31,-84.89 281.54,-91.52"/>
+</a>
+</g>
+</g>
+<!-- Node4 -->
+<g id="Node000004" class="node">
+<title>Node4</title>
+<g id="a_Node000004"><a xlink:title=" ">
+<polygon fill="#e0e0e0" stroke="#999999" points="175.5,-19 107.5,-19 107.5,0 175.5,0 175.5,-19"/>
+<text text-anchor="middle" x="141.5" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">filesystem</text>
+</a>
+</g>
+</g>
+<!-- Node3&#45;&gt;Node4 -->
+<g id="edge3_Node000003_Node000004" class="edge">
+<title>Node3&#45;&gt;Node4</title>
+<g id="a_edge3_Node000003_Node000004"><a xlink:title=" ">
+<path fill="none" stroke="#63b8ff" d="M141.5,-60.37C141.5,-52.25 141.5,-39.81 141.5,-29.39"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="145,-29.17 141.5,-19.17 138,-29.17 145,-29.17"/>
 </a>
 </g>
 </g>

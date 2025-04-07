@@ -126,10 +126,9 @@ $(document).ready(function(){initNavTree('conceptshkyera_1_1_path_constructible.
 <p><code>#include &lt;<a class="el" href="_types_8hpp_source.html">Types.hpp</a>&gt;</code></p>
 <h2 class="groupheader">Concept definition</h2>
 <div class="fragment"><div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span>... Args&gt;</div>
-<div class="line"><span class="keyword">concept </span><a class="code hl_concept" href="conceptshkyera_1_1_path_constructible.html">shkyera::PathConstructible</a> =  <span class="keyword">requires</span>(<span class="keyword">const</span> std::filesystem::path&amp; p, Args&amp;&amp;... args) {</div>
-<div class="line">    T{p, std::forward&lt;decltype(args)&gt;(args)...};</div>
-<div class="line">}</div>
-<div class="ttc" id="aconceptshkyera_1_1_path_constructible_html"><div class="ttname"><a href="conceptshkyera_1_1_path_constructible.html">shkyera::PathConstructible</a></div><div class="ttdef"><b>Definition</b> Types.hpp:13</div></div>
+<div class="line"><span class="keyword">concept </span><a class="code hl_concept" href="conceptshkyera_1_1_path_constructible.html">shkyera::PathConstructible</a> = </div>
+<div class="line">    <span class="keyword">requires</span>(<span class="keyword">const</span> std::filesystem::path&amp; p, Args&amp;&amp;... args) { T{p, std::forward&lt;decltype(args)&gt;(args)...}; }</div>
+<div class="ttc" id="aconceptshkyera_1_1_path_constructible_html"><div class="ttname"><a href="conceptshkyera_1_1_path_constructible.html">shkyera::PathConstructible</a></div><div class="ttdef"><b>Definition</b> Types.hpp:10</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.9.6-->
