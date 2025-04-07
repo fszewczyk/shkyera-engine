@@ -17,30 +17,30 @@ namespace shkyera {
  * Tracks available entity IDs and supports requesting new IDs and returning unused ones for reuse.
  */
 class EntityProvider {
-   public:
-    /**
+ public:
+  /**
          * Construct an EntityProvider with a specified number of entities.
          * Initializes the pool of entity IDs (from 0 to `numEntities - 1`) and stores them in the queue for reuse.
          */
-    EntityProvider();
+  EntityProvider();
 
-    /**
+  /**
          * @brief Default destructor. 
          */
-    ~EntityProvider() = default;
+  ~EntityProvider() = default;
 
-    /**
+  /**
          * @brief Request an available entity ID. Returns an entity ID from the pool of available IDs, allocating more if necessary.
          *
          * @return An unused entity ID.
          */
-    Entity requestEntity();
+  Entity requestEntity();
 
-   private:
-    /**
+ private:
+  /**
          * Tracks the total number of entity IDs allocated so far.
          */
-    Entity _nextEntity;
+  Entity _nextEntity;
 };
 
 }  // namespace shkyera

@@ -10,7 +10,7 @@ namespace shkyera {
 
 template <RuntimeMode Mode = RuntimeMode::PRODUCTION>
 struct BoxColliderComponent {
-    AABB box;
+  AABB box;
 };
 
 }  // namespace shkyera

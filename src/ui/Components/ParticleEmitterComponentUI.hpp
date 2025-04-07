@@ -1,48 +1,48 @@
 #pragma once
 
-#include <UI/ComponentUI.hpp>
-#include <UI/Common/BooleanSelector.hpp>
-#include <UI/Common/AssetSelector.hpp>
-#include <UI/Common/FloatSlider.hpp>
 #include <Components/ParticleEmitterComponent.hpp>
+#include <UI/Common/AssetSelector.hpp>
+#include <UI/Common/BooleanSelector.hpp>
+#include <UI/Common/FloatSlider.hpp>
+#include <UI/ComponentUI.hpp>
 
 namespace shkyera {
 
 class ParticleEmitterComponentUI : public ComponentUI {
-    public:
-        ParticleEmitterComponentUI(std::shared_ptr<Registry> registry, ParticleEmitterComponent* particleEmitterComponent);
+ public:
+  ParticleEmitterComponentUI(std::shared_ptr<Registry> registry, ParticleEmitterComponent* particleEmitterComponent);
 
-        void draw() override;
+  void draw() override;
 
-    private:
-        std::shared_ptr<Registry> _registry;
-        ParticleEmitterComponent* _particleEmitterComponent;
+ private:
+  std::shared_ptr<Registry> _registry;
+  ParticleEmitterComponent* _particleEmitterComponent;
 
-        BooleanSelector _enabledSelector;
+  BooleanSelector _enabledSelector;
 
-        FloatSlider _gravitySlider;
-        
-        FloatSlider _emittedAtRadiusSlider;
-        FloatSlider _emittedPerSecondSlider;
-        FloatSlider _emittedPerSecondVarianceSlider;
+  FloatSlider _gravitySlider;
 
-        FloatSlider _initialVelocitySlider;
-        FloatSlider _initialVelocityVarianceSlider;
-        FloatSlider _initialVelocityDispersionSlider;
+  FloatSlider _emittedAtRadiusSlider;
+  FloatSlider _emittedPerSecondSlider;
+  FloatSlider _emittedPerSecondVarianceSlider;
 
-        FloatSlider _lifetimeSlider;
-        FloatSlider _lifetimeVarianceSlider;
+  FloatSlider _initialVelocitySlider;
+  FloatSlider _initialVelocityVarianceSlider;
+  FloatSlider _initialVelocityDispersionSlider;
 
-        FloatSlider _initialParticleSizeSlider;
-        FloatSlider _initialParticleSizeVarianceSlider;
-        FloatSlider _endParticleSizeSlider;
-        FloatSlider _endParticleSizeVarianceSlider;
+  FloatSlider _lifetimeSlider;
+  FloatSlider _lifetimeVarianceSlider;
 
-        AssetSelector<Material> _materialSelector;
-        FloatSlider _initialTransparencySlider;
-        FloatSlider _initialTransparencyVarianceSlider;
-        FloatSlider _endTransparencySlider;
-        FloatSlider _endTransparencyVarianceSlider;
+  FloatSlider _initialParticleSizeSlider;
+  FloatSlider _initialParticleSizeVarianceSlider;
+  FloatSlider _endParticleSizeSlider;
+  FloatSlider _endParticleSizeVarianceSlider;
+
+  AssetSelector<Material> _materialSelector;
+  FloatSlider _initialTransparencySlider;
+  FloatSlider _initialTransparencyVarianceSlider;
+  FloatSlider _endTransparencySlider;
+  FloatSlider _endTransparencyVarianceSlider;
 };
 
-}
+}  // namespace shkyera

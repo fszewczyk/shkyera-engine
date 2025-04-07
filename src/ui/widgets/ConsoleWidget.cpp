@@ -3,10 +3,10 @@
 #include <imgui_internal.h>
 #include "imgui.h"
 
-#include <Utils/AssetUtils.hpp>
 #include <AssetManager/Image.hpp>
 #include <Common/Logger.hpp>
 #include <UI/Widgets/ConsoleWidget.hpp>
+#include <Utils/AssetUtils.hpp>
 
 namespace shkyera {
 
@@ -23,28 +23,23 @@ void* Log::getIconId() const {
   return _icon->getImguiTextureID();
 }
 
-LogVerbose::LogVerbose(const std::string& content) : Log(content)
-{
+LogVerbose::LogVerbose(const std::string& content) : Log(content) {
   _icon = utils::assets::readPermanent<Texture>(Image::ICON_CONSOLE_VERBOSE);
 }
 
-LogInfo::LogInfo(const std::string& content) : Log(content)
-{
+LogInfo::LogInfo(const std::string& content) : Log(content) {
   _icon = utils::assets::readPermanent<Texture>(Image::ICON_CONSOLE_INFO);
 }
 
-LogSuccess::LogSuccess(const std::string& content) : Log(content)
-{
+LogSuccess::LogSuccess(const std::string& content) : Log(content) {
   _icon = utils::assets::readPermanent<Texture>(Image::ICON_CONSOLE_SUCCESS);
 }
 
-LogError::LogError(const std::string& content) : Log(content)
-{
+LogError::LogError(const std::string& content) : Log(content) {
   _icon = utils::assets::readPermanent<Texture>(Image::ICON_CONSOLE_ERROR);
 }
 
-ConsoleWidget::ConsoleWidget(const std::string& name) : Widget(name)
-{
+ConsoleWidget::ConsoleWidget(const std::string& name) : Widget(name) {
   _verboseIcon = utils::assets::readPermanent<Texture>(Image::ICON_CONSOLE_VERBOSE);
   _infoIcon = utils::assets::readPermanent<Texture>(Image::ICON_CONSOLE_INFO);
   _successIcon = utils::assets::readPermanent<Texture>(Image::ICON_CONSOLE_SUCCESS);
@@ -52,7 +47,7 @@ ConsoleWidget::ConsoleWidget(const std::string& name) : Widget(name)
   _totalIcon = utils::assets::readPermanent<Texture>(Image::ICON_CONSOLE_TOTAL);
 
   Logger::subscribe(this, [](const auto& messageType, const auto& message) {
-    switch(messageType) {
+    switch (messageType) {
       case Logger::MessageType::ERROR:
         logError(message);
         break;
@@ -66,13 +61,12 @@ ConsoleWidget::ConsoleWidget(const std::string& name) : Widget(name)
         logSuccess(message);
         break;
       default:
-        break;      
+        break;
     };
   });
 }
 
-ConsoleWidget::~ConsoleWidget()
-{
+ConsoleWidget::~ConsoleWidget() {
   Logger::unsubscribe(this);
 }
 
@@ -97,36 +91,31 @@ void ConsoleWidget::drawInfoBar() const {
     clear();
 
   ImGui::SameLine();
-  ImGui::Image(_totalIcon->getImguiTextureID(),
-               ImVec2(22, 22));
+  ImGui::Image(_totalIcon->getImguiTextureID(), ImVec2(22, 22));
   ImGui::SameLine();
   ImGui::TextUnformatted((std::to_string(_logs.size()) + " Total").c_str());
   ImGui::SameLine();
   ImGui::Dummy(ImVec2(15, 0));
   ImGui::SameLine();
-  ImGui::Image(_errorIcon->getImguiTextureID(),
-               ImVec2(22, 22));
+  ImGui::Image(_errorIcon->getImguiTextureID(), ImVec2(22, 22));
   ImGui::SameLine();
   ImGui::TextUnformatted((std::to_string(_totalError) + " Error").c_str());
   ImGui::SameLine();
   ImGui::Dummy(ImVec2(15, 0));
   ImGui::SameLine();
-  ImGui::Image(_successIcon->getImguiTextureID(),
-               ImVec2(22, 22));
+  ImGui::Image(_successIcon->getImguiTextureID(), ImVec2(22, 22));
   ImGui::SameLine();
   ImGui::TextUnformatted((std::to_string(_totalSuccess) + " Success").c_str());
   ImGui::SameLine();
   ImGui::Dummy(ImVec2(15, 0));
   ImGui::SameLine();
-  ImGui::Image(_infoIcon->getImguiTextureID(),
-               ImVec2(22, 22));
+  ImGui::Image(_infoIcon->getImguiTextureID(), ImVec2(22, 22));
   ImGui::SameLine();
   ImGui::TextUnformatted((std::to_string(_totalInfo) + " Info").c_str());
   ImGui::SameLine();
   ImGui::Dummy(ImVec2(15, 0));
   ImGui::SameLine();
-  ImGui::Image(_verboseIcon->getImguiTextureID(),
-               ImVec2(22, 22));
+  ImGui::Image(_verboseIcon->getImguiTextureID(), ImVec2(22, 22));
   ImGui::SameLine();
   ImGui::TextUnformatted((std::to_string(_totalVerbose) + " Verbose").c_str());
 }

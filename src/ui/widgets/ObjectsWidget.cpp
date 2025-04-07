@@ -23,8 +23,7 @@ void ObjectsWidget::draw() {
   ImGui::Separator();
   const auto& hierarchy = _registry->getHierarchy();
   for (const auto& [entity, nameComponent] : _registry->getComponentSet<NameComponent>()) {
-    if(_registry->hasComponent<TransformComponent>(entity) && !hierarchy.getParent(entity))
-    {
+    if (_registry->hasComponent<TransformComponent>(entity) && !hierarchy.getParent(entity)) {
       drawObjectHierarchy(entity, hierarchy, 0);
     }
   }
@@ -53,28 +52,25 @@ void ObjectsWidget::drawCreate() {
 
 void ObjectsWidget::drawObjectHierarchy(Entity parent, const EntityHierarchy& hierarchy, size_t depth) {
   constexpr size_t MaximumDepth = 6;
-  if(depth > MaximumDepth)
-  {
+  if (depth > MaximumDepth) {
     ImGui::Text("** Maximum Hierarchy Depth Reached **");
     return;
   }
 
-  if(!_registry->hasComponent<NameComponent>(parent))
-  {
+  if (!_registry->hasComponent<NameComponent>(parent)) {
     return;
   }
 
   ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_OpenOnDoubleClick | ImGuiTreeNodeFlags_OpenOnArrow;
   const auto& children = hierarchy.getChildren(parent);
-  if(std::ranges::none_of(children, [this](const Entity entity) { return _registry->hasComponent<NameComponent>(entity); }))
-  {
+  if (std::ranges::none_of(children,
+                           [this](const Entity entity) { return _registry->hasComponent<NameComponent>(entity); })) {
     flags |= ImGuiTreeNodeFlags_Leaf;
   }
-  if(_registry->getSelectedEntities().contains(parent))
-  {
+  if (_registry->getSelectedEntities().contains(parent)) {
     flags |= ImGuiTreeNodeFlags_Selected;
   }
-  
+
   static bool initiallyOpenedTree = false;
   if (!initiallyOpenedTree)
     ImGui::SetNextItemOpen(initiallyOpenedTree == false);
@@ -83,11 +79,11 @@ void ObjectsWidget::drawObjectHierarchy(Entity parent, const EntityHierarchy& hi
   const auto& uniqueName = name + "##" + std::to_string(parent);
   if (ImGui::TreeNodeEx(uniqueName.c_str(), flags)) {
     if (ImGui::BeginDragDropTarget()) {
-        if (ImGui::AcceptDragDropPayload("DRAG_AND_DROP_ENTITY")) {
-          _registry->getHierarchy().attributeChild(parent, _draggedEntity);
-        }
+      if (ImGui::AcceptDragDropPayload("DRAG_AND_DROP_ENTITY")) {
+        _registry->getHierarchy().attributeChild(parent, _draggedEntity);
+      }
 
-        ImGui::EndDragDropTarget();
+      ImGui::EndDragDropTarget();
     }
 
     if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_None)) {

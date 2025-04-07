@@ -2,27 +2,24 @@
 
 namespace shkyera {
 
-void TransformComponentUI::setPositionGetter(
-    std::function<glm::vec3&(void)> getter) {
+void TransformComponentUI::setPositionGetter(std::function<glm::vec3&(void)> getter) {
   _positionGetter = getter;
 }
-void TransformComponentUI::setOrientationGetter(
-    std::function<glm::vec3&(void)> getter) {
+void TransformComponentUI::setOrientationGetter(std::function<glm::vec3&(void)> getter) {
   _orientationGetter = getter;
 }
-void TransformComponentUI::setScaleGetter(
-    std::function<glm::vec3&(void)> getter) {
+void TransformComponentUI::setScaleGetter(std::function<glm::vec3&(void)> getter) {
   _scaleGetter = getter;
 }
 
 void TransformComponentUI::draw() {
-  ImGui::Image(_icon->getImguiTextureID(),
-               ImVec2(16, 16));
+  ImGui::Image(_icon->getImguiTextureID(), ImVec2(16, 16));
   ImGui::SameLine();
   if (ImGui::TreeNodeEx("Transform", ImGuiTreeNodeFlags_DefaultOpen)) {
     glm::vec3& position = _positionGetter();
     glm::vec3& orientation = _orientationGetter();
-    glm::vec3 orientationInDegrees = { glm::degrees(orientation.x), glm::degrees(orientation.y), glm::degrees(orientation.z) };
+    glm::vec3 orientationInDegrees = {glm::degrees(orientation.x), glm::degrees(orientation.y),
+                                      glm::degrees(orientation.z)};
     glm::vec3& scale = _scaleGetter();
 
     ImGui::PushItemWidth(50);

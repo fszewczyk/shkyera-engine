@@ -20,37 +20,37 @@ namespace shkyera {
  * The `ObjectsWidget` class provides a graphical user interface for creating, listing, and selecting game objects.
  */
 class ObjectsWidget : public Widget {
-  public:
-    using Widget::Widget;
+ public:
+  using Widget::Widget;
 
-    ObjectsWidget(std::string name);
+  ObjectsWidget(std::string name);
 
-    /**
+  /**
      * @brief Set the game to associate with this widget.
      *
      * @param registry A shared pointer to the registry to associate with this widget.
      */
-    void setRegistry(std::shared_ptr<Registry> registry);
+  void setRegistry(std::shared_ptr<Registry> registry);
 
-    /**
+  /**
      * @brief Implementation of the abstract `draw` method to render the game objects widget.
      */
-    virtual void draw() override;
+  virtual void draw() override;
 
-  private:
-    /**
+ private:
+  /**
      * @brief Draw the creation panel for new game objects.
      */
-    void drawCreate();
+  void drawCreate();
 
-    /**
+  /**
      * @brief Draw the list of game objects and allow selection.
      */
-    void drawObjectHierarchy(Entity parent, const EntityHierarchy& hierarchy, size_t depth);
+  void drawObjectHierarchy(Entity parent, const EntityHierarchy& hierarchy, size_t depth);
 
-    std::shared_ptr<Registry> _registry;
-    std::vector<std::function<void(Entity)>> _onNewEntityCallbacks;
-    Entity _draggedEntity;
+  std::shared_ptr<Registry> _registry;
+  std::vector<std::function<void(Entity)>> _onNewEntityCallbacks;
+  Entity _draggedEntity;
 };
 
-} // namespace shkyera
+}  // namespace shkyera

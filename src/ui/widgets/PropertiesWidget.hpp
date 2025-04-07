@@ -7,9 +7,9 @@
 
 #pragma once
 
-#include <UI/Widget.hpp>
-#include <UI/ComponentUI.hpp>
 #include <ECS/Registry.hpp>
+#include <UI/ComponentUI.hpp>
+#include <UI/Widget.hpp>
 
 namespace shkyera {
 
@@ -20,47 +20,47 @@ namespace shkyera {
  * components of a selected game object.
  */
 class PropertiesWidget : public Widget {
-  public:
-    using Widget::Widget;
+ public:
+  using Widget::Widget;
 
-    PropertiesWidget(std::shared_ptr<Registry> registry);
-    PropertiesWidget(std::shared_ptr<Registry> registry, const std::string& title);
+  PropertiesWidget(std::shared_ptr<Registry> registry);
+  PropertiesWidget(std::shared_ptr<Registry> registry, const std::string& title);
 
-    /**
+  /**
      * @brief Implementation of the abstract `draw` method to render the properties widget.
      */
-    void draw() override;
+  void draw() override;
 
-  protected:
-    virtual void updateComponents();
-    virtual void drawNewComponentMenu();
-    void setupComponentsUI();
+ protected:
+  virtual void updateComponents();
+  virtual void drawNewComponentMenu();
+  void setupComponentsUI();
 
-    std::shared_ptr<Registry> _registry;
-    std::optional<Entity> _selectedEntity;
+  std::shared_ptr<Registry> _registry;
+  std::optional<Entity> _selectedEntity;
 
-  private:
-    void drawExistingComponents();
+ private:
+  void drawExistingComponents();
 
-    std::vector<std::unique_ptr<ComponentUI>> _componentsUi;
+  std::vector<std::unique_ptr<ComponentUI>> _componentsUi;
 };
 
 class CameraPropertiesWidget : public PropertiesWidget {
-  public:
-    CameraPropertiesWidget(std::shared_ptr<Registry> registry);
+ public:
+  CameraPropertiesWidget(std::shared_ptr<Registry> registry);
 
-  protected:
-    void updateComponents() override;
-    void drawNewComponentMenu() override;
+ protected:
+  void updateComponents() override;
+  void drawNewComponentMenu() override;
 };
 
 class EnvironmentPropertiesWidget : public PropertiesWidget {
-  public:
-    EnvironmentPropertiesWidget(std::shared_ptr<Registry> registry);
+ public:
+  EnvironmentPropertiesWidget(std::shared_ptr<Registry> registry);
 
-  protected:
-    void updateComponents() override;
-    void drawNewComponentMenu() override;
+ protected:
+  void updateComponents() override;
+  void drawNewComponentMenu() override;
 };
 
-} // namespace shkyera
+}  // namespace shkyera

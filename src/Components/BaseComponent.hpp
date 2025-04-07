@@ -13,23 +13,21 @@ namespace shkyera {
  */
 template <typename Derived, RuntimeMode Mode = RuntimeMode::PRODUCTION>
 class BaseComponent {
-   public:
-    /**
+ public:
+  /**
      * @brief Calls the derived class's update implementation.
      *
      * Uses static_cast to convert to the derived class type and
      * invokes the updateImpl function.
      */
-    void update() {
-        static_cast<Derived*>(this)->updateImpl();
-    }
+  void update() { static_cast<Derived*>(this)->updateImpl(); }
 
-    /**
+  /**
      * @brief Virtual destructor for proper cleanup.
      *
      * Ensures derived classes are destructed correctly.
      */
-    virtual ~BaseComponent() = default;
+  virtual ~BaseComponent() = default;
 };
 
 }  // namespace shkyera

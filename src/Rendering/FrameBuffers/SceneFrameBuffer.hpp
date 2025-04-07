@@ -1,40 +1,39 @@
 #pragma once
 
-#include <memory>
 #include <glad/glad.h>
 #include <glm/glm.hpp>
+#include <memory>
 
 #include <AssetManager/Texture.hpp>
 
 namespace shkyera {
 
 class SceneFrameBuffer {
-public:
-    SceneFrameBuffer(GLenum minFilter = GL_LINEAR, GLenum magFilter = GL_LINEAR,
-                GLenum wrapS = GL_CLAMP_TO_EDGE, GLenum wrapT = GL_CLAMP_TO_EDGE);
-    ~SceneFrameBuffer();
+ public:
+  SceneFrameBuffer(GLenum minFilter = GL_LINEAR, GLenum magFilter = GL_LINEAR, GLenum wrapS = GL_CLAMP_TO_EDGE,
+                   GLenum wrapT = GL_CLAMP_TO_EDGE);
+  ~SceneFrameBuffer();
 
-    SceneFrameBuffer(const SceneFrameBuffer& other) = delete;
-    SceneFrameBuffer& operator=(const SceneFrameBuffer& other) = delete;
+  SceneFrameBuffer(const SceneFrameBuffer& other) = delete;
+  SceneFrameBuffer& operator=(const SceneFrameBuffer& other) = delete;
 
-    SceneFrameBuffer(SceneFrameBuffer&& other) noexcept;
-    SceneFrameBuffer& operator=(SceneFrameBuffer&& other) noexcept;
+  SceneFrameBuffer(SceneFrameBuffer&& other) noexcept;
+  SceneFrameBuffer& operator=(SceneFrameBuffer&& other) noexcept;
 
-    void bind();
-    void unbind();
-    void clear(glm::vec3 color = {0, 0, 0});
+  void bind();
+  void unbind();
+  void clear(glm::vec3 color = {0, 0, 0});
 
-    void setSize(uint32_t width, uint32_t height);
-    glm::vec2 getSize() const;
-    const Texture& getTexture() const { return _textureColorBuffer; }
+  void setSize(uint32_t width, uint32_t height);
+  glm::vec2 getSize() const;
+  const Texture& getTexture() const { return _textureColorBuffer; }
 
-private:
-    void setupFramebuffer();
+ private:
+  void setupFramebuffer();
 
-    int _width, _height;
-    GLuint _fbo, _rbo;
-    Texture _textureColorBuffer;
+  int _width, _height;
+  GLuint _fbo, _rbo;
+  Texture _textureColorBuffer;
 };
 
-
-}
+}  // namespace shkyera

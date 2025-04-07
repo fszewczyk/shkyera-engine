@@ -8,7 +8,7 @@
 namespace shkyera {
 
 struct SkyboxComponent {
-    HandleAndAsset<CubeMap> skyboxCubeMap;
+  HandleAndAsset<CubeMap> skyboxCubeMap;
 };
 
 }  // namespace shkyera
