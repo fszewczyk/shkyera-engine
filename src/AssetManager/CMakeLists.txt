@@ -7,7 +7,7 @@ add_library(
     ${CMAKE_CURRENT_LIST_DIR}/Mesh.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Wireframe.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Texture.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/Material.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/CubeMap.cpp
 )
 
 target_include_directories(

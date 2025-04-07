@@ -1,13 +1,20 @@
 #pragma once
 
 #include <filesystem>
+#include <map>
+
+#include <AssetManager/Asset.hpp>
 
 namespace shkyera {
 
 struct DirectoryComponent {
-    explicit DirectoryComponent(std::filesystem::path pPath) : path(std::move(pPath)) {}
+    explicit DirectoryComponent(std::filesystem::path path)
+        : name(path.stem()) {}
 
-    std::filesystem::path path;
+    explicit DirectoryComponent(std::string name_)
+        : name(std::move(name_)) {}
+
+    std::string name;
 };
 
-} // namespace shkyera
+}  // namespace shkyera

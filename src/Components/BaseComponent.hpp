@@ -13,7 +13,7 @@ namespace shkyera {
  */
 template <typename Derived, RuntimeMode Mode = RuntimeMode::PRODUCTION>
 class BaseComponent {
-public:
+   public:
     /**
      * @brief Calls the derived class's update implementation.
      *
@@ -32,4 +32,4 @@ public:
     virtual ~BaseComponent() = default;
 };
 
-} // namespace shkyera
+}  // namespace shkyera

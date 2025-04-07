@@ -1,9 +1,9 @@
-#include <iostream>
 #include <fstream>
+#include <functional>
+#include <iostream>
+#include <numeric>
 #include <sstream>
 #include <unordered_map>
-#include <numeric>
-#include <functional>
 
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/string_cast.hpp>
@@ -14,21 +14,22 @@
 #include <Common/Logger.hpp>
 
 namespace std {
-    template <>
-    struct std::hash<glm::vec3> {
-        size_t operator()(const glm::vec3& vec) const {
-            return std::hash<float>()(vec.x) ^ std::hash<float>()(vec.y) ^ std::hash<float>()(vec.z);
-        }
-    };
-}
+template <>
+struct std::hash<glm::vec3> {
+    size_t operator()(const glm::vec3& vec) const {
+        return std::hash<float>()(vec.x) ^ std::hash<float>()(vec.y) ^ std::hash<float>()(vec.z);
+    }
+};
+}  // namespace std
 
 namespace shkyera {
 
-Mesh::Mesh(const std::filesystem::path& path) : PathConstructibleAsset(path) {
+Mesh::Mesh(const std::filesystem::path& path) {
     loadFromFile(path);
 }
 
-Mesh::Mesh(std::vector<Vertex> vertices, std::vector<uint32_t> indices) : _vertices(std::move(vertices)), _indices(std::move(indices)) {
+Mesh::Mesh(std::vector<Vertex> vertices, std::vector<uint32_t> indices)
+    : _vertices(std::move(vertices)), _indices(std::move(indices)) {
     uploadToGPU();
 }
 
@@ -39,21 +40,15 @@ Mesh::~Mesh() {
 }
 
 Mesh::Mesh(Mesh&& other) noexcept
-    : PathConstructibleAsset(std::move(other)),
-      _vertices(std::move(other._vertices)),
+    : _vertices(std::move(other._vertices)),
       _indices(std::move(other._indices)),
       _vao(std::exchange(other._vao, 0)),
       _vbo(std::exchange(other._vbo, 0)),
       _ebo(std::exchange(other._ebo, 0)),
-      _meshSize(std::exchange(other._meshSize, 0))
-{}
+      _meshSize(std::exchange(other._meshSize, 0)) {}
 
-Mesh& Mesh::operator=(Mesh&& other) noexcept 
-{
-    if (this != &other) 
-    {
-        PathConstructibleAsset::operator=(std::move(other));
-
+Mesh& Mesh::operator=(Mesh&& other) noexcept {
+    if (this != &other) {
         glDeleteVertexArrays(1, &_vao);
         glDeleteBuffers(1, &_vbo);
         glDeleteBuffers(1, &_ebo);
@@ -160,16 +155,14 @@ void Mesh::loadFromFile(const std::filesystem::path& filepath) {
             glm::vec3 position(
                 attrib.vertices[3 * index.vertex_index + 0],
                 attrib.vertices[3 * index.vertex_index + 1],
-                attrib.vertices[3 * index.vertex_index + 2]
-            );
+                attrib.vertices[3 * index.vertex_index + 2]);
 
             glm::vec3 normal(0.0f, 0.0f, 0.0f);
             if (index.normal_index >= 0) {
                 normal = glm::vec3(
                     attrib.normals[3 * index.normal_index + 0],
                     attrib.normals[3 * index.normal_index + 1],
-                    attrib.normals[3 * index.normal_index + 2]
-                );
+                    attrib.normals[3 * index.normal_index + 2]);
                 hasNormals = true;
             }
 
@@ -177,8 +170,7 @@ void Mesh::loadFromFile(const std::filesystem::path& filepath) {
             if (index.texcoord_index >= 0) {
                 texcoord = glm::vec2(
                     attrib.texcoords[2 * index.texcoord_index + 0],
-                    attrib.texcoords[2 * index.texcoord_index + 1]
-                );
+                    attrib.texcoords[2 * index.texcoord_index + 1]);
             }
 
             _vertices.emplace_back(position, normal, texcoord);
@@ -232,75 +224,129 @@ void Mesh::uploadToGPU() {
     glBindVertexArray(0);
 }
 
+Mesh Mesh::Factory::create(Type type) {
+    switch (type) {
+        case Type::PLANE:
+            return createPlane();
+            break;
+        case Type::CUBE:
+            return createCube();
+            break;
+        case Type::CUBEMAP:
+            return createCubeMap();
+            break;
+        case Type::CYLINDER:
+            return createCylinder();
+            break;
+        case Type::CONE:
+            return createCone();
+            break;
+        case Type::SPHERE:
+            return createSphere();
+            break;
+        default:
+            Logger::ERROR("Constructing a Mesh of type " + std::to_string(static_cast<int>(type)) + " is not possible");
+            return Mesh({}, {});
+    }
+}
 
 Mesh Mesh::Factory::createPlane() {
     std::vector<Vertex> vertices = {
-        { { -1.0f, 0.0f, -1.0f }, { 0.0f, 1.0f, 0.0f }, { 0.0f, 0.0f } },  // 0
-        { {  1.0f, 0.0f, -1.0f }, { 0.0f, 1.0f, 0.0f }, { 1.0f, 0.0f } },  // 1
-        { {  1.0f, 0.0f,  1.0f }, { 0.0f, 1.0f, 0.0f }, { 1.0f, 1.0f } },  // 2
-        { { -1.0f, 0.0f,  1.0f }, { 0.0f, 1.0f, 0.0f }, { 0.0f, 1.0f } }   // 3
+        {{-1.0f, 0.0f, -1.0f}, {0.0f, 1.0f, 0.0f}, {0.0f, 0.0f}},  // 0
+        {{1.0f, 0.0f, -1.0f}, {0.0f, 1.0f, 0.0f}, {1.0f, 0.0f}},   // 1
+        {{1.0f, 0.0f, 1.0f}, {0.0f, 1.0f, 0.0f}, {1.0f, 1.0f}},    // 2
+        {{-1.0f, 0.0f, 1.0f}, {0.0f, 1.0f, 0.0f}, {0.0f, 1.0f}}    // 3
     };
 
     std::vector<unsigned int> indices = {
         0, 1, 2,
-        2, 3, 0
-    };
+        2, 3, 0};
 
     return Mesh(vertices, indices);
 }
 
 Mesh Mesh::Factory::createCube() {
-      std::vector<Vertex> vertices = {
+    std::vector<Vertex> vertices = {
         // Front face
-        { { -1.0f, -1.0f, -1.0f }, { 0.0f,  0.0f, -1.0f }, { 0.0f, 0.0f } },  // 0
-        { {  1.0f, -1.0f, -1.0f }, { 0.0f,  0.0f, -1.0f }, { 1.0f, 0.0f } },  // 1
-        { {  1.0f,  1.0f, -1.0f }, { 0.0f,  0.0f, -1.0f }, { 1.0f, 1.0f } },  // 2
-        { { -1.0f,  1.0f, -1.0f }, { 0.0f,  0.0f, -1.0f }, { 0.0f, 1.0f } },  // 3
+        {{-1.0f, -1.0f, -1.0f}, {0.0f, 0.0f, -1.0f}, {0.0f, 0.0f}},  // 0
+        {{1.0f, -1.0f, -1.0f}, {0.0f, 0.0f, -1.0f}, {1.0f, 0.0f}},   // 1
+        {{1.0f, 1.0f, -1.0f}, {0.0f, 0.0f, -1.0f}, {1.0f, 1.0f}},    // 2
+        {{-1.0f, 1.0f, -1.0f}, {0.0f, 0.0f, -1.0f}, {0.0f, 1.0f}},   // 3
 
         // Back face
-        { { -1.0f, -1.0f,  1.0f }, { 0.0f,  0.0f,  1.0f }, { 1.0f, 0.0f } },  // 4
-        { {  1.0f, -1.0f,  1.0f }, { 0.0f,  0.0f,  1.0f }, { 0.0f, 0.0f } },  // 5
-        { {  1.0f,  1.0f,  1.0f }, { 0.0f,  0.0f,  1.0f }, { 0.0f, 1.0f } },  // 6
-        { { -1.0f,  1.0f,  1.0f }, { 0.0f,  0.0f,  1.0f }, { 1.0f, 1.0f } },  // 7
+        {{-1.0f, -1.0f, 1.0f}, {0.0f, 0.0f, 1.0f}, {1.0f, 0.0f}},  // 4
+        {{1.0f, -1.0f, 1.0f}, {0.0f, 0.0f, 1.0f}, {0.0f, 0.0f}},   // 5
+        {{1.0f, 1.0f, 1.0f}, {0.0f, 0.0f, 1.0f}, {0.0f, 1.0f}},    // 6
+        {{-1.0f, 1.0f, 1.0f}, {0.0f, 0.0f, 1.0f}, {1.0f, 1.0f}},   // 7
 
         // Left face
-        { { -1.0f, -1.0f,  1.0f }, { -1.0f,  0.0f,  0.0f }, { 0.0f, 0.0f } }, // 8
-        { { -1.0f,  1.0f,  1.0f }, { -1.0f,  0.0f,  0.0f }, { 1.0f, 0.0f } }, // 9
-        { { -1.0f,  1.0f, -1.0f }, { -1.0f,  0.0f,  0.0f }, { 1.0f, 1.0f } }, // 10
-        { { -1.0f, -1.0f, -1.0f }, { -1.0f,  0.0f,  0.0f }, { 0.0f, 1.0f } }, // 11
+        {{-1.0f, -1.0f, 1.0f}, {-1.0f, 0.0f, 0.0f}, {0.0f, 0.0f}},   // 8
+        {{-1.0f, 1.0f, 1.0f}, {-1.0f, 0.0f, 0.0f}, {1.0f, 0.0f}},    // 9
+        {{-1.0f, 1.0f, -1.0f}, {-1.0f, 0.0f, 0.0f}, {1.0f, 1.0f}},   // 10
+        {{-1.0f, -1.0f, -1.0f}, {-1.0f, 0.0f, 0.0f}, {0.0f, 1.0f}},  // 11
 
         // Right face
-        { {  1.0f, -1.0f, -1.0f }, {  1.0f,  0.0f,  0.0f }, { 0.0f, 1.0f } }, // 12
-        { {  1.0f,  1.0f, -1.0f }, {  1.0f,  0.0f,  0.0f }, { 1.0f, 1.0f } }, // 13
-        { {  1.0f,  1.0f,  1.0f }, {  1.0f,  0.0f,  0.0f }, { 1.0f, 0.0f } }, // 14
-        { {  1.0f, -1.0f,  1.0f }, {  1.0f,  0.0f,  0.0f }, { 0.0f, 0.0f } }, // 15
+        {{1.0f, -1.0f, -1.0f}, {1.0f, 0.0f, 0.0f}, {0.0f, 1.0f}},  // 12
+        {{1.0f, 1.0f, -1.0f}, {1.0f, 0.0f, 0.0f}, {1.0f, 1.0f}},   // 13
+        {{1.0f, 1.0f, 1.0f}, {1.0f, 0.0f, 0.0f}, {1.0f, 0.0f}},    // 14
+        {{1.0f, -1.0f, 1.0f}, {1.0f, 0.0f, 0.0f}, {0.0f, 0.0f}},   // 15
 
         // Top face
-        { { -1.0f,  1.0f, -1.0f }, {  0.0f,  1.0f,  0.0f }, { 0.0f, 1.0f } }, // 16
-        { {  1.0f,  1.0f, -1.0f }, {  0.0f,  1.0f,  0.0f }, { 1.0f, 1.0f } }, // 17
-        { {  1.0f,  1.0f,  1.0f }, {  0.0f,  1.0f,  0.0f }, { 1.0f, 0.0f } }, // 18
-        { { -1.0f,  1.0f,  1.0f }, {  0.0f,  1.0f,  0.0f }, { 0.0f, 0.0f } }, // 19
+        {{-1.0f, 1.0f, -1.0f}, {0.0f, 1.0f, 0.0f}, {0.0f, 1.0f}},  // 16
+        {{1.0f, 1.0f, -1.0f}, {0.0f, 1.0f, 0.0f}, {1.0f, 1.0f}},   // 17
+        {{1.0f, 1.0f, 1.0f}, {0.0f, 1.0f, 0.0f}, {1.0f, 0.0f}},    // 18
+        {{-1.0f, 1.0f, 1.0f}, {0.0f, 1.0f, 0.0f}, {0.0f, 0.0f}},   // 19
 
         // Bottom face
-        { { -1.0f, -1.0f, -1.0f }, {  0.0f, -1.0f,  0.0f }, { 0.0f, 0.0f } }, // 20
-        { {  1.0f, -1.0f, -1.0f }, {  0.0f, -1.0f,  0.0f }, { 1.0f, 0.0f } }, // 21
-        { {  1.0f, -1.0f,  1.0f }, {  0.0f, -1.0f,  0.0f }, { 1.0f, 1.0f } }, // 22
-        { { -1.0f, -1.0f,  1.0f }, {  0.0f, -1.0f,  0.0f }, { 0.0f, 1.0f } }, // 23
+        {{-1.0f, -1.0f, -1.0f}, {0.0f, -1.0f, 0.0f}, {0.0f, 0.0f}},  // 20
+        {{1.0f, -1.0f, -1.0f}, {0.0f, -1.0f, 0.0f}, {1.0f, 0.0f}},   // 21
+        {{1.0f, -1.0f, 1.0f}, {0.0f, -1.0f, 0.0f}, {1.0f, 1.0f}},    // 22
+        {{-1.0f, -1.0f, 1.0f}, {0.0f, -1.0f, 0.0f}, {0.0f, 1.0f}},   // 23
     };
 
     std::vector<unsigned int> indices = {
         // Front face
-        0, 1, 2, 2, 3, 0,
+        0,
+        1,
+        2,
+        2,
+        3,
+        0,
         // Back face
-        4, 5, 6, 6, 7, 4,
+        4,
+        5,
+        6,
+        6,
+        7,
+        4,
         // Left face
-        8, 11, 10, 10, 9, 8,
+        8,
+        11,
+        10,
+        10,
+        9,
+        8,
         // Right face
-        12, 13, 14, 14, 15, 12,
+        12,
+        13,
+        14,
+        14,
+        15,
+        12,
         // Top face
-        16, 17, 18, 18, 19, 16,
+        16,
+        17,
+        18,
+        18,
+        19,
+        16,
         // Bottom face
-        20, 23, 22, 22, 21, 20,
+        20,
+        23,
+        22,
+        22,
+        21,
+        20,
     };
 
     return Mesh(vertices, indices);
@@ -308,43 +354,42 @@ Mesh Mesh::Factory::createCube() {
 
 Mesh Mesh::Factory::createCubeMap() {
     std::vector<Mesh::Vertex> vertices = {
-        {{-1.0f,  1.0f, -1.0f}},
+        {{-1.0f, 1.0f, -1.0f}},
         {{-1.0f, -1.0f, -1.0f}},
         {{1.0f, -1.0f, -1.0f}},
         {{1.0f, -1.0f, -1.0f}},
-        {{1.0f,  1.0f, -1.0f}},
-        {{-1.0f,  1.0f, -1.0f}},
-        {{-1.0f, -1.0f,  1.0f}},
+        {{1.0f, 1.0f, -1.0f}},
+        {{-1.0f, 1.0f, -1.0f}},
+        {{-1.0f, -1.0f, 1.0f}},
         {{-1.0f, -1.0f, -1.0f}},
-        {{-1.0f,  1.0f, -1.0f}},
-        {{-1.0f,  1.0f, -1.0f}},
-        {{-1.0f,  1.0f,  1.0f}},
-        {{-1.0f, -1.0f,  1.0f}},
+        {{-1.0f, 1.0f, -1.0f}},
+        {{-1.0f, 1.0f, -1.0f}},
+        {{-1.0f, 1.0f, 1.0f}},
+        {{-1.0f, -1.0f, 1.0f}},
         {{1.0f, -1.0f, -1.0f}},
-        {{1.0f, -1.0f,  1.0f}},
-        {{1.0f,  1.0f,  1.0f}},
-        {{1.0f,  1.0f,  1.0f}},
-        {{1.0f,  1.0f, -1.0f}},
+        {{1.0f, -1.0f, 1.0f}},
+        {{1.0f, 1.0f, 1.0f}},
+        {{1.0f, 1.0f, 1.0f}},
+        {{1.0f, 1.0f, -1.0f}},
         {{1.0f, -1.0f, -1.0f}},
-        {{-1.0f, -1.0f,  1.0f}},
-        {{-1.0f,  1.0f,  1.0f}},
-        {{1.0f,  1.0f,  1.0f}},
-        {{1.0f,  1.0f,  1.0f}},
-        {{1.0f, -1.0f,  1.0f}},
-        {{-1.0f, -1.0f,  1.0f}},
-        {{-1.0f,  1.0f, -1.0f}},
-        {{1.0f,  1.0f, -1.0f}},
-        {{1.0f,  1.0f,  1.0f}},
-        {{1.0f,  1.0f,  1.0f}},
-        {{-1.0f,  1.0f,  1.0f}},
-        {{-1.0f,  1.0f, -1.0f}},
+        {{-1.0f, -1.0f, 1.0f}},
+        {{-1.0f, 1.0f, 1.0f}},
+        {{1.0f, 1.0f, 1.0f}},
+        {{1.0f, 1.0f, 1.0f}},
+        {{1.0f, -1.0f, 1.0f}},
+        {{-1.0f, -1.0f, 1.0f}},
+        {{-1.0f, 1.0f, -1.0f}},
+        {{1.0f, 1.0f, -1.0f}},
+        {{1.0f, 1.0f, 1.0f}},
+        {{1.0f, 1.0f, 1.0f}},
+        {{-1.0f, 1.0f, 1.0f}},
+        {{-1.0f, 1.0f, -1.0f}},
         {{-1.0f, -1.0f, -1.0f}},
-        {{-1.0f, -1.0f,  1.0f}},
+        {{-1.0f, -1.0f, 1.0f}},
         {{1.0f, -1.0f, -1.0f}},
         {{1.0f, -1.0f, -1.0f}},
-        {{-1.0f, -1.0f,  1.0f}},
-        {{1.0f, -1.0f,  1.0f}}
-    };
+        {{-1.0f, -1.0f, 1.0f}},
+        {{1.0f, -1.0f, 1.0f}}};
 
     std::vector<unsigned int> indices(36);
     std::iota(indices.begin(), indices.end(), 0);
@@ -366,8 +411,8 @@ Mesh Mesh::Factory::createCylinder() {
         float x = radius * cos(theta);
         float z = radius * sin(theta);
 
-        vertices.push_back({ { x, -height / 2, z }, { x, 0.0f, z }, { float(i) / sectors, 0.0f } });
-        vertices.push_back({ { x,  height / 2, z }, { x, 0.0f, z }, { float(i) / sectors, 1.0f } });
+        vertices.push_back({{x, -height / 2, z}, {x, 0.0f, z}, {float(i) / sectors, 0.0f}});
+        vertices.push_back({{x, height / 2, z}, {x, 0.0f, z}, {float(i) / sectors, 1.0f}});
     }
 
     // Generate indices for the sides
@@ -398,8 +443,8 @@ Mesh Mesh::Factory::createCone() {
         float x = radius * cos(theta);
         float z = radius * sin(theta);
 
-        vertices.push_back({ { x, -height / 2, z }, { x, 0.0f, z }, { float(i) / sectors, 0.0f } });
-        vertices.push_back({ { 0,  height / 2, 0 }, { 0, 0.0f, 1 }, { float(i) / sectors, 1.0f } });
+        vertices.push_back({{x, -height / 2, z}, {x, 0.0f, z}, {float(i) / sectors, 0.0f}});
+        vertices.push_back({{0, height / 2, 0}, {0, 0.0f, 1}, {float(i) / sectors, 1.0f}});
     }
 
     // Generate indices for the sides
@@ -441,7 +486,7 @@ Mesh Mesh::Factory::createTorus(float innerRadius, float outerRadius, int radial
             glm::vec3 normal = glm::normalize(glm::vec3(cosTheta * cosPhi, sinTheta * cosPhi, sinPhi));
             glm::vec2 texcoord(u, v);
 
-            vertices.push_back({ position, normal, texcoord });
+            vertices.push_back({position, normal, texcoord});
         }
     }
 
@@ -484,7 +529,7 @@ Mesh Mesh::Factory::createSphere() {
             float x = xy * cosf(sectorAngle);
             float y = xy * sinf(sectorAngle);
 
-            vertices.push_back({ { x, y, z }, { x / radius, y / radius, z / radius }, { float(j) / sectors, float(i) / stacks } });
+            vertices.push_back({{x, y, z}, {x / radius, y / radius, z / radius}, {float(j) / sectors, float(i) / stacks}});
         }
     }
 
@@ -506,4 +551,4 @@ Mesh Mesh::Factory::createSphere() {
     return Mesh(vertices, indices);
 }
 
-}
+}  // namespace shkyera

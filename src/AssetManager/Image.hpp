@@ -2,16 +2,14 @@
 
 #include <filesystem>
 
-#include <AssetManager/PathConstructibleAsset.hpp>
-
 namespace shkyera {
 
 /**
  * @class Image
  * @brief A class for working with images and textures.
  */
-class Image : public PathConstructibleAsset<Image> {
-  public:
+class Image {
+   public:
     /**
      * @brief Constructor for loading an image from a file.
      *
@@ -62,12 +60,12 @@ class Image : public PathConstructibleAsset<Image> {
     static std::filesystem::path ICON_BUTTON_PLAY;
     static std::filesystem::path ICON_BUTTON_STOP;
 
-  private:
-    uint8_t *_data; ///< The image pixel data.
+   private:
+    uint8_t* _data;  ///< The image pixel data.
 
-    int _width;      ///< The width of the image.
-    int _height;     ///< The height of the image.
-    int _components; ///< The number of color components.
+    int _width;       ///< The width of the image.
+    int _height;      ///< The height of the image.
+    int _components;  ///< The number of color components.
 };
 
-} // namespace shkyera
+}  // namespace shkyera

@@ -8,6 +8,26 @@ message Vec3 {
   float z = 3;
 }
 
+message EntityAncestry {
+  uint32 parent = 1;
+  uint32 child = 2;
+}
+
+message CameraComponent {
+  uint32 entity = 1;
+  float fov = 2;
+  float aspect_ratio = 3;
+  float near_plane = 4;
+  float far_plane = 5;
+  uint32 projection = 6;
+}
+
+message SceneCamera { uint32 entity = 1; }
+
+message Environment { uint32 entity = 1; }
+
+message AssetRoot { uint32 entity = 1; }
+
 message TransformComponent {
   uint32 entity = 1;
   Vec3 position = 2;
@@ -20,7 +40,178 @@ message NameComponent {
   string name = 2;
 }
 
+message AmbientLightComponent {
+  uint32 entity = 1;
+  Vec3 color = 2;
+  float intensity = 3;
+}
+
+message ModelComponent {
+  uint32 entity = 1;
+  uint32 mesh = 2;
+  uint32 material = 3;
+}
+
+message BillboardComponent {
+  uint32 entity = 1;
+  uint32 orientation = 2;
+  uint32 scale = 3;
+  uint32 occlusion = 4;
+  uint32 material = 5;
+}
+
+message BoxColliderComponent {
+  uint32 entity = 1;
+  Vec3 center = 2;
+  Vec3 extents = 3;
+}
+
+message DirectionalLightComponent {
+  uint32 entity = 1;
+  float intensity = 2;
+  Vec3 color = 3;
+}
+
+message ParticleEmitterComponent {
+  uint32 entity = 1;
+  bool enabled = 2;
+  float gravity = 3;
+  float emitted_at_radius = 4;
+  float emitted_per_second = 5;
+  float emitted_per_second_variance = 6;
+  float initial_velocity = 7;
+  float initial_velocity_variance = 8;
+  float initial_velocity_dispersion = 9;
+  float lifetime = 10;
+  float lifetime_variance = 11;
+  float initial_particle_size = 12;
+  float initial_particle_size_variance = 13;
+  float end_particle_size = 14;
+  float end_particle_size_variance = 15;
+  uint32 material = 16;
+  float initial_transparency = 17;
+  float initial_transparency_variance = 18;
+  float end_transparency = 19;
+  float end_transparency_variance = 20;
+}
+
+message PointLightComponent {
+  uint32 entity = 1;
+  float intensity = 2;
+  float range = 3;
+  Vec3 color = 4;
+}
+
+message PostProcessingVolumeComponent {
+  uint32 entity = 1;
+  bool global = 2;
+  float gamma = 3;
+  bool tone_mapping = 4;
+  bool anti_aliasing = 5;
+  float bloom_threshold = 6;
+  float bloom_weight = 7;
+  float ssao_strength = 8;
+  float ssao_radius = 9;
+}
+
+message SpotLightComponent {
+  uint32 entity = 1;
+  float intensity = 2;
+  float range = 3;
+  float inner_cutoff = 4;
+  float outer_cutoff = 5;
+  Vec3 color = 6;
+}
+
+message WireframeComponent {
+  uint32 entity = 1;
+  uint32 wireframe = 2;
+}
+
+message SkyboxComponent {
+  uint32 entity = 1;
+  uint32 cubemap = 2;
+}
+
+message DirectoryComponent {
+  uint32 entity = 1;
+  string name = 2;
+}
+
+message PathAsset {
+  uint32 entity = 1;
+  string path = 2;
+}
+
+message FactoryAsset {
+  uint32 entity = 1;
+  uint32 type = 2;
+}
+
+message MaterialAsset {
+  uint32 entity = 1;
+
+  bool lit = 2;
+  float alpha = 3;
+  Vec3 albedo = 4;
+  Vec3 emissive = 5;
+  float emissive_strength = 6;
+  float normal_strength = 7;
+  float roughness = 8;
+  float metallic = 9;
+
+  uint32 albedo_texture = 100;
+  uint32 normal_texture = 101;
+  uint32 roughness_texture = 102;
+  uint32 metallic_texture = 103;
+  uint32 emissive_texture = 104;
+}
+
+message CubeMapAsset {
+  uint32 entity = 1;
+  uint32 up = 2;
+  uint32 down = 3;
+  uint32 left = 4;
+  uint32 right = 5;
+  uint32 front = 6;
+  uint32 back = 7;
+}
+
 message Registry {
-  repeated TransformComponent transforms = 1;
-  repeated NameComponent names = 2;
+  // Global Objects
+  repeated EntityAncestry ancestry_relations = 1;
+
+  // Singleton Components
+  SceneCamera scene_camera = 11;
+  Environment environment = 12;
+  AssetRoot asset_root = 13;
+
+  // Components
+  repeated TransformComponent transforms = 100;
+  repeated NameComponent names = 101;
+  repeated CameraComponent cameras = 102;
+  repeated AmbientLightComponent ambient_lights = 103;
+  repeated ModelComponent models = 104;
+  repeated BillboardComponent billboards_dev = 105;
+  repeated BillboardComponent billboards_prod = 106;
+  repeated BoxColliderComponent box_colliders_dev = 107;
+  repeated BoxColliderComponent box_colliders_prod = 108;
+  repeated DirectionalLightComponent directional_lights = 109;
+  repeated ParticleEmitterComponent particle_emitters = 110;
+  repeated PointLightComponent point_lights = 111;
+  repeated PostProcessingVolumeComponent post_processing_volumes = 112;
+  repeated SpotLightComponent spot_lights = 113;
+  repeated WireframeComponent wireframes = 114;
+  repeated SkyboxComponent skyboxes = 115;
+  repeated DirectoryComponent directories = 116;
+
+  // Assets
+  repeated PathAsset meshes_path = 200;
+  repeated FactoryAsset meshes_factory = 201;
+  repeated PathAsset wireframes_path = 202;
+  repeated FactoryAsset wireframes_factory = 203;
+  repeated MaterialAsset materials = 204;
+  repeated PathAsset images_path = 205;
+  repeated PathAsset textures_path = 206;
+  repeated CubeMapAsset cubemaps = 207;
 }

@@ -2,19 +2,15 @@
 
 #include <string>
 
-#include <Math/AABB.hpp>
 #include <Components/BaseComponent.hpp>
 #include <Components/TransformComponent.hpp>
+#include <Math/AABB.hpp>
 
 namespace shkyera {
 
-template<RuntimeMode Mode = RuntimeMode::PRODUCTION>
-class BoxColliderComponent : public BaseComponent<BoxColliderComponent<Mode>, Mode> {
-public:
-    BoxColliderComponent() = default;
-    BoxColliderComponent(const AABB& box) : box(box) {}
-
+template <RuntimeMode Mode = RuntimeMode::PRODUCTION>
+struct BoxColliderComponent {
     AABB box;
 };
 
-} // namespace shkyera
+}  // namespace shkyera

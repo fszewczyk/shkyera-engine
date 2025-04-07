@@ -1,25 +1,26 @@
 #pragma once
 
 #include <memory>
-#include <ECS/Registry.hpp>
-#include <Common/Types.hpp>
-#include <Common/Clock.hpp>
 
+#include <Common/Clock.hpp>
+#include <Common/Types.hpp>
+#include <Components/SceneCamera.hpp>
+#include <ECS/Registry.hpp>
+#include <Rendering/FrameBuffers/SceneFrameBuffer.hpp>
 #include <Systems/CameraMovementSystem.hpp>
 #include <Systems/ParticleSystem.hpp>
 #include <Systems/RenderingSystem.hpp>
-#include <Rendering/FrameBuffers/SceneFrameBuffer.hpp>
 
 namespace shkyera {
 
-template<RuntimeMode Mode>
+template <typename MainCameraTag>
 class Runtime {
-public:
+   public:
     Runtime(std::shared_ptr<Registry> registry)
-      : _registry(registry),
-        _cameraMovementSystem(registry),
-        _particleSystem(registry),
-        _renderingSystem(registry) {}
+        : _registry(registry),
+          _cameraMovementSystem(registry),
+          _particleSystem(registry),
+          _renderingSystem(registry) {}
 
     void update() {
         clock::Game.reset();
@@ -29,21 +30,20 @@ public:
         _renderingSystem.render();
     }
 
-    RenderingSystem& getRenderingSystem() {
+    auto& getRenderingSystem() {
         return _renderingSystem;
     }
 
-    const RenderingSystem& getRenderingSystem() const {
+    const auto& getRenderingSystem() const {
         return _renderingSystem;
     }
 
-
-private:
+   private:
     std::shared_ptr<Registry> _registry;
 
-    CameraMovementSystem _cameraMovementSystem;
+    CameraMovementSystem<MainCameraTag> _cameraMovementSystem;
     ParticleSystem _particleSystem;
-    RenderingSystem _renderingSystem;
+    RenderingSystem<MainCameraTag> _renderingSystem;
 };
 
-}
+}  // namespace shkyera

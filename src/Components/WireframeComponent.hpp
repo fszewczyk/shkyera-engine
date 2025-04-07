@@ -7,7 +7,7 @@
 
 namespace shkyera {
 
-struct WireframeComponent : public BaseComponent<WireframeComponent> {
+struct WireframeComponent {
     HandleAndAsset<Wireframe> wireframe{};
 
     void updateImpl() const {

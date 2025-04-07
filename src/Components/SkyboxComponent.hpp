@@ -2,14 +2,13 @@
 
 #include <glm/glm.hpp>
 
+#include <AssetManager/CubeMap.hpp>
 #include <Components/BaseComponent.hpp>
-#include <Rendering/CubeMap.hpp>
 
 namespace shkyera {
 
-class SkyboxComponent : public BaseComponent<SkyboxComponent> {
-public:
-    CubeMap skyboxCubeMap;
+struct SkyboxComponent {
+    HandleAndAsset<CubeMap> skyboxCubeMap;
 };
 
-} // namespace shkyera
+}  // namespace shkyera

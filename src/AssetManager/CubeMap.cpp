@@ -1,23 +1,24 @@
-#include <Common/Logger.hpp>
-#include <Rendering/CubeMap.hpp>
 #include <stb_image.h>
 #include <iostream>
 
+#include <AssetManager/CubeMap.hpp>
+#include <Common/Logger.hpp>
+#include <Utils/AssetUtils.hpp>
+
 namespace shkyera {
 
-CubeMap::CubeMap(GLenum minFilter, GLenum magFilter, GLenum wrapS, GLenum wrapT, GLenum wrapR) : _textureID(0)
-{
+CubeMap::CubeMap(GLenum minFilter, GLenum magFilter, GLenum wrapS, GLenum wrapT, GLenum wrapR)
+    : _textureID(0) {
     initialize(minFilter, magFilter, wrapS, wrapT, wrapR);
 }
 
-void CubeMap::initialize(GLenum minFilter, GLenum magFilter, GLenum wrapS, GLenum wrapT, GLenum wrapR)
-{
+void CubeMap::initialize(GLenum minFilter, GLenum magFilter, GLenum wrapS, GLenum wrapT, GLenum wrapR) {
     if (_textureID) {
         glDeleteTextures(1, &_textureID);
     }
 
     glGenTextures(1, &_textureID);
-    
+
     bind();
     glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, minFilter);
     glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, magFilter);
@@ -37,7 +38,7 @@ CubeMap& CubeMap::operator=(CubeMap&& other) noexcept {
         if (_textureID != 0) {
             glDeleteTextures(1, &_textureID);
         }
-        
+
         _textureID = other._textureID;
         other._textureID = 0;
     }
@@ -58,24 +59,24 @@ void CubeMap::unbind() const {
     glBindTexture(GL_TEXTURE_CUBE_MAP, 0);
 }
 
-bool CubeMap::loadFaces(std::shared_ptr<Image> up, std::shared_ptr<Image> down, std::shared_ptr<Image> left, std::shared_ptr<Image> right, std::shared_ptr<Image> front, std::shared_ptr<Image> back, GLenum internalFormat, GLenum format, GLenum type) {
-    const std::vector faces = {
-        left, right, up, down, back, front
-    };
+bool CubeMap::loadFaces(Registry* registry, HandleAndAsset<Image> up, HandleAndAsset<Image> down, HandleAndAsset<Image> left, HandleAndAsset<Image> right, HandleAndAsset<Image> front, HandleAndAsset<Image> back, GLenum internalFormat, GLenum format, GLenum type) {
+    std::vector faces = {
+        left, right, up, down, back, front};
 
     bind();
     for (size_t i = 0; i < 6; i++) {
-        auto width = faces[i]->getWidth();
-        auto height = faces[i]->getHeight();
-        auto channels = faces[i]->getChannels();
-        auto* data = faces[i]->getData();
+        auto f = utils::assets::read<Image>(registry, faces[i]);
+        auto width = f->getWidth();
+        auto height = f->getHeight();
+        auto channels = f->getChannels();
+        auto* data = f->getData();
         if (data) {
             if (channels == 3)
                 glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGB, width, height, 0, GL_RGB,
-                            GL_UNSIGNED_BYTE, data);
+                             GL_UNSIGNED_BYTE, data);
             else
                 glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGBA, width, height, 0, GL_RGBA,
-                            GL_UNSIGNED_BYTE, data);        
+                             GL_UNSIGNED_BYTE, data);
         } else {
             Logger::ERROR("Image was not loaded. Could not load cubemap");
             return false;
@@ -101,4 +102,4 @@ void CubeMap::activate(GLenum textureUnit) const {
     bind();
 }
 
-}
+}  // namespace shkyera

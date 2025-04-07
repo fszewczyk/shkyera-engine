@@ -2,26 +2,24 @@
 
 #include <glm/glm.hpp>
 
-#include <Math/Ray.hpp>
 #include <Components/TransformComponent.hpp>
+#include <Math/Ray.hpp>
 
 namespace shkyera {
 
 class CameraComponent {
-public:
+   public:
     enum class ProjectionType {
-        Perspective,
-        Orthographic
+        Invalid = 0,
+        Perspective = 1,
+        Orthographic = 2
     };
 
-    CameraComponent(float fov = 40.0f, float aspectRatio = 16.0f / 9.0f, float nearPlane = 0.1f, float farPlane = 1000.0f, ProjectionType projectionType = ProjectionType::Perspective)
-        : fov(fov), aspectRatio(aspectRatio), nearPlane(nearPlane), farPlane(farPlane), projectionType(projectionType) {}
+    float fov{40.0f};
+    float aspectRatio{16.0f / 9.0f};
+    float nearPlane{0.1f}, farPlane{1000.0f};
+    ProjectionType projectionType{ProjectionType::Perspective};
 
-    float fov;
-    float aspectRatio;
-    float nearPlane, farPlane;
-    ProjectionType projectionType;
-    
     glm::mat4 getViewMatrix(const TransformComponent& transformComponent) const {
         glm::vec3 position = transformComponent.getPosition();
         glm::vec3 orientation = transformComponent.getOrientation();
@@ -45,9 +43,9 @@ public:
 
     Ray getRayAt(const TransformComponent& transformComponent, float x, float y) const {
         glm::mat4 viewMatrix = getViewMatrix(transformComponent);
-        
+
         glm::mat4 invViewProj = glm::inverse(getProjectionMatrix() * viewMatrix);
-        
+
         float ndcX = 2.0f * x - 1.0f;
         float ndcY = 1.0f - 2.0f * y;
 
@@ -63,7 +61,7 @@ public:
         glm::vec3 rayOrigin = glm::vec3(nearWorld);
         glm::vec3 rayDirection = glm::normalize(glm::vec3(farWorld) - rayOrigin);
 
-        return { rayOrigin, rayDirection };
+        return {rayOrigin, rayDirection};
     }
 
     std::vector<glm::vec3> getFrustumCornersWorldSpace(float localNearPlane, float localFarPlane, const TransformComponent& transformComponent) const {
@@ -82,18 +80,17 @@ public:
         return frustumCorners;
     }
 
-    private:
-        glm::mat4 getProjectionMatrix(ProjectionType projection, float localNearPlane, float localFarPlane) const {
-            if (projectionType == ProjectionType::Perspective) {
-                return glm::perspective(glm::radians(fov), aspectRatio, localNearPlane, localFarPlane);
-            } else {
-                float orthoSize = fov;  // Can be configurable
-                float halfWidth = orthoSize * aspectRatio * 0.5f;
-                float halfHeight = orthoSize * 0.5f;
-                return glm::ortho(-halfWidth, halfWidth, -halfHeight, halfHeight, localNearPlane, localFarPlane);
-            }
+   private:
+    glm::mat4 getProjectionMatrix(ProjectionType projection, float localNearPlane, float localFarPlane) const {
+        if (projectionType == ProjectionType::Perspective) {
+            return glm::perspective(glm::radians(fov), aspectRatio, localNearPlane, localFarPlane);
+        } else {
+            float orthoSize = fov;  // Can be configurable
+            float halfWidth = orthoSize * aspectRatio * 0.5f;
+            float halfHeight = orthoSize * 0.5f;
+            return glm::ortho(-halfWidth, halfWidth, -halfHeight, halfHeight, localNearPlane, localFarPlane);
         }
-
+    }
 };
 
-} // namespace shkyera
+}  // namespace shkyera

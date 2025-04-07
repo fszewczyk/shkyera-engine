@@ -31,6 +31,7 @@ target_link_libraries(
     Common 
     PUBLIC
     glm
+    fmt
 )
 
 # Ensure C++ is used

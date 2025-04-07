@@ -1,15 +1,14 @@
 #pragma once
 
-#include <glm/glm.hpp>
 #include <AssetManager/Asset.hpp>
 #include <AssetManager/Texture.hpp>
 #include <Common/InstanceCounter.hpp>
+#include <glm/glm.hpp>
 
 namespace shkyera {
 
 struct Material : InstanceCounter<Material> {
     Material() = default;
-    Material(const glm::vec3& albedo, float roughness = 1.0f, float metallic = 0.0f);
 
     bool lit{true};
     float alphaMultiplier{1.0f};
@@ -26,4 +25,4 @@ struct Material : InstanceCounter<Material> {
     HandleAndAsset<Texture> emissiveTexture;
 };
 
-}
+}  // namespace shkyera
