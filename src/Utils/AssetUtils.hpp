@@ -112,9 +112,9 @@ AssetRef<AssetType> read(Registry* registry, HandleAndAsset<AssetType>& handleAn
  * @param args Constructor parameters
  * @return A shared pointer to the asset of type AssetType
  */
-template <PathConstructible AssetType>
-AssetRef<AssetType> read(const std::filesystem::path& path) {
-  return std::make_shared<AssetType>(path);
+template <typename AssetType, typename... Args>
+AssetRef<AssetType> read(const std::filesystem::path& path, Args&&... args) {
+  return std::make_shared<AssetType>(path, std::forward<Args>(args)...);
 }
 
 template <typename AssetType>

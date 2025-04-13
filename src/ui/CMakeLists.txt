@@ -30,6 +30,7 @@ add_library(
     ${CMAKE_CURRENT_LIST_DIR}/Widgets/ProfilerWidget.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Widgets/FilesystemWidget.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Widgets/SceneWidget.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/Widgets/RuntimeWidget.cpp
 )
 
 target_include_directories(
@@ -46,7 +47,6 @@ target_link_libraries(
     UI
     PUBLIC 
     
-    Runtime
     ECS
     Components
     Common

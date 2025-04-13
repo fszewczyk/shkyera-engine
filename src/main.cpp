@@ -1,20 +1,20 @@
 #include <stdio.h>
 
-#include <chrono>
-#include <iostream>
 #include <memory>
 #include <sstream>
-#include <thread>
 
+#include <AssetManager/Asset.hpp>
 #include <AssetManager/CubeMap.hpp>
 #include <AssetManager/Image.hpp>
 #include <AssetManager/Mesh.hpp>
+#include <Common/Clock.hpp>
 #include <Common/Types.hpp>
 #include <Components/AmbientLightComponent.hpp>
 #include <Components/AssetComponents/AssetRoot.hpp>
 #include <Components/BillboardComponent.hpp>
 #include <Components/BoxColliderComponent.hpp>
 #include <Components/CameraComponent.hpp>
+#include <Components/CameraTags.hpp>
 #include <Components/DirectionalLightComponent.hpp>
 #include <Components/Environment.hpp>
 #include <Components/ModelComponent.hpp>
@@ -23,17 +23,16 @@
 #include <Components/ParticleEmitterComponent.hpp>
 #include <Components/PointLightComponent.hpp>
 #include <Components/PostProcessingVolumeComponent.hpp>
-#include <Components/SceneCamera.hpp>
 #include <Components/SkyboxComponent.hpp>
 #include <Components/SpotLightComponent.hpp>
 #include <Components/TransformComponent.hpp>
 #include <Components/WireframeComponent.hpp>
 #include <ECS/Registry.hpp>
 #include <Serialization/Builders.hpp>
+#include <Systems/ParticleSystem.hpp>
 #include <UI/UI.hpp>
+#include <Utils/AssetLoaders.hpp>
 #include <Utils/AssetUtils.hpp>
-#include "AssetManager/Asset.hpp"
-#include "Utils/AssetLoaders.hpp"
 
 static shkyera::Entity addModel(std::shared_ptr<shkyera::Registry> registry, const glm::vec3& position,
                                 const std::string& name, shkyera::HandleAndAsset<shkyera::Mesh> mesh) {
@@ -77,12 +76,20 @@ void loadScene(std::shared_ptr<shkyera::Registry> registry) {
   registry->assignComponent<AssetRoot>(rootHandle);
 
   // Camera setup
-  const auto camera = registry->addEntity();
-  registry->assignComponent<SceneCamera>(camera);
-  registry->addComponent<TransformComponent>(camera);
-  registry->getComponent<TransformComponent>(camera).setPosition({0, 15, 0});
-  registry->getComponent<TransformComponent>(camera).setOrientation({-M_PI_2 + 0.01, 0, 0});
-  registry->addComponent<CameraComponent>(camera);
+  const auto sceneCamera = registry->addEntity();
+  registry->assignComponent<SceneCamera>(sceneCamera);
+  registry->addComponent<TransformComponent>(sceneCamera);
+  registry->getComponent<TransformComponent>(sceneCamera).setPosition({0, 15, 0});
+  registry->getComponent<TransformComponent>(sceneCamera).setOrientation({-M_PI_2 + 0.01, 0, 0});
+  registry->addComponent<CameraComponent>(sceneCamera);
+
+  const auto playerCamera = registry->addEntity();
+  registry->assignComponent<RuntimeCamera>(playerCamera);
+  registry->addComponent<TransformComponent>(playerCamera);
+  registry->getComponent<TransformComponent>(playerCamera).setPosition({-10, 1, 0});
+  registry->getComponent<TransformComponent>(playerCamera).setOrientation({-0.05, 0, 0});
+  registry->addComponent<CameraComponent>(playerCamera);
+  registry->addComponent<NameComponent>(playerCamera).setName("Player Camera");
 
   auto fireplace = registry->addEntity();
   registry->addComponent<NameComponent>(fireplace).setName("Fireplace");
@@ -203,10 +210,8 @@ void loadScene(std::shared_ptr<shkyera::Registry> registry) {
                                           *std::get<OptionalAssetHandle>(fireplaceEmitter.material));
 }
 
-int main() {
+std::shared_ptr<shkyera::Registry> loadRegistry() {
   using namespace shkyera;
-
-  auto ui = UI();
   auto registry = std::make_shared<Registry>();
   loadScene(registry);
 
@@ -215,9 +220,26 @@ int main() {
 
   std::shared_ptr<Registry> deserializedRegistry = serialization::fromBinary(registryBuffer);
 
-  ui.initialize(deserializedRegistry);
+  return deserializedRegistry;
+}
+
+int main() {
+  using namespace shkyera;
+
+  auto ui = UI();
+  auto registry = loadRegistry();
+
+  ParticleSystem particleSystem(registry);
+
+  ui.initialize(registry);
 
   while (!ui.shouldClose()) {
+    clock::Game.reset();
+
+    if (!clock::Game.isPaused()) {
+      particleSystem.update();
+    }
+
     ui.draw();
   }
 

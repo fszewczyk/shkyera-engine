@@ -33,6 +33,10 @@ class Registry {
      */
   ~Registry() = default;
 
+  Registry(const Registry& other);
+
+  Registry& operator=(const Registry& other);
+
   /**
      * Adds a new entity to the registry.
      * 

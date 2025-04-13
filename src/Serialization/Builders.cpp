@@ -12,6 +12,7 @@
 #include <Components/BillboardComponent.hpp>
 #include <Components/BoxColliderComponent.hpp>
 #include <Components/CameraComponent.hpp>
+#include <Components/CameraTags.hpp>
 #include <Components/DirectionalLightComponent.hpp>
 #include <Components/Environment.hpp>
 #include <Components/ModelComponent.hpp>
@@ -19,7 +20,6 @@
 #include <Components/ParticleEmitterComponent.hpp>
 #include <Components/PointLightComponent.hpp>
 #include <Components/PostProcessingVolumeComponent.hpp>
-#include <Components/SceneCamera.hpp>
 #include <Components/SkyboxComponent.hpp>
 #include <Components/SpotLightComponent.hpp>
 #include <Components/TransformComponent.hpp>
@@ -187,6 +187,9 @@ std::unique_ptr<shkyera::Registry> fromBinary(std::istream& serialized) {
   // Singleton Components
   loadSingletonComponent<SceneCamera>(registry.get(), protoToRegistryEntities, serializedRegistry.scene_camera(),
                                       [](const auto&) { return SceneCamera{}; });
+
+  loadSingletonComponent<RuntimeCamera>(registry.get(), protoToRegistryEntities, serializedRegistry.runtime_camera(),
+                                        [](const auto&) { return RuntimeCamera{}; });
 
   loadSingletonComponent<Environment>(registry.get(), protoToRegistryEntities, serializedRegistry.environment(),
                                       [](const auto&) { return Environment{}; });
@@ -473,6 +476,9 @@ void toBinary(std::ostream& outputStream, Registry const* registry) {
   // Singleton Components
   serializeSingletonComponent<SceneCamera>(registry, *serializedRegistry.mutable_scene_camera(),
                                            [](const auto&, const auto&) {});
+
+  serializeSingletonComponent<RuntimeCamera>(registry, *serializedRegistry.mutable_runtime_camera(),
+                                             [](const auto&, const auto&) {});
 
   serializeSingletonComponent<Environment>(registry, *serializedRegistry.mutable_environment(),
                                            [](const auto&, const auto&) {});

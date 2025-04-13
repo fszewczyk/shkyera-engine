@@ -16,7 +16,7 @@ namespace shkyera {
 
 class InputManager {
  public:
-  enum class CoordinateSystem { ABSOLUTE, SCENE };
+  enum class CoordinateSystem { ABSOLUTE, SCENE, RUNTIME };
 
   using Key = int;
   using MouseButton = int;

@@ -5,5 +5,6 @@
 namespace shkyera {
 
 struct SceneCamera : public SingletonComponent {};
+struct RuntimeCamera : public SingletonComponent {};
 
 }  // namespace shkyera

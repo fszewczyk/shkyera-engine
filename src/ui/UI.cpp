@@ -20,6 +20,7 @@
 #include <UI/Widgets/ObjectsWidget.hpp>
 #include <UI/Widgets/ProfilerWidget.hpp>
 #include <UI/Widgets/PropertiesWidget.hpp>
+#include <UI/Widgets/RuntimeWidget.hpp>
 #include <UI/Widgets/SceneWidget.hpp>
 
 namespace shkyera {
@@ -32,7 +33,6 @@ UI::UI() : _open(true) {
 void UI::initialize(std::shared_ptr<Registry> registry) {
   _registry = std::move(registry);
 
-  initializeSystems();
   initializeWidgets();
 }
 
@@ -88,11 +88,6 @@ void UI::initializeImgui() {
   ImGui_ImplOpenGL3_Init(glsl_version);
 }
 
-void UI::initializeSystems() {
-  _objectSelectionSystem = std::make_unique<ObjectSelectionSystem>(_registry);
-  _gizmoSystem = std::make_unique<GizmoSystem>(_registry);
-}
-
 void UI::initializeWidgets() {
   _widgets.emplace_back(std::make_unique<ConsoleWidget>("Console"));
   _widgets.emplace_back(std::make_unique<PropertiesWidget>(_registry));
@@ -102,6 +97,7 @@ void UI::initializeWidgets() {
   _widgets.emplace_back(std::make_unique<ProfilerWidget>("Profiler"));
 
   _widgets.emplace_back(std::make_unique<SceneWidget>(_registry));
+  _widgets.emplace_back(std::make_unique<RuntimeWidget>(_registry));
 
   auto objectsWidget = std::make_unique<ObjectsWidget>("Objects");
   objectsWidget->setRegistry(_registry);
@@ -230,6 +226,7 @@ void UI::beginFrame() {
 
     ImGui::DockBuilderDockWindow("Objects", dock_id_left_up_left);
     ImGui::DockBuilderDockWindow("Scene", dock_id_left_up_right);
+    ImGui::DockBuilderDockWindow("Runtime", dock_id_left_up_right);
     ImGui::DockBuilderDockWindow("Properties", dock_id_right);
     ImGui::DockBuilderDockWindow("Inspector", dock_id_right);
     ImGui::DockBuilderDockWindow("Scene Camera", dock_id_right);
@@ -251,7 +248,6 @@ void UI::renderFrame() {
   InputManager::getInstance().setCoordinateSystem(InputManager::CoordinateSystem::ABSOLUTE, {0, 0},
                                                   {windowSize.x, windowSize.y});
   InputManager::getInstance().processInput(_window);
-  _gizmoSystem->update();
 
   for (const auto& w : _widgets) {
     w->draw();

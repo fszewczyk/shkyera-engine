@@ -9,6 +9,7 @@ cd ..
 
 RUN="false"
 DEBUG="false"
+FORMAT="false"
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
@@ -18,6 +19,10 @@ while [[ $# -gt 0 ]]; do
       ;;
     -d|--debug)
       DEBUG="true"
+      shift
+      ;; 
+    -f|--format)
+      FORMAT="true"
       shift
       ;; 
     -*|--*)
@@ -34,4 +39,7 @@ if [ "$RUN" == "true" ]; then
 elif [ "$DEBUG" == "true" ]; then
   echo -e "Starting LLDB with Shkyera Engine"
   lldb ./build/bin/ShkyeraEngine
+elif [ "$FORMAT" == "true" ]; then
+  echo -e "Formatting using clang-format"
+  find ./src/ \( -name '*.cpp' -o -name '*.hpp' -o -name '*.h' -o -name '*.cc' \) -exec clang-format -i {} +
 fi

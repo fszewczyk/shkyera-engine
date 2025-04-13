@@ -2,9 +2,9 @@
 
 #include <Components/BoxColliderComponent.hpp>
 #include <Components/CameraComponent.hpp>
+#include <Components/CameraTags.hpp>
 #include <Components/ModelComponent.hpp>
 #include <Components/NameComponent.hpp>
-#include <Components/SceneCamera.hpp>
 #include <Components/TransformComponent.hpp>
 #include <InputManager/InputManager.hpp>
 

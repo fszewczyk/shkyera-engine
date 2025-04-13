@@ -69,11 +69,6 @@ class UI {
   void initializeWidgets();
 
   /**
-     * @brief Initialize internal systems.
-     */
-  void initializeSystems();
-
-  /**
      * @brief Initialize UI assets.
      */
   void initializeAssets();
@@ -103,9 +98,6 @@ class UI {
 
   bool _open;           ///< Flag indicating if the UI is open.
   GLFWwindow* _window;  ///< The UI window.
-
-  std::unique_ptr<ObjectSelectionSystem> _objectSelectionSystem;
-  std::unique_ptr<GizmoSystem> _gizmoSystem;
 };
 
 }  // namespace shkyera

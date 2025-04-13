@@ -5,7 +5,9 @@ uniform sampler2D depthTexture;    // View-space depth texture
 uniform sampler2D normalTexture;   // View-space normal texture
 
 uniform mat4 projection;
-uniform vec3 samples[128];          // SSAO Kernel
+
+#define NUM_SAMPLES 32
+uniform vec3 samples[NUM_SAMPLES];          // SSAO Kernel
 uniform float strength;
 
 out float SSAO;
@@ -19,7 +21,7 @@ void main() {
     float radius = 0.5;  // Sample radius
     float bias = 0.01;
 
-    for (int i = 0; i < 128; ++i) {
+    for (int i = 0; i < NUM_SAMPLES; ++i) {
         vec3 randomVec = vec3(samples[i].y, samples[i].z, samples[i].x);
         vec3 tangent = normalize(normalize(randomVec) - normal * dot(randomVec, normal));
         vec3 bitangent = cross(normal, tangent);
@@ -43,6 +45,6 @@ void main() {
         }
     }
 
-    occlusion = 1.0 - (occlusion / 128.0); // Normalize occlusion value
+    occlusion = 1.0 - (occlusion / NUM_SAMPLES); // Normalize occlusion value
     SSAO = clamp(pow(occlusion, strength), 0, 1);
 }

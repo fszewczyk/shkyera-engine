@@ -2,7 +2,7 @@
 
 #include <memory>
 
-#include <Components/SceneCamera.hpp>
+#include <Components/CameraTags.hpp>
 #include <Components/TransformComponent.hpp>
 #include <ECS/Registry.hpp>
 #include <InputManager/InputManager.hpp>
