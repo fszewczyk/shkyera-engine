@@ -134,12 +134,18 @@ $(document).ready(function(){initNavTree('structshkyera_1_1_clock.html',''); ini
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a995fc824ceae7569953a00fe1ce9c892" id="r_a995fc824ceae7569953a00fe1ce9c892"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structshkyera_1_1_clock.html">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structshkyera_1_1_clock.html#a995fc824ceae7569953a00fe1ce9c892">reset</a> ()</td></tr>
 <tr class="separator:a995fc824ceae7569953a00fe1ce9c892"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a57883f8dbefae2771d7caf4cf8f45790" id="r_a57883f8dbefae2771d7caf4cf8f45790"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structshkyera_1_1_clock.html">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structshkyera_1_1_clock.html#a57883f8dbefae2771d7caf4cf8f45790">isPaused</a> ()</td></tr>
+<tr class="separator:a57883f8dbefae2771d7caf4cf8f45790"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac8159d139b573bc29a626c726fae3682" id="r_ac8159d139b573bc29a626c726fae3682"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structshkyera_1_1_clock.html">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structshkyera_1_1_clock.html#ac8159d139b573bc29a626c726fae3682">pause</a> ()</td></tr>
+<tr class="separator:ac8159d139b573bc29a626c726fae3682"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1f53c0cd76a7f33a093d30dfea9c24ff" id="r_a1f53c0cd76a7f33a093d30dfea9c24ff"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structshkyera_1_1_clock.html">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structshkyera_1_1_clock.html#a1f53c0cd76a7f33a093d30dfea9c24ff">start</a> (<a class="el" href="structshkyera_1_1_clock.html">float</a> <a class="el" href="structshkyera_1_1_clock.html">speed</a>=1.0f)</td></tr>
+<tr class="separator:a1f53c0cd76a7f33a093d30dfea9c24ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:a8d8517544e8a4e8572c96cb8b531484f" id="r_a8d8517544e8a4e8572c96cb8b531484f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structshkyera_1_1_clock.html">float</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structshkyera_1_1_clock.html#a8d8517544e8a4e8572c96cb8b531484f">deltaTime</a> {1.0 / 60.0}</td></tr>
 <tr class="separator:a8d8517544e8a4e8572c96cb8b531484f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a18522f9fcf698899e93363c83316f6cd" id="r_a18522f9fcf698899e93363c83316f6cd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structshkyera_1_1_clock.html">float</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structshkyera_1_1_clock.html#a18522f9fcf698899e93363c83316f6cd">scaleTime</a> {1.0f}</td></tr>
+<tr class="memitem:a18522f9fcf698899e93363c83316f6cd" id="r_a18522f9fcf698899e93363c83316f6cd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structshkyera_1_1_clock.html">float</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structshkyera_1_1_clock.html#a18522f9fcf698899e93363c83316f6cd">scaleTime</a> {0.0f}</td></tr>
 <tr class="separator:a18522f9fcf698899e93363c83316f6cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
@@ -148,6 +154,60 @@ Private Attributes</h2></td></tr>
 <tr class="separator:af814682b0c6522993098bb1aa9321fa9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a57883f8dbefae2771d7caf4cf8f45790" name="a57883f8dbefae2771d7caf4cf8f45790"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a57883f8dbefae2771d7caf4cf8f45790">&#9670;&#160;</a></span>isPaused()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;<a class="el" href="structshkyera_1_1_clock.html">size_t</a> MaxNanosecondCount = std::numeric_limits&lt;size_t&gt;::max()&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structshkyera_1_1_clock.html">bool</a> <a class="el" href="structshkyera_1_1_clock.html">shkyera::Clock</a>&lt; <a class="el" href="structshkyera_1_1_clock.html">MaxNanosecondCount</a> &gt;::isPaused </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac8159d139b573bc29a626c726fae3682" name="ac8159d139b573bc29a626c726fae3682"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac8159d139b573bc29a626c726fae3682">&#9670;&#160;</a></span>pause()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;<a class="el" href="structshkyera_1_1_clock.html">size_t</a> MaxNanosecondCount = std::numeric_limits&lt;size_t&gt;::max()&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structshkyera_1_1_clock.html">void</a> <a class="el" href="structshkyera_1_1_clock.html">shkyera::Clock</a>&lt; <a class="el" href="structshkyera_1_1_clock.html">MaxNanosecondCount</a> &gt;::pause </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a995fc824ceae7569953a00fe1ce9c892" name="a995fc824ceae7569953a00fe1ce9c892"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a995fc824ceae7569953a00fe1ce9c892">&#9670;&#160;</a></span>reset()</h2>
 
@@ -163,6 +223,34 @@ template&lt;<a class="el" href="structshkyera_1_1_clock.html">size_t</a> MaxNano
           <td class="memname"><a class="el" href="structshkyera_1_1_clock.html">void</a> <a class="el" href="structshkyera_1_1_clock.html">shkyera::Clock</a>&lt; <a class="el" href="structshkyera_1_1_clock.html">MaxNanosecondCount</a> &gt;::reset </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1f53c0cd76a7f33a093d30dfea9c24ff" name="a1f53c0cd76a7f33a093d30dfea9c24ff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1f53c0cd76a7f33a093d30dfea9c24ff">&#9670;&#160;</a></span>start()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;<a class="el" href="structshkyera_1_1_clock.html">size_t</a> MaxNanosecondCount = std::numeric_limits&lt;size_t&gt;::max()&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structshkyera_1_1_clock.html">void</a> <a class="el" href="structshkyera_1_1_clock.html">shkyera::Clock</a>&lt; <a class="el" href="structshkyera_1_1_clock.html">MaxNanosecondCount</a> &gt;::start </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structshkyera_1_1_clock.html">float</a>&#160;</td>
+          <td class="paramname"><em>speed</em> = <code>1.0f</code></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -225,7 +313,7 @@ template&lt;<a class="el" href="structshkyera_1_1_clock.html">size_t</a> MaxNano
 template&lt;<a class="el" href="structshkyera_1_1_clock.html">size_t</a> MaxNanosecondCount = std::numeric_limits&lt;size_t&gt;::max()&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structshkyera_1_1_clock.html">float</a> <a class="el" href="structshkyera_1_1_clock.html">shkyera::Clock</a>&lt; <a class="el" href="structshkyera_1_1_clock.html">MaxNanosecondCount</a> &gt;::scaleTime {1.0f}</td>
+          <td class="memname"><a class="el" href="structshkyera_1_1_clock.html">float</a> <a class="el" href="structshkyera_1_1_clock.html">shkyera::Clock</a>&lt; <a class="el" href="structshkyera_1_1_clock.html">MaxNanosecondCount</a> &gt;::scaleTime {0.0f}</td>
         </tr>
       </table>
 </div><div class="memdoc">

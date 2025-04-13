@@ -208,10 +208,10 @@ $(document).ready(function(){initNavTree('_asset_utils_8hpp_source.html',''); in
 <div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>}</div>
 </div>
 <div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span> </div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span><span class="keyword">template</span> &lt;PathConstructible AssetType&gt;</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> <a class="code hl_struct" href="structshkyera_1_1_clock.html">AssetType</a>, <span class="keyword">typename</span>... <a class="code hl_struct" href="structshkyera_1_1_clock.html">Args</a>&gt;</div>
 <div class="foldopen" id="foldopen00116" data-start="{" data-end="}">
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno"><a class="line" href="namespaceshkyera_1_1utils_1_1assets.html#aabf905a1b8fc5cd16920e5ffdffa294e">  116</a></span><a class="code hl_struct" href="structshkyera_1_1_clock.html">AssetRef&lt;AssetType&gt;</a> <a class="code hl_function" href="namespaceshkyera_1_1utils_1_1assets.html#a9f78951467e0db5c59810f81c67d4d87">read</a>(<span class="keyword">const</span> std::filesystem::path&amp; path) {</div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>  <span class="keywordflow">return</span> std::make_shared&lt;AssetType&gt;(path);</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno"><a class="line" href="namespaceshkyera_1_1utils_1_1assets.html#a40ef0bdf12e3eefdcf28af6b7eecb784">  116</a></span><a class="code hl_struct" href="structshkyera_1_1_clock.html">AssetRef&lt;AssetType&gt;</a> <a class="code hl_function" href="namespaceshkyera_1_1utils_1_1assets.html#a9f78951467e0db5c59810f81c67d4d87">read</a>(<span class="keyword">const</span> std::filesystem::path&amp; path, <a class="code hl_struct" href="structshkyera_1_1_clock.html">Args</a>&amp;&amp;... <a class="code hl_struct" href="structshkyera_1_1_clock.html">args</a>) {</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>  <span class="keywordflow">return</span> std::make_shared&lt;AssetType&gt;(path, std::forward&lt;Args&gt;(<a class="code hl_struct" href="structshkyera_1_1_clock.html">args</a>)...);</div>
 <div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>}</div>
 </div>
 <div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span> </div>

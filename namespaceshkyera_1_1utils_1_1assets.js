@@ -10,7 +10,7 @@ var namespaceshkyera_1_1utils_1_1assets =
     [ "add", "namespaceshkyera_1_1utils_1_1assets.html#a0f88820fe22ec55d2b514bca1cea11e4", null ],
     [ "getSubdirectories", "namespaceshkyera_1_1utils_1_1assets.html#a8a559ef2e6f689b70a481de86f3208cb", null ],
     [ "read", "namespaceshkyera_1_1utils_1_1assets.html#a9f78951467e0db5c59810f81c67d4d87", null ],
-    [ "read", "namespaceshkyera_1_1utils_1_1assets.html#aabf905a1b8fc5cd16920e5ffdffa294e", null ],
+    [ "read", "namespaceshkyera_1_1utils_1_1assets.html#a40ef0bdf12e3eefdcf28af6b7eecb784", null ],
     [ "read", "namespaceshkyera_1_1utils_1_1assets.html#a65c544b758e50f2dfbef2f70c5df68f2", null ],
     [ "read", "namespaceshkyera_1_1utils_1_1assets.html#a8923a90a3234a044130eae036e46835f", null ],
     [ "readPermanent", "namespaceshkyera_1_1utils_1_1assets.html#af2208358a2ddf1230619955d5d780177", null ],

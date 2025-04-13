@@ -38,9 +38,10 @@ var searchData=
   ['spawnparticles_35',['spawnParticles',['../classshkyera_1_1_particle_system.html#a19ac2bc366998d19943d5d37bedc9954',1,'shkyera::ParticleSystem']]],
   ['sphere_36',['Sphere',['../classshkyera_1_1random_1_1_sphere.html#ae141f5ca41990bf0cfd4aba6eb37b83d',1,'shkyera::random::Sphere']]],
   ['spotlightcomponentui_37',['SpotLightComponentUI',['../classshkyera_1_1_spot_light_component_u_i.html#af84625766579099ae509da89b9fd0d47',1,'shkyera::SpotLightComponentUI']]],
-  ['stopusing_38',['stopUsing',['../classshkyera_1_1_shader_program.html#a6bbc8080b6b59529c38d25a100a20995',1,'shkyera::ShaderProgram']]],
-  ['styleimgui_39',['styleImgui',['../classshkyera_1_1_u_i.html#a4005c6205fca258e010e1273635ccf91',1,'shkyera::UI']]],
-  ['styleonhover_40',['styleOnHover',['../classshkyera_1_1_gizmo_system.html#ad67ae8764ef0c2c7f01e99a84874c842',1,'shkyera::GizmoSystem']]],
-  ['subscribe_41',['subscribe',['../namespaceshkyera_1_1_logger.html#ab9843fcbda4e096b9534cd3cbcfcaeb5',1,'shkyera::Logger']]],
-  ['success_42',['SUCCESS',['../namespaceshkyera_1_1_logger.html#adc512f67bfb7208e1c5e6609a0f2541d',1,'shkyera::Logger']]]
+  ['start_38',['start',['../structshkyera_1_1_clock.html#a1f53c0cd76a7f33a093d30dfea9c24ff',1,'shkyera::Clock']]],
+  ['stopusing_39',['stopUsing',['../classshkyera_1_1_shader_program.html#a6bbc8080b6b59529c38d25a100a20995',1,'shkyera::ShaderProgram']]],
+  ['styleimgui_40',['styleImgui',['../classshkyera_1_1_u_i.html#a4005c6205fca258e010e1273635ccf91',1,'shkyera::UI']]],
+  ['styleonhover_41',['styleOnHover',['../classshkyera_1_1_gizmo_system.html#ad67ae8764ef0c2c7f01e99a84874c842',1,'shkyera::GizmoSystem']]],
+  ['subscribe_42',['subscribe',['../namespaceshkyera_1_1_logger.html#ab9843fcbda4e096b9534cd3cbcfcaeb5',1,'shkyera::Logger']]],
+  ['success_43',['SUCCESS',['../namespaceshkyera_1_1_logger.html#adc512f67bfb7208e1c5e6609a0f2541d',1,'shkyera::Logger']]]
 ];

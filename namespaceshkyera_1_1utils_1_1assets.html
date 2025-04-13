@@ -153,9 +153,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a65c544b758e50f2dfbef2f70c5df68f2" id="r_a65c544b758e50f2dfbef2f70c5df68f2"><td class="memTemplParams" colspan="2">template&lt;<a class="el" href="structshkyera_1_1_clock.html">typename</a> <a class="el" href="structshkyera_1_1_clock.html">AssetType</a> &gt; </td></tr>
 <tr class="memitem:a65c544b758e50f2dfbef2f70c5df68f2"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceshkyera.html#a840dff224dd7033c335fa902c14ed17c">AssetRef</a>&lt; <a class="el" href="structshkyera_1_1_clock.html">AssetType</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceshkyera_1_1utils_1_1assets.html#a65c544b758e50f2dfbef2f70c5df68f2">read</a> (<a class="el" href="classshkyera_1_1_registry.html">Registry</a> *<a class="el" href="structshkyera_1_1_clock.html">registry</a>, <a class="el" href="namespaceshkyera.html#af88b8951608a991d076ce45e31c20caf">HandleAndAsset</a>&lt; <a class="el" href="structshkyera_1_1_clock.html">AssetType</a> &gt; &amp;<a class="el" href="structshkyera_1_1_clock.html">handleAndAsset</a>)</td></tr>
 <tr class="separator:a65c544b758e50f2dfbef2f70c5df68f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aabf905a1b8fc5cd16920e5ffdffa294e" id="r_aabf905a1b8fc5cd16920e5ffdffa294e"><td class="memTemplParams" colspan="2">template&lt;PathConstructible AssetType&gt; </td></tr>
-<tr class="memitem:aabf905a1b8fc5cd16920e5ffdffa294e"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceshkyera.html#a840dff224dd7033c335fa902c14ed17c">AssetRef</a>&lt; <a class="el" href="structshkyera_1_1_clock.html">AssetType</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceshkyera_1_1utils_1_1assets.html#aabf905a1b8fc5cd16920e5ffdffa294e">read</a> (<a class="el" href="structshkyera_1_1_clock.html">const</a> std::filesystem::path &amp;path)</td></tr>
-<tr class="separator:aabf905a1b8fc5cd16920e5ffdffa294e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a40ef0bdf12e3eefdcf28af6b7eecb784" id="r_a40ef0bdf12e3eefdcf28af6b7eecb784"><td class="memTemplParams" colspan="2">template&lt;<a class="el" href="structshkyera_1_1_clock.html">typename</a> <a class="el" href="structshkyera_1_1_clock.html">AssetType</a> , typename... Args&gt; </td></tr>
+<tr class="memitem:a40ef0bdf12e3eefdcf28af6b7eecb784"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceshkyera.html#a840dff224dd7033c335fa902c14ed17c">AssetRef</a>&lt; <a class="el" href="structshkyera_1_1_clock.html">AssetType</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceshkyera_1_1utils_1_1assets.html#a40ef0bdf12e3eefdcf28af6b7eecb784">read</a> (<a class="el" href="structshkyera_1_1_clock.html">const</a> std::filesystem::path &amp;path, <a class="el" href="structshkyera_1_1_clock.html">Args</a> &amp;&amp;... <a class="el" href="structshkyera_1_1_clock.html">args</a>)</td></tr>
+<tr class="separator:a40ef0bdf12e3eefdcf28af6b7eecb784"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8923a90a3234a044130eae036e46835f" id="r_a8923a90a3234a044130eae036e46835f"><td class="memTemplParams" colspan="2">template&lt;<a class="el" href="structshkyera_1_1_clock.html">typename</a> <a class="el" href="structshkyera_1_1_clock.html">AssetType</a> &gt; </td></tr>
 <tr class="memitem:a8923a90a3234a044130eae036e46835f"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceshkyera.html#a840dff224dd7033c335fa902c14ed17c">AssetRef</a>&lt; <a class="el" href="structshkyera_1_1_clock.html">AssetType</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceshkyera_1_1utils_1_1assets.html#a8923a90a3234a044130eae036e46835f">read</a> (<a class="el" href="structshkyera_1_1_clock.html">typename</a> AssetType::Factory::Type type)</td></tr>
 <tr class="separator:a8923a90a3234a044130eae036e46835f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -376,20 +376,30 @@ template&lt;<a class="el" href="structshkyera_1_1_clock.html">typename</a> <a cl
 
 </div>
 </div>
-<a id="aabf905a1b8fc5cd16920e5ffdffa294e" name="aabf905a1b8fc5cd16920e5ffdffa294e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aabf905a1b8fc5cd16920e5ffdffa294e">&#9670;&#160;</a></span>read() <span class="overload">[2/4]</span></h2>
+<a id="a40ef0bdf12e3eefdcf28af6b7eecb784" name="a40ef0bdf12e3eefdcf28af6b7eecb784"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a40ef0bdf12e3eefdcf28af6b7eecb784">&#9670;&#160;</a></span>read() <span class="overload">[2/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;PathConstructible AssetType&gt; </div>
+template&lt;<a class="el" href="structshkyera_1_1_clock.html">typename</a> <a class="el" href="structshkyera_1_1_clock.html">AssetType</a> , typename... Args&gt; </div>
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="namespaceshkyera.html#a840dff224dd7033c335fa902c14ed17c">AssetRef</a>&lt; <a class="el" href="structshkyera_1_1_clock.html">AssetType</a> &gt; shkyera::utils::assets::read </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structshkyera_1_1_clock.html">const</a> std::filesystem::path &amp;&#160;</td>
-          <td class="paramname"><em>path</em></td><td>)</td>
+          <td class="paramname"><em>path</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype"><a class="el" href="structshkyera_1_1_clock.html">Args</a> &amp;&amp;...&#160;</td>
+          <td class="paramname"><em>args</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">

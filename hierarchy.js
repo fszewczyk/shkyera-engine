@@ -111,15 +111,15 @@ var hierarchy =
     [ "shkyera::Ray", "structshkyera_1_1_ray.html", null ],
     [ "shkyera::Registry", "classshkyera_1_1_registry.html", null ],
     [ "shkyera::RenderingSystem< MainCameraTag >", "classshkyera_1_1_rendering_system.html", null ],
+    [ "shkyera::RenderingSystem< shkyera::RuntimeCamera >", "classshkyera_1_1_rendering_system.html", null ],
     [ "shkyera::RenderingSystem< shkyera::SceneCamera >", "classshkyera_1_1_rendering_system.html", null ],
-    [ "shkyera::Runtime< MainCameraTag >", "classshkyera_1_1_runtime.html", null ],
-    [ "shkyera::Runtime< shkyera::SceneCamera >", "classshkyera_1_1_runtime.html", null ],
     [ "shkyera::SceneFrameBuffer", "classshkyera_1_1_scene_frame_buffer.html", null ],
     [ "shkyera::Shader", "classshkyera_1_1_shader.html", null ],
     [ "shkyera::ShaderProgram", "classshkyera_1_1_shader_program.html", null ],
     [ "shkyera::SingletonComponent", "structshkyera_1_1_singleton_component.html", [
       [ "shkyera::AssetRoot", "structshkyera_1_1_asset_root.html", null ],
       [ "shkyera::Environment", "structshkyera_1_1_environment.html", null ],
+      [ "shkyera::RuntimeCamera", "structshkyera_1_1_runtime_camera.html", null ],
       [ "shkyera::SceneCamera", "structshkyera_1_1_scene_camera.html", null ],
       [ "shkyera::SelectedAssetComponent", "structshkyera_1_1_selected_asset_component.html", null ]
     ] ],
@@ -146,6 +146,7 @@ var hierarchy =
         [ "shkyera::CameraPropertiesWidget", "classshkyera_1_1_camera_properties_widget.html", null ],
         [ "shkyera::EnvironmentPropertiesWidget", "classshkyera_1_1_environment_properties_widget.html", null ]
       ] ],
+      [ "shkyera::RuntimeWidget", "classshkyera_1_1_runtime_widget.html", null ],
       [ "shkyera::SceneWidget", "classshkyera_1_1_scene_widget.html", null ]
     ] ],
     [ "shkyera::Wireframe", "classshkyera_1_1_wireframe.html", null ],

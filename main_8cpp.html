@@ -125,20 +125,20 @@ $(document).ready(function(){initNavTree('main_8cpp.html',''); initResizable(); 
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &lt;stdio.h&gt;</code><br />
-<code>#include &lt;chrono&gt;</code><br />
-<code>#include &lt;iostream&gt;</code><br />
 <code>#include &lt;memory&gt;</code><br />
 <code>#include &lt;sstream&gt;</code><br />
-<code>#include &lt;thread&gt;</code><br />
+<code>#include &lt;<a class="el" href="_asset_8hpp_source.html">AssetManager/Asset.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="_cube_map_8hpp_source.html">AssetManager/CubeMap.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="_image_8hpp_source.html">AssetManager/Image.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="_mesh_8hpp_source.html">AssetManager/Mesh.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="_clock_8hpp_source.html">Common/Clock.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="_types_8hpp_source.html">Common/Types.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="_ambient_light_component_8hpp_source.html">Components/AmbientLightComponent.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="_asset_root_8hpp_source.html">Components/AssetComponents/AssetRoot.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="_billboard_component_8hpp_source.html">Components/BillboardComponent.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="_box_collider_component_8hpp_source.html">Components/BoxColliderComponent.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="_camera_component_8hpp_source.html">Components/CameraComponent.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="_camera_tags_8hpp_source.html">Components/CameraTags.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="_directional_light_component_8hpp_source.html">Components/DirectionalLightComponent.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="_environment_8hpp_source.html">Components/Environment.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="_model_component_8hpp_source.html">Components/ModelComponent.hpp</a>&gt;</code><br />
@@ -147,21 +147,20 @@ $(document).ready(function(){initNavTree('main_8cpp.html',''); initResizable(); 
 <code>#include &lt;<a class="el" href="_particle_emitter_component_8hpp_source.html">Components/ParticleEmitterComponent.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="_point_light_component_8hpp_source.html">Components/PointLightComponent.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="_post_processing_volume_component_8hpp_source.html">Components/PostProcessingVolumeComponent.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="_scene_camera_8hpp_source.html">Components/SceneCamera.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="_skybox_component_8hpp_source.html">Components/SkyboxComponent.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="_spot_light_component_8hpp_source.html">Components/SpotLightComponent.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="_transform_component_8hpp_source.html">Components/TransformComponent.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="_wireframe_component_8hpp_source.html">Components/WireframeComponent.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="_registry_8hpp_source.html">ECS/Registry.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="_builders_8hpp_source.html">Serialization/Builders.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="_particle_system_8hpp_source.html">Systems/ParticleSystem.hpp</a>&gt;</code><br />
 <code>#include &lt;UI/UI.hpp&gt;</code><br />
+<code>#include &lt;<a class="el" href="_asset_loaders_8hpp_source.html">Utils/AssetLoaders.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="_asset_utils_8hpp_source.html">Utils/AssetUtils.hpp</a>&gt;</code><br />
-<code>#include &quot;<a class="el" href="_asset_8hpp_source.html">AssetManager/Asset.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="_asset_loaders_8hpp_source.html">Utils/AssetLoaders.hpp</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for main.cpp:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="main_8cpp__incl.svg" width="4926" height="506"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="main_8cpp__incl.svg" width="4722" height="520"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
@@ -170,6 +169,8 @@ Functions</h2></td></tr>
 <tr class="separator:a24c15528bc65437788d2a52cca3b517b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6f953c4a4970d977490a718c01c318a7" id="r_a6f953c4a4970d977490a718c01c318a7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8cpp.html#a6f953c4a4970d977490a718c01c318a7">loadScene</a> (std::shared_ptr&lt; <a class="el" href="classshkyera_1_1_registry.html">shkyera::Registry</a> &gt; registry)</td></tr>
 <tr class="separator:a6f953c4a4970d977490a718c01c318a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a094e424911ed10f2e622f3954e9f415d" id="r_a094e424911ed10f2e622f3954e9f415d"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="classshkyera_1_1_registry.html">shkyera::Registry</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8cpp.html#a094e424911ed10f2e622f3954e9f415d">loadRegistry</a> ()</td></tr>
+<tr class="separator:a094e424911ed10f2e622f3954e9f415d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae66f6b31b5ad750f1fe042a706a4e3d4" id="r_ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main</a> ()</td></tr>
 <tr class="separator:ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -208,6 +209,23 @@ Functions</h2></td></tr>
           <td></td>
           <td>)</td>
           <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a094e424911ed10f2e622f3954e9f415d" name="a094e424911ed10f2e622f3954e9f415d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a094e424911ed10f2e622f3954e9f415d">&#9670;&#160;</a></span>loadRegistry()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt; <a class="el" href="classshkyera_1_1_registry.html">shkyera::Registry</a> &gt; loadRegistry </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">

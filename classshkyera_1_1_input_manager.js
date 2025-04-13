@@ -4,7 +4,8 @@ var classshkyera_1_1_input_manager =
     [ "MouseButton", "classshkyera_1_1_input_manager.html#ad365b43197ee5262ac6b397df7c701c6", null ],
     [ "CoordinateSystem", "classshkyera_1_1_input_manager.html#a19d17fbbb411ba4f2ebe8b5f882e93da", [
       [ "ABSOLUTE", "classshkyera_1_1_input_manager.html#a19d17fbbb411ba4f2ebe8b5f882e93daa3a0bc063b6db8cae0361657958be836f", null ],
-      [ "SCENE", "classshkyera_1_1_input_manager.html#a19d17fbbb411ba4f2ebe8b5f882e93daaf151a543099185593a5a87339c552698", null ]
+      [ "SCENE", "classshkyera_1_1_input_manager.html#a19d17fbbb411ba4f2ebe8b5f882e93daaf151a543099185593a5a87339c552698", null ],
+      [ "RUNTIME", "classshkyera_1_1_input_manager.html#a19d17fbbb411ba4f2ebe8b5f882e93daae5f5cd9fe71ac064a678f27c7d539ae8", null ]
     ] ],
     [ "InputManager", "classshkyera_1_1_input_manager.html#a3551568db6bfd86507c435deb36db10d", null ],
     [ "getMousePosition", "classshkyera_1_1_input_manager.html#a9b59cc94b9fb5ad8d51b2c674ebcde14", null ],

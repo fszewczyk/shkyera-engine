@@ -9,6 +9,7 @@ var classshkyera_1_1_sparse_set =
     [ "begin", "classshkyera_1_1_sparse_set.html#a19a2d026debdc573bc8604a7fb88fe0d", null ],
     [ "begin", "classshkyera_1_1_sparse_set.html#a4d86383e6c4929ab8284939243227ffe", null ],
     [ "clear", "classshkyera_1_1_sparse_set.html#a45b0b0b2fbc8ac2aad9fee6f2db36d5f", null ],
+    [ "clone", "classshkyera_1_1_sparse_set.html#acd44d0203a2aaeb8df087a06377e548e", null ],
     [ "contains", "classshkyera_1_1_sparse_set.html#ab86646e9fe67b11f5bb7d7ff919d6361", null ],
     [ "empty", "classshkyera_1_1_sparse_set.html#a321d352895a98760788f587701c61c6c", null ],
     [ "end", "classshkyera_1_1_sparse_set.html#ac6f974dcf641ec6c2c2891dcfd0f25e2", null ],
@@ -17,7 +18,7 @@ var classshkyera_1_1_sparse_set =
     [ "get", "classshkyera_1_1_sparse_set.html#a58aff4e1522c2c3f33548f742a7efcc8", null ],
     [ "getComponents", "classshkyera_1_1_sparse_set.html#ada3e998f7778310e57e8b33d1bcb84d5", null ],
     [ "getComponents", "classshkyera_1_1_sparse_set.html#a04fd8b060b2b511671efeb36471d0beb", null ],
-    [ "remove", "classshkyera_1_1_sparse_set.html#adbf24a78445b992ff367de0876e7cb2b", null ],
+    [ "remove", "classshkyera_1_1_sparse_set.html#a40f387715e29f848b797710564bdd494", null ],
     [ "_components", "classshkyera_1_1_sparse_set.html#a4a52caf4b1b5e92e78d25a1a3a5d2cb6", null ],
     [ "_entities", "classshkyera_1_1_sparse_set.html#a9da324bfd9b30bc68ed63feeea7024a2", null ],
     [ "_entityToComponent", "classshkyera_1_1_sparse_set.html#aacb813ca2f78abc291378b2dea5ddf93", null ]

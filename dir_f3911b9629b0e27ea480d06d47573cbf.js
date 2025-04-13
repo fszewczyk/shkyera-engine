@@ -12,6 +12,8 @@ var dir_f3911b9629b0e27ea480d06d47573cbf =
     [ "ProfilerWidget.hpp", "_profiler_widget_8hpp.html", "_profiler_widget_8hpp" ],
     [ "PropertiesWidget.cpp", "_properties_widget_8cpp.html", null ],
     [ "PropertiesWidget.hpp", "_properties_widget_8hpp.html", "_properties_widget_8hpp" ],
+    [ "RuntimeWidget.cpp", "_runtime_widget_8cpp.html", null ],
+    [ "RuntimeWidget.hpp", "_runtime_widget_8hpp.html", "_runtime_widget_8hpp" ],
     [ "SceneWidget.cpp", "_scene_widget_8cpp.html", null ],
     [ "SceneWidget.hpp", "_scene_widget_8hpp.html", "_scene_widget_8hpp" ]
 ];

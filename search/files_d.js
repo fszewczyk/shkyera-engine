@@ -8,6 +8,6 @@ var searchData=
   ['registry_2ecpp_5',['Registry.cpp',['../_registry_8cpp.html',1,'']]],
   ['registry_2ehpp_6',['Registry.hpp',['../_registry_8hpp.html',1,'']]],
   ['renderingsystem_2ehpp_7',['RenderingSystem.hpp',['../_rendering_system_8hpp.html',1,'']]],
-  ['runtime_2ecpp_8',['Runtime.cpp',['../_runtime_8cpp.html',1,'']]],
-  ['runtime_2ehpp_9',['Runtime.hpp',['../_runtime_8hpp.html',1,'']]]
+  ['runtimewidget_2ecpp_8',['RuntimeWidget.cpp',['../_runtime_widget_8cpp.html',1,'']]],
+  ['runtimewidget_2ehpp_9',['RuntimeWidget.hpp',['../_runtime_widget_8hpp.html',1,'']]]
 ];

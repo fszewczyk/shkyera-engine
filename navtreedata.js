@@ -69,16 +69,16 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "_a_a_b_b_8cpp.html",
-"_rendering_2_utils_8hpp.html",
+"_rendering_2_utils_8cpp.html",
 "classshkyera_1_1_camera_properties_widget.html#a09d169b2132a0ab2de8a8c0905c6bd17",
 "classshkyera_1_1_filesystem_widget.html#a6ee02d45538c0da98597a1327fbef28e",
-"classshkyera_1_1_inspector_widget_1_1_material_inspector.html",
-"classshkyera_1_1_particle_emitter_component_u_i.html#a4c4325cd124b2420a62a75dded98b1e7",
-"classshkyera_1_1_rendering_system.html#a3918e0d0da7f6efe5624cdcd59e26cb1",
-"classshkyera_1_1_shader_program.html#af626ff3c8d569440eb46812b4b76d400",
-"classshkyera_1_1_wireframe.html#a04baa0db24942790408f60ac916c9572",
-"namespaceshkyera_1_1clock.html#ae41d907cf88636840ccc441353bb040f",
-"structshkyera_1_1_particle_emitter_component.html#aaaca138e49bdee1fc7b74660e434f6bd"
+"classshkyera_1_1_inspector_widget_1_1_asset_inspector.html#a4c16f2e87c904cabd59db5e3c0183c43",
+"classshkyera_1_1_particle_emitter_component_u_i.html#a4198d40d543bfb872672bbd6ce708778",
+"classshkyera_1_1_rendering_system.html#a336eb3dacf9d0472d77d9a9ae7790435",
+"classshkyera_1_1_shader_program.html#a5480a7bb6ab9e163ab3c0d8241a88af8",
+"classshkyera_1_1_use_shader.html#a12dec30d6731660298c4f709b34443e5",
+"namespaceshkyera.html#ad464a8f71a551cf5046153038d4a8fc0",
+"structshkyera_1_1_particle_emitter_component.html#a0eaf768bb3b4486a9727012bb0e8c466"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

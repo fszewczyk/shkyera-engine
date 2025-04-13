@@ -138,7 +138,7 @@ $(document).ready(function(){initNavTree('_clock_8hpp_source.html',''); initResi
 <div class="foldopen" id="foldopen00009" data-start="{" data-end="};">
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="structshkyera_1_1_clock.html">    9</a></span><span class="keyword">struct</span> <a class="code hl_struct" href="structshkyera_1_1_clock.html">Clock</a> {</div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno"><a class="line" href="structshkyera_1_1_clock.html#a8d8517544e8a4e8572c96cb8b531484f">   10</a></span>  <span class="keywordtype">float</span> deltaTime{1.0 / 60.0};</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="structshkyera_1_1_clock.html#a18522f9fcf698899e93363c83316f6cd">   11</a></span>  <span class="keywordtype">float</span> scaleTime{1.0f};</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="structshkyera_1_1_clock.html#a18522f9fcf698899e93363c83316f6cd">   11</a></span>  <span class="keywordtype">float</span> scaleTime{0.0f};</div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
 <div class="foldopen" id="foldopen00013" data-start="{" data-end="}">
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno"><a class="line" href="structshkyera_1_1_clock.html#a995fc824ceae7569953a00fe1ce9c892">   13</a></span>  <span class="keywordtype">void</span> <a class="code hl_function" href="structshkyera_1_1_clock.html#a995fc824ceae7569953a00fe1ce9c892">reset</a>() {</div>
@@ -152,20 +152,29 @@ $(document).ready(function(){initNavTree('_clock_8hpp_source.html',''); initResi
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>  }</div>
 </div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="structshkyera_1_1_clock.html#af814682b0c6522993098bb1aa9321fa9">   24</a></span>  std::chrono::high_resolution_clock::time_point _lastReset{};</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>};</div>
-</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="structshkyera_1_1_clock.html#a57883f8dbefae2771d7caf4cf8f45790">   23</a></span>  <span class="keywordtype">bool</span> <a class="code hl_function" href="structshkyera_1_1_clock.html#a57883f8dbefae2771d7caf4cf8f45790">isPaused</a>() { <span class="keywordflow">return</span> scaleTime == 0.0f; }</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="structshkyera_1_1_clock.html#ac8159d139b573bc29a626c726fae3682">   25</a></span>  <span class="keywordtype">void</span> <a class="code hl_function" href="structshkyera_1_1_clock.html#ac8159d139b573bc29a626c726fae3682">pause</a>() { scaleTime = 0.0f; }</div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="keyword">namespace </span>clock {</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="keyword">extern</span> Clock&lt;static_cast&lt;size_t&gt;(1e9 / 30)&gt; <a class="code hl_variable" href="namespaceshkyera_1_1clock.html#ae41d907cf88636840ccc441353bb040f">Game</a>;</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>}</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>}  <span class="comment">// namespace shkyera</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="structshkyera_1_1_clock.html#a1f53c0cd76a7f33a093d30dfea9c24ff">   27</a></span>  <span class="keywordtype">void</span> <a class="code hl_function" href="structshkyera_1_1_clock.html#a1f53c0cd76a7f33a093d30dfea9c24ff">start</a>(<span class="keywordtype">float</span> speed = 1.0f) { scaleTime = speed; }</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="structshkyera_1_1_clock.html#af814682b0c6522993098bb1aa9321fa9">   30</a></span>  std::chrono::high_resolution_clock::time_point _lastReset{};</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>};</div>
+</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="keyword">namespace </span>clock {</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="keyword">extern</span> Clock&lt;static_cast&lt;size_t&gt;(1e9 / 30)&gt; <a class="code hl_variable" href="namespaceshkyera_1_1clock.html#ae41d907cf88636840ccc441353bb040f">Game</a>;</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>}</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>}  <span class="comment">// namespace shkyera</span></div>
 <div class="ttc" id="anamespaceshkyera_1_1clock_html_ae41d907cf88636840ccc441353bb040f"><div class="ttname"><a href="namespaceshkyera_1_1clock.html#ae41d907cf88636840ccc441353bb040f">shkyera::clock::Game</a></div><div class="ttdeci">Clock&lt; static_cast&lt; size_t &gt;(1e9/30)&gt; Game</div><div class="ttdef"><b>Definition</b> Clock.cpp:5</div></div>
 <div class="ttc" id="anamespaceshkyera_html"><div class="ttname"><a href="namespaceshkyera.html">shkyera</a></div><div class="ttdef"><b>Definition</b> Asset.hpp:6</div></div>
 <div class="ttc" id="astructshkyera_1_1_clock_html"><div class="ttname"><a href="structshkyera_1_1_clock.html">shkyera::Clock</a></div><div class="ttdef"><b>Definition</b> Clock.hpp:9</div></div>
+<div class="ttc" id="astructshkyera_1_1_clock_html_a1f53c0cd76a7f33a093d30dfea9c24ff"><div class="ttname"><a href="structshkyera_1_1_clock.html#a1f53c0cd76a7f33a093d30dfea9c24ff">shkyera::Clock::start</a></div><div class="ttdeci">void start(float speed=1.0f)</div><div class="ttdef"><b>Definition</b> Clock.hpp:27</div></div>
+<div class="ttc" id="astructshkyera_1_1_clock_html_a57883f8dbefae2771d7caf4cf8f45790"><div class="ttname"><a href="structshkyera_1_1_clock.html#a57883f8dbefae2771d7caf4cf8f45790">shkyera::Clock::isPaused</a></div><div class="ttdeci">bool isPaused()</div><div class="ttdef"><b>Definition</b> Clock.hpp:23</div></div>
 <div class="ttc" id="astructshkyera_1_1_clock_html_a995fc824ceae7569953a00fe1ce9c892"><div class="ttname"><a href="structshkyera_1_1_clock.html#a995fc824ceae7569953a00fe1ce9c892">shkyera::Clock::reset</a></div><div class="ttdeci">void reset()</div><div class="ttdef"><b>Definition</b> Clock.hpp:13</div></div>
+<div class="ttc" id="astructshkyera_1_1_clock_html_ac8159d139b573bc29a626c726fae3682"><div class="ttname"><a href="structshkyera_1_1_clock.html#ac8159d139b573bc29a626c726fae3682">shkyera::Clock::pause</a></div><div class="ttdeci">void pause()</div><div class="ttdef"><b>Definition</b> Clock.hpp:25</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.9.6-->
