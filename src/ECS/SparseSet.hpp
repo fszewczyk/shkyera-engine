@@ -8,6 +8,7 @@ class SparseSetBase {
  public:
   virtual ~SparseSetBase() = default;
   virtual bool remove(Entity entity) = 0;
+  virtual std::unique_ptr<SparseSetBase> clone() const = 0;
 };
 
 /**
@@ -26,6 +27,8 @@ class SparseSet : public SparseSetBase {
      * Default destructor.
      */
   ~SparseSet() = default;
+
+  std::unique_ptr<SparseSetBase> clone() const override { return std::make_unique<SparseSet<Component>>(*this); }
 
   /**
      * Adds a component for the specified entity.
@@ -50,7 +53,7 @@ class SparseSet : public SparseSetBase {
      * @param entity The entity whose component is to be removed.
      * @return True if the component was successfully removed, false otherwise.
      */
-  bool remove(Entity entity) {
+  bool remove(Entity entity) override {
     if (!contains(entity)) {
       return false;
     }

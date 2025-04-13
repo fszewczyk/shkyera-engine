@@ -24,6 +24,8 @@ message CameraComponent {
 
 message SceneCamera { uint32 entity = 1; }
 
+message RuntimeCamera { uint32 entity = 1; }
+
 message Environment { uint32 entity = 1; }
 
 message AssetRoot { uint32 entity = 1; }
@@ -183,8 +185,9 @@ message Registry {
 
   // Singleton Components
   SceneCamera scene_camera = 11;
-  Environment environment = 12;
-  AssetRoot asset_root = 13;
+  RuntimeCamera runtime_camera = 12;
+  Environment environment = 13;
+  AssetRoot asset_root = 14;
 
   // Components
   repeated TransformComponent transforms = 100;

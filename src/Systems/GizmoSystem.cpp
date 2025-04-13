@@ -11,7 +11,7 @@
 #include <Components/TransformComponent.hpp>
 #include <ECS/Registry.hpp>
 #include <InputManager/InputManager.hpp>
-#include "Components/SceneCamera.hpp"
+#include "Components/CameraTags.hpp"
 
 namespace shkyera {
 

@@ -15,6 +15,7 @@
 #include <Components/AmbientLightComponent.hpp>
 #include <Components/BillboardComponent.hpp>
 #include <Components/CameraComponent.hpp>
+#include <Components/CameraTags.hpp>
 #include <Components/DirectionalLightComponent.hpp>
 #include <Components/ModelComponent.hpp>
 #include <Components/NameComponent.hpp>
@@ -22,7 +23,6 @@
 #include <Components/ParticleEmitterComponent.hpp>
 #include <Components/PointLightComponent.hpp>
 #include <Components/PostProcessingVolumeComponent.hpp>
-#include <Components/SceneCamera.hpp>
 #include <Components/SkyboxComponent.hpp>
 #include <Components/SpotLightComponent.hpp>
 #include <Components/TransformComponent.hpp>
@@ -36,6 +36,7 @@
 #include <Systems/RenderingSystem.hpp>
 #include <Utils/AssetUtils.hpp>
 #include <Utils/TransformUtils.hpp>
+#include <type_traits>
 
 namespace shkyera {
 
@@ -43,7 +44,7 @@ template <typename MainCameraTag>
 class RenderingSystem {
  public:
   RenderingSystem(std::shared_ptr<Registry> registry);
-  void render();
+  [[nodiscard]] bool render();
 
   void setSize(uint32_t width, uint32_t height);
   GLuint getRenderFrameBuffer();
@@ -60,9 +61,10 @@ class RenderingSystem {
   void renderSpotLightShadowMaps();
 
   // Main Rendering
-  void renderWorldObjects(const PostProcessingVolumeComponent& postProcessing);
+  void renderWorldObjects();
   void renderParticles();
   void renderBillboards();
+  void renderDebugBillboards();
   void renderPostProcessingVolumes();
   void renderWireframes();
   void renderOutline(const std::unordered_set<Entity>& entities);
@@ -103,6 +105,8 @@ class RenderingSystem {
   ShaderProgram _viewSpaceNormalShaderProgram;
   ShaderProgram _viewSpacePositionShaderProgram;
   ShaderProgram _ssaoShaderProgram;
+  std::vector<glm::vec3> _ssaoKernel;
+  float _usedSsaoRadius{0};
 
   // Tone Mapping
   ShaderProgram _toneMappingShaderProgram;
@@ -160,9 +164,6 @@ class RenderingSystem {
 
 template <typename MainCameraTag>
 RenderingSystem<MainCameraTag>::RenderingSystem(std::shared_ptr<Registry> registry) : _registry(registry) {
-  SHKYERA_ASSERT(_registry->getEntity<MainCameraTag>().has_value(),
-                 "{} CameraTag is not registered. Cannot construct RenderingSystem", typeid(MainCameraTag).name());
-
   const auto& positionAndNormalVertexShader =
       utils::assets::readPermanent<Shader>("resources/shaders/vertex/position_and_normal.glsl", Shader::Type::Vertex);
   const auto& modelFragmentShader =
@@ -317,6 +318,11 @@ template <typename MainCameraTag>
 void RenderingSystem<MainCameraTag>::setSize(uint32_t width, uint32_t height) {
   SHKYERA_PROFILE("RenderingSystem<MainCameraTag>::setSize");
 
+  if (const auto cameraOpt = _registry->getEntity<MainCameraTag>()) {
+    const auto aspectRatio = static_cast<float>(width) / height;
+    _registry->getComponent<CameraComponent>(*cameraOpt).aspectRatio = aspectRatio;
+  }
+
   _litModelsFrameBuffer.setSize(width, height);
   _silhouetteFrameBuffer.setSize(width, height);
   _horizontallyDilatedFrameBuffer.setSize(width, height);
@@ -375,7 +381,14 @@ void RenderingSystem<MainCameraTag>::clearFrameBuffers() {
 }
 
 template <typename MainCameraTag>
-void RenderingSystem<MainCameraTag>::render() {
+bool RenderingSystem<MainCameraTag>::render() {
+  if (!_registry->getEntity<MainCameraTag>().has_value()) {
+    Logger::ERROR("There is no Camera with registered type. Cannot render anything");
+    return false;
+  }
+
+  constexpr auto DrawDebugInfo = std::is_same_v<MainCameraTag, SceneCamera>;
+
   _textureIndex = 0;
   SHKYERA_PROFILE("RenderingSystem<MainCameraTag>::render");
 
@@ -395,12 +408,10 @@ void RenderingSystem<MainCameraTag>::render() {
 
   // Main Rendering Pass
   renderSkybox();
-  renderWorldObjects(postProcessing);
+  renderWorldObjects();
   renderParticles();
   renderBillboards();
-  renderPostProcessingVolumes();
   renderWireframes();
-  renderOutline(_registry->getSelectedEntities());
 
   // Post-Processing
   if (postProcessing.bloomWeight > 0.0f)
@@ -412,7 +423,14 @@ void RenderingSystem<MainCameraTag>::render() {
   if (postProcessing.antiAliasing)
     antiAliasing();
 
-  renderOverlayModels();
+  if constexpr (DrawDebugInfo) {
+    renderPostProcessingVolumes();
+    renderOutline(_registry->getSelectedEntities());
+    renderDebugBillboards();
+    renderOverlayModels();
+  }
+
+  return true;
 }
 
 template <typename MainCameraTag>
@@ -477,26 +495,24 @@ template <typename MainCameraTag>
 void RenderingSystem<MainCameraTag>::renderSSAO(float strength, float radius) {
   SHKYERA_PROFILE("RenderingSystem<MainCameraTag>::renderSSAO");
 
-  static std::vector<glm::vec3> ssaoKernel;
-  static float usedRadius;
+  constexpr int SSAOSamples = 32;
 
   bool updatedKernel = false;
-  if (ssaoKernel.empty() || radius != usedRadius) {
-    constexpr int SSAOSamples = 128;
+  if (_ssaoKernel.empty() || radius != _usedSsaoRadius) {
     updatedKernel = true;
-    usedRadius = radius;
+    _usedSsaoRadius = radius;
 
-    ssaoKernel.resize(SSAOSamples);
+    _ssaoKernel.resize(SSAOSamples);
     random::Uniform<float> sampler(0.0f, 1.0f);
     for (int i = 0; i < SSAOSamples; ++i) {
       glm::vec3 sample(sampler() * 2.0 - 1.0, sampler() * 2.0 - 1.0, sampler() * 0.95 + 0.05);
       sample = glm::normalize(sample);
 
       float scale = (float)i / SSAOSamples;
-      scale = glm::mix(0.05f, usedRadius, scale * scale);
+      scale = glm::mix(0.05f, _usedSsaoRadius, scale * scale);
       sample *= scale;
 
-      ssaoKernel[i] = sample;
+      _ssaoKernel[i] = sample;
     }
   }
 
@@ -513,8 +529,8 @@ void RenderingSystem<MainCameraTag>::renderSSAO(float strength, float radius) {
   _ssaoShaderProgram.setUniform("normalTexture", 1);
 
   if (updatedKernel) {
-    for (int i = 0; i < 128; i++) {
-      _ssaoShaderProgram.setUniform("samples[" + std::to_string(i) + "]", ssaoKernel[i]);
+    for (int i = 0; i < SSAOSamples; i++) {
+      _ssaoShaderProgram.setUniform("samples[" + std::to_string(i) + "]", _ssaoKernel[i]);
     }
   }
 
@@ -580,6 +596,8 @@ void RenderingSystem<MainCameraTag>::renderOutline(const std::unordered_set<Enti
   utils::applyShaderToFrameBuffer(
       _outlinedObjectsFrameBuffer, _overlayShaderProgram,
       {{"background", &_mostRecentFrameBufferPtr->getTexture()}, {"overlay", &_differenceFrameBuffer.getTexture()}});
+
+  glEnable(GL_DEPTH_TEST);
 
   _mostRecentFrameBufferPtr = &_outlinedObjectsFrameBuffer;
 }
@@ -790,7 +808,7 @@ void RenderingSystem<MainCameraTag>::renderSpotLightShadowMaps() {
 }
 
 template <typename MainCameraTag>
-void RenderingSystem<MainCameraTag>::renderWorldObjects(const PostProcessingVolumeComponent& postProcessing) {
+void RenderingSystem<MainCameraTag>::renderWorldObjects() {
   SHKYERA_PROFILE("RenderingSystem<MainCameraTag>::renderWorldObjects");
 
   glEnable(GL_DEPTH_TEST);
@@ -1017,6 +1035,36 @@ void RenderingSystem<MainCameraTag>::renderBillboards() {
 
     glDrawElements(GL_TRIANGLES, billboardPlane->getMeshSize(), GL_UNSIGNED_INT, nullptr);
   }
+  billboardPlane->unbind();
+
+  glDisable(GL_BLEND);
+  glDepthMask(GL_TRUE);
+  glEnable(GL_DEPTH_TEST);
+
+  _mostRecentFrameBufferPtr->unbind();
+}
+
+template <typename MainCameraTag>
+void RenderingSystem<MainCameraTag>::renderDebugBillboards() {
+  SHKYERA_PROFILE("RenderingSystem<MainCameraTag>::renderBillboards");
+
+  UseShader modelShaderUsage(_modelShaderProgram);
+  _mostRecentFrameBufferPtr->bind();
+
+  glEnable(GL_BLEND);
+  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+  glDepthMask(GL_FALSE);
+  glDisable(GL_DEPTH_TEST);
+
+  const auto& cameraTransform = _registry->getComponent<TransformComponent>(*_registry->getEntity<MainCameraTag>());
+  const auto& cameraTransformMatrix =
+      TransformComponent::getGlobalTransformMatrix(*_registry->getEntity<MainCameraTag>(), _registry);
+  const auto& cameraPosition = glm::vec3{cameraTransformMatrix[3]};
+  const glm::mat4& viewMatrix =
+      _registry->getComponent<CameraComponent>(*_registry->getEntity<MainCameraTag>()).getViewMatrix(cameraTransform);
+
+  static const auto billboardPlane = utils::assets::readPermanent<Mesh>(Mesh::Factory::Type::PLANE);
+  billboardPlane->bind();
 
   const auto drawDebugBillboard = [this, &cameraPosition, &viewMatrix](const auto& componentSet,
                                                                        Material const* material) {
@@ -1058,14 +1106,14 @@ void RenderingSystem<MainCameraTag>::renderBillboards() {
     drawDebugBillboard(_registry->getComponentSet<PostProcessingVolumeComponent>(),
                        &_postProcessingVolumeDebugMaterial);
   }
+
   billboardPlane->unbind();
 
   glDisable(GL_BLEND);
   glDepthMask(GL_TRUE);
-
+  glEnable(GL_DEPTH_TEST);
   _mostRecentFrameBufferPtr->unbind();
 }
-
 template <typename MainCameraTag>
 void RenderingSystem<MainCameraTag>::renderPostProcessingVolumes() {
   glEnable(GL_DEPTH_TEST);
@@ -1149,6 +1197,7 @@ void RenderingSystem<MainCameraTag>::bloom(float threshold, float weight) {
       {{"firstTexture", &_mostRecentFrameBufferPtr->getTexture()}, {"secondTexture", &currentBuffer->getTexture()}},
       utils::Uniform("firstWeight", 1.0f), utils::Uniform("secondWeight", weight));
 
+  glEnable(GL_DEPTH_TEST);
   _mostRecentFrameBufferPtr = &_bloomedFrameBuffer;
 }
 
@@ -1161,6 +1210,7 @@ void RenderingSystem<MainCameraTag>::toneMapping() {
   utils::applyShaderToFrameBuffer(_toneMappedFrameBuffer, _toneMappingShaderProgram,
                                   {{"original", &_mostRecentFrameBufferPtr->getTexture()}});
 
+  glEnable(GL_DEPTH_TEST);
   _mostRecentFrameBufferPtr = &_toneMappedFrameBuffer;
 }
 
@@ -1174,6 +1224,7 @@ void RenderingSystem<MainCameraTag>::gammaCorrection(float gamma) {
                                   {{"original", &_mostRecentFrameBufferPtr->getTexture()}},
                                   utils::Uniform("gamma", gamma));
 
+  glEnable(GL_DEPTH_TEST);
   _mostRecentFrameBufferPtr = &_gammaCorrectedFrameBuffer;
 }
 
@@ -1275,9 +1326,11 @@ void RenderingSystem<MainCameraTag>::renderOverlayModels() {
 template <typename MainCameraTag>
 void RenderingSystem<MainCameraTag>::antiAliasing() {
   SHKYERA_PROFILE("RenderingSystem<MainCameraTag>::antiAliasing");
+  glDisable(GL_DEPTH_TEST);
   utils::applyShaderToFrameBuffer(_antiAliasedFrameBuffer, _antiAliasingShaderProgram,
                                   {{"sceneTexture", &_mostRecentFrameBufferPtr->getTexture()}});
 
+  glEnable(GL_DEPTH_TEST);
   _mostRecentFrameBufferPtr = &_antiAliasedFrameBuffer;
 }
 
