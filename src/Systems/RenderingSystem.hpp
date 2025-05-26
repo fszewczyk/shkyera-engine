@@ -28,6 +28,7 @@
 #include <Components/TransformComponent.hpp>
 #include <Components/WireframeComponent.hpp>
 #include <ECS/Registry.hpp>
+#include <ECS/RegistryViewer.hpp>
 #include <Math/AABB.hpp>
 #include <Rendering/FrameBuffers/DepthAtlasFrameBuffer.hpp>
 #include <Rendering/FrameBuffers/SceneFrameBuffer.hpp>
@@ -36,21 +37,23 @@
 #include <Systems/RenderingSystem.hpp>
 #include <Utils/AssetUtils.hpp>
 #include <Utils/TransformUtils.hpp>
+
 #include <type_traits>
+#include "Components/SelectedEntityComponent.hpp"
 
 namespace shkyera {
 
 template <typename MainCameraTag>
-class RenderingSystem {
+class RenderingSystem : public RegistryViewer {
  public:
   RenderingSystem(std::shared_ptr<Registry> registry);
-  [[nodiscard]] bool render();
+  std::optional<GLuint> update();
 
-  void setSize(uint32_t width, uint32_t height);
   GLuint getRenderFrameBuffer();
 
  private:
   void clearFrameBuffers();
+  void setSize(uint32_t width, uint32_t height);
 
   // Supporting Textures
   void renderViewPosition();
@@ -67,7 +70,8 @@ class RenderingSystem {
   void renderDebugBillboards();
   void renderPostProcessingVolumes();
   void renderWireframes();
-  void renderOutline(const std::unordered_set<Entity>& entities);
+  void renderOutlineOfSelectedEntities();
+  void renderOutline(const std::set<Entity>& entities);
   void renderSkybox();
   void renderOverlayModels();
 
@@ -163,7 +167,14 @@ class RenderingSystem {
 };
 
 template <typename MainCameraTag>
-RenderingSystem<MainCameraTag>::RenderingSystem(std::shared_ptr<Registry> registry) : _registry(registry) {
+RenderingSystem<MainCameraTag>::RenderingSystem(std::shared_ptr<Registry> registry)
+    : RegistryViewer(registry,
+                     ReadAccess<TransformComponent, ModelComponent, NameComponent, EntityHierarchy, SkyboxComponent,
+                                DirectionalLightComponent, PointLightComponent, SpotLightComponent,
+                                BillboardComponent<>, WireframeComponent, OverlayModelComponent, AmbientLightComponent,
+                                ParticleEmitterComponent, PostProcessingVolumeComponent>(),
+                     WriteAccess<MainCameraTag, CameraComponent>()),
+      _registry(registry) {
   const auto& positionAndNormalVertexShader =
       utils::assets::readPermanent<Shader>("resources/shaders/vertex/position_and_normal.glsl", Shader::Type::Vertex);
   const auto& modelFragmentShader =
@@ -320,7 +331,7 @@ void RenderingSystem<MainCameraTag>::setSize(uint32_t width, uint32_t height) {
 
   if (const auto cameraOpt = _registry->getEntity<MainCameraTag>()) {
     const auto aspectRatio = static_cast<float>(width) / height;
-    _registry->getComponent<CameraComponent>(*cameraOpt).aspectRatio = aspectRatio;
+    RegistryViewer::write<CameraComponent>(*cameraOpt).aspectRatio = aspectRatio;
   }
 
   _litModelsFrameBuffer.setSize(width, height);
@@ -381,11 +392,15 @@ void RenderingSystem<MainCameraTag>::clearFrameBuffers() {
 }
 
 template <typename MainCameraTag>
-bool RenderingSystem<MainCameraTag>::render() {
-  if (!_registry->getEntity<MainCameraTag>().has_value()) {
+std::optional<GLuint> RenderingSystem<MainCameraTag>::update() {
+  auto* mainCameraComponent = RegistryViewer::write<MainCameraTag>();
+
+  if (!mainCameraComponent) {
     Logger::ERROR("There is no Camera with registered type. Cannot render anything");
-    return false;
+    return std::nullopt;
   }
+
+  setSize(mainCameraComponent->renderWidth, mainCameraComponent->renderHeight);
 
   constexpr auto DrawDebugInfo = std::is_same_v<MainCameraTag, SceneCamera>;
 
@@ -425,12 +440,14 @@ bool RenderingSystem<MainCameraTag>::render() {
 
   if constexpr (DrawDebugInfo) {
     renderPostProcessingVolumes();
-    renderOutline(_registry->getSelectedEntities());
+    renderOutlineOfSelectedEntities();
     renderDebugBillboards();
     renderOverlayModels();
   }
 
-  return true;
+  mainCameraComponent->renderedTextureId = _mostRecentFrameBufferPtr->getTexture().getID();
+
+  return mainCameraComponent->renderedTextureId;
 }
 
 template <typename MainCameraTag>
@@ -440,18 +457,18 @@ void RenderingSystem<MainCameraTag>::renderViewPosition() {
   _viewSpacePositionShaderProgram.use();
   _viewSpacePositionFrameBuffer.bind();
 
-  const auto& cameraTransform = _registry->getComponent<TransformComponent>(*_registry->getEntity<MainCameraTag>());
-  const auto& cameraComponent = _registry->getComponent<CameraComponent>(*_registry->getEntity<MainCameraTag>());
+  const auto& cameraTransform = RegistryViewer::read<TransformComponent>(*_registry->getEntity<MainCameraTag>());
+  const auto& cameraComponent = RegistryViewer::read<CameraComponent>(*_registry->getEntity<MainCameraTag>());
 
   const glm::mat4& viewMatrix =
-      _registry->getComponent<CameraComponent>(*_registry->getEntity<MainCameraTag>()).getViewMatrix(cameraTransform);
+      RegistryViewer::read<CameraComponent>(*_registry->getEntity<MainCameraTag>()).getViewMatrix(cameraTransform);
   const glm::mat4& projectionMatrix =
-      _registry->getComponent<CameraComponent>(*_registry->getEntity<MainCameraTag>()).getProjectionMatrix();
+      RegistryViewer::read<CameraComponent>(*_registry->getEntity<MainCameraTag>()).getProjectionMatrix();
 
   _viewSpacePositionShaderProgram.setUniform("projection", projectionMatrix);
   _viewSpacePositionShaderProgram.setUniform("view", viewMatrix);
 
-  for (const auto& [entity, modelComponent] : _registry->getComponentSet<ModelComponent>()) {
+  for (const auto& [entity, modelComponent] : RegistryViewer::readAll<ModelComponent>()) {
     const auto& transformMatrix = TransformComponent::getGlobalTransformMatrix(entity, _registry);
     _viewSpacePositionShaderProgram.setUniform("model", transformMatrix);
 
@@ -469,18 +486,18 @@ void RenderingSystem<MainCameraTag>::renderViewNormals() {
   _viewSpaceNormalShaderProgram.use();
   _viewSpaceNormalFrameBuffer.bind();
 
-  const auto& cameraTransform = _registry->getComponent<TransformComponent>(*_registry->getEntity<MainCameraTag>());
-  const auto& cameraComponent = _registry->getComponent<CameraComponent>(*_registry->getEntity<MainCameraTag>());
+  const auto& cameraTransform = RegistryViewer::read<TransformComponent>(*_registry->getEntity<MainCameraTag>());
+  const auto& cameraComponent = RegistryViewer::read<CameraComponent>(*_registry->getEntity<MainCameraTag>());
 
   const glm::mat4& viewMatrix =
-      _registry->getComponent<CameraComponent>(*_registry->getEntity<MainCameraTag>()).getViewMatrix(cameraTransform);
+      RegistryViewer::read<CameraComponent>(*_registry->getEntity<MainCameraTag>()).getViewMatrix(cameraTransform);
   const glm::mat4& projectionMatrix =
-      _registry->getComponent<CameraComponent>(*_registry->getEntity<MainCameraTag>()).getProjectionMatrix();
+      RegistryViewer::read<CameraComponent>(*_registry->getEntity<MainCameraTag>()).getProjectionMatrix();
 
   _viewSpaceNormalShaderProgram.setUniform("projection", projectionMatrix);
   _viewSpaceNormalShaderProgram.setUniform("view", viewMatrix);
 
-  for (const auto& [entity, modelComponent] : _registry->getComponentSet<ModelComponent>()) {
+  for (const auto& [entity, modelComponent] : RegistryViewer::readAll<ModelComponent>()) {
     const auto& transformMatrix = TransformComponent::getGlobalTransformMatrix(entity, _registry);
     _viewSpaceNormalShaderProgram.setUniform("model", transformMatrix);
 
@@ -517,7 +534,7 @@ void RenderingSystem<MainCameraTag>::renderSSAO(float strength, float radius) {
   }
 
   const glm::mat4& projectionMatrix =
-      _registry->getComponent<CameraComponent>(*_registry->getEntity<MainCameraTag>()).getProjectionMatrix();
+      RegistryViewer::read<CameraComponent>(*_registry->getEntity<MainCameraTag>()).getProjectionMatrix();
 
   UseShader ssaoShaderUsage(_ssaoShaderProgram);
 
@@ -544,7 +561,15 @@ void RenderingSystem<MainCameraTag>::renderSSAO(float strength, float radius) {
 }
 
 template <typename MainCameraTag>
-void RenderingSystem<MainCameraTag>::renderOutline(const std::unordered_set<Entity>& entities) {
+void RenderingSystem<MainCameraTag>::renderOutlineOfSelectedEntities() {
+  std::set<Entity> selectedEntities;
+  for (const auto& [entity, _] : RegistryViewer::readAll<SelectedEntityComponent>()) {
+    selectedEntities.insert(entity);
+  }
+}
+
+template <typename MainCameraTag>
+void RenderingSystem<MainCameraTag>::renderOutline(const std::set<Entity>& entities) {
   if (std::none_of(entities.begin(), entities.end(),
                    [this](auto e) { return _registry->hasComponent<NameComponent>(e); })) {
     return;
@@ -561,18 +586,18 @@ void RenderingSystem<MainCameraTag>::renderOutline(const std::unordered_set<Enti
 
   // Drawing a silhouette
   _silhouetteFrameBuffer.bind();
-  const auto& cameraTransform = _registry->getComponent<TransformComponent>(*_registry->getEntity<MainCameraTag>());
+  const auto& cameraTransform = RegistryViewer::read<TransformComponent>(*_registry->getEntity<MainCameraTag>());
   const glm::mat4& viewMatrix =
-      _registry->getComponent<CameraComponent>(*_registry->getEntity<MainCameraTag>()).getViewMatrix(cameraTransform);
+      RegistryViewer::read<CameraComponent>(*_registry->getEntity<MainCameraTag>()).getViewMatrix(cameraTransform);
   const glm::mat4& projectionMatrix =
-      _registry->getComponent<CameraComponent>(*_registry->getEntity<MainCameraTag>()).getProjectionMatrix();
+      RegistryViewer::read<CameraComponent>(*_registry->getEntity<MainCameraTag>()).getProjectionMatrix();
   const auto& projectionViewMatrix = projectionMatrix * viewMatrix;
 
   _silhouetteShaderProgram.use();
   _silhouetteShaderProgram.setUniform("fixedColor", glm::vec3{1.0, 0.1, 1.0});
   for (const auto& entity : entities) {
     if (_registry->hasComponents<TransformComponent, ModelComponent>(entity)) {
-      const auto& modelComponent = _registry->getComponent<ModelComponent>(entity);
+      const auto& modelComponent = RegistryViewer::read<ModelComponent>(entity);
       const auto& transformMatrix = TransformComponent::getGlobalTransformMatrix(entity, _registry);
       _silhouetteShaderProgram.setUniform("projectionViewModelMatrix", projectionViewMatrix * transformMatrix);
       modelComponent.updateImpl();
@@ -608,11 +633,11 @@ void RenderingSystem<MainCameraTag>::renderDirectionalLightShadowMaps() {
 
   glEnable(GL_DEPTH_TEST);
 
-  const auto& cameraTransform = _registry->getComponent<TransformComponent>(*_registry->getEntity<MainCameraTag>());
-  const auto& cameraComponent = _registry->getComponent<CameraComponent>(*_registry->getEntity<MainCameraTag>());
+  const auto& cameraTransform = RegistryViewer::read<TransformComponent>(*_registry->getEntity<MainCameraTag>());
+  const auto& cameraComponent = RegistryViewer::read<CameraComponent>(*_registry->getEntity<MainCameraTag>());
 
   std::unordered_set<Entity> directionalLightEntities;
-  for (const auto& [entity, directionalLightComponent] : _registry->getComponentSet<DirectionalLightComponent>()) {
+  for (const auto& [entity, directionalLightComponent] : RegistryViewer::readAll<DirectionalLightComponent>()) {
     directionalLightEntities.insert(entity);
     if (_directionalLightToShadowMap.find(entity) == _directionalLightToShadowMap.end()) {
       _directionalLightToShadowMap.emplace(entity, DepthAtlasFrameBuffer(DirectionalLightComponent::LevelsOfDetail));
@@ -641,7 +666,7 @@ void RenderingSystem<MainCameraTag>::renderDirectionalLightShadowMaps() {
     shadowMapAtlas.clear();
     shadowMapAtlas.unbind();
 
-    const auto& directionalLightComponent = _registry->getComponent<DirectionalLightComponent>(lightEntity);
+    const auto& directionalLightComponent = RegistryViewer::read<DirectionalLightComponent>(lightEntity);
     const auto lightTransformMatrix = TransformComponent::getGlobalTransformMatrix(lightEntity, _registry);
 
     for (uint8_t levelOfDetail = 0; levelOfDetail < DirectionalLightComponent::LevelsOfDetail; ++levelOfDetail) {
@@ -652,7 +677,7 @@ void RenderingSystem<MainCameraTag>::renderDirectionalLightShadowMaps() {
           lightTransformMatrix, cameraTransform, cameraComponent, levelOfDetail);
 
       _depthShaderProgram.setUniform("projectionViewMatrix", lightSpaceMatrix);
-      for (const auto& [modelEntity, modelComponent] : _registry->getComponentSet<ModelComponent>()) {
+      for (const auto& [modelEntity, modelComponent] : RegistryViewer::readAll<ModelComponent>()) {
         const auto& transformMatrix = TransformComponent::getGlobalTransformMatrix(modelEntity, _registry);
         _depthShaderProgram.setUniform("modelMatrix", transformMatrix);
 
@@ -671,11 +696,11 @@ void RenderingSystem<MainCameraTag>::renderPointLightShadowMaps() {
 
   glEnable(GL_DEPTH_TEST);
 
-  const auto& cameraTransform = _registry->getComponent<TransformComponent>(*_registry->getEntity<MainCameraTag>());
-  const auto& cameraComponent = _registry->getComponent<CameraComponent>(*_registry->getEntity<MainCameraTag>());
+  const auto& cameraTransform = RegistryViewer::read<TransformComponent>(*_registry->getEntity<MainCameraTag>());
+  const auto& cameraComponent = RegistryViewer::read<CameraComponent>(*_registry->getEntity<MainCameraTag>());
 
   std::unordered_set<Entity> pointLightEntities;
-  for (const auto& [entity, pointLightComponent] : _registry->getComponentSet<PointLightComponent>()) {
+  for (const auto& [entity, pointLightComponent] : RegistryViewer::readAll<PointLightComponent>()) {
     pointLightEntities.insert(entity);
     if (_pointLightToShadowMap.find(entity) == _pointLightToShadowMap.end()) {
       _pointLightToShadowMap.emplace(entity, DepthAtlasFrameBuffer(6));
@@ -705,8 +730,8 @@ void RenderingSystem<MainCameraTag>::renderPointLightShadowMaps() {
     shadowMapCubeAtlas.unbind();
 
     // TODO: Use global position
-    const auto& lightPosition = _registry->getComponent<TransformComponent>(lightEntity).getPosition();
-    const auto& lightRange = _registry->getComponent<PointLightComponent>(lightEntity).range;
+    const auto& lightPosition = RegistryViewer::read<TransformComponent>(lightEntity).getPosition();
+    const auto& lightRange = RegistryViewer::read<PointLightComponent>(lightEntity).range;
 
     glm::mat4 projection = glm::perspective(glm::radians(90.0f), 1.0f, 0.01f, lightRange);
     glm::mat4 captureViews[6] = {
@@ -732,7 +757,7 @@ void RenderingSystem<MainCameraTag>::renderPointLightShadowMaps() {
       const glm::mat4& lightSpaceMatrix = captureViews[face];
       _distanceShaderProgram.setUniform("projectionViewMatrix", lightSpaceMatrix);
 
-      for (const auto& [modelEntity, modelComponent] : _registry->getComponentSet<ModelComponent>()) {
+      for (const auto& [modelEntity, modelComponent] : RegistryViewer::readAll<ModelComponent>()) {
         const auto& transformMatrix = TransformComponent::getGlobalTransformMatrix(modelEntity, _registry);
         _distanceShaderProgram.setUniform("modelMatrix", transformMatrix);
 
@@ -752,11 +777,11 @@ void RenderingSystem<MainCameraTag>::renderSpotLightShadowMaps() {
 
   glEnable(GL_DEPTH_TEST);
 
-  const auto& cameraTransform = _registry->getComponent<TransformComponent>(*_registry->getEntity<MainCameraTag>());
-  const auto& cameraComponent = _registry->getComponent<CameraComponent>(*_registry->getEntity<MainCameraTag>());
+  const auto& cameraTransform = RegistryViewer::read<TransformComponent>(*_registry->getEntity<MainCameraTag>());
+  const auto& cameraComponent = RegistryViewer::read<CameraComponent>(*_registry->getEntity<MainCameraTag>());
 
   std::unordered_set<Entity> spotLightEntities;
-  for (const auto& [entity, spotLightComponent] : _registry->getComponentSet<SpotLightComponent>()) {
+  for (const auto& [entity, spotLightComponent] : RegistryViewer::readAll<SpotLightComponent>()) {
     spotLightEntities.insert(entity);
     if (_spotLightToShadowMap.find(entity) == _spotLightToShadowMap.end()) {
       _spotLightToShadowMap.emplace(entity, DepthAtlasFrameBuffer(1));
@@ -787,16 +812,16 @@ void RenderingSystem<MainCameraTag>::renderSpotLightShadowMaps() {
 
     const auto lightTransformMatrix = TransformComponent::getGlobalTransformMatrix(lightEntity, _registry);
     const auto lightPosition = glm::vec3{lightTransformMatrix[3]};
-    const auto& lightRange = _registry->getComponent<SpotLightComponent>(lightEntity).range;
-    const auto& lightOuterCutoff = _registry->getComponent<SpotLightComponent>(lightEntity).outerCutoff;
+    const auto& lightRange = RegistryViewer::read<SpotLightComponent>(lightEntity).range;
+    const auto& lightOuterCutoff = RegistryViewer::read<SpotLightComponent>(lightEntity).outerCutoff;
     const auto lightSpaceMatrix =
-        _registry->getComponent<SpotLightComponent>(lightEntity).getLightSpaceMatrix(lightTransformMatrix);
+        RegistryViewer::read<SpotLightComponent>(lightEntity).getLightSpaceMatrix(lightTransformMatrix);
 
     _distanceShaderProgram.use();
 
     shadowMap.bind(0);
     _distanceShaderProgram.setUniform("projectionViewMatrix", lightSpaceMatrix);
-    for (const auto& [modelEntity, modelComponent] : _registry->getComponentSet<ModelComponent>()) {
+    for (const auto& [modelEntity, modelComponent] : RegistryViewer::readAll<ModelComponent>()) {
       const auto& transformMatrix = TransformComponent::getGlobalTransformMatrix(modelEntity, _registry);
       _distanceShaderProgram.setUniform("modelMatrix", transformMatrix);
       modelComponent.updateImpl();
@@ -813,38 +838,38 @@ void RenderingSystem<MainCameraTag>::renderWorldObjects() {
 
   glEnable(GL_DEPTH_TEST);
 
-  const auto& cameraTransform = _registry->getComponent<TransformComponent>(*_registry->getEntity<MainCameraTag>());
+  const auto& cameraTransform = RegistryViewer::read<TransformComponent>(*_registry->getEntity<MainCameraTag>());
   const auto& cameraTransformMatrix =
       TransformComponent::getGlobalTransformMatrix(*_registry->getEntity<MainCameraTag>(), _registry);
   const auto& cameraPosition = glm::vec3{cameraTransformMatrix[3]};
-  const auto& cameraComponent = _registry->getComponent<CameraComponent>(*_registry->getEntity<MainCameraTag>());
+  const auto& cameraComponent = RegistryViewer::read<CameraComponent>(*_registry->getEntity<MainCameraTag>());
 
   // ********* Rendering the world *********
   UseShader modelShaderUsage(_modelShaderProgram);
   _mostRecentFrameBufferPtr->bind();
 
   const glm::mat4& viewMatrix =
-      _registry->getComponent<CameraComponent>(*_registry->getEntity<MainCameraTag>()).getViewMatrix(cameraTransform);
+      RegistryViewer::read<CameraComponent>(*_registry->getEntity<MainCameraTag>()).getViewMatrix(cameraTransform);
   const glm::mat4& projectionMatrix =
-      _registry->getComponent<CameraComponent>(*_registry->getEntity<MainCameraTag>()).getProjectionMatrix();
+      RegistryViewer::read<CameraComponent>(*_registry->getEntity<MainCameraTag>()).getProjectionMatrix();
 
   _modelShaderProgram.setUniform("projectionViewMatrix", projectionMatrix * viewMatrix);
   _modelShaderProgram.setUniform("viewPos", cameraPosition);
 
   glm::vec3 ambientColor{0, 0, 0};
-  for (const auto& ambientLightComponent : _registry->getComponents<AmbientLightComponent>()) {
+  for (const auto& ambientLightComponent : RegistryViewer::read<AmbientLightComponent>()) {
     ambientColor += ambientLightComponent.color * ambientLightComponent.intensity;
   }
   _modelShaderProgram.setUniform("ambientLight", ambientColor);
 
   int pointLightIndex = 0;
-  for (const auto& [entity, pointLightComponent] : _registry->getComponentSet<PointLightComponent>()) {
+  for (const auto& [entity, pointLightComponent] : RegistryViewer::readAll<PointLightComponent>()) {
     auto& depthCubeMap = _pointLightToShadowMap.at(entity);
     depthCubeMap.getTexture().activate(GL_TEXTURE0 + _textureIndex);
     _modelShaderProgram.setUniform("pointLightsDepthCubeMap[" + std::to_string(pointLightIndex) + "]", _textureIndex);
     ++_textureIndex;
 
-    const auto& transformComponent = _registry->getComponent<TransformComponent>(entity);
+    const auto& transformComponent = RegistryViewer::read<TransformComponent>(entity);
     _modelShaderProgram.setUniform("pointLights[" + std::to_string(pointLightIndex) + "].position",
                                    transformComponent.getPosition());
     _modelShaderProgram.setUniform("pointLights[" + std::to_string(pointLightIndex) + "].color",
@@ -856,8 +881,8 @@ void RenderingSystem<MainCameraTag>::renderWorldObjects() {
   _modelShaderProgram.setUniform("numPointLights", pointLightIndex);
 
   int directionalLightIndex = 0;
-  for (const auto& [entity, directionalLightComponent] : _registry->getComponentSet<DirectionalLightComponent>()) {
-    const auto& lightTransform = _registry->getComponent<TransformComponent>(entity);
+  for (const auto& [entity, directionalLightComponent] : RegistryViewer::readAll<DirectionalLightComponent>()) {
+    const auto& lightTransform = RegistryViewer::read<TransformComponent>(entity);
     const auto& depthAtlasFrameBuffer = _directionalLightToShadowMap.at(entity);
     const auto lightTransformMatrix = TransformComponent::getGlobalTransformMatrix(entity, _registry);
 
@@ -884,14 +909,14 @@ void RenderingSystem<MainCameraTag>::renderWorldObjects() {
   _modelShaderProgram.setUniform("numDirectionalLights", directionalLightIndex);
 
   int spotLightIndex = 0;
-  for (const auto& [entity, spotLightComponent] : _registry->getComponentSet<SpotLightComponent>()) {
+  for (const auto& [entity, spotLightComponent] : RegistryViewer::readAll<SpotLightComponent>()) {
     {
-      const auto& lightTransform = _registry->getComponent<TransformComponent>(entity);
+      const auto& lightTransform = RegistryViewer::read<TransformComponent>(entity);
       const auto lightTransformMatrix = TransformComponent::getGlobalTransformMatrix(entity, _registry);
       const auto globalLightPosition = glm::vec3{lightTransformMatrix[3]};
       const auto lightDirection = glm::normalize(glm::vec3{1, 0, 0} * glm::mat3{glm::inverse(lightTransformMatrix)});
       const auto lightSpaceMatrix =
-          _registry->getComponent<SpotLightComponent>(entity).getLightSpaceMatrix(lightTransformMatrix);
+          RegistryViewer::read<SpotLightComponent>(entity).getLightSpaceMatrix(lightTransformMatrix);
 
       _modelShaderProgram.setUniform("spotLights[" + std::to_string(spotLightIndex) + "].lightSpaceMatrix",
                                      lightSpaceMatrix);
@@ -929,8 +954,9 @@ void RenderingSystem<MainCameraTag>::renderWorldObjects() {
 
   {
     SHKYERA_PROFILE("RenderingSystem<MainCameraTag>::renderWorldObjects - Models");
-    for (const auto& [entity, modelComponent] : _registry->getComponentSet<ModelComponent>()) {
-      const auto& transformMatrix = TransformComponent::getGlobalTransformMatrix(entity, _registry);
+    for (const auto& [entity, modelComponent] : RegistryViewer::readAll<ModelComponent>()) {
+
+      const auto& transformMatrix = utils::transform::getGlobalTransformMatrix(entity, *this);
       _modelShaderProgram.setUniform("modelMatrix", transformMatrix);
 
       const auto& material = std::get<AssetRef<Material>>(modelComponent.material);
@@ -951,17 +977,17 @@ void RenderingSystem<MainCameraTag>::renderParticles() {
 
   UseShader modelShaderUsage(_modelShaderProgram);
 
-  const auto& cameraTransform = _registry->getComponent<TransformComponent>(*_registry->getEntity<MainCameraTag>());
+  const auto& cameraTransform = RegistryViewer::read<TransformComponent>(*_registry->getEntity<MainCameraTag>());
   const auto& cameraTransformMatrix =
       TransformComponent::getGlobalTransformMatrix(*_registry->getEntity<MainCameraTag>(), _registry);
   const auto& cameraPosition = glm::vec3{cameraTransformMatrix[3]};
   const glm::mat4& viewMatrix =
-      _registry->getComponent<CameraComponent>(*_registry->getEntity<MainCameraTag>()).getViewMatrix(cameraTransform);
+      RegistryViewer::read<CameraComponent>(*_registry->getEntity<MainCameraTag>()).getViewMatrix(cameraTransform);
 
   static const auto billboardPlane = utils::assets::readPermanent<Mesh>(Mesh::Factory::Type::PLANE);
   billboardPlane->bind();
 
-  for (const auto& [entity, emitter] : _registry->getComponentSet<ParticleEmitterComponent>()) {
+  for (const auto& [entity, emitter] : RegistryViewer::readAll<ParticleEmitterComponent>()) {
     if (!emitter.enabled) {
       continue;
     }
@@ -1008,18 +1034,18 @@ void RenderingSystem<MainCameraTag>::renderBillboards() {
   glDepthMask(GL_FALSE);
   glDisable(GL_DEPTH_TEST);
 
-  const auto& cameraTransform = _registry->getComponent<TransformComponent>(*_registry->getEntity<MainCameraTag>());
+  const auto& cameraTransform = RegistryViewer::read<TransformComponent>(*_registry->getEntity<MainCameraTag>());
   const auto& cameraTransformMatrix =
       TransformComponent::getGlobalTransformMatrix(*_registry->getEntity<MainCameraTag>(), _registry);
   const auto& cameraPosition = glm::vec3{cameraTransformMatrix[3]};
   const glm::mat4& viewMatrix =
-      _registry->getComponent<CameraComponent>(*_registry->getEntity<MainCameraTag>()).getViewMatrix(cameraTransform);
+      RegistryViewer::read<CameraComponent>(*_registry->getEntity<MainCameraTag>()).getViewMatrix(cameraTransform);
 
   static const auto billboardPlane = utils::assets::readPermanent<Mesh>(Mesh::Factory::Type::PLANE);
 
   billboardPlane->bind();
   for (const auto& [entity, billboardComponent] :
-       _registry->getComponentSet<BillboardComponent<RuntimeMode::PRODUCTION>>()) {
+       RegistryViewer::readAll<BillboardComponent<RuntimeMode::PRODUCTION>>()) {
     if (billboardComponent.occlusion == BillboardComponent<RuntimeMode::PRODUCTION>::Occlusion::Occludable) {
       glEnable(GL_DEPTH_TEST);
     } else {
@@ -1056,12 +1082,12 @@ void RenderingSystem<MainCameraTag>::renderDebugBillboards() {
   glDepthMask(GL_FALSE);
   glDisable(GL_DEPTH_TEST);
 
-  const auto& cameraTransform = _registry->getComponent<TransformComponent>(*_registry->getEntity<MainCameraTag>());
+  const auto& cameraTransform = RegistryViewer::read<TransformComponent>(*_registry->getEntity<MainCameraTag>());
   const auto& cameraTransformMatrix =
       TransformComponent::getGlobalTransformMatrix(*_registry->getEntity<MainCameraTag>(), _registry);
   const auto& cameraPosition = glm::vec3{cameraTransformMatrix[3]};
   const glm::mat4& viewMatrix =
-      _registry->getComponent<CameraComponent>(*_registry->getEntity<MainCameraTag>()).getViewMatrix(cameraTransform);
+      RegistryViewer::read<CameraComponent>(*_registry->getEntity<MainCameraTag>()).getViewMatrix(cameraTransform);
 
   static const auto billboardPlane = utils::assets::readPermanent<Mesh>(Mesh::Factory::Type::PLANE);
   billboardPlane->bind();
@@ -1098,13 +1124,12 @@ void RenderingSystem<MainCameraTag>::renderDebugBillboards() {
   };
 
   {
-    drawDebugBillboard(_registry->getComponentSet<PointLightComponent>(), &_pointLightDebugMaterial);
-    drawDebugBillboard(_registry->getComponentSet<DirectionalLightComponent>(), &_directionalLightDebugMaterial);
-    drawDebugBillboard(_registry->getComponentSet<SpotLightComponent>(), &_spotLightDebugMaterial);
-    drawDebugBillboard(_registry->getComponentSet<AmbientLightComponent>(), &_ambientLightDebugMaterial);
-    drawDebugBillboard(_registry->getComponentSet<ParticleEmitterComponent>(), &_particleEmitterDebugMaterial);
-    drawDebugBillboard(_registry->getComponentSet<PostProcessingVolumeComponent>(),
-                       &_postProcessingVolumeDebugMaterial);
+    drawDebugBillboard(RegistryViewer::readAll<PointLightComponent>(), &_pointLightDebugMaterial);
+    drawDebugBillboard(RegistryViewer::readAll<DirectionalLightComponent>(), &_directionalLightDebugMaterial);
+    drawDebugBillboard(RegistryViewer::readAll<SpotLightComponent>(), &_spotLightDebugMaterial);
+    drawDebugBillboard(RegistryViewer::readAll<AmbientLightComponent>(), &_ambientLightDebugMaterial);
+    drawDebugBillboard(RegistryViewer::readAll<ParticleEmitterComponent>(), &_particleEmitterDebugMaterial);
+    drawDebugBillboard(RegistryViewer::readAll<PostProcessingVolumeComponent>(), &_postProcessingVolumeDebugMaterial);
   }
 
   billboardPlane->unbind();
@@ -1124,17 +1149,17 @@ void RenderingSystem<MainCameraTag>::renderPostProcessingVolumes() {
   static const glm::vec3 volumeWireframeColor{0.8, 0.8, 0.8};
   _wireframeShaderProgram.setUniform("fixedColor", volumeWireframeColor);
 
-  const auto& cameraTransform = _registry->getComponent<TransformComponent>(*_registry->getEntity<MainCameraTag>());
+  const auto& cameraTransform = RegistryViewer::read<TransformComponent>(*_registry->getEntity<MainCameraTag>());
   const glm::mat4& viewMatrix =
-      _registry->getComponent<CameraComponent>(*_registry->getEntity<MainCameraTag>()).getViewMatrix(cameraTransform);
+      RegistryViewer::read<CameraComponent>(*_registry->getEntity<MainCameraTag>()).getViewMatrix(cameraTransform);
   const glm::mat4& projectionMatrix =
-      _registry->getComponent<CameraComponent>(*_registry->getEntity<MainCameraTag>()).getProjectionMatrix();
+      RegistryViewer::read<CameraComponent>(*_registry->getEntity<MainCameraTag>()).getProjectionMatrix();
   const auto& projectionViewMatrix = projectionMatrix * viewMatrix;
 
   static const auto volumeCube = utils::assets::readPermanent<Wireframe>(Wireframe::Factory::Type::CUBE);
 
   volumeCube->bind();
-  for (const auto& [entity, _volumeComponent] : _registry->getComponentSet<PostProcessingVolumeComponent>()) {
+  for (const auto& [entity, _volumeComponent] : RegistryViewer::readAll<PostProcessingVolumeComponent>()) {
     const auto& transformMatrix = TransformComponent::getGlobalTransformMatrix(entity, _registry);
     _wireframeShaderProgram.setUniform("projectionViewModelMatrix", projectionViewMatrix * transformMatrix);
     glDrawArrays(GL_LINES, 0, volumeCube->getEdgeCount());
@@ -1236,11 +1261,11 @@ void RenderingSystem<MainCameraTag>::renderWireframes() {
 
   _mostRecentFrameBufferPtr->bind();
 
-  const auto& cameraTransform = _registry->getComponent<TransformComponent>(*_registry->getEntity<MainCameraTag>());
+  const auto& cameraTransform = RegistryViewer::read<TransformComponent>(*_registry->getEntity<MainCameraTag>());
   const glm::mat4& viewMatrix =
-      _registry->getComponent<CameraComponent>(*_registry->getEntity<MainCameraTag>()).getViewMatrix(cameraTransform);
+      RegistryViewer::read<CameraComponent>(*_registry->getEntity<MainCameraTag>()).getViewMatrix(cameraTransform);
   const glm::mat4& projectionMatrix =
-      _registry->getComponent<CameraComponent>(*_registry->getEntity<MainCameraTag>()).getProjectionMatrix();
+      RegistryViewer::read<CameraComponent>(*_registry->getEntity<MainCameraTag>()).getProjectionMatrix();
 
   _wireframeShaderProgram.use();
 
@@ -1248,7 +1273,7 @@ void RenderingSystem<MainCameraTag>::renderWireframes() {
 
   static const glm::vec3 wireframeColor{0.08, 0.7, 0.15};
 
-  for (const auto& [entity, wireframeComponent] : _registry->getComponentSet<WireframeComponent>()) {
+  for (const auto& [entity, wireframeComponent] : RegistryViewer::readAll<WireframeComponent>()) {
     const auto& transformMatrix = TransformComponent::getGlobalTransformMatrix(entity, _registry);
     _wireframeShaderProgram.setUniform("projectionViewModelMatrix", projectionViewMatrix * transformMatrix);
     _wireframeShaderProgram.setUniform("fixedColor", wireframeColor);
@@ -1263,11 +1288,11 @@ template <typename MainCameraTag>
 void RenderingSystem<MainCameraTag>::renderSkybox() {
   SHKYERA_PROFILE("RenderingSystem<MainCameraTag>::renderSkybox");
 
-  const auto& cameraTransform = _registry->getComponent<TransformComponent>(*_registry->getEntity<MainCameraTag>());
+  const auto& cameraTransform = RegistryViewer::read<TransformComponent>(*_registry->getEntity<MainCameraTag>());
   const glm::mat4& viewMatrix =
-      _registry->getComponent<CameraComponent>(*_registry->getEntity<MainCameraTag>()).getViewMatrix(cameraTransform);
+      RegistryViewer::read<CameraComponent>(*_registry->getEntity<MainCameraTag>()).getViewMatrix(cameraTransform);
   const glm::mat4& projectionMatrix =
-      _registry->getComponent<CameraComponent>(*_registry->getEntity<MainCameraTag>()).getProjectionMatrix();
+      RegistryViewer::read<CameraComponent>(*_registry->getEntity<MainCameraTag>()).getProjectionMatrix();
   static auto cubemapMesh = utils::assets::readPermanent<Mesh>(Mesh::Factory::Type::CUBEMAP);
 
   glDepthFunc(GL_LEQUAL);
@@ -1277,7 +1302,7 @@ void RenderingSystem<MainCameraTag>::renderSkybox() {
   _skyboxShaderProgram.setUniform("viewMatrix", glm::mat4(viewMatrix));
   _skyboxShaderProgram.setUniform("projectionMatrix", projectionMatrix);
 
-  for (const auto& skybox : _registry->getComponents<SkyboxComponent>()) {
+  for (const auto& skybox : RegistryViewer::read<SkyboxComponent>()) {
     const auto& skyboxCubeMap = std::get<AssetRef<CubeMap>>(skybox.skyboxCubeMap);
     SHKYERA_ASSERT(skyboxCubeMap, "Skybox CubeMap Asset is not loaded");
 
@@ -1300,17 +1325,17 @@ void RenderingSystem<MainCameraTag>::renderOverlayModels() {
 
   _mostRecentFrameBufferPtr->bind();
 
-  const auto& cameraTransform = _registry->getComponent<TransformComponent>(*_registry->getEntity<MainCameraTag>());
+  const auto& cameraTransform = RegistryViewer::read<TransformComponent>(*_registry->getEntity<MainCameraTag>());
   const glm::mat4& viewMatrix =
-      _registry->getComponent<CameraComponent>(*_registry->getEntity<MainCameraTag>()).getViewMatrix(cameraTransform);
+      RegistryViewer::read<CameraComponent>(*_registry->getEntity<MainCameraTag>()).getViewMatrix(cameraTransform);
   const glm::mat4& projectionMatrix =
-      _registry->getComponent<CameraComponent>(*_registry->getEntity<MainCameraTag>()).getProjectionMatrix();
+      RegistryViewer::read<CameraComponent>(*_registry->getEntity<MainCameraTag>()).getProjectionMatrix();
 
   _wireframeShaderProgram.use();
 
   const auto& projectionViewMatrix = projectionMatrix * viewMatrix;
 
-  for (const auto& [entity, overlayModelComponent] : _registry->getComponentSet<OverlayModelComponent>()) {
+  for (const auto& [entity, overlayModelComponent] : RegistryViewer::readAll<OverlayModelComponent>()) {
     const auto& transformMatrix = TransformComponent::getGlobalTransformMatrix(entity, _registry);
     _wireframeShaderProgram.setUniform("projectionViewModelMatrix", projectionViewMatrix * transformMatrix);
     _wireframeShaderProgram.setUniform("fixedColor", overlayModelComponent.getMaterial()->albedo);
@@ -1375,19 +1400,19 @@ template <typename MainCameraTag>
 PostProcessingVolumeComponent RenderingSystem<MainCameraTag>::getPostProcessingSettings() {
   static const auto volume = AABB{.center = {0, 0, 0}, .extents = {1.0, 1.0, 1.0}};
 
-  const auto& cameraTransform = _registry->getComponent<TransformComponent>(*_registry->getEntity<MainCameraTag>());
+  const auto& cameraTransform = RegistryViewer::read<TransformComponent>(*_registry->getEntity<MainCameraTag>());
   const auto& cameraTransformMatrix =
       TransformComponent::getGlobalTransformMatrix(*_registry->getEntity<MainCameraTag>(), _registry);
   const auto& cameraPosition = glm::vec3{cameraTransformMatrix[3]};
 
-  for (const auto& [entity, postProcessingVolume] : _registry->getComponentSet<PostProcessingVolumeComponent>()) {
+  for (const auto& [entity, postProcessingVolume] : RegistryViewer::readAll<PostProcessingVolumeComponent>()) {
     const auto& transformMatrix = TransformComponent::getGlobalTransformMatrix(entity, _registry);
     if (volume.isInside(transformMatrix, cameraPosition)) {
       return postProcessingVolume;
     }
   }
 
-  for (const auto& postProcessingVolume : _registry->getComponents<PostProcessingVolumeComponent>()) {
+  for (const auto& postProcessingVolume : RegistryViewer::read<PostProcessingVolumeComponent>()) {
     if (postProcessingVolume.global) {
       return postProcessingVolume;
     }

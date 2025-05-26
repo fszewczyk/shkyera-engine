@@ -17,8 +17,7 @@
 
 namespace shkyera {
 
-RuntimeWidget::RuntimeWidget(std::shared_ptr<Registry> registry)
-    : Widget("Runtime"), _registry(registry), _renderingSystem(registry) {
+RuntimeWidget::RuntimeWidget(std::shared_ptr<Registry> registry) : Widget("Runtime"), _registry(registry) {
   _playButtonTexture = utils::assets::read<Texture>(Image::ICON_BUTTON_PLAY);
   _stopButtonTexture = utils::assets::read<Texture>(Image::ICON_BUTTON_STOP);
 }
@@ -28,10 +27,7 @@ void RuntimeWidget::draw() {
   ImGui::Begin(_name.c_str(), nullptr, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
 
   auto renderSize = ImGui::GetContentRegionAvail();
-  updateWindowCoordinateSystem();
-
-  _renderingSystem.setSize(renderSize.x * 2.0f, renderSize.y * 2.0f);
-
+  renderSize.y -= 24;
   {
     ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(4, 4));
     ImGui::SetCursorPos(ImVec2(renderSize.x * 0.5f - 8, 24));
@@ -52,8 +48,15 @@ void RuntimeWidget::draw() {
     ImGui::PopStyleVar();
   }
 
-  if (_renderingSystem.render()) {
-    ImGui::Image((void*)(intptr_t)_renderingSystem.getRenderFrameBuffer(), renderSize);
+  updateWindowCoordinateSystem();
+
+  if (auto* runtimeCamera = _registry->getComponent<RuntimeCamera>()) {
+    runtimeCamera->renderWidth = renderSize.x;   // * 2.0f;
+    runtimeCamera->renderHeight = renderSize.y;  // * 2.0f;
+
+    if (const auto textureId = runtimeCamera->renderedTextureId) {
+      ImGui::Image((void*)(intptr_t)*textureId, renderSize);
+    }
   }
 
   ImGui::End();

@@ -2,16 +2,19 @@
 #include <Common/Profiler.hpp>
 #include <Systems/GizmoSystem.hpp>
 #include <Utils/AssetUtils.hpp>
+#include <Utils/InputUtils.hpp>
 
 #include <AssetManager/Mesh.hpp>
 #include <Components/BoxColliderComponent.hpp>
+#include <Components/CameraComponent.hpp>
+#include <Components/CameraTags.hpp>
 #include <Components/GizmoHandleComponent.hpp>
 #include <Components/NameComponent.hpp>
 #include <Components/OverlayModelComponent.hpp>
+#include <Components/SelectedEntityComponent.hpp>
 #include <Components/TransformComponent.hpp>
 #include <ECS/Registry.hpp>
 #include <InputManager/InputManager.hpp>
-#include "Components/CameraTags.hpp"
 
 namespace shkyera {
 
@@ -32,7 +35,10 @@ static shkyera::Entity addOverlayModel(std::shared_ptr<shkyera::Registry> regist
   return entity;
 }
 
-GizmoSystem::GizmoSystem(std::shared_ptr<Registry> registry) : _registry(std::move(registry)) {
+GizmoSystem::GizmoSystem(std::shared_ptr<Registry> registry)
+    : RegistryViewer(registry, ReadAccess<SceneCamera, NameComponent, BoxColliderComponent<RuntimeMode::DEVELOPMENT>>(),
+                     WriteAccess<TransformComponent>()),
+      _registry(std::move(registry)) {
   {  // Translation Gizmo
     _translationGizmo = _registry->addEntity();
     _registry->addComponent<TransformComponent>(_translationGizmo);
@@ -147,11 +153,35 @@ GizmoSystem::GizmoSystem(std::shared_ptr<Registry> registry) : _registry(std::mo
     _registry->getHierarchy().attributeChild(_rotationGizmo, yHandle);
     _registry->getHierarchy().attributeChild(_rotationGizmo, zHandle);
   }
+}
 
-  InputManager::getInstance().registerMouseButtonDownCallback(GLFW_MOUSE_BUTTON_LEFT, [this]() {
+GizmoSystem::~GizmoSystem() {
+  _registry->removeEntity(_translationGizmo);
+  _registry->removeEntity(_scaleGizmo);
+  _registry->removeEntity(_rotationGizmo);
+}
+
+void GizmoSystem::update() {
+  SHKYERA_PROFILE("GizmoSystem::update");
+
+  handleInput();
+
+  selectEntity();
+  styleOnHover();
+
+  moveEntity();
+  scaleEntity();
+
+  adjustGizmoTransform();
+}
+
+void GizmoSystem::handleInput() {
+  const auto& inputManager = InputManager::getInstance();
+
+  if (inputManager.isMouseButtonPressed(GLFW_MOUSE_BUTTON_LEFT)) {
     const auto hoveredHandleOpt =
-        InputManager::getHoveredObject<InputManager::CoordinateSystem::SCENE, RuntimeMode::DEVELOPMENT, SceneCamera,
-                                       GizmoHandleComponent>(_registry);
+        utils::input::getHoveredObject<InputManager::CoordinateSystem::SCENE, RuntimeMode::DEVELOPMENT, SceneCamera,
+                                       GizmoHandleComponent>(*this);
 
     if (hoveredHandleOpt) {
       if (_controlledEntity) {
@@ -163,9 +193,9 @@ GizmoSystem::GizmoSystem(std::shared_ptr<Registry> registry) : _registry(std::mo
         _originalPlaneIntersection = *getMouseIntersectionWithHandle();
       }
     }
-  });
+  }
 
-  InputManager::getInstance().registerMouseButtonUpCallback(GLFW_MOUSE_BUTTON_LEFT, [this]() {
+  if (inputManager.isMouseButtonReleased(GLFW_MOUSE_BUTTON_LEFT)) {
     if (_selectedHandle) {
       auto mat = std::make_shared<Material>();
       mat->albedo = _originalColor;
@@ -183,36 +213,23 @@ GizmoSystem::GizmoSystem(std::shared_ptr<Registry> registry) : _registry(std::mo
         .setScale({GizmoLineWidth, GizmoLineLength, GizmoLineWidth});
     _registry->getComponent<TransformComponent>(_scaleGizmoLineZ)
         .setScale({GizmoLineWidth, GizmoLineWidth, GizmoLineLength});
-  });
+  }
 
-  InputManager::getInstance().registerKeyCallback(GLFW_KEY_T, [this]() { _mode = Mode::TRANSLATION; });
-  InputManager::getInstance().registerKeyCallback(GLFW_KEY_Y, [this]() { _mode = Mode::SCALE; });
-}
+  if (inputManager.isKeyDown(GLFW_KEY_T)) {
+    _mode = Mode::TRANSLATION;
+  }
 
-GizmoSystem::~GizmoSystem() {
-  _registry->removeEntity(_translationGizmo);
-  _registry->removeEntity(_scaleGizmo);
-  _registry->removeEntity(_rotationGizmo);
-}
-
-void GizmoSystem::update() {
-  SHKYERA_PROFILE("GizmoSystem::update");
-
-  selectEntity();
-  styleOnHover();
-
-  moveEntity();
-  scaleEntity();
-
-  adjustGizmoTransform();
+  if (inputManager.isKeyDown(GLFW_KEY_Y)) {
+    _mode = Mode::SCALE;
+  }
 }
 
 void GizmoSystem::selectEntity() {
-  const auto selectedEntities = _registry->getSelectedEntities();
+  const auto selectedEntities = _registry->getComponentSet<SelectedEntityComponent>();
   if (selectedEntities.empty()) {
     _controlledEntity.reset();
   } else {
-    _controlledEntity = *selectedEntities.begin();
+    std::tie(_controlledEntity, std::ignore) = *selectedEntities.begin();
   }
 }
 
@@ -222,8 +239,8 @@ void GizmoSystem::styleOnHover() {
   }
 
   const auto hoveredHandleOpt =
-      InputManager::getHoveredObject<InputManager::CoordinateSystem::SCENE, RuntimeMode::DEVELOPMENT, SceneCamera,
-                                     GizmoHandleComponent>(_registry);
+      utils::input::getHoveredObject<InputManager::CoordinateSystem::SCENE, RuntimeMode::DEVELOPMENT, SceneCamera,
+                                     GizmoHandleComponent>(*this);
 
   const bool hoverMoved = isHoverMoved(hoveredHandleOpt);
 
@@ -326,7 +343,7 @@ glm::vec3 GizmoSystem::getSelectedHandleDisplacement() const {
   const auto currentHandlePosition = handleTransform.getPosition();
 
   handleTransform.setPosition(_originalHandlePosition);
-  const auto globalHandleTransformMatrix = TransformComponent::getGlobalTransformMatrix(*_selectedHandle, _registry);
+  const auto globalHandleTransformMatrix = utils::transform::getGlobalTransformMatrix(*_selectedHandle, *this);
   handleTransform.setPosition(currentHandlePosition);
 
   const auto handleDirection = glm::vec3{globalHandleTransformMatrix * glm::vec4{0, 1, 0, 0}};

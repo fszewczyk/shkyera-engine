@@ -1,5 +1,6 @@
 #pragma once
 
+#include <Common/TypeInfo.hpp>
 #include <Common/Types.hpp>
 
 namespace shkyera {
@@ -12,16 +13,8 @@ namespace shkyera {
  * @tparam Derived Type of the derived class inheriting from BaseComponent.
  */
 template <typename Derived, RuntimeMode Mode = RuntimeMode::PRODUCTION>
-class BaseComponent {
+class BaseComponent : public TypeInfo<Derived> {
  public:
-  /**
-     * @brief Calls the derived class's update implementation.
-     *
-     * Uses static_cast to convert to the derived class type and
-     * invokes the updateImpl function.
-     */
-  void update() { static_cast<Derived*>(this)->updateImpl(); }
-
   /**
      * @brief Virtual destructor for proper cleanup.
      *

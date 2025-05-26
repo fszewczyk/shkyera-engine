@@ -1,10 +1,11 @@
 #pragma once
 
 #include <functional>
+#include <map>
 #include <ranges>
-#include <unordered_map>
-#include <unordered_set>
+#include <set>
 
+#include <Common/TypeInfo.hpp>
 #include <ECS/Entity.hpp>
 
 namespace shkyera {
@@ -15,10 +16,10 @@ namespace shkyera {
  * of entities from their parents. It ensures a well-defined tree structure for entity relationships
  * with NO cyclic relations.
  */
-class EntityHierarchy {
+class EntityHierarchy : public TypeInfo<EntityHierarchy> {
  public:
   /// Alias for a set of child entities.
-  using Children = std::unordered_set<Entity>;
+  using Children = std::set<Entity>;
 
   /**
          * @brief Constructs a new EntityHierarchy object.
@@ -84,8 +85,8 @@ class EntityHierarchy {
          */
   bool isAncestor(Entity entity, Entity ancestor) const;
 
-  std::unordered_map<Entity, Children> _parentToChildren;
-  std::unordered_map<Entity, Entity> _childToParent;
+  std::map<Entity, Children> _parentToChildren;
+  std::map<Entity, Entity> _childToParent;
 };
 
 }  // namespace shkyera

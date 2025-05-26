@@ -86,6 +86,8 @@ void UI::initializeImgui() {
   // Setup Platform/Renderer backends
   ImGui_ImplGlfw_InitForOpenGL(_window, true);
   ImGui_ImplOpenGL3_Init(glsl_version);
+
+  InputManager::getInstance().setWindow(_window);
 }
 
 void UI::initializeWidgets() {
@@ -247,7 +249,6 @@ void UI::renderFrame() {
   const auto& windowSize = ImGui::GetWindowSize();
   InputManager::getInstance().setCoordinateSystem(InputManager::CoordinateSystem::ABSOLUTE, {0, 0},
                                                   {windowSize.x, windowSize.y});
-  InputManager::getInstance().processInput(_window);
 
   for (const auto& w : _widgets) {
     w->draw();

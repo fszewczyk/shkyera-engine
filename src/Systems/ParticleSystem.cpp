@@ -6,19 +6,21 @@
 #include <Common/Profiler.hpp>
 #include <Common/Random.hpp>
 #include <Common/SIMD.hpp>
+#include <Utils/TransformUtils.hpp>
 
 namespace shkyera {
 
-ParticleSystem::ParticleSystem(std::shared_ptr<Registry> registry) : _registry(std::move(registry)) {}
+ParticleSystem::ParticleSystem(std::shared_ptr<Registry> registry)
+    : RegistryViewer(std::move(registry), ReadAccess<TransformComponent>(), WriteAccess<ParticleEmitterComponent>()) {}
 
 void ParticleSystem::update() {
   SHKYERA_PROFILE("ParticleSystem::update");
 
   std::vector<std::thread> updateThreads;
-  for (const auto& [entity, constEmitter] : _registry->getComponentSet<ParticleEmitterComponent>()) {
+  for (const auto& [entity, constEmitter] : RegistryViewer::readAll<ParticleEmitterComponent>()) {
     if (constEmitter.enabled) {
-      const auto transformMatrix = TransformComponent::getGlobalTransformMatrix(entity, _registry);
-      auto& emitter = _registry->getComponent<ParticleEmitterComponent>(entity);
+      const auto transformMatrix = utils::transform::getGlobalTransformMatrix(entity, *this);
+      auto& emitter = RegistryViewer::write<ParticleEmitterComponent>(entity);
       updateThreads.emplace_back(std::thread([&]() { updateParticles(emitter, transformMatrix); }));
     }
   }

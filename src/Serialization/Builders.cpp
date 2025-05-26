@@ -9,6 +9,7 @@
 #include <Components/AmbientLightComponent.hpp>
 #include <Components/AssetComponents/AssetComponent.hpp>
 #include <Components/AssetComponents/AssetRoot.hpp>
+#include <Components/AssetComponents/DirectoryComponent.hpp>
 #include <Components/BillboardComponent.hpp>
 #include <Components/BoxColliderComponent.hpp>
 #include <Components/CameraComponent.hpp>
@@ -29,7 +30,6 @@
 #include <Serialization/Builders.hpp>
 #include <Utils/AssetLoaders.hpp>
 #include <Utils/AssetUtils.hpp>
-#include "Components/AssetComponents/DirectoryComponent.hpp"
 
 namespace shkyera::serialization {
 

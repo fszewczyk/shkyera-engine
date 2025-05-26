@@ -1,5 +1,6 @@
 #include <stdio.h>
 
+#include <chrono>
 #include <memory>
 #include <sstream>
 
@@ -28,11 +29,20 @@
 #include <Components/TransformComponent.hpp>
 #include <Components/WireframeComponent.hpp>
 #include <ECS/Registry.hpp>
+#include <InputManager/InputManager.hpp>
+#include <JobSystem/ThreadWorker.hpp>
 #include <Serialization/Builders.hpp>
+#include <Systems/CameraMovementSystem.hpp>
+#include <Systems/GizmoSystem.hpp>
+#include <Systems/ObjectSelectionSystem.hpp>
 #include <Systems/ParticleSystem.hpp>
+#include <Systems/RenderingSystem.hpp>
 #include <UI/UI.hpp>
 #include <Utils/AssetLoaders.hpp>
 #include <Utils/AssetUtils.hpp>
+#include <thread>
+#include "JobSystem/JobSystem.hpp"
+#include "Rendering/OpenGLResource.hpp"
 
 static shkyera::Entity addModel(std::shared_ptr<shkyera::Registry> registry, const glm::vec3& position,
                                 const std::string& name, shkyera::HandleAndAsset<shkyera::Mesh> mesh) {
@@ -228,19 +238,53 @@ int main() {
 
   auto ui = UI();
   auto registry = loadRegistry();
+  auto renderingRegistry = std::make_shared<Registry>();
+
+  JobSystem::getInstance();
+
+  std::vector<ThreadWorker> threadWorkers(std::thread::hardware_concurrency() - 1);
 
   ParticleSystem particleSystem(registry);
+  CameraMovementSystem<SceneCamera> cameraMovementSystem(registry);
+  ObjectSelectionSystem objectSelectionSystem(registry);
+  GizmoSystem gizmoSystem(registry);
+
+  RenderingSystem<SceneCamera> sceneRenderingSystem(renderingRegistry);
+  RenderingSystem<RuntimeCamera> runtimeRenderingSystem(renderingRegistry);
 
   ui.initialize(registry);
 
   while (!ui.shouldClose()) {
     clock::Game.reset();
 
-    if (!clock::Game.isPaused()) {
-      particleSystem.update();
-    }
+    const auto prepareRenderingData = JobBuilder([&] { *renderingRegistry = *registry; }).submit();
 
-    ui.draw();
+    const auto gameLogic = JobBuilder([&] {
+                             InputManager::getInstance().update();
+
+                             if (!clock::Game.isPaused()) {
+                               particleSystem.update();
+                             }
+
+                             objectSelectionSystem.update();
+                             cameraMovementSystem.update();
+                             gizmoSystem.update();
+                           })
+                               .dependsOn(prepareRenderingData)
+                               .submit();
+
+    const auto rendering = JobBuilder([&] {
+                             registry->getComponent<SceneCamera>()->renderedTextureId = sceneRenderingSystem.update();
+                             registry->getComponent<RuntimeCamera>()->renderedTextureId =
+                                 runtimeRenderingSystem.update();
+
+                             ui.draw();
+                           })
+                               .dependsOn(prepareRenderingData)
+                               .writeResource<OpenGLResourceTag>()
+                               .submit();
+
+    JobSystem::getInstance().wait();
   }
 
   return 0;

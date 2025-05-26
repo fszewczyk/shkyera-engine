@@ -3,10 +3,11 @@
 #include <glm/glm.hpp>
 
 #include <ECS/Registry.hpp>
+#include <ECS/RegistryViewer.hpp>
 
 namespace shkyera {
 
-class GizmoSystem {
+class GizmoSystem : public RegistryViewer {
  public:
   GizmoSystem(std::shared_ptr<Registry> registry);
   ~GizmoSystem();
@@ -29,6 +30,7 @@ class GizmoSystem {
     SCALE,
   };
 
+  void handleInput();
   void moveEntity();
   void scaleEntity();
 

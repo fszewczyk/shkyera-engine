@@ -40,7 +40,6 @@ class RuntimeWidget : public Widget {
   std::shared_ptr<Registry> _registry;
   std::unique_ptr<Registry> _storedRegistry;
 
-  RenderingSystem<RuntimeCamera> _renderingSystem;
   AssetRef<Texture> _playButtonTexture;
   AssetRef<Texture> _stopButtonTexture;
 };

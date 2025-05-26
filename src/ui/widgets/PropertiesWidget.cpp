@@ -1,4 +1,5 @@
 #include "Components/Environment.hpp"
+#include "Components/SelectedEntityComponent.hpp"
 #include "imgui.h"
 
 #include <iostream>
@@ -38,8 +39,9 @@ PropertiesWidget::PropertiesWidget(std::shared_ptr<Registry> registry, const std
     : Widget(title), _registry(registry) {}
 
 void PropertiesWidget::updateComponents() {
-  if (_registry->getSelectedEntities().size() > 0) {
-    const auto firstSelectedEntity = *(_registry->getSelectedEntities().begin());
+  const auto& selectedSet = _registry->getComponentSet<SelectedEntityComponent>();
+  if (selectedSet.size() > 0) {
+    const auto [firstSelectedEntity, _] = *(selectedSet.begin());
 
     if (!_selectedEntity.has_value() || firstSelectedEntity != *_selectedEntity) {
       _selectedEntity = firstSelectedEntity;

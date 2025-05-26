@@ -6,9 +6,13 @@
 
 #pragma once
 
+#include <memory>
+#include <typeindex>
 #include <unordered_set>
 
+#include <Common/Assert.hpp>
 #include <Common/Logger.hpp>
+#include <Common/Types.hpp>
 #include <ECS/Entity.hpp>
 #include <ECS/EntityHierarchy.hpp>
 #include <ECS/EntityProvider.hpp>
@@ -51,12 +55,6 @@ class Registry {
      */
   void removeEntity(Entity entity);
 
-  const std::unordered_set<Entity>& getSelectedEntities();
-
-  void selectEntity(Entity entity);
-
-  void clearSelectedEntities();
-
   /**
      * Adds a component to the specified entity.
      * Initializes the component with default values.
@@ -77,6 +75,12 @@ class Registry {
     }
     componentSet.add(entity, Component(std::forward<Args>(args)...));
     return componentSet.get(entity);
+  }
+
+  template <typename Component>
+  void clearComponents() {
+    auto& componentSet = getOrCreateComponentSet<Component>();
+    componentSet.clear();
   }
 
   template <typename Component, typename... Args>
@@ -193,6 +197,16 @@ class Registry {
     return std::nullopt;
   }
 
+  template <typename Component>
+  Component* getComponent() {
+    static_assert(std::is_base_of_v<SingletonComponent, Component>,
+                  "Obtaining a Component is only possible for SingletonComponents");
+    if (const auto entityOpt = getEntity<Component>()) {
+      return &getComponent<Component>(*entityOpt);
+    }
+    return nullptr;
+  }
+
   EntityHierarchy& getHierarchy();
 
   const EntityHierarchy& getHierarchy() const;
@@ -234,8 +248,6 @@ class Registry {
       _componentSets;                //< Map of component sets by type ID.
   EntityProvider _entityProvider;    //< Manages the creation and management of entities.
   EntityHierarchy _entityHierarchy;  //< Maintains the parent-child relationships between the entities
-
-  std::unordered_set<Entity> _selectedEntities;
 };
 
 }  // namespace shkyera
