@@ -7,6 +7,7 @@
 
 #include <Common/TypeInfo.hpp>
 #include <ECS/Entity.hpp>
+#include <JobSystem/Requirements.hpp>
 
 namespace shkyera {
 
@@ -16,7 +17,7 @@ namespace shkyera {
  * of entities from their parents. It ensures a well-defined tree structure for entity relationships
  * with NO cyclic relations.
  */
-class EntityHierarchy : public TypeInfo<EntityHierarchy> {
+class EntityHierarchy : public ResourceTag {
  public:
   /// Alias for a set of child entities.
   using Children = std::set<Entity>;

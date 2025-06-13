@@ -5,6 +5,8 @@
 
 namespace shkyera {
 
+using TypeID = uint64_t;
+
 template <typename T>
 constexpr uint64_t getId() {
   constexpr std::string_view name = __PRETTY_FUNCTION__;
@@ -18,10 +20,11 @@ constexpr uint64_t getId() {
 
 template <typename T>
 struct TypeInfo {
-  using IDType = uint64_t;
-  inline static constexpr IDType ID = getId<T>();
+  TypeInfo() = delete;
+
+  inline static constexpr TypeID ID = getId<T>();
 };
 
-using TypeSet = std::set<TypeInfo<void>::IDType>;
+using TypeSet = std::set<TypeID>;
 
 }  // namespace shkyera

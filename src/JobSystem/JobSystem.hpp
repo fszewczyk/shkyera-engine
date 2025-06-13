@@ -72,21 +72,31 @@ class JobSystem {
 
     template <typename ResourceType>
     JobBuilder& readResource() {
-      static_assert(std::is_base_of_v<TypeInfo<ResourceType>, ResourceType>,
-                    "ResourceType is not tagged with ResourceTag");
-      _job.readResources.emplace(ResourceType::ID);
+      static_assert(std::is_base_of_v<ResourceTag, ResourceType>, "ResourceType is not tagged with ResourceTag");
+      _job.readResources.emplace(TypeInfo<ResourceType>::ID);
       _job.mainThread |= OnlyMainThread<ResourceType>;
       return *this;
     }
 
     template <typename ResourceType>
     JobBuilder& writeResource() {
-      static_assert(std::is_base_of_v<TypeInfo<ResourceType>, ResourceType>,
-                    "ResourceType is not tagged with ResourceTag");
-      _job.writeResources.emplace(ResourceType::ID);
+      static_assert(std::is_base_of_v<ResourceTag, ResourceType>, "ResourceType is not tagged with ResourceTag");
+      _job.writeResources.emplace(TypeInfo<ResourceType>::ID);
       _job.mainThread |= OnlyMainThread<ResourceType>;
       return *this;
     }
+
+    JobBuilder& readResource(TypeID typeId) {
+      _job.readResources.emplace(typeId);
+      return *this;
+    }
+
+    JobBuilder& writeResource(TypeID typeId) {
+      _job.writeResources.emplace(typeId);
+      return *this;
+    }
+
+    void useMainThread() { _job.mainThread |= true; }
 
     JobHandle submit();
 

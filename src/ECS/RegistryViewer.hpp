@@ -4,6 +4,7 @@
 #include <Common/Types.hpp>
 #include <ECS/EntityHierarchy.hpp>
 #include <ECS/Registry.hpp>
+#include <JobSystem/Requirements.hpp>
 #include <optional>
 #include <utility>
 
@@ -11,21 +12,31 @@ namespace shkyera {
 
 template <typename... Resources>
 struct ReadAccess {
-  ReadAccess() { (resources.emplace(TypeInfo<Resources>::ID), ...); }
+  ReadAccess() {
+    (resources.emplace(TypeInfo<Resources>::ID), ...);
+    onlyMainThread = (false || ... || OnlyMainThread<Resources>);
+  }
   TypeSet resources;
+  bool onlyMainThread;
 };
 
 template <typename... Resources>
 struct WriteAccess {
-  WriteAccess() { (resources.emplace(TypeInfo<Resources>::ID), ...); }
+  WriteAccess() {
+    (resources.emplace(TypeInfo<Resources>::ID), ...);
+    onlyMainThread = (false || ... || OnlyMainThread<Resources>);
+  }
   TypeSet resources;
+  bool onlyMainThread;
 };
 
 struct Policy {
   TypeSet read;
   TypeSet write;
+  bool onlyMainThread;
 
-  Policy(TypeSet readSet, TypeSet writeSet) : read(std::move(readSet)), write(std::move(writeSet)) {}
+  Policy(TypeSet readSet, TypeSet writeSet, bool mainThread)
+      : read(std::move(readSet)), write(std::move(writeSet)), onlyMainThread(mainThread) {}
 
   template <typename Type>
   bool canRead() const {
@@ -41,12 +52,15 @@ class RegistryViewer {
  public:
   template <typename... Resources>
   RegistryViewer(std::shared_ptr<Registry> registry, ReadAccess<Resources...> read)
-      : _registry(std::move(registry)), _policy(std::move(read.resources), {}) {}
+      : _registry(std::move(registry)), _policy(std::move(read.resources), {}, read.onlyMainThread) {}
 
   template <typename... ReadResources, typename... WriteResources>
   RegistryViewer(std::shared_ptr<Registry> registry, ReadAccess<ReadResources...> read,
                  WriteAccess<WriteResources...> write)
-      : _registry(std::move(registry)), _policy(std::move(read.resources), std::move(write.resources)) {}
+      : _registry(std::move(registry)),
+        _policy(std::move(read.resources), std::move(write.resources), read.onlyMainThread || write.onlyMainThread) {}
+
+  const Policy& getPolicy() const { return _policy; }
 
   template <typename Component, typename... Args>
   Component& add(Entity entity, Args&&... args) {

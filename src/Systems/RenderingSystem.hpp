@@ -15,7 +15,6 @@
 #include <Components/AmbientLightComponent.hpp>
 #include <Components/BillboardComponent.hpp>
 #include <Components/CameraComponent.hpp>
-#include <Components/CameraTags.hpp>
 #include <Components/DirectionalLightComponent.hpp>
 #include <Components/ModelComponent.hpp>
 #include <Components/NameComponent.hpp>
@@ -23,6 +22,7 @@
 #include <Components/ParticleEmitterComponent.hpp>
 #include <Components/PointLightComponent.hpp>
 #include <Components/PostProcessingVolumeComponent.hpp>
+#include <Components/RenderingTextureComponent.hpp>
 #include <Components/SkyboxComponent.hpp>
 #include <Components/SpotLightComponent.hpp>
 #include <Components/TransformComponent.hpp>
@@ -34,7 +34,6 @@
 #include <Rendering/FrameBuffers/SceneFrameBuffer.hpp>
 #include <Rendering/ShaderProgram.hpp>
 #include <Rendering/Utils.hpp>
-#include <Systems/RenderingSystem.hpp>
 #include <Utils/AssetUtils.hpp>
 #include <Utils/TransformUtils.hpp>
 
@@ -170,9 +169,9 @@ template <typename MainCameraTag>
 RenderingSystem<MainCameraTag>::RenderingSystem(std::shared_ptr<Registry> registry)
     : RegistryViewer(registry,
                      ReadAccess<TransformComponent, ModelComponent, NameComponent, EntityHierarchy, SkyboxComponent,
-                                DirectionalLightComponent, PointLightComponent, SpotLightComponent,
-                                BillboardComponent<>, WireframeComponent, OverlayModelComponent, AmbientLightComponent,
-                                ParticleEmitterComponent, PostProcessingVolumeComponent>(),
+                                SelectedEntityComponent, DirectionalLightComponent, PointLightComponent,
+                                SpotLightComponent, BillboardComponent<>, WireframeComponent, OverlayModelComponent,
+                                AmbientLightComponent, ParticleEmitterComponent, PostProcessingVolumeComponent>(),
                      WriteAccess<MainCameraTag, CameraComponent>()),
       _registry(registry) {
   const auto& positionAndNormalVertexShader =

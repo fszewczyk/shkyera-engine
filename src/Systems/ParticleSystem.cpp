@@ -6,12 +6,14 @@
 #include <Common/Profiler.hpp>
 #include <Common/Random.hpp>
 #include <Common/SIMD.hpp>
+#include <ECS/EntityHierarchy.hpp>
 #include <Utils/TransformUtils.hpp>
 
 namespace shkyera {
 
 ParticleSystem::ParticleSystem(std::shared_ptr<Registry> registry)
-    : RegistryViewer(std::move(registry), ReadAccess<TransformComponent>(), WriteAccess<ParticleEmitterComponent>()) {}
+    : RegistryViewer(std::move(registry), ReadAccess<TransformComponent, EntityHierarchy>(),
+                     WriteAccess<ParticleEmitterComponent>()) {}
 
 void ParticleSystem::update() {
   SHKYERA_PROFILE("ParticleSystem::update");

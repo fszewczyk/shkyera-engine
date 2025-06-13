@@ -5,7 +5,7 @@
 
 namespace shkyera {
 
-struct OpenGLResourceTag : public TypeInfo<OpenGLResourceTag> {};
+struct OpenGLResourceTag : public ResourceTag {};
 
 template <>
 inline constexpr bool OnlyMainThread<OpenGLResourceTag> = true;

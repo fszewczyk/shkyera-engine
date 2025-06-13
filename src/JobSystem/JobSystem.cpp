@@ -1,8 +1,10 @@
+#include <AssetManager/Asset.hpp>
 #include <Common/Assert.hpp>
 #include <JobSystem/JobSystem.hpp>
+
 #include <algorithm>
 #include <thread>
-#include "AssetManager/Asset.hpp"
+#include <vector>
 
 namespace shkyera {
 
@@ -60,6 +62,9 @@ void JobSystem::wait() {
       auto& job = _jobs.get(*handle);
 
       job.status = JobStatus::RUNNING;
+      _resourcesRead.insert(job.readResources.begin(), job.readResources.end());
+      _resourcesWritten.insert(job.writeResources.begin(), job.writeResources.end());
+
       executor = [this, h = *handle, f = std::move(job.function)]() {
         f();
         markJobAsDone(h);
@@ -109,9 +114,19 @@ std::optional<JobHandle> JobSystem::getJob() {
       continue;
     }
 
-    const auto& dependsOn = job.dependsOn;
-    if (std::any_of(dependsOn.begin(), dependsOn.end(),
-                    [this](const auto& handle) { return _jobs.get(handle).status != JobStatus::DONE; })) {
+    if (std::ranges::any_of(job.dependsOn,
+                            [this](const auto& handle) { return _jobs.get(handle).status != JobStatus::DONE; })) {
+      continue;
+    }
+
+    if (std::ranges::any_of(job.readResources,
+                            [this](const auto& resource) { return _resourcesWritten.contains(resource); })) {
+      continue;
+    }
+
+    if (std::ranges::any_of(job.writeResources, [this](const auto& resource) {
+          return _resourcesRead.contains(resource) || _resourcesWritten.contains(resource);
+        })) {
       continue;
     }
 
@@ -128,6 +143,8 @@ void JobSystem::markJobAsDone(JobHandle handle) {
 
   auto& job = _jobs.get(handle);
   job.status = JobStatus::DONE;
+  std::erase_if(_resourcesWritten, [&job](const auto& resource) { return job.writeResources.contains(resource); });
+  std::erase_if(_resourcesRead, [&job](const auto& resource) { return job.readResources.contains(resource); });
 }
 
 JobBuilder::JobBuilder(JobExecutor func) {

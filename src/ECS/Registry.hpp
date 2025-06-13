@@ -66,7 +66,7 @@ class Registry {
   template <typename Component, typename... Args>
   Component& addComponent(Entity entity, Args&&... args) {
     auto& componentSet = getOrCreateComponentSet<Component>();
-    if constexpr (std::is_base_of_v<SingletonComponent, Component>) {
+    if constexpr (std::is_base_of_v<SingletonComponent<Component>, Component>) {
       if (componentSet.contains(entity)) {
         Logger::ERROR(std::string("Cannot add a Singleton Component (") + typeid(Component).name() +
                       "), because another entity already has it.");
@@ -85,7 +85,7 @@ class Registry {
 
   template <typename Component, typename... Args>
   Component& assignComponent(Entity entity, Args&&... args) {
-    static_assert(std::is_base_of_v<SingletonComponent, Component>,
+    static_assert(std::is_base_of_v<SingletonComponent<Component>, Component>,
                   "Component assignment is only possible for Singleton Components.");
 
     auto& componentSet = getOrCreateComponentSet<Component>();
@@ -101,7 +101,7 @@ class Registry {
      */
   template <typename Component>
   void removeComponent(Entity entity) {
-    static_assert(!std::is_base_of_v<SingletonComponent, Component>,
+    static_assert(!std::is_base_of_v<SingletonComponent<Component>, Component>,
                   "Component removal is only possible for non-Singleton Components.");
     getOrCreateComponentSet<Component>().remove(entity);
   }
@@ -188,7 +188,7 @@ class Registry {
 
   template <typename Component>
   std::optional<Entity> getEntity() const {
-    static_assert(std::is_base_of_v<SingletonComponent, Component>,
+    static_assert(std::is_base_of_v<SingletonComponent<Component>, Component>,
                   "Obtaining an Entity of a Component is only possible for SingletonComponents");
     const auto& singletonComponentSet = getComponentSet<Component>();
     if (!singletonComponentSet.empty()) {
@@ -199,7 +199,7 @@ class Registry {
 
   template <typename Component>
   Component* getComponent() {
-    static_assert(std::is_base_of_v<SingletonComponent, Component>,
+    static_assert(std::is_base_of_v<SingletonComponent<Component>, Component>,
                   "Obtaining a Component is only possible for SingletonComponents");
     if (const auto entityOpt = getEntity<Component>()) {
       return &getComponent<Component>(*entityOpt);

@@ -9,8 +9,8 @@
 #include <Common/Assert.hpp>
 #include <Common/Clock.hpp>
 #include <Components/CameraComponent.hpp>
-#include <Components/CameraTags.hpp>
 #include <Components/NameComponent.hpp>
+#include <Components/RenderingTextureComponent.hpp>
 #include <InputManager/InputManager.hpp>
 #include <UI/Widgets/ConsoleWidget.hpp>
 #include <UI/Widgets/RuntimeWidget.hpp>

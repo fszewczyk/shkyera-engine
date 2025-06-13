@@ -2,6 +2,7 @@
 
 #include <Common/TypeInfo.hpp>
 #include <Common/Types.hpp>
+#include <JobSystem/Requirements.hpp>
 
 namespace shkyera {
 
@@ -13,7 +14,7 @@ namespace shkyera {
  * @tparam Derived Type of the derived class inheriting from BaseComponent.
  */
 template <typename Derived, RuntimeMode Mode = RuntimeMode::PRODUCTION>
-class BaseComponent : public TypeInfo<Derived> {
+class BaseComponent : public ResourceTag {
  public:
   /**
      * @brief Virtual destructor for proper cleanup.

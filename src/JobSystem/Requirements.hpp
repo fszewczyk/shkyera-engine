@@ -1,11 +1,10 @@
 #pragma once
 
+#include <Common/TypeInfo.hpp>
+
 namespace shkyera {
 
-template <typename T>
-struct ThreadRequirements {
-  static constexpr bool OnlyMainThread = false;
-};
+struct ResourceTag {};
 
 template <typename T>
 constexpr bool OnlyMainThread = false;

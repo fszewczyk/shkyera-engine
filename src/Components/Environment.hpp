@@ -4,6 +4,6 @@
 
 namespace shkyera {
 
-struct Environment : public SingletonComponent {};
+struct Environment : public SingletonComponent<Environment> {};
 
 }  // namespace shkyera

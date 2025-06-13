@@ -3,6 +3,7 @@ add_library(
     STATIC
 
     ${CMAKE_CURRENT_LIST_DIR}/AssetUtils.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/JobSystem.cpp
     ${CMAKE_CURRENT_LIST_DIR}/TransformUtils.cpp
 )
 

@@ -1,24 +1,30 @@
 #include <Systems/ObjectSelectionSystem.hpp>
 
+#include <Common/Profiler.hpp>
+#include <Common/Types.hpp>
 #include <Components/BoxColliderComponent.hpp>
 #include <Components/CameraComponent.hpp>
-#include <Components/CameraTags.hpp>
 #include <Components/ModelComponent.hpp>
 #include <Components/NameComponent.hpp>
+#include <Components/RenderingTextureComponent.hpp>
 #include <Components/SelectedEntityComponent.hpp>
 #include <Components/TransformComponent.hpp>
+#include <ECS/EntityHierarchy.hpp>
+#include <ECS/RegistryViewer.hpp>
 #include <InputManager/InputManager.hpp>
 #include <Utils/InputUtils.hpp>
-
-#include <ECS/RegistryViewer.hpp>
 
 namespace shkyera {
 
 ObjectSelectionSystem::ObjectSelectionSystem(std::shared_ptr<Registry> registry)
-    : RegistryViewer(registry, ReadAccess<SceneCamera, CameraComponent, NameComponent>(),
+    : RegistryViewer(registry,
+                     ReadAccess<SceneCamera, EntityHierarchy, BoxColliderComponent<RuntimeMode::DEVELOPMENT>,
+                                CameraComponent, TransformComponent, NameComponent>(),
                      WriteAccess<SelectedEntityComponent>()) {}
 
 void ObjectSelectionSystem::update() {
+  SHKYERA_PROFILE("ObjectSelectionSystem::update");
+
   const auto& inputManager = InputManager::getInstance();
   if (inputManager.isMouseButtonPressed(GLFW_MOUSE_BUTTON_LEFT)) {
     if (!inputManager.isMouseInside(InputManager::CoordinateSystem::SCENE)) {

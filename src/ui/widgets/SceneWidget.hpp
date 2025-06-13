@@ -10,7 +10,7 @@
 
 #include <GLFW/glfw3.h>
 #include <Common/Types.hpp>
-#include <Components/CameraTags.hpp>
+#include <Components/RenderingTextureComponent.hpp>
 #include <ECS/Registry.hpp>
 #include <Rendering/ShaderProgram.hpp>
 #include <UI/Widget.hpp>

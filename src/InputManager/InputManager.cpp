@@ -1,5 +1,6 @@
 #include <InputManager/InputManager.hpp>
 #include <algorithm>
+#include "GLFW/glfw3.h"
 
 namespace shkyera {
 
@@ -32,7 +33,7 @@ void InputManager::update() {
   _previousMouseStates = _currentMouseStates;
 
   // Poll keys
-  for (int i = 0; i < MAX_KEYS; ++i) {
+  for (int i = GLFW_KEY_SPACE; i < MAX_KEYS; ++i) {
     _currentKeyStates[i] = (glfwGetKey(_window, i) == GLFW_PRESS);
   }
 

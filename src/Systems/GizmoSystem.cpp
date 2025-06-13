@@ -7,14 +7,15 @@
 #include <AssetManager/Mesh.hpp>
 #include <Components/BoxColliderComponent.hpp>
 #include <Components/CameraComponent.hpp>
-#include <Components/CameraTags.hpp>
 #include <Components/GizmoHandleComponent.hpp>
 #include <Components/NameComponent.hpp>
 #include <Components/OverlayModelComponent.hpp>
+#include <Components/RenderingTextureComponent.hpp>
 #include <Components/SelectedEntityComponent.hpp>
 #include <Components/TransformComponent.hpp>
 #include <ECS/Registry.hpp>
 #include <InputManager/InputManager.hpp>
+#include "ECS/EntityHierarchy.hpp"
 
 namespace shkyera {
 
@@ -36,7 +37,9 @@ static shkyera::Entity addOverlayModel(std::shared_ptr<shkyera::Registry> regist
 }
 
 GizmoSystem::GizmoSystem(std::shared_ptr<Registry> registry)
-    : RegistryViewer(registry, ReadAccess<SceneCamera, NameComponent, BoxColliderComponent<RuntimeMode::DEVELOPMENT>>(),
+    : RegistryViewer(registry,
+                     ReadAccess<SceneCamera, EntityHierarchy, SelectedEntityComponent, GizmoHandleComponent,
+                                CameraComponent, NameComponent, BoxColliderComponent<RuntimeMode::DEVELOPMENT>>(),
                      WriteAccess<TransformComponent>()),
       _registry(std::move(registry)) {
   {  // Translation Gizmo
