@@ -125,6 +125,7 @@ $(document).ready(function(){initNavTree('classshkyera_1_1_input_manager.html','
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#pri-attribs">Private Attributes</a> &#124;
+<a href="#pri-static-attribs">Static Private Attributes</a> &#124;
 <a href="classshkyera_1_1_input_manager-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">shkyera::InputManager Class Reference</div></div>
 </div><!--header-->
@@ -146,70 +147,68 @@ Public Types</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:a534a38c9bca6a04cbab36b35c998a032" id="r_a534a38c9bca6a04cbab36b35c998a032"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structshkyera_1_1_clock.html">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_input_manager.html#a534a38c9bca6a04cbab36b35c998a032">setWindow</a> (<a class="el" href="structshkyera_1_1_clock.html">GLFWwindow</a> *<a class="el" href="structshkyera_1_1_clock.html">window</a>)</td></tr>
+<tr class="separator:a534a38c9bca6a04cbab36b35c998a032"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a97f9d7ce01f015a6fe441cbbac42746e" id="r_a97f9d7ce01f015a6fe441cbbac42746e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structshkyera_1_1_clock.html">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_input_manager.html#a97f9d7ce01f015a6fe441cbbac42746e">setCoordinateSystem</a> (<a class="el" href="classshkyera_1_1_input_manager.html#a19d17fbbb411ba4f2ebe8b5f882e93da">CoordinateSystem</a> <a class="el" href="structshkyera_1_1_clock.html">system</a>, glm::vec2 <a class="el" href="structshkyera_1_1_clock.html">topLeftCorner</a>, glm::vec2 <a class="el" href="structshkyera_1_1_clock.html">bottomRightCorner</a>)</td></tr>
 <tr class="separator:a97f9d7ce01f015a6fe441cbbac42746e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a59d88eec92762293531d259b4a3e93c0" id="r_a59d88eec92762293531d259b4a3e93c0"><td class="memItemLeft" align="right" valign="top">glm::vec2&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_input_manager.html#a59d88eec92762293531d259b4a3e93c0">getRelativeMousePosition</a> (<a class="el" href="classshkyera_1_1_input_manager.html#a19d17fbbb411ba4f2ebe8b5f882e93da">CoordinateSystem</a> <a class="el" href="structshkyera_1_1_clock.html">system</a>)</td></tr>
-<tr class="separator:a59d88eec92762293531d259b4a3e93c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9b59cc94b9fb5ad8d51b2c674ebcde14" id="r_a9b59cc94b9fb5ad8d51b2c674ebcde14"><td class="memItemLeft" align="right" valign="top">glm::vec2&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_input_manager.html#a9b59cc94b9fb5ad8d51b2c674ebcde14">getMousePosition</a> (<a class="el" href="classshkyera_1_1_input_manager.html#a19d17fbbb411ba4f2ebe8b5f882e93da">CoordinateSystem</a> <a class="el" href="structshkyera_1_1_clock.html">system</a>)</td></tr>
-<tr class="separator:a9b59cc94b9fb5ad8d51b2c674ebcde14"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8938f21879abfce5e9a869b2f13cac0d" id="r_a8938f21879abfce5e9a869b2f13cac0d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structshkyera_1_1_clock.html">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_input_manager.html#a8938f21879abfce5e9a869b2f13cac0d">isMouseInside</a> (<a class="el" href="classshkyera_1_1_input_manager.html#a19d17fbbb411ba4f2ebe8b5f882e93da">CoordinateSystem</a> <a class="el" href="structshkyera_1_1_clock.html">system</a>)</td></tr>
-<tr class="separator:a8938f21879abfce5e9a869b2f13cac0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae5a7067d64868aa10812ef3e1f04f610" id="r_ae5a7067d64868aa10812ef3e1f04f610"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structshkyera_1_1_clock.html">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_input_manager.html#ae5a7067d64868aa10812ef3e1f04f610">isMouseButtonDown</a> (<a class="el" href="classshkyera_1_1_input_manager.html#ad365b43197ee5262ac6b397df7c701c6">MouseButton</a> <a class="el" href="structshkyera_1_1_clock.html">mouseButton</a>) <a class="el" href="structshkyera_1_1_clock.html">const</a></td></tr>
-<tr class="separator:ae5a7067d64868aa10812ef3e1f04f610"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1e6bbd84d48ca1c81518373a96b94c0b" id="r_a1e6bbd84d48ca1c81518373a96b94c0b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structshkyera_1_1_clock.html">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_input_manager.html#a1e6bbd84d48ca1c81518373a96b94c0b">registerKeyCallback</a> (<a class="el" href="classshkyera_1_1_input_manager.html#a31d2ffd3040040c147818b1d2945b3a6">Key</a> <a class="el" href="structshkyera_1_1_clock.html">key</a>, std::function&lt; <a class="el" href="structshkyera_1_1_clock.html">void</a>()&gt; <a class="el" href="structshkyera_1_1_clock.html">callback</a>)</td></tr>
-<tr class="separator:a1e6bbd84d48ca1c81518373a96b94c0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a85a8f139c95e5a0d5fbba81de6bc1d2f" id="r_a85a8f139c95e5a0d5fbba81de6bc1d2f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structshkyera_1_1_clock.html">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_input_manager.html#a85a8f139c95e5a0d5fbba81de6bc1d2f">unregisterKeyCallback</a> (<a class="el" href="classshkyera_1_1_input_manager.html#a31d2ffd3040040c147818b1d2945b3a6">Key</a> <a class="el" href="structshkyera_1_1_clock.html">key</a>)</td></tr>
-<tr class="separator:a85a8f139c95e5a0d5fbba81de6bc1d2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a797a6fd8a3169b1ff3a166a80e8f8534" id="r_a797a6fd8a3169b1ff3a166a80e8f8534"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structshkyera_1_1_clock.html">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_input_manager.html#a797a6fd8a3169b1ff3a166a80e8f8534">registerMouseMoveCallback</a> (std::function&lt; <a class="el" href="structshkyera_1_1_clock.html">void</a>(<a class="el" href="structshkyera_1_1_clock.html">double</a>, <a class="el" href="structshkyera_1_1_clock.html">double</a>)&gt; <a class="el" href="structshkyera_1_1_clock.html">callback</a>)</td></tr>
-<tr class="separator:a797a6fd8a3169b1ff3a166a80e8f8534"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2057318bd9b36b51689d8fc982c6f5b0" id="r_a2057318bd9b36b51689d8fc982c6f5b0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structshkyera_1_1_clock.html">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_input_manager.html#a2057318bd9b36b51689d8fc982c6f5b0">unregisterMouseMoveCallback</a> ()</td></tr>
-<tr class="separator:a2057318bd9b36b51689d8fc982c6f5b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab6616a021664f888cbf959d7800fb0cd" id="r_ab6616a021664f888cbf959d7800fb0cd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structshkyera_1_1_clock.html">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_input_manager.html#ab6616a021664f888cbf959d7800fb0cd">registerMouseButtonDownCallback</a> (<a class="el" href="classshkyera_1_1_input_manager.html#ad365b43197ee5262ac6b397df7c701c6">MouseButton</a> <a class="el" href="structshkyera_1_1_clock.html">button</a>, std::function&lt; <a class="el" href="structshkyera_1_1_clock.html">void</a>()&gt; <a class="el" href="structshkyera_1_1_clock.html">callback</a>)</td></tr>
-<tr class="separator:ab6616a021664f888cbf959d7800fb0cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae9be0c7503e351b5c048aac5f2ef6808" id="r_ae9be0c7503e351b5c048aac5f2ef6808"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structshkyera_1_1_clock.html">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_input_manager.html#ae9be0c7503e351b5c048aac5f2ef6808">unregisterMouseButtonDownCallback</a> (<a class="el" href="classshkyera_1_1_input_manager.html#ad365b43197ee5262ac6b397df7c701c6">MouseButton</a> <a class="el" href="structshkyera_1_1_clock.html">button</a>)</td></tr>
-<tr class="separator:ae9be0c7503e351b5c048aac5f2ef6808"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a014e49c416a41f9d0d34d473177a4b5d" id="r_a014e49c416a41f9d0d34d473177a4b5d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structshkyera_1_1_clock.html">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_input_manager.html#a014e49c416a41f9d0d34d473177a4b5d">registerMouseButtonUpCallback</a> (<a class="el" href="classshkyera_1_1_input_manager.html#ad365b43197ee5262ac6b397df7c701c6">MouseButton</a> <a class="el" href="structshkyera_1_1_clock.html">button</a>, std::function&lt; <a class="el" href="structshkyera_1_1_clock.html">void</a>()&gt; <a class="el" href="structshkyera_1_1_clock.html">callback</a>)</td></tr>
-<tr class="separator:a014e49c416a41f9d0d34d473177a4b5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9d466425614e22ceee724572d3730735" id="r_a9d466425614e22ceee724572d3730735"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structshkyera_1_1_clock.html">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_input_manager.html#a9d466425614e22ceee724572d3730735">unregisterMouseButtonUpCallback</a> (<a class="el" href="classshkyera_1_1_input_manager.html#ad365b43197ee5262ac6b397df7c701c6">MouseButton</a> <a class="el" href="structshkyera_1_1_clock.html">button</a>)</td></tr>
-<tr class="separator:a9d466425614e22ceee724572d3730735"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a26f73f707b0990d6370a1c4b0f5691ff" id="r_a26f73f707b0990d6370a1c4b0f5691ff"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structshkyera_1_1_clock.html">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_input_manager.html#a26f73f707b0990d6370a1c4b0f5691ff">processInput</a> (<a class="el" href="structshkyera_1_1_clock.html">GLFWwindow</a> *<a class="el" href="structshkyera_1_1_clock.html">window</a>)</td></tr>
-<tr class="separator:a26f73f707b0990d6370a1c4b0f5691ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaace9aa591060b8637ac887207852931" id="r_aaace9aa591060b8637ac887207852931"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structshkyera_1_1_clock.html">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_input_manager.html#aaace9aa591060b8637ac887207852931">update</a> ()</td></tr>
+<tr class="separator:aaace9aa591060b8637ac887207852931"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a206bb5124a44cded2d24374ec1377c6a" id="r_a206bb5124a44cded2d24374ec1377c6a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structshkyera_1_1_clock.html">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_input_manager.html#a206bb5124a44cded2d24374ec1377c6a">isKeyDown</a> (<a class="el" href="classshkyera_1_1_input_manager.html#a31d2ffd3040040c147818b1d2945b3a6">Key</a> <a class="el" href="structshkyera_1_1_clock.html">key</a>) <a class="el" href="structshkyera_1_1_clock.html">const</a></td></tr>
+<tr class="separator:a206bb5124a44cded2d24374ec1377c6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a07b4b6007606912ec1d2a6e4bdab93e0" id="r_a07b4b6007606912ec1d2a6e4bdab93e0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structshkyera_1_1_clock.html">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_input_manager.html#a07b4b6007606912ec1d2a6e4bdab93e0">isKeyUp</a> (<a class="el" href="classshkyera_1_1_input_manager.html#a31d2ffd3040040c147818b1d2945b3a6">Key</a> <a class="el" href="structshkyera_1_1_clock.html">key</a>) <a class="el" href="structshkyera_1_1_clock.html">const</a></td></tr>
+<tr class="separator:a07b4b6007606912ec1d2a6e4bdab93e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8bb695a1cf46f26977149603bb8e46e4" id="r_a8bb695a1cf46f26977149603bb8e46e4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structshkyera_1_1_clock.html">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_input_manager.html#a8bb695a1cf46f26977149603bb8e46e4">isKeyPressed</a> (<a class="el" href="classshkyera_1_1_input_manager.html#a31d2ffd3040040c147818b1d2945b3a6">Key</a> <a class="el" href="structshkyera_1_1_clock.html">key</a>) <a class="el" href="structshkyera_1_1_clock.html">const</a></td></tr>
+<tr class="separator:a8bb695a1cf46f26977149603bb8e46e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afbb7ca2fd75354fdb824b4e5413fe96f" id="r_afbb7ca2fd75354fdb824b4e5413fe96f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structshkyera_1_1_clock.html">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_input_manager.html#afbb7ca2fd75354fdb824b4e5413fe96f">isKeyReleased</a> (<a class="el" href="classshkyera_1_1_input_manager.html#a31d2ffd3040040c147818b1d2945b3a6">Key</a> <a class="el" href="structshkyera_1_1_clock.html">key</a>) <a class="el" href="structshkyera_1_1_clock.html">const</a></td></tr>
+<tr class="separator:afbb7ca2fd75354fdb824b4e5413fe96f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6bc1afb198ca6532fad0e838004ebbdd" id="r_a6bc1afb198ca6532fad0e838004ebbdd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structshkyera_1_1_clock.html">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_input_manager.html#a6bc1afb198ca6532fad0e838004ebbdd">isMouseButtonDown</a> (<a class="el" href="classshkyera_1_1_input_manager.html#ad365b43197ee5262ac6b397df7c701c6">MouseButton</a> <a class="el" href="structshkyera_1_1_clock.html">button</a>) <a class="el" href="structshkyera_1_1_clock.html">const</a></td></tr>
+<tr class="separator:a6bc1afb198ca6532fad0e838004ebbdd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad13605edbb7c3904169a2dad10a7b7b1" id="r_ad13605edbb7c3904169a2dad10a7b7b1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structshkyera_1_1_clock.html">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_input_manager.html#ad13605edbb7c3904169a2dad10a7b7b1">isMouseButtonUp</a> (<a class="el" href="classshkyera_1_1_input_manager.html#ad365b43197ee5262ac6b397df7c701c6">MouseButton</a> <a class="el" href="structshkyera_1_1_clock.html">button</a>) <a class="el" href="structshkyera_1_1_clock.html">const</a></td></tr>
+<tr class="separator:ad13605edbb7c3904169a2dad10a7b7b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0d112cded880313eff53d9edb1bebbb7" id="r_a0d112cded880313eff53d9edb1bebbb7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structshkyera_1_1_clock.html">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_input_manager.html#a0d112cded880313eff53d9edb1bebbb7">isMouseButtonPressed</a> (<a class="el" href="classshkyera_1_1_input_manager.html#ad365b43197ee5262ac6b397df7c701c6">MouseButton</a> <a class="el" href="structshkyera_1_1_clock.html">button</a>) <a class="el" href="structshkyera_1_1_clock.html">const</a></td></tr>
+<tr class="separator:a0d112cded880313eff53d9edb1bebbb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aed5a80c7f7422fd5024e50f6654bb9da" id="r_aed5a80c7f7422fd5024e50f6654bb9da"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structshkyera_1_1_clock.html">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_input_manager.html#aed5a80c7f7422fd5024e50f6654bb9da">isMouseButtonReleased</a> (<a class="el" href="classshkyera_1_1_input_manager.html#ad365b43197ee5262ac6b397df7c701c6">MouseButton</a> <a class="el" href="structshkyera_1_1_clock.html">button</a>) <a class="el" href="structshkyera_1_1_clock.html">const</a></td></tr>
+<tr class="separator:aed5a80c7f7422fd5024e50f6654bb9da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8731305367579894ab94cc28bc57db98" id="r_a8731305367579894ab94cc28bc57db98"><td class="memItemLeft" align="right" valign="top">glm::vec2&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_input_manager.html#a8731305367579894ab94cc28bc57db98">getMousePosition</a> (<a class="el" href="classshkyera_1_1_input_manager.html#a19d17fbbb411ba4f2ebe8b5f882e93da">CoordinateSystem</a> <a class="el" href="structshkyera_1_1_clock.html">coordinateSystem</a>) <a class="el" href="structshkyera_1_1_clock.html">const</a></td></tr>
+<tr class="separator:a8731305367579894ab94cc28bc57db98"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abaf50b0312990df7e2fe13495ab54ec0" id="r_abaf50b0312990df7e2fe13495ab54ec0"><td class="memItemLeft" align="right" valign="top">glm::vec2&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_input_manager.html#abaf50b0312990df7e2fe13495ab54ec0">getRelativeMousePosition</a> (<a class="el" href="classshkyera_1_1_input_manager.html#a19d17fbbb411ba4f2ebe8b5f882e93da">CoordinateSystem</a> <a class="el" href="structshkyera_1_1_clock.html">coordinateSystem</a>) <a class="el" href="structshkyera_1_1_clock.html">const</a></td></tr>
+<tr class="separator:abaf50b0312990df7e2fe13495ab54ec0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad9ce194d22751409f70bffc169a4f855" id="r_ad9ce194d22751409f70bffc169a4f855"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structshkyera_1_1_clock.html">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_input_manager.html#ad9ce194d22751409f70bffc169a4f855">isMouseInside</a> (<a class="el" href="classshkyera_1_1_input_manager.html#a19d17fbbb411ba4f2ebe8b5f882e93da">CoordinateSystem</a> <a class="el" href="structshkyera_1_1_clock.html">coordinteSystem</a>) <a class="el" href="structshkyera_1_1_clock.html">const</a></td></tr>
+<tr class="separator:ad9ce194d22751409f70bffc169a4f855"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
 <tr class="memitem:aa75637f5700f245ce994336e9e7f9e09" id="r_aa75637f5700f245ce994336e9e7f9e09"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structshkyera_1_1_clock.html">static</a> <a class="el" href="classshkyera_1_1_input_manager.html">InputManager</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_input_manager.html#aa75637f5700f245ce994336e9e7f9e09">getInstance</a> ()</td></tr>
 <tr class="separator:aa75637f5700f245ce994336e9e7f9e09"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2440d4e916ad45b3c69bf222e2410df4" id="r_a2440d4e916ad45b3c69bf222e2410df4"><td class="memTemplParams" colspan="2">template&lt;<a class="el" href="classshkyera_1_1_input_manager.html#a19d17fbbb411ba4f2ebe8b5f882e93da">CoordinateSystem</a> CS, <a class="el" href="namespaceshkyera.html#a1fa85003a0e458be0cf85cccc54d3d55">RuntimeMode</a> RN, <a class="el" href="structshkyera_1_1_clock.html">typename</a> <a class="el" href="structshkyera_1_1_clock.html">CameraTag</a> , typename... RequiredComponents&gt; </td></tr>
-<tr class="memitem:a2440d4e916ad45b3c69bf222e2410df4"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="structshkyera_1_1_clock.html">static</a> std::optional&lt; <a class="el" href="namespaceshkyera.html#a043bdd87686e0bd1bce19a1fd86298cd">Entity</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_input_manager.html#a2440d4e916ad45b3c69bf222e2410df4">getHoveredObject</a> (std::shared_ptr&lt; <a class="el" href="classshkyera_1_1_registry.html">Registry</a> &gt; <a class="el" href="structshkyera_1_1_clock.html">registry</a>)</td></tr>
-<tr class="separator:a2440d4e916ad45b3c69bf222e2410df4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
 <tr class="memitem:a3551568db6bfd86507c435deb36db10d" id="r_a3551568db6bfd86507c435deb36db10d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_input_manager.html#a3551568db6bfd86507c435deb36db10d">InputManager</a> ()</td></tr>
 <tr class="separator:a3551568db6bfd86507c435deb36db10d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a85d68e723229dc09ad6c6466c2caabd7" id="r_a85d68e723229dc09ad6c6466c2caabd7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structshkyera_1_1_clock.html">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_input_manager.html#a85d68e723229dc09ad6c6466c2caabd7">processMouseButton</a> (<a class="el" href="structshkyera_1_1_clock.html">GLFWwindow</a> *<a class="el" href="structshkyera_1_1_clock.html">window</a>, <a class="el" href="classshkyera_1_1_input_manager.html#ad365b43197ee5262ac6b397df7c701c6">MouseButton</a> <a class="el" href="structshkyera_1_1_clock.html">button</a>)</td></tr>
-<tr class="separator:a85d68e723229dc09ad6c6466c2caabd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad041657b934e3b6011730a4e333b9f1b" id="r_ad041657b934e3b6011730a4e333b9f1b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structshkyera_1_1_clock.html">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_input_manager.html#ad041657b934e3b6011730a4e333b9f1b">onMouseButtonDown</a> (<a class="el" href="classshkyera_1_1_input_manager.html#ad365b43197ee5262ac6b397df7c701c6">MouseButton</a> <a class="el" href="structshkyera_1_1_clock.html">button</a>)</td></tr>
-<tr class="separator:ad041657b934e3b6011730a4e333b9f1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4c0689599167fa8c54838d5678b0121e" id="r_a4c0689599167fa8c54838d5678b0121e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structshkyera_1_1_clock.html">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_input_manager.html#a4c0689599167fa8c54838d5678b0121e">onMouseButtonUp</a> (<a class="el" href="classshkyera_1_1_input_manager.html#ad365b43197ee5262ac6b397df7c701c6">MouseButton</a> <a class="el" href="structshkyera_1_1_clock.html">button</a>)</td></tr>
-<tr class="separator:a4c0689599167fa8c54838d5678b0121e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
-<tr class="memitem:a496ef3a73dfbd268934c379ccc60fd68" id="r_a496ef3a73dfbd268934c379ccc60fd68"><td class="memItemLeft" align="right" valign="top">std::array&lt; <a class="el" href="structshkyera_1_1_clock.html">bool</a>, 10 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_input_manager.html#a496ef3a73dfbd268934c379ccc60fd68">_previousMouseButtonStates</a> = {<a class="el" href="structshkyera_1_1_clock.html">false</a>}</td></tr>
-<tr class="separator:a496ef3a73dfbd268934c379ccc60fd68"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6dfa1d8adebf513a34982f135297d151" id="r_a6dfa1d8adebf513a34982f135297d151"><td class="memItemLeft" align="right" valign="top">glm::vec2&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_input_manager.html#a6dfa1d8adebf513a34982f135297d151">_latestMousePosition</a></td></tr>
-<tr class="separator:a6dfa1d8adebf513a34982f135297d151"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a39c5c5befe4d56b9923a00c1556390d4" id="r_a39c5c5befe4d56b9923a00c1556390d4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structshkyera_1_1_clock.html">GLFWwindow</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_input_manager.html#a39c5c5befe4d56b9923a00c1556390d4">_window</a> = <a class="el" href="structshkyera_1_1_clock.html">nullptr</a></td></tr>
+<tr class="separator:a39c5c5befe4d56b9923a00c1556390d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a913b03507ab4f70e20d4b30e55a875e0" id="r_a913b03507ab4f70e20d4b30e55a875e0"><td class="memItemLeft" align="right" valign="top">std::array&lt; <a class="el" href="structshkyera_1_1_clock.html">bool</a>, <a class="el" href="classshkyera_1_1_input_manager.html#a4f58f28b8a0377d976e9a633a292a044">MAX_KEYS</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_input_manager.html#a913b03507ab4f70e20d4b30e55a875e0">_currentKeyStates</a> {}</td></tr>
+<tr class="separator:a913b03507ab4f70e20d4b30e55a875e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9037ea68a961a485ed643af02d4bb424" id="r_a9037ea68a961a485ed643af02d4bb424"><td class="memItemLeft" align="right" valign="top">std::array&lt; <a class="el" href="structshkyera_1_1_clock.html">bool</a>, <a class="el" href="classshkyera_1_1_input_manager.html#a4f58f28b8a0377d976e9a633a292a044">MAX_KEYS</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_input_manager.html#a9037ea68a961a485ed643af02d4bb424">_previousKeyStates</a> {}</td></tr>
+<tr class="separator:a9037ea68a961a485ed643af02d4bb424"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a07303704ce4accdca4102292ef3be9de" id="r_a07303704ce4accdca4102292ef3be9de"><td class="memItemLeft" align="right" valign="top">std::array&lt; <a class="el" href="structshkyera_1_1_clock.html">bool</a>, <a class="el" href="classshkyera_1_1_input_manager.html#af8256d18db0dc34aa690997e774d944a">MAX_MOUSE_BUTTONS</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_input_manager.html#a07303704ce4accdca4102292ef3be9de">_currentMouseStates</a> {}</td></tr>
+<tr class="separator:a07303704ce4accdca4102292ef3be9de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ab926299f1884ac0d7e2fb9ca0f79d3" id="r_a1ab926299f1884ac0d7e2fb9ca0f79d3"><td class="memItemLeft" align="right" valign="top">std::array&lt; <a class="el" href="structshkyera_1_1_clock.html">bool</a>, <a class="el" href="classshkyera_1_1_input_manager.html#af8256d18db0dc34aa690997e774d944a">MAX_MOUSE_BUTTONS</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_input_manager.html#a1ab926299f1884ac0d7e2fb9ca0f79d3">_previousMouseStates</a> {}</td></tr>
+<tr class="separator:a1ab926299f1884ac0d7e2fb9ca0f79d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a421404052f9bfb79ecac149b84e44d8a" id="r_a421404052f9bfb79ecac149b84e44d8a"><td class="memItemLeft" align="right" valign="top">glm::vec2&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_input_manager.html#a421404052f9bfb79ecac149b84e44d8a">_mousePos</a> {0.0f, 0.0f}</td></tr>
+<tr class="separator:a421404052f9bfb79ecac149b84e44d8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a764428eae4db6cc0e62b4e3653f2771c" id="r_a764428eae4db6cc0e62b4e3653f2771c"><td class="memItemLeft" align="right" valign="top">std::unordered_map&lt; <a class="el" href="classshkyera_1_1_input_manager.html#a19d17fbbb411ba4f2ebe8b5f882e93da">CoordinateSystem</a>, std::pair&lt; glm::vec2, glm::vec2 &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_input_manager.html#a764428eae4db6cc0e62b4e3653f2771c">_coordinateSystems</a></td></tr>
 <tr class="separator:a764428eae4db6cc0e62b4e3653f2771c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3ab4f67a9385e6d5a04479eb2ca17125" id="r_a3ab4f67a9385e6d5a04479eb2ca17125"><td class="memItemLeft" align="right" valign="top">std::unordered_map&lt; <a class="el" href="classshkyera_1_1_input_manager.html#a31d2ffd3040040c147818b1d2945b3a6">Key</a>, std::vector&lt; std::function&lt; <a class="el" href="structshkyera_1_1_clock.html">void</a>()&gt; &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_input_manager.html#a3ab4f67a9385e6d5a04479eb2ca17125">_keyCallbacks</a></td></tr>
-<tr class="separator:a3ab4f67a9385e6d5a04479eb2ca17125"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af8c7dbd28aed02012569b28b97e7410f" id="r_af8c7dbd28aed02012569b28b97e7410f"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::function&lt; <a class="el" href="structshkyera_1_1_clock.html">void</a>(<a class="el" href="structshkyera_1_1_clock.html">double</a>, <a class="el" href="structshkyera_1_1_clock.html">double</a>)&gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_input_manager.html#af8c7dbd28aed02012569b28b97e7410f">_mouseMoveCallbacks</a></td></tr>
-<tr class="separator:af8c7dbd28aed02012569b28b97e7410f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad46eac8b8f500e4c2d490bd1137164dc" id="r_ad46eac8b8f500e4c2d490bd1137164dc"><td class="memItemLeft" align="right" valign="top">std::unordered_map&lt; <a class="el" href="classshkyera_1_1_input_manager.html#ad365b43197ee5262ac6b397df7c701c6">MouseButton</a>, std::vector&lt; std::function&lt; <a class="el" href="structshkyera_1_1_clock.html">void</a>()&gt; &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_input_manager.html#ad46eac8b8f500e4c2d490bd1137164dc">_mouseButtonDownCallbacks</a></td></tr>
-<tr class="separator:ad46eac8b8f500e4c2d490bd1137164dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adea52f65ab358ce74368cfba19640762" id="r_adea52f65ab358ce74368cfba19640762"><td class="memItemLeft" align="right" valign="top">std::unordered_map&lt; <a class="el" href="classshkyera_1_1_input_manager.html#ad365b43197ee5262ac6b397df7c701c6">MouseButton</a>, std::vector&lt; std::function&lt; <a class="el" href="structshkyera_1_1_clock.html">void</a>()&gt; &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_input_manager.html#adea52f65ab358ce74368cfba19640762">_mouseButtonUpCallbacks</a></td></tr>
-<tr class="separator:adea52f65ab358ce74368cfba19640762"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-static-attribs" name="pri-static-attribs"></a>
+Static Private Attributes</h2></td></tr>
+<tr class="memitem:a4f58f28b8a0377d976e9a633a292a044" id="r_a4f58f28b8a0377d976e9a633a292a044"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structshkyera_1_1_clock.html">static</a> <a class="el" href="structshkyera_1_1_clock.html">constexpr</a> <a class="el" href="structshkyera_1_1_clock.html">int</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_input_manager.html#a4f58f28b8a0377d976e9a633a292a044">MAX_KEYS</a> = <a class="el" href="structshkyera_1_1_clock.html">GLFW_KEY_LAST</a> + 1</td></tr>
+<tr class="separator:a4f58f28b8a0377d976e9a633a292a044"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af8256d18db0dc34aa690997e774d944a" id="r_af8256d18db0dc34aa690997e774d944a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structshkyera_1_1_clock.html">static</a> <a class="el" href="structshkyera_1_1_clock.html">constexpr</a> <a class="el" href="structshkyera_1_1_clock.html">int</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_input_manager.html#af8256d18db0dc34aa690997e774d944a">MAX_MOUSE_BUTTONS</a> = <a class="el" href="structshkyera_1_1_clock.html">GLFW_MOUSE_BUTTON_LAST</a> + 1</td></tr>
+<tr class="separator:af8256d18db0dc34aa690997e774d944a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Typedef Documentation</h2>
 <a id="a31d2ffd3040040c147818b1d2945b3a6" name="a31d2ffd3040040c147818b1d2945b3a6"></a>
@@ -287,7 +286,7 @@ Private Attributes</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -295,34 +294,6 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a2440d4e916ad45b3c69bf222e2410df4" name="a2440d4e916ad45b3c69bf222e2410df4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2440d4e916ad45b3c69bf222e2410df4">&#9670;&#160;</a></span>getHoveredObject()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;<a class="el" href="classshkyera_1_1_input_manager.html#a19d17fbbb411ba4f2ebe8b5f882e93da">CoordinateSystem</a> CS, <a class="el" href="namespaceshkyera.html#a1fa85003a0e458be0cf85cccc54d3d55">RuntimeMode</a> RN, <a class="el" href="structshkyera_1_1_clock.html">typename</a> <a class="el" href="structshkyera_1_1_clock.html">CameraTag</a> , typename... RequiredComponents&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structshkyera_1_1_clock.html">static</a> std::optional&lt; <a class="el" href="namespaceshkyera.html#a043bdd87686e0bd1bce19a1fd86298cd">Entity</a> &gt; shkyera::InputManager::getHoveredObject </td>
-          <td>(</td>
-          <td class="paramtype">std::shared_ptr&lt; <a class="el" href="classshkyera_1_1_registry.html">Registry</a> &gt;&#160;</td>
-          <td class="paramname"><em>registry</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="aa75637f5700f245ce994336e9e7f9e09" name="aa75637f5700f245ce994336e9e7f9e09"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa75637f5700f245ce994336e9e7f9e09">&#9670;&#160;</a></span>getInstance()</h2>
 
@@ -348,8 +319,8 @@ template&lt;<a class="el" href="classshkyera_1_1_input_manager.html#a19d17fbbb41
 
 </div>
 </div>
-<a id="a9b59cc94b9fb5ad8d51b2c674ebcde14" name="a9b59cc94b9fb5ad8d51b2c674ebcde14"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9b59cc94b9fb5ad8d51b2c674ebcde14">&#9670;&#160;</a></span>getMousePosition()</h2>
+<a id="a8731305367579894ab94cc28bc57db98" name="a8731305367579894ab94cc28bc57db98"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8731305367579894ab94cc28bc57db98">&#9670;&#160;</a></span>getMousePosition()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -358,16 +329,16 @@ template&lt;<a class="el" href="classshkyera_1_1_input_manager.html#a19d17fbbb41
           <td class="memname">glm::vec2 shkyera::InputManager::getMousePosition </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classshkyera_1_1_input_manager.html#a19d17fbbb411ba4f2ebe8b5f882e93da">CoordinateSystem</a>&#160;</td>
-          <td class="paramname"><em>system</em></td><td>)</td>
-          <td></td>
+          <td class="paramname"><em>coordinateSystem</em></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a59d88eec92762293531d259b4a3e93c0" name="a59d88eec92762293531d259b4a3e93c0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a59d88eec92762293531d259b4a3e93c0">&#9670;&#160;</a></span>getRelativeMousePosition()</h2>
+<a id="abaf50b0312990df7e2fe13495ab54ec0" name="abaf50b0312990df7e2fe13495ab54ec0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abaf50b0312990df7e2fe13495ab54ec0">&#9670;&#160;</a></span>getRelativeMousePosition()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -376,16 +347,88 @@ template&lt;<a class="el" href="classshkyera_1_1_input_manager.html#a19d17fbbb41
           <td class="memname">glm::vec2 shkyera::InputManager::getRelativeMousePosition </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classshkyera_1_1_input_manager.html#a19d17fbbb411ba4f2ebe8b5f882e93da">CoordinateSystem</a>&#160;</td>
-          <td class="paramname"><em>system</em></td><td>)</td>
-          <td></td>
+          <td class="paramname"><em>coordinateSystem</em></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="ae5a7067d64868aa10812ef3e1f04f610" name="ae5a7067d64868aa10812ef3e1f04f610"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae5a7067d64868aa10812ef3e1f04f610">&#9670;&#160;</a></span>isMouseButtonDown()</h2>
+<a id="a206bb5124a44cded2d24374ec1377c6a" name="a206bb5124a44cded2d24374ec1377c6a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a206bb5124a44cded2d24374ec1377c6a">&#9670;&#160;</a></span>isKeyDown()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structshkyera_1_1_clock.html">bool</a> shkyera::InputManager::isKeyDown </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classshkyera_1_1_input_manager.html#a31d2ffd3040040c147818b1d2945b3a6">Key</a>&#160;</td>
+          <td class="paramname"><em>key</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8bb695a1cf46f26977149603bb8e46e4" name="a8bb695a1cf46f26977149603bb8e46e4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8bb695a1cf46f26977149603bb8e46e4">&#9670;&#160;</a></span>isKeyPressed()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structshkyera_1_1_clock.html">bool</a> shkyera::InputManager::isKeyPressed </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classshkyera_1_1_input_manager.html#a31d2ffd3040040c147818b1d2945b3a6">Key</a>&#160;</td>
+          <td class="paramname"><em>key</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="afbb7ca2fd75354fdb824b4e5413fe96f" name="afbb7ca2fd75354fdb824b4e5413fe96f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afbb7ca2fd75354fdb824b4e5413fe96f">&#9670;&#160;</a></span>isKeyReleased()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structshkyera_1_1_clock.html">bool</a> shkyera::InputManager::isKeyReleased </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classshkyera_1_1_input_manager.html#a31d2ffd3040040c147818b1d2945b3a6">Key</a>&#160;</td>
+          <td class="paramname"><em>key</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a07b4b6007606912ec1d2a6e4bdab93e0" name="a07b4b6007606912ec1d2a6e4bdab93e0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a07b4b6007606912ec1d2a6e4bdab93e0">&#9670;&#160;</a></span>isKeyUp()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structshkyera_1_1_clock.html">bool</a> shkyera::InputManager::isKeyUp </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classshkyera_1_1_input_manager.html#a31d2ffd3040040c147818b1d2945b3a6">Key</a>&#160;</td>
+          <td class="paramname"><em>key</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6bc1afb198ca6532fad0e838004ebbdd" name="a6bc1afb198ca6532fad0e838004ebbdd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6bc1afb198ca6532fad0e838004ebbdd">&#9670;&#160;</a></span>isMouseButtonDown()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -394,7 +437,7 @@ template&lt;<a class="el" href="classshkyera_1_1_input_manager.html#a19d17fbbb41
           <td class="memname"><a class="el" href="structshkyera_1_1_clock.html">bool</a> shkyera::InputManager::isMouseButtonDown </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classshkyera_1_1_input_manager.html#ad365b43197ee5262ac6b397df7c701c6">MouseButton</a>&#160;</td>
-          <td class="paramname"><em>mouseButton</em></td><td>)</td>
+          <td class="paramname"><em>button</em></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
@@ -402,8 +445,62 @@ template&lt;<a class="el" href="classshkyera_1_1_input_manager.html#a19d17fbbb41
 
 </div>
 </div>
-<a id="a8938f21879abfce5e9a869b2f13cac0d" name="a8938f21879abfce5e9a869b2f13cac0d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8938f21879abfce5e9a869b2f13cac0d">&#9670;&#160;</a></span>isMouseInside()</h2>
+<a id="a0d112cded880313eff53d9edb1bebbb7" name="a0d112cded880313eff53d9edb1bebbb7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0d112cded880313eff53d9edb1bebbb7">&#9670;&#160;</a></span>isMouseButtonPressed()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structshkyera_1_1_clock.html">bool</a> shkyera::InputManager::isMouseButtonPressed </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classshkyera_1_1_input_manager.html#ad365b43197ee5262ac6b397df7c701c6">MouseButton</a>&#160;</td>
+          <td class="paramname"><em>button</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aed5a80c7f7422fd5024e50f6654bb9da" name="aed5a80c7f7422fd5024e50f6654bb9da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aed5a80c7f7422fd5024e50f6654bb9da">&#9670;&#160;</a></span>isMouseButtonReleased()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structshkyera_1_1_clock.html">bool</a> shkyera::InputManager::isMouseButtonReleased </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classshkyera_1_1_input_manager.html#ad365b43197ee5262ac6b397df7c701c6">MouseButton</a>&#160;</td>
+          <td class="paramname"><em>button</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad13605edbb7c3904169a2dad10a7b7b1" name="ad13605edbb7c3904169a2dad10a7b7b1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad13605edbb7c3904169a2dad10a7b7b1">&#9670;&#160;</a></span>isMouseButtonUp()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structshkyera_1_1_clock.html">bool</a> shkyera::InputManager::isMouseButtonUp </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classshkyera_1_1_input_manager.html#ad365b43197ee5262ac6b397df7c701c6">MouseButton</a>&#160;</td>
+          <td class="paramname"><em>button</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad9ce194d22751409f70bffc169a4f855" name="ad9ce194d22751409f70bffc169a4f855"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad9ce194d22751409f70bffc169a4f855">&#9670;&#160;</a></span>isMouseInside()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -412,216 +509,8 @@ template&lt;<a class="el" href="classshkyera_1_1_input_manager.html#a19d17fbbb41
           <td class="memname"><a class="el" href="structshkyera_1_1_clock.html">bool</a> shkyera::InputManager::isMouseInside </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classshkyera_1_1_input_manager.html#a19d17fbbb411ba4f2ebe8b5f882e93da">CoordinateSystem</a>&#160;</td>
-          <td class="paramname"><em>system</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ad041657b934e3b6011730a4e333b9f1b" name="ad041657b934e3b6011730a4e333b9f1b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad041657b934e3b6011730a4e333b9f1b">&#9670;&#160;</a></span>onMouseButtonDown()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structshkyera_1_1_clock.html">void</a> shkyera::InputManager::onMouseButtonDown </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="classshkyera_1_1_input_manager.html#ad365b43197ee5262ac6b397df7c701c6">MouseButton</a>&#160;</td>
-          <td class="paramname"><em>button</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a4c0689599167fa8c54838d5678b0121e" name="a4c0689599167fa8c54838d5678b0121e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4c0689599167fa8c54838d5678b0121e">&#9670;&#160;</a></span>onMouseButtonUp()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structshkyera_1_1_clock.html">void</a> shkyera::InputManager::onMouseButtonUp </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="classshkyera_1_1_input_manager.html#ad365b43197ee5262ac6b397df7c701c6">MouseButton</a>&#160;</td>
-          <td class="paramname"><em>button</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a26f73f707b0990d6370a1c4b0f5691ff" name="a26f73f707b0990d6370a1c4b0f5691ff"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a26f73f707b0990d6370a1c4b0f5691ff">&#9670;&#160;</a></span>processInput()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structshkyera_1_1_clock.html">void</a> shkyera::InputManager::processInput </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structshkyera_1_1_clock.html">GLFWwindow</a> *&#160;</td>
-          <td class="paramname"><em>window</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a85d68e723229dc09ad6c6466c2caabd7" name="a85d68e723229dc09ad6c6466c2caabd7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a85d68e723229dc09ad6c6466c2caabd7">&#9670;&#160;</a></span>processMouseButton()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structshkyera_1_1_clock.html">void</a> shkyera::InputManager::processMouseButton </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structshkyera_1_1_clock.html">GLFWwindow</a> *&#160;</td>
-          <td class="paramname"><em>window</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classshkyera_1_1_input_manager.html#ad365b43197ee5262ac6b397df7c701c6">MouseButton</a>&#160;</td>
-          <td class="paramname"><em>button</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a1e6bbd84d48ca1c81518373a96b94c0b" name="a1e6bbd84d48ca1c81518373a96b94c0b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1e6bbd84d48ca1c81518373a96b94c0b">&#9670;&#160;</a></span>registerKeyCallback()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structshkyera_1_1_clock.html">void</a> shkyera::InputManager::registerKeyCallback </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="classshkyera_1_1_input_manager.html#a31d2ffd3040040c147818b1d2945b3a6">Key</a>&#160;</td>
-          <td class="paramname"><em>key</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::function&lt; <a class="el" href="structshkyera_1_1_clock.html">void</a>()&gt;&#160;</td>
-          <td class="paramname"><em>callback</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ab6616a021664f888cbf959d7800fb0cd" name="ab6616a021664f888cbf959d7800fb0cd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab6616a021664f888cbf959d7800fb0cd">&#9670;&#160;</a></span>registerMouseButtonDownCallback()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structshkyera_1_1_clock.html">void</a> shkyera::InputManager::registerMouseButtonDownCallback </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="classshkyera_1_1_input_manager.html#ad365b43197ee5262ac6b397df7c701c6">MouseButton</a>&#160;</td>
-          <td class="paramname"><em>button</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::function&lt; <a class="el" href="structshkyera_1_1_clock.html">void</a>()&gt;&#160;</td>
-          <td class="paramname"><em>callback</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a014e49c416a41f9d0d34d473177a4b5d" name="a014e49c416a41f9d0d34d473177a4b5d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a014e49c416a41f9d0d34d473177a4b5d">&#9670;&#160;</a></span>registerMouseButtonUpCallback()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structshkyera_1_1_clock.html">void</a> shkyera::InputManager::registerMouseButtonUpCallback </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="classshkyera_1_1_input_manager.html#ad365b43197ee5262ac6b397df7c701c6">MouseButton</a>&#160;</td>
-          <td class="paramname"><em>button</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::function&lt; <a class="el" href="structshkyera_1_1_clock.html">void</a>()&gt;&#160;</td>
-          <td class="paramname"><em>callback</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a797a6fd8a3169b1ff3a166a80e8f8534" name="a797a6fd8a3169b1ff3a166a80e8f8534"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a797a6fd8a3169b1ff3a166a80e8f8534">&#9670;&#160;</a></span>registerMouseMoveCallback()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structshkyera_1_1_clock.html">void</a> shkyera::InputManager::registerMouseMoveCallback </td>
-          <td>(</td>
-          <td class="paramtype">std::function&lt; <a class="el" href="structshkyera_1_1_clock.html">void</a>(<a class="el" href="structshkyera_1_1_clock.html">double</a>, <a class="el" href="structshkyera_1_1_clock.html">double</a>)&gt;&#160;</td>
-          <td class="paramname"><em>callback</em></td><td>)</td>
-          <td></td>
+          <td class="paramname"><em>coordinteSystem</em></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -662,17 +551,17 @@ template&lt;<a class="el" href="classshkyera_1_1_input_manager.html#a19d17fbbb41
 
 </div>
 </div>
-<a id="a85a8f139c95e5a0d5fbba81de6bc1d2f" name="a85a8f139c95e5a0d5fbba81de6bc1d2f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a85a8f139c95e5a0d5fbba81de6bc1d2f">&#9670;&#160;</a></span>unregisterKeyCallback()</h2>
+<a id="a534a38c9bca6a04cbab36b35c998a032" name="a534a38c9bca6a04cbab36b35c998a032"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a534a38c9bca6a04cbab36b35c998a032">&#9670;&#160;</a></span>setWindow()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structshkyera_1_1_clock.html">void</a> shkyera::InputManager::unregisterKeyCallback </td>
+          <td class="memname"><a class="el" href="structshkyera_1_1_clock.html">void</a> shkyera::InputManager::setWindow </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classshkyera_1_1_input_manager.html#a31d2ffd3040040c147818b1d2945b3a6">Key</a>&#160;</td>
-          <td class="paramname"><em>key</em></td><td>)</td>
+          <td class="paramtype"><a class="el" href="structshkyera_1_1_clock.html">GLFWwindow</a> *&#160;</td>
+          <td class="paramname"><em>window</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -680,50 +569,14 @@ template&lt;<a class="el" href="classshkyera_1_1_input_manager.html#a19d17fbbb41
 
 </div>
 </div>
-<a id="ae9be0c7503e351b5c048aac5f2ef6808" name="ae9be0c7503e351b5c048aac5f2ef6808"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae9be0c7503e351b5c048aac5f2ef6808">&#9670;&#160;</a></span>unregisterMouseButtonDownCallback()</h2>
+<a id="aaace9aa591060b8637ac887207852931" name="aaace9aa591060b8637ac887207852931"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaace9aa591060b8637ac887207852931">&#9670;&#160;</a></span>update()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structshkyera_1_1_clock.html">void</a> shkyera::InputManager::unregisterMouseButtonDownCallback </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="classshkyera_1_1_input_manager.html#ad365b43197ee5262ac6b397df7c701c6">MouseButton</a>&#160;</td>
-          <td class="paramname"><em>button</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a9d466425614e22ceee724572d3730735" name="a9d466425614e22ceee724572d3730735"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9d466425614e22ceee724572d3730735">&#9670;&#160;</a></span>unregisterMouseButtonUpCallback()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structshkyera_1_1_clock.html">void</a> shkyera::InputManager::unregisterMouseButtonUpCallback </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="classshkyera_1_1_input_manager.html#ad365b43197ee5262ac6b397df7c701c6">MouseButton</a>&#160;</td>
-          <td class="paramname"><em>button</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a2057318bd9b36b51689d8fc982c6f5b0" name="a2057318bd9b36b51689d8fc982c6f5b0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2057318bd9b36b51689d8fc982c6f5b0">&#9670;&#160;</a></span>unregisterMouseMoveCallback()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structshkyera_1_1_clock.html">void</a> shkyera::InputManager::unregisterMouseMoveCallback </td>
+          <td class="memname"><a class="el" href="structshkyera_1_1_clock.html">void</a> shkyera::InputManager::update </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -756,8 +609,8 @@ template&lt;<a class="el" href="classshkyera_1_1_input_manager.html#a19d17fbbb41
 
 </div>
 </div>
-<a id="a3ab4f67a9385e6d5a04479eb2ca17125" name="a3ab4f67a9385e6d5a04479eb2ca17125"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3ab4f67a9385e6d5a04479eb2ca17125">&#9670;&#160;</a></span>_keyCallbacks</h2>
+<a id="a913b03507ab4f70e20d4b30e55a875e0" name="a913b03507ab4f70e20d4b30e55a875e0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a913b03507ab4f70e20d4b30e55a875e0">&#9670;&#160;</a></span>_currentKeyStates</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -766,7 +619,7 @@ template&lt;<a class="el" href="classshkyera_1_1_input_manager.html#a19d17fbbb41
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::unordered_map&lt;<a class="el" href="classshkyera_1_1_input_manager.html#a31d2ffd3040040c147818b1d2945b3a6">Key</a>, std::vector&lt;std::function&lt;<a class="el" href="structshkyera_1_1_clock.html">void</a>()&gt; &gt; &gt; shkyera::InputManager::_keyCallbacks</td>
+          <td class="memname">std::array&lt;<a class="el" href="structshkyera_1_1_clock.html">bool</a>, <a class="el" href="classshkyera_1_1_input_manager.html#a4f58f28b8a0377d976e9a633a292a044">MAX_KEYS</a>&gt; shkyera::InputManager::_currentKeyStates {}</td>
         </tr>
       </table>
   </td>
@@ -778,8 +631,8 @@ template&lt;<a class="el" href="classshkyera_1_1_input_manager.html#a19d17fbbb41
 
 </div>
 </div>
-<a id="a6dfa1d8adebf513a34982f135297d151" name="a6dfa1d8adebf513a34982f135297d151"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6dfa1d8adebf513a34982f135297d151">&#9670;&#160;</a></span>_latestMousePosition</h2>
+<a id="a07303704ce4accdca4102292ef3be9de" name="a07303704ce4accdca4102292ef3be9de"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a07303704ce4accdca4102292ef3be9de">&#9670;&#160;</a></span>_currentMouseStates</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -788,7 +641,7 @@ template&lt;<a class="el" href="classshkyera_1_1_input_manager.html#a19d17fbbb41
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">glm::vec2 shkyera::InputManager::_latestMousePosition</td>
+          <td class="memname">std::array&lt;<a class="el" href="structshkyera_1_1_clock.html">bool</a>, <a class="el" href="classshkyera_1_1_input_manager.html#af8256d18db0dc34aa690997e774d944a">MAX_MOUSE_BUTTONS</a>&gt; shkyera::InputManager::_currentMouseStates {}</td>
         </tr>
       </table>
   </td>
@@ -800,8 +653,8 @@ template&lt;<a class="el" href="classshkyera_1_1_input_manager.html#a19d17fbbb41
 
 </div>
 </div>
-<a id="ad46eac8b8f500e4c2d490bd1137164dc" name="ad46eac8b8f500e4c2d490bd1137164dc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad46eac8b8f500e4c2d490bd1137164dc">&#9670;&#160;</a></span>_mouseButtonDownCallbacks</h2>
+<a id="a421404052f9bfb79ecac149b84e44d8a" name="a421404052f9bfb79ecac149b84e44d8a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a421404052f9bfb79ecac149b84e44d8a">&#9670;&#160;</a></span>_mousePos</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -810,7 +663,7 @@ template&lt;<a class="el" href="classshkyera_1_1_input_manager.html#a19d17fbbb41
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::unordered_map&lt;<a class="el" href="classshkyera_1_1_input_manager.html#ad365b43197ee5262ac6b397df7c701c6">MouseButton</a>, std::vector&lt;std::function&lt;<a class="el" href="structshkyera_1_1_clock.html">void</a>()&gt; &gt; &gt; shkyera::InputManager::_mouseButtonDownCallbacks</td>
+          <td class="memname">glm::vec2 shkyera::InputManager::_mousePos {0.0f, 0.0f}</td>
         </tr>
       </table>
   </td>
@@ -822,8 +675,8 @@ template&lt;<a class="el" href="classshkyera_1_1_input_manager.html#a19d17fbbb41
 
 </div>
 </div>
-<a id="adea52f65ab358ce74368cfba19640762" name="adea52f65ab358ce74368cfba19640762"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adea52f65ab358ce74368cfba19640762">&#9670;&#160;</a></span>_mouseButtonUpCallbacks</h2>
+<a id="a9037ea68a961a485ed643af02d4bb424" name="a9037ea68a961a485ed643af02d4bb424"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9037ea68a961a485ed643af02d4bb424">&#9670;&#160;</a></span>_previousKeyStates</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -832,7 +685,7 @@ template&lt;<a class="el" href="classshkyera_1_1_input_manager.html#a19d17fbbb41
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::unordered_map&lt;<a class="el" href="classshkyera_1_1_input_manager.html#ad365b43197ee5262ac6b397df7c701c6">MouseButton</a>, std::vector&lt;std::function&lt;<a class="el" href="structshkyera_1_1_clock.html">void</a>()&gt; &gt; &gt; shkyera::InputManager::_mouseButtonUpCallbacks</td>
+          <td class="memname">std::array&lt;<a class="el" href="structshkyera_1_1_clock.html">bool</a>, <a class="el" href="classshkyera_1_1_input_manager.html#a4f58f28b8a0377d976e9a633a292a044">MAX_KEYS</a>&gt; shkyera::InputManager::_previousKeyStates {}</td>
         </tr>
       </table>
   </td>
@@ -844,8 +697,8 @@ template&lt;<a class="el" href="classshkyera_1_1_input_manager.html#a19d17fbbb41
 
 </div>
 </div>
-<a id="af8c7dbd28aed02012569b28b97e7410f" name="af8c7dbd28aed02012569b28b97e7410f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af8c7dbd28aed02012569b28b97e7410f">&#9670;&#160;</a></span>_mouseMoveCallbacks</h2>
+<a id="a1ab926299f1884ac0d7e2fb9ca0f79d3" name="a1ab926299f1884ac0d7e2fb9ca0f79d3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1ab926299f1884ac0d7e2fb9ca0f79d3">&#9670;&#160;</a></span>_previousMouseStates</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -854,7 +707,7 @@ template&lt;<a class="el" href="classshkyera_1_1_input_manager.html#a19d17fbbb41
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::vector&lt;std::function&lt;<a class="el" href="structshkyera_1_1_clock.html">void</a>(<a class="el" href="structshkyera_1_1_clock.html">double</a>, <a class="el" href="structshkyera_1_1_clock.html">double</a>)&gt; &gt; shkyera::InputManager::_mouseMoveCallbacks</td>
+          <td class="memname">std::array&lt;<a class="el" href="structshkyera_1_1_clock.html">bool</a>, <a class="el" href="classshkyera_1_1_input_manager.html#af8256d18db0dc34aa690997e774d944a">MAX_MOUSE_BUTTONS</a>&gt; shkyera::InputManager::_previousMouseStates {}</td>
         </tr>
       </table>
   </td>
@@ -866,8 +719,8 @@ template&lt;<a class="el" href="classshkyera_1_1_input_manager.html#a19d17fbbb41
 
 </div>
 </div>
-<a id="a496ef3a73dfbd268934c379ccc60fd68" name="a496ef3a73dfbd268934c379ccc60fd68"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a496ef3a73dfbd268934c379ccc60fd68">&#9670;&#160;</a></span>_previousMouseButtonStates</h2>
+<a id="a39c5c5befe4d56b9923a00c1556390d4" name="a39c5c5befe4d56b9923a00c1556390d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a39c5c5befe4d56b9923a00c1556390d4">&#9670;&#160;</a></span>_window</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -876,12 +729,56 @@ template&lt;<a class="el" href="classshkyera_1_1_input_manager.html#a19d17fbbb41
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::array&lt;<a class="el" href="structshkyera_1_1_clock.html">bool</a>, 10&gt; shkyera::InputManager::_previousMouseButtonStates = {<a class="el" href="structshkyera_1_1_clock.html">false</a>}</td>
+          <td class="memname"><a class="el" href="structshkyera_1_1_clock.html">GLFWwindow</a>* shkyera::InputManager::_window = <a class="el" href="structshkyera_1_1_clock.html">nullptr</a></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
 <span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4f58f28b8a0377d976e9a633a292a044" name="a4f58f28b8a0377d976e9a633a292a044"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4f58f28b8a0377d976e9a633a292a044">&#9670;&#160;</a></span>MAX_KEYS</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structshkyera_1_1_clock.html">constexpr</a> <a class="el" href="structshkyera_1_1_clock.html">int</a> shkyera::InputManager::MAX_KEYS = <a class="el" href="structshkyera_1_1_clock.html">GLFW_KEY_LAST</a> + 1</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af8256d18db0dc34aa690997e774d944a" name="af8256d18db0dc34aa690997e774d944a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af8256d18db0dc34aa690997e774d944a">&#9670;&#160;</a></span>MAX_MOUSE_BUTTONS</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structshkyera_1_1_clock.html">constexpr</a> <a class="el" href="structshkyera_1_1_clock.html">int</a> shkyera::InputManager::MAX_MOUSE_BUTTONS = <a class="el" href="structshkyera_1_1_clock.html">GLFW_MOUSE_BUTTON_LAST</a> + 1</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span><span class="mlabel">private</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">

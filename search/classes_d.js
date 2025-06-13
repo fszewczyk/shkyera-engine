@@ -1,16 +1,7 @@
 var searchData=
 [
-  ['particleemittercomponent_0',['ParticleEmitterComponent',['../structshkyera_1_1_particle_emitter_component.html',1,'shkyera']]],
-  ['particleemittercomponentui_1',['ParticleEmitterComponentUI',['../classshkyera_1_1_particle_emitter_component_u_i.html',1,'shkyera']]],
-  ['particlesystem_2',['ParticleSystem',['../classshkyera_1_1_particle_system.html',1,'shkyera']]],
-  ['pathassetloader_3',['PathAssetLoader',['../classshkyera_1_1utils_1_1assets_1_1_path_asset_loader.html',1,'shkyera::utils::assets']]],
-  ['pointlightcomponent_4',['PointLightComponent',['../structshkyera_1_1_point_light_component.html',1,'shkyera']]],
-  ['pointlightcomponentui_5',['PointLightComponentUI',['../classshkyera_1_1_point_light_component_u_i.html',1,'shkyera']]],
-  ['postprocessingvolumecomponent_6',['PostProcessingVolumeComponent',['../structshkyera_1_1_post_processing_volume_component.html',1,'shkyera']]],
-  ['postprocessingvolumecomponentui_7',['PostProcessingVolumeComponentUI',['../classshkyera_1_1_post_processing_volume_component_u_i.html',1,'shkyera']]],
-  ['profileblock_8',['ProfileBlock',['../structshkyera_1_1_profile_block.html',1,'shkyera']]],
-  ['profileguard_9',['ProfileGuard',['../classshkyera_1_1_profile_guard.html',1,'shkyera']]],
-  ['profiler_10',['Profiler',['../classshkyera_1_1_profiler.html',1,'shkyera']]],
-  ['profilerwidget_11',['ProfilerWidget',['../classshkyera_1_1_profiler_widget.html',1,'shkyera']]],
-  ['propertieswidget_12',['PropertiesWidget',['../classshkyera_1_1_properties_widget.html',1,'shkyera']]]
+  ['objectselectionsystem_0',['ObjectSelectionSystem',['../classshkyera_1_1_object_selection_system.html',1,'shkyera']]],
+  ['objectswidget_1',['ObjectsWidget',['../classshkyera_1_1_objects_widget.html',1,'shkyera']]],
+  ['openglresourcetag_2',['OpenGLResourceTag',['../structshkyera_1_1_open_g_l_resource_tag.html',1,'shkyera']]],
+  ['overlaymodelcomponent_3',['OverlayModelComponent',['../classshkyera_1_1_overlay_model_component.html',1,'shkyera']]]
 ];

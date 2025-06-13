@@ -7,7 +7,8 @@ var classshkyera_1_1_registry =
     [ "addComponent", "classshkyera_1_1_registry.html#a382b72f0f4d47f449303c6a15c756e7a", null ],
     [ "addEntity", "classshkyera_1_1_registry.html#adade4f4df213e42f8c71b843193efe52", null ],
     [ "assignComponent", "classshkyera_1_1_registry.html#af80c60ac4aca84444d1b1b08ac2b1cba", null ],
-    [ "clearSelectedEntities", "classshkyera_1_1_registry.html#ade3839d7405f7d0dab933b16a60241d5", null ],
+    [ "clearComponents", "classshkyera_1_1_registry.html#a55559473eb796d82dc73e42e139dde36", null ],
+    [ "getComponent", "classshkyera_1_1_registry.html#a4d32c3ccf821761dad78c70570072c01", null ],
     [ "getComponent", "classshkyera_1_1_registry.html#adaae43f952eb3e1c91a0f0c3358805b7", null ],
     [ "getComponent", "classshkyera_1_1_registry.html#a2fc527e210573023f7b1ab31d34db914", null ],
     [ "getComponents", "classshkyera_1_1_registry.html#a20bb93b13e5dbee42c629e218b35922e", null ],
@@ -19,15 +20,12 @@ var classshkyera_1_1_registry =
     [ "getHierarchy", "classshkyera_1_1_registry.html#ab11244547fe993e8cad738f17e1293cb", null ],
     [ "getOrCreateComponentSet", "classshkyera_1_1_registry.html#a3909161770cdb81e107640e87d3e980b", null ],
     [ "getOrCreateComponentSet", "classshkyera_1_1_registry.html#a724f9df8ee8acc37d95f9b2660f0eddc", null ],
-    [ "getSelectedEntities", "classshkyera_1_1_registry.html#a59ae30d228538a995634e16412fc0b26", null ],
     [ "hasComponent", "classshkyera_1_1_registry.html#a8c1b251e1354f4ac17fd0edd259443b1", null ],
     [ "hasComponents", "classshkyera_1_1_registry.html#aae292cdb7e242d71190c665090950608", null ],
     [ "operator=", "classshkyera_1_1_registry.html#a13d34245a44133cdb1b8bbaa8eebd415", null ],
     [ "removeComponent", "classshkyera_1_1_registry.html#a609cea17b4980073157c4eefb1f0c6fa", null ],
     [ "removeEntity", "classshkyera_1_1_registry.html#a392b890c70ac45a4709319914bd72d48", null ],
-    [ "selectEntity", "classshkyera_1_1_registry.html#a5c3b25ab9ae87027aa7bb337f51cf0eb", null ],
     [ "_componentSets", "classshkyera_1_1_registry.html#ac7294f22186f34c86456a3e2d21c4c70", null ],
     [ "_entityHierarchy", "classshkyera_1_1_registry.html#acbe11d70c55ad4e32494ac573b86cb3d", null ],
-    [ "_entityProvider", "classshkyera_1_1_registry.html#a24b4fa61858f7fd5121ed0be7319db5f", null ],
-    [ "_selectedEntities", "classshkyera_1_1_registry.html#a3264ce557ad456773a8c84345f1504b9", null ]
+    [ "_entityProvider", "classshkyera_1_1_registry.html#a24b4fa61858f7fd5121ed0be7319db5f", null ]
 ];

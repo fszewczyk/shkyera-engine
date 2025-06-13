@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['occlusion_0',['Occlusion',['../structshkyera_1_1_billboard_component.html#a6ec2d5c0f14cdddc6079914fb2e68a14',1,'shkyera::BillboardComponent']]],
-  ['orientation_1',['Orientation',['../structshkyera_1_1_billboard_component.html#a8215d0935c131c065cc4cd41014db96e',1,'shkyera::BillboardComponent']]]
+  ['messagetype_0',['MessageType',['../namespaceshkyera_1_1_logger.html#a084332fcbe48f0afc6144c58a5b2ae05',1,'shkyera::Logger']]],
+  ['mode_1',['Mode',['../classshkyera_1_1_gizmo_system.html#a63727ecf275348fe911d450f1ecb3505',1,'shkyera::GizmoSystem']]]
 ];

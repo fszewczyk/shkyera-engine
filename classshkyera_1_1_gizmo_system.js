@@ -9,6 +9,7 @@ var classshkyera_1_1_gizmo_system =
     [ "adjustGizmoTransform", "classshkyera_1_1_gizmo_system.html#af891ef2b8e2de6fd215140f38e3d889b", null ],
     [ "getMouseIntersectionWithHandle", "classshkyera_1_1_gizmo_system.html#a4dbb5b52ee898d5d218a87770b007882", null ],
     [ "getSelectedHandleDisplacement", "classshkyera_1_1_gizmo_system.html#a46deb961c660171ada6b66f3afff06d2", null ],
+    [ "handleInput", "classshkyera_1_1_gizmo_system.html#a37f18fdcac98682bf1f638dae44f5185", null ],
     [ "isHoverMoved", "classshkyera_1_1_gizmo_system.html#a8716e9fd617f0812c20c5c7908ae2184", null ],
     [ "moveEntity", "classshkyera_1_1_gizmo_system.html#a664c15b72f0fcd2171c92bc5b12a4119", null ],
     [ "scaleEntity", "classshkyera_1_1_gizmo_system.html#abf141550ffacac16f9f8a4fef8078554", null ],

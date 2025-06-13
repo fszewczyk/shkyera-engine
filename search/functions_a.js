@@ -1,12 +1,18 @@
 var searchData=
 [
-  ['main_0',['main',['../main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4',1,'main.cpp']]],
-  ['material_1',['Material',['../structshkyera_1_1_material.html#a0e8874914e14fc8c87c4b2d6a4053937',1,'shkyera::Material']]],
-  ['materialinspector_2',['MaterialInspector',['../classshkyera_1_1_inspector_widget_1_1_material_inspector.html#af37b9baadaaef7524b6df735677e84de',1,'shkyera::InspectorWidget::MaterialInspector']]],
-  ['materialloader_3',['MaterialLoader',['../classshkyera_1_1utils_1_1assets_1_1_material_loader.html#ad95220b6aa4ee43914f6d1a9ac06da31',1,'shkyera::utils::assets::MaterialLoader']]],
-  ['mesh_4',['mesh',['../classshkyera_1_1_mesh.html#a4dff0e1605d4814fe5696b27ea600982',1,'shkyera::Mesh::Mesh(const std::filesystem::path &amp;path)'],['../classshkyera_1_1_mesh.html#a70dc682e465f00185806971c4824d555',1,'shkyera::Mesh::Mesh(std::vector&lt; Vertex &gt; vertices, std::vector&lt; uint32_t &gt; indices)'],['../classshkyera_1_1_mesh.html#a3839c211f97f191e21bcadea317aee97',1,'shkyera::Mesh::Mesh(const Mesh &amp;other)=delete'],['../classshkyera_1_1_mesh.html#aca220ba9e420461963b7ef3ae95ca1e4',1,'shkyera::Mesh::Mesh(Mesh &amp;&amp;other) noexcept']]],
-  ['mix_5',['mix',['../namespaceshkyera_1_1simd.html#aa798b0a3745133a4425174be0e866ce4',1,'shkyera::simd']]],
-  ['modelcomponentui_6',['ModelComponentUI',['../classshkyera_1_1_model_component_u_i.html#ab0860a5f86789d6ad5cca9372332cfad',1,'shkyera::ModelComponentUI']]],
-  ['moveentity_7',['moveEntity',['../classshkyera_1_1_gizmo_system.html#a664c15b72f0fcd2171c92bc5b12a4119',1,'shkyera::GizmoSystem']]],
-  ['multiplyaccumulate_8',['multiplyaccumulate',['../namespaceshkyera_1_1simd.html#ac128c892ebea1ed9529a6f91e16837c1',1,'shkyera::simd::multiplyAccumulate(const FloatVec &amp;a, float b, FloatVec &amp;dst)'],['../namespaceshkyera_1_1simd.html#acc62f1fc44941ae57a5dcbaf51cc571d',1,'shkyera::simd::multiplyAccumulate(const FloatVec &amp;a, const FloatVec &amp;b, FloatVec &amp;dst)']]]
+  ['link_0',['link',['../classshkyera_1_1_shader_program.html#a0b762e2a709d30fa7f88ccc6274f052a',1,'shkyera::ShaderProgram']]],
+  ['load_1',['load',['../classshkyera_1_1_image.html#a48f10206a7d4b69c99fab4c19b2186cc',1,'shkyera::Image']]],
+  ['loadcomponents_2',['loadComponents',['../namespaceshkyera_1_1serialization.html#ae96d58e3a3c3712461ad9c2b0a877698',1,'shkyera::serialization']]],
+  ['loadfaces_3',['loadFaces',['../classshkyera_1_1_cube_map.html#a445dac5b6b6c126e0bc5bde0d2030c28',1,'shkyera::CubeMap']]],
+  ['loadfonts_4',['loadFonts',['../namespaceshkyera_1_1style.html#ae759fa06750cfd1facdf1d0367d10da4',1,'shkyera::style']]],
+  ['loadfromfile_5',['loadfromfile',['../classshkyera_1_1_mesh.html#a443fbc4e12444533a2237b3ca898ee41',1,'shkyera::Mesh::loadFromFile()'],['../classshkyera_1_1_shader.html#a437d92cdf23c645c5624375e78188fd0',1,'shkyera::Shader::loadFromFile()'],['../classshkyera_1_1_wireframe.html#a1ec2aaa82ee39d58dfb0b148f0908718',1,'shkyera::Wireframe::loadFromFile()']]],
+  ['loadimage_6',['loadImage',['../classshkyera_1_1_texture.html#aefafe1e4d8a0ccc16f5ac68854e70857',1,'shkyera::Texture']]],
+  ['loadregistry_7',['loadRegistry',['../main_8cpp.html#a094e424911ed10f2e622f3954e9f415d',1,'main.cpp']]],
+  ['loadscene_8',['loadScene',['../main_8cpp.html#a6f953c4a4970d977490a718c01c318a7',1,'main.cpp']]],
+  ['loadsingletoncomponent_9',['loadSingletonComponent',['../namespaceshkyera_1_1serialization.html#aa6bdc72a3f8dc5623f8acda108a8dbc4',1,'shkyera::serialization']]],
+  ['log_10',['log',['../classshkyera_1_1_log_error.html#a66fe5fcefe07bc1e275703dd0b5ee56a',1,'shkyera::LogError::Log()'],['../classshkyera_1_1_log_success.html#a66fe5fcefe07bc1e275703dd0b5ee56a',1,'shkyera::LogSuccess::Log()'],['../classshkyera_1_1_log_info.html#a66fe5fcefe07bc1e275703dd0b5ee56a',1,'shkyera::LogInfo::Log()'],['../classshkyera_1_1_log_verbose.html#a66fe5fcefe07bc1e275703dd0b5ee56a',1,'shkyera::LogVerbose::Log()'],['../classshkyera_1_1_log.html#a66fe5fcefe07bc1e275703dd0b5ee56a',1,'shkyera::Log::Log()']]],
+  ['logerror_11',['logerror',['../classshkyera_1_1_console_widget.html#ae9a8e1877f9950079a0c0bc9c9116dd2',1,'shkyera::ConsoleWidget::logError()'],['../classshkyera_1_1_log_error.html#a6562ddf165dbfb0f1927835ca2f7633e',1,'shkyera::LogError::LogError()']]],
+  ['loginfo_12',['loginfo',['../classshkyera_1_1_console_widget.html#a4c70f7374c4882b57481c8244eeffca2',1,'shkyera::ConsoleWidget::logInfo()'],['../classshkyera_1_1_log_info.html#aa8255a2e15d1166e3cda672263f8e562',1,'shkyera::LogInfo::LogInfo()']]],
+  ['logsuccess_13',['logsuccess',['../classshkyera_1_1_console_widget.html#af179a3033175a24cd30a12f151ccd66c',1,'shkyera::ConsoleWidget::logSuccess()'],['../classshkyera_1_1_log_success.html#af500623818a062b446e10a8d80bc4957',1,'shkyera::LogSuccess::LogSuccess()']]],
+  ['logverbose_14',['logverbose',['../classshkyera_1_1_console_widget.html#aa44ad2ecc723c69363224ea70e1756b6',1,'shkyera::ConsoleWidget::logVerbose()'],['../classshkyera_1_1_log_verbose.html#aad497afeb820452bf744fd3ea55a7754',1,'shkyera::LogVerbose::LogVerbose()']]]
 ];

@@ -7,5 +7,7 @@ var dir_900c20bb70493231141df6997ccd6b87 =
     [ "ObjectSelectionSystem.hpp", "_object_selection_system_8hpp.html", "_object_selection_system_8hpp" ],
     [ "ParticleSystem.cpp", "_particle_system_8cpp.html", null ],
     [ "ParticleSystem.hpp", "_particle_system_8hpp.html", "_particle_system_8hpp" ],
+    [ "PhysicsSystem.cpp", "_physics_system_8cpp.html", null ],
+    [ "PhysicsSystem.hpp", "_physics_system_8hpp.html", "_physics_system_8hpp" ],
     [ "RenderingSystem.hpp", "_rendering_system_8hpp.html", "_rendering_system_8hpp" ]
 ];

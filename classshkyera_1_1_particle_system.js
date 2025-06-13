@@ -10,6 +10,5 @@ var classshkyera_1_1_particle_system =
     [ "updatePositions", "classshkyera_1_1_particle_system.html#a66c201b9c83358fd5356b4a57903bcb4", null ],
     [ "updateSizes", "classshkyera_1_1_particle_system.html#ac2504ea3eb2457149a25c1d749e65957", null ],
     [ "updateTransparencies", "classshkyera_1_1_particle_system.html#afbade7fdb97944d0063b7c389c7774ce", null ],
-    [ "updateVelocities", "classshkyera_1_1_particle_system.html#a9cc8e9496077a5a0d9b78705bf5fb101", null ],
-    [ "_registry", "classshkyera_1_1_particle_system.html#a08a526b2ddcff08dc0070fbaa9084bce", null ]
+    [ "updateVelocities", "classshkyera_1_1_particle_system.html#a9cc8e9496077a5a0d9b78705bf5fb101", null ]
 ];

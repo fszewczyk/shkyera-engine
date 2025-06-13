@@ -10,7 +10,9 @@ var searchData=
   ['shkyera_3a_3astyle_7',['style',['../namespaceshkyera_1_1style.html',1,'shkyera']]],
   ['shkyera_3a_3autils_8',['utils',['../namespaceshkyera_1_1utils.html',1,'shkyera']]],
   ['shkyera_3a_3autils_3a_3aassets_9',['assets',['../namespaceshkyera_1_1utils_1_1assets.html',1,'shkyera::utils']]],
-  ['shkyera_3a_3autils_3a_3atransform_10',['transform',['../namespaceshkyera_1_1utils_1_1transform.html',1,'shkyera::utils']]],
-  ['shkyera_3a_3autils_3a_3aui_11',['ui',['../namespaceshkyera_1_1utils_1_1ui.html',1,'shkyera::utils']]],
-  ['std_12',['std',['../namespacestd.html',1,'']]]
+  ['shkyera_3a_3autils_3a_3ainput_10',['input',['../namespaceshkyera_1_1utils_1_1input.html',1,'shkyera::utils']]],
+  ['shkyera_3a_3autils_3a_3ajobs_11',['jobs',['../namespaceshkyera_1_1utils_1_1jobs.html',1,'shkyera::utils']]],
+  ['shkyera_3a_3autils_3a_3atransform_12',['transform',['../namespaceshkyera_1_1utils_1_1transform.html',1,'shkyera::utils']]],
+  ['shkyera_3a_3autils_3a_3aui_13',['ui',['../namespaceshkyera_1_1utils_1_1ui.html',1,'shkyera::utils']]],
+  ['std_14',['std',['../namespacestd.html',1,'']]]
 ];

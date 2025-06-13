@@ -129,13 +129,24 @@ $(document).ready(function(){initNavTree('_singleton_component_8hpp_source.html'
 <div class="contents">
 <a href="_singleton_component_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespaceshkyera.html">shkyera</a> {</div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;type_traits&gt;</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno"><a class="line" href="structshkyera_1_1_singleton_component.html">    6</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structshkyera_1_1_singleton_component.html">SingletonComponent</a> {};</div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>}  <span class="comment">// namespace shkyera</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespaceshkyera.html">shkyera</a> {</div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> Component&gt;</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="structshkyera_1_1_singleton_component.html">    9</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structshkyera_1_1_singleton_component.html">SingletonComponent</a> {};</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> Component&gt;</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno"><a class="line" href="conceptshkyera_1_1_singleton_component_type.html">   12</a></span><span class="keyword">concept </span><a class="code hl_concept" href="conceptshkyera_1_1_singleton_component_type.html">SingletonComponentType</a> = std::is_base_of_v&lt;SingletonComponent&lt;Component&gt;, Component&gt;;</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> Component&gt;</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="conceptshkyera_1_1_non_singleton_component_type.html">   15</a></span><span class="keyword">concept </span><a class="code hl_concept" href="conceptshkyera_1_1_non_singleton_component_type.html">NonSingletonComponentType</a> = !<a class="code hl_concept" href="conceptshkyera_1_1_singleton_component_type.html">SingletonComponentType&lt;Component&gt;</a>;</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>}  <span class="comment">// namespace shkyera</span></div>
+<div class="ttc" id="aconceptshkyera_1_1_non_singleton_component_type_html"><div class="ttname"><a href="conceptshkyera_1_1_non_singleton_component_type.html">shkyera::NonSingletonComponentType</a></div><div class="ttdef"><b>Definition</b> SingletonComponent.hpp:15</div></div>
+<div class="ttc" id="aconceptshkyera_1_1_singleton_component_type_html"><div class="ttname"><a href="conceptshkyera_1_1_singleton_component_type.html">shkyera::SingletonComponentType</a></div><div class="ttdef"><b>Definition</b> SingletonComponent.hpp:12</div></div>
 <div class="ttc" id="anamespaceshkyera_html"><div class="ttname"><a href="namespaceshkyera.html">shkyera</a></div><div class="ttdef"><b>Definition</b> Asset.hpp:6</div></div>
-<div class="ttc" id="astructshkyera_1_1_singleton_component_html"><div class="ttname"><a href="structshkyera_1_1_singleton_component.html">shkyera::SingletonComponent</a></div><div class="ttdoc">Marker to denote Singleton Components.</div><div class="ttdef"><b>Definition</b> SingletonComponent.hpp:6</div></div>
+<div class="ttc" id="astructshkyera_1_1_singleton_component_html"><div class="ttname"><a href="structshkyera_1_1_singleton_component.html">shkyera::SingletonComponent</a></div><div class="ttdoc">Marker to denote Singleton Component.</div><div class="ttdef"><b>Definition</b> SingletonComponent.hpp:9</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.9.6-->

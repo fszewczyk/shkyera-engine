@@ -1,20 +1,9 @@
 var searchData=
 [
-  ['particleemittercomponent_2ehpp_0',['ParticleEmitterComponent.hpp',['../_particle_emitter_component_8hpp.html',1,'']]],
-  ['particleemittercomponentui_2ecpp_1',['ParticleEmitterComponentUI.cpp',['../_particle_emitter_component_u_i_8cpp.html',1,'']]],
-  ['particleemittercomponentui_2ehpp_2',['ParticleEmitterComponentUI.hpp',['../_particle_emitter_component_u_i_8hpp.html',1,'']]],
-  ['particlesystem_2ecpp_3',['ParticleSystem.cpp',['../_particle_system_8cpp.html',1,'']]],
-  ['particlesystem_2ehpp_4',['ParticleSystem.hpp',['../_particle_system_8hpp.html',1,'']]],
-  ['pointlightcomponent_2ehpp_5',['PointLightComponent.hpp',['../_point_light_component_8hpp.html',1,'']]],
-  ['pointlightcomponentui_2ecpp_6',['PointLightComponentUI.cpp',['../_point_light_component_u_i_8cpp.html',1,'']]],
-  ['pointlightcomponentui_2ehpp_7',['PointLightComponentUI.hpp',['../_point_light_component_u_i_8hpp.html',1,'']]],
-  ['postprocessingvolumecomponent_2ehpp_8',['PostProcessingVolumeComponent.hpp',['../_post_processing_volume_component_8hpp.html',1,'']]],
-  ['postprocessingvolumecomponentui_2ecpp_9',['PostProcessingVolumeComponentUI.cpp',['../_post_processing_volume_component_u_i_8cpp.html',1,'']]],
-  ['postprocessingvolumecomponentui_2ehpp_10',['PostProcessingVolumeComponentUI.hpp',['../_post_processing_volume_component_u_i_8hpp.html',1,'']]],
-  ['profiler_2ecpp_11',['Profiler.cpp',['../_profiler_8cpp.html',1,'']]],
-  ['profiler_2ehpp_12',['Profiler.hpp',['../_profiler_8hpp.html',1,'']]],
-  ['profilerwidget_2ecpp_13',['ProfilerWidget.cpp',['../_profiler_widget_8cpp.html',1,'']]],
-  ['profilerwidget_2ehpp_14',['ProfilerWidget.hpp',['../_profiler_widget_8hpp.html',1,'']]],
-  ['propertieswidget_2ecpp_15',['PropertiesWidget.cpp',['../_properties_widget_8cpp.html',1,'']]],
-  ['propertieswidget_2ehpp_16',['PropertiesWidget.hpp',['../_properties_widget_8hpp.html',1,'']]]
+  ['objectselectionsystem_2ecpp_0',['ObjectSelectionSystem.cpp',['../_object_selection_system_8cpp.html',1,'']]],
+  ['objectselectionsystem_2ehpp_1',['ObjectSelectionSystem.hpp',['../_object_selection_system_8hpp.html',1,'']]],
+  ['objectswidget_2ecpp_2',['ObjectsWidget.cpp',['../_objects_widget_8cpp.html',1,'']]],
+  ['objectswidget_2ehpp_3',['ObjectsWidget.hpp',['../_objects_widget_8hpp.html',1,'']]],
+  ['openglresource_2ehpp_4',['OpenGLResource.hpp',['../_open_g_l_resource_8hpp.html',1,'']]],
+  ['overlaymodelcomponent_2ehpp_5',['OverlayModelComponent.hpp',['../_overlay_model_component_8hpp.html',1,'']]]
 ];

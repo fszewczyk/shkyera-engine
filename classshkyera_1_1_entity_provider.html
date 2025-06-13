@@ -133,6 +133,10 @@ $(document).ready(function(){initNavTree('classshkyera_1_1_entity_provider.html'
 Public Member Functions</h2></td></tr>
 <tr class="memitem:adb44657def0064443e9ec5a184229c33" id="r_adb44657def0064443e9ec5a184229c33"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_entity_provider.html#adb44657def0064443e9ec5a184229c33">EntityProvider</a> ()</td></tr>
 <tr class="separator:adb44657def0064443e9ec5a184229c33"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6a88d98c05a5f5c7133e8fb86a253d91" id="r_a6a88d98c05a5f5c7133e8fb86a253d91"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_entity_provider.html#a6a88d98c05a5f5c7133e8fb86a253d91">EntityProvider</a> (<a class="el" href="structshkyera_1_1_clock.html">const</a> <a class="el" href="classshkyera_1_1_entity_provider.html">EntityProvider</a> &amp;<a class="el" href="structshkyera_1_1_clock.html">provider</a>)</td></tr>
+<tr class="separator:a6a88d98c05a5f5c7133e8fb86a253d91"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa1791dfc7c59d6d3e9f98f0151101517" id="r_aa1791dfc7c59d6d3e9f98f0151101517"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classshkyera_1_1_entity_provider.html">EntityProvider</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_entity_provider.html#aa1791dfc7c59d6d3e9f98f0151101517">operator=</a> (<a class="el" href="structshkyera_1_1_clock.html">const</a> <a class="el" href="classshkyera_1_1_entity_provider.html">EntityProvider</a> &amp;<a class="el" href="structshkyera_1_1_clock.html">other</a>)</td></tr>
+<tr class="separator:aa1791dfc7c59d6d3e9f98f0151101517"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aed3e7d956ab8d88ed3e405dd1cbbaf81" id="r_aed3e7d956ab8d88ed3e405dd1cbbaf81"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_entity_provider.html#aed3e7d956ab8d88ed3e405dd1cbbaf81">~EntityProvider</a> ()=<a class="el" href="structshkyera_1_1_clock.html">default</a></td></tr>
 <tr class="memdesc:aed3e7d956ab8d88ed3e405dd1cbbaf81"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default destructor.  <br /></td></tr>
 <tr class="separator:aed3e7d956ab8d88ed3e405dd1cbbaf81"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -142,14 +146,14 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
-<tr class="memitem:abe72aa1b5f801ed0d34a0878c170bf56" id="r_abe72aa1b5f801ed0d34a0878c170bf56"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceshkyera.html#a043bdd87686e0bd1bce19a1fd86298cd">Entity</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_entity_provider.html#abe72aa1b5f801ed0d34a0878c170bf56">_nextEntity</a></td></tr>
-<tr class="separator:abe72aa1b5f801ed0d34a0878c170bf56"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad4009f567efac485c6e780fe6f6e9f91" id="r_ad4009f567efac485c6e780fe6f6e9f91"><td class="memItemLeft" align="right" valign="top">std::atomic&lt; <a class="el" href="namespaceshkyera.html#a043bdd87686e0bd1bce19a1fd86298cd">Entity</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classshkyera_1_1_entity_provider.html#ad4009f567efac485c6e780fe6f6e9f91">_nextEntity</a></td></tr>
+<tr class="separator:ad4009f567efac485c6e780fe6f6e9f91"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Manages a pool of reusable entity identifiers. Tracks available entity IDs and supports requesting new IDs and returning unused ones for reuse. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="adb44657def0064443e9ec5a184229c33" name="adb44657def0064443e9ec5a184229c33"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adb44657def0064443e9ec5a184229c33">&#9670;&#160;</a></span>EntityProvider()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#adb44657def0064443e9ec5a184229c33">&#9670;&#160;</a></span>EntityProvider() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -163,6 +167,24 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Construct an <a class="el" href="classshkyera_1_1_entity_provider.html">EntityProvider</a> with a specified number of entities. Initializes the pool of entity IDs (from 0 to <code>numEntities - 1</code>) and stores them in the queue for reuse. </p>
+
+</div>
+</div>
+<a id="a6a88d98c05a5f5c7133e8fb86a253d91" name="a6a88d98c05a5f5c7133e8fb86a253d91"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6a88d98c05a5f5c7133e8fb86a253d91">&#9670;&#160;</a></span>EntityProvider() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">shkyera::EntityProvider::EntityProvider </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structshkyera_1_1_clock.html">const</a> <a class="el" href="classshkyera_1_1_entity_provider.html">EntityProvider</a> &amp;&#160;</td>
+          <td class="paramname"><em>provider</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -194,6 +216,24 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="aa1791dfc7c59d6d3e9f98f0151101517" name="aa1791dfc7c59d6d3e9f98f0151101517"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa1791dfc7c59d6d3e9f98f0151101517">&#9670;&#160;</a></span>operator=()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classshkyera_1_1_entity_provider.html">EntityProvider</a> &amp; shkyera::EntityProvider::operator= </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structshkyera_1_1_clock.html">const</a> <a class="el" href="classshkyera_1_1_entity_provider.html">EntityProvider</a> &amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a97a788880da8b7116c8a697fb4a57f6b" name="a97a788880da8b7116c8a697fb4a57f6b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a97a788880da8b7116c8a697fb4a57f6b">&#9670;&#160;</a></span>requestEntity()</h2>
 
@@ -215,8 +255,8 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="abe72aa1b5f801ed0d34a0878c170bf56" name="abe72aa1b5f801ed0d34a0878c170bf56"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abe72aa1b5f801ed0d34a0878c170bf56">&#9670;&#160;</a></span>_nextEntity</h2>
+<a id="ad4009f567efac485c6e780fe6f6e9f91" name="ad4009f567efac485c6e780fe6f6e9f91"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad4009f567efac485c6e780fe6f6e9f91">&#9670;&#160;</a></span>_nextEntity</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -225,7 +265,7 @@ Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="namespaceshkyera.html#a043bdd87686e0bd1bce19a1fd86298cd">Entity</a> shkyera::EntityProvider::_nextEntity</td>
+          <td class="memname">std::atomic&lt;<a class="el" href="namespaceshkyera.html#a043bdd87686e0bd1bce19a1fd86298cd">Entity</a>&gt; shkyera::EntityProvider::_nextEntity</td>
         </tr>
       </table>
   </td>

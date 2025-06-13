@@ -19,6 +19,7 @@ var classshkyera_1_1_sparse_set =
     [ "getComponents", "classshkyera_1_1_sparse_set.html#ada3e998f7778310e57e8b33d1bcb84d5", null ],
     [ "getComponents", "classshkyera_1_1_sparse_set.html#a04fd8b060b2b511671efeb36471d0beb", null ],
     [ "remove", "classshkyera_1_1_sparse_set.html#a40f387715e29f848b797710564bdd494", null ],
+    [ "size", "classshkyera_1_1_sparse_set.html#aaee55d58da3c8673e3a07b000a9b2f72", null ],
     [ "_components", "classshkyera_1_1_sparse_set.html#a4a52caf4b1b5e92e78d25a1a3a5d2cb6", null ],
     [ "_entities", "classshkyera_1_1_sparse_set.html#a9da324bfd9b30bc68ed63feeea7024a2", null ],
     [ "_entityToComponent", "classshkyera_1_1_sparse_set.html#aacb813ca2f78abc291378b2dea5ddf93", null ]

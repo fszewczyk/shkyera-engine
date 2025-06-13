@@ -26,7 +26,7 @@ var searchData=
   ['entityhierarchy_23',['entityhierarchy',['../classshkyera_1_1_entity_hierarchy.html#afdf8fcc9be70aa5f07bd3014b695c4ea',1,'shkyera::EntityHierarchy::EntityHierarchy()'],['../classshkyera_1_1_entity_hierarchy.html',1,'shkyera::EntityHierarchy']]],
   ['entityhierarchy_2ecpp_24',['EntityHierarchy.cpp',['../_entity_hierarchy_8cpp.html',1,'']]],
   ['entityhierarchy_2ehpp_25',['EntityHierarchy.hpp',['../_entity_hierarchy_8hpp.html',1,'']]],
-  ['entityprovider_26',['entityprovider',['../classshkyera_1_1_entity_provider.html',1,'shkyera::EntityProvider'],['../classshkyera_1_1_entity_provider.html#adb44657def0064443e9ec5a184229c33',1,'shkyera::EntityProvider::EntityProvider()']]],
+  ['entityprovider_26',['entityprovider',['../classshkyera_1_1_entity_provider.html',1,'shkyera::EntityProvider'],['../classshkyera_1_1_entity_provider.html#a6a88d98c05a5f5c7133e8fb86a253d91',1,'shkyera::EntityProvider::EntityProvider(const EntityProvider &amp;provider)'],['../classshkyera_1_1_entity_provider.html#adb44657def0064443e9ec5a184229c33',1,'shkyera::EntityProvider::EntityProvider()']]],
   ['entityprovider_2ecpp_27',['EntityProvider.cpp',['../_entity_provider_8cpp.html',1,'']]],
   ['entityprovider_2ehpp_28',['EntityProvider.hpp',['../_entity_provider_8hpp.html',1,'']]],
   ['enumselector_29',['enumselector',['../classshkyera_1_1_enum_selector.html',1,'shkyera::EnumSelector&lt; EnumType &gt;'],['../classshkyera_1_1_enum_selector.html#a5dc79533c9ce4284b93d95c54cb86f43',1,'shkyera::EnumSelector::EnumSelector()']]],
