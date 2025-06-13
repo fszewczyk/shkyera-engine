@@ -9,10 +9,10 @@
 #include <Components/AmbientLightComponent.hpp>
 #include <Components/AssetComponents/AssetComponent.hpp>
 #include <Components/AssetComponents/AssetRoot.hpp>
+#include <Components/AssetComponents/DirectoryComponent.hpp>
 #include <Components/BillboardComponent.hpp>
 #include <Components/BoxColliderComponent.hpp>
 #include <Components/CameraComponent.hpp>
-#include <Components/CameraTags.hpp>
 #include <Components/DirectionalLightComponent.hpp>
 #include <Components/Environment.hpp>
 #include <Components/ModelComponent.hpp>
@@ -20,6 +20,7 @@
 #include <Components/ParticleEmitterComponent.hpp>
 #include <Components/PointLightComponent.hpp>
 #include <Components/PostProcessingVolumeComponent.hpp>
+#include <Components/RenderingTextureComponent.hpp>
 #include <Components/SkyboxComponent.hpp>
 #include <Components/SpotLightComponent.hpp>
 #include <Components/TransformComponent.hpp>
@@ -29,7 +30,6 @@
 #include <Serialization/Builders.hpp>
 #include <Utils/AssetLoaders.hpp>
 #include <Utils/AssetUtils.hpp>
-#include "Components/AssetComponents/DirectoryComponent.hpp"
 
 namespace shkyera::serialization {
 

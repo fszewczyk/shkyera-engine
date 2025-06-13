@@ -4,10 +4,11 @@
 
 #include <AssetManager/Asset.hpp>
 #include <AssetManager/Material.hpp>
+#include <Components/BaseComponent.hpp>
 
 namespace shkyera {
 
-struct ParticleEmitterComponent {
+struct ParticleEmitterComponent : BaseComponent<ParticleEmitterComponent> {
   bool enabled{true};
 
   float gravity{0.1f};

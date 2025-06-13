@@ -38,6 +38,7 @@ target_link_libraries(
     Rendering
     Common
     Math
+    JobSystem
 
     glad
     glm

@@ -10,12 +10,9 @@
 
 #include <GLFW/glfw3.h>
 #include <Common/Types.hpp>
-#include <Components/CameraTags.hpp>
+#include <Components/RenderingTextureComponent.hpp>
+#include <ECS/Registry.hpp>
 #include <Rendering/ShaderProgram.hpp>
-#include <Systems/CameraMovementSystem.hpp>
-#include <Systems/GizmoSystem.hpp>
-#include <Systems/ObjectSelectionSystem.hpp>
-#include <Systems/RenderingSystem.hpp>
 #include <UI/Widget.hpp>
 
 namespace shkyera {
@@ -40,10 +37,6 @@ class SceneWidget : public Widget {
   void updateWindowCoordinateSystem();
 
   std::shared_ptr<Registry> _registry;
-  CameraMovementSystem<SceneCamera> _cameraMovementSystem;
-  RenderingSystem<SceneCamera> _renderingSystem;
-  ObjectSelectionSystem _objectSelectionSystem;
-  GizmoSystem _gizmoSystem;
 };
 
 }  // namespace shkyera

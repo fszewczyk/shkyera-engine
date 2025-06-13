@@ -15,9 +15,7 @@
 
 namespace shkyera {
 
-ProfilerWidget::ProfilerWidget(std::string name) : Widget(std::move(name)) {
-  reset();
-}
+ProfilerWidget::ProfilerWidget(std::string name) : Widget(std::move(name)) {}
 
 void ProfilerWidget::draw() {
   ImGui::Begin(_name.c_str());

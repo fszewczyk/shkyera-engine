@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include <imgui_internal.h>
+#include "Components/SelectedEntityComponent.hpp"
 #include "imgui.h"
 
 #include <Components/NameComponent.hpp>
@@ -67,7 +68,7 @@ void ObjectsWidget::drawObjectHierarchy(Entity parent, const EntityHierarchy& hi
                            [this](const Entity entity) { return _registry->hasComponent<NameComponent>(entity); })) {
     flags |= ImGuiTreeNodeFlags_Leaf;
   }
-  if (_registry->getSelectedEntities().contains(parent)) {
+  if (_registry->hasComponent<SelectedEntityComponent>(parent)) {
     flags |= ImGuiTreeNodeFlags_Selected;
   }
 
@@ -94,9 +95,9 @@ void ObjectsWidget::drawObjectHierarchy(Entity parent, const EntityHierarchy& hi
       ImGui::EndDragDropSource();
     }
 
-    if (ImGui::IsItemClicked() && !_registry->getSelectedEntities().contains(parent)) {
-      _registry->clearSelectedEntities();
-      _registry->selectEntity(parent);
+    if (ImGui::IsItemClicked() && !_registry->hasComponent<SelectedEntityComponent>(parent)) {
+      _registry->clearComponents<SelectedEntityComponent>();
+      _registry->addComponent<SelectedEntityComponent>(parent);
     }
 
     for (const auto& child : children) {

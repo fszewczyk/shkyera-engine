@@ -1,5 +1,7 @@
 #include <stdio.h>
 
+#include <chrono>
+#include <cstdint>
 #include <memory>
 #include <sstream>
 
@@ -14,7 +16,6 @@
 #include <Components/BillboardComponent.hpp>
 #include <Components/BoxColliderComponent.hpp>
 #include <Components/CameraComponent.hpp>
-#include <Components/CameraTags.hpp>
 #include <Components/DirectionalLightComponent.hpp>
 #include <Components/Environment.hpp>
 #include <Components/ModelComponent.hpp>
@@ -23,16 +24,27 @@
 #include <Components/ParticleEmitterComponent.hpp>
 #include <Components/PointLightComponent.hpp>
 #include <Components/PostProcessingVolumeComponent.hpp>
+#include <Components/RenderingTextureComponent.hpp>
 #include <Components/SkyboxComponent.hpp>
 #include <Components/SpotLightComponent.hpp>
 #include <Components/TransformComponent.hpp>
 #include <Components/WireframeComponent.hpp>
 #include <ECS/Registry.hpp>
+#include <InputManager/InputManager.hpp>
+#include <JobSystem/JobSystem.hpp>
+#include <JobSystem/ThreadWorker.hpp>
+#include <Rendering/OpenGLResource.hpp>
 #include <Serialization/Builders.hpp>
+#include <Systems/CameraMovementSystem.hpp>
+#include <Systems/GizmoSystem.hpp>
+#include <Systems/ObjectSelectionSystem.hpp>
 #include <Systems/ParticleSystem.hpp>
+#include <Systems/RenderingSystem.hpp>
 #include <UI/UI.hpp>
 #include <Utils/AssetLoaders.hpp>
 #include <Utils/AssetUtils.hpp>
+#include <Utils/JobUtils.hpp>
+#include <thread>
 
 static shkyera::Entity addModel(std::shared_ptr<shkyera::Registry> registry, const glm::vec3& position,
                                 const std::string& name, shkyera::HandleAndAsset<shkyera::Mesh> mesh) {
@@ -228,19 +240,67 @@ int main() {
 
   auto ui = UI();
   auto registry = loadRegistry();
+  auto renderingRegistry = std::make_shared<Registry>();
+
+  JobSystem::getInstance();
+
+  std::vector<ThreadWorker> threadWorkers(2);
 
   ParticleSystem particleSystem(registry);
+  CameraMovementSystem<SceneCamera> cameraMovementSystem(registry);
+  ObjectSelectionSystem objectSelectionSystem(registry);
+  GizmoSystem gizmoSystem(registry);
+
+  RenderingSystem<SceneCamera> sceneRenderingSystem(renderingRegistry);
+  RenderingSystem<RuntimeCamera> runtimeRenderingSystem(renderingRegistry);
 
   ui.initialize(registry);
 
   while (!ui.shouldClose()) {
+    //Game Logic
     clock::Game.reset();
-
+    InputManager::getInstance().update();
     if (!clock::Game.isPaused()) {
-      particleSystem.update();
+      utils::jobs::scheduleSystem(particleSystem);
     }
 
-    ui.draw();
+    utils::jobs::scheduleSystem(objectSelectionSystem);
+    utils::jobs::scheduleSystem(cameraMovementSystem);
+    utils::jobs::scheduleSystem(gizmoSystem);
+
+    // Rendering
+    uint32_t sceneCameraTexture, runtimeCameraTexture;
+
+    const auto sceneRendering = JobBuilder([&sceneRenderingSystem, &sceneCameraTexture] {
+                                  sceneCameraTexture = *sceneRenderingSystem.update();
+                                })
+                                    .writeResource<OpenGLResourceTag>()
+                                    .submit();
+
+    const auto runtimeRendering = JobBuilder([&runtimeRenderingSystem, &runtimeCameraTexture] {
+                                    runtimeCameraTexture = *runtimeRenderingSystem.update();
+                                  })
+                                      .writeResource<OpenGLResourceTag>()
+                                      .submit();
+
+    const auto textureSubmission = JobBuilder([&sceneCameraTexture, &runtimeCameraTexture, &registry] {
+                                     registry->getComponent<SceneCamera>()->renderedTextureId = sceneCameraTexture;
+                                     registry->getComponent<RuntimeCamera>()->renderedTextureId = runtimeCameraTexture;
+                                   })
+                                       .dependsOn(sceneRendering)
+                                       .dependsOn(runtimeRendering)
+                                       .writeResource<SceneCamera>()
+                                       .writeResource<RuntimeCamera>()
+                                       .submit();
+
+    JobSystem::getInstance().wait();
+
+    // Before introducing background tasks, the UI rendering and registry copy needs to happen with a proper policy
+    JobBuilder([&ui] { ui.draw(); }).writeResource<OpenGLResourceTag>().submit();
+    JobSystem::getInstance().wait();
+
+    JobBuilder([&renderingRegistry, &registry] { *renderingRegistry = *registry; }).submit();
+    JobSystem::getInstance().wait();
   }
 
   return 0;

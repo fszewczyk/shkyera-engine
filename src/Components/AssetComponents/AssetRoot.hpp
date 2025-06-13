@@ -8,7 +8,7 @@
 namespace shkyera {
 
 // Registry of all path-based assets representing the root of the project
-struct AssetRoot : public SingletonComponent {
+struct AssetRoot : public SingletonComponent<AssetRoot> {
   std::filesystem::path path;
 };
 

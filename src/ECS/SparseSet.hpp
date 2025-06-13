@@ -1,6 +1,9 @@
 #pragma once
 
+#include <Common/Assert.hpp>
 #include <ECS/EntityProvider.hpp>
+#include <cstddef>
+#include <type_traits>
 
 namespace shkyera {
 
@@ -28,7 +31,14 @@ class SparseSet : public SparseSetBase {
      */
   ~SparseSet() = default;
 
-  std::unique_ptr<SparseSetBase> clone() const override { return std::make_unique<SparseSet<Component>>(*this); }
+  std::unique_ptr<SparseSetBase> clone() const override {
+    if constexpr (std::is_copy_constructible_v<Component>) {
+      return std::make_unique<SparseSet<Component>>(*this);
+    } else {
+      SHKYERA_ASSERT(false, "{} is not copyable, cannot clone the SparseSet", typeid(Component).name());
+      return nullptr;
+    }
+  }
 
   /**
      * Adds a component for the specified entity.
@@ -123,6 +133,8 @@ class SparseSet : public SparseSetBase {
      * @return true if empty
      */
   bool empty() const { return _components.empty(); }
+
+  size_t size() const { return _components.size(); }
 
   template <bool IsConst>
   class Iterator {

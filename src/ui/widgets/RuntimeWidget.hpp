@@ -10,7 +10,7 @@
 
 #include <GLFW/glfw3.h>
 #include <Common/Types.hpp>
-#include <Components/CameraTags.hpp>
+#include <Components/RenderingTextureComponent.hpp>
 #include <Rendering/ShaderProgram.hpp>
 #include <Systems/ParticleSystem.hpp>
 #include <Systems/RenderingSystem.hpp>
@@ -40,7 +40,6 @@ class RuntimeWidget : public Widget {
   std::shared_ptr<Registry> _registry;
   std::unique_ptr<Registry> _storedRegistry;
 
-  RenderingSystem<RuntimeCamera> _renderingSystem;
   AssetRef<Texture> _playButtonTexture;
   AssetRef<Texture> _stopButtonTexture;
 };

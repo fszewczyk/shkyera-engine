@@ -1,17 +1,18 @@
 #include "Components/Environment.hpp"
+#include "Components/SelectedEntityComponent.hpp"
 #include "imgui.h"
 
 #include <iostream>
 
 #include <Components/BillboardComponent.hpp>
 #include <Components/BoxColliderComponent.hpp>
-#include <Components/CameraTags.hpp>
 #include <Components/DirectionalLightComponent.hpp>
 #include <Components/ModelComponent.hpp>
 #include <Components/NameComponent.hpp>
 #include <Components/ParticleEmitterComponent.hpp>
 #include <Components/PointLightComponent.hpp>
 #include <Components/PostProcessingVolumeComponent.hpp>
+#include <Components/RenderingTextureComponent.hpp>
 #include <Components/SkyboxComponent.hpp>
 #include <Components/SpotLightComponent.hpp>
 #include <Components/TransformComponent.hpp>
@@ -38,8 +39,9 @@ PropertiesWidget::PropertiesWidget(std::shared_ptr<Registry> registry, const std
     : Widget(title), _registry(registry) {}
 
 void PropertiesWidget::updateComponents() {
-  if (_registry->getSelectedEntities().size() > 0) {
-    const auto firstSelectedEntity = *(_registry->getSelectedEntities().begin());
+  const auto& selectedSet = _registry->getComponentSet<SelectedEntityComponent>();
+  if (selectedSet.size() > 0) {
+    const auto [firstSelectedEntity, _] = *(selectedSet.begin());
 
     if (!_selectedEntity.has_value() || firstSelectedEntity != *_selectedEntity) {
       _selectedEntity = firstSelectedEntity;

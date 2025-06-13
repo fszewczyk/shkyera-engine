@@ -3,11 +3,12 @@
 #include <memory>
 
 #include <Components/ParticleEmitterComponent.hpp>
-#include <ECS/Registry.hpp>
+#include <Components/TransformComponent.hpp>
+#include <ECS/RegistryViewer.hpp>
 
 namespace shkyera {
 
-class ParticleSystem {
+class ParticleSystem : public RegistryViewer {
  public:
   ParticleSystem(std::shared_ptr<Registry> registry);
   void update();
@@ -23,8 +24,6 @@ class ParticleSystem {
   void updatePositions(ParticleEmitterComponent& emitter);
   void updateSizes(ParticleEmitterComponent& emitter);
   void updateTransparencies(ParticleEmitterComponent& emitter);
-
-  std::shared_ptr<Registry> _registry;
 };
 
 }  // namespace shkyera

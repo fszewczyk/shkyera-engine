@@ -1,6 +1,8 @@
 #pragma once
 
 #include <filesystem>
+#include <set>
+#include <typeindex>
 
 namespace shkyera {
 

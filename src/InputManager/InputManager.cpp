@@ -1,119 +1,104 @@
-#include <Common/Profiler.hpp>
 #include <InputManager/InputManager.hpp>
+#include <algorithm>
+#include "GLFW/glfw3.h"
 
 namespace shkyera {
 
 InputManager& InputManager::getInstance() {
-  static InputManager manager;
-  return manager;
+  static InputManager instance;
+  return instance;
+}
+
+InputManager::InputManager() {
+  _currentKeyStates.fill(false);
+  _previousKeyStates.fill(false);
+  _currentMouseStates.fill(false);
+  _previousMouseStates.fill(false);
+}
+
+void InputManager::setWindow(GLFWwindow* window) {
+  _window = window;
 }
 
 void InputManager::setCoordinateSystem(CoordinateSystem system, glm::vec2 topLeftCorner, glm::vec2 bottomRightCorner) {
   _coordinateSystems[system] = {topLeftCorner, bottomRightCorner};
 }
 
-glm::vec2 InputManager::getRelativeMousePosition(CoordinateSystem system) {
-  if (_coordinateSystems.count(system) != 0) {
-    const auto& [topLeft, bottomRight] = _coordinateSystems.at(system);
-    return (_latestMousePosition - topLeft) / (bottomRight - topLeft);
+void InputManager::update() {
+  if (!_window)
+    return;
+
+  // Update previous states
+  _previousKeyStates = _currentKeyStates;
+  _previousMouseStates = _currentMouseStates;
+
+  // Poll keys
+  for (int i = GLFW_KEY_SPACE; i < MAX_KEYS; ++i) {
+    _currentKeyStates[i] = (glfwGetKey(_window, i) == GLFW_PRESS);
   }
-  return {0, 0};
+
+  // Poll mouse buttons
+  for (int b = 0; b < MAX_MOUSE_BUTTONS; ++b) {
+    _currentMouseStates[b] = (glfwGetMouseButton(_window, b) == GLFW_PRESS);
+  }
+
+  // Update mouse position
+  double x, y;
+  glfwGetCursorPos(_window, &x, &y);
+  _mousePos = {static_cast<float>(x), static_cast<float>(y)};
 }
 
-glm::vec2 InputManager::getMousePosition(CoordinateSystem system) {
+bool InputManager::isKeyDown(Key key) const {
+  return key >= 0 && key < MAX_KEYS && _currentKeyStates[key];
+}
+
+bool InputManager::isKeyUp(Key key) const {
+  return key >= 0 && key < MAX_KEYS && !_currentKeyStates[key];
+}
+
+bool InputManager::isKeyPressed(Key key) const {
+  return key >= 0 && key < MAX_KEYS && !_previousKeyStates[key] && _currentKeyStates[key];
+}
+
+bool InputManager::isKeyReleased(Key key) const {
+  return key >= 0 && key < MAX_KEYS && _previousKeyStates[key] && !_currentKeyStates[key];
+}
+
+bool InputManager::isMouseButtonDown(MouseButton button) const {
+  return button >= 0 && button < MAX_MOUSE_BUTTONS && _currentMouseStates[button];
+}
+
+bool InputManager::isMouseButtonUp(MouseButton button) const {
+  return button >= 0 && button < MAX_MOUSE_BUTTONS && !_currentMouseStates[button];
+}
+
+bool InputManager::isMouseButtonPressed(MouseButton button) const {
+  return button >= 0 && button < MAX_MOUSE_BUTTONS && !_previousMouseStates[button] && _currentMouseStates[button];
+}
+
+bool InputManager::isMouseButtonReleased(MouseButton button) const {
+  return button >= 0 && button < MAX_MOUSE_BUTTONS && _previousMouseStates[button] && !_currentMouseStates[button];
+}
+
+glm::vec2 InputManager::getMousePosition(CoordinateSystem system) const {
   if (_coordinateSystems.count(system) != 0) {
     const auto& [topLeft, _bottomRight] = _coordinateSystems.at(system);
-    return _latestMousePosition - topLeft;
+    return _mousePos - topLeft;
   }
   return {0, 0};
 }
 
-bool InputManager::isMouseInside(CoordinateSystem system) {
-  const auto& mousePosition = getRelativeMousePosition(InputManager::CoordinateSystem::SCENE);
+glm::vec2 InputManager::getRelativeMousePosition(CoordinateSystem system) const {
+  if (_coordinateSystems.count(system) != 0) {
+    const auto& [topLeft, bottomRight] = _coordinateSystems.at(system);
+    return (_mousePos - topLeft) / (bottomRight - topLeft);
+  }
+  return {0, 0};
+}
+
+bool InputManager::isMouseInside(CoordinateSystem system) const {
+  const auto& mousePosition = getRelativeMousePosition(system);
   return 0.0f < mousePosition.x && 0.0f < mousePosition.y && mousePosition.x < 1.0f && mousePosition.y < 1.0f;
-}
-
-bool InputManager::isMouseButtonDown(MouseButton mouseButton) const {
-  return mouseButton >= 0 && mouseButton <= GLFW_MOUSE_BUTTON_8 && _previousMouseButtonStates[mouseButton];
-}
-
-void InputManager::registerKeyCallback(Key key, std::function<void()> callback) {
-  _keyCallbacks[key].push_back(callback);
-}
-
-void InputManager::unregisterKeyCallback(Key key) {
-  _keyCallbacks.erase(key);
-}
-
-void InputManager::registerMouseMoveCallback(std::function<void(double, double)> callback) {
-  _mouseMoveCallbacks.emplace_back(std::move(callback));
-}
-
-void InputManager::unregisterMouseMoveCallback() {
-  _mouseMoveCallbacks.clear();
-}
-
-void InputManager::registerMouseButtonUpCallback(MouseButton button, std::function<void()> callback) {
-  _mouseButtonUpCallbacks[button].emplace_back(std::move(callback));
-}
-
-void InputManager::unregisterMouseButtonUpCallback(MouseButton button) {
-  _mouseButtonUpCallbacks.erase(button);
-}
-
-void InputManager::registerMouseButtonDownCallback(MouseButton button, std::function<void()> callback) {
-  _mouseButtonDownCallbacks[button].emplace_back(std::move(callback));
-}
-
-void InputManager::unregisterMouseButtonDownCallback(MouseButton button) {
-  _mouseButtonDownCallbacks.erase(button);
-}
-
-void InputManager::processInput(GLFWwindow* window) {
-  SHKYERA_PROFILE("InputManager::processInput");
-
-  for (const auto& [key, callbacks] : _keyCallbacks) {
-    if (glfwGetKey(window, key) == GLFW_PRESS) {
-      for (const auto& callback : callbacks) {
-        callback();
-      }
-    }
-  }
-
-  double xPos, yPos;
-  glfwGetCursorPos(window, &xPos, &yPos);
-  _latestMousePosition = {xPos, yPos};
-  for (const auto& callback : _mouseMoveCallbacks) {
-    callback(xPos, yPos);
-  }
-
-  processMouseButton(window, GLFW_MOUSE_BUTTON_LEFT);
-  processMouseButton(window, GLFW_MOUSE_BUTTON_MIDDLE);
-  processMouseButton(window, GLFW_MOUSE_BUTTON_RIGHT);
-}
-
-void InputManager::processMouseButton(GLFWwindow* window, MouseButton button) {
-  int mouseButtonState = glfwGetMouseButton(window, button);
-  if (mouseButtonState != _previousMouseButtonStates[button]) {
-    if (mouseButtonState == GLFW_RELEASE) {
-      onMouseButtonUp(button);
-    } else {
-      onMouseButtonDown(button);
-    }
-    _previousMouseButtonStates[button] = mouseButtonState;
-  }
-}
-
-void InputManager::onMouseButtonDown(MouseButton button) {
-  for (const auto& callback : _mouseButtonDownCallbacks[button]) {
-    callback();
-  }
-}
-
-void InputManager::onMouseButtonUp(MouseButton button) {
-  for (const auto& callback : _mouseButtonUpCallbacks[button]) {
-    callback();
-  }
 }
 
 }  // namespace shkyera

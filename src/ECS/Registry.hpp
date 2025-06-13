@@ -6,9 +6,13 @@
 
 #pragma once
 
+#include <memory>
+#include <typeindex>
 #include <unordered_set>
 
+#include <Common/Assert.hpp>
 #include <Common/Logger.hpp>
+#include <Common/Types.hpp>
 #include <ECS/Entity.hpp>
 #include <ECS/EntityHierarchy.hpp>
 #include <ECS/EntityProvider.hpp>
@@ -51,12 +55,6 @@ class Registry {
      */
   void removeEntity(Entity entity);
 
-  const std::unordered_set<Entity>& getSelectedEntities();
-
-  void selectEntity(Entity entity);
-
-  void clearSelectedEntities();
-
   /**
      * Adds a component to the specified entity.
      * Initializes the component with default values.
@@ -68,7 +66,7 @@ class Registry {
   template <typename Component, typename... Args>
   Component& addComponent(Entity entity, Args&&... args) {
     auto& componentSet = getOrCreateComponentSet<Component>();
-    if constexpr (std::is_base_of_v<SingletonComponent, Component>) {
+    if constexpr (std::is_base_of_v<SingletonComponent<Component>, Component>) {
       if (componentSet.contains(entity)) {
         Logger::ERROR(std::string("Cannot add a Singleton Component (") + typeid(Component).name() +
                       "), because another entity already has it.");
@@ -79,9 +77,15 @@ class Registry {
     return componentSet.get(entity);
   }
 
+  template <typename Component>
+  void clearComponents() {
+    auto& componentSet = getOrCreateComponentSet<Component>();
+    componentSet.clear();
+  }
+
   template <typename Component, typename... Args>
   Component& assignComponent(Entity entity, Args&&... args) {
-    static_assert(std::is_base_of_v<SingletonComponent, Component>,
+    static_assert(std::is_base_of_v<SingletonComponent<Component>, Component>,
                   "Component assignment is only possible for Singleton Components.");
 
     auto& componentSet = getOrCreateComponentSet<Component>();
@@ -97,7 +101,7 @@ class Registry {
      */
   template <typename Component>
   void removeComponent(Entity entity) {
-    static_assert(!std::is_base_of_v<SingletonComponent, Component>,
+    static_assert(!std::is_base_of_v<SingletonComponent<Component>, Component>,
                   "Component removal is only possible for non-Singleton Components.");
     getOrCreateComponentSet<Component>().remove(entity);
   }
@@ -184,13 +188,23 @@ class Registry {
 
   template <typename Component>
   std::optional<Entity> getEntity() const {
-    static_assert(std::is_base_of_v<SingletonComponent, Component>,
+    static_assert(std::is_base_of_v<SingletonComponent<Component>, Component>,
                   "Obtaining an Entity of a Component is only possible for SingletonComponents");
     const auto& singletonComponentSet = getComponentSet<Component>();
     if (!singletonComponentSet.empty()) {
       return (*singletonComponentSet.begin()).first;
     }
     return std::nullopt;
+  }
+
+  template <typename Component>
+  Component* getComponent() {
+    static_assert(std::is_base_of_v<SingletonComponent<Component>, Component>,
+                  "Obtaining a Component is only possible for SingletonComponents");
+    if (const auto entityOpt = getEntity<Component>()) {
+      return &getComponent<Component>(*entityOpt);
+    }
+    return nullptr;
   }
 
   EntityHierarchy& getHierarchy();
@@ -234,8 +248,6 @@ class Registry {
       _componentSets;                //< Map of component sets by type ID.
   EntityProvider _entityProvider;    //< Manages the creation and management of entities.
   EntityHierarchy _entityHierarchy;  //< Maintains the parent-child relationships between the entities
-
-  std::unordered_set<Entity> _selectedEntities;
 };
 
 }  // namespace shkyera

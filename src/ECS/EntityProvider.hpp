@@ -24,6 +24,10 @@ class EntityProvider {
          */
   EntityProvider();
 
+  EntityProvider(const EntityProvider& provider);
+
+  EntityProvider& operator=(const EntityProvider& other);
+
   /**
          * @brief Default destructor. 
          */
@@ -40,7 +44,7 @@ class EntityProvider {
   /**
          * Tracks the total number of entity IDs allocated so far.
          */
-  Entity _nextEntity;
+  std::atomic<Entity> _nextEntity;
 };
 
 }  // namespace shkyera

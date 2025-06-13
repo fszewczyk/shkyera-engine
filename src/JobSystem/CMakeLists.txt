@@ -1,23 +1,21 @@
 add_library(
-    Utils
+    JobSystem
     STATIC
 
-    ${CMAKE_CURRENT_LIST_DIR}/AssetUtils.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/ThreadWorker.cpp
     ${CMAKE_CURRENT_LIST_DIR}/JobSystem.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/TransformUtils.cpp
 )
 
 target_include_directories(
-    Utils
+    JobSystem    
     PUBLIC
     
     ${CMAKE_SOURCE_DIR}/src
 )
 
 target_link_libraries(
-    Utils
+    JobSystem
     PUBLIC
 
-    ECS
-    Components
+    Common
 )

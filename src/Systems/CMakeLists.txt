@@ -4,6 +4,7 @@ add_library(
 
     ${CMAKE_CURRENT_LIST_DIR}/GizmoSystem.cpp
     ${CMAKE_CURRENT_LIST_DIR}/ParticleSystem.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/PhysicsSystem.cpp
     ${CMAKE_CURRENT_LIST_DIR}/ObjectSelectionSystem.cpp
 )
 
