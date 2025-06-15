@@ -2,10 +2,12 @@
 
 #include <algorithm>
 #include <iostream>
+#include <type_traits>
 
 #include <AssetManager/Material.hpp>
 #include <AssetManager/Mesh.hpp>
 #include <AssetManager/Shader.hpp>
+#include <AssetManager/Audio.hpp>
 #include <Components/AssetComponents/AssetRoot.hpp>
 #include <Components/AssetComponents/DirectoryComponent.hpp>
 #include <Components/AssetComponents/SelectedAssetComponent.hpp>
@@ -29,6 +31,7 @@ FilesystemWidget::FilesystemWidget(std::string name, std::shared_ptr<Registry> r
   _pythonIcon = utils::assets::readPermanent<Texture>(Image::ICON_FILES_PYTHON);
   _imageIcon = utils::assets::readPermanent<Texture>(Image::ICON_FILES_IMAGE);
   _textIcon = utils::assets::readPermanent<Texture>(Image::ICON_FILES_TEXT);
+  _audioIcon = utils::assets::readPermanent<Texture>(Image::ICON_FILES_AUDIO);
 }
 
 void FilesystemWidget::draw() {
@@ -137,7 +140,8 @@ void FilesystemWidget::drawDirectoryContents() {
     };
 
     if (tryDraw(std::type_identity<Texture>{}) || tryDraw(std::type_identity<Mesh>{}) ||
-        tryDraw(std::type_identity<Shader>{}) || tryDraw(std::type_identity<Material>{})) {
+        tryDraw(std::type_identity<Shader>{}) || tryDraw(std::type_identity<Material>{}) ||
+        tryDraw(std::type_identity<Audio>{})) {
       iconsDrawn++;
     }
   }
@@ -224,6 +228,14 @@ void FilesystemWidget::drawAssetIcon<Material>(AssetHandle handle) {
 template <>
 void FilesystemWidget::drawAssetIcon<Shader>(AssetHandle handle) {
   if (ImGui::ImageButton(_textIcon->getImguiTextureID(), ImVec2(CONTENTS_ICON_SIZE, CONTENTS_ICON_SIZE))) {}
+}
+
+template <>
+void FilesystemWidget::drawAssetIcon<Audio>(AssetHandle handle) {
+  if (ImGui::ImageButton(_audioIcon->getImguiTextureID(), ImVec2(CONTENTS_ICON_SIZE, CONTENTS_ICON_SIZE))) {
+    ImGui::SetWindowFocus("Inspector");
+    _registry->assignComponent<SelectedAssetComponent>(handle);
+  }
 }
 
 void FilesystemWidget::drawIconName(const std::string& name) const {

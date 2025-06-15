@@ -17,6 +17,7 @@
 #include <Components/SpotLightComponent.hpp>
 #include <Components/TransformComponent.hpp>
 #include <Components/WireframeComponent.hpp>
+#include <Components/AudioSourceComponent.hpp>
 
 #include <UI/Common/Style.hpp>
 #include <UI/Components/AmbientLightComponentUI.hpp>
@@ -30,6 +31,7 @@
 #include <UI/Components/SpotLightComponentUI.hpp>
 #include <UI/Components/TransformComponentUI.hpp>
 #include <UI/Components/WireframeComponentUI.hpp>
+#include <UI/Components/AudioSourceComponentUI.hpp>
 #include <UI/Widgets/PropertiesWidget.hpp>
 
 namespace shkyera {
@@ -172,6 +174,12 @@ void PropertiesWidget::setupComponentsUI() {
 
     _componentsUi.emplace_back(std::move(componentUi));
   }
+
+  if (_registry->hasComponent<AudioSourceComponent>(*_selectedEntity)) {
+    auto& component = _registry->getComponent<AudioSourceComponent>(*_selectedEntity);
+    auto componentUi = std::make_unique<AudioSourceComponentUI>(_registry, &component);
+    _componentsUi.emplace_back(std::move(componentUi));
+  }
 }
 
 void PropertiesWidget::drawNewComponentMenu() {
@@ -198,6 +206,7 @@ void PropertiesWidget::drawNewComponentMenu() {
     addComponentIfSelected.template operator()<DirectionalLightComponent>("Directional Light");
     addComponentIfSelected.template operator()<PostProcessingVolumeComponent>("Post-Processing Volume");
     addComponentIfSelected.template operator()<ParticleEmitterComponent>("Particle Emitter");
+    addComponentIfSelected.template operator()<AudioSourceComponent>("Audio Source");
 
     ImGui::EndPopup();
   }

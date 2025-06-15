@@ -3,6 +3,7 @@
 
 #include <AssetManager/Mesh.hpp>
 #include <AssetManager/Shader.hpp>
+#include <AssetManager/Audio.hpp>
 #include <AssetManager/Texture.hpp>
 #include <Common/Logger.hpp>
 #include <Components/AssetComponents/AssetRoot.hpp>
@@ -34,6 +35,8 @@ std::optional<AssetHandle> registerSingle(std::filesystem::path path, Registry* 
     } else if (oneOf(fileExtension, ".glsl")) {
       registry->addComponent<AssetComponent<Shader>>(handle,
                                                      std::make_unique<ShaderLoader>(path, Shader::Type::Fragment));
+    } else if (oneOf(fileExtension, ".mp3", ".wav", ".ogg")) {
+      registry->addComponent<AssetComponent<Audio>>(handle, std::make_unique<PathAssetLoader<Audio>>(path));
     } else {
       registry->removeEntity(handle);
       Logger::VERBOSE(std::string("Unrecognized asset type: ") + path.c_str());

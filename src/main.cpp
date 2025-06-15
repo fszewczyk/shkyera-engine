@@ -13,6 +13,7 @@
 #include <Common/Types.hpp>
 #include <Components/AmbientLightComponent.hpp>
 #include <Components/AssetComponents/AssetRoot.hpp>
+#include <Components/AudioSourceComponent.hpp>
 #include <Components/BillboardComponent.hpp>
 #include <Components/BoxColliderComponent.hpp>
 #include <Components/CameraComponent.hpp>
@@ -35,6 +36,7 @@
 #include <JobSystem/ThreadWorker.hpp>
 #include <Rendering/OpenGLResource.hpp>
 #include <Serialization/Builders.hpp>
+#include <Systems/AudioSystem.hpp>
 #include <Systems/CameraMovementSystem.hpp>
 #include <Systems/GizmoSystem.hpp>
 #include <Systems/ObjectSelectionSystem.hpp>
@@ -102,6 +104,14 @@ void loadScene(std::shared_ptr<shkyera::Registry> registry) {
   registry->getComponent<TransformComponent>(playerCamera).setOrientation({-0.05, 0, 0});
   registry->addComponent<CameraComponent>(playerCamera);
   registry->addComponent<NameComponent>(playerCamera).setName("Player Camera");
+
+  // Audio setup
+  const auto audioEntity = registry->addEntity();
+  registry->addComponent<NameComponent>(audioEntity).setName("Audio Source");
+  registry->addComponent<TransformComponent>(audioEntity);
+  registry->addComponent<AudioSourceComponent>(audioEntity);
+  registry->getComponent<AudioSourceComponent>(audioEntity).audio = 
+      utils::assets::add<Audio>(registry.get(), "resources/sounds/StrawSqueak.mp3");
 
   auto fireplace = registry->addEntity();
   registry->addComponent<NameComponent>(fireplace).setName("Fireplace");
@@ -247,6 +257,7 @@ int main() {
   std::vector<ThreadWorker> threadWorkers(2);
 
   ParticleSystem particleSystem(registry);
+  AudioSystem audioSystem(registry);
   CameraMovementSystem<SceneCamera> cameraMovementSystem(registry);
   ObjectSelectionSystem objectSelectionSystem(registry);
   GizmoSystem gizmoSystem(registry);
@@ -267,6 +278,7 @@ int main() {
     utils::jobs::scheduleSystem(objectSelectionSystem);
     utils::jobs::scheduleSystem(cameraMovementSystem);
     utils::jobs::scheduleSystem(gizmoSystem);
+    utils::jobs::scheduleSystem(audioSystem);
 
     // Rendering
     uint32_t sceneCameraTexture, runtimeCameraTexture;

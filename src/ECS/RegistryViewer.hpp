@@ -54,6 +54,10 @@ class RegistryViewer {
   RegistryViewer(std::shared_ptr<Registry> registry, ReadAccess<Resources...> read)
       : _registry(std::move(registry)), _policy(std::move(read.resources), {}, read.onlyMainThread) {}
 
+  template <typename... Resources>
+  RegistryViewer(std::shared_ptr<Registry> registry, WriteAccess<Resources...> read)
+      : _registry(std::move(registry)), _policy({}, std::move(read.resources), read.onlyMainThread) {}
+
   template <typename... ReadResources, typename... WriteResources>
   RegistryViewer(std::shared_ptr<Registry> registry, ReadAccess<ReadResources...> read,
                  WriteAccess<WriteResources...> write)
@@ -112,6 +116,14 @@ class RegistryViewer {
     SHKYERA_ASSERT(_policy.canRead<Component>(), "Cannot read {}. Policy does not allow it", typeid(Component).name());
 
     return _registry->getComponent<Component>();
+  }
+
+  template <NonSingletonComponentType Component>
+  auto& write() {
+    SHKYERA_ASSERT(_policy.canWrite<Component>(), "Cannot write {}. Policy does not allow it",
+                   typeid(Component).name());
+
+    return _registry->getComponents<Component>();
   }
 
   template <SingletonComponentType Component>

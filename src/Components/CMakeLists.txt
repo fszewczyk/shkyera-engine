@@ -12,6 +12,7 @@ add_library(
     ${CMAKE_CURRENT_LIST_DIR}/GizmoHandleComponent.hpp
     ${CMAKE_CURRENT_LIST_DIR}/ParticleEmitterComponent.hpp
     ${CMAKE_CURRENT_LIST_DIR}/ModelComponent.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/AudioSourceComponent.hpp
     ${CMAKE_CURRENT_LIST_DIR}/WireframeComponent.hpp
     ${CMAKE_CURRENT_LIST_DIR}/SpotLightComponent.hpp
     ${CMAKE_CURRENT_LIST_DIR}/PointLightComponent.hpp

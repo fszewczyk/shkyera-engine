@@ -116,6 +116,7 @@ class FilesystemWidget : public Widget {
   AssetRef<Texture> _pythonIcon;
   AssetRef<Texture> _imageIcon;
   AssetRef<Texture> _textIcon;
+  AssetRef<Texture> _audioIcon;
   bool _hoveredIcon;
 };
 

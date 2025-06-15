@@ -70,6 +70,7 @@ std::filesystem::path Image::ICON_FILES_FOLDER = "resources/icons/files/folder.p
 std::filesystem::path Image::ICON_FILES_PYTHON = "resources/icons/files/python.png";
 std::filesystem::path Image::ICON_FILES_IMAGE = "resources/icons/files/image.png";
 std::filesystem::path Image::ICON_FILES_TEXT = "resources/icons/files/text.png";
+std::filesystem::path Image::ICON_FILES_AUDIO = "resources/icons/files/text.png";
 std::filesystem::path Image::ICON_BUTTON_PLAY = "resources/icons/buttons/play.png";
 std::filesystem::path Image::ICON_BUTTON_STOP = "resources/icons/buttons/stop.png";
 

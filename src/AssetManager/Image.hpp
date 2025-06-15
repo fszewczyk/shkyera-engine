@@ -56,6 +56,7 @@ class Image {
   static std::filesystem::path ICON_FILES_PYTHON;
   static std::filesystem::path ICON_FILES_IMAGE;
   static std::filesystem::path ICON_FILES_TEXT;
+  static std::filesystem::path ICON_FILES_AUDIO;
 
   static std::filesystem::path ICON_BUTTON_PLAY;
   static std::filesystem::path ICON_BUTTON_STOP;
