@@ -105,18 +105,22 @@ void loadScene(std::shared_ptr<shkyera::Registry> registry) {
   registry->addComponent<CameraComponent>(playerCamera);
   registry->addComponent<NameComponent>(playerCamera).setName("Player Camera");
 
-  // Audio setup
-  const auto audioEntity = registry->addEntity();
-  registry->addComponent<NameComponent>(audioEntity).setName("Audio Source");
-  registry->addComponent<TransformComponent>(audioEntity);
-  registry->addComponent<AudioSourceComponent>(audioEntity);
-  registry->getComponent<AudioSourceComponent>(audioEntity).audio = 
-      utils::assets::add<Audio>(registry.get(), "resources/sounds/StrawSqueak.mp3");
-
   auto fireplace = registry->addEntity();
   registry->addComponent<NameComponent>(fireplace).setName("Fireplace");
   registry->addComponent<TransformComponent>(fireplace).setPosition(glm::vec3{3, 0, 3});
   auto& fireplaceEmitter = registry->addComponent<ParticleEmitterComponent>(fireplace);
+  
+  auto audioSource = registry->addEntity();
+  registry->addComponent<NameComponent>(audioSource).setName("Fireplace Audio");
+  registry->addComponent<TransformComponent>(audioSource).setPosition(glm::vec3{0, 0.5, 0});
+  registry->getHierarchy().attributeChild(fireplace, audioSource);
+  registry->addComponent<AudioSourceComponent>(audioSource);
+  auto& fireplaceAudio = registry->getComponent<AudioSourceComponent>(audioSource);
+  fireplaceAudio.audio = utils::assets::add<Audio>(registry.get(), "resources/sounds/Bonfire.mp3");
+  fireplaceAudio.loop = true;
+  fireplaceAudio.volume = 1.5f;
+  fireplaceAudio.maxDistance = 20.0f;
+  fireplaceAudio.spatialize = true;
 
   auto postProcessingVol = registry->addEntity();
   registry->addComponent<NameComponent>(postProcessingVol).setName("Post-Processing");

@@ -13,6 +13,7 @@
 #include <Common/Random.hpp>
 #include <Common/Types.hpp>
 #include <Components/AmbientLightComponent.hpp>
+#include <Components/AudioSourceComponent.hpp>
 #include <Components/BillboardComponent.hpp>
 #include <Components/CameraComponent.hpp>
 #include <Components/DirectionalLightComponent.hpp>
@@ -163,16 +164,18 @@ class RenderingSystem : public RegistryViewer {
   Material _ambientLightDebugMaterial;
   Material _particleEmitterDebugMaterial;
   Material _postProcessingVolumeDebugMaterial;
+  Material _audioSourceDebugMaterial;
 };
 
 template <typename MainCameraTag>
 RenderingSystem<MainCameraTag>::RenderingSystem(std::shared_ptr<Registry> registry)
-    : RegistryViewer(registry,
-                     ReadAccess<TransformComponent, ModelComponent, NameComponent, EntityHierarchy, SkyboxComponent,
-                                SelectedEntityComponent, DirectionalLightComponent, PointLightComponent,
-                                SpotLightComponent, BillboardComponent<>, WireframeComponent, OverlayModelComponent,
-                                AmbientLightComponent, ParticleEmitterComponent, PostProcessingVolumeComponent>(),
-                     WriteAccess<MainCameraTag, CameraComponent>()),
+    : RegistryViewer(
+          registry,
+          ReadAccess<TransformComponent, ModelComponent, NameComponent, EntityHierarchy, SkyboxComponent,
+                     SelectedEntityComponent, DirectionalLightComponent, PointLightComponent, SpotLightComponent,
+                     BillboardComponent<>, AudioSourceComponent, WireframeComponent, OverlayModelComponent,
+                     AmbientLightComponent, ParticleEmitterComponent, PostProcessingVolumeComponent>(),
+          WriteAccess<MainCameraTag, CameraComponent>()),
       _registry(registry) {
   const auto& positionAndNormalVertexShader =
       utils::assets::readPermanent<Shader>("resources/shaders/vertex/position_and_normal.glsl", Shader::Type::Vertex);
@@ -308,7 +311,8 @@ RenderingSystem<MainCameraTag>::RenderingSystem(std::shared_ptr<Registry> regist
   Material debugBillboardMaterial;
   debugBillboardMaterial.lit = false;
   _particleEmitterDebugMaterial = _directionalLightDebugMaterial = _spotLightDebugMaterial = _pointLightDebugMaterial =
-      _ambientLightDebugMaterial = _postProcessingVolumeDebugMaterial = debugBillboardMaterial;
+      _ambientLightDebugMaterial = _postProcessingVolumeDebugMaterial = _audioSourceDebugMaterial =
+          debugBillboardMaterial;
 
   std::get<AssetRef<Texture>>(_pointLightDebugMaterial.albedoTexture) =
       utils::assets::readPermanent<Texture>("resources/icons/components/point_light.png");
@@ -322,6 +326,8 @@ RenderingSystem<MainCameraTag>::RenderingSystem(std::shared_ptr<Registry> regist
       utils::assets::readPermanent<Texture>("resources/icons/components/particles_gray.png");
   std::get<AssetRef<Texture>>(_postProcessingVolumeDebugMaterial.albedoTexture) =
       utils::assets::readPermanent<Texture>("resources/icons/components/post_processing_gray.png");
+  std::get<AssetRef<Texture>>(_audioSourceDebugMaterial.albedoTexture) =
+      utils::assets::readPermanent<Texture>("resources/icons/components/audio_source_gray.png");
 }
 
 template <typename MainCameraTag>
@@ -1129,6 +1135,7 @@ void RenderingSystem<MainCameraTag>::renderDebugBillboards() {
     drawDebugBillboard(RegistryViewer::readAll<AmbientLightComponent>(), &_ambientLightDebugMaterial);
     drawDebugBillboard(RegistryViewer::readAll<ParticleEmitterComponent>(), &_particleEmitterDebugMaterial);
     drawDebugBillboard(RegistryViewer::readAll<PostProcessingVolumeComponent>(), &_postProcessingVolumeDebugMaterial);
+    drawDebugBillboard(RegistryViewer::readAll<AudioSourceComponent>(), &_audioSourceDebugMaterial);
   }
 
   billboardPlane->unbind();

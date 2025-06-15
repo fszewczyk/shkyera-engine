@@ -1,3 +1,4 @@
+#include "UI/ComponentUI.hpp"
 #include "imgui.h"
 
 #include <AssetManager/Image.hpp>
@@ -8,7 +9,8 @@ namespace shkyera {
 
 AudioSourceComponentUI::AudioSourceComponentUI(std::shared_ptr<Registry> registry,
                                                AudioSourceComponent* audioSourceComponent)
-    : _registry(registry),
+    : ComponentUI("resources/icons/components/audio_source.png"),
+      _registry(registry),
       _audioSourceComponent(audioSourceComponent),
       _audioSelector("Audio", registry.get(), std::get<OptionalAssetHandle>(audioSourceComponent->audio)),
       _pausedSelector("Paused", audioSourceComponent->paused),
