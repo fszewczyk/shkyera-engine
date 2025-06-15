@@ -1,6 +1,7 @@
 #include <Registry.pb.h>
 
 #include <AssetManager/Asset.hpp>
+#include <AssetManager/Audio.hpp>
 #include <AssetManager/Material.hpp>
 #include <AssetManager/Mesh.hpp>
 #include <AssetManager/Texture.hpp>
@@ -10,6 +11,7 @@
 #include <Components/AssetComponents/AssetComponent.hpp>
 #include <Components/AssetComponents/AssetRoot.hpp>
 #include <Components/AssetComponents/DirectoryComponent.hpp>
+#include <Components/AudioSourceComponent.hpp>
 #include <Components/BillboardComponent.hpp>
 #include <Components/BoxColliderComponent.hpp>
 #include <Components/CameraComponent.hpp>
@@ -113,6 +115,12 @@ std::unique_ptr<shkyera::Registry> fromBinary(std::istream& serialized) {
   std::map<Entity, Entity> protoToRegistryEntities;
 
   // Assets
+  loadComponents<AssetComponent<Audio>>(
+      registry.get(), protoToRegistryEntities, serializedRegistry.audios_path(),
+      [registry = registry.get()](const auto& comp) {
+        return AssetComponent<Audio>(std::make_unique<utils::assets::PathAssetLoader<Audio>>(comp.path()));
+      });
+
   loadComponents<AssetComponent<Image>>(
       registry.get(), protoToRegistryEntities, serializedRegistry.images_path(),
       [registry = registry.get()](const auto& comp) {
@@ -325,6 +333,19 @@ std::unique_ptr<shkyera::Registry> fromBinary(std::istream& serialized) {
                                        return wireframeComponent;
                                      });
 
+  loadComponents<AudioSourceComponent>(
+      registry.get(), protoToRegistryEntities, serializedRegistry.audio_sources(),
+      [&protoToRegistryEntities, registry = registry.get()](const auto& comp) {
+        AudioSourceComponent audioSourceComponent;
+        audioSourceComponent.audio = fromProto<Audio>(registry, protoToRegistryEntities, comp.audio());
+        audioSourceComponent.paused = comp.paused();
+        audioSourceComponent.volume = comp.volume();
+        audioSourceComponent.loop = comp.loop();
+        audioSourceComponent.spatialize = comp.spatialize();
+        audioSourceComponent.maxDistance = comp.max_distance();
+        return audioSourceComponent;
+      });
+
   // This needs to be very last to make sure that protoEntity -> Entity mapping is complete
   for (const auto& relationship : serializedRegistry.ancestry_relations()) {
     SHKYERA_ASSERT(protoToRegistryEntities.contains(relationship.parent()),
@@ -375,6 +396,18 @@ void toBinary(std::ostream& outputStream, Registry const* registry) {
   }
 
   // Assets
+  for (const auto& [entity, audio] : registry->getComponentSet<AssetComponent<Audio>>()) {
+    if (const auto* audioLoader =
+            dynamic_cast<utils::assets::PathAssetLoader<Audio>*>(audio.constructionFunction.get())) {
+      auto* protoAudio = serializedRegistry.add_audios_path();
+      protoAudio->set_entity(entity);
+      protoAudio->set_path(audioLoader->path);
+    } else {
+      SHKYERA_ASSERT(false, "Audio Asset {} cannot be serialized", entity);
+      continue;
+    }
+  }
+
   for (const auto& [entity, mesh] : registry->getComponentSet<AssetComponent<Mesh>>()) {
     if (const auto* meshLoader = dynamic_cast<utils::assets::PathAssetLoader<Mesh>*>(mesh.constructionFunction.get())) {
       auto* protoMesh = serializedRegistry.add_meshes_path();
@@ -621,6 +654,17 @@ void toBinary(std::ostream& outputStream, Registry const* registry) {
       registry, *serializedRegistry.mutable_wireframes(),
       [](const WireframeComponent& component, shkyeraProto::WireframeComponent& protoComponent) {
         protoComponent.set_wireframe(toProto(component.wireframe));
+      });
+
+  serializeComponents<AudioSourceComponent, shkyeraProto::AudioSourceComponent>(
+      registry, *serializedRegistry.mutable_audio_sources(),
+      [](const AudioSourceComponent& component, shkyeraProto::AudioSourceComponent& protoComponent) {
+        protoComponent.set_audio(toProto(component.audio));
+        protoComponent.set_paused(component.paused);
+        protoComponent.set_volume(component.volume);
+        protoComponent.set_loop(component.loop);
+        protoComponent.set_spatialize(component.spatialize);
+        protoComponent.set_max_distance(component.maxDistance);
       });
 
   serializedRegistry.SerializeToOstream(&outputStream);

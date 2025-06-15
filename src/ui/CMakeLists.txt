@@ -22,6 +22,7 @@ add_library(
     ${CMAKE_CURRENT_LIST_DIR}/Components/AmbientLightComponentUI.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Components/WireframeComponentUI.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Components/PostProcessingVolumeComponentUI.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/Components/AudioSourceComponentUI.cpp
 
     ${CMAKE_CURRENT_LIST_DIR}/Widgets/ObjectsWidget.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Widgets/ConsoleWidget.cpp

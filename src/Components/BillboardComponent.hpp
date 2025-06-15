@@ -45,7 +45,7 @@ struct BillboardComponent {
       glm::mat3 camRot = glm::mat3(viewMatrix);
       camRot = glm::transpose(camRot);
       rotation = glm::mat4(camRot);
-      rotation = glm::rotate(rotation, glm::radians(180.0f), glm::vec3(0, 0, 1));
+      rotation = glm::rotate(rotation, glm::radians(180.0f), glm::vec3(1, 0, 0));
     } else if (orientation == Orientation::AxisAligned) {
       glm::vec3 dir = cameraPosition - position;
       dir.y = 0.0f;  // ignore vertical component

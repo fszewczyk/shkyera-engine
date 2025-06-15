@@ -22,6 +22,53 @@ struct std::hash<glm::vec3> {
 };
 }  // namespace std
 
+namespace {
+
+static std::vector<glm::vec3> calculateNormals(const std::vector<shkyera::Mesh::Vertex>& vertices,
+                                               const std::vector<uint32_t>& indices) {
+  std::unordered_map<glm::vec3, glm::vec3> vertexToNormalMap;
+  std::unordered_map<glm::vec3, std::vector<glm::vec3>> faceNormals;
+
+  for (size_t faceIndex = 0; faceIndex < indices.size(); faceIndex += 3) {
+    unsigned int idx0 = indices[faceIndex];
+    unsigned int idx1 = indices[faceIndex + 1];
+    unsigned int idx2 = indices[faceIndex + 2];
+
+    glm::vec3 v0 = vertices[idx0].position;
+    glm::vec3 v1 = vertices[idx1].position;
+    glm::vec3 v2 = vertices[idx2].position;
+
+    glm::vec3 faceNormal = glm::normalize(glm::cross(v1 - v0, v2 - v0));
+
+    faceNormals[v0].push_back(faceNormal);
+    faceNormals[v1].push_back(faceNormal);
+    faceNormals[v2].push_back(faceNormal);
+  }
+
+  std::vector<glm::vec3> vertexToNormal(vertices.size(), glm::vec3(0.0f));
+
+  for (const auto& entry : faceNormals) {
+    const glm::vec3& position = entry.first;
+    const std::vector<glm::vec3>& normals = entry.second;
+
+    glm::vec3 averagedNormal = glm::vec3(0.0f);
+    for (const glm::vec3& normal : normals) {
+      averagedNormal += normal;
+    }
+    averagedNormal = glm::normalize(averagedNormal);
+
+    vertexToNormalMap[position] = averagedNormal;
+  }
+
+  for (size_t i = 0; i < vertices.size(); ++i) {
+    vertexToNormal[i] = vertexToNormalMap[vertices[i].position];
+  }
+
+  return vertexToNormal;
+}
+
+}  // namespace
+
 namespace shkyera {
 
 Mesh::Mesh(const std::filesystem::path& path) {
@@ -86,49 +133,6 @@ AABB Mesh::getBoundingBox() const {
   glm::vec3 extents = (maxBounds - minBounds) * 0.5f;
 
   return shkyera::AABB{.center = center, .extents = extents};
-}
-
-static std::vector<glm::vec3> calculateNormals(const std::vector<Mesh::Vertex>& vertices,
-                                               const std::vector<uint32_t>& indices) {
-  std::unordered_map<glm::vec3, glm::vec3> vertexToNormalMap;
-  std::unordered_map<glm::vec3, std::vector<glm::vec3>> faceNormals;
-
-  for (size_t faceIndex = 0; faceIndex < indices.size(); faceIndex += 3) {
-    unsigned int idx0 = indices[faceIndex];
-    unsigned int idx1 = indices[faceIndex + 1];
-    unsigned int idx2 = indices[faceIndex + 2];
-
-    glm::vec3 v0 = vertices[idx0].position;
-    glm::vec3 v1 = vertices[idx1].position;
-    glm::vec3 v2 = vertices[idx2].position;
-
-    glm::vec3 faceNormal = glm::normalize(glm::cross(v1 - v0, v2 - v0));
-
-    faceNormals[v0].push_back(faceNormal);
-    faceNormals[v1].push_back(faceNormal);
-    faceNormals[v2].push_back(faceNormal);
-  }
-
-  std::vector<glm::vec3> vertexToNormal(vertices.size(), glm::vec3(0.0f));
-
-  for (const auto& entry : faceNormals) {
-    const glm::vec3& position = entry.first;
-    const std::vector<glm::vec3>& normals = entry.second;
-
-    glm::vec3 averagedNormal = glm::vec3(0.0f);
-    for (const glm::vec3& normal : normals) {
-      averagedNormal += normal;
-    }
-    averagedNormal = glm::normalize(averagedNormal);
-
-    vertexToNormalMap[position] = averagedNormal;
-  }
-
-  for (size_t i = 0; i < vertices.size(); ++i) {
-    vertexToNormal[i] = vertexToNormalMap[vertices[i].position];
-  }
-
-  return vertexToNormal;
 }
 
 void Mesh::loadFromFile(const std::filesystem::path& filepath) {

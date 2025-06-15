@@ -3,6 +3,8 @@ add_library(
     STATIC
 
     ${CMAKE_CURRENT_LIST_DIR}/Image.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/Audio.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/Sound.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Shader.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Mesh.cpp
     ${CMAKE_CURRENT_LIST_DIR}/Wireframe.cpp
@@ -29,5 +31,6 @@ target_link_libraries(
     glfw 
     glm
     glad
+    miniaudio
     tinyobjloader
 )

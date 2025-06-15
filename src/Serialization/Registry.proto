@@ -179,6 +179,16 @@ message CubeMapAsset {
   uint32 back = 7;
 }
 
+message AudioSourceComponent {
+  uint32 entity = 1;
+  uint32 audio = 2;
+  bool paused = 3;
+  float volume = 4;
+  bool loop = 5;
+  bool spatialize = 6;
+  float max_distance = 7;
+}
+
 message Registry {
   // Global Objects
   repeated EntityAncestry ancestry_relations = 1;
@@ -207,6 +217,7 @@ message Registry {
   repeated WireframeComponent wireframes = 114;
   repeated SkyboxComponent skyboxes = 115;
   repeated DirectoryComponent directories = 116;
+  repeated AudioSourceComponent audio_sources = 117;
 
   // Assets
   repeated PathAsset meshes_path = 200;
@@ -217,4 +228,5 @@ message Registry {
   repeated PathAsset images_path = 205;
   repeated PathAsset textures_path = 206;
   repeated CubeMapAsset cubemaps = 207;
+  repeated PathAsset audios_path = 208;
 }

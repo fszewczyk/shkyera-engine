@@ -13,6 +13,7 @@
 #include <Common/Types.hpp>
 #include <Components/AmbientLightComponent.hpp>
 #include <Components/AssetComponents/AssetRoot.hpp>
+#include <Components/AudioSourceComponent.hpp>
 #include <Components/BillboardComponent.hpp>
 #include <Components/BoxColliderComponent.hpp>
 #include <Components/CameraComponent.hpp>
@@ -35,6 +36,7 @@
 #include <JobSystem/ThreadWorker.hpp>
 #include <Rendering/OpenGLResource.hpp>
 #include <Serialization/Builders.hpp>
+#include <Systems/AudioSystem.hpp>
 #include <Systems/CameraMovementSystem.hpp>
 #include <Systems/GizmoSystem.hpp>
 #include <Systems/ObjectSelectionSystem.hpp>
@@ -107,6 +109,18 @@ void loadScene(std::shared_ptr<shkyera::Registry> registry) {
   registry->addComponent<NameComponent>(fireplace).setName("Fireplace");
   registry->addComponent<TransformComponent>(fireplace).setPosition(glm::vec3{3, 0, 3});
   auto& fireplaceEmitter = registry->addComponent<ParticleEmitterComponent>(fireplace);
+  
+  auto audioSource = registry->addEntity();
+  registry->addComponent<NameComponent>(audioSource).setName("Fireplace Audio");
+  registry->addComponent<TransformComponent>(audioSource).setPosition(glm::vec3{0, 0.5, 0});
+  registry->getHierarchy().attributeChild(fireplace, audioSource);
+  registry->addComponent<AudioSourceComponent>(audioSource);
+  auto& fireplaceAudio = registry->getComponent<AudioSourceComponent>(audioSource);
+  fireplaceAudio.audio = utils::assets::add<Audio>(registry.get(), "resources/sounds/Bonfire.mp3");
+  fireplaceAudio.loop = true;
+  fireplaceAudio.volume = 1.5f;
+  fireplaceAudio.maxDistance = 20.0f;
+  fireplaceAudio.spatialize = true;
 
   auto postProcessingVol = registry->addEntity();
   registry->addComponent<NameComponent>(postProcessingVol).setName("Post-Processing");
@@ -247,6 +261,7 @@ int main() {
   std::vector<ThreadWorker> threadWorkers(2);
 
   ParticleSystem particleSystem(registry);
+  AudioSystem audioSystem(registry);
   CameraMovementSystem<SceneCamera> cameraMovementSystem(registry);
   ObjectSelectionSystem objectSelectionSystem(registry);
   GizmoSystem gizmoSystem(registry);
@@ -267,6 +282,7 @@ int main() {
     utils::jobs::scheduleSystem(objectSelectionSystem);
     utils::jobs::scheduleSystem(cameraMovementSystem);
     utils::jobs::scheduleSystem(gizmoSystem);
+    utils::jobs::scheduleSystem(audioSystem);
 
     // Rendering
     uint32_t sceneCameraTexture, runtimeCameraTexture;
