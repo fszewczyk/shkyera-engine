@@ -4,10 +4,10 @@
 #include <iostream>
 #include <type_traits>
 
+#include <AssetManager/Audio.hpp>
 #include <AssetManager/Material.hpp>
 #include <AssetManager/Mesh.hpp>
 #include <AssetManager/Shader.hpp>
-#include <AssetManager/Audio.hpp>
 #include <Components/AssetComponents/AssetRoot.hpp>
 #include <Components/AssetComponents/DirectoryComponent.hpp>
 #include <Components/AssetComponents/SelectedAssetComponent.hpp>
