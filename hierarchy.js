@@ -21,12 +21,14 @@ var hierarchy =
       [ "shkyera::utils::assets::ShaderLoader", "classshkyera_1_1utils_1_1assets_1_1_shader_loader.html", null ]
     ] ],
     [ "shkyera::AssetSelector< AssetType >", "classshkyera_1_1_asset_selector.html", null ],
+    [ "shkyera::AssetSelector< shkyera::Audio >", "classshkyera_1_1_asset_selector.html", null ],
     [ "shkyera::AssetSelector< shkyera::Material >", "classshkyera_1_1_asset_selector.html", null ],
     [ "shkyera::AssetSelector< shkyera::Mesh >", "classshkyera_1_1_asset_selector.html", null ],
     [ "shkyera::AssetSelector< shkyera::Wireframe >", "classshkyera_1_1_asset_selector.html", null ],
     [ "shkyera::AssetSelector< Texture >", "classshkyera_1_1_asset_selector.html", [
       [ "shkyera::TextureAssetSelector", "classshkyera_1_1_texture_asset_selector.html", null ]
     ] ],
+    [ "shkyera::Audio", "classshkyera_1_1_audio.html", null ],
     [ "shkyera::BillboardComponent< Mode >", "structshkyera_1_1_billboard_component.html", null ],
     [ "shkyera::common::BiMap< First, Second, Impl >", "classshkyera_1_1common_1_1_bi_map.html", null ],
     [ "shkyera::BooleanSelector", "classshkyera_1_1_boolean_selector.html", null ],
@@ -36,6 +38,7 @@ var hierarchy =
     [ "shkyera::ColorSelector", "classshkyera_1_1_color_selector.html", null ],
     [ "shkyera::ComponentUI", "classshkyera_1_1_component_u_i.html", [
       [ "shkyera::AmbientLightComponentUI", "classshkyera_1_1_ambient_light_component_u_i.html", null ],
+      [ "shkyera::AudioSourceComponentUI", "classshkyera_1_1_audio_source_component_u_i.html", null ],
       [ "shkyera::BillboardComponentUI", "classshkyera_1_1_billboard_component_u_i.html", null ],
       [ "shkyera::CameraComponentUI", "classshkyera_1_1_camera_component_u_i.html", null ],
       [ "shkyera::DirectionalLightComponentUI", "classshkyera_1_1_directional_light_component_u_i.html", null ],
@@ -83,7 +86,6 @@ var hierarchy =
     ] ],
     [ "shkyera::Mesh", "classshkyera_1_1_mesh.html", null ],
     [ "shkyera::random::Normal< SampledType >", "classshkyera_1_1random_1_1_normal.html", null ],
-    [ "shkyera::PhysicsSystem", "classshkyera_1_1_physics_system.html", null ],
     [ "shkyera::PointLightComponent", "structshkyera_1_1_point_light_component.html", null ],
     [ "shkyera::Policy", "structshkyera_1_1_policy.html", null ],
     [ "shkyera::PostProcessingVolumeComponent", "structshkyera_1_1_post_processing_volume_component.html", null ],
@@ -94,6 +96,7 @@ var hierarchy =
     [ "shkyera::ReadAccess< Resources >", "structshkyera_1_1_read_access.html", null ],
     [ "shkyera::Registry", "classshkyera_1_1_registry.html", null ],
     [ "shkyera::RegistryViewer", "classshkyera_1_1_registry_viewer.html", [
+      [ "shkyera::AudioSystem", "classshkyera_1_1_audio_system.html", null ],
       [ "shkyera::CameraMovementSystem< MainCameraTag >", "classshkyera_1_1_camera_movement_system.html", null ],
       [ "shkyera::GizmoSystem", "classshkyera_1_1_gizmo_system.html", null ],
       [ "shkyera::ObjectSelectionSystem", "classshkyera_1_1_object_selection_system.html", null ],
@@ -101,6 +104,9 @@ var hierarchy =
       [ "shkyera::RenderingSystem< MainCameraTag >", "classshkyera_1_1_rendering_system.html", null ]
     ] ],
     [ "shkyera::ResourceTag", "structshkyera_1_1_resource_tag.html", [
+      [ "shkyera::BaseComponent< AudioSourceComponent >", "classshkyera_1_1_base_component.html", [
+        [ "shkyera::AudioSourceComponent", "classshkyera_1_1_audio_source_component.html", null ]
+      ] ],
       [ "shkyera::BaseComponent< GizmoHandleComponent >", "classshkyera_1_1_base_component.html", [
         [ "shkyera::GizmoHandleComponent", "classshkyera_1_1_gizmo_handle_component.html", null ]
       ] ],
@@ -152,6 +158,7 @@ var hierarchy =
       [ "shkyera::SelectedEntityComponent", "structshkyera_1_1_selected_entity_component.html", null ]
     ] ],
     [ "shkyera::SkyboxComponent", "structshkyera_1_1_skybox_component.html", null ],
+    [ "shkyera::Sound", "structshkyera_1_1_sound.html", null ],
     [ "shkyera::SparseSetBase", "classshkyera_1_1_sparse_set_base.html", [
       [ "shkyera::SparseSet< shkyera::JobSystem::Job >", "classshkyera_1_1_sparse_set.html", null ],
       [ "shkyera::SparseSet< Component >", "classshkyera_1_1_sparse_set.html", null ]

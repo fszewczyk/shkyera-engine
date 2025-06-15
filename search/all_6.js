@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['faces_0',['faces',['../classshkyera_1_1utils_1_1assets_1_1_cube_map_loader.html#a8d785faadf24a16898ebf36e98f1825d',1,'shkyera::utils::assets::CubeMapLoader::Faces'],['../classshkyera_1_1utils_1_1assets_1_1_cube_map_loader.html#aac118cd2cb6c155ed938155a04c828de',1,'shkyera::utils::assets::CubeMapLoader::faces']]],
+  ['faces_0',['faces',['../classshkyera_1_1utils_1_1assets_1_1_cube_map_loader.html#aac118cd2cb6c155ed938155a04c828de',1,'shkyera::utils::assets::CubeMapLoader::faces'],['../classshkyera_1_1utils_1_1assets_1_1_cube_map_loader.html#a8d785faadf24a16898ebf36e98f1825d',1,'shkyera::utils::assets::CubeMapLoader::Faces']]],
   ['factory_1',['factory',['../classshkyera_1_1_wireframe_1_1_factory.html',1,'shkyera::Wireframe::Factory'],['../classshkyera_1_1_mesh_1_1_factory.html',1,'shkyera::Mesh::Factory'],['../classshkyera_1_1utils_1_1assets_1_1_factory_asset_loader.html#a67acb08d2d877f91fe7773d4442e678d',1,'shkyera::utils::assets::FactoryAssetLoader::Factory']]],
   ['factoryassetloader_2',['factoryassetloader',['../classshkyera_1_1utils_1_1assets_1_1_factory_asset_loader.html',1,'shkyera::utils::assets::FactoryAssetLoader&lt; AssetType &gt;'],['../classshkyera_1_1utils_1_1assets_1_1_factory_asset_loader.html#a89e31fbb89578f9e1e68e768e3975fa9',1,'shkyera::utils::assets::FactoryAssetLoader::FactoryAssetLoader()']]],
   ['farplane_3',['farPlane',['../classshkyera_1_1_camera_component.html#a194638d226e8c6d77918e90bd9b04e54',1,'shkyera::CameraComponent']]],

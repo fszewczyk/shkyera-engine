@@ -1,3 +1,49 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" href="$classshkyera_1_1_scene_frame_buffer.html" title=" " alt="" coords="5,5,205,31"/>
+<area shape="rect" id="Node000000" href="$structshkyera_1_1_resource_tag.html" title=" " alt="" coords="5,333,168,358"/>
+<area shape="rect" id="Node000001" href="$classshkyera_1_1_base_component.html" title=" " alt="" coords="233,5,441,45"/>
+<area shape="poly" id="edge32_Node000000_Node000001" title=" " alt="" coords="89,318,101,263,124,192,141,155,161,118,185,85,214,55,232,43,235,48,218,59,189,88,165,121,146,157,129,194,107,265,95,319"/>
+<area shape="rect" id="Node000003" href="$classshkyera_1_1_base_component.html" title=" " alt="" coords="229,69,444,109"/>
+<area shape="poly" id="edge34_Node000000_Node000003" title=" " alt="" coords="93,318,109,275,134,221,169,166,190,141,214,119,234,107,237,112,218,123,194,145,173,169,138,223,114,277,98,320"/>
+<area shape="rect" id="Node000005" href="$classshkyera_1_1_base_component.html" title=" " alt="" coords="243,133,431,173"/>
+<area shape="poly" id="edge36_Node000000_Node000005" title=" " alt="" coords="99,319,144,251,177,214,215,183,241,170,243,174,217,188,180,218,148,254,103,322"/>
+<area shape="rect" id="Node000007" href="$classshkyera_1_1_base_component.html" title=" " alt="" coords="243,197,431,237"/>
+<area shape="poly" id="edge38_Node000000_Node000007" title=" " alt="" coords="110,321,156,283,215,247,244,235,246,240,217,252,159,288,113,325"/>
+<area shape="rect" id="Node000009" href="$classshkyera_1_1_base_component.html" title=" " alt="" coords="227,261,446,301"/>
+<area shape="poly" id="edge40_Node000000_Node000009" title=" " alt="" coords="150,327,257,299,258,304,151,332"/>
+<area shape="rect" id="Node000011" href="$classshkyera_1_1_base_component.html" title=" " alt="" coords="225,325,448,365"/>
+<area shape="poly" id="edge42_Node000000_Node000011" title=" " alt="" coords="182,343,225,343,225,348,182,348"/>
+<area shape="rect" id="Node000013" href="$classshkyera_1_1_base_component.html" title=" " alt="" coords="216,453,457,493"/>
+<area shape="poly" id="edge44_Node000000_Node000013" title=" " alt="" coords="113,365,159,403,217,439,246,451,244,456,215,444,156,407,110,369"/>
+<area shape="rect" id="Node000019" href="$classshkyera_1_1_base_component.html" title=" " alt="" coords="241,389,433,429"/>
+<area shape="poly" id="edge48_Node000000_Node000019" title=" " alt="" coords="151,359,258,387,257,392,150,364"/>
+<area shape="rect" id="Node000021" href="$classshkyera_1_1_base_component.html" title="Base component for implementing update functionality." alt="" coords="243,517,431,557"/>
+<area shape="poly" id="edge50_Node000000_Node000021" title=" " alt="" coords="103,369,148,437,180,473,217,503,243,516,241,521,215,508,177,476,144,440,99,372"/>
+<area shape="rect" id="Node000022" href="$classshkyera_1_1_entity_hierarchy.html" title=" " alt="" coords="245,582,428,607"/>
+<area shape="poly" id="edge51_Node000000_Node000022" title=" " alt="" coords="98,371,113,414,137,468,172,522,193,546,217,567,246,582,244,587,215,572,190,550,168,525,133,470,108,416,93,372"/>
+<area shape="rect" id="Node000023" href="$structshkyera_1_1_open_g_l_resource_tag.html" title=" " alt="" coords="229,631,444,657"/>
+<area shape="poly" id="edge52_Node000000_Node000023" title=" " alt="" coords="95,371,107,424,130,491,146,526,166,560,190,591,218,618,236,629,233,633,214,622,186,595,161,563,141,529,125,493,102,425,90,372"/>
+<area shape="rect" id="Node000002" href="$classshkyera_1_1_audio_source_component.html" title="Component that enables audio playback for an entity." alt="" coords="510,13,747,38"/>
+<area shape="poly" id="edge33_Node000001_Node000002" title=" " alt="" coords="455,23,510,23,510,28,455,28"/>
+<area shape="rect" id="Node000004" href="$classshkyera_1_1_gizmo_handle_component.html" title=" " alt="" coords="507,77,751,102"/>
+<area shape="poly" id="edge35_Node000003_Node000004" title=" " alt="" coords="458,87,507,87,507,92,458,92"/>
+<area shape="rect" id="Node000006" href="$classshkyera_1_1_model_component.html" title=" " alt="" coords="531,141,727,166"/>
+<area shape="poly" id="edge37_Node000005_Node000006" title=" " alt="" coords="444,151,531,151,531,156,444,156"/>
+<area shape="rect" id="Node000008" href="$classshkyera_1_1_name_component.html" title=" " alt="" coords="531,205,726,230"/>
+<area shape="poly" id="edge39_Node000007_Node000008" title=" " alt="" coords="444,215,531,215,531,220,444,220"/>
+<area shape="rect" id="Node000010" href="$classshkyera_1_1_overlay_model_component.html" title=" " alt="" coords="505,262,752,287"/>
+<area shape="poly" id="edge41_Node000009_Node000010" title=" " alt="" coords="460,276,505,275,505,280,460,281"/>
+<area shape="rect" id="Node000012" href="$structshkyera_1_1_particle_emitter_component.html" title=" " alt="" coords="540,312,717,352"/>
+<area shape="poly" id="edge43_Node000011_Node000012" title=" " alt="" coords="462,337,540,333,540,339,462,342"/>
+<area shape="rect" id="Node000014" href="$structshkyera_1_1_rendering_texture_component.html" title=" " alt="" coords="531,491,726,531"/>
+<area shape="poly" id="edge45_Node000013_Node000014" title=" " alt="" coords="471,488,532,496,531,501,470,493"/>
+<area shape="rect" id="Node000015" href="$structshkyera_1_1_runtime_camera.html" title=" " alt="" coords="800,470,987,495"/>
+<area shape="poly" id="edge46_Node000014_Node000015" title=" " alt="" coords="739,496,800,490,800,495,740,502"/>
+<area shape="rect" id="Node000017" href="$structshkyera_1_1_scene_camera.html" title=" " alt="" coords="808,526,979,551"/>
+<area shape="poly" id="edge47_Node000014_Node000017" title=" " alt="" coords="740,520,808,527,807,532,739,525"/>
+<area shape="rect" id="Node000020" href="$classshkyera_1_1_transform_component.html" title=" " alt="" coords="518,441,739,466"/>
+<area shape="poly" id="edge49_Node000019_Node000020" title=" " alt="" coords="447,423,544,438,543,443,446,428"/>
+<area shape="rect" id="Node000016" href="$structshkyera_1_1_singleton_component.html" title=" " alt="" coords="520,376,737,416"/>
+<area shape="poly" id="edge53_Node000016_Node000015" title=" " alt="" coords="726,417,753,425,863,467,861,472,751,431,724,422"/>
+<area shape="rect" id="Node000018" href="$structshkyera_1_1_singleton_component.html" title=" " alt="" coords="520,555,737,595"/>
+<area shape="poly" id="edge54_Node000018_Node000017" title=" " alt="" coords="751,555,808,548,808,553,751,561"/>
 </map>

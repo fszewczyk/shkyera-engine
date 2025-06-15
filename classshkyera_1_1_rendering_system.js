@@ -31,6 +31,7 @@ var classshkyera_1_1_rendering_system =
     [ "_ambientLightDebugMaterial", "classshkyera_1_1_rendering_system.html#af9c766c758a6dd4a5507a107f1af6cd5", null ],
     [ "_antiAliasedFrameBuffer", "classshkyera_1_1_rendering_system.html#a3918e0d0da7f6efe5624cdcd59e26cb1", null ],
     [ "_antiAliasingShaderProgram", "classshkyera_1_1_rendering_system.html#a97b5a1bc806c589725fb8cf47b0382cb", null ],
+    [ "_audioSourceDebugMaterial", "classshkyera_1_1_rendering_system.html#af6a2e75317d487c26cf7794f51e97c28", null ],
     [ "_bloomedFrameBuffer", "classshkyera_1_1_rendering_system.html#a651363675c1c40e4f7fc6933c463d217", null ],
     [ "_defaultMaterial", "classshkyera_1_1_rendering_system.html#a336eb3dacf9d0472d77d9a9ae7790435", null ],
     [ "_depthShaderProgram", "classshkyera_1_1_rendering_system.html#afa27376948ba457a446f31b2836810e8", null ],
